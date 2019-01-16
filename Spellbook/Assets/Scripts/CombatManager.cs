@@ -49,6 +49,7 @@ public class CombatManager : MonoBehaviour
         }
     }
 
+    // when help button is clicked
     public void helpClick()
     {
         if (bHelpOpen == false)
