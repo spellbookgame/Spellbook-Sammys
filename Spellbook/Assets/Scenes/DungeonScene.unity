@@ -225,13 +225,14 @@ RectTransform:
   - {fileID: 480507857}
   - {fileID: 1759396946}
   - {fileID: 1533126678}
+  - {fileID: 1889422717}
   m_Father: {fileID: 757387953}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -88.69998, y: 871}
-  m_SizeDelta: {x: 577.4, y: 146.9}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 454.65, y: -119}
+  m_SizeDelta: {x: 577.4, y: 146.90002}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &236508838
 MonoBehaviour:
@@ -276,7 +277,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.25
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1081,7 +1082,7 @@ RectTransform:
   m_Children:
   - {fileID: 1929626469}
   m_Father: {fileID: 757387953}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1276,7 +1277,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1738579826}
-  - {fileID: 1889422717}
   - {fileID: 1563707152}
   - {fileID: 1677640136}
   - {fileID: 596129905}
@@ -1674,7 +1674,7 @@ GameObject:
   - component: {fileID: 1533126680}
   - component: {fileID: 1533126679}
   m_Layer: 5
-  m_Name: Text
+  m_Name: HP value
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1773,7 +1773,7 @@ RectTransform:
   m_Children:
   - {fileID: 314866570}
   m_Father: {fileID: 757387953}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1891,7 +1891,7 @@ RectTransform:
   m_Children:
   - {fileID: 976563599}
   m_Father: {fileID: 757387953}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2096,7 +2096,7 @@ RectTransform:
   m_Children:
   - {fileID: 288590663}
   m_Father: {fileID: 757387953}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2320,7 +2320,7 @@ GameObject:
   - component: {fileID: 1889422719}
   - component: {fileID: 1889422718}
   m_Layer: 5
-  m_Name: HP Text
+  m_Name: HP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2333,16 +2333,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1889422716}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 757387953}
-  m_RootOrder: 1
+  m_Father: {fileID: 236508837}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -449.89996, y: 871}
+  m_AnchoredPosition: {x: -361.19995, y: 0}
   m_SizeDelta: {x: 186.9, y: 134.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1889422718

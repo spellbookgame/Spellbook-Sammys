@@ -41,7 +41,7 @@ public class CharacterHealthScript : MonoBehaviour
         return fCurrentHealth / fMaxHealth;
     }
 
-    private void DealDamage(float damageValue)
+    public void DealDamage(float damageValue)
     {
         // Deduct damage dealt from player's health
         fCurrentHealth -= damageValue;
