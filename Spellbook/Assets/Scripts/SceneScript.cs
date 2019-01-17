@@ -8,6 +8,6 @@ public class SceneScript : MonoBehaviour
 {
     public void loadDungeonScene()
     {
-        SceneManager.LoadScene("DungeonScene");
+        SceneManager.LoadScene("CombatScene");
     }
 }
