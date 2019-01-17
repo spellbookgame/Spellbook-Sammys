@@ -15,7 +15,7 @@ public class CombatManager : MonoBehaviour
     private GameObject Panel_starting;
 
     [SerializeField]
-    private GameObject Panel_choices;
+    private GameObject Panel_main;
 
     [SerializeField]
     private GameObject Panel_inventory;
@@ -30,7 +30,7 @@ public class CombatManager : MonoBehaviour
     // when ok button is clicked
     public void okClick()
     {
-        Panel_choices.SetActive(true);
+        Panel_main.SetActive(true);
         Panel_starting.SetActive(false);
     }
 
