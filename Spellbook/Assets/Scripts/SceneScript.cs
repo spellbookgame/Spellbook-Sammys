@@ -10,4 +10,9 @@ public class SceneScript : MonoBehaviour
     {
         SceneManager.LoadScene("CombatScene");
     }
+
+    public void loadSpellcastScene()
+    {
+        SceneManager.LoadScene("SpellcastScene");
+    }
 }
