@@ -16,22 +16,13 @@ public class SlotHandler : MonoBehaviour, IDropHandler
             return null;
         }
     }
-
-    GameObject g;
-    DragHandler dragHandler;
-
-    void Start()
-    {
-        g = GameObject.FindGameObjectWithTag("Spell Piece");
-        dragHandler = g.GetComponent<DragHandler>();
-    }
-
     public void OnDrop(PointerEventData eventData)
     {
         // if the slot has no item, then allow item to be dragged in
         if(!item)
         {
-            dragHandler.itemToDrag.transform.SetParent(transform);
+            // set item being dragged's transform to current slot transform
+            DragHandler.itemToDrag.transform.SetParent(transform);
         }
     }
 }
