@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+
+// script from Kiwasi Games
 public class SlotHandler : MonoBehaviour, IDropHandler
 {
     public GameObject item
@@ -23,6 +25,9 @@ public class SlotHandler : MonoBehaviour, IDropHandler
         {
             // set item being dragged's transform to current slot transform
             DragHandler.itemToDrag.transform.SetParent(transform);
+
+            // using lambda function to call HasChanged method
+            ExecuteEvents.ExecuteHierarchy<IHasChanged>(gameObject, null, (x, y) => x.HasChanged());
         }
     }
 }
