@@ -5,8 +5,8 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 // script from Kiwasi Games
-// script creates a builder that builds strings of item names as
-// they are dropped into slots
+// script creates a builder that builds strings of item 
+// names as they are dropped into slots
 public class SpellCreateScript : MonoBehaviour, IHasChanged
 {
     [SerializeField] Transform slots;
