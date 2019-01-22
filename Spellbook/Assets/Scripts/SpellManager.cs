@@ -4,20 +4,22 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-// script from Kiwasi Games
-// script creates a builder that builds strings of item 
-// names as they are dropped into slots
-public class SpellCreateScript : MonoBehaviour, IHasChanged
+public class SpellManager : MonoBehaviour, IHasChanged
 {
     [SerializeField] Transform slots;
     [SerializeField] Text inventoryText;
-
+   
     // Start is called before the first frame update
     void Start()
     {
         HasChanged();
     }
 
+/* 
+ * code from Kiwasi Games
+ * this script creates a builder that builds strings of item 
+ * names as they are dropped into slots 
+*/
     public void HasChanged()
     {
         System.Text.StringBuilder builder = new System.Text.StringBuilder();
@@ -36,6 +38,7 @@ public class SpellCreateScript : MonoBehaviour, IHasChanged
         inventoryText.text = builder.ToString();
     }
 }
+
 namespace UnityEngine.EventSystems
 {
     public interface IHasChanged: IEventSystemHandler
