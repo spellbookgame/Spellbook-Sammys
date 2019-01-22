@@ -10,16 +10,14 @@ public class CollectItemScript : MonoBehaviour
 
     public bool bnotifyPanelOpen;
     private CombatUIManager combatUIManager;
-    private HealthManager healthManager;
 
     // Start is called before the first frame update
     void Start()
     {
         bnotifyPanelOpen = false;
 
-        GameObject eventSystem = GameObject.Find("EventSystem");
-        combatUIManager = eventSystem.GetComponent<CombatUIManager>();
-        healthManager = eventSystem.GetComponent<HealthManager>();
+        GameObject scriptContainer = GameObject.Find("ScriptContainer");
+        combatUIManager = scriptContainer.GetComponent<CombatUIManager>();
     }
 
     public void CollectSpellPiece()
@@ -32,11 +30,11 @@ public class CollectItemScript : MonoBehaviour
             bnotifyPanelOpen = true;
         }
         // increment player's number of spell pieces
-        healthManager.player.numSpellPieces++;
+        ControlScript.player.numSpellPieces++;
 
         // setting text of notification panel
-        notifyText.text = "You found a spell piece!\n\nYou now have " + 
-                            healthManager.player.numSpellPieces + " spell pieces.";
+        notifyText.text = "You found a spell piece!\n\nYou now have " +
+                            ControlScript.player.numSpellPieces + " spell pieces.";
     }
 
     public void closeNotifyPanel()

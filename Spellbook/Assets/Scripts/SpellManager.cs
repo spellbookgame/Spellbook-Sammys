@@ -13,11 +13,25 @@ public class SpellManager : MonoBehaviour, IHasChanged
 {
     [SerializeField] Transform slots;
     [SerializeField] Text inventoryText;
+    [SerializeField] GameObject spellPiece;
+    [SerializeField] GameObject panel;
    
     // Start is called before the first frame update
     void Start()
     {
         HasChanged();
+
+        int numSpellPieces = ControlScript.player.numSpellPieces;
+        // populate panel with spell pieces depending on how many player has
+        if (panel != null)
+        {
+            while(numSpellPieces > 0)
+            {
+                GameObject g = (GameObject)Instantiate(spellPiece);
+                g.transform.SetParent(panel.transform, false);
+                numSpellPieces--;
+            }
+        }
     }
 
     public void HasChanged()

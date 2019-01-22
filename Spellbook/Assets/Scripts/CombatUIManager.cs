@@ -1,8 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using System;
 
 // script to manage UI in CombatScene
 // CURRENT ISSUE: panels can open on top of each other

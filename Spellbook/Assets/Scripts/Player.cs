@@ -9,9 +9,9 @@ public class Player : MonoBehaviour
     public float fCurrentHealth;
     public int numSpellPieces;
 
-    public Player(float maxHealth)
+    public Player()
     {
-        fMaxHealth = maxHealth;
+        fMaxHealth = 20.0f;
         numSpellPieces = 0;
     }
 }

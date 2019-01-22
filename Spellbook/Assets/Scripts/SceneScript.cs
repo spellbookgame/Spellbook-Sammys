@@ -11,8 +11,8 @@ public class SceneScript : MonoBehaviour
         SceneManager.LoadScene("CombatScene");
     }
 
-    public void loadSpellcastScene()
+    public void loadSpellCreateScene()
     {
-        SceneManager.LoadScene("SpellcastScene");
+        SceneManager.LoadScene("SpellCreateScene");
     }
 }

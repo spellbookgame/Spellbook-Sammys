@@ -981,7 +981,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 516878210}
+      - m_Target: {fileID: 877666407}
         m_MethodName: okClick
         m_Mode: 1
         m_Arguments:
@@ -1042,9 +1042,6 @@ GameObject:
   - component: {fileID: 516878213}
   - component: {fileID: 516878212}
   - component: {fileID: 516878211}
-  - component: {fileID: 516878210}
-  - component: {fileID: 516878214}
-  - component: {fileID: 516878215}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -1052,26 +1049,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &516878210
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 516878209}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46ef5f2e03f4e6d4ebc94b5efbff977a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Panel_starting: {fileID: 1611506822}
-  Panel_main: {fileID: 757387952}
-  Panel_inventory: {fileID: 808826493}
-  Panel_help: {fileID: 464933329}
-  Panel_spell: {fileID: 261526755}
-  bInventoryOpen: 0
-  bHelpOpen: 0
-  bSpellOpen: 0
 --- !u!114 &516878211
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1120,38 +1097,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &516878214
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 516878209}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb703e939082e614e8792b578849dfdd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Slider_healthbar: {fileID: 236508838}
-  Text_healthtext: {fileID: 1533126679}
-  player: {fileID: 0}
-  Slider_enemyHealthBar: {fileID: 1754065934}
-  Text_enemyHealthText: {fileID: 708344738}
---- !u!114 &516878215
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 516878209}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6821b6cd4e864ec4ea6b56c9bc6dc65d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  notifyPanel: {fileID: 613302100}
-  notifyText: {fileID: 1276998715}
-  bnotifyPanelOpen: 0
 --- !u!1 &518630043
 GameObject:
   m_ObjectHideFlags: 0
@@ -1309,7 +1254,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 596129907}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 877666411}
+        m_MethodName: loadSpellCreateScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &596129907
@@ -1975,7 +1931,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 516878214}
+      - m_Target: {fileID: 877666406}
         m_MethodName: attackClick
         m_Mode: 1
         m_Arguments:
@@ -2104,7 +2060,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 516878215}
+      - m_Target: {fileID: 877666409}
         m_MethodName: closeNotifyPanel
         m_Mode: 1
         m_Arguments:
@@ -2154,6 +2110,116 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 853258853}
   m_CullTransparentMesh: 0
+--- !u!1 &877666405
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 877666408}
+  - component: {fileID: 877666407}
+  - component: {fileID: 877666406}
+  - component: {fileID: 877666409}
+  - component: {fileID: 877666410}
+  - component: {fileID: 877666411}
+  m_Layer: 0
+  m_Name: ScriptContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &877666406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 877666405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb703e939082e614e8792b578849dfdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Slider_healthbar: {fileID: 236508838}
+  Text_healthtext: {fileID: 1533126679}
+  Slider_enemyHealthBar: {fileID: 1754065934}
+  Text_enemyHealthText: {fileID: 708344738}
+--- !u!114 &877666407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 877666405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46ef5f2e03f4e6d4ebc94b5efbff977a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Panel_starting: {fileID: 1611506822}
+  Panel_main: {fileID: 757387952}
+  Panel_inventory: {fileID: 808826493}
+  Panel_help: {fileID: 464933329}
+  Panel_spell: {fileID: 261526755}
+  bInventoryOpen: 0
+  bHelpOpen: 0
+  bSpellOpen: 0
+--- !u!4 &877666408
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 877666405}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 362.59967, y: 949.22125, z: -15.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &877666409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 877666405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6821b6cd4e864ec4ea6b56c9bc6dc65d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  notifyPanel: {fileID: 613302100}
+  notifyText: {fileID: 1276998715}
+  bnotifyPanelOpen: 0
+--- !u!114 &877666410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 877666405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a63b3e3143b9fa0468a2f06d2bb33934, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &877666411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 877666405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49b608240efc3334fb3630a1a0d8d6b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &976563598
 GameObject:
   m_ObjectHideFlags: 0
@@ -2732,7 +2798,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 516878210}
+      - m_Target: {fileID: 877666407}
         m_MethodName: spellClick
         m_Mode: 1
         m_Arguments:
@@ -2861,7 +2927,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 516878210}
+      - m_Target: {fileID: 877666407}
         m_MethodName: helpClick
         m_Mode: 1
         m_Arguments:
@@ -3066,7 +3132,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 516878210}
+      - m_Target: {fileID: 877666407}
         m_MethodName: inventoryClick
         m_Mode: 1
         m_Arguments:
