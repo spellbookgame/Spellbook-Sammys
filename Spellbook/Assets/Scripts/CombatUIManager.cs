@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 // script to manage UI in CombatScene
 // CURRENT ISSUE: panels can open on top of each other
@@ -17,6 +18,11 @@ public class CombatUIManager : MonoBehaviour
     public bool bInventoryOpen = false;
     public bool bHelpOpen = false;
     public bool bSpellOpen = false;
+    public bool bnotifyPanelOpen = false;
+
+    // notify panel is also used in CollectItemScript
+    public GameObject Panel_notify;
+    public Text Text_notify;
 
     public void closePanels()
     {
@@ -77,6 +83,16 @@ public class CombatUIManager : MonoBehaviour
         {
             Panel_spell.SetActive(false);
             bSpellOpen = false;
+        }
+    }
+
+    // when OK button on Panel_notify is clicked, close the panel
+    public void closeNotifyPanel()
+    {
+        if (bnotifyPanelOpen == true)
+        {
+            Panel_notify.SetActive(false);
+            bnotifyPanelOpen = false;
         }
     }
 }

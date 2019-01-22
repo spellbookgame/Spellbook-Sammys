@@ -13,7 +13,7 @@ public class SpellManager : MonoBehaviour, IHasChanged
 {
     [SerializeField] Transform slots;
     [SerializeField] Text inventoryText;
-    [SerializeField] GameObject spellPiece;
+    [SerializeField] GameObject spellSlot;
     [SerializeField] GameObject panel;
    
     // Start is called before the first frame update
@@ -27,7 +27,7 @@ public class SpellManager : MonoBehaviour, IHasChanged
         {
             while(numSpellPieces > 0)
             {
-                GameObject g = (GameObject)Instantiate(spellPiece);
+                GameObject g = (GameObject)Instantiate(spellSlot);
                 g.transform.SetParent(panel.transform, false);
                 numSpellPieces--;
             }

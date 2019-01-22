@@ -6,6 +6,11 @@ using UnityEngine.SceneManagement;
 // script used to load different scenes
 public class SceneScript : MonoBehaviour
 {
+    public void loadMainScene()
+    {
+        SceneManager.LoadScene("SpellBookGame");
+    }
+
     public void loadDungeonScene()
     {
         SceneManager.LoadScene("CombatScene");

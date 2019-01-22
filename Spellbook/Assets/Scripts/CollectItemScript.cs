@@ -5,17 +5,11 @@ using UnityEngine.UI;
 
 public class CollectItemScript : MonoBehaviour
 {
-    [SerializeField] GameObject notifyPanel;
-    [SerializeField] Text notifyText;
-
-    public bool bnotifyPanelOpen;
     private CombatUIManager combatUIManager;
 
     // Start is called before the first frame update
     void Start()
     {
-        bnotifyPanelOpen = false;
-
         GameObject scriptContainer = GameObject.Find("ScriptContainer");
         combatUIManager = scriptContainer.GetComponent<CombatUIManager>();
     }
@@ -23,26 +17,17 @@ public class CollectItemScript : MonoBehaviour
     public void CollectSpellPiece()
     {
         // setting notifyPanel to active
-        if (bnotifyPanelOpen == false)
+        if (combatUIManager.bnotifyPanelOpen == false)
         {
             combatUIManager.closePanels();
-            notifyPanel.SetActive(true);
-            bnotifyPanelOpen = true;
+            combatUIManager.Panel_notify.SetActive(true);
+            combatUIManager.bnotifyPanelOpen = true;
         }
         // increment player's number of spell pieces
         ControlScript.player.numSpellPieces++;
 
         // setting text of notification panel
-        notifyText.text = "You found a spell piece!\n\nYou now have " +
+        combatUIManager.Text_notify.text = "You found a spell piece!\n\nYou now have " +
                             ControlScript.player.numSpellPieces + " spell pieces.";
-    }
-
-    public void closeNotifyPanel()
-    {
-        if(bnotifyPanelOpen == true)
-        {
-            notifyPanel.SetActive(false);
-            bnotifyPanelOpen = false;
-        }
     }
 }
