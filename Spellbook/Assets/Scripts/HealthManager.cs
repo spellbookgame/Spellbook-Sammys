@@ -4,38 +4,31 @@ using UnityEngine;
 using UnityEngine.UI;
 
 // code from https://www.youtube.com/watch?v=GfuxWs6UAJQ
-public class CharacterHealthScript : MonoBehaviour
+public class HealthManager : MonoBehaviour
 {
-    public float fCurrentHealth { get; set; }
-    private float fMaxHealth { get; set; }
-
-    public Enemy enemy;
-
     [SerializeField] private Slider Slider_healthbar;
     [SerializeField] private Text Text_healthtext;
+    public Player player;
 
     // for the enemy
     [SerializeField] private Slider Slider_enemyHealthBar;
     [SerializeField] private Text Text_enemyHealthText;
+    private Enemy enemy;
 
-    CollectItemScript collectItemScript;
+    private CollectItemScript collectItemScript;
 
     // Start is called before the first frame update
     void Start()
     {
-        // setting player's health to 20
-        fMaxHealth = 20f;
-
         // on start, health bar will be full
-        fCurrentHealth = fMaxHealth;
-
+        player = new Player(20f);
+        player.fCurrentHealth = player.fMaxHealth;
         // setting the slider and text value to max health
         Slider_healthbar.value = CalculatePlayerHealth();
-        Text_healthtext.text = fCurrentHealth.ToString();
+        Text_healthtext.text = player.fCurrentHealth.ToString();
 
         // instantiating enemy with 20 health
         enemy = new Enemy(20f);
-
         enemy.fCurrentHealth = enemy.fMaxHealth;
         Slider_enemyHealthBar.value = CalculateEnemyHealth();
         Text_enemyHealthText.text = enemy.fCurrentHealth.ToString();
@@ -48,36 +41,33 @@ public class CharacterHealthScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // deal damage if health is above 0
-        if(Input.GetKeyDown(KeyCode.X) && fCurrentHealth > 0)
+        // deal damage to player if health is above 0
+        if(Input.GetKeyDown(KeyCode.X) && player.fCurrentHealth > 0)
             HitPlayer(6);
-        
-        if (Input.GetKeyDown(KeyCode.C) && enemy.fCurrentHealth > 0)
-            HitEnemy(6);
     }
 
+    // calculating health to decrease from slider
     private float CalculatePlayerHealth()
     {
-        return fCurrentHealth / fMaxHealth;
+        return player.fCurrentHealth / player.fMaxHealth;
     }
-
     private float CalculateEnemyHealth()
     {
         return enemy.fCurrentHealth / enemy.fMaxHealth;
     }
 
-    // to actually show that damage has been dealt
+    // deduct health and change slider values
     public void HitPlayer(float damageValue)
     {
         // Deduct damage dealt from player's health
-        fCurrentHealth -= damageValue;
+        player.fCurrentHealth -= damageValue;
         Slider_healthbar.value = CalculatePlayerHealth();
-        Text_healthtext.text = fCurrentHealth.ToString();
+        Text_healthtext.text = player.fCurrentHealth.ToString();
 
         // if health goes below 0, set to 0
-        if (fCurrentHealth <= 0)
+        if (player.fCurrentHealth <= 0)
         {
-            fCurrentHealth = 0;
+            player.fCurrentHealth = 0;
             Text_healthtext.text = "0";
         } 
     }
@@ -98,5 +88,12 @@ public class CharacterHealthScript : MonoBehaviour
             // notify player that spell piece was collected
             collectItemScript.CollectSpellPiece();
         }
+    }
+
+    // if attack button is clicked, deal 6 damage to enemy
+    public void attackClick()
+    {
+        if (enemy.fCurrentHealth > 0)
+            HitEnemy(6);
     }
 }

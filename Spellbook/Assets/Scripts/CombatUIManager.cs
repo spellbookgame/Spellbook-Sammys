@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System;
 
 // script to manage UI in CombatScene
+// CURRENT ISSUE: panels can open on top of each other
 public class CombatUIManager : MonoBehaviour
 {
     // serializefield private variables
@@ -15,9 +16,19 @@ public class CombatUIManager : MonoBehaviour
     [SerializeField] private GameObject Panel_spell;
 
     // private variables
-    private bool bInventoryOpen = false;
-    private bool bHelpOpen = false;
-    private bool bSpellOpen = false;
+    public bool bInventoryOpen = false;
+    public bool bHelpOpen = false;
+    public bool bSpellOpen = false;
+
+    public void closePanels()
+    {
+        if (bInventoryOpen)
+            Panel_inventory.SetActive(false);
+        if (bHelpOpen)
+            Panel_help.SetActive(false);
+        if (bSpellOpen)
+            Panel_spell.SetActive(false);
+    }
 
     // when ok button is clicked
     public void okClick()

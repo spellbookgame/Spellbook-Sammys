@@ -4,6 +4,11 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+/* 
+ * code from Kiwasi Games
+ * this script creates a builder that builds strings of item 
+ * names as they are dropped into slots 
+*/
 public class SpellManager : MonoBehaviour, IHasChanged
 {
     [SerializeField] Transform slots;
@@ -15,11 +20,6 @@ public class SpellManager : MonoBehaviour, IHasChanged
         HasChanged();
     }
 
-/* 
- * code from Kiwasi Games
- * this script creates a builder that builds strings of item 
- * names as they are dropped into slots 
-*/
     public void HasChanged()
     {
         System.Text.StringBuilder builder = new System.Text.StringBuilder();
