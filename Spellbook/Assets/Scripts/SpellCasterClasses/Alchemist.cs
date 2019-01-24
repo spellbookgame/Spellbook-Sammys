@@ -11,6 +11,7 @@ public class Alchemist : SpellCaster
 {
     public Alchemist()
     {
+        
         //You can override variables in here.
         //Example:
         numSpellPieces = 5;
