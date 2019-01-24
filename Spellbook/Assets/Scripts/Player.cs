@@ -2,16 +2,42 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// temporary player class
 public class Player : MonoBehaviour
 {
-    public float fMaxHealth;
-    public float fCurrentHealth;
-    public int numSpellPieces;
+    public bool bIsLocal = true;
 
-    public Player()
+    //The player's chosen spellcaster class.
+    private SpellCaster spellcaster;
+    private bool bHasChosenSpellcaster = false;
+
+    public SpellCaster Spellcaster {
+        get => spellcaster;
+        set => spellcaster = value;
+    }
+
+    private void Start()
     {
-        fMaxHealth = 20.0f;
-        numSpellPieces = 0;
+        // Prevents player object from being destroyed when switching scenes.
+        DontDestroyOnLoad(this);
+
+        //Example of setting player's chosen spellcaster:
+        // (can later implement which one player chooses).
+        this.spellcaster = new Alchemist();
+        bHasChosenSpellcaster = true;
+    }
+
+
+    // TODO finish handling cases.  Input may change.
+    public void chooseSpellcaster(int num)
+    {
+        switch (num)
+        {
+            case 0:
+                spellcaster = new Alchemist();
+                break;
+            case 1:
+                //spellcaster = new Elementalist();
+                break;
+        }
     }
 }

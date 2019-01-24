@@ -15,13 +15,17 @@ public class SpellManager : MonoBehaviour, IHasChanged
     [SerializeField] Text inventoryText;
     [SerializeField] GameObject spellSlot;
     [SerializeField] GameObject panel;
+
+    Player localPlayer;
    
     // Start is called before the first frame update
     void Start()
     {
+
+        localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
         HasChanged();
 
-        int numSpellPieces = ControlScript.player.numSpellPieces;
+        int numSpellPieces = localPlayer.Spellcaster.numSpellPieces;
         // populate panel with spell pieces depending on how many player has
         if (panel != null)
         {
