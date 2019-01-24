@@ -22,6 +22,8 @@ public class HealthManager : MonoBehaviour
     {
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
 
+        Debug.Log("spell pieces: " + localPlayer.Spellcaster.numSpellPieces);
+
         // setting player's current health to equal max health
         localPlayer.Spellcaster.fCurrentHealth = localPlayer.Spellcaster.fMaxHealth;
 

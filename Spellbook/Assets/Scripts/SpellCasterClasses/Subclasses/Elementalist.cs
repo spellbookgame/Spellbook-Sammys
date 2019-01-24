@@ -16,7 +16,7 @@ public class Elementalist : SpellCaster
         
         //You can override variables in here.
         //Example:
-        numSpellPieces = 5;
+        // numSpellPieces = 5;
         classType = "Elementalist";
     }
 

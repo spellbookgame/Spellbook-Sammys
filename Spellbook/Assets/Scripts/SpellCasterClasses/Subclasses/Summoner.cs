@@ -16,7 +16,7 @@ public class Summoner : SpellCaster
         
         //You can override variables in here.
         //Example:
-        numSpellPieces = 5;
+        // numSpellPieces = 5;
         classType = "Summoner";
     }
 
