@@ -40,4 +40,52 @@ public class Player : MonoBehaviour
                 break;
         }
     }
+
+
+    #region button_class_clicks
+    /*
+     Class choosing.  This region may move to another file 
+     in the future, possibly a singleton (GameManager).
+         */
+
+    public void onClickAclhemist()
+    {
+        spellcaster = new Alchemist();
+        Debug.Log("Local Player chose " + spellcaster.classType);
+    }
+
+    public void onClickElementalist()
+    {
+        spellcaster = new Elementalist();
+        Debug.Log("Local Player chose " + spellcaster.classType);
+    }
+
+    public void onClickArcanist()
+    {
+        spellcaster = new Arcanist();
+        Debug.Log("Local Player chose " + spellcaster.classType);
+
+    }
+
+    public void onClickChronomancer()
+    {
+        spellcaster = new Chronomancer();
+        Debug.Log("Local Player chose " + spellcaster.classType);
+
+    }
+
+    public void onClickTrickster()
+    {
+        spellcaster = new Trickster();
+        Debug.Log("Local Player chose " + spellcaster.classType);
+
+    }
+
+    public void onClickSummoner()
+    {
+        spellcaster = new Summoner();
+        Debug.Log("Local Player chose " + spellcaster.classType);
+
+    }
+    #endregion
 }

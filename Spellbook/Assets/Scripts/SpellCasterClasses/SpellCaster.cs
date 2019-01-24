@@ -14,6 +14,8 @@ public abstract class SpellCaster
     public int numMana;
     public int numSpellPieces;
 
+    public string classType;
+
     private ArrayList allowedSpells;
     private Spellbook Spellbook;
 
@@ -27,6 +29,7 @@ public abstract class SpellCaster
 
     // Virtual Functions
     public abstract void SpellCast();
+
 
     // CTOR
     public SpellCaster()
