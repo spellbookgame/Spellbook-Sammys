@@ -13,18 +13,21 @@ public class HealthManager : MonoBehaviour
     [SerializeField] private Slider Slider_enemyHealthBar;
     [SerializeField] private Text Text_enemyHealthText;
     private static Enemy enemy;
+    Player localPlayer;
 
     private CollectItemScript collectItemScript;
 
     // Start is called before the first frame update
     void Start()
     {
+        localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
+
         // setting player's current health to equal max health
-        ControlScript.player.fCurrentHealth = ControlScript.player.fMaxHealth;
+        localPlayer.Spellcaster.fCurrentHealth = localPlayer.Spellcaster.fMaxHealth;
 
         // setting the slider and text value to max health
         Slider_healthbar.value = CalculatePlayerHealth();
-        Text_healthtext.text = ControlScript.player.fCurrentHealth.ToString();
+        Text_healthtext.text = localPlayer.Spellcaster.fCurrentHealth.ToString();
 
         // instantiating enemy with 20 health
         enemy = new Enemy(20f);
@@ -41,14 +44,14 @@ public class HealthManager : MonoBehaviour
     void Update()
     {
         // deal damage to player if health is above 0
-        if(Input.GetKeyDown(KeyCode.X) && ControlScript.player.fCurrentHealth > 0)
+        if(Input.GetKeyDown(KeyCode.X) && localPlayer.Spellcaster.fCurrentHealth > 0)
             HitPlayer(6);
     }
 
     // calculating health to decrease from slider
     private float CalculatePlayerHealth()
     {
-        return ControlScript.player.fCurrentHealth / ControlScript.player.fMaxHealth;
+        return localPlayer.Spellcaster.fCurrentHealth / localPlayer.Spellcaster.fMaxHealth;
     }
     private float CalculateEnemyHealth()
     {
@@ -59,14 +62,14 @@ public class HealthManager : MonoBehaviour
     public void HitPlayer(float damageValue)
     {
         // Deduct damage dealt from player's health
-        ControlScript.player.fCurrentHealth -= damageValue;
+        localPlayer.Spellcaster.fCurrentHealth -= damageValue;
         Slider_healthbar.value = CalculatePlayerHealth();
-        Text_healthtext.text = ControlScript.player.fCurrentHealth.ToString();
+        Text_healthtext.text = localPlayer.Spellcaster.fCurrentHealth.ToString();
 
         // if health goes below 0, set to 0
-        if (ControlScript.player.fCurrentHealth <= 0)
+        if (localPlayer.Spellcaster.fCurrentHealth <= 0)
         {
-            ControlScript.player.fCurrentHealth = 0;
+            localPlayer.Spellcaster.fCurrentHealth = 0;
             Text_healthtext.text = "0";
         } 
     }
