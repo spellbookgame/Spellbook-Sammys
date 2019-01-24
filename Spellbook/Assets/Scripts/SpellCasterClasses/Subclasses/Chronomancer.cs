@@ -4,17 +4,20 @@ using UnityEngine;
 
 /*
   This class inherits from SpellCaster,
-  "because an alchemist is a type of spellcaster
-  it should have spellcaster characteristics"
+  "because a Chronomancer is a type of spellcaster
+  it should have spellcaster characteristics".
+
+  Chronomancer also has it's own unique features.
      */
-public class Alchemist : SpellCaster
+public class Chronomancer : SpellCaster
 {
-    public Alchemist()
+    public Chronomancer()
     {
         
         //You can override variables in here.
         //Example:
         numSpellPieces = 5;
+        classType = "Chronomancer";
     }
 
     public override void SpellCast()
