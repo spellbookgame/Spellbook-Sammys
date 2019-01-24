@@ -36,8 +36,7 @@ public class HealthManager : MonoBehaviour
         Text_enemyHealthText.text = enemy.fCurrentHealth.ToString();
 
         // referencing collect item script
-        GameObject scriptContainer = GameObject.Find("ScriptContainer");
-        collectItemScript = scriptContainer.GetComponent<CollectItemScript>();
+        collectItemScript = gameObject.GetComponent<CollectItemScript>();
     }
 
     // Update is called once per frame

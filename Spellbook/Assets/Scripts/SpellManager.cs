@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 /* 
- * code from Kiwasi Games
+ * namespace / HasChanged written by Kiwasi Games
  * this script creates a builder that builds strings of item 
  * names as they are dropped into slots 
 */
