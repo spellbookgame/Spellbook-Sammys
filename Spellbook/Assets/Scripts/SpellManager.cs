@@ -17,12 +17,15 @@ public class SpellManager : MonoBehaviour, IHasChanged
     [SerializeField] GameObject panel;
 
     Player localPlayer;
+    SlotHandler slotHandler;
+    ArcaneBlast aBlast1 = new ArcaneBlast();
    
     // Start is called before the first frame update
     void Start()
     {
 
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
+        slotHandler = GameObject.Find("Slot").GetComponent<SlotHandler>();
         HasChanged();
 
         int numSpellPieces = localPlayer.Spellcaster.numSpellPieces;
@@ -35,6 +38,16 @@ public class SpellManager : MonoBehaviour, IHasChanged
                 g.transform.SetParent(panel.transform, false);
                 numSpellPieces--;
             }
+        }
+    }
+
+    void Update()
+    {
+        // TODO
+        for (int i = 0; i < aBlast1.requiredPieces.Count; i++)
+        {
+            if (slotHandler.item.name == aBlast1.requiredPieces[i])
+                Debug.Log("You unlocked Arcane Blast!");
         }
     }
 

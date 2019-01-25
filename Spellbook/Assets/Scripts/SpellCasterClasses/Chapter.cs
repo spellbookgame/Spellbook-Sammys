@@ -10,11 +10,14 @@ public class Chapter : MonoBehaviour
 
     public string sChapterName;
 
+    // reference to spell
     private Spell Spell;
-    private ArrayList spells;
+
+    // list of spells of type Spell
+    public List<Spell> spells;
 
     public Chapter()
     {
-        spells = new ArrayList();
+        spells = new List<Spell>();
     }
 }

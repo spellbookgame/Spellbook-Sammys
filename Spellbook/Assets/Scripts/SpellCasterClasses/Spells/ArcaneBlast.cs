@@ -11,10 +11,10 @@ public class ArcaneBlast : Spell
         iTier = 1;
         spellClass = "Arcanist";
 
-        requiredPieces.Add("piece1");
-        requiredPieces.Add("piece2");
-        requiredPieces.Add("piece3");
-        requiredPieces.Add("piece4");
+        requiredPieces.Add("Arcane Spell Piece");
+        requiredPieces.Add("Arcane Spell Piece");
+        requiredPieces.Add("Arcane Spell Piece");
+        requiredPieces.Add("Arcane Spell Piece");
     }
 
     public override void collectSpell()

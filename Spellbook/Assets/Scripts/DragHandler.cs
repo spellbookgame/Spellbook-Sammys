@@ -7,11 +7,13 @@ using UnityEngine.EventSystems;
 public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     public static GameObject itemToDrag;
+    public GameObject itemBeingDragged;
     private Vector3 startPos;
     private Transform startParent;
     
     public void OnBeginDrag(PointerEventData eventData)
     {
+        // itemToDrag is the game object that this script is on
         itemToDrag = gameObject;
         startPos = transform.position;
         startParent = transform.parent;
@@ -23,6 +25,7 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     {
         // setting transform position to current mouse position
         transform.position = Input.mousePosition;
+        itemBeingDragged = itemToDrag;
     }
 
     public void OnEndDrag(PointerEventData eventData)

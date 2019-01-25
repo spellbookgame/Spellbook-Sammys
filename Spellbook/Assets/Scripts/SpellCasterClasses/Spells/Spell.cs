@@ -4,17 +4,17 @@ using UnityEngine;
 
 public abstract class Spell
 {
-    public string sSpellName;
     public int iTier;
+    public string sSpellName;
     public string spellClass;
 
-    public ArrayList requiredPieces;
+    public List<string> requiredPieces;
 
     public abstract void collectSpell();
 
     // CTOR
     public Spell()
     {
-        requiredPieces = new ArrayList();
+        requiredPieces = new List<string>();
     }
 }

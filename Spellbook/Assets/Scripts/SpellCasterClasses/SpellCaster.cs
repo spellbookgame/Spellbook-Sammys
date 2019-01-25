@@ -16,9 +16,9 @@ public abstract class SpellCaster
 
     public string classType;
 
-    private ArrayList spellsAllowed;
-    private ArrayList spellsCollected;
-    private Chapter Chapter;
+    private List<string> spellsAllowed;
+    private List<string> spellsCollected;
+    public Chapter chapter;
 
     // TODO:
     //private string backGroundStory; 
@@ -38,9 +38,9 @@ public abstract class SpellCaster
         //fMaxHealth = 20.0f;     //Commented out in case Spellcasters have different max healths.
         numSpellPieces = 0;
         numMana = 0;
-        spellsAllowed = new ArrayList();
-        spellsCollected = new ArrayList();
-        Chapter = new Chapter();
+        spellsAllowed = new List<string>();
+        spellsCollected = new List<string>();
+        chapter = new Chapter();
     }
 
     void AddToInventory(string item, int count)
