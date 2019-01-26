@@ -19,13 +19,8 @@ public class Arcanist : SpellCaster
         classType = "Arcanist";
         fMaxHealth = 20.0f;
 
-        // adding arcane blast to chapter
-        Spell aBlast = new ArcaneBlast();
-        chapter.spells.Add(aBlast);
-
-        // testing
-        for (int i = 0; i < aBlast.requiredPieces.Count; i++)
-            Debug.Log(aBlast.requiredPieces[i]);
+        // creating the class-specific chapter
+        chapter = new Chapter(classType);
     }
 
     public override void SpellCast()

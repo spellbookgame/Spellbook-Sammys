@@ -6,11 +6,9 @@ public abstract class Spell
 {
     public int iTier;
     public string sSpellName;
-    public string spellClass;
+    public string sSpellClass;
 
     public List<string> requiredPieces;
-
-    public abstract void collectSpell();
 
     // CTOR
     public Spell()

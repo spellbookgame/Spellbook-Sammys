@@ -9,16 +9,11 @@ public class ArcaneBlast : Spell
     {
         sSpellName = "Arcane Blast";
         iTier = 1;
-        spellClass = "Arcanist";
+        sSpellClass = "Arcanist";
 
         requiredPieces.Add("Arcane Spell Piece");
         requiredPieces.Add("Arcane Spell Piece");
         requiredPieces.Add("Arcane Spell Piece");
         requiredPieces.Add("Arcane Spell Piece");
-    }
-
-    public override void collectSpell()
-    {
-        Debug.Log("spell is collected!");
     }
 }

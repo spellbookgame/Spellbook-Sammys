@@ -13,8 +13,10 @@ public class SpellManager : MonoBehaviour, IHasChanged
 {
     [SerializeField] Transform slots;
     [SerializeField] Text inventoryText;
-    [SerializeField] GameObject spellSlot;
+    [SerializeField] GameObject spellPiece;
     [SerializeField] GameObject panel;
+
+    private bool bSpellCreated;
 
     Player localPlayer;
     SlotHandler slotHandler;
@@ -23,6 +25,7 @@ public class SpellManager : MonoBehaviour, IHasChanged
     // Start is called before the first frame update
     void Start()
     {
+        bSpellCreated = false;
 
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
         slotHandler = GameObject.Find("Slot").GetComponent<SlotHandler>();
@@ -34,7 +37,7 @@ public class SpellManager : MonoBehaviour, IHasChanged
         {
             while(numSpellPieces > 0)
             {
-                GameObject g = (GameObject)Instantiate(spellSlot);
+                GameObject g = (GameObject)Instantiate(spellPiece);
                 g.transform.SetParent(panel.transform, false);
                 numSpellPieces--;
             }
@@ -43,12 +46,10 @@ public class SpellManager : MonoBehaviour, IHasChanged
 
     void Update()
     {
-        // TODO
-        for (int i = 0; i < aBlast1.requiredPieces.Count; i++)
-        {
-            if (slotHandler.item.name == aBlast1.requiredPieces[i])
-                Debug.Log("You unlocked Arcane Blast!");
-        }
+        // ideally this shouldnt be in Update, because we dont want it to keep collecting spells
+        // the if statement ensures that this only runs once; once a spell is created, it will stop checking
+        if(bSpellCreated == false)
+            CheckSpellSlots();
     }
 
     public void HasChanged()
@@ -62,11 +63,39 @@ public class SpellManager : MonoBehaviour, IHasChanged
             // if there is an item returned
             if(item)
             {
+                // add item name to builder
                 builder.Append(item.name);
                 builder.Append(" - ");
             }
         }
         inventoryText.text = builder.ToString();
+    }
+
+    public void CheckSpellSlots()
+    {
+        // TODO: make this more efficient?
+        // if all the slots are filled
+        // iterate through the slots
+        // if the pieces in the slots match the required pieces, unlock spell
+        // right now, this method makes it so that order matters (left to right, top to bottom)
+        int i = 0;
+        foreach (Transform slotTransform in slots)
+        {
+            if(slotTransform.GetChild(0) != null)
+            {
+                if (slotTransform.GetChild(0).name == aBlast1.requiredPieces[i])
+                {
+                    i++;
+                    if (i >= 4)
+                    {
+                        localPlayer.Spellcaster.CollectSpell(aBlast1);
+                        bSpellCreated = true;
+                    }
+                }
+                else
+                    break;
+            }
+        }
     }
 }
 

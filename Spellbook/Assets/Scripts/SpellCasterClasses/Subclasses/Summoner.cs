@@ -18,6 +18,9 @@ public class Summoner : SpellCaster
         //Example:
         // numSpellPieces = 5;
         classType = "Summoner";
+
+        // creating the class-specific chapter
+        chapter = new Chapter(classType);
     }
 
     public override void SpellCast()
