@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 /* 
- * namespace / HasChanged written by Kiwasi Games
+ * namespace / HasChanged() written by Kiwasi Games
  * this script creates a builder that builds strings of item 
  * names as they are dropped into slots 
 */
@@ -74,20 +74,20 @@ public class SpellManager : MonoBehaviour, IHasChanged
     public void CheckSpellSlots()
     {
         // TODO: make this more efficient?
-        // if all the slots are filled
-        // iterate through the slots
-        // if the pieces in the slots match the required pieces, unlock spell
         // right now, this method makes it so that order matters (left to right, top to bottom)
         int i = 0;
         foreach (Transform slotTransform in slots)
         {
-            if(slotTransform.GetChild(0) != null)
+            // if the slot isn't empty
+            if(slotTransform.childCount > 0)
             {
+                // if the slot's item name matches the required piece of the spell's name
                 if (slotTransform.GetChild(0).name == aBlast1.requiredPieces[i])
                 {
                     i++;
                     if (i >= 4)
                     {
+                        // add spell to player's chapter
                         localPlayer.Spellcaster.CollectSpell(aBlast1);
                         bSpellCreated = true;
                     }
