@@ -18,6 +18,7 @@ public class Alchemist : SpellCaster
         //Example:
         // numSpellPieces = 5;
         classType = "Alchemist";
+        fMaxHealth = 20.0f;
 
         // creating the class-specific chapter
         chapter = new Chapter(classType);

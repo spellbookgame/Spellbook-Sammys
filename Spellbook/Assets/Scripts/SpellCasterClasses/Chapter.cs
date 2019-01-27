@@ -25,11 +25,22 @@ public class Chapter : MonoBehaviour
         // add spells into spellsAllowed list depending on class type
         switch (classType)
         {
+            case "Alchemist":
+                Spell polymorph = new Polymorph();
+                spellsAllowed.Add(polymorph);
+                break;
             case "Arcanist":
-                Spell spell0 = new ArcaneBlast();
-                spellsAllowed.Add(spell0);
+                Spell arcaneBlast = new ArcaneBlast();
+                spellsAllowed.Add(arcaneBlast);
                 break;
             // do this for all cases
         }
+    }
+
+    // compare spellSlots[i] to spell.requiredPieces[i].
+    // if all elements match each other, then add spell to chapter
+    public void CompareSpells()
+    {
+        // TODO
     }
 }
