@@ -9,21 +9,27 @@ public class Chapter : MonoBehaviour
     public bool bChapterComplete;
     public string sChapterName;
 
-    public List<string> spellsAllowed;
-    public List<string> spellsCollected;
+    public List<Spell> spellsAllowed;
+    public List<Spell> spellsCollected;
 
     // reference to spell - not sure if we need this
     // private Spell spell;
 
-    // list of spells of type Spell
-    public List<Spell> spells;
-
     public Chapter(string classType)
     {
-        spells = new List<Spell>();
-        spellsAllowed = new List<string>();
-        spellsCollected = new List<string>();
+        spellsAllowed = new List<Spell>();
+        spellsCollected = new List<Spell>();
 
         sChapterName = classType;
+
+        // add spells into spellsAllowed list depending on class type
+        switch (classType)
+        {
+            case "Arcanist":
+                Spell spell0 = new ArcaneBlast();
+                spellsAllowed.Add(spell0);
+                break;
+            // do this for all cases
+        }
     }
 }

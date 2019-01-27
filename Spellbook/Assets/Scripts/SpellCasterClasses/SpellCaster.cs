@@ -58,12 +58,11 @@ public abstract class SpellCaster
     public void CollectSpell(Spell spell)
     {
         // add it to its chapter
-        chapter.spells.Add(spell);
-        chapter.spellsCollected.Add(spell.sSpellName);
+        chapter.spellsCollected.Add(spell);
 
         // tell player that the spell is collected
         Debug.Log(spell.sSpellName + " was added to your chapter!");
         for(int i = 0; i < chapter.spellsCollected.Count; i++)
-            Debug.Log(chapter.spellsCollected[i]);
+            Debug.Log(chapter.spellsCollected[i].sSpellName);
     }
 }
