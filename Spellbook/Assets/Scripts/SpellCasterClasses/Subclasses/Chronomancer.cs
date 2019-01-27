@@ -16,8 +16,11 @@ public class Chronomancer : SpellCaster
         
         //You can override variables in here.
         //Example:
-        numSpellPieces = 5;
+        // numSpellPieces = 5;
         classType = "Chronomancer";
+
+        // creating the class-specific chapter
+        chapter = new Chapter(classType);
     }
 
     public override void SpellCast()

@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 public class CollectItemScript : MonoBehaviour
 {
+    // [SerializeField] private GameObject scriptContainer;
     private CombatUIManager combatUIManager;
     Player localPlayer;
 
@@ -12,8 +10,7 @@ public class CollectItemScript : MonoBehaviour
     void Start()
     {
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
-        GameObject scriptContainer = GameObject.Find("ScriptContainer");
-        combatUIManager = scriptContainer.GetComponent<CombatUIManager>();
+        combatUIManager = gameObject.GetComponent<CombatUIManager>();
     }
 
     public void CollectSpellPiece()

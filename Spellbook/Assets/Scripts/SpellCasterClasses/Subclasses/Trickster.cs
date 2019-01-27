@@ -18,6 +18,9 @@ public class Trickster : SpellCaster
         //Example:
         numSpellPieces = 5;
         classType = "Trickster";
+
+        // creating the class-specific chapter
+        chapter = new Chapter(classType);
     }
 
     public override void SpellCast()

@@ -15,9 +15,7 @@ public abstract class SpellCaster
     public int numSpellPieces;
 
     public string classType;
-
-    private ArrayList allowedSpells;
-    private Spellbook Spellbook;
+    public Chapter chapter;
 
     // TODO:
     //private string backGroundStory; 
@@ -25,11 +23,9 @@ public abstract class SpellCaster
     //public Image icon;
     //Implement:
     //Object DeleteFromInventory(string itemName, int count); 
-    //void AddToSpellBook(Spell spell, int pageNum);
 
     // Virtual Functions
     public abstract void SpellCast();
-
 
     // CTOR
     public SpellCaster()
@@ -37,7 +33,6 @@ public abstract class SpellCaster
         //fMaxHealth = 20.0f;     //Commented out in case Spellcasters have different max healths.
         numSpellPieces = 0;
         numMana = 0;
-        allowedSpells = new ArrayList();
     }
 
     void AddToInventory(string item, int count)
@@ -57,5 +52,17 @@ public abstract class SpellCaster
         {
             fCurrentHealth = fMaxHealth;
         }
+    }
+
+    // TODO: right now, any class can collect any spell; we need to fix this
+    public void CollectSpell(Spell spell)
+    {
+        // add it to its chapter
+        chapter.spellsCollected.Add(spell);
+
+        // tell player that the spell is collected
+        Debug.Log(spell.sSpellName + " was added to your chapter!");
+        for(int i = 0; i < chapter.spellsCollected.Count; i++)
+            Debug.Log(chapter.spellsCollected[i].sSpellName);
     }
 }

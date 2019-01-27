@@ -16,8 +16,12 @@ public class Elementalist : SpellCaster
         
         //You can override variables in here.
         //Example:
-        numSpellPieces = 5;
+        // numSpellPieces = 5;
         classType = "Elementalist";
+
+        // creating the class-specific chapter
+        chapter = new Chapter(classType);
+        Debug.Log("The arcanist's chapter is: " + chapter.sChapterName);
     }
 
     public override void SpellCast()

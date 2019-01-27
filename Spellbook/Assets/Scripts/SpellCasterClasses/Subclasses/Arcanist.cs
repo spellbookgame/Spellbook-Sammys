@@ -13,11 +13,14 @@ public class Arcanist : SpellCaster
 {
     public Arcanist()
     {
-        
         //You can override variables in here.
         //Example:
-        numSpellPieces = 5;
+        // numSpellPieces = 5;
         classType = "Arcanist";
+        fMaxHealth = 20.0f;
+
+        // creating the class-specific chapter
+        chapter = new Chapter(classType);
     }
 
     public override void SpellCast()

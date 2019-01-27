@@ -22,6 +22,8 @@ public class HealthManager : MonoBehaviour
     {
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
 
+        Debug.Log("spell pieces: " + localPlayer.Spellcaster.numSpellPieces);
+
         // setting player's current health to equal max health
         localPlayer.Spellcaster.fCurrentHealth = localPlayer.Spellcaster.fMaxHealth;
 
@@ -36,8 +38,7 @@ public class HealthManager : MonoBehaviour
         Text_enemyHealthText.text = enemy.fCurrentHealth.ToString();
 
         // referencing collect item script
-        GameObject scriptContainer = GameObject.Find("ScriptContainer");
-        collectItemScript = scriptContainer.GetComponent<CollectItemScript>();
+        collectItemScript = gameObject.GetComponent<CollectItemScript>();
     }
 
     // Update is called once per frame
