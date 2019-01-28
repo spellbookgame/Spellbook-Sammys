@@ -9,11 +9,17 @@ public class AlterTime : Spell
     {
         sSpellName = "Alter Time";
         iTier = 3;
+        iCost = 100;
         sSpellClass = "Chronomancer";
 
         requiredPieces.Add("Time Spell Piece");
         requiredPieces.Add("Time Spell Piece");
         requiredPieces.Add("Time Spell Piece");
         requiredPieces.Add("Time Spell Piece");
+    }
+
+    public override void SpellCast()
+    {
+        throw new System.NotImplementedException();
     }
 }

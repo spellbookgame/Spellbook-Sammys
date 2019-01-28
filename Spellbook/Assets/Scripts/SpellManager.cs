@@ -22,6 +22,7 @@ public class SpellManager : MonoBehaviour, IHasChanged
     [SerializeField] GameObject panel;
 
     private bool bSpellCreated;
+    private HashSet<string> hashSpellPieces;
 
     Player localPlayer;
     SlotHandler slotHandler;
@@ -30,6 +31,8 @@ public class SpellManager : MonoBehaviour, IHasChanged
     void Start()
     {
         bSpellCreated = false;
+
+        hashSpellPieces = new HashSet<string>();
 
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
         slotHandler = GameObject.Find("Slot").GetComponent<SlotHandler>();
@@ -96,6 +99,11 @@ public class SpellManager : MonoBehaviour, IHasChanged
             // if there is an item returned
             if(item)
             {
+                // add the spellPiece name to hashset
+                hashSpellPieces.Add(slotTransform.GetChild(0).name);
+                Debug.Log("Added: " + slotTransform.GetChild(0).name);
+                Debug.Log("HashSet count: " + hashSpellPieces.Count);
+
                 // add item name to builder
                 builder.Append(item.name);
                 builder.Append(" - ");
@@ -108,27 +116,15 @@ public class SpellManager : MonoBehaviour, IHasChanged
     // this function only checks for arcane blast as of now
     public void CheckSpellSlots()
     {
-        // TODO: make this more efficient?
-        // right now, this method makes it so that order matters (left to right, top to bottom)
-        int i = 0;
-        foreach (Transform slotTransform in slots)
+        // if all slots are filled up
+        if(hashSpellPieces.Count == aBlast1.requiredPieces.Count)
         {
-            // if the slot isn't empty
-            if(slotTransform.childCount > 0)
+            // if the two hashsets match
+            if (hashSpellPieces.SetEquals(aBlast1.requiredPieces))
             {
-                // if the slot's item name matches the required piece of the spell's name
-                if (slotTransform.GetChild(0).name == aBlast1.requiredPieces[i])
-                {
-                    i++;
-                    if (i >= 4)
-                    {
-                        // add spell to player's chapter
-                        localPlayer.Spellcaster.CollectSpell(aBlast1, localPlayer.Spellcaster);
-                        bSpellCreated = true;
-                    }
-                }
-                else
-                    break;
+                // add the spell to player's chapter
+                localPlayer.Spellcaster.CollectSpell(aBlast1, localPlayer.Spellcaster);
+                bSpellCreated = true;
             }
         }
     }

@@ -15,17 +15,10 @@ public class Alchemist : SpellCaster
     {
         
         //You can override variables in here.
-        //Example:
-        // numSpellPieces = 5;
         classType = "Alchemist";
         fMaxHealth = 20.0f;
 
         // creating the class-specific chapter
         chapter = new Chapter(classType);
-    }
-
-    public override void SpellCast()
-    {
-        Debug.Log("SpellCast not implemented");
     }
 }

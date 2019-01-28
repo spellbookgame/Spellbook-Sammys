@@ -9,11 +9,17 @@ public class Polymorph : Spell
     {
         sSpellName = "Polymorph";
         iTier = 3;
+        iCost = 100;
         sSpellClass = "Alchemist";
 
         requiredPieces.Add("Alchemy Spell Piece");
         requiredPieces.Add("Alchemy Spell Piece");
         requiredPieces.Add("Alchemy Spell Piece");
         requiredPieces.Add("Alchemy Spell Piece");
+    }
+
+    public override void SpellCast()
+    {
+        throw new System.NotImplementedException();
     }
 }

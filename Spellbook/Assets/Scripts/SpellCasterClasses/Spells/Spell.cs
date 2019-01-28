@@ -5,14 +5,18 @@ using UnityEngine;
 public abstract class Spell
 {
     public int iTier;
+    public int iCost;   // cost in mana crystals
     public string sSpellName;
     public string sSpellClass;
 
-    public List<string> requiredPieces;
+    public HashSet<string> requiredPieces;
 
     // CTOR
     public Spell()
     {
-        requiredPieces = new List<string>();
+        requiredPieces = new HashSet<string>();
     }
+
+    // Virtual functions
+    public abstract void SpellCast();
 }
