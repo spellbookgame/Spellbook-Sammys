@@ -89,7 +89,7 @@ public class HealthManager : MonoBehaviour
             Text_enemyHealthText.text = "0";
 
             // notify player that spell piece was collected
-            collectItemScript.CollectSpellPiece();
+            // collectItemScript.CollectSpellPiece();
         }
     }
 

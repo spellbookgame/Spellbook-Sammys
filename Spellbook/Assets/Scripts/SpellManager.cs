@@ -34,50 +34,45 @@ public class SpellManager : MonoBehaviour, IHasChanged
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
         slotHandler = GameObject.Find("Slot").GetComponent<SlotHandler>();
         HasChanged();
-
-        int numSpellPieces = localPlayer.Spellcaster.numSpellPieces;
-        // populate panel with spell pieces depending on how many player has
+        
+        // populate panel with spell pieces depending on how many of each that player has
         if (panel != null)
         {
-            while(numSpellPieces > 0)
+            while (localPlayer.Spellcaster.iArcanePieces > 0)
             {
-                // switch statement that instantiates spell pieces based on classType
-                // eventually we want to change this to depending on what spell pieces player currently has
-                switch(localPlayer.Spellcaster.classType)
-                {
-                    case "Arcanist":
-                        GameObject g0 = (GameObject)Instantiate(arcaneSP);
-                        g0.transform.SetParent(panel.transform, false);
-                        numSpellPieces--;
-                        break;
-                    case "Alchemist":
-                        GameObject g1 = (GameObject)Instantiate(alchemySP);
-                        g1.transform.SetParent(panel.transform, false);
-                        numSpellPieces--;
-                        break;
-                    case "Chronomancer":
-                        GameObject g2 = (GameObject)Instantiate(chronomancySP);
-                        g2.transform.SetParent(panel.transform, false);
-                        numSpellPieces--;
-                        break;
-                    case "Elementalist":
-                        GameObject g3 = (GameObject)Instantiate(elementalSP);
-                        g3.transform.SetParent(panel.transform, false);
-                        numSpellPieces--;
-                        break;
-                    case "Summoner":
-                        GameObject g4 = (GameObject)Instantiate(summonerSP);
-                        g4.transform.SetParent(panel.transform, false);
-                        numSpellPieces--;
-                        break;
-                    case "Trickster":
-                        GameObject g5 = (GameObject)Instantiate(tricksterSP);
-                        g5.transform.SetParent(panel.transform, false);
-                        numSpellPieces--;
-                        break;
-                    default:
-                        break;
-                }
+                GameObject g0 = (GameObject)Instantiate(arcaneSP);
+                g0.transform.SetParent(panel.transform, false);
+                localPlayer.Spellcaster.iArcanePieces--;
+            }
+            while (localPlayer.Spellcaster.iAlchemyPieces > 0)
+            {
+                GameObject g0 = (GameObject)Instantiate(alchemySP);
+                g0.transform.SetParent(panel.transform, false);
+                localPlayer.Spellcaster.iAlchemyPieces--;
+            }
+            while (localPlayer.Spellcaster.iChronomancyPieces > 0)
+            {
+                GameObject g0 = (GameObject)Instantiate(chronomancySP);
+                g0.transform.SetParent(panel.transform, false);
+                localPlayer.Spellcaster.iChronomancyPieces--;
+            }
+            while (localPlayer.Spellcaster.iElementalPieces > 0)
+            {
+                GameObject g0 = (GameObject)Instantiate(elementalSP);
+                g0.transform.SetParent(panel.transform, false);
+                localPlayer.Spellcaster.iElementalPieces--;
+            }
+            while (localPlayer.Spellcaster.iSummoningPieces > 0)
+            {
+                GameObject g0 = (GameObject)Instantiate(summonerSP);
+                g0.transform.SetParent(panel.transform, false);
+                localPlayer.Spellcaster.iSummoningPieces--;
+            }
+            while (localPlayer.Spellcaster.iTricksterPieces > 0)
+            {
+                GameObject g0 = (GameObject)Instantiate(tricksterSP);
+                g0.transform.SetParent(panel.transform, false);
+                localPlayer.Spellcaster.iTricksterPieces--;
             }
         }
     }

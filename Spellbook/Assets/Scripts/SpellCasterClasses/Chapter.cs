@@ -56,7 +56,7 @@ public class Chapter : MonoBehaviour
 
     // compare spellSlots[i] to spell[i].requiredPieces[i]
     // if all elements match each other, then add spell to chapter
-    public void CompareSpells()
+    public void CompareSpells(SpellCaster player, Transform slotTransform)
     {
         // TODO
     }

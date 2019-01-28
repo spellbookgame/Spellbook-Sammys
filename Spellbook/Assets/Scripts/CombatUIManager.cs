@@ -15,14 +15,21 @@ public class CombatUIManager : MonoBehaviour
     [SerializeField] private GameObject Panel_spell;
 
     // private variables
-    public bool bInventoryOpen = false;
-    public bool bHelpOpen = false;
-    public bool bSpellOpen = false;
-    public bool bnotifyPanelOpen = false;
+    private bool bInventoryOpen = false;
+    private bool bHelpOpen = false;
+    private bool bSpellOpen = false;
+
+    private CollectItemScript collectItemScript;
 
     // notify panel is also used in CollectItemScript
     public GameObject Panel_notify;
     public Text Text_notify;
+    public bool bnotifyPanelOpen = false;
+
+    private void Start()
+    {
+        collectItemScript = gameObject.GetComponent<CollectItemScript>();
+    }
 
     public void closePanels()
     {
@@ -94,5 +101,31 @@ public class CombatUIManager : MonoBehaviour
             Panel_notify.SetActive(false);
             bnotifyPanelOpen = false;
         }
+    }
+
+    // ----------------------------------- DEBUGGING: ALL SPELL PIECE BUTTONS ------------------------------------------
+    public void arcaneSPClick()
+    {
+        collectItemScript.CollectSpellPiece("Arcane");
+    }
+    public void alchemySPClick()
+    {
+        collectItemScript.CollectSpellPiece("Alchemy");
+    }
+    public void chronomancySPClick()
+    {
+        collectItemScript.CollectSpellPiece("Chronomancy");
+    }
+    public void elementalSPClick()
+    {
+        collectItemScript.CollectSpellPiece("Elemental");
+    }
+    public void summoningSPClick()
+    {
+        collectItemScript.CollectSpellPiece("Summoning");
+    }
+    public void tricksterSPClick()
+    {
+        collectItemScript.CollectSpellPiece("Trickster");
     }
 }

@@ -12,7 +12,16 @@ public abstract class SpellCaster
 
     public int iBasicAttackStrength;
     public int numMana;
+
     public int numSpellPieces;
+
+    // this can be changed to other kinds of spell pieces later
+    public int iArcanePieces;
+    public int iAlchemyPieces;
+    public int iChronomancyPieces;
+    public int iElementalPieces;
+    public int iSummoningPieces;
+    public int iTricksterPieces;
 
     public string classType;
     public Chapter chapter;
