@@ -14,6 +14,7 @@ public abstract class Spell
     // CTOR
     public Spell()
     {
+        // requiredPieces must ALL have different values in order for HashSet to work
         requiredPieces = new HashSet<string>();
     }
 

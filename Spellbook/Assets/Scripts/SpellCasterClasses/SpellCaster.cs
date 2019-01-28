@@ -62,19 +62,22 @@ public abstract class SpellCaster
     }
     
     // method that adds spell to player's chapter
-    // localPlayer.Spellcaster.CollectSpell(spellName, localPlayer.Spellcaster);
+    // called from Chapter.cs
     public void CollectSpell(Spell spell, SpellCaster player)
     {
         // only add the spell if the player is the spell's class
-        if(spell.sSpellClass == player.classType)
+        if (spell.sSpellClass == player.classType)
         {
             // add spell to its chapter
             chapter.spellsCollected.Add(spell);
 
             // tell player that the spell is collected
-            Debug.Log(spell.sSpellName + " was added to your chapter!");
+            Debug.Log(spell.sSpellName + " was added to your chapter! In your chapter you have:");
             for (int i = 0; i < chapter.spellsCollected.Count; i++)
                 Debug.Log(chapter.spellsCollected[i].sSpellName);
         }
+        // this else statement isn't working
+        else
+            Debug.Log("You cannot collect a " + spell.sSpellClass + " spell as a " + player.classType + " wizard.");
     }
 }

@@ -13,9 +13,9 @@ public class AlterTime : Spell
         sSpellClass = "Chronomancer";
 
         requiredPieces.Add("Time Spell Piece");
-        requiredPieces.Add("Time Spell Piece");
-        requiredPieces.Add("Time Spell Piece");
-        requiredPieces.Add("Time Spell Piece");
+        requiredPieces.Add("Alchemy Spell Piece");
+        requiredPieces.Add("Summoning Spell Piece");
+        requiredPieces.Add("Illusion Spell Piece");
     }
 
     public override void SpellCast()

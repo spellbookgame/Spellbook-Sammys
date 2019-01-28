@@ -56,8 +56,17 @@ public class Chapter : MonoBehaviour
 
     // compare spellSlots[i] to spell[i].requiredPieces[i]
     // if all elements match each other, then add spell to chapter
-    public void CompareSpells(SpellCaster player, Transform slotTransform)
+    // this only works for the first spell in each chapter as of now
+    public void CompareSpells(SpellCaster player, HashSet<string> slotHash)
     {
-        // TODO
+        if (slotHash.Count == player.chapter.spellsAllowed[0].requiredPieces.Count)
+        {
+            // if the two hashsets match
+            if (slotHash.SetEquals(player.chapter.spellsAllowed[0].requiredPieces))
+            {
+                // add the spell to player's chapter
+                player.CollectSpell(player.chapter.spellsAllowed[0], player);
+            }
+        }
     }
 }

@@ -25,8 +25,6 @@ public class SpellManager : MonoBehaviour, IHasChanged
     private HashSet<string> hashSpellPieces;
 
     Player localPlayer;
-    SlotHandler slotHandler;
-    ArcaneBlast aBlast1 = new ArcaneBlast();
     
     void Start()
     {
@@ -35,7 +33,6 @@ public class SpellManager : MonoBehaviour, IHasChanged
         hashSpellPieces = new HashSet<string>();
 
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
-        slotHandler = GameObject.Find("Slot").GetComponent<SlotHandler>();
         HasChanged();
         
         // populate panel with spell pieces depending on how many of each that player has
@@ -82,10 +79,22 @@ public class SpellManager : MonoBehaviour, IHasChanged
 
     void Update()
     {
-        // ideally this shouldnt be in Update, because we dont want it to keep collecting spells
-        // the if statement ensures that this only runs once; once a spell is created, it will stop checking
-        if(bSpellCreated == false)
-            CheckSpellSlots();
+        // calling CompareSpells() from Chapter.cs
+        int i = 0;
+        foreach(Transform slotTransform in slots)
+        {
+            GameObject item = slotTransform.GetComponent<SlotHandler>().item;
+            if(item)
+            {
+                ++i;
+                Debug.Log(i);
+            }
+        }
+        // if all slots are filled, call the CompareSpells() function
+        if(i >= 4)
+        {
+            localPlayer.Spellcaster.chapter.CompareSpells(localPlayer.Spellcaster, hashSpellPieces);
+        }
     }
 
     public void HasChanged()
@@ -110,23 +119,6 @@ public class SpellManager : MonoBehaviour, IHasChanged
             }
         }
         inventoryText.text = builder.ToString();
-    }
-
-    // eventually this function should be transferred into Chapter.cs, and called in Update(?)
-    // this function only checks for arcane blast as of now
-    public void CheckSpellSlots()
-    {
-        // if all slots are filled up
-        if(hashSpellPieces.Count == aBlast1.requiredPieces.Count)
-        {
-            // if the two hashsets match
-            if (hashSpellPieces.SetEquals(aBlast1.requiredPieces))
-            {
-                // add the spell to player's chapter
-                localPlayer.Spellcaster.CollectSpell(aBlast1, localPlayer.Spellcaster);
-                bSpellCreated = true;
-            }
-        }
     }
 }
 
