@@ -13,7 +13,12 @@ public class SpellManager : MonoBehaviour, IHasChanged
 {
     [SerializeField] Transform slots;
     [SerializeField] Text inventoryText;
-    [SerializeField] GameObject spellPiece;
+    [SerializeField] GameObject arcaneSP;
+    [SerializeField] GameObject alchemySP;
+    [SerializeField] GameObject chronomancySP;
+    [SerializeField] GameObject elementalSP;
+    [SerializeField] GameObject tricksterSP;
+    [SerializeField] GameObject summonerSP;
     [SerializeField] GameObject panel;
 
     private bool bSpellCreated;
@@ -21,8 +26,7 @@ public class SpellManager : MonoBehaviour, IHasChanged
     Player localPlayer;
     SlotHandler slotHandler;
     ArcaneBlast aBlast1 = new ArcaneBlast();
-   
-    // Start is called before the first frame update
+    
     void Start()
     {
         bSpellCreated = false;
@@ -37,9 +41,43 @@ public class SpellManager : MonoBehaviour, IHasChanged
         {
             while(numSpellPieces > 0)
             {
-                GameObject g = (GameObject)Instantiate(spellPiece);
-                g.transform.SetParent(panel.transform, false);
-                numSpellPieces--;
+                // switch statement that instantiates spell pieces based on classType
+                // eventually we want to change this to depending on what spell pieces player currently has
+                switch(localPlayer.Spellcaster.classType)
+                {
+                    case "Arcanist":
+                        GameObject g0 = (GameObject)Instantiate(arcaneSP);
+                        g0.transform.SetParent(panel.transform, false);
+                        numSpellPieces--;
+                        break;
+                    case "Alchemist":
+                        GameObject g1 = (GameObject)Instantiate(alchemySP);
+                        g1.transform.SetParent(panel.transform, false);
+                        numSpellPieces--;
+                        break;
+                    case "Chronomancer":
+                        GameObject g2 = (GameObject)Instantiate(chronomancySP);
+                        g2.transform.SetParent(panel.transform, false);
+                        numSpellPieces--;
+                        break;
+                    case "Elementalist":
+                        GameObject g3 = (GameObject)Instantiate(elementalSP);
+                        g3.transform.SetParent(panel.transform, false);
+                        numSpellPieces--;
+                        break;
+                    case "Summoner":
+                        GameObject g4 = (GameObject)Instantiate(summonerSP);
+                        g4.transform.SetParent(panel.transform, false);
+                        numSpellPieces--;
+                        break;
+                    case "Trickster":
+                        GameObject g5 = (GameObject)Instantiate(tricksterSP);
+                        g5.transform.SetParent(panel.transform, false);
+                        numSpellPieces--;
+                        break;
+                    default:
+                        break;
+                }
             }
         }
     }
@@ -71,6 +109,8 @@ public class SpellManager : MonoBehaviour, IHasChanged
         inventoryText.text = builder.ToString();
     }
 
+    // eventually this function should be transferred into Chapter.cs, and called in Update(?)
+    // this function only checks for arcane blast as of now
     public void CheckSpellSlots()
     {
         // TODO: make this more efficient?
@@ -88,7 +128,7 @@ public class SpellManager : MonoBehaviour, IHasChanged
                     if (i >= 4)
                     {
                         // add spell to player's chapter
-                        localPlayer.Spellcaster.CollectSpell(aBlast1);
+                        localPlayer.Spellcaster.CollectSpell(aBlast1, localPlayer.Spellcaster);
                         bSpellCreated = true;
                     }
                 }

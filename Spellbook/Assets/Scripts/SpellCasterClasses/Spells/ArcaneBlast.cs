@@ -8,7 +8,7 @@ public class ArcaneBlast : Spell
     public ArcaneBlast()
     {
         sSpellName = "Arcane Blast";
-        iTier = 1;
+        iTier = 3;
         sSpellClass = "Arcanist";
 
         requiredPieces.Add("Arcane Spell Piece");

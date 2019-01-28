@@ -33,11 +33,28 @@ public class Chapter : MonoBehaviour
                 Spell arcaneBlast = new ArcaneBlast();
                 spellsAllowed.Add(arcaneBlast);
                 break;
-            // do this for all cases
+            case "Summoner":
+                Spell summonTree = new SummonTree();
+                spellsAllowed.Add(summonTree);
+                break;
+            case "Chronomancer":
+                Spell alterTime = new AlterTime();
+                spellsAllowed.Add(alterTime);
+                break;
+            case "Elementalist":
+                Spell iceBarrier = new IceBarrier();
+                spellsAllowed.Add(iceBarrier);
+                break;
+            case "Trickster":
+                Spell mirrorImage = new MirrorImage();
+                spellsAllowed.Add(mirrorImage);
+                break;
+            default:
+                break;
         }
     }
 
-    // compare spellSlots[i] to spell.requiredPieces[i].
+    // compare spellSlots[i] to spell[i].requiredPieces[i]
     // if all elements match each other, then add spell to chapter
     public void CompareSpells()
     {

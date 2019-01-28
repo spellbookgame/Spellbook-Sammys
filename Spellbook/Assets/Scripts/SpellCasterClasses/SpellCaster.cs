@@ -53,16 +53,21 @@ public abstract class SpellCaster
             fCurrentHealth = fMaxHealth;
         }
     }
-
-    // TODO: right now, any class can collect any spell; we need to fix this
-    public void CollectSpell(Spell spell)
+    
+    // method that adds spell to player's chapter
+    // localPlayer.Spellcaster.CollectSpell(spellName, localPlayer.Spellcaster);
+    public void CollectSpell(Spell spell, SpellCaster player)
     {
-        // add it to its chapter
-        chapter.spellsCollected.Add(spell);
+        // only add the spell if the player is the spell's class
+        if(spell.sSpellClass == player.classType)
+        {
+            // add spell to its chapter
+            chapter.spellsCollected.Add(spell);
 
-        // tell player that the spell is collected
-        Debug.Log(spell.sSpellName + " was added to your chapter!");
-        for(int i = 0; i < chapter.spellsCollected.Count; i++)
-            Debug.Log(chapter.spellsCollected[i].sSpellName);
+            // tell player that the spell is collected
+            Debug.Log(spell.sSpellName + " was added to your chapter!");
+            for (int i = 0; i < chapter.spellsCollected.Count; i++)
+                Debug.Log(chapter.spellsCollected[i].sSpellName);
+        }
     }
 }

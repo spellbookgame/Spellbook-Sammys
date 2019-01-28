@@ -21,7 +21,6 @@ public class Elementalist : SpellCaster
 
         // creating the class-specific chapter
         chapter = new Chapter(classType);
-        Debug.Log("The arcanist's chapter is: " + chapter.sChapterName);
     }
 
     public override void SpellCast()

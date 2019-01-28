@@ -8,7 +8,7 @@ public class Polymorph : Spell
     public Polymorph()
     {
         sSpellName = "Polymorph";
-        iTier = 1;
+        iTier = 3;
         sSpellClass = "Alchemist";
 
         requiredPieces.Add("Alchemy Spell Piece");
