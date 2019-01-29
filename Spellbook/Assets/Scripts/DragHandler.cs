@@ -10,7 +10,14 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     public GameObject itemBeingDragged;
     private Vector3 startPos;
     private Transform startParent;
-    
+
+    SpellManager spellManager;
+
+    void Start()
+    {
+        spellManager = GameObject.Find("Canvas").GetComponent<SpellManager>();
+    }
+
     public void OnBeginDrag(PointerEventData eventData)
     {
         // itemToDrag is the game object that this script is on
@@ -32,11 +39,10 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     {
         itemToDrag = null;
         GetComponent<CanvasGroup>().blocksRaycasts = true;
-        // checking to see if the item is being dragged into a new slot
+        // if item was dragged back into its original parent, then set its position back to where it was
         if (transform.parent == startParent)
         {
             transform.position = startPos;
         }
-        
     }
 }

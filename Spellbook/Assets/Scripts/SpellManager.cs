@@ -19,10 +19,10 @@ public class SpellManager : MonoBehaviour, IHasChanged
     [SerializeField] GameObject elementalSP;
     [SerializeField] GameObject tricksterSP;
     [SerializeField] GameObject summonerSP;
-    [SerializeField] GameObject panel;
+    [SerializeField] public GameObject panel;
 
     private bool bSpellCreated;
-    private HashSet<string> hashSpellPieces;
+    public HashSet<string> hashSpellPieces;
 
     public List<GameObject> generatedObjects;
     public GameObject g0;
@@ -111,6 +111,7 @@ public class SpellManager : MonoBehaviour, IHasChanged
     }
 
     // removes item from generatedObjects list and destroys prefab
+    // BUG: this destroys all duplicates of the prefab
     public void RemovePrefabs(Spell spell)
     {
         // remove slots in scrolling panel
