@@ -12,7 +12,7 @@ using UnityEngine.UI;
 public class SpellManager : MonoBehaviour, IHasChanged
 {
     [SerializeField] Transform slots;
-    [SerializeField] Text inventoryText;
+    [SerializeField] public Text inventoryText;
     [SerializeField] GameObject arcaneSP;
     [SerializeField] GameObject alchemySP;
     [SerializeField] GameObject chronomancySP;
@@ -153,8 +153,6 @@ public class SpellManager : MonoBehaviour, IHasChanged
         {
             Destroy(slotTransform.GetChild(0).gameObject);
         }
-        // resetting text at bottom
-        inventoryText.text = "-";
     }
 
     public void HasChanged()

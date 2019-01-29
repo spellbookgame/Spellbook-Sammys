@@ -9,7 +9,7 @@ public class SummonTree : Spell
     {
         sSpellName = "Summon Tree";
         iTier = 3;
-        iCost = 100;
+        iManaCost = 100;
         sSpellClass = "Summoner";
 
         requiredPieces.Add("Summoning Spell Piece");
@@ -18,8 +18,9 @@ public class SummonTree : Spell
         requiredPieces.Add("Summoning Spell Piece");
     }
 
-    public override void SpellCast()
+    public override void SpellCast(SpellCaster player)
     {
-        throw new System.NotImplementedException();
+        Debug.Log(sSpellName + " was cast!");
+        player.numMana -= iManaCost;
     }
 }

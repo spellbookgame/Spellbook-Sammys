@@ -9,7 +9,7 @@ public class ArcaneBlast : Spell
     {
         sSpellName = "Arcane Blast";
         iTier = 3;
-        iCost = 100;
+        iManaCost = 100;
         sSpellClass = "Arcanist";
 
         // adding to hashset
@@ -25,8 +25,9 @@ public class ArcaneBlast : Spell
         requiredPiecesList.Add("Illusion Spell Piece");
     }
 
-    public override void SpellCast()
+    public override void SpellCast(SpellCaster player)
     {
-        throw new System.NotImplementedException();
+        Debug.Log(sSpellName + " was cast!");
+        player.numMana -= iManaCost;
     }
 }

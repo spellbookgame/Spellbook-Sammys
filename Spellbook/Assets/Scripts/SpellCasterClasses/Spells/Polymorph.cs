@@ -9,7 +9,7 @@ public class Polymorph : Spell
     {
         sSpellName = "Polymorph";
         iTier = 3;
-        iCost = 100;
+        iManaCost = 100;
         sSpellClass = "Alchemist";
 
         requiredPieces.Add("Alchemy Spell Piece");
@@ -18,8 +18,9 @@ public class Polymorph : Spell
         requiredPieces.Add("Alchemy Spell Piece");
     }
 
-    public override void SpellCast()
+    public override void SpellCast(SpellCaster player)
     {
-        throw new System.NotImplementedException();
+        Debug.Log(sSpellName + " was cast!");
+        player.numMana -= iManaCost;
     }
 }

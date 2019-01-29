@@ -35,14 +35,21 @@ public class CombatUIManager : MonoBehaviour
 
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
 
-        int yPos = 1000;
+        int yPos = 1300;
         // for every spell player has collected, add a button for that spell in Panel_spell  
         for (int i = 0; i < localPlayer.Spellcaster.chapter.spellsCollected.Count; i++)
         {
-            Vector3 buttonPos = new Vector3(0, yPos, 0);
-            Button newSpellButton = Instantiate(spellButton, Panel_spell.transform);
+            Button newSpellButton = Instantiate(spellButton);
+            newSpellButton.transform.parent = Panel_spell.transform;
             newSpellButton.GetComponentInChildren<Text>().text = localPlayer.Spellcaster.chapter.spellsCollected[i].sSpellName;
-            newSpellButton.transform.position = buttonPos;
+            newSpellButton.transform.position = new Vector3(Panel_spell.transform.position.x, yPos, 0);
+            
+            // new int to pass into button onClick listener so loop will not throw index out of bounds error
+            int i2 = i;
+            // add listener to button
+            newSpellButton.onClick.AddListener(() => localPlayer.Spellcaster.chapter.spellsCollected[i2].SpellCast(localPlayer.Spellcaster));
+
+            // to position new button underneath prev button
             yPos += 200;
         }
     }

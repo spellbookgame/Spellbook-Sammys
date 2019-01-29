@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class Spell
 {
     public int iTier;
-    public int iCost;   // cost in mana crystals
+    public int iManaCost;   // cost in mana crystals
     public string sSpellName;
     public string sSpellClass;
 
@@ -21,5 +21,5 @@ public abstract class Spell
     }
 
     // Virtual functions
-    public abstract void SpellCast();
+    public abstract void SpellCast(SpellCaster player);
 }

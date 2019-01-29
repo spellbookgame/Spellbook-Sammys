@@ -34,7 +34,7 @@ public abstract class SpellCaster
     public SpellCaster()
     {
         //fMaxHealth = 20.0f;     //Commented out in case Spellcasters have different max healths.
-        numMana = 0;
+        numMana = 1000;
         spellPieces = new List<string>();
         
     }
@@ -62,6 +62,7 @@ public abstract class SpellCaster
     // called from Chapter.cs
     public void CollectSpell(Spell spell, SpellCaster player)
     {
+        GameObject g = GameObject.FindWithTag("SpellManager");
         // only add the spell if the player is the spell's class
         if (spell.sSpellClass == player.classType)
         {
@@ -69,7 +70,8 @@ public abstract class SpellCaster
             chapter.spellsCollected.Add(spell);
 
             // tell player that the spell is collected
-            Debug.Log(spell.sSpellName + " was added to your chapter! In your chapter you have:");
+            g.GetComponent<SpellManager>().inventoryText.text = "You unlocked " + spell.sSpellName + "!";
+            Debug.Log("In your chapter you have:");
             for (int i = 0; i < chapter.spellsCollected.Count; ++i)
                 Debug.Log(chapter.spellsCollected[i].sSpellName);
 
@@ -80,7 +82,7 @@ public abstract class SpellCaster
         }
         // this else statement isn't working
         else if (spell.sSpellClass != player.classType)
-            Debug.Log("You cannot collect a " + spell.sSpellClass + " spell as a " + player.classType + " wizard.");
+            g.GetComponent<SpellManager>().inventoryText.text = "You cannot collect a " + spell.sSpellClass + " spell as a " + player.classType + " wizard.";
     }
     
     // removes spell pieces from player's "inventory"
