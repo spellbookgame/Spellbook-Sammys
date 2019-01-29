@@ -637,7 +637,7 @@ GameObject:
   - component: {fileID: 1484665946}
   m_Layer: 0
   m_Name: Canvas
-  m_TagString: Untagged
+  m_TagString: SpellManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -749,6 +749,7 @@ MonoBehaviour:
   summonerSP: {fileID: 1844521588664862811, guid: f148aa41739115d478199213de2747c1,
     type: 3}
   panel: {fileID: 2062214375}
+  generatedObjects: []
 --- !u!1 &1510326046
 GameObject:
   m_ObjectHideFlags: 0
@@ -1446,7 +1447,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Spells
+  m_Text: Spell Creation
 --- !u!222 &1951623121
 CanvasRenderer:
   m_ObjectHideFlags: 0

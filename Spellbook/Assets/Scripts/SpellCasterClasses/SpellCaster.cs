@@ -13,16 +13,11 @@ public abstract class SpellCaster
     public int iBasicAttackStrength;
     public int numMana;
 
-    // this can be changed to other kinds of spell pieces later
-    public int iArcanePieces;
-    public int iAlchemyPieces;
-    public int iChronomancyPieces;
-    public int iElementalPieces;
-    public int iSummoningPieces;
-    public int iTricksterPieces;
-
     public string classType;
     public Chapter chapter;
+
+    // player's collection of spell pieces stored as strings
+    public List<string> spellPieces;
 
     // TODO:
     //private string backGroundStory; 
@@ -40,6 +35,8 @@ public abstract class SpellCaster
     {
         //fMaxHealth = 20.0f;     //Commented out in case Spellcasters have different max healths.
         numMana = 0;
+        spellPieces = new List<string>();
+        
     }
 
     void AddToInventory(string item, int count)
@@ -60,7 +57,7 @@ public abstract class SpellCaster
             fCurrentHealth = fMaxHealth;
         }
     }
-    
+
     // method that adds spell to player's chapter
     // called from Chapter.cs
     public void CollectSpell(Spell spell, SpellCaster player)
@@ -73,11 +70,31 @@ public abstract class SpellCaster
 
             // tell player that the spell is collected
             Debug.Log(spell.sSpellName + " was added to your chapter! In your chapter you have:");
-            for (int i = 0; i < chapter.spellsCollected.Count; i++)
+            for (int i = 0; i < chapter.spellsCollected.Count; ++i)
                 Debug.Log(chapter.spellsCollected[i].sSpellName);
+
+            Debug.Log("You have " + chapter.spellsCollected.Count + " spells collected.");
+
+            // remove spell pieces from player's library
+            RemoveSpellPieces(player, spell);
         }
         // this else statement isn't working
-        else
+        else if (spell.sSpellClass != player.classType)
             Debug.Log("You cannot collect a " + spell.sSpellClass + " spell as a " + player.classType + " wizard.");
+    }
+    
+    // removes spell pieces from player's "inventory"
+    public void RemoveSpellPieces(SpellCaster player, Spell spell)
+    {
+        GameObject g = GameObject.FindWithTag("SpellManager");
+
+        // subtract spell pieces from player's inventory
+        for (int i = 0; i < spell.requiredPiecesList.Count; ++i)
+        {
+            player.spellPieces.Remove(spell.requiredPiecesList[i]);
+            Debug.Log("Removed " + spell.requiredPiecesList[i]);
+        }
+        // call function that removes prefabs in SpellManager.cs
+        g.GetComponent<SpellManager>().RemovePrefabs(spell);
     }
 }

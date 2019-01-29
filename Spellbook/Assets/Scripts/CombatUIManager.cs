@@ -13,6 +13,7 @@ public class CombatUIManager : MonoBehaviour
     [SerializeField] private GameObject Panel_inventory;
     [SerializeField] private GameObject Panel_help;
     [SerializeField] private GameObject Panel_spell;
+    [SerializeField] private Button spellButton;
 
     // private variables
     private bool bInventoryOpen = false;
@@ -26,9 +27,24 @@ public class CombatUIManager : MonoBehaviour
     public Text Text_notify;
     public bool bnotifyPanelOpen = false;
 
+    Player localPlayer;
+
     private void Start()
     {
         collectItemScript = gameObject.GetComponent<CollectItemScript>();
+
+        localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
+
+        int yPos = 1000;
+        // for every spell player has collected, add a button for that spell in Panel_spell  
+        for (int i = 0; i < localPlayer.Spellcaster.chapter.spellsCollected.Count; i++)
+        {
+            Vector3 buttonPos = new Vector3(0, yPos, 0);
+            Button newSpellButton = Instantiate(spellButton, Panel_spell.transform);
+            newSpellButton.GetComponentInChildren<Text>().text = localPlayer.Spellcaster.chapter.spellsCollected[i].sSpellName;
+            newSpellButton.transform.position = buttonPos;
+            yPos += 200;
+        }
     }
 
     public void closePanels()
@@ -106,26 +122,26 @@ public class CombatUIManager : MonoBehaviour
     // ----------------------------------- DEBUGGING: ALL SPELL PIECE BUTTONS ------------------------------------------
     public void arcaneSPClick()
     {
-        collectItemScript.CollectSpellPiece("Arcane");
+        collectItemScript.CollectSpellPiece("Arcane Spell Piece");
     }
     public void alchemySPClick()
     {
-        collectItemScript.CollectSpellPiece("Alchemy");
+        collectItemScript.CollectSpellPiece("Alchemy Spell Piece");
     }
     public void chronomancySPClick()
     {
-        collectItemScript.CollectSpellPiece("Chronomancy");
+        collectItemScript.CollectSpellPiece("Time Spell Piece");
     }
     public void elementalSPClick()
     {
-        collectItemScript.CollectSpellPiece("Elemental");
+        collectItemScript.CollectSpellPiece("Elemental Spell Piece");
     }
     public void summoningSPClick()
     {
-        collectItemScript.CollectSpellPiece("Summoning");
+        collectItemScript.CollectSpellPiece("Summoning Spell Piece");
     }
     public void tricksterSPClick()
     {
-        collectItemScript.CollectSpellPiece("Trickster");
+        collectItemScript.CollectSpellPiece("Illusion Spell Piece");
     }
 }

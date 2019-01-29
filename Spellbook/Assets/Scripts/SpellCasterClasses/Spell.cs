@@ -10,12 +10,14 @@ public abstract class Spell
     public string sSpellClass;
 
     public HashSet<string> requiredPieces;
+    public List<string> requiredPiecesList;
 
     // CTOR
     public Spell()
     {
         // requiredPieces must ALL have different values in order for HashSet to work
         requiredPieces = new HashSet<string>();
+        requiredPiecesList = new List<string>();
     }
 
     // Virtual functions

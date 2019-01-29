@@ -12,10 +12,17 @@ public class ArcaneBlast : Spell
         iCost = 100;
         sSpellClass = "Arcanist";
 
+        // adding to hashset
         requiredPieces.Add("Arcane Spell Piece");
         requiredPieces.Add("Alchemy Spell Piece");
         requiredPieces.Add("Elemental Spell Piece");
         requiredPieces.Add("Illusion Spell Piece");
+
+        // adding to list
+        requiredPiecesList.Add("Arcane Spell Piece");
+        requiredPiecesList.Add("Alchemy Spell Piece");
+        requiredPiecesList.Add("Elemental Spell Piece");
+        requiredPiecesList.Add("Illusion Spell Piece");
     }
 
     public override void SpellCast()

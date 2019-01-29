@@ -26,7 +26,7 @@ public class SlotHandler : MonoBehaviour, IDropHandler
             // set item being dragged's transform to current slot transform
             DragHandler.itemToDrag.transform.SetParent(transform);
 
-            // using lambda function to call HasChanged method in SpellCreateScript
+            // using lambda function to call HasChanged method in SpellManager.cs
             ExecuteEvents.ExecuteHierarchy<IHasChanged>(gameObject, null, (x, y) => x.HasChanged());
         }
     }
