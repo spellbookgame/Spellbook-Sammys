@@ -24,9 +24,12 @@ public class CollectItemScript : MonoBehaviour
             combatUIManager.bnotifyPanelOpen = true;
         }
 
-        localPlayer.Spellcaster.spellPieces.Add(spellPieceType);
+        // localPlayer.Spellcaster.spellPieces.Add(spellPieceType);
+        int oldValue = (int)localPlayer.Spellcaster.dspellPieces[spellPieceType];
+        localPlayer.Spellcaster.dspellPieces[spellPieceType] = oldValue + 1;
+
         // setting text of notification panel
-        combatUIManager.Text_notify.text = "You found a " + spellPieceType + " spell piece!\n\nYou now have " +
-                            localPlayer.Spellcaster.spellPieces.Count + " spell pieces.";
+        combatUIManager.Text_notify.text = "You found a " + spellPieceType + "!\n\nYou now have " +
+                            (int)localPlayer.Spellcaster.dspellPieces[spellPieceType] + " " + spellPieceType + ".";
     }
 }

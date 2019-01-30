@@ -11,11 +11,14 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     private Vector3 startPos;
     private Transform startParent;
 
+    public static Transform originalParent;
     SpellManager spellManager;
 
     void Start()
     {
         spellManager = GameObject.Find("Canvas").GetComponent<SpellManager>();
+
+        originalParent = transform.parent;
     }
 
     public void OnBeginDrag(PointerEventData eventData)

@@ -17,7 +17,9 @@ public abstract class SpellCaster
     public Chapter chapter;
 
     // player's collection of spell pieces stored as strings
-    public List<string> spellPieces;
+    // public List<string> spellPieces;
+    // switch List<> spellPieces to dictionary that holds the spell piece and the player's # of that spellPiece
+    public Hashtable dspellPieces;
 
     // TODO:
     //private string backGroundStory; 
@@ -35,8 +37,18 @@ public abstract class SpellCaster
     {
         //fMaxHealth = 20.0f;     //Commented out in case Spellcasters have different max healths.
         numMana = 1000;
-        spellPieces = new List<string>();
-        
+        // spellPieces = new List<string>();
+
+        // initializing dictionary and adding values
+        dspellPieces = new Hashtable()
+        {
+            { "Alchemy Spell Piece", 0 },
+            { "Arcane Spell Piece", 0 },
+            { "Elemental Spell Piece", 0 },
+            { "Illusion Spell Piece", 0 },
+            { "Summoning Spell Piece", 0 },
+            { "Time Spell Piece", 0 }
+        };
     }
 
     void AddToInventory(string item, int count)
@@ -63,9 +75,11 @@ public abstract class SpellCaster
     public void CollectSpell(Spell spell, SpellCaster player)
     {
         GameObject g = GameObject.FindWithTag("SpellManager");
+
         // only add the spell if the player is the spell's class
         if (spell.sSpellClass == player.classType)
         {
+            // TODO: if chapter.spellsAllowed already contains spell, give error notice
             // add spell to its chapter
             chapter.spellsCollected.Add(spell);
 
@@ -80,9 +94,6 @@ public abstract class SpellCaster
             // remove spell pieces from player's library
             RemoveSpellPieces(player, spell);
         }
-        // this else statement isn't working
-        else if (spell.sSpellClass != player.classType)
-            g.GetComponent<SpellManager>().inventoryText.text = "You cannot collect a " + spell.sSpellClass + " spell as a " + player.classType + " wizard.";
     }
     
     // removes spell pieces from player's "inventory"
@@ -90,10 +101,14 @@ public abstract class SpellCaster
     {
         GameObject g = GameObject.FindWithTag("SpellManager");
 
+        int oldValue;
+
         // subtract spell pieces from player's inventory
         for (int i = 0; i < spell.requiredPiecesList.Count; ++i)
         {
-            player.spellPieces.Remove(spell.requiredPiecesList[i]);
+            oldValue = (int)player.dspellPieces[spell.requiredPiecesList[i]];
+            player.dspellPieces[spell.requiredPiecesList[i]] = oldValue - 1;
+
             Debug.Log("Removed " + spell.requiredPiecesList[i]);
         }
         // call function that removes prefabs in SpellManager.cs

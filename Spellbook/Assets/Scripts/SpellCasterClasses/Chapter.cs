@@ -30,8 +30,10 @@ public class Chapter : MonoBehaviour
                 spellsAllowed.Add(polymorph);
                 break;
             case "Arcanist":
-                Spell arcaneBlast = new ArcaneBlast();
-                spellsAllowed.Add(arcaneBlast);
+                Spell magicMissiles = new MagicMissiles();
+                spellsAllowed.Add(magicMissiles);
+                Spell arcanaHarvest = new ArcanaHarvest();
+                spellsAllowed.Add(arcanaHarvest);
                 break;
             case "Summoner":
                 Spell summonTree = new SummonTree();
@@ -59,13 +61,17 @@ public class Chapter : MonoBehaviour
     // this only works for the first spell in each chapter as of now
     public void CompareSpells(SpellCaster player, HashSet<string> slotHash)
     {
-        if (slotHash.Count == player.chapter.spellsAllowed[0].requiredPieces.Count)
+        // iterate through the player's spells allowed
+        for(int i = 0; i < player.chapter.spellsAllowed.Count; ++i)
         {
-            // if the two hashsets match
-            if (slotHash.SetEquals(player.chapter.spellsAllowed[0].requiredPieces))
+            if (slotHash.Count == player.chapter.spellsAllowed[i].requiredPieces.Count)
             {
-                // add the spell to player's chapter
-                player.CollectSpell(player.chapter.spellsAllowed[0], player);
+                // if the two hashsets match
+                if (slotHash.SetEquals(player.chapter.spellsAllowed[i].requiredPieces))
+                {
+                    // add the spell to player's chapter
+                    player.CollectSpell(player.chapter.spellsAllowed[i], player);
+                }
             }
         }
     }

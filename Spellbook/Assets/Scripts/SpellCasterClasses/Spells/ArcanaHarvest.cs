@@ -3,24 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // example spell for Arcanist class
-public class ArcaneBlast : Spell
+public class ArcanaHarvest : Spell
 {
-    public ArcaneBlast()
+    public ArcanaHarvest()
     {
-        sSpellName = "Arcane Blast";
+        sSpellName = "Arcana Harvest";
         iTier = 3;
         iManaCost = 100;
         sSpellClass = "Arcanist";
 
         // adding to hashset
         requiredPieces.Add("Arcane Spell Piece");
-        requiredPieces.Add("Alchemy Spell Piece");
+        requiredPieces.Add("Summoning Spell Piece");
         requiredPieces.Add("Elemental Spell Piece");
         requiredPieces.Add("Illusion Spell Piece");
 
         // adding to list
         requiredPiecesList.Add("Arcane Spell Piece");
-        requiredPiecesList.Add("Alchemy Spell Piece");
+        requiredPiecesList.Add("Summoning Spell Piece");
         requiredPiecesList.Add("Elemental Spell Piece");
         requiredPiecesList.Add("Illusion Spell Piece");
     }

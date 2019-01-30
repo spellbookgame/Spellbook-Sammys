@@ -48,39 +48,63 @@ public class SpellManager : MonoBehaviour, IHasChanged
         // add generated prefab into List<GameObject> to be referenced later
         if (panel != null)
         {
-            foreach(string s in localPlayer.Spellcaster.spellPieces)
+            foreach(string s in localPlayer.Spellcaster.dspellPieces.Keys)
             {
                 switch(s)
                 {
                     case "Alchemy Spell Piece":
-                        g0 = (GameObject)Instantiate(alchemySP);
-                        generatedObjects.Add(g0);
-                        g0.transform.SetParent(panel.transform, false);
+                        for(int i = 0; i < (int)localPlayer.Spellcaster.dspellPieces["Alchemy Spell Piece"]; ++i)
+                        {
+                            g0 = (GameObject)Instantiate(alchemySP);
+                            generatedObjects.Add(g0);
+                            Debug.Log("Added " + g0.name + " to generated objects list.");
+                            g0.transform.SetParent(panel.transform, false);
+                        }
                         break;
                     case "Arcane Spell Piece":
-                        g1 = (GameObject)Instantiate(arcaneSP);
-                        generatedObjects.Add(g1);
-                        g1.transform.SetParent(panel.transform, false);
+                        for (int i = 0; i < (int)localPlayer.Spellcaster.dspellPieces["Arcane Spell Piece"]; ++i)
+                        {
+                            g1 = (GameObject)Instantiate(arcaneSP);
+                            generatedObjects.Add(g1);
+                            Debug.Log("Added " + g1.name + " to generated objects list.");
+                            g1.transform.SetParent(panel.transform, false);
+                        }
                         break;
                     case "Elemental Spell Piece":
-                        g2 = (GameObject)Instantiate(elementalSP);
-                        generatedObjects.Add(g2);
-                        g2.transform.SetParent(panel.transform, false);
+                        for (int i = 0; i < (int)localPlayer.Spellcaster.dspellPieces["Elemental Spell Piece"]; ++i)
+                        {
+                            g2 = (GameObject)Instantiate(elementalSP);
+                            generatedObjects.Add(g2);
+                            Debug.Log("Added " + g2.name + " to generated objects list.");
+                            g2.transform.SetParent(panel.transform, false);
+                        }
                         break;
                     case "Illusion Spell Piece":
-                        g3 = (GameObject)Instantiate(tricksterSP);
-                        generatedObjects.Add(g3);
-                        g3.transform.SetParent(panel.transform, false);
+                        for (int i = 0; i < (int)localPlayer.Spellcaster.dspellPieces["Illusion Spell Piece"]; ++i)
+                        {
+                            g3 = (GameObject)Instantiate(tricksterSP);
+                            generatedObjects.Add(g3);
+                            Debug.Log("Added " + g3.name + " to generated objects list.");
+                            g3.transform.SetParent(panel.transform, false);
+                        }
                         break;
                     case "Summoning Spell Piece":
-                        g4 = (GameObject)Instantiate(summonerSP);
-                        generatedObjects.Add(g4);
-                        g4.transform.SetParent(panel.transform, false);
+                        for (int i = 0; i < (int)localPlayer.Spellcaster.dspellPieces["Summoning Spell Piece"]; ++i)
+                        {
+                            g4 = (GameObject)Instantiate(summonerSP);
+                            generatedObjects.Add(g4);
+                            Debug.Log("Added " + g4.name + " to generated objects list.");
+                            g4.transform.SetParent(panel.transform, false);
+                        }
                         break;
                     case "Time Spell Piece":
-                        g5 = (GameObject)Instantiate(chronomancySP);
-                        generatedObjects.Add(g5);
-                        g5.transform.SetParent(panel.transform, false);
+                        for (int i = 0; i < (int)localPlayer.Spellcaster.dspellPieces["Time Spell Piece"]; ++i)
+                        {
+                            g5 = (GameObject)Instantiate(chronomancySP);
+                            generatedObjects.Add(g5);
+                            Debug.Log("Added " + g5.name + " to generated objects list.");
+                            g5.transform.SetParent(panel.transform, false);
+                        }
                         break;
                     default:
                         break;
@@ -99,8 +123,6 @@ public class SpellManager : MonoBehaviour, IHasChanged
             if(item)
             {
                 ++i;
-                Debug.Log(i);
-                
             }
         }
         // if all slots are filled, call the CompareSpells() function
@@ -111,7 +133,7 @@ public class SpellManager : MonoBehaviour, IHasChanged
     }
 
     // removes item from generatedObjects list and destroys prefab
-    // BUG: this destroys all duplicates of the prefab
+    // BUG: this destroys all duplicates of the prefab (only the item, not the slot)
     public void RemovePrefabs(Spell spell)
     {
         // remove slots in scrolling panel
@@ -125,7 +147,6 @@ public class SpellManager : MonoBehaviour, IHasChanged
                     break;
                 case "Arcane Spell Piece":
                     Destroy(generatedObjects[generatedObjects.IndexOf(g1)]);
-                    Debug.Log("arcane destroyed");
                     generatedObjects.Remove(g1);
                     break;
                 case "Elemental Spell Piece":

@@ -30,7 +30,7 @@ public class SlotHandler : MonoBehaviour, IDropHandler
         // if the slot has no item, then allow item to be dragged in
         if(!item)
         {
-            // set item being dragged's transform to current slot transform
+            // set item being dragged's parent to current slot's transform
             DragHandler.itemToDrag.transform.SetParent(transform);
 
             // if item being dragged's parent's parent is the panel, then remove its element from the hashset
