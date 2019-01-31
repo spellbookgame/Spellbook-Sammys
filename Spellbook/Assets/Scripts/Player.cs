@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -9,6 +10,9 @@ public class Player : MonoBehaviour
     //The player's chosen spellcaster class.
     private SpellCaster spellcaster;
     private bool bHasChosenSpellcaster = false;
+
+    // for the sake of debugging:
+    [SerializeField] Text classText;
 
     public SpellCaster Spellcaster {
         get => spellcaster;
@@ -52,18 +56,21 @@ public class Player : MonoBehaviour
     {
         spellcaster = new Alchemist();
         Debug.Log("Local Player chose " + spellcaster.classType);
+        classText.text = "You chose the " + spellcaster.classType + " class.";
     }
 
     public void onClickElementalist()
     {
         spellcaster = new Elementalist();
         Debug.Log("Local Player chose " + spellcaster.classType);
+        classText.text = "You chose the " + spellcaster.classType + " class.";
     }
 
     public void onClickArcanist()
     {
         spellcaster = new Arcanist();
         Debug.Log("Local Player chose " + spellcaster.classType);
+        classText.text = "You chose the " + spellcaster.classType + " class.";
 
     }
 
@@ -71,6 +78,7 @@ public class Player : MonoBehaviour
     {
         spellcaster = new Chronomancer();
         Debug.Log("Local Player chose " + spellcaster.classType);
+        classText.text = "You chose the " + spellcaster.classType + " class.";
 
     }
 
@@ -78,6 +86,7 @@ public class Player : MonoBehaviour
     {
         spellcaster = new Trickster();
         Debug.Log("Local Player chose " + spellcaster.classType);
+        classText.text = "You chose the " + spellcaster.classType + " class.";
 
     }
 
@@ -85,6 +94,7 @@ public class Player : MonoBehaviour
     {
         spellcaster = new Summoner();
         Debug.Log("Local Player chose " + spellcaster.classType);
+        classText.text = "You chose the " + spellcaster.classType + " class.";
 
     }
     #endregion

@@ -50,7 +50,7 @@ public class CombatUIManager : MonoBehaviour
             newSpellButton.onClick.AddListener(() => localPlayer.Spellcaster.chapter.spellsCollected[i2].SpellCast(localPlayer.Spellcaster));
 
             // to position new button underneath prev button
-            yPos += 200;
+            yPos -= 200;
         }
     }
 
