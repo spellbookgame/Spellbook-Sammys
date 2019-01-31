@@ -12,13 +12,13 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     private Transform startParent;
 
     public static Transform originalParent;
-    SpellManager spellManager;
+    Player localPlayer;
 
     void Start()
     {
-        spellManager = GameObject.Find("Canvas").GetComponent<SpellManager>();
-
         originalParent = transform.parent;
+
+        localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -28,7 +28,7 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         startPos = transform.position;
         startParent = transform.parent;
         // allows to pass events through the item being dragged
-        GetComponent<CanvasGroup>().blocksRaycasts = false;
+        //GetComponent<CanvasGroup>().blocksRaycasts = false;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -41,11 +41,15 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     public void OnEndDrag(PointerEventData eventData)
     {
         itemToDrag = null;
-        GetComponent<CanvasGroup>().blocksRaycasts = true;
+        //GetComponent<CanvasGroup>().blocksRaycasts = true;
         // if item was dragged back into its original parent, then set its position back to where it was
         if (transform.parent == startParent)
         {
-            transform.position = startPos;
+            // transform.position = startPos;
+
+            // if item is dragged back to the panel, destroy it and increment player's number of that spell piece
+            Destroy(itemBeingDragged.gameObject);
+            localPlayer.Spellcaster.dspellPieces[itemBeingDragged.name] += 1;
         }
     }
 }

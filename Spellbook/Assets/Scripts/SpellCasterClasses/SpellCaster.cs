@@ -19,7 +19,7 @@ public abstract class SpellCaster
     // player's collection of spell pieces stored as strings
     // public List<string> spellPieces;
     // switch List<> spellPieces to dictionary that holds the spell piece and the player's # of that spellPiece
-    public Hashtable dspellPieces;
+    public Dictionary<string, int> dspellPieces;
 
     // TODO:
     //private string backGroundStory; 
@@ -40,7 +40,7 @@ public abstract class SpellCaster
         // spellPieces = new List<string>();
 
         // initializing dictionary and adding values
-        dspellPieces = new Hashtable()
+        dspellPieces = new Dictionary<string, int>()
         {
             { "Alchemy Spell Piece", 0 },
             { "Arcane Spell Piece", 0 },
@@ -91,27 +91,8 @@ public abstract class SpellCaster
 
             Debug.Log("You have " + chapter.spellsCollected.Count + " spells collected.");
 
-            // remove spell pieces from player's library
-            RemoveSpellPieces(player, spell);
+            // call function that removes prefabs in SpellManager.cs
+            g.GetComponent<SpellManager>().RemovePrefabs(spell);
         }
-    }
-    
-    // removes spell pieces from player's "inventory"
-    public void RemoveSpellPieces(SpellCaster player, Spell spell)
-    {
-        GameObject g = GameObject.FindWithTag("SpellManager");
-
-        int oldValue;
-
-        // subtract spell pieces from player's inventory
-        for (int i = 0; i < spell.requiredPiecesList.Count; ++i)
-        {
-            oldValue = (int)player.dspellPieces[spell.requiredPiecesList[i]];
-            player.dspellPieces[spell.requiredPiecesList[i]] = oldValue - 1;
-
-            Debug.Log("Removed " + spell.requiredPiecesList[i]);
-        }
-        // call function that removes prefabs in SpellManager.cs
-        g.GetComponent<SpellManager>().RemovePrefabs(spell);
     }
 }
