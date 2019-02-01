@@ -20,4 +20,9 @@ public class SceneScript : MonoBehaviour
     {
         SceneManager.LoadScene("SpellCreateScene");
     }
+
+    public void loadQRScene()
+    {
+        SceneManager.LoadScene("AugmentedImage");
+    }
 }
