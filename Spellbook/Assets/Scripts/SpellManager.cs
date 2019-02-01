@@ -52,6 +52,7 @@ public class SpellManager : MonoBehaviour, IHasChanged
         // remove slot children
         foreach(Transform slotTransform in slots)
         {
+            hashSpellPieces.Remove(slotTransform.GetChild(0).name);
             Destroy(slotTransform.GetChild(0).gameObject);
         }
     }

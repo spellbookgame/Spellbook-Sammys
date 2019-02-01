@@ -14,11 +14,14 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     public static Transform originalParent;
     Player localPlayer;
 
+    SpellManager spellManager;
+
     void Start()
     {
         originalParent = transform.parent;
 
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
+        spellManager = GameObject.Find("Canvas").GetComponent<SpellManager>();
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -47,9 +50,11 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         {
             // transform.position = startPos;
 
-            // if item is dragged back to the panel, destroy it and increment player's number of that spell piece
-            Destroy(itemBeingDragged.gameObject);
+            // if item is dragged back to the panel, destroy it and increment player's number of that spell piece, remove from hashset
             localPlayer.Spellcaster.dspellPieces[itemBeingDragged.name] += 1;
+            spellManager.hashSpellPieces.Remove(itemBeingDragged.name);
+            Debug.Log("Removed " + itemBeingDragged.name + ". Hash Count is now: " + spellManager.hashSpellPieces.Count);
+            Destroy(itemBeingDragged.gameObject);
         }
     }
 }

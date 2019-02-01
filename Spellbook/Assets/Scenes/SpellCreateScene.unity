@@ -1423,26 +1423,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slots: {fileID: 1617393793}
   inventoryText: {fileID: 868467669}
-  arcaneSP: {fileID: 1268486999199888900, guid: a5c92f8766d1748429d08fabf76df204,
-    type: 3}
-  alchemySP: {fileID: 5605659969949007849, guid: 3d6cda39519a28448923a3b5bdc77c53,
-    type: 3}
-  chronomancySP: {fileID: 8935009585559018433, guid: fea7ce95022ec4f4ba300c92a791a176,
-    type: 3}
-  elementalSP: {fileID: 4404104796962382198, guid: f696ffa75a6c1cb4da434a3d8422e4ca,
-    type: 3}
-  tricksterSP: {fileID: 6976791957133805007, guid: e1104b18bfe9c41429430d564a6a913b,
-    type: 3}
-  summonerSP: {fileID: 2880500045696069155, guid: b7dce4041b1fdf44c857501f19e11d58,
-    type: 3}
   panel: {fileID: 2062214375}
-  generatedObjects: []
-  g0: {fileID: 0}
-  g1: {fileID: 0}
-  g2: {fileID: 0}
-  g3: {fileID: 0}
-  g4: {fileID: 0}
-  g5: {fileID: 0}
 --- !u!1 &1510326046
 GameObject:
   m_ObjectHideFlags: 0
@@ -2724,6 +2705,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3074446596004982880, guid: 596dae30228e4104f97f74f5d7acdbd9,
+        type: 3}
+      propertyPath: m_Name
+      value: Image
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 596dae30228e4104f97f74f5d7acdbd9, type: 3}

@@ -64,6 +64,7 @@ namespace GoogleARCore.Examples.AugmentedImage
             }
 
             // Get updated augmented images for this frame.
+            // call by: Session.GetTrackables<AugmentedImage>(myList, TrackableQueryFilter.Updated);
             Session.GetTrackables<AugmentedImage>(m_TempAugmentedImages, TrackableQueryFilter.Updated);
 
             // Create visualizers and anchors for updated augmented images that are tracking and do not previously

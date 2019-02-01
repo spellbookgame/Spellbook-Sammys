@@ -5,10 +5,11 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 public class SPClickHandler : MonoBehaviour, IPointerClickHandler
-{
+{ 
     [SerializeField] GameObject imageClone;
-
     [SerializeField] Text numText;
+
+    private GameObject currentObject;
 
     Player localPlayer;
 
@@ -35,6 +36,18 @@ public class SPClickHandler : MonoBehaviour, IPointerClickHandler
 
     void Update()
     {
+        /*if(Input.GetMouseButtonDown(0))
+        {
+            currentObject = Instantiate(imageClone, Input.mousePosition, Quaternion.identity);
+        }
+        if(Input.GetMouseButton(0) && currentObject)
+        {
+            currentObject.transform.position = Input.mousePosition;
+        }
+        if(Input.GetMouseButtonUp(0) && currentObject)
+        {
+            currentObject = null;
+        }*/
         numText.text = localPlayer.Spellcaster.dspellPieces[imageClone.name].ToString();
     }
 }
