@@ -22,8 +22,6 @@ public class HealthManager : MonoBehaviour
     {
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
 
-        Debug.Log("spell pieces: " + localPlayer.Spellcaster.numSpellPieces);
-
         // setting player's current health to equal max health
         localPlayer.Spellcaster.fCurrentHealth = localPlayer.Spellcaster.fMaxHealth;
 
@@ -89,7 +87,7 @@ public class HealthManager : MonoBehaviour
             Text_enemyHealthText.text = "0";
 
             // notify player that spell piece was collected
-            collectItemScript.CollectSpellPiece();
+            // collectItemScript.CollectSpellPiece();
         }
     }
 

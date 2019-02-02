@@ -12,44 +12,48 @@ using UnityEngine.UI;
 public class SpellManager : MonoBehaviour, IHasChanged
 {
     [SerializeField] Transform slots;
-    [SerializeField] Text inventoryText;
-    [SerializeField] GameObject spellPiece;
-    [SerializeField] GameObject panel;
+    [SerializeField] public Text inventoryText;
+    [SerializeField] public GameObject panel;
 
-    private bool bSpellCreated;
+    public HashSet<string> hashSpellPieces;
 
     Player localPlayer;
-    SlotHandler slotHandler;
-    ArcaneBlast aBlast1 = new ArcaneBlast();
-   
-    // Start is called before the first frame update
+    
     void Start()
     {
-        bSpellCreated = false;
+        hashSpellPieces = new HashSet<string>();
 
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
-        slotHandler = GameObject.Find("Slot").GetComponent<SlotHandler>();
         HasChanged();
-
-        int numSpellPieces = localPlayer.Spellcaster.numSpellPieces;
-        // populate panel with spell pieces depending on how many player has
-        if (panel != null)
-        {
-            while(numSpellPieces > 0)
-            {
-                GameObject g = (GameObject)Instantiate(spellPiece);
-                g.transform.SetParent(panel.transform, false);
-                numSpellPieces--;
-            }
-        }
     }
 
     void Update()
     {
-        // ideally this shouldnt be in Update, because we dont want it to keep collecting spells
-        // the if statement ensures that this only runs once; once a spell is created, it will stop checking
-        if(bSpellCreated == false)
-            CheckSpellSlots();
+        // checking to see if each slot is filled
+        int i = 0;
+        foreach(Transform slotTransform in slots)
+        {
+            GameObject item = slotTransform.GetComponent<SlotHandler>().item;
+            if(item)
+            {
+                ++i;
+            }
+        }
+        // if all slots are filled, call the CompareSpells() function
+        if(i >= 4)
+        {
+            localPlayer.Spellcaster.chapter.CompareSpells(localPlayer.Spellcaster, hashSpellPieces);
+        }
+    }
+
+    // iterates through each slot and deletes child
+    public void RemovePrefabs(Spell spell)
+    {
+        // remove slot children
+        foreach(Transform slotTransform in slots)
+        {
+            Destroy(slotTransform.GetChild(0).gameObject);
+        }
     }
 
     public void HasChanged()
@@ -63,39 +67,17 @@ public class SpellManager : MonoBehaviour, IHasChanged
             // if there is an item returned
             if(item)
             {
+                // add the spellPiece name to hashset
+                hashSpellPieces.Add(slotTransform.GetChild(0).name);
+                Debug.Log("Added: " + slotTransform.GetChild(0).name);
+                Debug.Log("HashSet count: " + hashSpellPieces.Count);
+
                 // add item name to builder
                 builder.Append(item.name);
                 builder.Append(" - ");
             }
         }
         inventoryText.text = builder.ToString();
-    }
-
-    public void CheckSpellSlots()
-    {
-        // TODO: make this more efficient?
-        // right now, this method makes it so that order matters (left to right, top to bottom)
-        int i = 0;
-        foreach (Transform slotTransform in slots)
-        {
-            // if the slot isn't empty
-            if(slotTransform.childCount > 0)
-            {
-                // if the slot's item name matches the required piece of the spell's name
-                if (slotTransform.GetChild(0).name == aBlast1.requiredPieces[i])
-                {
-                    i++;
-                    if (i >= 4)
-                    {
-                        // add spell to player's chapter
-                        localPlayer.Spellcaster.CollectSpell(aBlast1);
-                        bSpellCreated = true;
-                    }
-                }
-                else
-                    break;
-            }
-        }
     }
 }
 

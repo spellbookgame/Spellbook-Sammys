@@ -13,16 +13,46 @@ public class CombatUIManager : MonoBehaviour
     [SerializeField] private GameObject Panel_inventory;
     [SerializeField] private GameObject Panel_help;
     [SerializeField] private GameObject Panel_spell;
+    [SerializeField] private Button spellButton;
 
     // private variables
-    public bool bInventoryOpen = false;
-    public bool bHelpOpen = false;
-    public bool bSpellOpen = false;
-    public bool bnotifyPanelOpen = false;
+    private bool bInventoryOpen = false;
+    private bool bHelpOpen = false;
+    private bool bSpellOpen = false;
+
+    private CollectItemScript collectItemScript;
 
     // notify panel is also used in CollectItemScript
     public GameObject Panel_notify;
     public Text Text_notify;
+    public bool bnotifyPanelOpen = false;
+
+    Player localPlayer;
+
+    private void Start()
+    {
+        collectItemScript = gameObject.GetComponent<CollectItemScript>();
+
+        localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
+
+        int yPos = 1300;
+        // for every spell player has collected, add a button for that spell in Panel_spell  
+        for (int i = 0; i < localPlayer.Spellcaster.chapter.spellsCollected.Count; i++)
+        {
+            Button newSpellButton = Instantiate(spellButton);
+            newSpellButton.transform.parent = Panel_spell.transform;
+            newSpellButton.GetComponentInChildren<Text>().text = localPlayer.Spellcaster.chapter.spellsCollected[i].sSpellName;
+            newSpellButton.transform.position = new Vector3(Panel_spell.transform.position.x, yPos, 0);
+            
+            // new int to pass into button onClick listener so loop will not throw index out of bounds error
+            int i2 = i;
+            // add listener to button
+            newSpellButton.onClick.AddListener(() => localPlayer.Spellcaster.chapter.spellsCollected[i2].SpellCast(localPlayer.Spellcaster));
+
+            // to position new button underneath prev button
+            yPos -= 200;
+        }
+    }
 
     public void closePanels()
     {
@@ -94,5 +124,31 @@ public class CombatUIManager : MonoBehaviour
             Panel_notify.SetActive(false);
             bnotifyPanelOpen = false;
         }
+    }
+
+    // ----------------------------------- DEBUGGING: ALL SPELL PIECE BUTTONS ------------------------------------------
+    public void arcaneSPClick()
+    {
+        collectItemScript.CollectSpellPiece("Arcane Spell Piece");
+    }
+    public void alchemySPClick()
+    {
+        collectItemScript.CollectSpellPiece("Alchemy Spell Piece");
+    }
+    public void chronomancySPClick()
+    {
+        collectItemScript.CollectSpellPiece("Time Spell Piece");
+    }
+    public void elementalSPClick()
+    {
+        collectItemScript.CollectSpellPiece("Elemental Spell Piece");
+    }
+    public void summoningSPClick()
+    {
+        collectItemScript.CollectSpellPiece("Summoning Spell Piece");
+    }
+    public void tricksterSPClick()
+    {
+        collectItemScript.CollectSpellPiece("Illusion Spell Piece");
     }
 }

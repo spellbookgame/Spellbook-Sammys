@@ -13,7 +13,8 @@ public class CollectItemScript : MonoBehaviour
         combatUIManager = gameObject.GetComponent<CombatUIManager>();
     }
 
-    public void CollectSpellPiece()
+    // currently called in CombatUIManager.cs for debugging
+    public void CollectSpellPiece(string spellPieceType)
     {
         // setting notifyPanel to active
         if (combatUIManager.bnotifyPanelOpen == false)
@@ -22,11 +23,13 @@ public class CollectItemScript : MonoBehaviour
             combatUIManager.Panel_notify.SetActive(true);
             combatUIManager.bnotifyPanelOpen = true;
         }
-        // increment player's number of spell pieces
-        localPlayer.Spellcaster.numSpellPieces++;
+
+        // localPlayer.Spellcaster.spellPieces.Add(spellPieceType);
+        int oldValue = (int)localPlayer.Spellcaster.dspellPieces[spellPieceType];
+        localPlayer.Spellcaster.dspellPieces[spellPieceType] = oldValue + 1;
 
         // setting text of notification panel
-        combatUIManager.Text_notify.text = "You found a spell piece!\n\nYou now have " +
-                            localPlayer.Spellcaster.numSpellPieces + " spell pieces.";
+        combatUIManager.Text_notify.text = "You found a " + spellPieceType + "!\n\nYou now have " +
+                            (int)localPlayer.Spellcaster.dspellPieces[spellPieceType] + " " + spellPieceType + ".";
     }
 }

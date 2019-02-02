@@ -12,10 +12,14 @@ public abstract class SpellCaster
 
     public int iBasicAttackStrength;
     public int numMana;
-    public int numSpellPieces;
 
     public string classType;
     public Chapter chapter;
+
+    // player's collection of spell pieces stored as strings
+    // public List<string> spellPieces;
+    // switch List<> spellPieces to dictionary that holds the spell piece and the player's # of that spellPiece
+    public Dictionary<string, int> dspellPieces;
 
     // TODO:
     //private string backGroundStory; 
@@ -25,14 +29,26 @@ public abstract class SpellCaster
     //Object DeleteFromInventory(string itemName, int count); 
 
     // Virtual Functions
-    public abstract void SpellCast();
+    // SpellCast() moved to Spell.cs
+    // public abstract void SpellCast();
 
     // CTOR
     public SpellCaster()
     {
         //fMaxHealth = 20.0f;     //Commented out in case Spellcasters have different max healths.
-        numSpellPieces = 0;
-        numMana = 0;
+        numMana = 1000;
+        // spellPieces = new List<string>();
+
+        // initializing dictionary and adding values
+        dspellPieces = new Dictionary<string, int>()
+        {
+            { "Alchemy Spell Piece", 0 },
+            { "Arcane Spell Piece", 0 },
+            { "Elemental Spell Piece", 0 },
+            { "Illusion Spell Piece", 0 },
+            { "Summoning Spell Piece", 0 },
+            { "Time Spell Piece", 0 }
+        };
     }
 
     void AddToInventory(string item, int count)
@@ -54,15 +70,29 @@ public abstract class SpellCaster
         }
     }
 
-    // TODO: right now, any class can collect any spell; we need to fix this
-    public void CollectSpell(Spell spell)
+    // method that adds spell to player's chapter
+    // called from Chapter.cs
+    public void CollectSpell(Spell spell, SpellCaster player)
     {
-        // add it to its chapter
-        chapter.spellsCollected.Add(spell);
+        GameObject g = GameObject.FindWithTag("SpellManager");
 
-        // tell player that the spell is collected
-        Debug.Log(spell.sSpellName + " was added to your chapter!");
-        for(int i = 0; i < chapter.spellsCollected.Count; i++)
-            Debug.Log(chapter.spellsCollected[i].sSpellName);
+        // only add the spell if the player is the spell's class
+        if (spell.sSpellClass == player.classType)
+        {
+            // TODO: if chapter.spellsAllowed already contains spell, give error notice
+            // add spell to its chapter
+            chapter.spellsCollected.Add(spell);
+
+            // tell player that the spell is collected
+            g.GetComponent<SpellManager>().inventoryText.text = "You unlocked " + spell.sSpellName + "!";
+            Debug.Log("In your chapter you have:");
+            for (int i = 0; i < chapter.spellsCollected.Count; ++i)
+                Debug.Log(chapter.spellsCollected[i].sSpellName);
+
+            Debug.Log("You have " + chapter.spellsCollected.Count + " spells collected.");
+
+            // call function that removes prefabs in SpellManager.cs
+            g.GetComponent<SpellManager>().RemovePrefabs(spell);
+        }
     }
 }
