@@ -44,7 +44,6 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
             GameObject clone = Instantiate((GameObject)Resources.Load(itemToDrag.name), originalParent);
             clone.name = itemToDrag.name;
 
-            // add a new DragHandler.cs script to the prefab
             clone.AddComponent<DragHandler>();
 
             // subtract 1 from the player's inventory whenever the spell piece is used
@@ -52,8 +51,6 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
             // set the instantiated clone's text to the number player has
             clone.transform.GetChild(0).GetComponent<Text>().text = localPlayer.Spellcaster.dspellPieces[clone.name].ToString();
-
-            Debug.Log("Slot child count: " + originalParent.childCount);
         }
 
         // if dragging item has a text child, destroy it
