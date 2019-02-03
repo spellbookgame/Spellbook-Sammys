@@ -15,6 +15,13 @@ public class SpellManager : MonoBehaviour, IHasChanged
     [SerializeField] public Text inventoryText;
     [SerializeField] public GameObject panel;
 
+    [SerializeField] GameObject alchemySP;
+    [SerializeField] GameObject arcaneSP;
+    [SerializeField] GameObject elementalSP;
+    [SerializeField] GameObject illusionSP;
+    [SerializeField] GameObject summoningSP;
+    [SerializeField] GameObject timeSP;
+
     public HashSet<string> hashSpellPieces;
 
     Player localPlayer;
@@ -25,6 +32,14 @@ public class SpellManager : MonoBehaviour, IHasChanged
 
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
         HasChanged();
+        
+        // set text of all these to the number that player has collected
+        alchemySP.transform.GetChild(0).GetComponent<Text>().text = localPlayer.Spellcaster.dspellPieces[alchemySP.name].ToString();
+        arcaneSP.transform.GetChild(0).GetComponent<Text>().text = localPlayer.Spellcaster.dspellPieces[arcaneSP.name].ToString();
+        elementalSP.transform.GetChild(0).GetComponent<Text>().text = localPlayer.Spellcaster.dspellPieces[elementalSP.name].ToString();
+        illusionSP.transform.GetChild(0).GetComponent<Text>().text = localPlayer.Spellcaster.dspellPieces[illusionSP.name].ToString();
+        summoningSP.transform.GetChild(0).GetComponent<Text>().text = localPlayer.Spellcaster.dspellPieces[summoningSP.name].ToString();
+        timeSP.transform.GetChild(0).GetComponent<Text>().text = localPlayer.Spellcaster.dspellPieces[timeSP.name].ToString();
     }
 
     void Update()
