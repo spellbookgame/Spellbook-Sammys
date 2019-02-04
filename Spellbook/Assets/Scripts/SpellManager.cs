@@ -40,20 +40,6 @@ public class SpellManager : MonoBehaviour, IHasChanged
         illusionSP.transform.GetChild(0).GetComponent<Text>().text = localPlayer.Spellcaster.dspellPieces[illusionSP.name].ToString();
         summoningSP.transform.GetChild(0).GetComponent<Text>().text = localPlayer.Spellcaster.dspellPieces[summoningSP.name].ToString();
         timeSP.transform.GetChild(0).GetComponent<Text>().text = localPlayer.Spellcaster.dspellPieces[timeSP.name].ToString();
-
-        // add drag handler script to item only if player has item
-        /*if (localPlayer.Spellcaster.dspellPieces[alchemySP.name] > 0)
-            alchemySP.AddComponent<DragHandler>();
-        if (localPlayer.Spellcaster.dspellPieces[arcaneSP.name] > 0)
-            arcaneSP.AddComponent<DragHandler>();
-        if (localPlayer.Spellcaster.dspellPieces[elementalSP.name] > 0)
-            elementalSP.AddComponent<DragHandler>();
-        if (localPlayer.Spellcaster.dspellPieces[illusionSP.name] > 0)
-            illusionSP.AddComponent<DragHandler>();
-        if (localPlayer.Spellcaster.dspellPieces[summoningSP.name] > 0)
-            summoningSP.AddComponent<DragHandler>();
-        if (localPlayer.Spellcaster.dspellPieces[timeSP.name] > 0)
-            timeSP.AddComponent<DragHandler>();*/
     }
 
     void Update()

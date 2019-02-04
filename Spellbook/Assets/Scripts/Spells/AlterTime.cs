@@ -2,32 +2,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// example spell for Arcanist class
-public class ArcanaHarvest : Spell
+// example spell for Chronomancer class
+public class AlterTime : Spell
 {
-    public ArcanaHarvest()
+    public AlterTime()
     {
-        sSpellName = "Arcana Harvest";
+        sSpellName = "Alter Time";
         iTier = 3;
         iManaCost = 100;
-        sSpellClass = "Arcanist";
+        sSpellClass = "Chronomancer";
 
         // adding to hashset
-        requiredPieces.Add("Arcane Spell Piece");
+        requiredPieces.Add("Time Spell Piece");
+        requiredPieces.Add("Alchemy Spell Piece");
         requiredPieces.Add("Summoning Spell Piece");
-        requiredPieces.Add("Elemental Spell Piece");
         requiredPieces.Add("Illusion Spell Piece");
 
         // adding to list
-        requiredPiecesList.Add("Arcane Spell Piece");
+        requiredPiecesList.Add("Time Spell Piece");
+        requiredPiecesList.Add("Alchemy Spell Piece");
         requiredPiecesList.Add("Summoning Spell Piece");
-        requiredPiecesList.Add("Elemental Spell Piece");
         requiredPiecesList.Add("Illusion Spell Piece");
     }
 
     public override void SpellCast(SpellCaster player)
     {
         Debug.Log(sSpellName + " was cast!");
-        player.numMana -= iManaCost;
+        player.iMana -= iManaCost;
     }
 }

@@ -21,6 +21,6 @@ public class MirrorImage : Spell
     public override void SpellCast(SpellCaster player)
     {
         Debug.Log(sSpellName + " was cast!");
-        player.numMana -= iManaCost;
+        player.iMana -= iManaCost;
     }
 }

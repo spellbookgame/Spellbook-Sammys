@@ -11,14 +11,12 @@ public abstract class SpellCaster
     public float fCurrentHealth;
 
     public int iBasicAttackStrength;
-    public int numMana;
+    public int iMana;
 
     public string classType;
     public Chapter chapter;
 
     // player's collection of spell pieces stored as strings
-    // public List<string> spellPieces;
-    // switch List<> spellPieces to dictionary that holds the spell piece and the player's # of that spellPiece
     public Dictionary<string, int> dspellPieces;
 
     // TODO:
@@ -36,8 +34,7 @@ public abstract class SpellCaster
     public SpellCaster()
     {
         //fMaxHealth = 20.0f;     //Commented out in case Spellcasters have different max healths.
-        numMana = 1000;
-        // spellPieces = new List<string>();
+        iMana = 1000;
 
         // initializing dictionary and adding values
         dspellPieces = new Dictionary<string, int>()

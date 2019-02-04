@@ -1,10 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 // script to manage UI in CombatScene
-// CURRENT ISSUE: panels can open on top of each other
 public class CombatUIManager : MonoBehaviour
 {
     // serializefield private variables
@@ -14,6 +11,7 @@ public class CombatUIManager : MonoBehaviour
     [SerializeField] private GameObject Panel_help;
     [SerializeField] private GameObject Panel_spell;
     [SerializeField] private Button spellButton;
+    [SerializeField] private Text Text_mana;
 
     // private variables
     private bool bInventoryOpen = false;
@@ -35,6 +33,8 @@ public class CombatUIManager : MonoBehaviour
 
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
 
+        Text_mana.text = localPlayer.Spellcaster.iMana.ToString();
+
         int yPos = 1300;
         // for every spell player has collected, add a button for that spell in Panel_spell  
         for (int i = 0; i < localPlayer.Spellcaster.chapter.spellsCollected.Count; i++)
@@ -52,6 +52,11 @@ public class CombatUIManager : MonoBehaviour
             // to position new button underneath prev button
             yPos -= 200;
         }
+    }
+
+    private void Update()
+    {
+        Text_mana.text = localPlayer.Spellcaster.iMana.ToString();
     }
 
     public void closePanels()
