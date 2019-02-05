@@ -10,7 +10,7 @@ public class CombatUIManager : MonoBehaviour
     [SerializeField] private GameObject Panel_inventory;
     [SerializeField] private GameObject Panel_help;
     [SerializeField] private GameObject Panel_spell;
-    [SerializeField] private Button spellButton;
+    //[SerializeField] private Button spellButton;
     [SerializeField] private Text Text_mana;
 
     // private variables
@@ -34,24 +34,6 @@ public class CombatUIManager : MonoBehaviour
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
 
         Text_mana.text = localPlayer.Spellcaster.iMana.ToString();
-
-        int yPos = 1300;
-        // for every spell player has collected, add a button for that spell in Panel_spell  
-        for (int i = 0; i < localPlayer.Spellcaster.chapter.spellsCollected.Count; i++)
-        {
-            Button newSpellButton = Instantiate(spellButton);
-            newSpellButton.transform.parent = Panel_spell.transform;
-            newSpellButton.GetComponentInChildren<Text>().text = localPlayer.Spellcaster.chapter.spellsCollected[i].sSpellName;
-            newSpellButton.transform.position = new Vector3(Panel_spell.transform.position.x, yPos, 0);
-            
-            // new int to pass into button onClick listener so loop will not throw index out of bounds error
-            int i2 = i;
-            // add listener to button
-            newSpellButton.onClick.AddListener(() => localPlayer.Spellcaster.chapter.spellsCollected[i2].SpellCast(localPlayer.Spellcaster));
-
-            // to position new button underneath prev button
-            yPos -= 200;
-        }
     }
 
     private void Update()
@@ -103,21 +85,6 @@ public class CombatUIManager : MonoBehaviour
         {
             Panel_help.SetActive(false);
             bHelpOpen = false;
-        }
-    }
-
-    // when spell button is clicked
-    public void spellClick()
-    {
-        if (bSpellOpen == false)
-        {
-            Panel_spell.SetActive(true);
-            bSpellOpen = true;
-        }
-        else if (bSpellOpen == true)
-        {
-            Panel_spell.SetActive(false);
-            bSpellOpen = false;
         }
     }
 

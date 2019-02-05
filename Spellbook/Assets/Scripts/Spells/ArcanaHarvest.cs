@@ -12,7 +12,7 @@ public class ArcanaHarvest : Spell
         iManaCost = 100;
         sSpellClass = "Arcanist";
 
-        // adding to hashset
+        // adding to hashset 
         requiredPieces.Add("Arcane Spell Piece");
         requiredPieces.Add("Summoning Spell Piece");
         requiredPieces.Add("Elemental Spell Piece");

@@ -4,11 +4,10 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-/* 
- * namespace / HasChanged() written by Kiwasi Games
+/* namespace / HasChanged() written by Kiwasi Games
  * this script creates a builder that builds strings of item 
  * names as they are dropped into slots 
-*/
+ */
 public class SpellManager : MonoBehaviour, IHasChanged
 {
     [SerializeField] Transform slots;
@@ -94,6 +93,18 @@ public class SpellManager : MonoBehaviour, IHasChanged
             }
         }
         inventoryText.text = builder.ToString();
+    }
+
+    // if the scene is changed while spell pieces are still in slots, return them to player's inventory
+    void OnDestroy()
+    {
+        foreach (Transform slotTransform in slots)
+        {
+            if (slotTransform.childCount > 0)
+            {
+                localPlayer.Spellcaster.dspellPieces[slotTransform.GetChild(0).name] += 1;
+            }
+        }
     }
 }
 

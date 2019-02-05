@@ -40,7 +40,7 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         // if player has enough spell pieces and the slot has less than 1 child in it
         if (localPlayer.Spellcaster.dspellPieces[itemToDrag.name] > 0 && originalParent.childCount < 1)
         {
-            // instantiate prefab of whatever was dragged, and ommitting (clone) from its name
+            // instantiate prefab of whatever was dragged, and omit (clone) from its name
             GameObject clone = Instantiate((GameObject)Resources.Load(itemToDrag.name), originalParent);
             clone.name = itemToDrag.name;
 

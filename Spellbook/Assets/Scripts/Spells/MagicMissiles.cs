@@ -27,6 +27,10 @@ public class MagicMissiles : Spell
 
     public override void SpellCast(SpellCaster player)
     {
+        HealthManager healthManager = GameObject.Find("ScriptContainer").GetComponent<HealthManager>();
+        int damage = Random.Range(3, 12);
+        healthManager.HitEnemy(damage);
+
         Debug.Log(sSpellName + " was cast!");
         player.iMana -= iManaCost;
     }
