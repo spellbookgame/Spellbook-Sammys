@@ -973,26 +973,28 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 125
+    m_FontSize: 110
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 1
     m_MaxSize: 146
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
-    m_LineSpacing: 1
+    m_LineSpacing: 1.2
   m_Text: 'ARCANE
 
     Magic Missiles: Alchemy, Arcane, Elemental, Illusion
 
-
     Arcana Harvest: Arcane, Elemental, Illusion, Summoning
 
+    ELEMENTAL
 
-    CHRONOMANCY
+    Fireball: Arcane, Elemental, Summoning, Time
+
+    TIME
 
     Alter Time: Alchemy, Illusion, Summoning, Time'
 --- !u!222 &456289973
@@ -2827,7 +2829,6 @@ MonoBehaviour:
   Panel_main: {fileID: 757387952}
   Panel_inventory: {fileID: 808826493}
   Panel_help: {fileID: 464933329}
-  Panel_spell: {fileID: 0}
   Text_mana: {fileID: 893681795}
   Panel_notify: {fileID: 613302100}
   Text_notify: {fileID: 1276998715}

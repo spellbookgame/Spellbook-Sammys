@@ -44,8 +44,8 @@ public class Chapter : MonoBehaviour
                 spellsAllowed.Add(alterTime);
                 break;
             case "Elementalist":
-                Spell iceBarrier = new IceBarrier();
-                spellsAllowed.Add(iceBarrier);
+                Spell fireball = new Fireball();
+                spellsAllowed.Add(fireball);
                 break;
             case "Trickster":
                 Spell mirrorImage = new MirrorImage();
