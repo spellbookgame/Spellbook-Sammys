@@ -12,15 +12,10 @@ public class Fireball : Spell
         iManaCost = 100;
         sSpellClass = "Elementalist";
 
-        requiredPieces.Add("Arcane Spell Piece");
-        requiredPieces.Add("Elemental Spell Piece");
-        requiredPieces.Add("Summoning Spell Piece");
-        requiredPieces.Add("Time Spell Piece");
-
-        requiredPiecesList.Add("Arcane Spell Piece");
-        requiredPiecesList.Add("Elemental Spell Piece");
-        requiredPiecesList.Add("Summoning Spell Piece");
-        requiredPiecesList.Add("Time Spell Piece");
+        requiredPieces.Add("Arcane Spell Piece", 1);
+        requiredPieces.Add("Elemental Spell Piece", 1);
+        requiredPieces.Add("Summoning Spell Piece", 1);
+        requiredPieces.Add("Time Spell Piece", 1);
     }
 
     public override void SpellCast(SpellCaster player)

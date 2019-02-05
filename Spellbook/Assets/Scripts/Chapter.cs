@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Chapter : MonoBehaviour
@@ -56,21 +57,53 @@ public class Chapter : MonoBehaviour
         }
     }
 
-    // compare spellSlots[i] to spell[i].requiredPieces[i]
-    // if all elements match each other, then add spell to chapter
-    public void CompareSpells(SpellCaster player, HashSet<string> slotHash)
+    /* called in SpellManager.cs
+     * compares 2 dictionaries (requiredPieces and slotPieces)
+     * if they match, calls CollectSpell in SpellCaster.cs
+     */
+    public void CompareSpells(SpellCaster player, Dictionary<string, int> slotPieces)
     {
+        bool equal = false;
+        Debug.Log("Comparing spells");
         // iterate through the player's spells allowed
-        for(int i = 0; i < player.chapter.spellsAllowed.Count; ++i)
+        for (int i = 0; i < player.chapter.spellsAllowed.Count; ++i)
         {
-            if (slotHash.Count == player.chapter.spellsAllowed[i].requiredPieces.Count)
+            // if tier 3 spell, only 1 from slotPieces has to match requiredPieces
+            // ISSUE: arcana harvest and magic missiles both fit this requirement, so player collects both
+            if(player.chapter.spellsAllowed[i].iTier == 3)
             {
-                // if the two hashsets match
-                if (slotHash.SetEquals(player.chapter.spellsAllowed[i].requiredPieces))
+                if (slotPieces.ContainsKey(player.chapter.spellsAllowed[i].requiredPieces.ElementAt(0).Key))
+                    equal = true;
+            }
+            // if tier 1 spell, all 4 must match
+            // the following comparison is from dotnetperls.com
+            else if (slotPieces.Count == player.chapter.spellsAllowed[i].requiredPieces.Count)
+            {
+                equal = true;
+                foreach (var pair in player.chapter.spellsAllowed[i].requiredPieces)
                 {
-                    // add the spell to player's chapter
-                    player.CollectSpell(player.chapter.spellsAllowed[i], player);
+                    int value;
+                    if (slotPieces.TryGetValue(pair.Key, out value))
+                    {
+                        // require value to be equal
+                        if (value != pair.Value)
+                        {
+                            equal = false;
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        // require key be present
+                        equal = false;
+                        break;
+                    }
                 }
+            }
+            if (equal)
+            {
+                Debug.Log("Player collected spell!");
+                player.CollectSpell(player.chapter.spellsAllowed[i], player);
             }
         }
     }

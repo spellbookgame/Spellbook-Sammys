@@ -12,10 +12,7 @@ public class SummonTree : Spell
         iManaCost = 100;
         sSpellClass = "Summoner";
 
-        requiredPieces.Add("Summoning Spell Piece");
-        requiredPieces.Add("Summoning Spell Piece");
-        requiredPieces.Add("Summoning Spell Piece");
-        requiredPieces.Add("Summoning Spell Piece");
+        requiredPieces.Add("Summoning Spell Piece", 4);
     }
 
     public override void SpellCast(SpellCaster player)

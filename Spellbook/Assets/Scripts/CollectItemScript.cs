@@ -25,11 +25,11 @@ public class CollectItemScript : MonoBehaviour
         }
 
         // localPlayer.Spellcaster.spellPieces.Add(spellPieceType);
-        int oldValue = (int)localPlayer.Spellcaster.dspellPieces[spellPieceType];
-        localPlayer.Spellcaster.dspellPieces[spellPieceType] = oldValue + 1;
+        int oldValue = (int)localPlayer.Spellcaster.spellPieces[spellPieceType];
+        localPlayer.Spellcaster.spellPieces[spellPieceType] = oldValue + 1;
 
         // setting text of notification panel
         combatUIManager.Text_notify.text = "You found a " + spellPieceType + "!\n\nYou now have " +
-                            (int)localPlayer.Spellcaster.dspellPieces[spellPieceType] + " " + spellPieceType + ".";
+                            (int)localPlayer.Spellcaster.spellPieces[spellPieceType] + " " + spellPieceType + ".";
     }
 }

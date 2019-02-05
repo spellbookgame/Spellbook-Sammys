@@ -12,17 +12,10 @@ public class AlterTime : Spell
         iManaCost = 100;
         sSpellClass = "Chronomancer";
 
-        // adding to hashset
-        requiredPieces.Add("Time Spell Piece");
-        requiredPieces.Add("Alchemy Spell Piece");
-        requiredPieces.Add("Summoning Spell Piece");
-        requiredPieces.Add("Illusion Spell Piece");
-
-        // adding to list
-        requiredPiecesList.Add("Time Spell Piece");
-        requiredPiecesList.Add("Alchemy Spell Piece");
-        requiredPiecesList.Add("Summoning Spell Piece");
-        requiredPiecesList.Add("Illusion Spell Piece");
+        requiredPieces.Add("Time Spell Piece", 1);
+        requiredPieces.Add("Alchemy Spell Piece", 1);
+        requiredPieces.Add("Summoning Spell Piece", 1);
+        requiredPieces.Add("Illusion Spell Piece", 1);
     }
 
     public override void SpellCast(SpellCaster player)

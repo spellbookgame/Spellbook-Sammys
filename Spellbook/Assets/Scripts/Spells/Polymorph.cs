@@ -12,10 +12,7 @@ public class Polymorph : Spell
         iManaCost = 100;
         sSpellClass = "Alchemist";
 
-        requiredPieces.Add("Alchemy Spell Piece");
-        requiredPieces.Add("Alchemy Spell Piece");
-        requiredPieces.Add("Alchemy Spell Piece");
-        requiredPieces.Add("Alchemy Spell Piece");
+        requiredPieces.Add("Alchemy Spell Piece", 4);
     }
 
     public override void SpellCast(SpellCaster player)

@@ -12,10 +12,7 @@ public class MirrorImage : Spell
         iManaCost = 100;
         sSpellClass = "Trickster";
 
-        requiredPieces.Add("Illusion Spell Piece");
-        requiredPieces.Add("Illusion Spell Piece");
-        requiredPieces.Add("Illusion Spell Piece");
-        requiredPieces.Add("Illusion Spell Piece");
+        requiredPieces.Add("Illusion Spell Piece", 4);
     }
 
     public override void SpellCast(SpellCaster player)

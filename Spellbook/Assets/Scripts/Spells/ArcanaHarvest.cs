@@ -12,17 +12,10 @@ public class ArcanaHarvest : Spell
         iManaCost = 100;
         sSpellClass = "Arcanist";
 
-        // adding to hashset 
-        requiredPieces.Add("Arcane Spell Piece");
-        requiredPieces.Add("Summoning Spell Piece");
-        requiredPieces.Add("Elemental Spell Piece");
-        requiredPieces.Add("Illusion Spell Piece");
-
-        // adding to list
-        requiredPiecesList.Add("Arcane Spell Piece");
-        requiredPiecesList.Add("Summoning Spell Piece");
-        requiredPiecesList.Add("Elemental Spell Piece");
-        requiredPiecesList.Add("Illusion Spell Piece");
+        requiredPieces.Add("Arcane Spell Piece", 1);
+        requiredPieces.Add("Summoning Spell Piece", 1);
+        requiredPieces.Add("Elemental Spell Piece", 1);
+        requiredPieces.Add("Illusion Spell Piece", 1);
     }
 
     public override void SpellCast(SpellCaster player)

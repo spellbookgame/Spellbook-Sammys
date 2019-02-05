@@ -17,7 +17,7 @@ public abstract class SpellCaster
     public Chapter chapter;
 
     // player's collection of spell pieces stored as strings
-    public Dictionary<string, int> dspellPieces;
+    public Dictionary<string, int> spellPieces;
 
     // TODO:
     //private string backGroundStory; 
@@ -37,7 +37,7 @@ public abstract class SpellCaster
         iMana = 1000;
 
         // initializing dictionary and adding values
-        dspellPieces = new Dictionary<string, int>()
+        spellPieces = new Dictionary<string, int>()
         {
             { "Alchemy Spell Piece", 0 },
             { "Arcane Spell Piece", 0 },
