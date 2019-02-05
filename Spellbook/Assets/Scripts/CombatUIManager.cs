@@ -9,14 +9,11 @@ public class CombatUIManager : MonoBehaviour
     [SerializeField] private GameObject Panel_main;
     [SerializeField] private GameObject Panel_inventory;
     [SerializeField] private GameObject Panel_help;
-    [SerializeField] private GameObject Panel_spell;
-    //[SerializeField] private Button spellButton;
     [SerializeField] private Text Text_mana;
 
     // private variables
     private bool bInventoryOpen = false;
     private bool bHelpOpen = false;
-    private bool bSpellOpen = false;
 
     private CollectItemScript collectItemScript;
 
@@ -47,8 +44,6 @@ public class CombatUIManager : MonoBehaviour
             Panel_inventory.SetActive(false);
         if (bHelpOpen)
             Panel_help.SetActive(false);
-        if (bSpellOpen)
-            Panel_spell.SetActive(false);
     }
 
     // when ok button is clicked

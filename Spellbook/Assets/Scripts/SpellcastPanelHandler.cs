@@ -11,15 +11,13 @@ using UnityEngine.UI;
 public class SpellcastPanelHandler : MonoBehaviour
 {
     [SerializeField] Button spellButton;
-    private bool panelOpen;
+    private bool panelOpen = false;
 
     Player localPlayer;
 
     private void Start()
     {
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
-
-        panelOpen = false;
 
         int yPos = 1300;
         // add buttons for each spell the player has collected
