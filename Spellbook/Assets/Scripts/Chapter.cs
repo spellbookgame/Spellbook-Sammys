@@ -13,9 +13,6 @@ public class Chapter : MonoBehaviour
     public List<Spell> spellsAllowed;
     public List<Spell> spellsCollected;
 
-    // reference to spell - not sure if we need this
-    // private Spell spell;
-
     public Chapter(string classType)
     {
         spellsAllowed = new List<Spell>();
@@ -64,7 +61,6 @@ public class Chapter : MonoBehaviour
     public void CompareSpells(SpellCaster player, Dictionary<string, int> slotPieces)
     {
         bool equal = false;
-        Debug.Log("Comparing spells");
         // iterate through the player's spells allowed
         for (int i = 0; i < player.chapter.spellsAllowed.Count; ++i)
         {
