@@ -51,11 +51,11 @@ public abstract class SpellCaster
         glyphs = new Dictionary<string, int>()
         {
             { "Alchemy1", 0 },
-            { "Arcane1", 1 },
-            { "Elemental1", 1 },
+            { "Arcane1", 0 },
+            { "Elemental1", 0 },
             { "Illusion1", 0 },
-            { "Summoning1", 1 },
-            { "Time1", 1 },
+            { "Summoning1", 0 },
+            { "Time1", 0 },
         };
     }
 

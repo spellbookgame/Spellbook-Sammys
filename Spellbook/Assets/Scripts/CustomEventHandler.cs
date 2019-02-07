@@ -11,9 +11,13 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
 
     [SerializeField] private GameObject panel;
     private bool panelOpen = false;
+
+    Player localPlayer;
     
     void Start()
     {
+        localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
+
         mTrackableBehaviour = GetComponent<TrackableBehaviour>();
         if (mTrackableBehaviour)
             mTrackableBehaviour.RegisterTrackableEventHandler(this);
@@ -69,39 +73,45 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
 
     IEnumerator ScanTime(string target_name)
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(1.5f);
 
         switch (target_name)
         {
             case "decal_alchemist":
-                panel.transform.GetChild(0).GetComponent<Text>().text = "Alchemist scanned";
+                panel.transform.GetChild(0).GetComponent<Text>().text = "Found 1 Alchemy glyph";
                 panel.SetActive(true);
                 panelOpen = true;
+                localPlayer.Spellcaster.glyphs["Alchemy1"] += 1;
                 break;
             case "decal_arcanist":
-                panel.transform.GetChild(0).GetComponent<Text>().text = "Arcanist scanned";
+                panel.transform.GetChild(0).GetComponent<Text>().text = "Found 1 Arcane glyph";
                 panel.SetActive(true);
                 panelOpen = true;
+                localPlayer.Spellcaster.glyphs["Arcane1"] += 1;
                 break;
             case "decal_chronomancer":
-                panel.transform.GetChild(0).GetComponent<Text>().text = "Chronomancer scanned";
+                panel.transform.GetChild(0).GetComponent<Text>().text = "Found 1 Time glyph";
                 panel.SetActive(true);
                 panelOpen = true;
+                localPlayer.Spellcaster.glyphs["Time1"] += 1;
                 break;
             case "decal_elementalist":
-                panel.transform.GetChild(0).GetComponent<Text>().text = "Elementalist scanned";
+                panel.transform.GetChild(0).GetComponent<Text>().text = "Found 1 Elemental glyph";
                 panel.SetActive(true);
                 panelOpen = true;
+                localPlayer.Spellcaster.glyphs["Elemental1"] += 1;
                 break;
             case "decal_illusionist":
-                panel.transform.GetChild(0).GetComponent<Text>().text = "Trickster scanned";
+                panel.transform.GetChild(0).GetComponent<Text>().text = "Found 1 Illusion glyph";
                 panel.SetActive(true);
                 panelOpen = true;
+                localPlayer.Spellcaster.glyphs["Illusion1"] += 1;
                 break;
             case "decal_summoner":
-                panel.transform.GetChild(0).GetComponent<Text>().text = "Summoner scanned";
+                panel.transform.GetChild(0).GetComponent<Text>().text = "Found 1 Summoning glyph";
                 panel.SetActive(true);
                 panelOpen = true;
+                localPlayer.Spellcaster.glyphs["Summoning1"] += 1;
                 break;
         }
     }
