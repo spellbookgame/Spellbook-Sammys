@@ -13,6 +13,7 @@ public class Polymorph : Spell
         sSpellClass = "Alchemist";
 
         requiredPieces.Add("Alchemy Spell Piece", 4);
+        requiredGlyphs.Add("Alchemy1", 4);
     }
 
     public override void SpellCast(SpellCaster player)

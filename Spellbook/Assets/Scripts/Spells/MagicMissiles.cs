@@ -16,15 +16,25 @@ public class MagicMissiles : Spell
         /*requiredPieces.Add("Alchemy Spell Piece", 1);
         requiredPieces.Add("Elemental Spell Piece", 1);
         requiredPieces.Add("Illusion Spell Piece", 1);*/
+
+        requiredGlyphs.Add("Arcane1", 4);
     }
 
     public override void SpellCast(SpellCaster player)
     {
         HealthManager healthManager = GameObject.Find("ScriptContainer").GetComponent<HealthManager>();
-        int damage = Random.Range(3, 12);
-        healthManager.HitEnemy(damage);
 
-        Debug.Log(sSpellName + " was cast!");
-        player.iMana -= iManaCost;
+        // if player has enough mana and glyphs, cast the spell
+        if (player.glyphs["Arcane1"] > 0 && player.iMana >= iManaCost)
+        {
+            int damage = Random.Range(3, 12);
+            healthManager.HitEnemy(damage);
+
+            Debug.Log(sSpellName + " was cast!");
+
+            // subtract mana and glyphs
+            player.iMana -= iManaCost;
+            player.glyphs["Arcane1"] -= 1;
+        }
     }
 }

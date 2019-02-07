@@ -10,11 +10,13 @@ public abstract class Spell
     public string sSpellClass;
 
     public Dictionary<string, int> requiredPieces;
+    public Dictionary<string, int> requiredGlyphs;
 
     // CTOR
     public Spell()
     {
         requiredPieces = new Dictionary<string, int>();
+        requiredGlyphs = new Dictionary<string, int>();
     }
 
     // Virtual functions

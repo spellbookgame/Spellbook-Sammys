@@ -18,6 +18,7 @@ public abstract class SpellCaster
 
     // player's collection of spell pieces stored as strings
     public Dictionary<string, int> spellPieces;
+    public Dictionary<string, int> glyphs;
 
     // TODO:
     //private string backGroundStory; 
@@ -45,6 +46,16 @@ public abstract class SpellCaster
             { "Illusion Spell Piece", 0 },
             { "Summoning Spell Piece", 0 },
             { "Time Spell Piece", 0 }
+        };
+
+        glyphs = new Dictionary<string, int>()
+        {
+            { "Alchemy1", 0 },
+            { "Arcane1", 1 },
+            { "Elemental1", 1 },
+            { "Illusion1", 0 },
+            { "Summoning1", 1 },
+            { "Time1", 1 },
         };
     }
 

@@ -13,6 +13,7 @@ public class SummonTree : Spell
         sSpellClass = "Summoner";
 
         requiredPieces.Add("Summoning Spell Piece", 4);
+        requiredGlyphs.Add("Summoning1", 4);
     }
 
     public override void SpellCast(SpellCaster player)

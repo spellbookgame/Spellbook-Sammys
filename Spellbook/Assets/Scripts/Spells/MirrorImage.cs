@@ -13,6 +13,7 @@ public class MirrorImage : Spell
         sSpellClass = "Trickster";
 
         requiredPieces.Add("Illusion Spell Piece", 4);
+        requiredGlyphs.Add("Illusion1", 4);
     }
 
     public override void SpellCast(SpellCaster player)
