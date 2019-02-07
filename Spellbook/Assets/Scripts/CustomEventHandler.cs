@@ -60,7 +60,7 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
 
     protected virtual void OnTrackingFound()
     {
-        StartCoroutine(ScanTime(mTrackableBehaviour.TrackableName));
+        StartCoroutine(ScanTime());
     }
 
     protected virtual void OnTrackingLost()
@@ -71,11 +71,12 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
         }
     }
 
-    IEnumerator ScanTime(string target_name)
+    IEnumerator ScanTime()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(3);
 
-        switch (target_name)
+        // add corresponding glyph to player's collection
+        switch (mTrackableBehaviour.TrackableName)
         {
             case "decal_alchemist":
                 panel.transform.GetChild(0).GetComponent<Text>().text = "Found 1 Alchemy glyph";

@@ -45,6 +45,9 @@ public class HealthManager : MonoBehaviour
         // deal damage to player if health is above 0
         if(Input.GetKeyDown(KeyCode.X) && localPlayer.Spellcaster.fCurrentHealth > 0)
             HitPlayer(6);
+
+        if (Input.GetKeyDown(KeyCode.C) && enemy.fCurrentHealth > 0)
+            HitEnemy(6);
     }
 
     // calculating health to decrease from slider
@@ -86,8 +89,7 @@ public class HealthManager : MonoBehaviour
             enemy.fCurrentHealth = 0;
             Text_enemyHealthText.text = "0";
 
-            // notify player that spell piece was collected
-            // collectItemScript.CollectSpellPiece();
+            enemy.EnemyDefeated();
         }
     }
 
