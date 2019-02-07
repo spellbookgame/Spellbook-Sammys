@@ -96,7 +96,6 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
         }
     }
 
-
     protected virtual void OnTrackingLost()
     {
         if(panelOpen)
