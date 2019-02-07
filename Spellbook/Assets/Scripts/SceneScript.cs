@@ -23,6 +23,6 @@ public class SceneScript : MonoBehaviour
 
     public void loadQRScene()
     {
-        SceneManager.LoadScene("AugmentedImage");
+        SceneManager.LoadScene("VuforiaTestScene");
     }
 }
