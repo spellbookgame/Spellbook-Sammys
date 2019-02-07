@@ -1169,7 +1169,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &761459355
 Transform:
   m_ObjectHideFlags: 0
@@ -2297,11 +2297,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: LocalPlayer
       objectReference: {fileID: 0}
-    - target: {fileID: 748532982630724587, guid: 6e39323b4c4fe51499de65f463771a9e,
+    - target: {fileID: 748532982630724585, guid: 6e39323b4c4fe51499de65f463771a9e,
         type: 3}
-      propertyPath: classText
-      value: 
-      objectReference: {fileID: 476678473}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 748532982630724584, guid: 6e39323b4c4fe51499de65f463771a9e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2357,6 +2357,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 748532982630724587, guid: 6e39323b4c4fe51499de65f463771a9e,
+        type: 3}
+      propertyPath: classText
+      value: 
+      objectReference: {fileID: 476678473}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e39323b4c4fe51499de65f463771a9e, type: 3}
 --- !u!1 &2131388711
