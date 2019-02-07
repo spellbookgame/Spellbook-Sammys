@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Vuforia;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Vuforia;
 
 public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
 {
@@ -11,6 +12,7 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
     protected TrackableBehaviour.Status m_NewStatus;
 
     [SerializeField] private GameObject panel;
+    private bool panelOpen = false;
     
     void Start()
     {
@@ -38,7 +40,6 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
         {
             Debug.Log("Trackable " + mTrackableBehaviour.TrackableName + " found");
             OnTrackingFound();
-            panel.SetActive(true);
         }
         else if (previousStatus == TrackableBehaviour.Status.TRACKED &&
                  newStatus == TrackableBehaviour.Status.NO_POSE)
@@ -57,45 +58,50 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
 
     protected virtual void OnTrackingFound()
     {
-        var rendererComponents = GetComponentsInChildren<Renderer>(true);
-        var colliderComponents = GetComponentsInChildren<Collider>(true);
-        var canvasComponents = GetComponentsInChildren<Canvas>(true);
-
-        // Enable rendering:
-        foreach (var component in rendererComponents)
-            component.enabled = true;
-
-        // Enable colliders:
-        foreach (var component in colliderComponents)
-            component.enabled = true;
-
-        // Enable canvas':
-        foreach (var component in canvasComponents)
-            component.enabled = true;
+        if (mTrackableBehaviour.TrackableName.Equals("decal_chronomancer"))
+        {
+            panel.transform.GetChild(0).GetComponent<Text>().text = "Chronomancer scanned";
+            panel.SetActive(true);
+            panelOpen = true;
+        }
+        else if (mTrackableBehaviour.TrackableName.Equals("decal_summoner"))
+        {
+            panel.transform.GetChild(0).GetComponent<Text>().text = "Summoner scanned";
+            panel.SetActive(true);
+            panelOpen = true;
+        }
+        else if (mTrackableBehaviour.TrackableName.Equals("decal_alchemist"))
+        {
+            panel.transform.GetChild(0).GetComponent<Text>().text = "Alchemist scanned";
+            panel.SetActive(true);
+            panelOpen = true;
+        }
+        else if (mTrackableBehaviour.TrackableName.Equals("decal_arcanist"))
+        {
+            panel.transform.GetChild(0).GetComponent<Text>().text = "Arcanist scanned";
+            panel.SetActive(true);
+            panelOpen = true;
+        }
+        else if (mTrackableBehaviour.TrackableName.Equals("decal_illusionist"))
+        {
+            panel.transform.GetChild(0).GetComponent<Text>().text = "Trickster scanned";
+            panel.SetActive(true);
+            panelOpen = true;
+        }
+        else if (mTrackableBehaviour.TrackableName.Equals("decal_elementalist"))
+        {
+            panel.transform.GetChild(0).GetComponent<Text>().text = "Elementalist scanned";
+            panel.SetActive(true);
+            panelOpen = true;
+        }
     }
 
 
     protected virtual void OnTrackingLost()
     {
-        var rendererComponents = GetComponentsInChildren<Renderer>(true);
-        var colliderComponents = GetComponentsInChildren<Collider>(true);
-        var canvasComponents = GetComponentsInChildren<Canvas>(true);
-
-        // Disable rendering:
-        foreach (var component in rendererComponents)
-            component.enabled = false;
-
-        // Disable colliders:
-        foreach (var component in colliderComponents)
-            component.enabled = false;
-
-        // Disable canvas':
-        foreach (var component in canvasComponents)
-            component.enabled = false;
-    }
-
-    public void loadCombatScene()
-    {
-        SceneManager.LoadScene("CombatScene");
+        if(panelOpen)
+        {
+            panel.SetActive(false);
+        }
     }
 }
