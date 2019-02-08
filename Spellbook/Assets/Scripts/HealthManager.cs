@@ -12,10 +12,9 @@ public class HealthManager : MonoBehaviour
     // for the enemy
     [SerializeField] private Slider Slider_enemyHealthBar;
     [SerializeField] private Text Text_enemyHealthText;
-    private static Enemy enemy;
-    Player localPlayer;
+    [SerializeField] private Enemy enemy;
 
-    private CollectItemScript collectItemScript;
+    Player localPlayer;
 
     // Start is called before the first frame update
     void Start()
@@ -30,13 +29,11 @@ public class HealthManager : MonoBehaviour
         Text_healthtext.text = localPlayer.Spellcaster.fCurrentHealth.ToString();
 
         // instantiating enemy with 20 health
-        enemy = new Enemy(20f);
+        enemy = Instantiate(enemy);
+        enemy.Initialize(20f);
         enemy.fCurrentHealth = enemy.fMaxHealth;
         Slider_enemyHealthBar.value = CalculateEnemyHealth();
         Text_enemyHealthText.text = enemy.fCurrentHealth.ToString();
-
-        // referencing collect item script
-        collectItemScript = gameObject.GetComponent<CollectItemScript>();
     }
 
     // Update is called once per frame
@@ -91,12 +88,5 @@ public class HealthManager : MonoBehaviour
 
             enemy.EnemyDefeated();
         }
-    }
-
-    // if attack button is clicked, deal 6 damage to enemy
-    public void attackClick()
-    {
-        if (enemy.fCurrentHealth > 0)
-            HitEnemy(6);
     }
 }

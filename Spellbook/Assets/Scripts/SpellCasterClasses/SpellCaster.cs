@@ -78,6 +78,12 @@ public abstract class SpellCaster
         }
     }
 
+    // adds spell piece to player's collection
+    public void CollectSpellPiece(string spellPieceName, SpellCaster player)
+    {
+        player.spellPieces[spellPieceName] += 1;
+    }
+
     // method that adds spell to player's chapter
     // called from Chapter.cs
     public void CollectSpell(Spell spell, SpellCaster player)

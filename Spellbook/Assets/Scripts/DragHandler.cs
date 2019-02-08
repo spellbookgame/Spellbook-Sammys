@@ -13,7 +13,6 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     private Vector3 startPos;
     private Transform startParent;
-    // private bool isDraggable;
 
     Player localPlayer;
     SpellManager spellManager;
