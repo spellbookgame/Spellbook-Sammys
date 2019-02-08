@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using Vuforia;
@@ -11,12 +14,27 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
 
     [SerializeField] private GameObject panel;
     private bool panelOpen = false;
+    private float elapsedTime;
+
+    private Coroutine coroutineReference;
+
+    private Dictionary<string, float> storedTimes;
 
     Player localPlayer;
     
     void Start()
     {
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
+
+        storedTimes = new Dictionary<string, float>()
+        {
+            {"decal_alchemist", 0.0f },
+            {"decal_arcanist", 0.0f },
+            {"decal_chronomancer", 0.0f },
+            {"decal_elementalist", 0.0f },
+            {"decal_illusionist", 0.0f },
+            {"decal_summoner", 0.0f },
+        };
 
         mTrackableBehaviour = GetComponent<TrackableBehaviour>();
         if (mTrackableBehaviour)
@@ -41,7 +59,8 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
             newStatus == TrackableBehaviour.Status.EXTENDED_TRACKED)
         {
             Debug.Log("Trackable " + mTrackableBehaviour.TrackableName + " found");
-            OnTrackingFound();
+            // basically, wait 3 seconds before itll start scanning the target
+            coroutineReference = StartCoroutine(ScanTime());
         }
         else if (previousStatus == TrackableBehaviour.Status.TRACKED &&
                  newStatus == TrackableBehaviour.Status.NO_POSE)
@@ -60,21 +79,6 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
 
     protected virtual void OnTrackingFound()
     {
-        StartCoroutine(ScanTime());
-    }
-
-    protected virtual void OnTrackingLost()
-    {
-        if(panelOpen)
-        {
-            panel.SetActive(false);
-        }
-    }
-
-    IEnumerator ScanTime()
-    {
-        yield return new WaitForSeconds(3);
-
         // add corresponding glyph to player's collection
         switch (mTrackableBehaviour.TrackableName)
         {
@@ -115,5 +119,21 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
                 localPlayer.Spellcaster.glyphs["Summoning1"] += 1;
                 break;
         }
+    }
+
+    protected virtual void OnTrackingLost()
+    {
+        StopCoroutine(coroutineReference);
+        if(panelOpen)
+        {
+            panel.SetActive(false);
+        }
+    }
+
+    IEnumerator ScanTime()
+    {
+        yield return new WaitForSeconds(3);
+
+        OnTrackingFound();
     }
 }
