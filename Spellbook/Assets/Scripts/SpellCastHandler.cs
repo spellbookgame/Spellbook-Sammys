@@ -20,7 +20,7 @@ public class SpellCastHandler : MonoBehaviour
         for (int i = 0; i < localPlayer.Spellcaster.chapter.spellsCollected.Count; i++)
         {
             Button newSpellButton = Instantiate(spellButton);
-            newSpellButton.transform.parent = GameObject.Find("Canvas Prefab").transform;
+            newSpellButton.transform.parent = GameObject.Find("Canvas").transform;
             newSpellButton.GetComponentInChildren<Text>().text = localPlayer.Spellcaster.chapter.spellsCollected[i].sSpellName;
             newSpellButton.transform.position = new Vector3(720, yPos, 0);
 

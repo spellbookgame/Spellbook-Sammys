@@ -7,26 +7,35 @@ public class PanelManager : MonoBehaviour
 {
     private bool panelOpen = false;
     [SerializeField] private GameObject panel;
-
+    private GameObject panelClone;
+    private Button button;
+    
     public void showPanel()
     {
         if(!panelOpen)
         {
-            panel.SetActive(true);
+            panelClone = Instantiate(panel);
+            panelClone.transform.SetParent(GameObject.Find("Canvas").transform);
+            panelClone.transform.localPosition = new Vector3(0, 0, 0);
+            panelClone.transform.localScale = new Vector3(1, 1, 1);
+
+            button = panelClone.transform.GetChild(1).GetComponent<Button>();
+            button.onClick.AddListener(okClick);
+
             panelOpen = true;
         }
     }
 
     public void setPanelText(string text)
     {
-        panel.transform.GetChild(0).GetComponent<Text>().text = text;
+        panelClone.transform.GetChild(0).GetComponent<Text>().text = text;
     }
-
-    public void okClick()
+     
+    private void okClick()
     {
         if(panelOpen)
         {
-            panel.SetActive(false);
+            Destroy(panelClone.gameObject);
             panelOpen = false;
         }
     }

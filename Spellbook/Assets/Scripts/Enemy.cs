@@ -12,6 +12,7 @@ public class Enemy : MonoBehaviour
 
     public float fMaxHealth;
     public float fCurrentHealth;
+    public float fDamageOutput;
 
     private List<string> dropSpellPieces;
 
@@ -62,9 +63,10 @@ public class Enemy : MonoBehaviour
                 "You received 1 " + dropSpellPieces[index].ToString() + ".\nYou also received " + manaCollected.ToString() + " mana.";
 
         localPlayer.Spellcaster.CollectSpellPiece(dropSpellPieces[index], localPlayer.Spellcaster);
-        panelManager.setPanelText(panelText);
+        localPlayer.Spellcaster.iMana += manaCollected;
         panelManager.showPanel();
+        panelManager.setPanelText(panelText);
 
-        Destroy(this.gameObject);
+        // Destroy(this.gameObject);
     }
 }

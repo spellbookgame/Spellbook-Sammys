@@ -136,7 +136,7 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
     IEnumerator ScanTime()
     {
         CR_running = true;
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(1.5f);
         CR_running = false;
         OnTrackingFound();
     }

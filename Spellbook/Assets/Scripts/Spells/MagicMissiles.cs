@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // example spell for Arcanist class
 public class MagicMissiles : Spell
@@ -36,6 +37,11 @@ public class MagicMissiles : Spell
             // subtract mana and glyphs
             player.iMana -= iManaCost;
             player.glyphs["Arcane1"] -= 1;
+
+            if (enemy.fCurrentHealth > 0)
+            {
+                SceneManager.LoadScene("CombatScene");
+            }
         }
     }
 }
