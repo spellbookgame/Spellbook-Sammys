@@ -10,12 +10,14 @@ public class CombatUIManager : MonoBehaviour
 
     // private variables
     private bool bHelpOpen = false;
+    private HealthManager healthManager;
 
     Player localPlayer;
 
     private void Start()
     {
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
+        healthManager = gameObject.GetComponent<HealthManager>();
 
         Text_mana.text = localPlayer.Spellcaster.iMana.ToString();
     }
@@ -38,6 +40,11 @@ public class CombatUIManager : MonoBehaviour
             Panel_help.SetActive(false);
             bHelpOpen = false;
         }
+    }
+
+    public void attackClick()
+    {
+        healthManager.HitEnemy(localPlayer.Spellcaster.fBasicAttackStrength);
     }
 
     // ----------------------------------- DEBUGGING: ALL SPELL PIECE BUTTONS ------------------------------------------

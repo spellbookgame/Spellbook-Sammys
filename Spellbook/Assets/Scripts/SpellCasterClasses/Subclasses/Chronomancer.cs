@@ -16,7 +16,6 @@ public class Chronomancer : SpellCaster
         
         //You can override variables in here.
         classType = "Chronomancer";
-
         fMaxHealth = 20.0f;
 
         // creating the class-specific chapter
