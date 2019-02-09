@@ -11,7 +11,7 @@ public class SceneScript : MonoBehaviour
         SceneManager.LoadScene("SpellBookGame");
     }
 
-    public void loadDungeonScene()
+    public void loadCombatScene()
     {
         SceneManager.LoadScene("CombatScene");
     }
@@ -19,5 +19,10 @@ public class SceneScript : MonoBehaviour
     public void loadSpellCreateScene()
     {
         SceneManager.LoadScene("SpellCreateScene");
+    }
+
+    public void loadQRScene()
+    {
+        SceneManager.LoadScene("VuforiaTestScene");
     }
 }

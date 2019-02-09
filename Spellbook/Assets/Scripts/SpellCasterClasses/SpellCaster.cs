@@ -11,15 +11,14 @@ public abstract class SpellCaster
     public float fCurrentHealth;
 
     public int iBasicAttackStrength;
-    public int numMana;
+    public int iMana;
 
     public string classType;
     public Chapter chapter;
 
     // player's collection of spell pieces stored as strings
-    // public List<string> spellPieces;
-    // switch List<> spellPieces to dictionary that holds the spell piece and the player's # of that spellPiece
-    public Dictionary<string, int> dspellPieces;
+    public Dictionary<string, int> spellPieces;
+    public Dictionary<string, int> glyphs;
 
     // TODO:
     //private string backGroundStory; 
@@ -36,11 +35,10 @@ public abstract class SpellCaster
     public SpellCaster()
     {
         //fMaxHealth = 20.0f;     //Commented out in case Spellcasters have different max healths.
-        numMana = 1000;
-        // spellPieces = new List<string>();
+        iMana = 1000;
 
         // initializing dictionary and adding values
-        dspellPieces = new Dictionary<string, int>()
+        spellPieces = new Dictionary<string, int>()
         {
             { "Alchemy Spell Piece", 0 },
             { "Arcane Spell Piece", 0 },
@@ -48,6 +46,16 @@ public abstract class SpellCaster
             { "Illusion Spell Piece", 0 },
             { "Summoning Spell Piece", 0 },
             { "Time Spell Piece", 0 }
+        };
+
+        glyphs = new Dictionary<string, int>()
+        {
+            { "Alchemy1", 0 },
+            { "Arcane1", 0 },
+            { "Elemental1", 0 },
+            { "Illusion1", 0 },
+            { "Summoning1", 0 },
+            { "Time1", 0 },
         };
     }
 
@@ -70,6 +78,12 @@ public abstract class SpellCaster
         }
     }
 
+    // adds spell piece to player's collection
+    public void CollectSpellPiece(string spellPieceName, SpellCaster player)
+    {
+        player.spellPieces[spellPieceName] += 1;
+    }
+
     // method that adds spell to player's chapter
     // called from Chapter.cs
     public void CollectSpell(Spell spell, SpellCaster player)
@@ -79,20 +93,27 @@ public abstract class SpellCaster
         // only add the spell if the player is the spell's class
         if (spell.sSpellClass == player.classType)
         {
-            // TODO: if chapter.spellsAllowed already contains spell, give error notice
-            // add spell to its chapter
-            chapter.spellsCollected.Add(spell);
+            // if chapter.spellsAllowed already contains spell, give error notice
+            if (chapter.spellsCollected.Contains(spell))
+            {
+                g.GetComponent<SpellManager>().inventoryText.text = "You already have " + spell.sSpellName + ".";
+            }
+            else
+            {
+                // add spell to its chapter
+                chapter.spellsCollected.Add(spell);
 
-            // tell player that the spell is collected
-            g.GetComponent<SpellManager>().inventoryText.text = "You unlocked " + spell.sSpellName + "!";
-            Debug.Log("In your chapter you have:");
-            for (int i = 0; i < chapter.spellsCollected.Count; ++i)
-                Debug.Log(chapter.spellsCollected[i].sSpellName);
+                // tell player that the spell is collected
+                g.GetComponent<SpellManager>().inventoryText.text = "You unlocked " + spell.sSpellName + "!";
+                Debug.Log("In your chapter you have:");
+                for (int i = 0; i < chapter.spellsCollected.Count; ++i)
+                    Debug.Log(chapter.spellsCollected[i].sSpellName);
 
-            Debug.Log("You have " + chapter.spellsCollected.Count + " spells collected.");
+                Debug.Log("You have " + chapter.spellsCollected.Count + " spells collected.");
 
-            // call function that removes prefabs in SpellManager.cs
-            g.GetComponent<SpellManager>().RemovePrefabs(spell);
+                // call function that removes prefabs in SpellManager.cs
+                g.GetComponent<SpellManager>().RemovePrefabs(spell);
+            }
         }
     }
 }
