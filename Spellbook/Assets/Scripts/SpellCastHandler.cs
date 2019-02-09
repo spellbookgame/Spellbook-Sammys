@@ -10,12 +10,10 @@ public class SpellCastHandler : MonoBehaviour
     [SerializeField] Button spellButton;
 
     Player localPlayer;
-    PanelManager panelManager;
 
     private void Start()
     {
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
-        panelManager = GameObject.Find("ScriptContainer").GetComponent<PanelManager>();
 
         int yPos = 1500;
         // add buttons for each spell the player has collected

@@ -13,11 +13,13 @@ public class CombatUIManager : MonoBehaviour
     private HealthManager healthManager;
 
     Player localPlayer;
+    Enemy enemy;
 
     private void Start()
     {
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
         healthManager = gameObject.GetComponent<HealthManager>();
+        enemy = GameObject.FindGameObjectWithTag("Enemy").GetComponent<Enemy>();
 
         Text_mana.text = localPlayer.Spellcaster.iMana.ToString();
     }
@@ -45,7 +47,7 @@ public class CombatUIManager : MonoBehaviour
     public void attackClick()
     {
         localPlayer.Spellcaster.fBasicAttackStrength = Random.Range(1, 6);
-        healthManager.HitEnemy(localPlayer.Spellcaster.fBasicAttackStrength);
+        enemy.HitEnemy(localPlayer.Spellcaster.fBasicAttackStrength);
     }
 
     // ----------------------------------- DEBUGGING: ALL SPELL PIECE BUTTONS ------------------------------------------

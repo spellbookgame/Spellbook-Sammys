@@ -12,14 +12,15 @@ public class HealthManager : MonoBehaviour
     // for the enemy
     [SerializeField] private Slider Slider_enemyHealthBar;
     [SerializeField] private Text Text_enemyHealthText;
-    [SerializeField] private Enemy enemy;
 
     Player localPlayer;
+    Enemy enemy;
 
     // Start is called before the first frame update
     void Start()
     {
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
+        enemy = GameObject.FindGameObjectWithTag("Enemy").GetComponent<Enemy>();
 
         // setting player's current health to equal max health
         localPlayer.Spellcaster.fCurrentHealth = localPlayer.Spellcaster.fMaxHealth;
@@ -28,10 +29,6 @@ public class HealthManager : MonoBehaviour
         Slider_healthbar.value = CalculatePlayerHealth();
         Text_healthtext.text = localPlayer.Spellcaster.fCurrentHealth.ToString();
 
-        // instantiating enemy with 20 health
-        enemy = Instantiate(enemy);
-        enemy.Initialize(20f);
-        enemy.fCurrentHealth = enemy.fMaxHealth;
         Slider_enemyHealthBar.value = CalculateEnemyHealth();
         Text_enemyHealthText.text = enemy.fCurrentHealth.ToString();
     }
@@ -44,7 +41,9 @@ public class HealthManager : MonoBehaviour
             HitPlayer(6);
 
         if (Input.GetKeyDown(KeyCode.C) && enemy.fCurrentHealth > 0)
-            HitEnemy(6);
+            enemy.HitEnemy(6);
+
+        UpdateEnemyStats();
     }
 
     // calculating health to decrease from slider
@@ -73,20 +72,9 @@ public class HealthManager : MonoBehaviour
         } 
     }
 
-    public void HitEnemy(float damageValue)
+    public void UpdateEnemyStats()
     {
-        // Deduct damage dealt from enemy's health
-        enemy.fCurrentHealth -= damageValue;
         Slider_enemyHealthBar.value = CalculateEnemyHealth();
         Text_enemyHealthText.text = enemy.fCurrentHealth.ToString();
-
-        // if health goes below 0, set to 0
-        if (enemy.fCurrentHealth <= 0)
-        {
-            enemy.fCurrentHealth = 0;
-            Text_enemyHealthText.text = "0";
-
-            enemy.EnemyDefeated();
-        }
     }
 }

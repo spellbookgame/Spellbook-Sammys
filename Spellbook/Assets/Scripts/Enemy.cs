@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // attach to enemy prefab
 public class Enemy : MonoBehaviour
 {
-    private PanelManager panelManager;
+    [SerializeField] private Enemy enemyClone;
+
     private Player localPlayer;
 
     public float fMaxHealth;
@@ -16,10 +18,12 @@ public class Enemy : MonoBehaviour
     // call this after instantiating enemy 
     public void Initialize(float maxHealth)
     {
-        panelManager = GameObject.Find("ScriptContainer").GetComponent<PanelManager>();
+        DontDestroyOnLoad(this);
+
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
 
         fMaxHealth = maxHealth;
+        fCurrentHealth = fMaxHealth;
 
         dropSpellPieces = new List<string>()
         {
@@ -32,9 +36,25 @@ public class Enemy : MonoBehaviour
         };
     }
 
+    // TODO
+    public void HitEnemy(float damage)
+    {
+        Debug.Log("Current Health: " + fCurrentHealth);
+        fCurrentHealth -= damage;
+        Debug.Log("Health after hit: " + fCurrentHealth);
+
+        if (fCurrentHealth <= 0)
+        {
+            fCurrentHealth = 0;
+            EnemyDefeated();
+        }
+
+    }
+
     // drops random spell piece & mana when enemy dies
     public void EnemyDefeated()
     {
+        PanelManager panelManager = GameObject.Find("ScriptContainer").GetComponent<PanelManager>();
         int index = Random.Range(0, 6);
         int manaCollected = Random.Range(50, 300);
 
@@ -44,5 +64,7 @@ public class Enemy : MonoBehaviour
         localPlayer.Spellcaster.CollectSpellPiece(dropSpellPieces[index], localPlayer.Spellcaster);
         panelManager.setPanelText(panelText);
         panelManager.showPanel();
+
+        Destroy(this.gameObject);
     }
 }

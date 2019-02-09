@@ -23,12 +23,13 @@ public class MagicMissiles : Spell
     public override void SpellCast(SpellCaster player)
     {
         HealthManager healthManager = GameObject.Find("ScriptContainer").GetComponent<HealthManager>();
+        Enemy enemy = GameObject.FindGameObjectWithTag("Enemy").GetComponent<Enemy>();
 
         // if player has enough mana and glyphs, cast the spell
         if (player.glyphs["Arcane1"] > 0 && player.iMana >= iManaCost)
         {
             int damage = Random.Range(3, 12);
-            healthManager.HitEnemy(damage);
+            enemy.HitEnemy(damage);
 
             Debug.Log(sSpellName + " was cast!");
 
