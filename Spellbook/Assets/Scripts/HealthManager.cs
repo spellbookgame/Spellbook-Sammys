@@ -12,10 +12,9 @@ public class HealthManager : MonoBehaviour
     // for the enemy
     [SerializeField] private Slider Slider_enemyHealthBar;
     [SerializeField] private Text Text_enemyHealthText;
-    private static Enemy enemy;
-    Player localPlayer;
+    [SerializeField] private Enemy enemy;
 
-    private CollectItemScript collectItemScript;
+    Player localPlayer;
 
     // Start is called before the first frame update
     void Start()
@@ -30,13 +29,11 @@ public class HealthManager : MonoBehaviour
         Text_healthtext.text = localPlayer.Spellcaster.fCurrentHealth.ToString();
 
         // instantiating enemy with 20 health
-        enemy = new Enemy(20f);
+        enemy = Instantiate(enemy);
+        enemy.Initialize(20f);
         enemy.fCurrentHealth = enemy.fMaxHealth;
         Slider_enemyHealthBar.value = CalculateEnemyHealth();
         Text_enemyHealthText.text = enemy.fCurrentHealth.ToString();
-
-        // referencing collect item script
-        collectItemScript = gameObject.GetComponent<CollectItemScript>();
     }
 
     // Update is called once per frame
@@ -45,6 +42,9 @@ public class HealthManager : MonoBehaviour
         // deal damage to player if health is above 0
         if(Input.GetKeyDown(KeyCode.X) && localPlayer.Spellcaster.fCurrentHealth > 0)
             HitPlayer(6);
+
+        if (Input.GetKeyDown(KeyCode.C) && enemy.fCurrentHealth > 0)
+            HitEnemy(6);
     }
 
     // calculating health to decrease from slider
@@ -86,15 +86,7 @@ public class HealthManager : MonoBehaviour
             enemy.fCurrentHealth = 0;
             Text_enemyHealthText.text = "0";
 
-            // notify player that spell piece was collected
-            // collectItemScript.CollectSpellPiece();
+            enemy.EnemyDefeated();
         }
-    }
-
-    // if attack button is clicked, deal 6 damage to enemy
-    public void attackClick()
-    {
-        if (enemy.fCurrentHealth > 0)
-            HitEnemy(6);
     }
 }
