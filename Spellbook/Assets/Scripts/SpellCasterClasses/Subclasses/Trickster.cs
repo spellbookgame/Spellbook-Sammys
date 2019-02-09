@@ -16,6 +16,7 @@ public class Trickster : SpellCaster
         
         //You can override variables in here.
         classType = "Trickster";
+        fMaxHealth = 20.0f;
 
         // creating the class-specific chapter
         chapter = new Chapter(classType);

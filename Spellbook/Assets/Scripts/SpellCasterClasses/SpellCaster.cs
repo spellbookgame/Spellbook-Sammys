@@ -9,8 +9,8 @@ public abstract class SpellCaster
 {
     public float fMaxHealth;
     public float fCurrentHealth;
+    public float fBasicAttackStrength;
 
-    public int iBasicAttackStrength;
     public int iMana;
 
     public string classType;

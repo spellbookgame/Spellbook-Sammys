@@ -14,9 +14,9 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
 
     [SerializeField] private GameObject panel;
     private bool panelOpen = false;
-    private float elapsedTime;
 
     private Coroutine coroutineReference;
+    private bool CR_running;
 
     private Dictionary<string, float> storedTimes;
 
@@ -123,7 +123,10 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
 
     protected virtual void OnTrackingLost()
     {
-        StopCoroutine(coroutineReference);
+        if(CR_running)
+        {
+            StopCoroutine(coroutineReference);
+        }
         if(panelOpen)
         {
             panel.SetActive(false);
@@ -132,8 +135,9 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
 
     IEnumerator ScanTime()
     {
+        CR_running = true;
         yield return new WaitForSeconds(3);
-
+        CR_running = false;
         OnTrackingFound();
     }
 }
