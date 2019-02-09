@@ -36,7 +36,6 @@ public abstract class SpellCaster
     {
         //fMaxHealth = 20.0f;     //Commented out in case Spellcasters have different max healths.
         iMana = 1000;
-        fBasicAttackStrength = Random.Range(1, 6);
 
         // initializing dictionary and adding values
         spellPieces = new Dictionary<string, int>()

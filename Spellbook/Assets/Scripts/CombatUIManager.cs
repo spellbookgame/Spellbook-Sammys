@@ -44,6 +44,7 @@ public class CombatUIManager : MonoBehaviour
 
     public void attackClick()
     {
+        localPlayer.Spellcaster.fBasicAttackStrength = Random.Range(1, 6);
         healthManager.HitEnemy(localPlayer.Spellcaster.fBasicAttackStrength);
     }
 
