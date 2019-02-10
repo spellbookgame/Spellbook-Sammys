@@ -22,7 +22,7 @@ public class SpellCastHandler : MonoBehaviour
             Button newSpellButton = Instantiate(spellButton);
             newSpellButton.transform.parent = GameObject.Find("Canvas").transform;
             newSpellButton.GetComponentInChildren<Text>().text = localPlayer.Spellcaster.chapter.spellsCollected[i].sSpellName;
-            newSpellButton.transform.position = new Vector3(720, yPos, 0);
+            newSpellButton.transform.localPosition = new Vector3(0, yPos, 0);
 
             // new int to pass into button onClick listener so loop will not throw index out of bounds error
             int i2 = i;
@@ -30,7 +30,7 @@ public class SpellCastHandler : MonoBehaviour
             newSpellButton.onClick.AddListener(() => localPlayer.Spellcaster.chapter.spellsCollected[i2].SpellCast(localPlayer.Spellcaster));
 
             // to position new button underneath prev button
-            yPos -= 200;
+            yPos -= 400;
         }
     }
 }
