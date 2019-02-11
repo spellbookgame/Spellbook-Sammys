@@ -6,8 +6,6 @@ using UnityEngine.SceneManagement;
 // attach to enemy prefab
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private Enemy enemyClone;
-
     private Player localPlayer;
 
     public float fMaxHealth;
@@ -67,6 +65,6 @@ public class Enemy : MonoBehaviour
         panelManager.showPanel();
         panelManager.setPanelText(panelText);
 
-        // Destroy(this.gameObject);
+        Destroy(this.gameObject);
     }
 }

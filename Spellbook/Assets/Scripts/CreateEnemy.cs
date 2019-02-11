@@ -10,9 +10,13 @@ public class CreateEnemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // instantiating enemy with 20 health
-        enemy = Instantiate(enemy);
-        enemy.Initialize(20f);
-        enemy.fCurrentHealth = enemy.fMaxHealth;
+        // if an enemy does not exist, create one
+        if(GameObject.FindGameObjectWithTag("Enemy") == null)
+        {
+            // instantiating enemy with 20 health
+            enemy = Instantiate(enemy);
+            enemy.Initialize(20f);
+            enemy.fCurrentHealth = enemy.fMaxHealth;
+        }
     }
 }
