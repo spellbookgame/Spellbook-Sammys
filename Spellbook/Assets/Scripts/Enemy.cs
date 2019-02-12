@@ -62,8 +62,9 @@ public class Enemy : MonoBehaviour
 
         localPlayer.Spellcaster.CollectSpellPiece(dropSpellPieces[index], localPlayer.Spellcaster);
         localPlayer.Spellcaster.iMana += manaCollected;
-        panelManager.showPanel();
-        panelManager.setPanelText(panelText);
+        panelManager.ShowPanel();
+        panelManager.SetPanelText(panelText);
+        panelManager.SetPanelImage(dropSpellPieces[index].ToString());
 
         Destroy(this.gameObject);
     }
