@@ -20,6 +20,9 @@ namespace Photon.Lobby
         public bool illusionistChosen = false;
         public bool summonerChosen = false;
 
+        // To avoid filling the input queue, let's check if the player clicked on something first.
+        private bool newClick = false;
+
         public Button alchemistButton;
         public Button arcanistButton;
         public Button elementalistButton;
@@ -157,14 +160,18 @@ namespace Photon.Lobby
 
         public override void SimulateController()
         {
-            ISpellcasterSelectCommandInput input = SpellcasterSelectCommand.Create();
-            input.alchemistChosen = alchemistChosen;
-            input.arcanistChosen = arcanistChosen;
-            input.elementalistChosen = elementalistChosen;
-            input.chronomancerChosen = chronomancerChosen;
-            input.illusionistChosen = illusionistChosen;
-            input.summonerChosen = summonerChosen;
-            entity.QueueInput(input);
+            if (newClick)
+            {
+                newClick = false;
+                ISpellcasterSelectCommandInput input = SpellcasterSelectCommand.Create();
+                input.alchemistChosen = alchemistChosen;
+                input.arcanistChosen = arcanistChosen;
+                input.elementalistChosen = elementalistChosen;
+                input.chronomancerChosen = chronomancerChosen;
+                input.illusionistChosen = illusionistChosen;
+                input.summonerChosen = summonerChosen;
+                entity.QueueInput(input);
+            }          
         }
 
         public override void ExecuteCommand(Command command, bool resetState)
@@ -224,6 +231,7 @@ namespace Photon.Lobby
         // UI
         public void OnAlchemistClicked()
         {
+            newClick = true;
             previousSelected = currentSelected;
             currentSelected = 0;
             alchemistChosen = true;
@@ -234,6 +242,7 @@ namespace Photon.Lobby
 
         public void OnArcanistClicked()
         {
+            newClick = true;
             previousSelected = currentSelected;
             currentSelected = 1;
             arcanistChosen = true;
@@ -244,6 +253,7 @@ namespace Photon.Lobby
 
         public void OnElementalistClicked()
         {
+            newClick = true;
             previousSelected = currentSelected;
             currentSelected = 2;
             elementalistChosen = true;
@@ -254,6 +264,7 @@ namespace Photon.Lobby
 
         public void OnChronomancerClicked()
         {
+            newClick = true;
             previousSelected = currentSelected;
             currentSelected = 3;
             chronomancerChosen = true;
@@ -264,6 +275,7 @@ namespace Photon.Lobby
 
         public void OnIllusionistClicked()
         {
+            newClick = true;
             previousSelected = currentSelected;
             currentSelected = 4;
             illusionistChosen = true;
@@ -274,6 +286,7 @@ namespace Photon.Lobby
 
         public void OnSummonerClicked()
         {
+            newClick = true;
             previousSelected = currentSelected;
             currentSelected = 5;
             summonerChosen = true;
