@@ -40,7 +40,7 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         if (localPlayer.Spellcaster.spellPieces[itemToDrag.name] > 0 && originalParent.childCount < 1)
         {
             // instantiate prefab of whatever was dragged, and omit (clone) from its name
-            GameObject clone = Instantiate((GameObject)Resources.Load(itemToDrag.name), originalParent);
+            GameObject clone = Instantiate((GameObject)Resources.Load("Spell Pieces/" + itemToDrag.name), originalParent);
             clone.name = itemToDrag.name;
 
             clone.AddComponent<DragHandler>();
@@ -53,6 +53,7 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         }
 
         // if dragging item has a text child, destroy it
+        // TODO: only destroy text; not glyph image
         if(itemToDrag.transform.childCount > 0)
         {
             Destroy(itemToDrag.transform.GetChild(0).gameObject);

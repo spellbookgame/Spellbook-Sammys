@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
@@ -36,14 +34,17 @@ public class SlotHandler : MonoBehaviour, IDropHandler
             // updating the text for each spell piece
             transform.GetChild(0).GetChild(0).GetComponent<Text>().text = localPlayer.Spellcaster.spellPieces[transform.GetChild(0).name].ToString();
 
-            // disable/enable DragHandler script
-            if(localPlayer.Spellcaster.spellPieces[transform.GetChild(0).name] <= 0)
+            // if drag handler script exists, disable/enable DragHandler script
+            if(transform.GetChild(0).GetComponent<DragHandler>() != null)
             {
-                transform.GetChild(0).GetComponent<DragHandler>().enabled = false;
-            }
-            else
-            {
-                transform.GetChild(0).GetComponent<DragHandler>().enabled = true;
+                if (localPlayer.Spellcaster.spellPieces[transform.GetChild(0).name] <= 0)
+                {
+                    transform.GetChild(0).GetComponent<DragHandler>().enabled = false;
+                }
+                else
+                {
+                    transform.GetChild(0).GetComponent<DragHandler>().enabled = true;
+                }
             }
         }
     }

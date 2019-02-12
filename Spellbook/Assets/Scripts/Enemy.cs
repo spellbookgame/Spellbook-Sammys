@@ -26,12 +26,30 @@ public class Enemy : MonoBehaviour
 
         dropSpellPieces = new List<string>()
         {
-            { "Alchemy Spell Piece" },
-            { "Arcane Spell Piece" },
-            { "Elemental Spell Piece" },
-            { "Illusion Spell Piece" },
-            { "Summoning Spell Piece" },
-            { "Time Spell Piece" },
+            { "Alchemy A Spell Piece"},
+            { "Alchemy B Spell Piece"},
+            { "Alchemy C Spell Piece"},
+            { "Alchemy D Spell Piece"},
+            { "Arcane A Spell Piece"},
+            { "Arcane B Spell Piece"},
+            { "Arcane C Spell Piece"},
+            { "Arcane D Spell Piece"},
+            { "Elemental A Spell Piece"},
+            { "Elemental B Spell Piece"},
+            { "Elemental C Spell Piece"},
+            { "Elemental D Spell Piece"},
+            { "Illusion A Spell Piece"},
+            { "Illusion B Spell Piece"},
+            { "Illusion C Spell Piece"},
+            { "Illusion D Spell Piece"},
+            { "Summoning A Spell Piece"},
+            { "Summoning B Spell Piece"},
+            { "Summoning C Spell Piece"},
+            { "Summoning D Spell Piece"},
+            { "Time A Spell Piece"},
+            { "Time B Spell Piece"},
+            { "Time C Spell Piece"},
+            { "Time D Spell Piece"}
         };
     }
 

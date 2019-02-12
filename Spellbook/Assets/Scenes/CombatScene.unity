@@ -2271,7 +2271,6 @@ GameObject:
   m_Component:
   - component: {fileID: 877666408}
   - component: {fileID: 877666407}
-  - component: {fileID: 877666406}
   - component: {fileID: 877666411}
   - component: {fileID: 877666410}
   m_Layer: 0
@@ -2281,22 +2280,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &877666406
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 877666405}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb703e939082e614e8792b578849dfdd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Slider_healthbar: {fileID: 236508838}
-  Text_healthtext: {fileID: 1533126679}
-  Slider_enemyHealthBar: {fileID: 809990665}
-  Text_enemyHealthText: {fileID: 948708909}
 --- !u!114 &877666407
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2311,6 +2294,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Panel_help: {fileID: 464933329}
   Text_mana: {fileID: 893681795}
+  Slider_healthbar: {fileID: 236508838}
+  Text_healthtext: {fileID: 1533126679}
+  Slider_enemyHealthBar: {fileID: 809990665}
+  Text_enemyHealthText: {fileID: 948708909}
 --- !u!4 &877666408
 Transform:
   m_ObjectHideFlags: 0

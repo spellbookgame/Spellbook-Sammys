@@ -40,13 +40,36 @@ public abstract class SpellCaster
         // initializing dictionary and adding values
         spellPieces = new Dictionary<string, int>()
         {
-            { "Alchemy Spell Piece", 0 },
-            { "Arcane Spell Piece", 0 },
-            { "Elemental Spell Piece", 0 },
-            { "Illusion Spell Piece", 0 },
-            { "Summoning Spell Piece", 0 },
-            { "Time Spell Piece", 0 }
+            { "Alchemy A Spell Piece", 0 },
+            { "Alchemy B Spell Piece", 0 },
+            { "Alchemy C Spell Piece", 0 },
+            { "Alchemy D Spell Piece", 0 },
+            { "Arcane A Spell Piece", 0 },
+            { "Arcane B Spell Piece", 0 },
+            { "Arcane C Spell Piece", 0 },
+            { "Arcane D Spell Piece", 0 },
+            { "Elemental A Spell Piece", 0 },
+            { "Elemental B Spell Piece", 0 },
+            { "Elemental C Spell Piece", 0 },
+            { "Elemental D Spell Piece", 0 },
+            { "Illusion A Spell Piece", 0 },
+            { "Illusion B Spell Piece", 0 },
+            { "Illusion C Spell Piece", 0 },
+            { "Illusion D Spell Piece", 0 },
+            { "Summoning A Spell Piece", 0 },
+            { "Summoning B Spell Piece", 0 },
+            { "Summoning C Spell Piece", 0 },
+            { "Summoning D Spell Piece", 0 },
+            { "Time A Spell Piece", 0 },
+            { "Time B Spell Piece", 0 },
+            { "Time C Spell Piece", 0 },
+            { "Time D Spell Piece", 0 }
         };
+
+        /*foreach(KeyValuePair<string, int> kvp in spellPieces)
+        {
+            Debug.Log(kvp.Key + " " + kvp.Value);
+        }*/
 
         glyphs = new Dictionary<string, int>()
         {
@@ -82,6 +105,7 @@ public abstract class SpellCaster
     public void CollectSpellPiece(string spellPieceName, SpellCaster player)
     {
         player.spellPieces[spellPieceName] += 1;
+        Debug.Log("Collected " + spellPieceName + ". You now have " + player.spellPieces[spellPieceName] + "pieces.");
     }
 
     // method that adds spell to player's chapter

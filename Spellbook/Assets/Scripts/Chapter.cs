@@ -24,8 +24,6 @@ public class Chapter : MonoBehaviour
         switch (classType)
         {
             case "Alchemist":
-                Spell polymorph = new Polymorph();
-                spellsAllowed.Add(polymorph);
                 break;
             case "Arcanist":
                 Spell magicMissiles = new MagicMissiles();
@@ -34,20 +32,14 @@ public class Chapter : MonoBehaviour
                 spellsAllowed.Add(arcanaHarvest);
                 break;
             case "Summoner":
-                Spell summonTree = new SummonTree();
-                spellsAllowed.Add(summonTree);
                 break;
             case "Chronomancer":
-                Spell alterTime = new AlterTime();
-                spellsAllowed.Add(alterTime);
                 break;
             case "Elementalist":
                 Spell fireball = new Fireball();
                 spellsAllowed.Add(fireball);
                 break;
             case "Trickster":
-                Spell mirrorImage = new MirrorImage();
-                spellsAllowed.Add(mirrorImage);
                 break;
             default:
                 break;
@@ -65,7 +57,7 @@ public class Chapter : MonoBehaviour
         for (int i = 0; i < player.chapter.spellsAllowed.Count; ++i)
         {
             // if tier 3 spell, only 1 from slotPieces has to match requiredPieces
-            // ISSUE: arcana harvest and magic missiles both fit this requirement, so player collects both
+            // TODO: not working -- comparison works, but equal is always returning true for some reason
             if(player.chapter.spellsAllowed[i].iTier == 3)
             {
                 if (slotPieces.ContainsKey(player.chapter.spellsAllowed[i].requiredPieces.ElementAt(0).Key))
