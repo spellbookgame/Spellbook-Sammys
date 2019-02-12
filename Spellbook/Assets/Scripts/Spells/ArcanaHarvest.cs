@@ -12,7 +12,7 @@ public class ArcanaHarvest : Spell
         iManaCost = 100;
         sSpellClass = "Arcanist";
 
-        requiredPieces.Add("Alchemy D Spell Piece", 1);
+        requiredPieces.Add("Arcane D Spell Piece", 1);
 
         requiredGlyphs.Add("Arcane1", 4);
     }

@@ -34,31 +34,13 @@ public class PanelManager : MonoBehaviour
         }
     }
 
+    // fix this to load resources of each image
     public void SetPanelImage(string imageName)
     {
         image = panelClone.transform.GetChild(2).GetComponent<Image>();
-
-        switch (imageName)
-        {
-            case "Alchemy Spell Piece":
-                image.sprite = alchemy1;
-                break;
-            case "Arcane Spell Piece":
-                image.sprite = arcane1;
-                break;
-            case "Elemental Spell Piece":
-                image.sprite = elemental1;
-                break;
-            case "Illusion Spell Piece":
-                image.sprite = illusion1;
-                break;
-            case "Summoning Spell Piece":
-                image.sprite = summoning1;
-                break;
-            case "Time Spell Piece":
-                image.sprite = time1;
-                break;
-        }
+        Debug.Log(imageName);
+        // not working D:
+        image.sprite = Resources.Load<Sprite>("Spell Pieces/" + imageName);
     }
 
     public void SetPanelText(string text)

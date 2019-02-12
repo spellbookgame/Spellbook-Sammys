@@ -13,7 +13,7 @@ public class MagicMissiles : Spell
         iManaCost = 100;
         sSpellClass = "Arcanist";
 
-        requiredPieces.Add("Arcane C Spell Piece", 1);
+        requiredPieces.Add("Arcane A Spell Piece", 1);
 
         requiredGlyphs.Add("Arcane1", 4);
     }

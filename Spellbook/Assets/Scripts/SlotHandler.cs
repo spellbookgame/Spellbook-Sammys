@@ -92,7 +92,7 @@ public class SlotHandler : MonoBehaviour, IDropHandler
                     spellManager.slotPieces.Add(transform.GetChild(0).name, 1);
                 }
                 Debug.Log("Added " + transform.GetChild(0).name + " to dictionary");
-                Debug.Log(transform.GetChild(0).name + spellManager.slotPieces[transform.GetChild(0).name].ToString());
+                Debug.Log("Slot count: " + spellManager.slotPieces.Count);
             }
         }
     }

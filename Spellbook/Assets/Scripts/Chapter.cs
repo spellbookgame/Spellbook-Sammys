@@ -53,45 +53,39 @@ public class Chapter : MonoBehaviour
     public void CompareSpells(SpellCaster player, Dictionary<string, int> slotPieces)
     {
         bool equal = false;
-        // iterate through the player's spells allowed
-        for (int i = 0; i < player.chapter.spellsAllowed.Count; ++i)
+
+        Dictionary<string, int> dictionary1 = slotPieces;
+
+        // iterate through each spell that player can collect
+        for(int i = 0; i < player.chapter.spellsAllowed.Count; ++i)
         {
-            // if tier 3 spell, only 1 from slotPieces has to match requiredPieces
-            // TODO: not working -- comparison works, but equal is always returning true for some reason
-            if(player.chapter.spellsAllowed[i].iTier == 3)
+            Dictionary<string, int> dictionary2 = player.chapter.spellsAllowed[i].requiredPieces;
+            
+            if (player.chapter.spellsAllowed[i].iTier == 3)
             {
-                if (slotPieces.ContainsKey(player.chapter.spellsAllowed[i].requiredPieces.ElementAt(0).Key))
-                    equal = true;
-            }
-            // if tier 1 spell, all 4 must match
-            // the following comparison is from dotnetperls.com
-            else if (slotPieces.Count == player.chapter.spellsAllowed[i].requiredPieces.Count)
-            {
-                equal = true;
-                foreach (var pair in player.chapter.spellsAllowed[i].requiredPieces)
+                if(dictionary2.Keys.All(k => dictionary1.ContainsKey(k)))
                 {
-                    int value;
-                    if (slotPieces.TryGetValue(pair.Key, out value))
+                    equal = true;
+                    // if equal and player does not have the spell yet
+                    if (equal && !player.chapter.spellsCollected.Contains(player.chapter.spellsAllowed[i]))
                     {
-                        // require value to be equal
-                        if (value != pair.Value)
-                        {
-                            equal = false;
-                            break;
-                        }
-                    }
-                    else
-                    {
-                        // require key be present
-                        equal = false;
+                        player.CollectSpell(player.chapter.spellsAllowed[i], player);
                         break;
                     }
                 }
             }
-            if (equal)
+            else if(player.chapter.spellsAllowed[i].iTier == 1)
             {
-                Debug.Log("Player collected spell!");
-                player.CollectSpell(player.chapter.spellsAllowed[i], player);
+                if(dictionary1.Keys.Count == dictionary2.Keys.Count && dictionary1.Keys.All(k => dictionary2.ContainsKey(k) 
+                    && object.Equals(dictionary2[k], dictionary1[k])))
+                {
+                    equal = true;
+                    if (equal)
+                    {
+                        player.CollectSpell(player.chapter.spellsAllowed[i], player);
+                        break;
+                    }
+                }
             }
         }
     }
