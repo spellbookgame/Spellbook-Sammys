@@ -32,6 +32,8 @@ public class Chapter : MonoBehaviour
                 spellsAllowed.Add(arcanaHarvest);
                 break;
             case "Summoner":
+                Spell cowBear = new CoWBear();
+                spellsAllowed.Add(cowBear);
                 break;
             case "Chronomancer":
                 break;
@@ -73,6 +75,10 @@ public class Chapter : MonoBehaviour
                         break;
                     }
                 }
+            }
+            else if(player.chapter.spellsAllowed[i].iTier == 2)
+            {
+                // TODO: comparing tier 2 spells (3 required spell pieces)
             }
             else if(player.chapter.spellsAllowed[i].iTier == 1)
             {

@@ -51,10 +51,9 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
             // set the instantiated clone's text to the number player has
             clone.transform.GetChild(0).GetComponent<Text>().text = localPlayer.Spellcaster.spellPieces[clone.name].ToString();
         }
-
-        // if dragging item has a text child, destroy it
-        // TODO: only destroy text; not glyph image
-        if(itemToDrag.transform.childCount > 0)
+        
+        // if dragging item has a text component in its first child, then destroy that child
+        if(itemToDrag.transform.GetChild(0).GetComponent<Text>())
         {
             Destroy(itemToDrag.transform.GetChild(0).gameObject);
         }

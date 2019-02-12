@@ -11,12 +11,6 @@ public class PanelManager : MonoBehaviour
     private Image image;
 
     [SerializeField] private GameObject panel;
-    [SerializeField] private Sprite alchemy1;
-    [SerializeField] private Sprite arcane1;
-    [SerializeField] private Sprite elemental1;
-    [SerializeField] private Sprite illusion1;
-    [SerializeField] private Sprite summoning1;
-    [SerializeField] private Sprite time1;
 
     public void ShowPanel()
     {
@@ -38,9 +32,8 @@ public class PanelManager : MonoBehaviour
     public void SetPanelImage(string imageName)
     {
         image = panelClone.transform.GetChild(2).GetComponent<Image>();
-        Debug.Log(imageName);
         // not working D:
-        image.sprite = Resources.Load<Sprite>("Spell Pieces/" + imageName);
+        image.sprite = Resources.Load("Spell Pieces/" + imageName) as Sprite;
     }
 
     public void SetPanelText(string text)
