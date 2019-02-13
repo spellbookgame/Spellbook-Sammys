@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7181958725196158807
+--- !u!1 &9115375484071837898
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,30 +8,30 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7181958725196158804}
-  - component: {fileID: 7181958725196158800}
-  - component: {fileID: 7181958725196158803}
-  - component: {fileID: 7181958725196158802}
-  - component: {fileID: 7181958725196158805}
+  - component: {fileID: 9115375484071837897}
+  - component: {fileID: 9115375484071837901}
+  - component: {fileID: 9115375484071837902}
+  - component: {fileID: 9115375484071837903}
+  - component: {fileID: 9115375484071837896}
   m_Layer: 0
-  m_Name: Arcane A Spell Slot
+  m_Name: Summoning A Spell Piece
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &7181958725196158804
+--- !u!224 &9115375484071837897
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7181958725196158807}
+  m_GameObject: {fileID: 9115375484071837898}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.0000001, y: 1.0000001, z: 1.0000001}
   m_Children:
-  - {fileID: 8464672331750804814}
+  - {fileID: 2372673601610578428}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -40,21 +40,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &7181958725196158800
+--- !u!222 &9115375484071837901
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7181958725196158807}
+  m_GameObject: {fileID: 9115375484071837898}
   m_CullTransparentMesh: 0
---- !u!114 &7181958725196158803
+--- !u!114 &9115375484071837902
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7181958725196158807}
+  m_GameObject: {fileID: 9115375484071837898}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
@@ -77,13 +77,13 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
---- !u!114 &7181958725196158802
+--- !u!114 &9115375484071837903
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7181958725196158807}
+  m_GameObject: {fileID: 9115375484071837898}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -2095666955, guid: f70555f144d8491a825f0804e09c671c, type: 3}
@@ -101,140 +101,140 @@ MonoBehaviour:
   m_Spacing: {x: 0, y: 0}
   m_Constraint: 0
   m_ConstraintCount: 2
---- !u!114 &7181958725196158805
+--- !u!114 &9115375484071837896
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7181958725196158807}
+  m_GameObject: {fileID: 9115375484071837898}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9b6d1082c953bab4e9ec86b1442fcda5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &7181958724866867004
+--- !u!1001 &9115375485174665249
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 7181958725196158804}
+    m_TransformParent: {fileID: 9115375484071837897}
     m_Modifications:
-    - target: {fileID: 1432981128897742593, guid: eeb2a5d0de177bf4fb7e21fedb8dddd0,
+    - target: {fileID: 6804164587979680222, guid: 7ad4111748b12f24cbbb98c307f1a161,
         type: 3}
       propertyPath: m_Name
-      value: Arcane A Spell Piece
+      value: Summoning A Spell Piece
       objectReference: {fileID: 0}
-    - target: {fileID: 1644939539638219378, guid: eeb2a5d0de177bf4fb7e21fedb8dddd0,
+    - target: {fileID: 6804164587979680221, guid: 7ad4111748b12f24cbbb98c307f1a161,
         type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1644939539638219378, guid: eeb2a5d0de177bf4fb7e21fedb8dddd0,
+    - target: {fileID: 6804164587979680221, guid: 7ad4111748b12f24cbbb98c307f1a161,
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1644939539638219378, guid: eeb2a5d0de177bf4fb7e21fedb8dddd0,
+    - target: {fileID: 6804164587979680221, guid: 7ad4111748b12f24cbbb98c307f1a161,
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1644939539638219378, guid: eeb2a5d0de177bf4fb7e21fedb8dddd0,
+    - target: {fileID: 6804164587979680221, guid: 7ad4111748b12f24cbbb98c307f1a161,
         type: 3}
       propertyPath: m_LocalRotation.x
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 1644939539638219378, guid: eeb2a5d0de177bf4fb7e21fedb8dddd0,
+    - target: {fileID: 6804164587979680221, guid: 7ad4111748b12f24cbbb98c307f1a161,
         type: 3}
       propertyPath: m_LocalRotation.y
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 1644939539638219378, guid: eeb2a5d0de177bf4fb7e21fedb8dddd0,
+    - target: {fileID: 6804164587979680221, guid: 7ad4111748b12f24cbbb98c307f1a161,
         type: 3}
       propertyPath: m_LocalRotation.z
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 1644939539638219378, guid: eeb2a5d0de177bf4fb7e21fedb8dddd0,
+    - target: {fileID: 6804164587979680221, guid: 7ad4111748b12f24cbbb98c307f1a161,
         type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1644939539638219378, guid: eeb2a5d0de177bf4fb7e21fedb8dddd0,
+    - target: {fileID: 6804164587979680221, guid: 7ad4111748b12f24cbbb98c307f1a161,
         type: 3}
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1644939539638219378, guid: eeb2a5d0de177bf4fb7e21fedb8dddd0,
+    - target: {fileID: 6804164587979680221, guid: 7ad4111748b12f24cbbb98c307f1a161,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1644939539638219378, guid: eeb2a5d0de177bf4fb7e21fedb8dddd0,
+    - target: {fileID: 6804164587979680221, guid: 7ad4111748b12f24cbbb98c307f1a161,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1644939539638219378, guid: eeb2a5d0de177bf4fb7e21fedb8dddd0,
+    - target: {fileID: 6804164587979680221, guid: 7ad4111748b12f24cbbb98c307f1a161,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1644939539638219378, guid: eeb2a5d0de177bf4fb7e21fedb8dddd0,
+    - target: {fileID: 6804164587979680221, guid: 7ad4111748b12f24cbbb98c307f1a161,
         type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1644939539638219378, guid: eeb2a5d0de177bf4fb7e21fedb8dddd0,
+    - target: {fileID: 6804164587979680221, guid: 7ad4111748b12f24cbbb98c307f1a161,
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1644939539638219378, guid: eeb2a5d0de177bf4fb7e21fedb8dddd0,
+    - target: {fileID: 6804164587979680221, guid: 7ad4111748b12f24cbbb98c307f1a161,
         type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1644939539638219378, guid: eeb2a5d0de177bf4fb7e21fedb8dddd0,
+    - target: {fileID: 6804164587979680221, guid: 7ad4111748b12f24cbbb98c307f1a161,
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1644939539638219378, guid: eeb2a5d0de177bf4fb7e21fedb8dddd0,
+    - target: {fileID: 6804164587979680221, guid: 7ad4111748b12f24cbbb98c307f1a161,
         type: 3}
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1644939539638219378, guid: eeb2a5d0de177bf4fb7e21fedb8dddd0,
+    - target: {fileID: 6804164587979680221, guid: 7ad4111748b12f24cbbb98c307f1a161,
         type: 3}
       propertyPath: m_AnchorMin.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1644939539638219378, guid: eeb2a5d0de177bf4fb7e21fedb8dddd0,
+    - target: {fileID: 6804164587979680221, guid: 7ad4111748b12f24cbbb98c307f1a161,
         type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1644939539638219378, guid: eeb2a5d0de177bf4fb7e21fedb8dddd0,
+    - target: {fileID: 6804164587979680221, guid: 7ad4111748b12f24cbbb98c307f1a161,
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1644939539638219378, guid: eeb2a5d0de177bf4fb7e21fedb8dddd0,
+    - target: {fileID: 6804164587979680221, guid: 7ad4111748b12f24cbbb98c307f1a161,
         type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 1644939539638219378, guid: eeb2a5d0de177bf4fb7e21fedb8dddd0,
+    - target: {fileID: 6804164587979680221, guid: 7ad4111748b12f24cbbb98c307f1a161,
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: eeb2a5d0de177bf4fb7e21fedb8dddd0, type: 3}
---- !u!224 &8464672331750804814 stripped
+  m_SourcePrefab: {fileID: 100100000, guid: 7ad4111748b12f24cbbb98c307f1a161, type: 3}
+--- !u!224 &2372673601610578428 stripped
 RectTransform:
-  m_CorrespondingSourceObject: {fileID: 1644939539638219378, guid: eeb2a5d0de177bf4fb7e21fedb8dddd0,
+  m_CorrespondingSourceObject: {fileID: 6804164587979680221, guid: 7ad4111748b12f24cbbb98c307f1a161,
     type: 3}
-  m_PrefabInstance: {fileID: 7181958724866867004}
+  m_PrefabInstance: {fileID: 9115375485174665249}
   m_PrefabAsset: {fileID: 0}

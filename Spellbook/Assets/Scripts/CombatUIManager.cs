@@ -87,19 +87,19 @@ public class CombatUIManager : MonoBehaviour
             localPlayer.Spellcaster.CollectSpellPiece("Illusion D Spell Piece", localPlayer.Spellcaster);
         if (Input.GetKeyDown(KeyCode.U) && enemy.fCurrentHealth > 0)
             localPlayer.Spellcaster.CollectSpellPiece("Summoning A Spell Piece", localPlayer.Spellcaster);
-        if (Input.GetKeyDown(KeyCode.U) && enemy.fCurrentHealth > 0)
+        if (Input.GetKeyDown(KeyCode.I) && enemy.fCurrentHealth > 0)
             localPlayer.Spellcaster.CollectSpellPiece("Summoning B Spell Piece", localPlayer.Spellcaster);
-        if (Input.GetKeyDown(KeyCode.U) && enemy.fCurrentHealth > 0)
+        if (Input.GetKeyDown(KeyCode.O) && enemy.fCurrentHealth > 0)
             localPlayer.Spellcaster.CollectSpellPiece("Summoning C Spell Piece", localPlayer.Spellcaster);
-        if (Input.GetKeyDown(KeyCode.U) && enemy.fCurrentHealth > 0)
+        if (Input.GetKeyDown(KeyCode.P) && enemy.fCurrentHealth > 0)
             localPlayer.Spellcaster.CollectSpellPiece("Summoning D Spell Piece", localPlayer.Spellcaster);
-        if (Input.GetKeyDown(KeyCode.U) && enemy.fCurrentHealth > 0)
+        if (Input.GetKeyDown(KeyCode.A) && enemy.fCurrentHealth > 0)
             localPlayer.Spellcaster.CollectSpellPiece("Time A Spell Piece", localPlayer.Spellcaster);
-        if (Input.GetKeyDown(KeyCode.U) && enemy.fCurrentHealth > 0)
+        if (Input.GetKeyDown(KeyCode.S) && enemy.fCurrentHealth > 0)
             localPlayer.Spellcaster.CollectSpellPiece("Time B Spell Piece", localPlayer.Spellcaster);
-        if (Input.GetKeyDown(KeyCode.U) && enemy.fCurrentHealth > 0)
+        if (Input.GetKeyDown(KeyCode.D) && enemy.fCurrentHealth > 0)
             localPlayer.Spellcaster.CollectSpellPiece("Time C Spell Piece", localPlayer.Spellcaster);
-        if (Input.GetKeyDown(KeyCode.U) && enemy.fCurrentHealth > 0)
+        if (Input.GetKeyDown(KeyCode.F) && enemy.fCurrentHealth > 0)
             localPlayer.Spellcaster.CollectSpellPiece("Time D Spell Piece", localPlayer.Spellcaster);
 
         UpdateEnemyStats();

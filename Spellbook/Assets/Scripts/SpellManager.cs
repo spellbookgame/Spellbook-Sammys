@@ -13,6 +13,7 @@ public class SpellManager : MonoBehaviour, IHasChanged
     [SerializeField] Transform slots;
     [SerializeField] public Text inventoryText;
     [SerializeField] public GameObject panel;
+    [SerializeField] private GameObject spellPieceContainer;
     
     public Dictionary<string, int> slotPieces;
     private RectTransform panelRect;
@@ -99,173 +100,18 @@ public class SpellManager : MonoBehaviour, IHasChanged
 
     private void GenerateSpellSlots()
     {
-        if (localPlayer.Spellcaster.spellPieces["Alchemy A Spell Piece"] > 0)
+        // for each spell piece player has, child its spell slot to panel
+        foreach(KeyValuePair<string, int> kvp in localPlayer.Spellcaster.spellPieces)
         {
-            GameObject alcASlot = Instantiate((GameObject)Resources.Load("Spell Slots/Alchemy A Spell Slot"), panel.transform);
-            ++iSlotCount;
-            alcASlot.transform.GetChild(0).GetChild(0).GetComponent<Text>().text = localPlayer.Spellcaster.spellPieces["Alchemy A Spell Piece"].ToString();
-            alcASlot.transform.GetChild(0).gameObject.AddComponent<DragHandler>();
-        }
-        if (localPlayer.Spellcaster.spellPieces["Alchemy B Spell Piece"] > 0)
-        {
-            GameObject alcBSlot = Instantiate((GameObject)Resources.Load("Spell Slots/Alchemy B Spell Slot"), panel.transform);
-            ++iSlotCount;
-            alcBSlot.transform.GetChild(0).GetChild(0).GetComponent<Text>().text = localPlayer.Spellcaster.spellPieces["Alchemy B Spell Piece"].ToString();
-            alcBSlot.transform.GetChild(0).gameObject.AddComponent<DragHandler>();
-        }
-        if (localPlayer.Spellcaster.spellPieces["Alchemy C Spell Piece"] > 0)
-        {
-            GameObject alcCSlot = Instantiate((GameObject)Resources.Load("Spell Slots/Alchemy C Spell Slot"), panel.transform);
-            ++iSlotCount;
-            alcCSlot.transform.GetChild(0).GetChild(0).GetComponent<Text>().text = localPlayer.Spellcaster.spellPieces["Alchemy B Spell Piece"].ToString();
-            alcCSlot.transform.GetChild(0).gameObject.AddComponent<DragHandler>();
-        }
-        if (localPlayer.Spellcaster.spellPieces["Alchemy D Spell Piece"] > 0)
-        {
-            GameObject alcDSlot = Instantiate((GameObject)Resources.Load("Spell Slots/Alchemy D Spell Slot"), panel.transform);
-            ++iSlotCount;
-            alcDSlot.transform.GetChild(0).GetChild(0).GetComponent<Text>().text = localPlayer.Spellcaster.spellPieces["Alchemy D Spell Piece"].ToString();
-            alcDSlot.transform.GetChild(0).gameObject.AddComponent<DragHandler>();
-        }
-        if (localPlayer.Spellcaster.spellPieces["Arcane A Spell Piece"] > 0)
-        {
-            GameObject arcASlot = Instantiate((GameObject)Resources.Load("Spell Slots/Arcane A Spell Slot"), panel.transform);
-            ++iSlotCount;
-            arcASlot.transform.GetChild(0).GetChild(0).GetComponent<Text>().text = localPlayer.Spellcaster.spellPieces["Arcane A Spell Piece"].ToString();
-            arcASlot.transform.GetChild(0).gameObject.AddComponent<DragHandler>();
-        }
-        if (localPlayer.Spellcaster.spellPieces["Arcane B Spell Piece"] > 0)
-        {
-            GameObject arcBSlot = Instantiate((GameObject)Resources.Load("Spell Slots/Arcane B Spell Slot"), panel.transform);
-            ++iSlotCount;
-            arcBSlot.transform.GetChild(0).GetChild(0).GetComponent<Text>().text = localPlayer.Spellcaster.spellPieces["Arcane B Spell Piece"].ToString();
-            arcBSlot.transform.GetChild(0).gameObject.AddComponent<DragHandler>();
-        }
-        if (localPlayer.Spellcaster.spellPieces["Arcane C Spell Piece"] > 0)
-        {
-            GameObject arcCSlot = Instantiate((GameObject)Resources.Load("Spell Slots/Arcane C Spell Slot"), panel.transform);
-            ++iSlotCount;
-            arcCSlot.transform.GetChild(0).GetChild(0).GetComponent<Text>().text = localPlayer.Spellcaster.spellPieces["Arcane C Spell Piece"].ToString();
-            arcCSlot.transform.GetChild(0).gameObject.AddComponent<DragHandler>();
-        }
-        if (localPlayer.Spellcaster.spellPieces["Arcane D Spell Piece"] > 0)
-        {
-            GameObject arcDSlot = Instantiate((GameObject)Resources.Load("Spell Slots/Arcane D Spell Slot"), panel.transform);
-            ++iSlotCount;
-            arcDSlot.transform.GetChild(0).GetChild(0).GetComponent<Text>().text = localPlayer.Spellcaster.spellPieces["Arcane D Spell Piece"].ToString();
-            arcDSlot.transform.GetChild(0).gameObject.AddComponent<DragHandler>();
-        }
-        if (localPlayer.Spellcaster.spellPieces["Elemental A Spell Piece"] > 0)
-        {
-            GameObject eleASlot = Instantiate((GameObject)Resources.Load("Spell Slots/Elemental A Spell Slot"), panel.transform);
-            ++iSlotCount;
-            eleASlot.transform.GetChild(0).GetChild(0).GetComponent<Text>().text = localPlayer.Spellcaster.spellPieces["Elemental A Spell Piece"].ToString();
-            eleASlot.transform.GetChild(0).gameObject.AddComponent<DragHandler>();
-        }
-        if (localPlayer.Spellcaster.spellPieces["Elemental B Spell Piece"] > 0)
-        {
-            GameObject eleBSlot = Instantiate((GameObject)Resources.Load("Spell Slots/Elemental B Spell Slot"), panel.transform);
-            ++iSlotCount;
-            eleBSlot.transform.GetChild(0).GetChild(0).GetComponent<Text>().text = localPlayer.Spellcaster.spellPieces["Elemental B Spell Piece"].ToString();
-            eleBSlot.transform.GetChild(0).gameObject.AddComponent<DragHandler>();
-        }
-        if (localPlayer.Spellcaster.spellPieces["Elemental C Spell Piece"] > 0)
-        {
-            GameObject eleCSlot = Instantiate((GameObject)Resources.Load("Spell Slots/Elemental C Spell Slot"), panel.transform);
-            ++iSlotCount;
-            eleCSlot.transform.GetChild(0).GetChild(0).GetComponent<Text>().text = localPlayer.Spellcaster.spellPieces["Elemental C Spell Piece"].ToString();
-            eleCSlot.transform.GetChild(0).gameObject.AddComponent<DragHandler>();
-        }
-        if (localPlayer.Spellcaster.spellPieces["Elemental D Spell Piece"] > 0)
-        {
-            GameObject eleDSlot = Instantiate((GameObject)Resources.Load("Spell Slots/Elemental D Spell Slot"), panel.transform);
-            ++iSlotCount;
-            eleDSlot.transform.GetChild(0).GetChild(0).GetComponent<Text>().text = localPlayer.Spellcaster.spellPieces["Elemental D Spell Piece"].ToString();
-            eleDSlot.transform.GetChild(0).gameObject.AddComponent<DragHandler>();
-        }
-        if (localPlayer.Spellcaster.spellPieces["Illusion A Spell Piece"] > 0)
-        {
-            GameObject illASlot = Instantiate((GameObject)Resources.Load("Spell Slots/Illusion A Spell Slot"), panel.transform);
-            ++iSlotCount;
-            illASlot.transform.GetChild(0).GetChild(0).GetComponent<Text>().text = localPlayer.Spellcaster.spellPieces["Illusion A Spell Piece"].ToString();
-            illASlot.transform.GetChild(0).gameObject.AddComponent<DragHandler>();
-        }
-        if (localPlayer.Spellcaster.spellPieces["Illusion B Spell Piece"] > 0)
-        {
-            GameObject illBSlot = Instantiate((GameObject)Resources.Load("Spell Slots/Illusion B Spell Slot"), panel.transform);
-            ++iSlotCount;
-            illBSlot.transform.GetChild(0).GetChild(0).GetComponent<Text>().text = localPlayer.Spellcaster.spellPieces["Illusion B Spell Piece"].ToString();
-            illBSlot.transform.GetChild(0).gameObject.AddComponent<DragHandler>();
-        }
-        if (localPlayer.Spellcaster.spellPieces["Illusion C Spell Piece"] > 0)
-        {
-            GameObject illCSlot = Instantiate((GameObject)Resources.Load("Spell Slots/Illusion C Spell Slot"), panel.transform);
-            ++iSlotCount;
-            illCSlot.transform.GetChild(0).GetChild(0).GetComponent<Text>().text = localPlayer.Spellcaster.spellPieces["Illusion C Spell Piece"].ToString();
-            illCSlot.transform.GetChild(0).gameObject.AddComponent<DragHandler>();
-        }
-        if (localPlayer.Spellcaster.spellPieces["Illusion D Spell Piece"] > 0)
-        {
-            GameObject illDSlot = Instantiate((GameObject)Resources.Load("Spell Slots/Illusion D Spell Slot"), panel.transform);
-            ++iSlotCount;
-            illDSlot.transform.GetChild(0).GetChild(0).GetComponent<Text>().text = localPlayer.Spellcaster.spellPieces["Illusion D Spell Piece"].ToString();
-            illDSlot.transform.GetChild(0).gameObject.AddComponent<DragHandler>();
-        }
-        if (localPlayer.Spellcaster.spellPieces["Summoning A Spell Piece"] > 0)
-        {
-            GameObject sumASlot = Instantiate((GameObject)Resources.Load("Spell Slots/Summoning A Spell Slot"), panel.transform);
-            ++iSlotCount;
-            sumASlot.transform.GetChild(0).GetChild(0).GetComponent<Text>().text = localPlayer.Spellcaster.spellPieces["Summoning A Spell Piece"].ToString();
-            sumASlot.transform.GetChild(0).gameObject.AddComponent<DragHandler>();
-        }
-        if (localPlayer.Spellcaster.spellPieces["Summoning B Spell Piece"] > 0)
-        {
-            GameObject sumBSlot = Instantiate((GameObject)Resources.Load("Spell Slots/Summoning B Spell Slot"), panel.transform);
-            ++iSlotCount;
-            sumBSlot.transform.GetChild(0).GetChild(0).GetComponent<Text>().text = localPlayer.Spellcaster.spellPieces["Summoning B Spell Piece"].ToString();
-            sumBSlot.transform.GetChild(0).gameObject.AddComponent<DragHandler>();
-        }
-        if (localPlayer.Spellcaster.spellPieces["Summoning C Spell Piece"] > 0)
-        {
-            GameObject sumCSlot = Instantiate((GameObject)Resources.Load("Spell Slots/Summoning C Spell Slot"), panel.transform);
-            ++iSlotCount;
-            sumCSlot.transform.GetChild(0).GetChild(0).GetComponent<Text>().text = localPlayer.Spellcaster.spellPieces["Summoning C Spell Piece"].ToString();
-            sumCSlot.transform.GetChild(0).gameObject.AddComponent<DragHandler>();
-        }
-        if (localPlayer.Spellcaster.spellPieces["Summoning D Spell Piece"] > 0)
-        {
-            GameObject sumDSlot = Instantiate((GameObject)Resources.Load("Spell Slots/Summoning D Spell Slot"), panel.transform);
-            ++iSlotCount;
-            sumDSlot.transform.GetChild(0).GetChild(0).GetComponent<Text>().text = localPlayer.Spellcaster.spellPieces["Summoning D Spell Piece"].ToString();
-            sumDSlot.transform.GetChild(0).gameObject.AddComponent<DragHandler>();
-        }
-        if (localPlayer.Spellcaster.spellPieces["Time A Spell Piece"] > 0)
-        {
-            GameObject timASlot = Instantiate((GameObject)Resources.Load("Spell Slots/Time A Spell Slot"), panel.transform);
-            ++iSlotCount;
-            timASlot.transform.GetChild(0).GetChild(0).GetComponent<Text>().text = localPlayer.Spellcaster.spellPieces["Time A Spell Piece"].ToString();
-            timASlot.transform.GetChild(0).gameObject.AddComponent<DragHandler>();
-        }
-        if (localPlayer.Spellcaster.spellPieces["Time B Spell Piece"] > 0)
-        {
-            GameObject timBSlot = Instantiate((GameObject)Resources.Load("Spell Slots/Time B Spell Slot"), panel.transform);
-            ++iSlotCount;
-            timBSlot.transform.GetChild(0).GetChild(0).GetComponent<Text>().text = localPlayer.Spellcaster.spellPieces["Time B Spell Piece"].ToString();
-            timBSlot.transform.GetChild(0).gameObject.AddComponent<DragHandler>();
-        }
-        if (localPlayer.Spellcaster.spellPieces["Time C Spell Piece"] > 0)
-        {
-            GameObject timCSlot = Instantiate((GameObject)Resources.Load("Spell Slots/Time C Spell Slot"), panel.transform);
-            ++iSlotCount;
-            timCSlot.transform.GetChild(0).GetChild(0).GetComponent<Text>().text = localPlayer.Spellcaster.spellPieces["Time C Spell Piece"].ToString();
-            timCSlot.transform.GetChild(0).gameObject.AddComponent<DragHandler>();
-        }
-        if (localPlayer.Spellcaster.spellPieces["Time D Spell Piece"] > 0)
-        {
-            GameObject timDSlot = Instantiate((GameObject)Resources.Load("Spell Slots/Time D Spell Slot"), panel.transform);
-            ++iSlotCount;
-            timDSlot.transform.GetChild(0).GetChild(0).GetComponent<Text>().text = localPlayer.Spellcaster.spellPieces["Time D Spell Piece"].ToString();
-            timDSlot.transform.GetChild(0).gameObject.AddComponent<DragHandler>();
+            if(kvp.Value > 0)
+            {
+                string spellName = kvp.Key;
+                Transform slotTransform = spellPieceContainer.transform.Find(spellName);
+                slotTransform.SetParent(panel.transform);
+                slotTransform.GetChild(0).GetChild(0).GetComponent<Text>().text = localPlayer.Spellcaster.spellPieces[spellName].ToString();
+                slotTransform.GetChild(0).gameObject.AddComponent<DragHandler>();
+                ++iSlotCount;
+            }
         }
     }
 }

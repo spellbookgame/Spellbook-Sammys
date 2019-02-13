@@ -75,7 +75,7 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         GetComponent<CanvasGroup>().blocksRaycasts = true;
 
         // if item's parent is where it started from onBeginDrag() and drag ended without changing parent, snap it back
-        if (transform.parent == startParent)
+        if (transform.parent == startParent || transform.parent.tag != "Slot")
         {
             transform.position = startPos;
         }

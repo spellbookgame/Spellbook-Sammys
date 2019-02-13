@@ -78,7 +78,23 @@ public class Chapter : MonoBehaviour
             }
             else if(player.chapter.spellsAllowed[i].iTier == 2)
             {
-                // TODO: comparing tier 2 spells (3 required spell pieces)
+                foreach(KeyValuePair<string, int> kvp in dictionary2)
+                {
+                    if (dictionary1.ContainsKey(kvp.Key))
+                    {
+                        equal = true;
+                    }
+                    else
+                    {
+                        equal = false;
+                        break;
+                    }
+                }
+                if (equal && !player.chapter.spellsCollected.Contains(player.chapter.spellsAllowed[i]))
+                {
+                    player.CollectSpell(player.chapter.spellsAllowed[i], player);
+                    break;
+                }
             }
             else if(player.chapter.spellsAllowed[i].iTier == 1)
             {
