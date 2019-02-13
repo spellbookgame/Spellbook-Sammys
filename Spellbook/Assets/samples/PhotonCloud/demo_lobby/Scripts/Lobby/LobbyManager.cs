@@ -15,11 +15,12 @@ namespace Bolt.Samples.Photon.Lobby
     {
         static public LobbyManager s_Singleton;
         BoltEntity characterSelection;
-
+        BoltEntity playerEntity;
         [Header("Lobby Configuration")]
         public SceneField lobbyScene;
         public SceneField gameScene;
         public int minPlayers = 2;
+        public int localPlayerSpellcasterID;
 
         [Header("UI Lobby")]
         [Tooltip("Time in second between all players ready & match start")]
@@ -40,7 +41,7 @@ namespace Bolt.Samples.Photon.Lobby
 
         public Button backButton;
         public GameObject startGameButton;
-
+        public GameObject playerController;
         public Text statusInfo;
         public Text hostInfo;
 
@@ -119,7 +120,7 @@ namespace Bolt.Samples.Photon.Lobby
                     topPanel.ToggleVisibility(false);
 
                     // Spawn Player
-                    // SpawnGamePlayer();
+                    SpawnGamePlayer();
                 }
 
             } catch (Exception e)
@@ -328,6 +329,12 @@ namespace Bolt.Samples.Photon.Lobby
         }
 
         // ----------------- Client callbacks ------------------
+        public override void OnEvent(NextPlayerTurnEvent evnt)
+        {
+            Debug.Log("Recieved Event!!!!!!!!!!!!!!!!!");
+            BoltConsole.Write("Recieved Event!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            playerEntity.GetComponent<Player>().nextTurnEvent();
+        }
 
         public override void OnEvent(LobbyCountdown evnt)
         {
@@ -360,10 +367,10 @@ namespace Bolt.Samples.Photon.Lobby
             if (BoltNetwork.IsClient)
             {
                 BoltConsole.Write("Connected Client: " + connection, Color.blue);
-
                 infoPanel.gameObject.SetActive(false);
                 ChangeTo(lobbyPanel);
 
+                //Spawn local player here? or Below?
                 //BoltEntity entity = BoltNetwork.Instantiate(BoltPrefabs.CharacterSelectionEntity);
                 //entity.AssignControl(connection);
             }
@@ -385,7 +392,6 @@ namespace Bolt.Samples.Photon.Lobby
                 entity.AssignControl(connection);
                 */
             }
-            
         }
 
         public override void Disconnected(BoltConnection connection)
@@ -404,10 +410,11 @@ namespace Bolt.Samples.Photon.Lobby
         }
 
         // Spawners
-
-        //private void SpawnGamePlayer()
-        //{
-        //    BomberPlayerController.Spawn();
-        //}
+        private void SpawnGamePlayer()
+        {
+            playerEntity = BoltNetwork.Instantiate(BoltPrefabs.LocalPlayer); //, pos, Quaternion.identity);
+            playerEntity.TakeControl();
+            playerEntity.GetComponent<Player>().setup(localPlayerSpellcasterID);
+        }
     }
 }

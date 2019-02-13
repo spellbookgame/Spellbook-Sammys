@@ -1,4 +1,5 @@
 ﻿using Bolt;
+using Bolt.Samples.Photon.Lobby;
 using UnityEngine;
 using UnityEngine.UI;
 /*
@@ -12,6 +13,8 @@ namespace Photon.Lobby
         public BoltConnection connection;
 
         // Lobby
+        public LobbyManager lobbyManager;
+
         // By default, no body has selected anything yet.
         public bool alchemistChosen = false;
         public bool arcanistChosen = false;
@@ -44,15 +47,13 @@ namespace Photon.Lobby
 
         // Keep track of what the local player chooses.
         int previousSelected = -1;
-        int currentSelected = -1;
+        public int currentSelected = -1;
 
-        //public static LobbyPhotonPlayer localPlayer;  //May need to use this instead of "Player" below.
-        Player localPlayer;
-        
         // Handlers
         public override void Attached()
         {
             //Innefficient, for demoing purposes.
+            lobbyManager = GameObject.Find("LobbyManager").GetComponent<LobbyManager>();
             alchemistButton = GameObject.Find("button_alchemist").GetComponent<Button>();
             arcanistButton = GameObject.Find("button_arcanist").GetComponent<Button>();
             elementalistButton = GameObject.Find("button_elementalist").GetComponent<Button>(); 
@@ -155,7 +156,7 @@ namespace Photon.Lobby
         public override void ControlGained()
         {
             BoltConsole.Write("ControlGained", Color.blue);
-            SetupPlayer();
+            SetupCharacterSelectionUI();
         }
 
         public override void SimulateController()
@@ -191,22 +192,16 @@ namespace Photon.Lobby
             }
         }
 
-        public void SetupPlayer()
+        public void SetupCharacterSelectionUI()
         {
             BoltConsole.Write("SetupPlayer", Color.green);
             Debug.Log("setup player");
-            //localPlayer = this;
 
-            
             this.transform.SetParent(GameObject.Find("LobbyPanel").transform);
 
             //Hardcoded for prototyping and testing
             this.transform.localPosition = new Vector3(200f, -800f, 0f);
             this.transform.localScale = new Vector3(.6f, .6f, 1f);
-            
-            
-
-            localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
 
             alchemistButton.onClick.RemoveAllListeners();
             alchemistButton.onClick.AddListener(OnAlchemistClicked);
@@ -236,7 +231,7 @@ namespace Photon.Lobby
             currentSelected = 0;
             alchemistChosen = true;
             openPreviousSpellcaster();
-            localPlayer.onClickAclhemist();
+            lobbyManager.localPlayerSpellcasterID = 0;
             text.text = "You chose Alchemist!";
         }
 
@@ -247,7 +242,7 @@ namespace Photon.Lobby
             currentSelected = 1;
             arcanistChosen = true;
             openPreviousSpellcaster();
-            localPlayer.onClickArcanist();
+            lobbyManager.localPlayerSpellcasterID = 1;
             text.text = "You chose Arcanist!";
         }
 
@@ -258,7 +253,7 @@ namespace Photon.Lobby
             currentSelected = 2;
             elementalistChosen = true;
             openPreviousSpellcaster();
-            localPlayer.onClickElementalist();
+            lobbyManager.localPlayerSpellcasterID = 2;
             text.text = "You chose Elementalist!";
         }
 
@@ -269,7 +264,7 @@ namespace Photon.Lobby
             currentSelected = 3;
             chronomancerChosen = true;
             openPreviousSpellcaster();
-            localPlayer.onClickChronomancer();
+            lobbyManager.localPlayerSpellcasterID = 3;
             text.text = "You chose Chronomancer!";
         }
 
@@ -280,7 +275,7 @@ namespace Photon.Lobby
             currentSelected = 4;
             illusionistChosen = true;
             openPreviousSpellcaster();
-            localPlayer.onClickTrickster();
+            lobbyManager.localPlayerSpellcasterID = 4;
             text.text = "You chose Illusionist!";
         }
 
@@ -291,9 +286,8 @@ namespace Photon.Lobby
             currentSelected = 5;
             summonerChosen = true;
             openPreviousSpellcaster();
-            localPlayer.onClickSummoner();
+            lobbyManager.localPlayerSpellcasterID = 5;
             text.text = "You chose Summoner!";
-
         }
 
         void openPreviousSpellcaster()

@@ -3,33 +3,89 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Player : MonoBehaviour
+public class Player : Bolt.EntityEventListener<ISpellcasterState>
 {
-    public bool bIsLocal = true;
-
+    //TODO: Change to private when done testing.
+    public bool bIsMyTurn = false;
+    
     //The player's chosen spellcaster class.
     private SpellCaster spellcaster;
-    private bool bHasChosenSpellcaster = false;
+
+    // References to the turn order.
+    private int currentTurn = 0;
+    private ArrayList spellcasterTurnOrder;
+
+    // Remains -1 if you do not control this player.
+    // TODO: Change to private when done testing.
+    public int spellcasterClass = -1;
 
     public SpellCaster Spellcaster {
         get => spellcaster;
         set => spellcaster = value;
     }
 
-    private void Start()
+    // Bolt's version of the Unity's Start()
+    public override void Attached()
     {
-        // Prevents player object from being destroyed when switching scenes.
-        DontDestroyOnLoad(this);
+        BoltConsole.Write("Attached");
 
-        //Example of setting player's chosen spellcaster:
-        // (can later implement which one player chooses).
-        this.spellcaster = new Alchemist();
-        bHasChosenSpellcaster = true;
+        // Prevents player object from being destroyed when switching scenes.
+        DontDestroyOnLoad(gameObject);
     }
 
+    /* Setup for play */
+    public void setup(int spellcasterID)
+    {
+        if (entity.isOwner)
+        {
+            spellcasterClass = spellcasterID;
+            BoltConsole.Write("Initialized LocalPlayer with Spellcaster ID " + spellcasterID);
+            state.SpellcasterClass = spellcasterID;
+            chooseSpellcaster(spellcasterID);
+            spellcasterTurnOrder = new ArrayList();
+            StartCoroutine(determineTurnOrder());
+        }
+    }
 
-    // TODO finish handling cases.  Input may change.
-    public void chooseSpellcaster(int num)
+    /*Waits for everyone to join the local scene, then 
+     calculates turns.
+     Turns go in ascending order based on spellcaster IDs.
+     TODO:  Maybe switch up the turn order later. */
+    IEnumerator determineTurnOrder()
+    {
+        BoltConsole.print("Time start: " +Time.time);
+        yield return new WaitForSeconds(3);
+        int count = 0;
+        BoltConsole.Write("Entities: ");
+        foreach (var e in BoltNetwork.Entities)
+        {
+
+            BoltConsole.Write("count =" + count++);
+            int eClass;
+            if (e.StateIs(typeof(ISpellcasterState)))
+            {
+                eClass = e.GetState<ISpellcasterState>().SpellcasterClass;
+                BoltConsole.Write(", " + eClass);
+                spellcasterTurnOrder.Add(eClass);
+            }
+        }
+        spellcasterTurnOrder.Sort();
+        string listIds = "";
+        for (int i = 0; i < spellcasterTurnOrder.Count; i++)
+        {
+            listIds = listIds + ", " + spellcasterTurnOrder[i];
+        }
+        BoltConsole.Write("All SpellcasterIds: " + listIds);
+        if (spellcasterClass == (int)spellcasterTurnOrder[0])
+        {
+            BoltConsole.Write("My Turn");
+            bIsMyTurn = true;
+        }
+        BoltConsole.print("Time done: " + Time.time);
+        
+    }
+
+    private void chooseSpellcaster(int num)
     {
         switch (num)
         {
@@ -37,17 +93,65 @@ public class Player : MonoBehaviour
                 spellcaster = new Alchemist();
                 break;
             case 1:
-                //spellcaster = new Elementalist();
+                spellcaster = new Arcanist();
+                break;
+            case 2:
+                spellcaster = new Elementalist();
+                break;
+            case 3:
+                spellcaster = new Chronomancer();
+                break;
+            case 4:
+                spellcaster = new Trickster();
+                break;
+            case 5:
+                spellcaster = new Summoner();
                 break;
         }
     }
+    #region turn_handlers
+    /* Called when player clicks the end turn button. 
+     Sends a reliable Global event letting everyone know.*/
+    public void onEndTurnClick()
+    {
+        Debug.Log("OnEndTurnClick!!!!!!!!!!!!!!!!!");
+        BoltConsole.Write("OnEndTurnClick");
+        if (bIsMyTurn)
+        {
+            Debug.Log("My turn is over!!!!!!!!!!!!!!!!!");
+            BoltConsole.Write("My Turn is over");
+            var nextTurnEvnt = NextPlayerTurnEvent.Create(Bolt.GlobalTargets.Everyone);
+            nextTurnEvnt.NextSpellcaster = "Next";
+            nextTurnEvnt.Send();
+        }
+    }
 
+    /* When our LobbyManager (aka our GlobalEventListener) recieves a
+     NextTurnEvent, this method is called.
+     The second if-statement does nothing if its not this player's turn.*/
+    public void nextTurnEvent()
+    {
+        Debug.Log("NextTurnEvent()");
+        BoltConsole.Write("NextTurnEvent()");
+        currentTurn++;
+        if (currentTurn > spellcasterTurnOrder.Count - 1) currentTurn = 0;
+        if((int) spellcasterTurnOrder[currentTurn] == spellcasterClass)
+        {
+            Debug.Log("Its my turn!!!!!!!!!!!!!!!!!");
+            BoltConsole.Write("Its my turn.");
+            //Its my turn.
+            bIsMyTurn = true;
+            PanelHolder panelHolder = GameObject.Find("PanelHolder").GetComponent<PanelHolder>();
+            panelHolder.displayYourTurn();
+        }
+    }
+    #endregion
 
     #region button_class_clicks
     /*
      Class choosing.  This region may move to another file 
      in the future, possibly a singleton (GameManager).
-         */
+        
 
     public void onClickAclhemist()
     {
@@ -88,5 +192,8 @@ public class Player : MonoBehaviour
         Debug.Log("Local Player chose " + spellcaster.classType);
 
     }
+    */
     #endregion
+
 }
+
