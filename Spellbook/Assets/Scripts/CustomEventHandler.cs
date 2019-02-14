@@ -100,43 +100,24 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
         switch (trackableName)
         {
             case "spellpiece":
-                string collectedPiece = localPlayer.Spellcaster.CollectRandomSpellPiece(localPlayer.Spellcaster);
-                OpenPanel("You found the " + collectedPiece + "!");
+                string collectedPiece = localPlayer.Spellcaster.CollectRandomSpellPiece();
+                PanelHolder.instance.displayEvent("You found the " + collectedPiece + "!");
                 break;
             case "mana":
                 int manaCount = (int)UnityEngine.Random.Range(100, 1000);
-                localPlayer.Spellcaster.CollectMana(manaCount, localPlayer.Spellcaster);
-                OpenPanel("You found " + manaCount + " mana!");
+                localPlayer.Spellcaster.CollectMana(manaCount);
+                PanelHolder.instance.displayEvent("You found " + manaCount + " mana!");
                 break;
             case "glyph":
-                string collectedGlyph = localPlayer.Spellcaster.CollectRandomGlyph(localPlayer.Spellcaster);
-                OpenPanel("You found the " + collectedGlyph + "!");
+                string collectedGlyph = localPlayer.Spellcaster.CollectRandomGlyph();
+                PanelHolder.instance.displayEvent("You found the " + collectedGlyph + "!");
                 break;
             case "event":
-                OpenPanel("Event");
+                EventSpaceManager.instance.executeEventSpace();
                 break;
             case "city":
-                OpenPanel("City");
+                PanelHolder.instance.displayEvent("You landed in the city. Nothing really to see here...");
                 break;
-        }
-    }
-
-    private void OpenPanel(string message)
-    {
-        Button button = panel.transform.GetChild(1).GetComponent<Button>();
-        button.onClick.AddListener(OkClick);
-
-        panel.transform.GetChild(0).GetComponent<Text>().text = message;
-        panel.SetActive(true);
-        panelOpen = true;
-    }
-
-    private void OkClick()
-    {
-        if(panelOpen)
-        {
-            panelOpen = false;
-            SceneManager.LoadScene("MainPlayerScene");
         }
     }
 }

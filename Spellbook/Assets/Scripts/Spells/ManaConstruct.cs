@@ -27,7 +27,7 @@ public class ManaConstruct : Spell
             // subtract mana and glyphs
             player.iMana -= iManaCost;
             player.glyphs["Alchemy D Glyph"] -= 4;
-            string collectedGlyph = player.CollectRandomGlyph(player);
+            string collectedGlyph = player.CollectRandomGlyph();
 
             panelManager.ShowPanel();
             panelManager.SetPanelText("You spent " + iManaCost + " mana and created a " + collectedGlyph + "."); 

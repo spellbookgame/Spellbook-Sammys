@@ -18,8 +18,6 @@ public class Enemy : MonoBehaviour
     {
         DontDestroyOnLoad(this);
 
-        localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
-
         fMaxHealth = maxHealth;
         fCurrentHealth = fMaxHealth;
 
@@ -51,8 +49,7 @@ public class Enemy : MonoBehaviour
             { "Time D Spell Piece"}
         };
     }
-
-    // TODO
+    
     public void HitEnemy(float damage)
     {
         if(fCurrentHealth > 0)
@@ -68,15 +65,17 @@ public class Enemy : MonoBehaviour
     // drops random spell piece & mana when enemy dies
     public void EnemyDefeated()
     {
+        localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
         PanelManager panelManager = GameObject.Find("ScriptContainer").GetComponent<PanelManager>();
+
         int index = Random.Range(0, 6);
         int manaCount = Random.Range(100, 1000);
 
         string panelText = "You defeated the enemy!\n\n" +
                 "You received 1 " + dropSpellPieces[index].ToString() + ".\nYou also received " + manaCount + " mana.";
 
-        localPlayer.Spellcaster.CollectSpellPiece(dropSpellPieces[index], localPlayer.Spellcaster);
-        localPlayer.Spellcaster.CollectMana(manaCount, localPlayer.Spellcaster);
+        localPlayer.Spellcaster.CollectSpellPiece(dropSpellPieces[index]);
+        localPlayer.Spellcaster.CollectMana(manaCount);
         panelManager.ShowPanel();
         panelManager.SetPanelText(panelText);
         // panelManager.SetPanelImage(dropSpellPieces[index].ToString());

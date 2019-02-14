@@ -98,17 +98,20 @@ public abstract class SpellCaster
         };
     }
 
-    void AddToInventory(string item, int count)
+    public void AddToInventory(string item, int count)
     {
         //inventory.add(item, count);
     }
 
-    void TakeDamage(int dmg)
+    public void TakeDamage(int dmg)
     {
-        fCurrentHealth -= dmg;
+        if(fCurrentHealth > 0)
+            fCurrentHealth -= dmg;
+        if (fCurrentHealth <= 0)
+            fCurrentHealth = 0;
     }
 
-    void HealDamage(int heal)
+    public void HealDamage(int heal)
     {
         fCurrentHealth += heal;
         if(fCurrentHealth > fMaxHealth)
@@ -118,35 +121,52 @@ public abstract class SpellCaster
     }
 
     // adds spell piece to player's collection
-    public void CollectSpellPiece(string spellPieceName, SpellCaster player)
+    public void CollectSpellPiece(string spellPieceName)
     {
-        player.spellPieces[spellPieceName] += 1;
-        Debug.Log("Collected " + spellPieceName + ". You now have " + player.spellPieces[spellPieceName] + "pieces.");
+        this.spellPieces[spellPieceName] += 1;
+        Debug.Log("Collected " + spellPieceName + ". You now have " + this.spellPieces[spellPieceName] + "pieces.");
     }
 
-    public string CollectRandomSpellPiece(SpellCaster player)
+    public string CollectRandomSpellPiece()
     {
-        List<string> spellPieceList = new List<string>(player.spellPieces.Keys);
+        List<string> spellPieceList = new List<string>(this.spellPieces.Keys);
         int random = (int)Random.Range(0, spellPieceList.Count);
 
         string randomKey = spellPieceList[random];
-        player.spellPieces[randomKey] += 1;
+        this.spellPieces[randomKey] += 1;
 
         return randomKey;
     }
 
-    public void CollectMana(int manaCount, SpellCaster player)
+    public void CollectMana(int manaCount)
     {
-        player.iMana += manaCount;
+        this.iMana += manaCount;
+    }
+    public void LoseMana(int manaCount)
+    {
+        this.iMana -= manaCount;
     }
 
-    public string CollectRandomGlyph(SpellCaster player)
+    public string CollectRandomGlyph()
     {
-        List<string> glyphList = new List<string>(player.glyphs.Keys);
+        List<string> glyphList = new List<string>(this.glyphs.Keys);
         int random = (int)Random.Range(0, glyphList.Count);
 
         string randomKey = glyphList[random];
-        player.glyphs[randomKey] += 1;
+        this.glyphs[randomKey] += 1;
+
+        return randomKey;
+    }
+
+    public string LoseRandomGlyph()
+    {
+        List<string> glyphList = new List<string>(this.glyphs.Keys);
+        int random = (int)Random.Range(0, glyphList.Count);
+
+        string randomKey = glyphList[random];
+
+        if(this.glyphs[randomKey] > 0)
+            this.glyphs[randomKey] -= 1;
 
         return randomKey;
     }
