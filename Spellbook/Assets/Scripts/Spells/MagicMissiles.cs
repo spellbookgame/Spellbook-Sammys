@@ -15,7 +15,7 @@ public class MagicMissiles : Spell
 
         requiredPieces.Add("Arcane A Spell Piece", 1);
 
-        requiredGlyphs.Add("Arcane1", 4);
+        requiredGlyphs.Add("Arcane A Glyph", 4);
     }
 
     public override void SpellCast(SpellCaster player)
@@ -23,7 +23,7 @@ public class MagicMissiles : Spell
         Enemy enemy = GameObject.FindGameObjectWithTag("Enemy").GetComponent<Enemy>();
 
         // if player has enough mana and glyphs, cast the spell
-        if (player.glyphs["Arcane1"] >= 4 && player.iMana >= iManaCost)
+        if (player.glyphs["Arcane A Glyph"] >= 4 && player.iMana >= iManaCost)
         {
             int damage = Random.Range(3, 12);
             enemy.HitEnemy(damage);
@@ -32,7 +32,7 @@ public class MagicMissiles : Spell
 
             // subtract mana and glyphs
             player.iMana -= iManaCost;
-            player.glyphs["Arcane1"] -= 4;
+            player.glyphs["Arcane A Glyph"] -= 4;
 
             if (enemy.fCurrentHealth > 0)
             {

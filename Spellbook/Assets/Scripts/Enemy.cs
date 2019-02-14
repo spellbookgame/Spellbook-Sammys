@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 // attach to enemy prefab
 public class Enemy : MonoBehaviour
@@ -56,16 +55,14 @@ public class Enemy : MonoBehaviour
     // TODO
     public void HitEnemy(float damage)
     {
-        Debug.Log("Current Health: " + fCurrentHealth);
-        fCurrentHealth -= damage;
-        Debug.Log("Health after hit: " + fCurrentHealth);
+        if(fCurrentHealth > 0)
+            fCurrentHealth -= damage;
 
         if (fCurrentHealth <= 0)
         {
             fCurrentHealth = 0;
             EnemyDefeated();
         }
-
     }
 
     // drops random spell piece & mana when enemy dies
@@ -82,7 +79,7 @@ public class Enemy : MonoBehaviour
         localPlayer.Spellcaster.iMana += manaCollected;
         panelManager.ShowPanel();
         panelManager.SetPanelText(panelText);
-        panelManager.SetPanelImage(dropSpellPieces[index].ToString());
+        // panelManager.SetPanelImage(dropSpellPieces[index].ToString());
 
         Destroy(this.gameObject);
     }

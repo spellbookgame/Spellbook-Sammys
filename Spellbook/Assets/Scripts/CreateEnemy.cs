@@ -6,8 +6,7 @@ using UnityEngine;
 public class CreateEnemy : MonoBehaviour
 {
     [SerializeField] private Enemy enemy;
-
-    // Start is called before the first frame update
+    
     void Start()
     {
         // if an enemy does not exist, create one

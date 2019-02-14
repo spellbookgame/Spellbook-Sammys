@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Vuforia;
 
@@ -18,23 +17,11 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
     private Coroutine coroutineReference;
     private bool CR_running;
 
-    private Dictionary<string, float> storedTimes;
-
     Player localPlayer;
     
     void Start()
     {
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
-
-        storedTimes = new Dictionary<string, float>()
-        {
-            {"decal_alchemist", 0.0f },
-            {"decal_arcanist", 0.0f },
-            {"decal_chronomancer", 0.0f },
-            {"decal_elementalist", 0.0f },
-            {"decal_illusionist", 0.0f },
-            {"decal_summoner", 0.0f },
-        };
 
         mTrackableBehaviour = GetComponent<TrackableBehaviour>();
         if (mTrackableBehaviour)
@@ -59,7 +46,7 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
             newStatus == TrackableBehaviour.Status.EXTENDED_TRACKED)
         {
             Debug.Log("Trackable " + mTrackableBehaviour.TrackableName + " found");
-            // basically, wait 3 seconds before itll start scanning the target
+            // basically, wait 3 seconds before it'll start scanning the target
             coroutineReference = StartCoroutine(ScanTime());
         }
         else if (previousStatus == TrackableBehaviour.Status.TRACKED &&
@@ -79,46 +66,7 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
 
     protected virtual void OnTrackingFound()
     {
-        // add corresponding glyph to player's collection
-        switch (mTrackableBehaviour.TrackableName)
-        {
-            case "decal_alchemist":
-                panel.transform.GetChild(0).GetComponent<Text>().text = "Found 1 Alchemy glyph";
-                panel.SetActive(true);
-                panelOpen = true;
-                localPlayer.Spellcaster.glyphs["Alchemy1"] += 1;
-                break;
-            case "decal_arcanist":
-                panel.transform.GetChild(0).GetComponent<Text>().text = "Found 1 Arcane glyph";
-                panel.SetActive(true);
-                panelOpen = true;
-                localPlayer.Spellcaster.glyphs["Arcane1"] += 1;
-                break;
-            case "decal_chronomancer":
-                panel.transform.GetChild(0).GetComponent<Text>().text = "Found 1 Time glyph";
-                panel.SetActive(true);
-                panelOpen = true;
-                localPlayer.Spellcaster.glyphs["Time1"] += 1;
-                break;
-            case "decal_elementalist":
-                panel.transform.GetChild(0).GetComponent<Text>().text = "Found 1 Elemental glyph";
-                panel.SetActive(true);
-                panelOpen = true;
-                localPlayer.Spellcaster.glyphs["Elemental1"] += 1;
-                break;
-            case "decal_illusionist":
-                panel.transform.GetChild(0).GetComponent<Text>().text = "Found 1 Illusion glyph";
-                panel.SetActive(true);
-                panelOpen = true;
-                localPlayer.Spellcaster.glyphs["Illusion1"] += 1;
-                break;
-            case "decal_summoner":
-                panel.transform.GetChild(0).GetComponent<Text>().text = "Found 1 Summoning glyph";
-                panel.SetActive(true);
-                panelOpen = true;
-                localPlayer.Spellcaster.glyphs["Summoning1"] += 1;
-                break;
-        }
+        scanItem(mTrackableBehaviour.TrackableName);
     }
 
     protected virtual void OnTrackingLost()
@@ -127,10 +75,10 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
         {
             StopCoroutine(coroutineReference);
         }
-        if(panelOpen)
+        /*if(panelOpen)
         {
             panel.SetActive(false);
-        }
+        }*/
     }
 
     IEnumerator ScanTime()
@@ -138,6 +86,56 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
         CR_running = true;
         yield return new WaitForSeconds(1.5f);
         CR_running = false;
-        OnTrackingFound();
+
+        // only track once; after a space is scanned, do not scan anymore
+        if(!panelOpen)
+        {
+            OnTrackingFound();
+        }
+    }
+
+    private void scanItem(string trackableName)
+    {
+        // call function based on target name
+        switch (trackableName)
+        {
+            case "spellpiece":
+                string collectedPiece = localPlayer.Spellcaster.CollectRandomSpellPiece(localPlayer.Spellcaster);
+                OpenPanel("You found the " + collectedPiece + "!");
+                break;
+            case "mana":
+                int manaCount = localPlayer.Spellcaster.CollectMana(localPlayer.Spellcaster);
+                OpenPanel("You found " + manaCount + " mana!");
+                break;
+            case "glyph":
+                string collectedGlyph = localPlayer.Spellcaster.CollectRandomGlyph(localPlayer.Spellcaster);
+                OpenPanel("You found the " + collectedGlyph + "!");
+                break;
+            case "event":
+                OpenPanel("Event");
+                break;
+            case "city":
+                OpenPanel("City");
+                break;
+        }
+    }
+
+    private void OpenPanel(string message)
+    {
+        Button button = panel.transform.GetChild(1).GetComponent<Button>();
+        button.onClick.AddListener(OkClick);
+
+        panel.transform.GetChild(0).GetComponent<Text>().text = message;
+        panel.SetActive(true);
+        panelOpen = true;
+    }
+
+    private void OkClick()
+    {
+        if(panelOpen)
+        {
+            panelOpen = false;
+            SceneManager.LoadScene("MainPlayerScene");
+        }
     }
 }

@@ -24,6 +24,8 @@ public class Chapter : MonoBehaviour
         switch (classType)
         {
             case "Alchemist":
+                Spell manaConstruct = new ManaConstruct();
+                spellsAllowed.Add(manaConstruct);
                 break;
             case "Arcanist":
                 Spell magicMissiles = new MagicMissiles();
@@ -36,12 +38,16 @@ public class Chapter : MonoBehaviour
                 spellsAllowed.Add(cowBear);
                 break;
             case "Chronomancer":
+                Spell accelerate = new Accelerate();
+                spellsAllowed.Add(accelerate);
                 break;
             case "Elementalist":
                 Spell fireball = new Fireball();
                 spellsAllowed.Add(fireball);
                 break;
             case "Trickster":
+                Spell playwright = new Playwright();
+                spellsAllowed.Add(playwright);
                 break;
             default:
                 break;
@@ -63,6 +69,7 @@ public class Chapter : MonoBehaviour
         {
             Dictionary<string, int> dictionary2 = player.chapter.spellsAllowed[i].requiredPieces;
             
+            // tier 3 spells: only need 1 required piece
             if (player.chapter.spellsAllowed[i].iTier == 3)
             {
                 if(dictionary2.Keys.All(k => dictionary1.ContainsKey(k)))
@@ -76,6 +83,7 @@ public class Chapter : MonoBehaviour
                     }
                 }
             }
+            // tier 2 spells: need 3 required pieces
             else if(player.chapter.spellsAllowed[i].iTier == 2)
             {
                 foreach(KeyValuePair<string, int> kvp in dictionary2)
@@ -96,6 +104,7 @@ public class Chapter : MonoBehaviour
                     break;
                 }
             }
+            // tier 1 spell: need 4 required pieces
             else if(player.chapter.spellsAllowed[i].iTier == 1)
             {
                 if(dictionary1.Keys.Count == dictionary2.Keys.Count && dictionary1.Keys.All(k => dictionary2.ContainsKey(k) 

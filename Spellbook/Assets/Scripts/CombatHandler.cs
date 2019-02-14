@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 // script to manage UI in CombatScene
 // slider from https://www.youtube.com/watch?v=GfuxWs6UAJQ
-public class CombatUIManager : MonoBehaviour
+public class CombatHandler : MonoBehaviour
 {
     // serializefield private variables
     [SerializeField] private GameObject Panel_help;
@@ -44,13 +44,6 @@ public class CombatUIManager : MonoBehaviour
     private void Update()
     {
         Text_mana.text = localPlayer.Spellcaster.iMana.ToString();
-
-        // deal damage to player if health is above 0
-        if (Input.GetKeyDown(KeyCode.X) && localPlayer.Spellcaster.fCurrentHealth > 0)
-            HitPlayer(6);
-
-        if (Input.GetKeyDown(KeyCode.C) && enemy.fCurrentHealth > 0)
-            enemy.HitEnemy(6);
 
         // collect spell pieces
         if (Input.GetKeyDown(KeyCode.Alpha1) && enemy.fCurrentHealth > 0)
@@ -119,8 +112,13 @@ public class CombatUIManager : MonoBehaviour
     // deduct health and change slider values
     public void HitPlayer(float damageValue)
     {
-        // Deduct damage dealt from player's health
-        localPlayer.Spellcaster.fCurrentHealth -= damageValue;
+        if(localPlayer.Spellcaster.fCurrentHealth > 0)
+        {
+            // Deduct damage dealt from player's health if they have more than 0 health
+            localPlayer.Spellcaster.fCurrentHealth -= damageValue;
+        }
+        
+        // adjust slider
         Slider_healthbar.value = CalculatePlayerHealth();
         Text_healthtext.text = localPlayer.Spellcaster.fCurrentHealth.ToString();
 
@@ -162,30 +160,4 @@ public class CombatUIManager : MonoBehaviour
         if(GameObject.FindGameObjectWithTag("Enemy") != null)
             enemy.HitEnemy(localPlayer.Spellcaster.fBasicAttackStrength);
     }
-
-    // ----------------------------------- DEBUGGING: ALL SPELL PIECE BUTTONS ------------------------------------------
-    /*public void arcaneSPClick()
-    {
-        localPlayer.Spellcaster.CollectSpellPiece("Arcane A Spell Piece", localPlayer.Spellcaster);
-    }
-    public void alchemySPClick()
-    {
-        localPlayer.Spellcaster.CollectSpellPiece("Arcane B Spell Piece", localPlayer.Spellcaster);
-    }
-    public void chronomancySPClick()
-    {
-        localPlayer.Spellcaster.CollectSpellPiece("Arcane C Spell Piece", localPlayer.Spellcaster);
-    }
-    public void elementalSPClick()
-    {
-        localPlayer.Spellcaster.CollectSpellPiece("Arcane D Spell Piece", localPlayer.Spellcaster);
-    }
-    public void summoningSPClick()
-    {
-        localPlayer.Spellcaster.CollectSpellPiece("Alchemy A Spell Piece", localPlayer.Spellcaster);
-    }
-    public void tricksterSPClick()
-    {
-        localPlayer.Spellcaster.CollectSpellPiece("Alchemy B Spell Piece", localPlayer.Spellcaster);
-    }*/
 }

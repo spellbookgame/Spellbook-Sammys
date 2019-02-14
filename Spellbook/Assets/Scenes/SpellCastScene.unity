@@ -457,12 +457,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panel: {fileID: 5605926333769718798, guid: bac7a0a79e9443f4981de98cdbc4966f, type: 3}
-  alchemy1: {fileID: 21300000, guid: ef3360393d796da4096d2a7480657e05, type: 3}
-  arcane1: {fileID: 21300000, guid: 37b8929aa51c4904b93c94ddb3ca90d3, type: 3}
-  elemental1: {fileID: 21300000, guid: d0a087a54530a8c4d9162ca9a1c88ae6, type: 3}
-  illusion1: {fileID: 21300000, guid: 58a8d0ae381fc3247b289a5a979488eb, type: 3}
-  summoning1: {fileID: 21300000, guid: 58c4d9b25f37d794394c3ccadbe2d0fa, type: 3}
-  time1: {fileID: 21300000, guid: 4d75c83830f86894b814e7c24cd6a6db, type: 3}
 --- !u!1 &855827846
 GameObject:
   m_ObjectHideFlags: 0
@@ -732,16 +726,16 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 94
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 10
-    m_MaxSize: 94
+    m_MaxSize: 150
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Scan the board
+  m_Text: Scan
 --- !u!222 &993768418
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -811,16 +805,16 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 94
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 10
-    m_MaxSize: 94
+    m_MaxSize: 150
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Main Scene
+  m_Text: Main
 --- !u!222 &1368105641
 CanvasRenderer:
   m_ObjectHideFlags: 0

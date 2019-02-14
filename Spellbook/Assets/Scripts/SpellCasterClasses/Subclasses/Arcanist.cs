@@ -17,9 +17,6 @@ public class Arcanist : SpellCaster
         classType = "Arcanist";
         fMaxHealth = 20.0f;
 
-        // debugging purposes; can delete later
-        glyphs["Arcane1"] += 6;
-
         // creating the class-specific chapter
         chapter = new Chapter(classType);
     }
