@@ -1770,6 +1770,7 @@ GameObject:
   - component: {fileID: 596129908}
   - component: {fileID: 596129907}
   - component: {fileID: 596129906}
+  - component: {fileID: 596129909}
   m_Layer: 5
   m_Name: button_endTurn
   m_TagString: Untagged
@@ -1837,8 +1838,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 877666411}
-        m_MethodName: loadSpellCreateScene
+      - m_Target: {fileID: 596129909}
+        m_MethodName: OnEndTurnClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1887,6 +1888,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 596129904}
   m_CullTransparentMesh: 0
+--- !u!114 &596129909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 596129904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af2da01bdd31aab4da076f6477e0d6e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneScript: {fileID: 877666411}
 --- !u!1 &601558005
 GameObject:
   m_ObjectHideFlags: 0
