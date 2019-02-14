@@ -235,6 +235,8 @@ namespace Bolt.Samples.Photon.Lobby
                 backDelegate = Stop;
                 SetServerInfo("Host", "");
 
+                SoundManager.instance.musicSource.Play();
+
                 // Build Server Entity
                 BoltEntity entity = BoltNetwork.Instantiate(BoltPrefabs.CharacterSelectionEntity);
                 entity.TakeControl();

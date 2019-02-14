@@ -44,6 +44,7 @@ public class Player : Bolt.EntityEventListener<ISpellcasterState>
             chooseSpellcaster(spellcasterID);
             spellcasterTurnOrder = new ArrayList();
             StartCoroutine(determineTurnOrder());
+            gameObject.tag = "LocalPlayer";
         }
     }
 
@@ -53,7 +54,7 @@ public class Player : Bolt.EntityEventListener<ISpellcasterState>
      TODO:  Maybe switch up the turn order later. */
     IEnumerator determineTurnOrder()
     {
-        BoltConsole.print("Time start: " +Time.time);
+        //BoltConsole.print("Time start: " +Time.time);
         yield return new WaitForSeconds(3);
         int count = 0;
         BoltConsole.Write("Entities: ");
@@ -80,8 +81,10 @@ public class Player : Bolt.EntityEventListener<ISpellcasterState>
         {
             BoltConsole.Write("My Turn");
             bIsMyTurn = true;
+            PanelHolder panelHolder = GameObject.Find("PanelHolder").GetComponent<PanelHolder>();
+            panelHolder.displayYourTurn();
         }
-        BoltConsole.print("Time done: " + Time.time);
+        //BoltConsole.print("Time done: " + Time.time);
         
     }
 
@@ -114,11 +117,9 @@ public class Player : Bolt.EntityEventListener<ISpellcasterState>
      Sends a reliable Global event letting everyone know.*/
     public void onEndTurnClick()
     {
-        Debug.Log("OnEndTurnClick!!!!!!!!!!!!!!!!!");
         BoltConsole.Write("OnEndTurnClick");
         if (bIsMyTurn)
         {
-            Debug.Log("My turn is over!!!!!!!!!!!!!!!!!");
             BoltConsole.Write("My Turn is over");
             var nextTurnEvnt = NextPlayerTurnEvent.Create(Bolt.GlobalTargets.Everyone);
             nextTurnEvnt.NextSpellcaster = "Next";
@@ -131,15 +132,12 @@ public class Player : Bolt.EntityEventListener<ISpellcasterState>
      The second if-statement does nothing if its not this player's turn.*/
     public void nextTurnEvent()
     {
-        Debug.Log("NextTurnEvent()");
         BoltConsole.Write("NextTurnEvent()");
         currentTurn++;
         if (currentTurn > spellcasterTurnOrder.Count - 1) currentTurn = 0;
         if((int) spellcasterTurnOrder[currentTurn] == spellcasterClass)
         {
-            Debug.Log("Its my turn!!!!!!!!!!!!!!!!!");
             BoltConsole.Write("Its my turn.");
-            //Its my turn.
             bIsMyTurn = true;
             PanelHolder panelHolder = GameObject.Find("PanelHolder").GetComponent<PanelHolder>();
             panelHolder.displayYourTurn();
