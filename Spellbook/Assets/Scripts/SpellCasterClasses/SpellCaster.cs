@@ -16,9 +16,10 @@ public abstract class SpellCaster
     public string classType;
     public Chapter chapter;
 
-    // player's collection of spell pieces stored as strings
+    // player's collection of spell pieces, glyphs, and active spells stored as strings
     public Dictionary<string, int> spellPieces;
     public Dictionary<string, int> glyphs;
+    public List<string> activeSpells;
 
     // TODO:
     //private string backGroundStory; 
@@ -37,39 +38,80 @@ public abstract class SpellCaster
         //fMaxHealth = 20.0f;     //Commented out in case Spellcasters have different max healths.
         iMana = 1000;
 
+        activeSpells = new List<string>();
+
         // initializing dictionary and adding values
         spellPieces = new Dictionary<string, int>()
         {
-            { "Alchemy Spell Piece", 0 },
-            { "Arcane Spell Piece", 0 },
-            { "Elemental Spell Piece", 0 },
-            { "Illusion Spell Piece", 0 },
-            { "Summoning Spell Piece", 0 },
-            { "Time Spell Piece", 0 }
+            { "Alchemy A Spell Piece", 0 },
+            { "Alchemy B Spell Piece", 0 },
+            { "Alchemy C Spell Piece", 0 },
+            { "Alchemy D Spell Piece", 0 },
+            { "Arcane A Spell Piece", 0 },
+            { "Arcane B Spell Piece", 0 },
+            { "Arcane C Spell Piece", 0 },
+            { "Arcane D Spell Piece", 0 },
+            { "Elemental A Spell Piece", 0 },
+            { "Elemental B Spell Piece", 0 },
+            { "Elemental C Spell Piece", 0 },
+            { "Elemental D Spell Piece", 0 },
+            { "Illusion A Spell Piece", 0 },
+            { "Illusion B Spell Piece", 0 },
+            { "Illusion C Spell Piece", 0 },
+            { "Illusion D Spell Piece", 0 },
+            { "Summoning A Spell Piece", 0 },
+            { "Summoning B Spell Piece", 0 },
+            { "Summoning C Spell Piece", 0 },
+            { "Summoning D Spell Piece", 0 },
+            { "Time A Spell Piece", 0 },
+            { "Time B Spell Piece", 0 },
+            { "Time C Spell Piece", 0 },
+            { "Time D Spell Piece", 0 }
         };
 
         glyphs = new Dictionary<string, int>()
         {
-            { "Alchemy1", 0 },
-            { "Arcane1", 0 },
-            { "Elemental1", 0 },
-            { "Illusion1", 0 },
-            { "Summoning1", 0 },
-            { "Time1", 0 },
+            { "Alchemy A Glyph", 0 },
+            { "Alchemy B Glyph", 0 },
+            { "Alchemy C Glyph", 0 },
+            { "Alchemy D Glyph", 0 },
+            { "Arcane A Glyph", 0 },
+            { "Arcane B Glyph", 0 },
+            { "Arcane C Glyph", 0 },
+            { "Arcane D Glyph", 0 },
+            { "Elemental A Glyph", 0 },
+            { "Elemental B Glyph", 0 },
+            { "Elemental C Glyph", 0 },
+            { "Elemental D Glyph", 0 },
+            { "Illusion A Glyph", 0 },
+            { "Illusion B Glyph", 0 },
+            { "Illusion C Glyph", 0 },
+            { "Illusion D Glyph", 0 },
+            { "Summoning A Glyph", 0 },
+            { "Summoning B Glyph", 0 },
+            { "Summoning C Glyph", 0 },
+            { "Summoning D Glyph", 0 },
+            { "Time A Glyph", 0 },
+            { "Time B Glyph", 0 },
+            { "Time C Glyph", 0 },
+            { "Time D Glyph", 0 },
         };
     }
 
-    void AddToInventory(string item, int count)
+    public void AddToInventory(string item, int count)
     {
         //inventory.add(item, count);
     }
 
-    void TakeDamage(int dmg)
+    public void TakeDamage(int dmg)
     {
-        fCurrentHealth -= dmg;
+        if(fCurrentHealth > 0)
+            fCurrentHealth -= dmg;
+        if (fCurrentHealth <= 0)
+            fCurrentHealth = 0;
     }
 
-    void HealDamage(int heal)
+    public void HealDamage(int heal)
     {
         fCurrentHealth += heal;
         if(fCurrentHealth > fMaxHealth)
@@ -79,9 +121,54 @@ public abstract class SpellCaster
     }
 
     // adds spell piece to player's collection
-    public void CollectSpellPiece(string spellPieceName, SpellCaster player)
+    public void CollectSpellPiece(string spellPieceName)
     {
-        player.spellPieces[spellPieceName] += 1;
+        this.spellPieces[spellPieceName] += 1;
+        Debug.Log("Collected " + spellPieceName + ". You now have " + this.spellPieces[spellPieceName] + "pieces.");
+    }
+
+    public string CollectRandomSpellPiece()
+    {
+        List<string> spellPieceList = new List<string>(this.spellPieces.Keys);
+        int random = (int)Random.Range(0, spellPieceList.Count);
+
+        string randomKey = spellPieceList[random];
+        this.spellPieces[randomKey] += 1;
+
+        return randomKey;
+    }
+
+    public void CollectMana(int manaCount)
+    {
+        this.iMana += manaCount;
+    }
+    public void LoseMana(int manaCount)
+    {
+        this.iMana -= manaCount;
+    }
+
+    public string CollectRandomGlyph()
+    {
+        List<string> glyphList = new List<string>(this.glyphs.Keys);
+        int random = (int)Random.Range(0, glyphList.Count);
+
+        string randomKey = glyphList[random];
+        this.glyphs[randomKey] += 1;
+
+        return randomKey;
+    }
+
+    public string LoseRandomGlyph()
+    {
+        List<string> glyphList = new List<string>(this.glyphs.Keys);
+        int random = (int)Random.Range(0, glyphList.Count);
+
+        string randomKey = glyphList[random];
+
+        if(this.glyphs[randomKey] > 0)
+            this.glyphs[randomKey] -= 1;
+
+        return randomKey;
     }
 
     // method that adds spell to player's chapter

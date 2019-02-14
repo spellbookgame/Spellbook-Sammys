@@ -6,27 +6,46 @@ using UnityEngine.UI;
 public class PanelManager : MonoBehaviour
 {
     private bool panelOpen = false;
+    private GameObject panelClone;
+    private Button button;
+    private Image image;
+
     [SerializeField] private GameObject panel;
 
-    public void showPanel()
+    public void ShowPanel()
     {
         if(!panelOpen)
         {
-            panel.SetActive(true);
+            panelClone = Instantiate(panel);
+            panelClone.transform.SetParent(GameObject.Find("Canvas").transform);
+            panelClone.transform.localPosition = new Vector3(0, 0, 0);
+            panelClone.transform.localScale = new Vector3(1, 1, 1);
+
+            button = panelClone.transform.GetChild(1).GetComponent<Button>();
+            button.onClick.AddListener(OkClick);
+
             panelOpen = true;
         }
     }
 
-    public void setPanelText(string text)
+    // fix this to load resources of each image
+    public void SetPanelImage(string imageName)
     {
-        panel.transform.GetChild(0).GetComponent<Text>().text = text;
+        image = panelClone.transform.GetChild(2).GetComponent<Image>();
+        // not working D:
+        image.sprite = Resources.Load("Spell Pieces/" + imageName) as Sprite;
     }
 
-    public void okClick()
+    public void SetPanelText(string text)
+    {
+        panelClone.transform.GetChild(0).GetComponent<Text>().text = text;
+    }
+     
+    private void OkClick()
     {
         if(panelOpen)
         {
-            panel.SetActive(false);
+            Destroy(panelClone.gameObject);
             panelOpen = false;
         }
     }

@@ -55,7 +55,7 @@ public class Player : Bolt.EntityEventListener<ISpellcasterState>
     IEnumerator determineTurnOrder()
     {
         //BoltConsole.print("Time start: " +Time.time);
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(1);
         int count = 0;
         BoltConsole.Write("Entities: ");
         foreach (var e in BoltNetwork.Entities)

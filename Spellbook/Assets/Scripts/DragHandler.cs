@@ -40,7 +40,7 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         if (localPlayer.Spellcaster.spellPieces[itemToDrag.name] > 0 && originalParent.childCount < 1)
         {
             // instantiate prefab of whatever was dragged, and omit (clone) from its name
-            GameObject clone = Instantiate((GameObject)Resources.Load(itemToDrag.name), originalParent);
+            GameObject clone = Instantiate((GameObject)Resources.Load("Spell Pieces/" + itemToDrag.name), originalParent);
             clone.name = itemToDrag.name;
 
             clone.AddComponent<DragHandler>();
@@ -51,9 +51,9 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
             // set the instantiated clone's text to the number player has
             clone.transform.GetChild(0).GetComponent<Text>().text = localPlayer.Spellcaster.spellPieces[clone.name].ToString();
         }
-
-        // if dragging item has a text child, destroy it
-        if(itemToDrag.transform.childCount > 0)
+        
+        // if dragging item has a text component in its first child, then destroy that child
+        if(itemToDrag.transform.GetChild(0).GetComponent<Text>())
         {
             Destroy(itemToDrag.transform.GetChild(0).gameObject);
         }
@@ -75,7 +75,7 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         GetComponent<CanvasGroup>().blocksRaycasts = true;
 
         // if item's parent is where it started from onBeginDrag() and drag ended without changing parent, snap it back
-        if (transform.parent == startParent)
+        if (transform.parent == startParent || transform.parent.tag != "Slot")
         {
             transform.position = startPos;
         }

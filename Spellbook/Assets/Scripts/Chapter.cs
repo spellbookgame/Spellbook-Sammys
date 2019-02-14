@@ -24,8 +24,8 @@ public class Chapter : MonoBehaviour
         switch (classType)
         {
             case "Alchemist":
-                Spell polymorph = new Polymorph();
-                spellsAllowed.Add(polymorph);
+                Spell manaConstruct = new ManaConstruct();
+                spellsAllowed.Add(manaConstruct);
                 break;
             case "Arcanist":
                 Spell magicMissiles = new MagicMissiles();
@@ -34,20 +34,20 @@ public class Chapter : MonoBehaviour
                 spellsAllowed.Add(arcanaHarvest);
                 break;
             case "Summoner":
-                Spell summonTree = new SummonTree();
-                spellsAllowed.Add(summonTree);
+                Spell cowBear = new CoWBear();
+                spellsAllowed.Add(cowBear);
                 break;
             case "Chronomancer":
-                Spell alterTime = new AlterTime();
-                spellsAllowed.Add(alterTime);
+                Spell accelerate = new Accelerate();
+                spellsAllowed.Add(accelerate);
                 break;
             case "Elementalist":
                 Spell fireball = new Fireball();
                 spellsAllowed.Add(fireball);
                 break;
             case "Trickster":
-                Spell mirrorImage = new MirrorImage();
-                spellsAllowed.Add(mirrorImage);
+                Spell playwright = new Playwright();
+                spellsAllowed.Add(playwright);
                 break;
             default:
                 break;
@@ -61,45 +61,62 @@ public class Chapter : MonoBehaviour
     public void CompareSpells(SpellCaster player, Dictionary<string, int> slotPieces)
     {
         bool equal = false;
-        // iterate through the player's spells allowed
-        for (int i = 0; i < player.chapter.spellsAllowed.Count; ++i)
+
+        Dictionary<string, int> dictionary1 = slotPieces;
+
+        // iterate through each spell that player can collect
+        for(int i = 0; i < player.chapter.spellsAllowed.Count; ++i)
         {
-            // if tier 3 spell, only 1 from slotPieces has to match requiredPieces
-            // ISSUE: arcana harvest and magic missiles both fit this requirement, so player collects both
-            if(player.chapter.spellsAllowed[i].iTier == 3)
+            Dictionary<string, int> dictionary2 = player.chapter.spellsAllowed[i].requiredPieces;
+            
+            // tier 3 spells: only need 1 required piece
+            if (player.chapter.spellsAllowed[i].iTier == 3)
             {
-                if (slotPieces.ContainsKey(player.chapter.spellsAllowed[i].requiredPieces.ElementAt(0).Key))
-                    equal = true;
-            }
-            // if tier 1 spell, all 4 must match
-            // the following comparison is from dotnetperls.com
-            else if (slotPieces.Count == player.chapter.spellsAllowed[i].requiredPieces.Count)
-            {
-                equal = true;
-                foreach (var pair in player.chapter.spellsAllowed[i].requiredPieces)
+                if(dictionary2.Keys.All(k => dictionary1.ContainsKey(k)))
                 {
-                    int value;
-                    if (slotPieces.TryGetValue(pair.Key, out value))
+                    equal = true;
+                    // if equal and player does not have the spell yet
+                    if (equal && !player.chapter.spellsCollected.Contains(player.chapter.spellsAllowed[i]))
                     {
-                        // require value to be equal
-                        if (value != pair.Value)
-                        {
-                            equal = false;
-                            break;
-                        }
-                    }
-                    else
-                    {
-                        // require key be present
-                        equal = false;
+                        player.CollectSpell(player.chapter.spellsAllowed[i], player);
                         break;
                     }
                 }
             }
-            if (equal)
+            // tier 2 spells: need 3 required pieces
+            else if(player.chapter.spellsAllowed[i].iTier == 2)
             {
-                Debug.Log("Player collected spell!");
-                player.CollectSpell(player.chapter.spellsAllowed[i], player);
+                foreach(KeyValuePair<string, int> kvp in dictionary2)
+                {
+                    if (dictionary1.ContainsKey(kvp.Key))
+                    {
+                        equal = true;
+                    }
+                    else
+                    {
+                        equal = false;
+                        break;
+                    }
+                }
+                if (equal && !player.chapter.spellsCollected.Contains(player.chapter.spellsAllowed[i]))
+                {
+                    player.CollectSpell(player.chapter.spellsAllowed[i], player);
+                    break;
+                }
+            }
+            // tier 1 spell: need 4 required pieces
+            else if(player.chapter.spellsAllowed[i].iTier == 1)
+            {
+                if(dictionary1.Keys.Count == dictionary2.Keys.Count && dictionary1.Keys.All(k => dictionary2.ContainsKey(k) 
+                    && object.Equals(dictionary2[k], dictionary1[k])))
+                {
+                    equal = true;
+                    if (equal)
+                    {
+                        player.CollectSpell(player.chapter.spellsAllowed[i], player);
+                        break;
+                    }
+                }
             }
         }
     }

@@ -13,34 +13,28 @@ public class SpellManager : MonoBehaviour, IHasChanged
     [SerializeField] Transform slots;
     [SerializeField] public Text inventoryText;
     [SerializeField] public GameObject panel;
-
-    [SerializeField] GameObject alchemySP;
-    [SerializeField] GameObject arcaneSP;
-    [SerializeField] GameObject elementalSP;
-    [SerializeField] GameObject illusionSP;
-    [SerializeField] GameObject summoningSP;
-    [SerializeField] GameObject timeSP;
-
-    public HashSet<string> hashSpellPieces;
+    [SerializeField] private GameObject spellPieceContainer;
+    
     public Dictionary<string, int> slotPieces;
+    private RectTransform panelRect;
+    private float fWidth;
+    private int iSlotCount;
 
     Player localPlayer;
     
     void Start()
     {
-        hashSpellPieces = new HashSet<string>();
+        fWidth = 610f;
+        iSlotCount = 0;
+
         slotPieces = new Dictionary<string, int>();
 
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
+        panelRect = panel.GetComponent<RectTransform>();
+
         HasChanged();
-        
-        // set text of all these to the number that player has collected
-        alchemySP.transform.GetChild(0).GetComponent<Text>().text = localPlayer.Spellcaster.spellPieces[alchemySP.name].ToString();
-        arcaneSP.transform.GetChild(0).GetComponent<Text>().text = localPlayer.Spellcaster.spellPieces[arcaneSP.name].ToString();
-        elementalSP.transform.GetChild(0).GetComponent<Text>().text = localPlayer.Spellcaster.spellPieces[elementalSP.name].ToString();
-        illusionSP.transform.GetChild(0).GetComponent<Text>().text = localPlayer.Spellcaster.spellPieces[illusionSP.name].ToString();
-        summoningSP.transform.GetChild(0).GetComponent<Text>().text = localPlayer.Spellcaster.spellPieces[summoningSP.name].ToString();
-        timeSP.transform.GetChild(0).GetComponent<Text>().text = localPlayer.Spellcaster.spellPieces[timeSP.name].ToString();
+
+        GenerateSpellSlots();
     }
 
     void Update()
@@ -100,6 +94,23 @@ public class SpellManager : MonoBehaviour, IHasChanged
             if (slotTransform.childCount > 0)
             {
                 localPlayer.Spellcaster.spellPieces[slotTransform.GetChild(0).name] += 1;
+            }
+        }
+    }
+
+    private void GenerateSpellSlots()
+    {
+        // for each spell piece player has, child its spell slot to panel
+        foreach(KeyValuePair<string, int> kvp in localPlayer.Spellcaster.spellPieces)
+        {
+            if(kvp.Value > 0)
+            {
+                string spellName = kvp.Key;
+                Transform slotTransform = spellPieceContainer.transform.Find(spellName);
+                slotTransform.SetParent(panel.transform);
+                slotTransform.GetChild(0).GetChild(0).GetComponent<Text>().text = localPlayer.Spellcaster.spellPieces[spellName].ToString();
+                slotTransform.GetChild(0).gameObject.AddComponent<DragHandler>();
+                ++iSlotCount;
             }
         }
     }

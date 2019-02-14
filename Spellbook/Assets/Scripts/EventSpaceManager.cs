@@ -56,7 +56,7 @@ public class EventSpaceManager : MonoBehaviour
         genericFunctions.Add(eventUnluckyDice);
         genericFunctions.Add(eventLuckyDice);
         genericFunctions.Add(eventLoseGlyphs);
-        genericFunctions.Add(eventGainGlyphs);
+        genericFunctions.Add(eventGainSpellPiece);
 
         //Example of adding city-specific events. All empty for now.
         alchemistTownFunctions = new List<Action>();
@@ -110,49 +110,62 @@ public class EventSpaceManager : MonoBehaviour
     private void eventAddMana()
     {
         Debug.Log("AddMana");
-        spellCaster.iMana += (int) Random.Range(5f, 50f);
+        int manaCount = (int)Random.Range(100, 1000);
+        spellCaster.CollectMana(manaCount);
+        PanelHolder.instance.displayEvent("You found " + manaCount.ToString() + " mana!");
     }
 
     private void eventDeleteMana()
     {
         Debug.Log("LoseMana");
-        spellCaster.iMana += (int)Random.Range(5f, 50f);
+        int manaCount = (int)Random.Range(100, 1000);
+        spellCaster.LoseMana((int)Random.Range(100, 500));
+        PanelHolder.instance.displayEvent("You lost " + manaCount.ToString() + " mana...");
     }
 
     private void eventLoseHealth()
     {
-        Debug.Log("LoseHealth");
         //Need to make TakeDamage public in SpellCaster.cs
-        //spellCaster.TakeDamage((int)Random.Range(1f, 3f));
+        int damage = (int)Random.Range(1f, 5f);
+        spellCaster.TakeDamage(damage);
+        PanelHolder.instance.displayEvent("You tripped over a rock and lost " + damage.ToString() + " health.");
     }
 
     private void eventGainHealth()
     {
         Debug.Log("GainHealth");
+        int health = (int)Random.Range(1f, 3f);
         //Need to make HealDamage public in SpellCaster.cs
-        //spellCaster.HealDamage((int)Random.Range(1f, 5f));
+        spellCaster.HealDamage(health);
+        PanelHolder.instance.displayEvent("After encountering a mystical sorcerer, you regained " + health.ToString() + " health!");
     }
 
     private void eventUnluckyDice()
     {
         Debug.Log("UnluckyDice");
         //Dice roll gets nerfed.
+        PanelHolder.instance.displayEvent("You got hit with the curse Unlucky Dice! You can only roll 1-3 next turn.");
     }
 
     private void eventLuckyDice()
     {
         Debug.Log("LuckyDice");
         //Dice roll gets buffed.
+        PanelHolder.instance.displayEvent("You found some lucky dice! You will roll a 5 or 6 next turn.");
     }
 
     private void eventLoseGlyphs()
     {
         Debug.Log("LoseGlyphs");
+        string glyphLost = spellCaster.LoseRandomGlyph();
+        PanelHolder.instance.displayEvent("An eagle swooped by and stole your " + glyphLost + "!");
     }
 
-    private void eventGainGlyphs()
+    private void eventGainSpellPiece()
     {
         Debug.Log("GainGlyphs");
+        string spellPiece = spellCaster.CollectRandomSpellPiece();
+        PanelHolder.instance.displayEvent("A mysterious figure came and gave you a " + spellPiece + ".");
     }
     #endregion
     /// 
