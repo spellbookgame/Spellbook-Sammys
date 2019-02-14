@@ -16,7 +16,7 @@ public abstract class SpellCaster
     public string classType;
     public Chapter chapter;
 
-    // player's collection of spell pieces stored as strings
+    // player's collection of spell pieces, glyphs, and active spells stored as strings
     public Dictionary<string, int> spellPieces;
     public Dictionary<string, int> glyphs;
     public List<string> activeSpells;
@@ -68,11 +68,6 @@ public abstract class SpellCaster
             { "Time C Spell Piece", 0 },
             { "Time D Spell Piece", 0 }
         };
-
-        /*foreach(KeyValuePair<string, int> kvp in spellPieces)
-        {
-            Debug.Log(kvp.Key + " " + kvp.Value);
-        }*/
 
         glyphs = new Dictionary<string, int>()
         {
@@ -140,12 +135,9 @@ public abstract class SpellCaster
         return randomKey;
     }
 
-    public int CollectMana(SpellCaster player)
+    public void CollectMana(int manaCount, SpellCaster player)
     {
-        int manaAmount = (int)Random.Range(100, 1000);
-        player.iMana += manaAmount;
-
-        return manaAmount;
+        player.iMana += manaCount;
     }
 
     public string CollectRandomGlyph(SpellCaster player)

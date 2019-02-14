@@ -17,10 +17,11 @@ public class Accelerate : Spell
 
     public override void SpellCast(SpellCaster player)
     {
+        PanelManager panelManager = GameObject.Find("ScriptContainer").GetComponent<PanelManager>();
+
         // if player has enough mana and glyphs, cast the spell
         if (player.glyphs["Time C Glyph"] >= 4 && player.iMana >= iManaCost)
         {
-            PanelManager panelManager = GameObject.Find("ScriptContainer").GetComponent<PanelManager>();
             Debug.Log(sSpellName + " was cast!");
 
             // subtract mana and glyphs
@@ -31,6 +32,16 @@ public class Accelerate : Spell
             panelManager.SetPanelText("You cast Accelerate. Your next move dice will roll a five or a six.");
 
             player.activeSpells.Add(sSpellName);
+        }
+        else if (player.glyphs["Time C Glyph"] < 4)
+        {
+            panelManager.ShowPanel();
+            panelManager.SetPanelText("You don't have enough glyphs to cast this spell.");
+        }
+        else if (player.iMana < iManaCost)
+        {
+            panelManager.ShowPanel();
+            panelManager.SetPanelText("You don't have enough mana to cast this spell.");
         }
     }
 }

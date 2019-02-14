@@ -19,6 +19,8 @@ public class ArcanaHarvest : Spell
 
     public override void SpellCast(SpellCaster player)
     {
+        PanelManager panelManager = GameObject.Find("ScriptContainer").GetComponent<PanelManager>();
+
         // if player has enough mana and glyphs, cast the spell
         if (player.glyphs["Arcane D Glyph"] >= 4 && player.iMana >= iManaCost)
         {
@@ -27,6 +29,16 @@ public class ArcanaHarvest : Spell
             // subtract mana and glyphs
             player.iMana -= iManaCost;
             player.glyphs["Arcane D Glyph"] -= 4;
+        }
+        else if (player.glyphs["Arcane D Glyph"] < 4)
+        {
+            panelManager.ShowPanel();
+            panelManager.SetPanelText("You don't have enough glyphs to cast this spell.");
+        }
+        else if (player.iMana < iManaCost)
+        {
+            panelManager.ShowPanel();
+            panelManager.SetPanelText("You don't have enough mana to cast this spell.");
         }
     }
 }

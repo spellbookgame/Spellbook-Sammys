@@ -70,13 +70,13 @@ public class Enemy : MonoBehaviour
     {
         PanelManager panelManager = GameObject.Find("ScriptContainer").GetComponent<PanelManager>();
         int index = Random.Range(0, 6);
-        int manaCollected = Random.Range(50, 300);
+        int manaCount = Random.Range(100, 1000);
 
         string panelText = "You defeated the enemy!\n\n" +
-                "You received 1 " + dropSpellPieces[index].ToString() + ".\nYou also received " + manaCollected.ToString() + " mana.";
+                "You received 1 " + dropSpellPieces[index].ToString() + ".\nYou also received " + manaCount + " mana.";
 
         localPlayer.Spellcaster.CollectSpellPiece(dropSpellPieces[index], localPlayer.Spellcaster);
-        localPlayer.Spellcaster.iMana += manaCollected;
+        localPlayer.Spellcaster.CollectMana(manaCount, localPlayer.Spellcaster);
         panelManager.ShowPanel();
         panelManager.SetPanelText(panelText);
         // panelManager.SetPanelImage(dropSpellPieces[index].ToString());

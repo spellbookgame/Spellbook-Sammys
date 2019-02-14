@@ -18,6 +18,7 @@ public class Fireball : Spell
 
     public override void SpellCast(SpellCaster player)
     {
+        PanelManager panelManager = GameObject.Find("ScriptContainer").GetComponent<PanelManager>();
         Enemy enemy = GameObject.FindGameObjectWithTag("Enemy").GetComponent<Enemy>();
 
         // if player has enough mana and glyphs, cast the spell
@@ -36,6 +37,16 @@ public class Fireball : Spell
             {
                 SceneManager.LoadScene("CombatScene");
             }
-        } 
+        }
+        else if (player.glyphs["Elemental D Glyph"] < 4)
+        {
+            panelManager.ShowPanel();
+            panelManager.SetPanelText("You don't have enough glyphs to cast this spell.");
+        }
+        else if (player.iMana < iManaCost)
+        {
+            panelManager.ShowPanel();
+            panelManager.SetPanelText("You don't have enough mana to cast this spell.");
+        }
     }
 }

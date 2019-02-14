@@ -11,9 +11,9 @@ using UnityEngine;
      */
 public class Summoner : SpellCaster
 {
+
     public Summoner()
     {
-        
         //You can override variables in here.
         classType = "Summoner";
         fMaxHealth = 20.0f;
