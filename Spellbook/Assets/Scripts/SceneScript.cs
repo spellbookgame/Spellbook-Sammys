@@ -6,6 +6,19 @@ using UnityEngine.SceneManagement;
 // script used to load different scenes
 public class SceneScript : MonoBehaviour
 {
+    public static SceneScript instance;
+
+    private void Awake()
+    {
+        if(instance == null)
+        {
+            instance = this;
+        }else if(instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     public void loadMainScene()
     {
         SceneManager.LoadScene("MainPlayerScene");

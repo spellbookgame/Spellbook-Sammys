@@ -23,11 +23,25 @@ public class CombatHandler : MonoBehaviour
 
     Player localPlayer;
     Enemy enemy;
+    public static CombatHandler instance = null;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }else if(instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
 
     private void Start()
     {
-        StartCoroutine(waitTime());
-        
+        setUpCombatHandler();
+
+        //TODO: Delete after testing.
+        //StartCoroutine(waitTime());      
     }
 
     private void Update()
@@ -137,12 +151,35 @@ public class CombatHandler : MonoBehaviour
             enemy.HitEnemy(localPlayer.Spellcaster.fBasicAttackStrength);
     }
 
+    //TODO: delete after testing.
     IEnumerator waitTime()
     {
         yield return new WaitForSeconds(2f);
 
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
         if(localPlayer == null)
+        {
+            Debug.Log("local player is null");
+        }
+        enemy = GameObject.FindGameObjectWithTag("Enemy").GetComponent<Enemy>();
+
+        // setting player's current health to equal max health
+        localPlayer.Spellcaster.fCurrentHealth = localPlayer.Spellcaster.fMaxHealth;
+
+        // setting the slider and text value to max health
+        Slider_healthbar.value = CalculatePlayerHealth();
+        Text_healthtext.text = localPlayer.Spellcaster.fCurrentHealth.ToString();
+
+        Slider_enemyHealthBar.value = CalculateEnemyHealth();
+        Text_enemyHealthText.text = enemy.fCurrentHealth.ToString();
+
+        Text_mana.text = localPlayer.Spellcaster.iMana.ToString();
+    }
+
+    public void setUpCombatHandler()
+    {
+        localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
+        if (localPlayer == null)
         {
             Debug.Log("local player is null");
         }

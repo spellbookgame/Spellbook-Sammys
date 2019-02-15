@@ -55,7 +55,7 @@ public class Player : Bolt.EntityEventListener<ISpellcasterState>
     IEnumerator determineTurnOrder()
     {
         //BoltConsole.print("Time start: " +Time.time);
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(2);
         int count = 0;
         BoltConsole.Write("Entities: ");
         foreach (var e in BoltNetwork.Entities)
@@ -113,18 +113,25 @@ public class Player : Bolt.EntityEventListener<ISpellcasterState>
         }
     }
     #region turn_handlers
+
     /* Called when player clicks the end turn button. 
-     Sends a reliable Global event letting everyone know.*/
-    public void onEndTurnClick()
+     Sends a reliable Global event letting everyone know.
+     
+        THIS METHOD ASSUMES YOU ARE IN A SCENE WITH SceneScript.
+         */
+    public bool onEndTurnClick()
     {
         BoltConsole.Write("OnEndTurnClick");
         if (bIsMyTurn)
         {
+            bIsMyTurn = false;
             BoltConsole.Write("My Turn is over");
             var nextTurnEvnt = NextPlayerTurnEvent.Create(Bolt.GlobalTargets.Everyone);
             nextTurnEvnt.NextSpellcaster = "Next";
             nextTurnEvnt.Send();
+            return true;
         }
+        return false;
     }
 
     /* When our LobbyManager (aka our GlobalEventListener) recieves a
