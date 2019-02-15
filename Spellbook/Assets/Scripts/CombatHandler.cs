@@ -23,11 +23,22 @@ public class CombatHandler : MonoBehaviour
 
     Player localPlayer;
     Enemy enemy;
+    public static CombatHandler instance = null;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }else if(instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
 
     private void Start()
     {
-        StartCoroutine(waitTime());
-        
+        setUpCombatHandler();    
     }
 
     private void Update()
@@ -137,12 +148,10 @@ public class CombatHandler : MonoBehaviour
             enemy.HitEnemy(localPlayer.Spellcaster.fBasicAttackStrength);
     }
 
-    IEnumerator waitTime()
+    public void setUpCombatHandler()
     {
-        yield return new WaitForSeconds(2f);
-
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
-        if(localPlayer == null)
+        if (localPlayer == null)
         {
             Debug.Log("local player is null");
         }

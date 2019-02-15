@@ -9,16 +9,29 @@ public class MainPageHandler : MonoBehaviour
     [SerializeField] private Enemy enemy;
 
     Player localPlayer;
+    public static MainPageHandler instance = null;
+
+    void Awake()
+    {
+        //Check if there is already an instance of MainPageHandler
+        if (instance == null)
+            //if not, set it to this.
+            instance = this;
+        //If instance already exists:
+        else if (instance != this)
+            //Destroy this, this enforces our singleton pattern so there can only be one instance of MainPageHandler.
+            Destroy(gameObject);
+    }
 
     private void Start()
     {
-        StartCoroutine(waitTime());
+        //TODO delete after testing
+        //StartCoroutine(waitTime());
     }
 
-    IEnumerator waitTime()
-    {
-        yield return new WaitForSeconds(2f);
 
+    public void setupMainPage()
+    {
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
 
         manaCrystalsValue.text = localPlayer.Spellcaster.iMana.ToString();

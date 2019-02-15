@@ -121,6 +121,7 @@ namespace Bolt.Samples.Photon.Lobby
 
                     // Spawn Player
                     SpawnGamePlayer();
+                    MainPageHandler.instance.setupMainPage();
                 }
 
             } catch (Exception e)
