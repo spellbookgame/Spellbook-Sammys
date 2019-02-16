@@ -20,7 +20,6 @@ public class MagicMissiles : Spell
 
     public override void SpellCast(SpellCaster player)
     {
-        PanelManager panelManager = GameObject.Find("ScriptContainer").GetComponent<PanelManager>();
         Enemy enemy = GameObject.FindGameObjectWithTag("Enemy").GetComponent<Enemy>();
 
         // if player has enough mana and glyphs, cast the spell
@@ -29,26 +28,19 @@ public class MagicMissiles : Spell
             int damage = Random.Range(3, 12);
             enemy.HitEnemy(damage);
 
-            Debug.Log(sSpellName + " was cast!");
-
             // subtract mana and glyphs
             player.iMana -= iManaCost;
             player.glyphs["Arcane A Glyph"] -= 4;
 
-            if (enemy.fCurrentHealth > 0)
-            {
-                SceneManager.LoadScene("CombatScene");
-            }
+            PanelHolder.instance.displayCombat("You cast Magic Missles, and they did " + damage + " damage!");
         }
         else if (player.glyphs["Arcane A Glyph"] < 4)
         {
-            panelManager.ShowPanel();
-            panelManager.SetPanelText("You don't have enough glyphs to cast this spell.");
+            PanelHolder.instance.displayNotify("You don't have enough glyphs to cast this spell.");
         }
         else if (player.iMana < iManaCost)
         {
-            panelManager.ShowPanel();
-            panelManager.SetPanelText("You don't have enough mana to cast this spell.");
+            PanelHolder.instance.displayNotify("You don't have enough mana to cast this spell.");
         }
     }
 }

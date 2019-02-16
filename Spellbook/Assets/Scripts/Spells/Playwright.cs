@@ -19,31 +19,24 @@ public class Playwright : Spell
 
     public override void SpellCast(SpellCaster player)
     {
-        PanelManager panelManager = GameObject.Find("ScriptContainer").GetComponent<PanelManager>();
-
         // if player has enough mana and glyphs, cast the spell
         if (player.glyphs["Illusion B Glyph"] >= 4 && player.iMana >= iManaCost)
         {
-            Debug.Log(sSpellName + " was cast!");
-
             // subtract mana and glyphs
             player.iMana -= iManaCost;
             player.glyphs["Illusion B Glyph"] -= 4;
-
-            panelManager.ShowPanel();
-            panelManager.SetPanelText("You cast Playwright. You may control your next roll to roll a 1, 2, 3, 4, 5, or 6.");
+            
+            PanelHolder.instance.displayNotify(sSpellName + " was cast. You may control your next roll to be a 1, 2, 3, 4, 5, or 6.");
 
             player.activeSpells.Add(sSpellName);
         }
         else if (player.glyphs["Illusion B Glyph"] < 4)
         {
-            panelManager.ShowPanel();
-            panelManager.SetPanelText("You don't have enough glyphs to cast this spell.");
+            PanelHolder.instance.displayNotify("You don't have enough glyphs to cast this spell.");
         }
         else if (player.iMana < iManaCost)
         {
-            panelManager.ShowPanel();
-            panelManager.SetPanelText("You don't have enough mana to cast this spell.");
+            PanelHolder.instance.displayNotify("You don't have enough mana to cast this spell.");
         }
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class PanelHolder : MonoBehaviour
 {
     public YourTurnUI yourTurnPanel;
-    public EventUI eventPanel;
+    public NotifyUI notifyPanel;
 
     // Start is called before the first frame update
     public static PanelHolder instance = null;
@@ -29,6 +29,16 @@ public class PanelHolder : MonoBehaviour
 
     public void displayEvent(string evnt)
     {
-        eventPanel.Display(evnt);
+        notifyPanel.DisplayEvent(evnt);
+    }
+
+    public void displayNotify(string evnt)
+    {
+        notifyPanel.Display(evnt);
+    }
+
+    public void displayCombat(string evnt)
+    {
+        notifyPanel.DisplayCombat(evnt);
     }
 }
