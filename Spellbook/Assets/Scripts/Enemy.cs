@@ -70,7 +70,7 @@ public class Enemy : MonoBehaviour
         int index = Random.Range(0, 6);
         int manaCount = Random.Range(100, 1000);
 
-        string panelText = "You defeated the enemy!\n\n" +
+        string panelText = "You defeated the enemy!\n" +
                 "You received 1 " + dropSpellPieces[index].ToString() + ".\nYou also received " + manaCount + " mana.";
 
         localPlayer.Spellcaster.CollectSpellPiece(dropSpellPieces[index]);
