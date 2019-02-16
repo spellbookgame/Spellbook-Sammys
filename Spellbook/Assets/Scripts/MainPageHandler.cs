@@ -25,15 +25,14 @@ public class MainPageHandler : MonoBehaviour
 
     private void Start()
     {
-        //TODO delete after testing
-        //StartCoroutine(waitTime());
+        setupMainPage();
     }
 
 
     public void setupMainPage()
     {
+        if (GameObject.FindGameObjectWithTag("LocalPlayer") == null) return;
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
-
         manaCrystalsValue.text = localPlayer.Spellcaster.iMana.ToString();
 
         foreach (string entry in localPlayer.Spellcaster.activeSpells)
