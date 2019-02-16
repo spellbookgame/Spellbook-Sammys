@@ -43,14 +43,14 @@ public abstract class SpellCaster
         // initializing dictionary and adding values
         spellPieces = new Dictionary<string, int>()
         {
-            { "Alchemy A Spell Piece", 3 },
+            { "Alchemy A Spell Piece", 0 },
             { "Alchemy B Spell Piece", 0 },
             { "Alchemy C Spell Piece", 0 },
             { "Alchemy D Spell Piece", 0 },
             { "Arcane A Spell Piece", 0 },
             { "Arcane B Spell Piece", 0 },
             { "Arcane C Spell Piece", 0 },
-            { "Arcane D Spell Piece", 1 },
+            { "Arcane D Spell Piece", 0 },
             { "Elemental A Spell Piece", 0 },
             { "Elemental B Spell Piece", 0 },
             { "Elemental C Spell Piece", 0 },
@@ -78,7 +78,7 @@ public abstract class SpellCaster
             { "Arcane A Glyph", 0},
             { "Arcane B Glyph", 0 },
             { "Arcane C Glyph", 0 },
-            { "Arcane D Glyph", 4 },
+            { "Arcane D Glyph", 0 },
             { "Elemental A Glyph", 0 },
             { "Elemental B Glyph", 0 },
             { "Elemental C Glyph", 0 },
