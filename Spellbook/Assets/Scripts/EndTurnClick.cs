@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EndTurnClick : MonoBehaviour
 {
@@ -14,7 +15,12 @@ public class EndTurnClick : MonoBehaviour
         bool endSuccessful = player.GetComponent<Player>().onEndTurnClick();
         if (endSuccessful)
         {
-            sceneScript.loadMainScene();
+            Scene m_Scene = SceneManager.GetActiveScene();
+            if(m_Scene.name != "MainPlayerScene")
+            {
+                sceneScript.loadMainScene();
+            }
+           
         }
         
     }
