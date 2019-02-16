@@ -1824,7 +1824,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1062409577}
-  - component: {fileID: 1062409576}
   - component: {fileID: 1062409578}
   m_Layer: 0
   m_Name: ScriptContainer
@@ -1833,19 +1832,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1062409576
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1062409575}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb65e42ecdbff0e4dbb89e2fc13ee2af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemy: {fileID: 1932045272780747069, guid: 43263ee7fed6dbd4c9a01f29110b1a85, type: 3}
 --- !u!4 &1062409577
 Transform:
   m_ObjectHideFlags: 0

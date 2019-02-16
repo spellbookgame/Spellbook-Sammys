@@ -22,7 +22,6 @@ public class CoWBear : Spell
 
     public override void SpellCast(SpellCaster player)
     {
-        PanelManager panelManager = GameObject.Find("ScriptContainer").GetComponent<PanelManager>();
         Enemy enemy = GameObject.FindGameObjectWithTag("Enemy").GetComponent<Enemy>();
 
         // if player has enough mana and glyphs, cast the spell
@@ -35,20 +34,15 @@ public class CoWBear : Spell
             player.iMana -= iManaCost;
             player.glyphs["Summoning B Glyph"] -= 4;
 
-            if (enemy.fCurrentHealth > 0)
-            {
-                SceneManager.LoadScene("CombatScene");
-            }
+            PanelHolder.instance.displayCombat("You summoned a great bear and inflicted " + damage + " damage!");
         }
         else if(player.glyphs["Summoning B Glyph"] < 4)
         {
-            panelManager.ShowPanel();
-            panelManager.SetPanelText("You don't have enough glyphs to cast this spell.");
+            PanelHolder.instance.displayNotify("You don't have enough glyphs to cast this spell.");
         }
         else if(player.iMana < iManaCost)
         {
-            panelManager.ShowPanel();
-            panelManager.SetPanelText("You don't have enough mana to cast this spell.");
+            PanelHolder.instance.displayNotify("You don't have enough mana to cast this spell.");
         }
     }
 }

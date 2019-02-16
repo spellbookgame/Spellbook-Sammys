@@ -1328,7 +1328,6 @@ GameObject:
   m_Component:
   - component: {fileID: 601558009}
   - component: {fileID: 601558008}
-  - component: {fileID: 601558007}
   - component: {fileID: 601558006}
   m_Layer: 0
   m_Name: ScriptContainer
@@ -1355,19 +1354,6 @@ MonoBehaviour:
   Text_healthtext: {fileID: 1533126679}
   Slider_enemyHealthBar: {fileID: 809990665}
   Text_enemyHealthText: {fileID: 948708909}
---- !u!114 &601558007
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 601558005}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 888e7f76c3c0fc84a9172b46c584da18, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  panel: {fileID: 5605926333769718798, guid: bac7a0a79e9443f4981de98cdbc4966f, type: 3}
 --- !u!114 &601558008
 MonoBehaviour:
   m_ObjectHideFlags: 0

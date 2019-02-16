@@ -75,10 +75,6 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
         {
             StopCoroutine(coroutineReference);
         }
-        /*if(panelOpen)
-        {
-            panel.SetActive(false);
-        }*/
     }
 
     IEnumerator ScanTime()
@@ -105,13 +101,34 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
                 break;
             case "mana":
                 int manaCount = (int)UnityEngine.Random.Range(100, 1000);
-                localPlayer.Spellcaster.CollectMana(manaCount);
-                PanelHolder.instance.displayEvent("You found " + manaCount + " mana!");
-                break;
+                if (localPlayer.Spellcaster.activeSpells.Contains("Arcana Harvest"))
+                {
+                    manaCount *= 2;
+                    localPlayer.Spellcaster.CollectMana(manaCount);
+                    PanelHolder.instance.displayEvent("Because of Arcana Harvest, you found double mana and received " + manaCount + " mana!");
+                    localPlayer.Spellcaster.activeSpells.Remove("Arcana Harvest");
+                    break;
+                }
+                else
+                {
+                    localPlayer.Spellcaster.CollectMana(manaCount);
+                    PanelHolder.instance.displayEvent("You found " + manaCount + " mana!");
+                    break;
+                }
             case "glyph":
                 string collectedGlyph = localPlayer.Spellcaster.CollectRandomGlyph();
-                PanelHolder.instance.displayEvent("You found the " + collectedGlyph + "!");
-                break;
+                if(localPlayer.Spellcaster.activeSpells.Contains("Arcana Harvest"))
+                {
+                    localPlayer.Spellcaster.glyphs[collectedGlyph] += 1;
+                    PanelHolder.instance.displayEvent("Because of Arcana Harvest, you found double glyphs and found 2 " + collectedGlyph + "!");
+                    localPlayer.Spellcaster.activeSpells.Remove("Arcana Harvest");
+                    break;
+                }
+                else
+                {
+                    PanelHolder.instance.displayEvent("You found the " + collectedGlyph + "!");
+                    break;
+                }
             case "event":
                 EventSpaceManager.instance.executeEventSpace();
                 break;

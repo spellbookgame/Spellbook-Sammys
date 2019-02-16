@@ -116,7 +116,6 @@ public class CombatHandler : MonoBehaviour
         Slider_healthbar.value = CalculatePlayerHealth();
         Text_healthtext.text = localPlayer.Spellcaster.fCurrentHealth.ToString();
     }
-
     public void UpdateEnemyStats()
     {
         Slider_enemyHealthBar.value = CalculateEnemyHealth();

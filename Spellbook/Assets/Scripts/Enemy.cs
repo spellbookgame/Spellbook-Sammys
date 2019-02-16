@@ -66,19 +66,16 @@ public class Enemy : MonoBehaviour
     public void EnemyDefeated()
     {
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
-        PanelManager panelManager = GameObject.Find("ScriptContainer").GetComponent<PanelManager>();
 
         int index = Random.Range(0, 6);
         int manaCount = Random.Range(100, 1000);
 
-        string panelText = "You defeated the enemy!\n\n" +
+        string panelText = "You defeated the enemy!\n" +
                 "You received 1 " + dropSpellPieces[index].ToString() + ".\nYou also received " + manaCount + " mana.";
 
         localPlayer.Spellcaster.CollectSpellPiece(dropSpellPieces[index]);
         localPlayer.Spellcaster.CollectMana(manaCount);
-        panelManager.ShowPanel();
-        panelManager.SetPanelText(panelText);
-        // panelManager.SetPanelImage(dropSpellPieces[index].ToString());
+        PanelHolder.instance.displayNotify(panelText);
 
         Destroy(this.gameObject);
     }

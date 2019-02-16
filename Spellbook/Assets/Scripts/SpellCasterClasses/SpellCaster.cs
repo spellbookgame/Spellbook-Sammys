@@ -75,7 +75,7 @@ public abstract class SpellCaster
             { "Alchemy B Glyph", 0 },
             { "Alchemy C Glyph", 0 },
             { "Alchemy D Glyph", 0 },
-            { "Arcane A Glyph", 0 },
+            { "Arcane A Glyph", 0},
             { "Arcane B Glyph", 0 },
             { "Arcane C Glyph", 0 },
             { "Arcane D Glyph", 0 },
