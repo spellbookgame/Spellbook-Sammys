@@ -20,5 +20,14 @@ public class Summoner : SpellCaster
 
         // creating the class-specific chapter
         chapter = new Chapter(classType);
+
+        // for playtesting purposes - delete later
+        if (easyMode)
+        {
+            spellPieces["Summoning B Spell Piece"] += 1;
+            spellPieces["Summoning C Spell Piece"] += 1;
+
+            glyphs["Summoning B Glyph"] += 4;
+        }
     }
 }

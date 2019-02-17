@@ -19,5 +19,15 @@ public class Arcanist : SpellCaster
 
         // creating the class-specific chapter
         chapter = new Chapter(classType);
+
+        // for playtesting purposes - delete later
+        if (easyMode)
+        {
+            spellPieces["Arcane A Spell Piece"] += 1;
+            spellPieces["Arcane D Spell Piece"] += 1;
+
+            glyphs["Arcane A Glyph"] += 4;
+            glyphs["Arcane D Glyph"] += 4;
+        }
     }
 }

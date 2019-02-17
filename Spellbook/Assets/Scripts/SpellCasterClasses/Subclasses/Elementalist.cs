@@ -13,12 +13,19 @@ public class Elementalist : SpellCaster
 {
     public Elementalist()
     {
-        
         //You can override variables in here.
         classType = "Elementalist";
         fMaxHealth = 20.0f;
 
         // creating the class-specific chapter
         chapter = new Chapter(classType);
+
+        // for playtesting purposes - delete later
+        if (easyMode)
+        {
+            spellPieces["Elemental D Spell Piece"] += 1;
+
+            glyphs["Elemental D Glyph"] += 4;
+        }
     }
 }

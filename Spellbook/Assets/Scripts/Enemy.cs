@@ -72,7 +72,6 @@ public class Enemy : MonoBehaviour
         string randomSpellPiece2 = localPlayer.Spellcaster.CollectRandomSpellPiece();
         string randomGlyph1 = localPlayer.Spellcaster.CollectRandomGlyph();
         string randomGlyph2 = localPlayer.Spellcaster.CollectRandomGlyph();
-
         int manaCount = Random.Range(100, 1000);
         localPlayer.Spellcaster.CollectMana(manaCount);
 
