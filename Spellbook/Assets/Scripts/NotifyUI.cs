@@ -37,15 +37,18 @@ public class NotifyUI : MonoBehaviour
 
     private void okClick()
     {
+        SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
         gameObject.SetActive(false);
     }
     private void combatClick()
     {
+        SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
         gameObject.SetActive(false);
         SceneManager.LoadScene("CombatScene");
     }
     private void eventClick()
     {
+        SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
         gameObject.SetActive(false);
         SceneManager.LoadScene("MainPlayerScene");
     }

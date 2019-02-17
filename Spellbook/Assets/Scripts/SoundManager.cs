@@ -9,6 +9,9 @@ public class SoundManager : MonoBehaviour
     public float lowPitchRange = .95f;              //The lowest a sound effect will be randomly pitched.
     public float highPitchRange = 1.05f;            //The highest a sound effect will be randomly pitched.
 
+    // static clip so any script can access it
+    [SerializeField] AudioClip buttonConfirmHelper;
+    public static AudioClip buttonconfirm;
 
     void Awake()
     {
@@ -20,6 +23,9 @@ public class SoundManager : MonoBehaviour
         else if (instance != this)
             //Destroy this, this enforces our singleton pattern so there can only be one instance of SoundManager.
             Destroy(gameObject);
+
+        // setting buttonconfirm to sound in serializefield
+        buttonconfirm = buttonConfirmHelper;
 
         //Set SoundManager to DontDestroyOnLoad so that it won't be destroyed when reloading our scene.
         DontDestroyOnLoad(gameObject);

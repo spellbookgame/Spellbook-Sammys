@@ -23,11 +23,13 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
         spellManager = GameObject.Find("Canvas").GetComponent<SpellManager>();
-        
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        // play grab sound
+        SoundManager.instance.PlaySingle(spellManager.grabspellpiece);
+
         // itemToDrag is the game object that this script is on
         itemToDrag = gameObject;
         startPos = transform.position;

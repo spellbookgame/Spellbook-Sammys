@@ -8,6 +8,8 @@ public class EndTurnClick : MonoBehaviour
     public SceneScript sceneScript;
     public void OnEndTurnClick()
     {
+        SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+
         Debug.Log("On click");
         //GameObject player = GameObject.Find("LocalPlayer(Clone)");
         GameObject player = GameObject.FindGameObjectWithTag("LocalPlayer");

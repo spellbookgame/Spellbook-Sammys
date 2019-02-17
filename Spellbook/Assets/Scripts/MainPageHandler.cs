@@ -6,6 +6,7 @@ public class MainPageHandler : MonoBehaviour
 {
     [SerializeField] private Text manaCrystalsValue;
     [SerializeField] private Text activeSpellsValue;
+    [SerializeField] private Text classText;
     [SerializeField] private Enemy enemy;
 
     Player localPlayer;
@@ -34,6 +35,8 @@ public class MainPageHandler : MonoBehaviour
         if (GameObject.FindGameObjectWithTag("LocalPlayer") == null) return;
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
         manaCrystalsValue.text = localPlayer.Spellcaster.iMana.ToString();
+
+        classText.text = "You are playing as " + localPlayer.Spellcaster.classType;
 
         foreach (string entry in localPlayer.Spellcaster.activeSpells)
         {
