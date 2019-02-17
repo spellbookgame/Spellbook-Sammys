@@ -17,6 +17,7 @@ public class EndTurnClick : MonoBehaviour
         bool endSuccessful = player.GetComponent<Player>().onEndTurnClick();
         if (endSuccessful)
         {
+            player.GetComponent<Player>().Spellcaster.hasAttacked = false;
             Scene m_Scene = SceneManager.GetActiveScene();
             if(m_Scene.name != "MainPlayerScene")
             {

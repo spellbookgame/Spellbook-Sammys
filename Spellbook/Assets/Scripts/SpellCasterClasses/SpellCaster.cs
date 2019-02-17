@@ -14,6 +14,7 @@ public abstract class SpellCaster
     public int iMana;
 
     public string classType;
+    public bool hasAttacked;
     public Chapter chapter;
 
     // player's collection of spell pieces, glyphs, and active spells stored as strings
@@ -37,6 +38,7 @@ public abstract class SpellCaster
     {
         //fMaxHealth = 20.0f;     //Commented out in case Spellcasters have different max healths.
         iMana = 1000;
+        hasAttacked = false;
 
         activeSpells = new List<string>();
 

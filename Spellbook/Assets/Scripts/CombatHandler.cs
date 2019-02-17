@@ -142,9 +142,17 @@ public class CombatHandler : MonoBehaviour
     // player's basic attack
     public void attackClick()
     {
-        localPlayer.Spellcaster.fBasicAttackStrength = Random.Range(1, 6);
-        if(GameObject.FindGameObjectWithTag("Enemy") != null)
-            enemy.HitEnemy(localPlayer.Spellcaster.fBasicAttackStrength);
+        if (localPlayer.Spellcaster.hasAttacked == false)
+        {
+            localPlayer.Spellcaster.fBasicAttackStrength = Random.Range(1, 6);
+            if (GameObject.FindGameObjectWithTag("Enemy") != null)
+                enemy.HitEnemy(localPlayer.Spellcaster.fBasicAttackStrength);
+            localPlayer.Spellcaster.hasAttacked = true;
+        }
+        else
+        {
+            PanelHolder.instance.displayNotify("You already attacked this turn.");
+        }
     }
 
     public void setUpCombatHandler()

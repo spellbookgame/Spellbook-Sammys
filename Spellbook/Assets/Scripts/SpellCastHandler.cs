@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
@@ -8,6 +9,7 @@ using UnityEngine.UI;
 public class SpellCastHandler : MonoBehaviour
 {
     [SerializeField] Button spellButton;
+    [SerializeField] Text glyphText;
 
     Player localPlayer;
 
@@ -31,6 +33,15 @@ public class SpellCastHandler : MonoBehaviour
 
             // to position new button underneath prev button
             yPos -= 400;
+        }
+
+        // show player how many glyphs they have
+        foreach(KeyValuePair<string, int> kvp in localPlayer.Spellcaster.glyphs)
+        {
+            if(kvp.Value > 0)
+            {
+                glyphText.text = glyphText.text + kvp.Key + ": " + kvp.Value + "\n";
+            }
         }
     }
 }
