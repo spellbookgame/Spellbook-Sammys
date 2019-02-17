@@ -67,16 +67,18 @@ public class Enemy : MonoBehaviour
     {
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
 
-        // receive 2 random spell pieces and mana ranged from 100 - 1000
+        // receive 2 random spell pieces, 2 random glyphs, and mana ranged from 100 - 1000
         string randomSpellPiece1 = localPlayer.Spellcaster.CollectRandomSpellPiece();
         string randomSpellPiece2 = localPlayer.Spellcaster.CollectRandomSpellPiece();
+        string randomGlyph1 = localPlayer.Spellcaster.CollectRandomGlyph();
+        string randomGlyph2 = localPlayer.Spellcaster.CollectRandomGlyph();
 
         int manaCount = Random.Range(100, 1000);
         localPlayer.Spellcaster.CollectMana(manaCount);
 
         // set text and show in panel
-        string panelText = "You defeated the enemy!\n" +
-                "You received 1 " + randomSpellPiece1 + " and 1 " + randomSpellPiece2 + ".\nYou also received " + manaCount + " mana.";
+        string panelText = "You defeated the enemy!\nYou received: " + randomSpellPiece1 + ", " + randomSpellPiece2 + ", " 
+                            + randomGlyph1 + ", " + randomGlyph2 + ", " + manaCount + " mana.";
         PanelHolder.instance.displayNotify(panelText);
 
         Destroy(this.gameObject);
