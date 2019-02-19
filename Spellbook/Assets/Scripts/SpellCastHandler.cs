@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 /// <summary>
@@ -10,6 +11,9 @@ public class SpellCastHandler : MonoBehaviour
 {
     [SerializeField] Button spellButton;
     [SerializeField] Text glyphText;
+
+    [SerializeField] private Button scanButton;
+    [SerializeField] private Button mainButton;
 
     Player localPlayer;
 
@@ -43,5 +47,17 @@ public class SpellCastHandler : MonoBehaviour
                 glyphText.text = glyphText.text + kvp.Key + ": " + kvp.Value + "\n";
             }
         }
+
+        // adding onclick listeners to buttons
+        scanButton.onClick.AddListener(() =>
+        {
+            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+            SceneManager.LoadScene("VuforiaScene");
+        });
+        mainButton.onClick.AddListener(() =>
+        {
+            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+            SceneManager.LoadScene("MainPlayerScene");
+        });
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MainPageHandler : MonoBehaviour
@@ -8,6 +9,11 @@ public class MainPageHandler : MonoBehaviour
     [SerializeField] private Text activeSpellsValue;
     [SerializeField] private Text classText;
     [SerializeField] private Enemy enemy;
+
+    [SerializeField] private Button scanButton;
+    [SerializeField] private Button createSpellButton;
+    [SerializeField] private Button castSpellButton;
+    [SerializeField] private Button combatButton;
 
     Player localPlayer;
     public static MainPageHandler instance = null;
@@ -51,5 +57,27 @@ public class MainPageHandler : MonoBehaviour
             enemy.Initialize(20f);
             enemy.fCurrentHealth = enemy.fMaxHealth;
         }
+
+        // set onclick listeners for buttons
+        scanButton.onClick.AddListener(() =>
+        {
+            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+            SceneManager.LoadScene("VuforiaScene");
+        });
+        createSpellButton.onClick.AddListener(() =>
+        {
+            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+            SceneManager.LoadScene("SpellCreateScene");
+        });
+        castSpellButton.onClick.AddListener(() =>
+        {
+            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+            SceneManager.LoadScene("SpellCastScene");
+        });
+        combatButton.onClick.AddListener(() =>
+        {
+            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+            SceneManager.LoadScene("CombatScene");
+        });
     }
 }

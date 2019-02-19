@@ -8,7 +8,7 @@ public class NotifyUI : MonoBehaviour
 {
     public Text infoText;
     public Text buttonText;
-    public Button singleButton;
+    [SerializeField] private Button singleButton;
 
     public void Display(string text)
     {
