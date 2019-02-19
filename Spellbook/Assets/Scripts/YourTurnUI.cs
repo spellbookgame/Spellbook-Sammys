@@ -11,7 +11,7 @@ public class YourTurnUI : MonoBehaviour
 
     public void Display()
     {
-        singleButton.onClick.AddListener(() => { gameObject.SetActive(false); });
+        singleButton.onClick.AddListener(() => { SoundManager.instance.PlaySingle(SoundManager.buttonconfirm); gameObject.SetActive(false); });
 
         gameObject.SetActive(true);
     }

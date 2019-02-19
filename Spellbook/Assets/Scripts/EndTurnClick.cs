@@ -8,6 +8,8 @@ public class EndTurnClick : MonoBehaviour
     public SceneScript sceneScript;
     public void OnEndTurnClick()
     {
+        SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+
         Debug.Log("On click");
         //GameObject player = GameObject.Find("LocalPlayer(Clone)");
         GameObject player = GameObject.FindGameObjectWithTag("LocalPlayer");
@@ -15,6 +17,7 @@ public class EndTurnClick : MonoBehaviour
         bool endSuccessful = player.GetComponent<Player>().onEndTurnClick();
         if (endSuccessful)
         {
+            player.GetComponent<Player>().Spellcaster.hasAttacked = false;
             Scene m_Scene = SceneManager.GetActiveScene();
             if(m_Scene.name != "MainPlayerScene")
             {

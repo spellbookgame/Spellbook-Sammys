@@ -3197,6 +3197,9 @@ MonoBehaviour:
   inventoryText: {fileID: 868467669}
   panel: {fileID: 2062214375}
   spellPieceContainer: {fileID: 1670693867}
+  exitButton: {fileID: 1510326048}
+  grabspellpiece: {fileID: 8300000, guid: 880d333f4503ca048bfc600f47f8f91e, type: 3}
+  placespellpiece: {fileID: 8300000, guid: 9478adb9b7660a74882c882f25337d09, type: 3}
 --- !u!114 &1484665947
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3311,18 +3314,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1510326049}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 382800258}
-        m_MethodName: loadMainScene
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1510326049
@@ -5405,7 +5397,7 @@ MonoBehaviour:
   m_ChildAlignment: 3
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 600, y: 600}
+  m_CellSize: {x: 500, y: 500}
   m_Spacing: {x: 10, y: 10}
   m_Constraint: 0
   m_ConstraintCount: 2

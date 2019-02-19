@@ -13,12 +13,22 @@ public class Trickster : SpellCaster
 {
     public Trickster()
     {
-        
         //You can override variables in here.
         classType = "Trickster";
         fMaxHealth = 20.0f;
 
         // creating the class-specific chapter
         chapter = new Chapter(classType);
+
+        characterSpritePath = "Characters/Illusionist";
+
+        // for playtesting purposes - delete later
+        if(easyMode)
+        {
+            spellPieces["Illusion B Spell Piece"] += 1;
+            spellPieces["Illusion C Spell Piece"] += 1;
+
+            glyphs["Illusion B Glyph"] += 4;
+        }
     }
 }

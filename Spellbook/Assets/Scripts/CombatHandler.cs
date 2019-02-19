@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 // script to manage UI in CombatScene
@@ -9,6 +10,12 @@ public class CombatHandler : MonoBehaviour
     // serializefield private variables
     [SerializeField] private GameObject Panel_help;
     [SerializeField] private Text Text_mana;
+
+    // buttons
+    [SerializeField] private Button attackButton;
+    [SerializeField] private Button mainButton;
+    [SerializeField] private Button scanButton;
+    [SerializeField] private Button spellsButton;
 
     // for the player
     [SerializeField] private Slider Slider_healthbar;
@@ -142,9 +149,17 @@ public class CombatHandler : MonoBehaviour
     // player's basic attack
     public void attackClick()
     {
-        localPlayer.Spellcaster.fBasicAttackStrength = Random.Range(1, 6);
-        if(GameObject.FindGameObjectWithTag("Enemy") != null)
-            enemy.HitEnemy(localPlayer.Spellcaster.fBasicAttackStrength);
+        if (localPlayer.Spellcaster.hasAttacked == false)
+        {
+            localPlayer.Spellcaster.fBasicAttackStrength = Random.Range(1, 6);
+            if (GameObject.FindGameObjectWithTag("Enemy") != null)
+                enemy.HitEnemy(localPlayer.Spellcaster.fBasicAttackStrength);
+            localPlayer.Spellcaster.hasAttacked = true;
+        }
+        else
+        {
+            PanelHolder.instance.displayNotify("You already attacked this turn.");
+        }
     }
 
     public void setUpCombatHandler()
@@ -167,5 +182,27 @@ public class CombatHandler : MonoBehaviour
         Text_enemyHealthText.text = enemy.fCurrentHealth.ToString();
 
         Text_mana.text = localPlayer.Spellcaster.iMana.ToString();
+
+        // adding onclick listeners to buttons
+        attackButton.onClick.AddListener(() =>
+        {
+            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+            attackClick();
+        });
+        mainButton.onClick.AddListener(() =>
+        {
+            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+            SceneManager.LoadScene("MainPlayerScene");
+        });
+        scanButton.onClick.AddListener(() =>
+        {
+            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+            SceneManager.LoadScene("VuforiaScene");
+        });
+        spellsButton.onClick.AddListener(() =>
+        {
+            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+            SceneManager.LoadScene("SpellCastScene");
+        });
     }
 }

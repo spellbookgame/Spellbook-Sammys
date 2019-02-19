@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 /* namespace / HasChanged() written by Kiwasi Games
@@ -14,6 +15,10 @@ public class SpellManager : MonoBehaviour, IHasChanged
     [SerializeField] public Text inventoryText;
     [SerializeField] public GameObject panel;
     [SerializeField] private GameObject spellPieceContainer;
+    [SerializeField] private Button exitButton;
+
+    public AudioClip grabspellpiece;
+    public AudioClip placespellpiece;
     
     public Dictionary<string, int> slotPieces;
     private RectTransform panelRect;
@@ -24,6 +29,9 @@ public class SpellManager : MonoBehaviour, IHasChanged
     
     void Start()
     {
+        // setting onClick function for button
+        exitButton.onClick.AddListener(() => clickExit());
+
         fWidth = 610f;
         iSlotCount = 0;
 
@@ -113,6 +121,13 @@ public class SpellManager : MonoBehaviour, IHasChanged
                 ++iSlotCount;
             }
         }
+    }
+
+    // button function
+    private void clickExit()
+    {
+        SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+        SceneManager.LoadScene("MainPlayerScene");
     }
 }
 

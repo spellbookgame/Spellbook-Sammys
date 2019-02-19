@@ -351,18 +351,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 70454024}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 601558006}
-        m_MethodName: attackClick
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &70454024
@@ -1181,18 +1170,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 6806685329854562401}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &596129909 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6806685329258461204, guid: f4b835714f003154184f5f21f1034817,
-    type: 3}
-  m_PrefabInstance: {fileID: 6806685329854562401}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af2da01bdd31aab4da076f6477e0d6e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &601558005
 GameObject:
   m_ObjectHideFlags: 0
@@ -1225,6 +1202,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Panel_help: {fileID: 464933329}
   Text_mana: {fileID: 893681795}
+  attackButton: {fileID: 70454023}
+  mainButton: {fileID: 859318719}
+  scanButton: {fileID: 2142407798}
+  spellsButton: {fileID: 1563707153}
   Slider_healthbar: {fileID: 236508838}
   Text_healthtext: {fileID: 1533126679}
   Slider_enemyHealthBar: {fileID: 809990665}
@@ -1575,18 +1556,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 859318720}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 596129909}
-        m_MethodName: OnEndTurnClick
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &859318720
@@ -2241,18 +2211,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1563707154}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 601558008}
-        m_MethodName: loadSpellCastScene
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1563707154
@@ -2874,18 +2833,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2142407799}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: loadQRScene
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &2142407799

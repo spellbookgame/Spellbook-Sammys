@@ -20,5 +20,15 @@ public class Alchemist : SpellCaster
 
         // creating the class-specific chapter
         chapter = new Chapter(classType);
+
+        characterSpritePath = "Characters/AlchemyWizardFlat";
+
+        // for playtesting purposes - delete later
+        if (easyMode)
+        {
+            spellPieces["Alchemy D Spell Piece"] += 1;
+
+            glyphs["Alchemy D Glyph"] += 4;
+        }
     }
 }

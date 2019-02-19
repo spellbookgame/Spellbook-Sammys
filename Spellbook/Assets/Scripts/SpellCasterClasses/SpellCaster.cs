@@ -14,12 +14,19 @@ public abstract class SpellCaster
     public int iMana;
 
     public string classType;
+    public bool hasAttacked;
     public Chapter chapter;
+
+    // for playtest purposes - delete later
+    public bool easyMode;       // default to false
 
     // player's collection of spell pieces, glyphs, and active spells stored as strings
     public Dictionary<string, int> spellPieces;
     public Dictionary<string, int> glyphs;
     public List<string> activeSpells;
+
+    // reference to the character's sprite
+    public string characterSpritePath;
 
     // TODO:
     //private string backGroundStory; 
@@ -37,6 +44,7 @@ public abstract class SpellCaster
     {
         //fMaxHealth = 20.0f;     //Commented out in case Spellcasters have different max healths.
         iMana = 1000;
+        hasAttacked = false;
 
         activeSpells = new List<string>();
 
