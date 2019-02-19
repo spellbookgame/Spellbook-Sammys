@@ -25,6 +25,9 @@ public abstract class SpellCaster
     public Dictionary<string, int> glyphs;
     public List<string> activeSpells;
 
+    // reference to the character's sprite
+    public string characterSpritePath;
+
     // TODO:
     //private string backGroundStory; 
     //private Inventory inventory;

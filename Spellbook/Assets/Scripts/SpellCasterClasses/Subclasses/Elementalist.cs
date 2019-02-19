@@ -20,6 +20,8 @@ public class Elementalist : SpellCaster
         // creating the class-specific chapter
         chapter = new Chapter(classType);
 
+        characterSpritePath = "Characters/ElementalWizardFlat";
+
         // for playtesting purposes - delete later
         if (easyMode)
         {

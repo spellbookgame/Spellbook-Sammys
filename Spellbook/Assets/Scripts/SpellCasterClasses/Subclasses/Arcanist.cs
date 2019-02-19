@@ -20,6 +20,8 @@ public class Arcanist : SpellCaster
         // creating the class-specific chapter
         chapter = new Chapter(classType);
 
+        characterSpritePath = "Characters/ArcaneWizardFlat";
+
         // for playtesting purposes - delete later
         if (easyMode)
         {

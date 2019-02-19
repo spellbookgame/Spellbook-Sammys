@@ -21,6 +21,8 @@ public class Chronomancer : SpellCaster
         // creating the class-specific chapter
         chapter = new Chapter(classType);
 
+        characterSpritePath = "Characters/TimeWizardFlat";
+
         // for playtesting purposes - delete later
         if (easyMode)
         {

@@ -21,6 +21,8 @@ public class Summoner : SpellCaster
         // creating the class-specific chapter
         chapter = new Chapter(classType);
 
+        characterSpritePath = "Characters/Summoner casting";
+
         // for playtesting purposes - delete later
         if (easyMode)
         {

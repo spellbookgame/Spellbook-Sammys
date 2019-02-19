@@ -9,6 +9,7 @@ public class MainPageHandler : MonoBehaviour
     [SerializeField] private Text activeSpellsValue;
     [SerializeField] private Text classText;
     [SerializeField] private Enemy enemy;
+    [SerializeField] private Image characterImage;
 
     [SerializeField] private Button scanButton;
     [SerializeField] private Button createSpellButton;
@@ -57,6 +58,10 @@ public class MainPageHandler : MonoBehaviour
             enemy.Initialize(20f);
             enemy.fCurrentHealth = enemy.fMaxHealth;
         }
+
+        // TODO: set player's image based on class
+        Debug.Log(localPlayer.Spellcaster.characterSpritePath);
+        characterImage.sprite = Resources.Load<Sprite>(localPlayer.Spellcaster.characterSpritePath);
 
         // set onclick listeners for buttons
         scanButton.onClick.AddListener(() =>

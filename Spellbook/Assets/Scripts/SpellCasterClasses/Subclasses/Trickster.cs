@@ -20,6 +20,8 @@ public class Trickster : SpellCaster
         // creating the class-specific chapter
         chapter = new Chapter(classType);
 
+        characterSpritePath = "Characters/Illusionist";
+
         // for playtesting purposes - delete later
         if(easyMode)
         {

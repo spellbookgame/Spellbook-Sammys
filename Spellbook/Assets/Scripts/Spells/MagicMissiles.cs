@@ -34,6 +34,7 @@ public class MagicMissiles : Spell
 
             PanelHolder.instance.displayCombat("You cast Magic Missles, and they did " + damage + " damage!");
         }
+        // TODO: button not working
         else if (player.glyphs["Arcane A Glyph"] < 4)
         {
             PanelHolder.instance.displayNotify("You don't have enough glyphs to cast this spell.");
