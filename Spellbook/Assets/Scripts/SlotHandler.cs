@@ -32,12 +32,12 @@ public class SlotHandler : MonoBehaviour, IDropHandler
         if(transform.parent.name.Equals("panel_spellpieces"))
         {
             // updating the text for each spell piece
-            transform.GetChild(0).GetChild(0).GetComponent<Text>().text = localPlayer.Spellcaster.spellPieces[transform.GetChild(0).name].ToString();
+            transform.GetChild(0).GetChild(0).GetComponent<Text>().text = localPlayer.Spellcaster.glyphs[transform.GetChild(0).name].ToString();
 
             // if drag handler script exists, disable/enable DragHandler script
             if(transform.GetChild(0).GetComponent<DragHandler>() != null)
             {
-                if (localPlayer.Spellcaster.spellPieces[transform.GetChild(0).name] <= 0)
+                if (localPlayer.Spellcaster.glyphs[transform.GetChild(0).name] <= 0)
                 {
                     transform.GetChild(0).GetComponent<DragHandler>().enabled = false;
                 }
@@ -59,10 +59,10 @@ public class SlotHandler : MonoBehaviour, IDropHandler
         if (item && transform.parent.name.Equals("panel_spellpieces"))
         {
             // add the spell piece back to player's inventory
-            localPlayer.Spellcaster.spellPieces[DragHandler.itemToDrag.name] += 1;
+            localPlayer.Spellcaster.glyphs[DragHandler.itemToDrag.name] += 1;
 
             // remove it from dictionary to compare
-            if (spellManager.slotPieces.ContainsKey(DragHandler.itemToDrag.name))
+            if (DragHandler.itemToDrag && spellManager.slotPieces.ContainsKey(DragHandler.itemToDrag.name))
             {
                 spellManager.slotPieces[DragHandler.itemToDrag.name] -= 1;
                 Debug.Log(DragHandler.itemToDrag.name + spellManager.slotPieces[DragHandler.itemToDrag.name]);

@@ -95,10 +95,6 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
         // call function based on target name
         switch (trackableName)
         {
-            case "spellpiece":
-                string collectedPiece = localPlayer.Spellcaster.CollectRandomSpellPiece();
-                PanelHolder.instance.displayEvent("You found the " + collectedPiece + "!");
-                break;
             case "mana":
                 int manaCount = (int)UnityEngine.Random.Range(100, 1000);
                 if (localPlayer.Spellcaster.activeSpells.Contains("Arcana Harvest"))
@@ -129,6 +125,7 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
                     PanelHolder.instance.displayEvent("You found the " + collectedGlyph + "!");
                     break;
                 }
+            // we will eventually be taking event spaces out!
             case "event":
                 EventSpaceManager.instance.executeEventSpace();
                 break;

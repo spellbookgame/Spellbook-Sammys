@@ -10,11 +10,9 @@ public class Playwright : Spell
         iManaCost = 400;
         sSpellClass = "Trickster";
 
-        requiredPieces.Add("Illusion B Spell Piece", 1);
-        requiredPieces.Add("Illusion C Spell Piece", 1);
-        requiredPieces.Add("Time C Spell Piece", 1);
-
-        requiredGlyphs.Add("Illusion B Glyph", 4);
+        requiredGlyphs.Add("Illusion B Spell Piece", 1);
+        requiredGlyphs.Add("Illusion C Spell Piece", 1);
+        requiredGlyphs.Add("Time C Spell Piece", 1);
     }
 
     public override void SpellCast(SpellCaster player)

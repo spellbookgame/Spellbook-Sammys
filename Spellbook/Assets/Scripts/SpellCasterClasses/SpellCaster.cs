@@ -21,7 +21,6 @@ public abstract class SpellCaster
     public bool easyMode;       // default to false
 
     // player's collection of spell pieces, glyphs, and active spells stored as strings
-    public Dictionary<string, int> spellPieces;
     public Dictionary<string, int> glyphs;
     public List<string> activeSpells;
 
@@ -47,35 +46,6 @@ public abstract class SpellCaster
         hasAttacked = false;
 
         activeSpells = new List<string>();
-
-        // initializing dictionary and adding values
-        spellPieces = new Dictionary<string, int>()
-        {
-            { "Alchemy A Spell Piece", 0 },
-            { "Alchemy B Spell Piece", 0 },
-            { "Alchemy C Spell Piece", 0 },
-            { "Alchemy D Spell Piece", 0 },
-            { "Arcane A Spell Piece", 0 },
-            { "Arcane B Spell Piece", 0 },
-            { "Arcane C Spell Piece", 0 },
-            { "Arcane D Spell Piece", 0 },
-            { "Elemental A Spell Piece", 0 },
-            { "Elemental B Spell Piece", 0 },
-            { "Elemental C Spell Piece", 0 },
-            { "Elemental D Spell Piece", 0 },
-            { "Illusion A Spell Piece", 0 },
-            { "Illusion B Spell Piece", 0 },
-            { "Illusion C Spell Piece", 0 },
-            { "Illusion D Spell Piece", 0 },
-            { "Summoning A Spell Piece", 0 },
-            { "Summoning B Spell Piece", 0 },
-            { "Summoning C Spell Piece", 0 },
-            { "Summoning D Spell Piece", 0 },
-            { "Time A Spell Piece", 0 },
-            { "Time B Spell Piece", 0 },
-            { "Time C Spell Piece", 0 },
-            { "Time D Spell Piece", 0 }
-        };
 
         glyphs = new Dictionary<string, int>()
         {
@@ -128,24 +98,6 @@ public abstract class SpellCaster
         }
     }
 
-    // adds spell piece to player's collection
-    public void CollectSpellPiece(string spellPieceName)
-    {
-        this.spellPieces[spellPieceName] += 1;
-        Debug.Log("Collected " + spellPieceName + ". You now have " + this.spellPieces[spellPieceName] + "pieces.");
-    }
-
-    public string CollectRandomSpellPiece()
-    {
-        List<string> spellPieceList = new List<string>(this.spellPieces.Keys);
-        int random = (int)Random.Range(0, spellPieceList.Count);
-
-        string randomKey = spellPieceList[random];
-        this.spellPieces[randomKey] += 1;
-
-        return randomKey;
-    }
-
     public void CollectMana(int manaCount)
     {
         this.iMana += manaCount;
@@ -153,6 +105,12 @@ public abstract class SpellCaster
     public void LoseMana(int manaCount)
     {
         this.iMana -= manaCount;
+    }
+
+    public void CollectGlyph(string glyphName)
+    {
+        this.glyphs[glyphName] += 1;
+        Debug.Log("You collected " + glyphName + ". You now have " + this.glyphs[glyphName]);
     }
 
     public string CollectRandomGlyph()

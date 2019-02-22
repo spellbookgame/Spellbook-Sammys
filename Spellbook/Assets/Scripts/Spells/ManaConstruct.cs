@@ -10,9 +10,7 @@ public class ManaConstruct : Spell
         iManaCost = 700;
         sSpellClass = "Alchemist";
 
-        requiredPieces.Add("Alchemy D Spell Piece", 1);
-
-        requiredGlyphs.Add("Alchemy D Glyph", 4);
+        requiredGlyphs.Add("Alchemy D Spell Piece", 1);
     }
 
     public override void SpellCast(SpellCaster player)

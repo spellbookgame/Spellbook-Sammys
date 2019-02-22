@@ -13,11 +13,9 @@ public class CoWBear : Spell
         iManaCost = 400;
         sSpellClass = "Summoner";
 
-        requiredPieces.Add("Summoning B Spell Piece", 1);
-        requiredPieces.Add("Summoning C Spell Piece", 1);
-        requiredPieces.Add("Time D Spell Piece", 1);
-
-        requiredGlyphs.Add("Summoning B Glyph", 4);
+        requiredGlyphs.Add("Summoning B Spell Piece", 1);
+        requiredGlyphs.Add("Summoning C Spell Piece", 1);
+        requiredGlyphs.Add("Time D Spell Piece", 1);
     }
 
     public override void SpellCast(SpellCaster player)

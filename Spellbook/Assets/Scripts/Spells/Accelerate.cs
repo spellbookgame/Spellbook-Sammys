@@ -10,9 +10,7 @@ public class Accelerate : Spell
         iManaCost = 100;
         sSpellClass = "Chronomancer";
 
-        requiredPieces.Add("Time C Spell Piece", 1);
-
-        requiredGlyphs.Add("Time C Glyph", 4);
+        requiredGlyphs.Add("Time C Spell Piece", 1);
     }
 
     public override void SpellCast(SpellCaster player)

@@ -39,23 +39,23 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         transform.SetParent(GameObject.Find("Canvas").transform);
 
         // if player has enough spell pieces and the slot has less than 1 child in it
-        if (localPlayer.Spellcaster.spellPieces[itemToDrag.name] > 0 && originalParent.childCount < 1)
+        if (localPlayer.Spellcaster.glyphs[itemToDrag.name] > 0 && originalParent.childCount < 1)
         {
             // instantiate prefab of whatever was dragged, and omit (clone) from its name
-            GameObject clone = Instantiate((GameObject)Resources.Load("Spell Pieces/" + itemToDrag.name), originalParent);
+            GameObject clone = Instantiate((GameObject)Resources.Load("Glyphs/" + itemToDrag.name), originalParent);
             clone.name = itemToDrag.name;
 
             clone.AddComponent<DragHandler>();
 
             // subtract 1 from the player's inventory whenever the spell piece is used
-            localPlayer.Spellcaster.spellPieces[itemToDrag.name] -= 1;
+            localPlayer.Spellcaster.glyphs[itemToDrag.name] -= 1;
 
             // set the instantiated clone's text to the number player has
-            clone.transform.GetChild(0).GetComponent<Text>().text = localPlayer.Spellcaster.spellPieces[clone.name].ToString();
+            clone.transform.GetChild(0).GetComponent<Text>().text = localPlayer.Spellcaster.glyphs[clone.name].ToString();
         }
         
-        // if dragging item has a text component in its first child, then destroy that child
-        if(itemToDrag.transform.GetChild(0).GetComponent<Text>())
+        // if dragging item has a child, then destroy that child (the text component)
+        if(itemToDrag.transform.childCount > 0)
         {
             Destroy(itemToDrag.transform.GetChild(0).gameObject);
         }
@@ -80,6 +80,8 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         if (transform.parent == startParent || transform.parent.tag != "Slot")
         {
             transform.position = startPos;
+            Destroy(itemBeingDragged.gameObject);
+            localPlayer.Spellcaster.glyphs[itemBeingDragged.name] += 1;
         }
     }
 }

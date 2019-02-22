@@ -67,7 +67,7 @@ public class Chapter : MonoBehaviour
         // iterate through each spell that player can collect
         for(int i = 0; i < player.chapter.spellsAllowed.Count; ++i)
         {
-            Dictionary<string, int> dictionary2 = player.chapter.spellsAllowed[i].requiredPieces;
+            Dictionary<string, int> dictionary2 = player.chapter.spellsAllowed[i].requiredGlyphs;
             
             // tier 3 spells: only need 1 required piece
             if (player.chapter.spellsAllowed[i].iTier == 3)

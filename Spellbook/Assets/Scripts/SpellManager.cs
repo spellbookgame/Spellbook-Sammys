@@ -14,7 +14,7 @@ public class SpellManager : MonoBehaviour, IHasChanged
     [SerializeField] Transform slots;
     [SerializeField] public Text inventoryText;
     [SerializeField] public GameObject panel;
-    [SerializeField] private GameObject spellPieceContainer;
+    [SerializeField] private GameObject glyphPieceContainer;
     [SerializeField] private Button exitButton;
 
     public AudioClip grabspellpiece;
@@ -101,22 +101,22 @@ public class SpellManager : MonoBehaviour, IHasChanged
         {
             if (slotTransform.childCount > 0)
             {
-                localPlayer.Spellcaster.spellPieces[slotTransform.GetChild(0).name] += 1;
+                localPlayer.Spellcaster.glyphs[slotTransform.GetChild(0).name] += 1;
             }
         }
     }
 
     private void GenerateSpellSlots()
     {
-        // for each spell piece player has, child its spell slot to panel
-        foreach(KeyValuePair<string, int> kvp in localPlayer.Spellcaster.spellPieces)
+        // for each glyph player has, child its spell slot to panel
+        foreach(KeyValuePair<string, int> kvp in localPlayer.Spellcaster.glyphs)
         {
             if(kvp.Value > 0)
             {
-                string spellName = kvp.Key;
-                Transform slotTransform = spellPieceContainer.transform.Find(spellName);
+                string glyphName = kvp.Key;
+                Transform slotTransform = glyphPieceContainer.transform.Find(glyphName + " Slot");
                 slotTransform.SetParent(panel.transform);
-                slotTransform.GetChild(0).GetChild(0).GetComponent<Text>().text = localPlayer.Spellcaster.spellPieces[spellName].ToString();
+                slotTransform.GetChild(0).GetChild(0).GetComponent<Text>().text = localPlayer.Spellcaster.glyphs[glyphName].ToString();
                 slotTransform.GetChild(0).gameObject.AddComponent<DragHandler>();
                 ++iSlotCount;
             }

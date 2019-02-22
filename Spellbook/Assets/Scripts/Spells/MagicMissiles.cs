@@ -13,9 +13,7 @@ public class MagicMissiles : Spell
         iManaCost = 100;
         sSpellClass = "Arcanist";
 
-        requiredPieces.Add("Arcane A Spell Piece", 1);
-
-        requiredGlyphs.Add("Arcane A Glyph", 4);
+        requiredGlyphs.Add("Arcane A Spell Piece", 1);
     }
 
     public override void SpellCast(SpellCaster player)

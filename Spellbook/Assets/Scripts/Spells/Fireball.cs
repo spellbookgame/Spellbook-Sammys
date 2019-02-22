@@ -11,9 +11,7 @@ public class Fireball : Spell
         iManaCost = 100;
         sSpellClass = "Elementalist";
 
-        requiredPieces.Add("Elemental D Spell Piece", 1);
-
-        requiredGlyphs.Add("Elemental D Glyph", 4);
+        requiredGlyphs.Add("Elemental D Spell Piece", 1);
     }
 
     public override void SpellCast(SpellCaster player)

@@ -59,7 +59,7 @@ public class MainPageHandler : MonoBehaviour
             enemy.fCurrentHealth = enemy.fMaxHealth;
         }
 
-        // TODO: set player's image based on class
+        // set player's image based on class
         Debug.Log(localPlayer.Spellcaster.characterSpritePath);
         characterImage.sprite = Resources.Load<Sprite>(localPlayer.Spellcaster.characterSpritePath);
 
