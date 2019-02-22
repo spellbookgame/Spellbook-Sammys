@@ -13,33 +13,38 @@ public class MagicMissiles : Spell
         iManaCost = 100;
         sSpellClass = "Arcanist";
 
-        requiredGlyphs.Add("Arcane A Spell Piece", 1);
+        requiredGlyphs.Add("Arcane C Glyph", 1);
     }
 
     public override void SpellCast(SpellCaster player)
     {
         Enemy enemy = GameObject.FindGameObjectWithTag("Enemy").GetComponent<Enemy>();
 
-        // if player has enough mana and glyphs, cast the spell
-        if (player.glyphs["Arcane A Glyph"] >= 4 && player.iMana >= iManaCost)
+        bool canCast = false;
+        // checking if player can actually cast the spell
+        foreach (KeyValuePair<string, int> kvp in requiredGlyphs)
         {
+            if (player.glyphs[kvp.Key] >= 1)
+                canCast = true;
+        }
+        if (canCast)
+        {
+            // subtract mana and glyph costs
+            player.iMana -= iManaCost;
+            foreach (KeyValuePair<string, int> kvp in requiredGlyphs)
+                player.glyphs[kvp.Key] -= 1;
+
             int damage = Random.Range(3, 12);
             enemy.HitEnemy(damage);
-
-            // subtract mana and glyphs
-            player.iMana -= iManaCost;
-            player.glyphs["Arcane A Glyph"] -= 4;
-
             PanelHolder.instance.displayCombat("You cast Magic Missles, and they did " + damage + " damage!");
-        }
-        // TODO: button not working
-        else if (player.glyphs["Arcane A Glyph"] < 4)
-        {
-            PanelHolder.instance.displayNotify("You don't have enough glyphs to cast this spell.");
         }
         else if (player.iMana < iManaCost)
         {
             PanelHolder.instance.displayNotify("You don't have enough mana to cast this spell.");
+        }
+        else
+        {
+            PanelHolder.instance.displayNotify("You don't have enough glyphs to cast this spell.");
         }
     }
 }

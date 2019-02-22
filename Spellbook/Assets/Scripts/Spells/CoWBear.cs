@@ -13,34 +13,40 @@ public class CoWBear : Spell
         iManaCost = 400;
         sSpellClass = "Summoner";
 
-        requiredGlyphs.Add("Summoning B Spell Piece", 1);
-        requiredGlyphs.Add("Summoning C Spell Piece", 1);
-        requiredGlyphs.Add("Time D Spell Piece", 1);
+        requiredGlyphs.Add("Summoning B Glyph", 1);
+        requiredGlyphs.Add("Summoning C Glyph", 1);
+        requiredGlyphs.Add("Time D Glyph", 1);
     }
 
     public override void SpellCast(SpellCaster player)
     {
         Enemy enemy = GameObject.FindGameObjectWithTag("Enemy").GetComponent<Enemy>();
 
-        // if player has enough mana and glyphs, cast the spell
-        if (player.glyphs["Summoning B Glyph"] >= 4 && player.iMana >= iManaCost)
+        bool canCast = false;
+        // checking if player can actually cast the spell
+        foreach (KeyValuePair<string, int> kvp in requiredGlyphs)
         {
+            if (player.glyphs[kvp.Key] >= 1)
+                canCast = true;
+        }
+        if (canCast)
+        {
+            // subtract mana and glyph costs
+            player.iMana -= iManaCost;
+            foreach (KeyValuePair<string, int> kvp in requiredGlyphs)
+                player.glyphs[kvp.Key] -= 1;
+
             int damage = Random.Range(3, 18);
             enemy.HitEnemy(damage);
-
-            // subtract mana and glyphs
-            player.iMana -= iManaCost;
-            player.glyphs["Summoning B Glyph"] -= 4;
-
             PanelHolder.instance.displayCombat("You summoned a great bear and inflicted " + damage + " damage!");
         }
-        else if(player.glyphs["Summoning B Glyph"] < 4)
-        {
-            PanelHolder.instance.displayNotify("You don't have enough glyphs to cast this spell.");
-        }
-        else if(player.iMana < iManaCost)
+        else if (player.iMana < iManaCost)
         {
             PanelHolder.instance.displayNotify("You don't have enough mana to cast this spell.");
+        }
+        else
+        {
+            PanelHolder.instance.displayNotify("You don't have enough glyphs to cast this spell.");
         }
     }
 }
