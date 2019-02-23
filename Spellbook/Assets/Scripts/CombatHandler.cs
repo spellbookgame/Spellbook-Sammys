@@ -14,7 +14,6 @@ public class CombatHandler : MonoBehaviour
     // buttons
     [SerializeField] private Button attackButton;
     [SerializeField] private Button mainButton;
-    [SerializeField] private Button scanButton;
     [SerializeField] private Button spellsButton;
 
     // for the player
@@ -193,11 +192,6 @@ public class CombatHandler : MonoBehaviour
         {
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
             SceneManager.LoadScene("MainPlayerScene");
-        });
-        scanButton.onClick.AddListener(() =>
-        {
-            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
-            SceneManager.LoadScene("VuforiaScene");
         });
         spellsButton.onClick.AddListener(() =>
         {
