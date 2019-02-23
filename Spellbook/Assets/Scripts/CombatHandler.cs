@@ -14,7 +14,7 @@ public class CombatHandler : MonoBehaviour
     // buttons
     [SerializeField] private Button attackButton;
     [SerializeField] private Button mainButton;
-    [SerializeField] private Button spellsButton;
+    [SerializeField] private Button spellbookButton;
 
     // for the player
     [SerializeField] private Slider Slider_healthbar;
@@ -193,10 +193,10 @@ public class CombatHandler : MonoBehaviour
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
             SceneManager.LoadScene("MainPlayerScene");
         });
-        spellsButton.onClick.AddListener(() =>
+        spellbookButton.onClick.AddListener(() =>
         {
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
-            SceneManager.LoadScene("SpellCastScene");
+            SceneManager.LoadScene("SpellbookScene");
         });
     }
 }

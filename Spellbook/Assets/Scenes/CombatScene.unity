@@ -708,7 +708,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Spells
+  m_Text: Spellbook
 --- !u!222 &314866572
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1125,7 +1125,7 @@ MonoBehaviour:
   Text_mana: {fileID: 893681795}
   attackButton: {fileID: 70454023}
   mainButton: {fileID: 859318719}
-  spellsButton: {fileID: 1563707153}
+  spellbookButton: {fileID: 1563707153}
   Slider_healthbar: {fileID: 236508838}
   Text_healthtext: {fileID: 1533126679}
   Slider_enemyHealthBar: {fileID: 809990665}
@@ -2065,7 +2065,7 @@ GameObject:
   - component: {fileID: 1563707154}
   - component: {fileID: 1563707153}
   m_Layer: 5
-  m_Name: button_spells
+  m_Name: button_spellbook
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2340,7 +2340,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 881268399, guid: 9a1097ddbafc17a4283e034d775548c2, type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 881268399, guid: 9a1097ddbafc17a4283e034d775548c2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

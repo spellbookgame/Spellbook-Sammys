@@ -10,9 +10,8 @@ using UnityEngine.UI;
 public class SpellCastHandler : MonoBehaviour
 {
     [SerializeField] Button spellButton;
-
-    [SerializeField] private Button scanButton;
     [SerializeField] private Button mainButton;
+    [SerializeField] private Button backButton;
 
     Player localPlayer;
 
@@ -39,15 +38,15 @@ public class SpellCastHandler : MonoBehaviour
         }
 
         // adding onclick listeners to buttons
-        scanButton.onClick.AddListener(() =>
-        {
-            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
-            SceneManager.LoadScene("VuforiaScene");
-        });
         mainButton.onClick.AddListener(() =>
         {
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
             SceneManager.LoadScene("MainPlayerScene");
+        });
+        backButton.onClick.AddListener(() =>
+        {
+            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+            SceneManager.LoadScene("SpellbookScene");
         });
     }
 }

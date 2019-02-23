@@ -8,6 +8,7 @@ public class SpellbookHandler : MonoBehaviour
 {
     [SerializeField] private Button spellCreateButton;
     [SerializeField] private Button spellCastButton;
+    [SerializeField] private Button mainButton;
     [SerializeField] private Text glyphText;
 
     Player localPlayer;
@@ -27,6 +28,11 @@ public class SpellbookHandler : MonoBehaviour
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
             SceneManager.LoadScene("SpellCastScene");
         });
+        mainButton.onClick.AddListener(() =>
+        {
+            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+            SceneManager.LoadScene("MainPlayerScene");
+        });
 
         // show player how many glyphs they have
         foreach (KeyValuePair<string, int> kvp in localPlayer.Spellcaster.glyphs)
@@ -36,10 +42,5 @@ public class SpellbookHandler : MonoBehaviour
                 glyphText.text = glyphText.text + kvp.Key + ": " + kvp.Value + "\n";
             }
         }
-    }
-
-    private void Update()
-    {
-        
     }
 }

@@ -15,7 +15,8 @@ public class SpellManager : MonoBehaviour, IHasChanged
     [SerializeField] public Text inventoryText;
     [SerializeField] public GameObject panel;
     [SerializeField] private GameObject glyphPieceContainer;
-    [SerializeField] private Button exitButton;
+    [SerializeField] private Button mainButton;
+    [SerializeField] private Button backButton;
 
     public AudioClip grabspellpiece;
     public AudioClip placespellpiece;
@@ -30,7 +31,16 @@ public class SpellManager : MonoBehaviour, IHasChanged
     void Start()
     {
         // setting onClick function for button
-        exitButton.onClick.AddListener(() => clickExit());
+        mainButton.onClick.AddListener(() => 
+        {
+            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+            SceneManager.LoadScene("MainPlayerScene");
+        });
+        backButton.onClick.AddListener(() =>
+        {
+            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+            SceneManager.LoadScene("SpellbookScene");
+        });
 
         fWidth = 610f;
         iSlotCount = 0;
@@ -121,13 +131,15 @@ public class SpellManager : MonoBehaviour, IHasChanged
                 ++iSlotCount;
             }
         }
-    }
-
-    // button function
-    private void clickExit()
-    {
-        SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
-        SceneManager.LoadScene("MainPlayerScene");
+        
+        // if there are more than 4 different glyphs in the panel, resize panel to fit all slots
+        if(iSlotCount > 4)
+        {
+            for (int i = 4; i < iSlotCount; ++i)
+            {
+                panelRect.sizeDelta = new Vector2((float)panelRect.sizeDelta.x + 400, panelRect.sizeDelta.y);
+            }
+        }
     }
 }
 
