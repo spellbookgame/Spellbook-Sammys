@@ -21,13 +21,5 @@ public class Elementalist : SpellCaster
         chapter = new Chapter(classType);
 
         characterSpritePath = "Characters/ElementalWizardFlat";
-
-        // for playtesting purposes - delete later
-        if (easyMode)
-        {
-            spellPieces["Elemental D Spell Piece"] += 1;
-
-            glyphs["Elemental D Glyph"] += 4;
-        }
     }
 }

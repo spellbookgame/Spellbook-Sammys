@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 // example spell for Elementalist class
@@ -10,35 +11,40 @@ public class Fireball : Spell
         iTier = 3;
         iManaCost = 100;
         sSpellClass = "Elementalist";
+        sSpellInfo = "Cast 2 fireballs that deal 1-6 damage each.";
 
-        requiredPieces.Add("Elemental D Spell Piece", 1);
-
-        requiredGlyphs.Add("Elemental D Glyph", 4);
+        requiredGlyphs.Add("Elemental D Glyph", 1);
     }
 
     public override void SpellCast(SpellCaster player)
     {
         Enemy enemy = GameObject.FindGameObjectWithTag("Enemy").GetComponent<Enemy>();
 
-        // if player has enough mana and glyphs, cast the spell
-        if (player.glyphs["Elemental D Glyph"] >= 4 && player.iMana >= iManaCost)
+        bool canCast = false;
+        // checking if player can actually cast the spell
+        foreach (KeyValuePair<string, int> kvp in requiredGlyphs)
         {
+            if (player.glyphs[kvp.Key] >= 1)
+                canCast = true;
+        }
+        if (canCast)
+        {
+            // subtract mana and glyph costs
+            player.iMana -= iManaCost;
+            foreach (KeyValuePair<string, int> kvp in requiredGlyphs)
+                player.glyphs[kvp.Key] -= 1;
+
             int damage = Random.Range(2, 12);
             enemy.HitEnemy(damage);
-
-            // subtract mana and glyphs
-            player.iMana -= iManaCost;
-            player.glyphs["Elemental D Glyph"] -= 4;
-
             PanelHolder.instance.displayCombat("You cast Fireball and it did " + damage + " damage!");
-        }
-        else if (player.glyphs["Elemental D Glyph"] < 4)
-        {
-            PanelHolder.instance.displayNotify("You don't have enough glyphs to cast this spell.");
         }
         else if (player.iMana < iManaCost)
         {
             PanelHolder.instance.displayNotify("You don't have enough mana to cast this spell.");
+        }
+        else
+        {
+            PanelHolder.instance.displayNotify("You don't have enough glyphs to cast this spell.");
         }
     }
 }

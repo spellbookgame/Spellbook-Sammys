@@ -10,10 +10,8 @@ using UnityEngine.UI;
 public class SpellCastHandler : MonoBehaviour
 {
     [SerializeField] Button spellButton;
-    [SerializeField] Text glyphText;
-
-    [SerializeField] private Button scanButton;
     [SerializeField] private Button mainButton;
+    [SerializeField] private Button backButton;
 
     Player localPlayer;
 
@@ -39,25 +37,16 @@ public class SpellCastHandler : MonoBehaviour
             yPos -= 400;
         }
 
-        // show player how many glyphs they have
-        foreach(KeyValuePair<string, int> kvp in localPlayer.Spellcaster.glyphs)
-        {
-            if(kvp.Value > 0)
-            {
-                glyphText.text = glyphText.text + kvp.Key + ": " + kvp.Value + "\n";
-            }
-        }
-
         // adding onclick listeners to buttons
-        scanButton.onClick.AddListener(() =>
-        {
-            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
-            SceneManager.LoadScene("VuforiaScene");
-        });
         mainButton.onClick.AddListener(() =>
         {
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
             SceneManager.LoadScene("MainPlayerScene");
+        });
+        backButton.onClick.AddListener(() =>
+        {
+            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+            SceneManager.LoadScene("SpellbookScene");
         });
     }
 }

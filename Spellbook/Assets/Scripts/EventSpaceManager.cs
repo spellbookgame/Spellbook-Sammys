@@ -56,7 +56,7 @@ public class EventSpaceManager : MonoBehaviour
         genericFunctions.Add(eventUnluckyDice);
         genericFunctions.Add(eventLuckyDice);
         genericFunctions.Add(eventLoseGlyphs);
-        genericFunctions.Add(eventGainSpellPiece);
+        genericFunctions.Add(eventGainGlyph);
 
         //Example of adding city-specific events. All empty for now.
         alchemistTownFunctions = new List<Action>();
@@ -161,11 +161,11 @@ public class EventSpaceManager : MonoBehaviour
         PanelHolder.instance.displayEvent("An eagle swooped by and stole your " + glyphLost + "!");
     }
 
-    private void eventGainSpellPiece()
+    private void eventGainGlyph()
     {
         Debug.Log("GainGlyphs");
-        string spellPiece = spellCaster.CollectRandomSpellPiece();
-        PanelHolder.instance.displayEvent("A mysterious figure came and gave you a " + spellPiece + ".");
+        string glyph = spellCaster.CollectRandomGlyph();
+        PanelHolder.instance.displayEvent("A mysterious figure came and gave you a " + glyph + ".");
     }
     #endregion
     /// 

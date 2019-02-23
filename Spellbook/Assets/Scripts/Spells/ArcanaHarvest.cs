@@ -12,32 +12,37 @@ public class ArcanaHarvest : Spell
         iManaCost = 100;
         sSpellClass = "Arcanist";
 
-        requiredPieces.Add("Arcane D Spell Piece", 1);
+        sSpellInfo = "Earn double resources (mana, glyphs) on the next mana/glyph space you land on. Can cast on an ally.";
 
-        requiredGlyphs.Add("Arcane D Glyph", 4);
+        requiredGlyphs.Add("Arcane D Glyph", 1);
     }
 
     public override void SpellCast(SpellCaster player)
     {
-        // if player has enough mana and glyphs, cast the spell
-        if (player.glyphs["Arcane D Glyph"] >= 4 && player.iMana >= iManaCost)
+        bool canCast = false;
+        // checking if player can actually cast the spell
+        foreach (KeyValuePair<string, int> kvp in requiredGlyphs)
         {
-            Debug.Log(sSpellName + " was cast!");
-
-            // subtract mana and glyphs
-            player.iMana -= iManaCost;
-            player.glyphs["Arcane D Glyph"] -= 4;
-
-            player.activeSpells.Add(sSpellName);
-            PanelHolder.instance.displayNotify("You cast Arcana Harvest. You will receive double mana/glyphs on the next space you land on.");
+            if (player.glyphs[kvp.Key] >= 1)
+                canCast = true;
         }
-        else if (player.glyphs["Arcane D Glyph"] < 4)
+        if (canCast)
         {
-            PanelHolder.instance.displayNotify("You don't have enough glyphs to cast this spell.");
+            // subtract mana and glyph costs
+            player.iMana -= iManaCost;
+            foreach (KeyValuePair<string, int> kvp in requiredGlyphs)
+                player.glyphs[kvp.Key] -= 1;
+            
+            PanelHolder.instance.displayNotify("You cast Arcana Harvest. You will receive double mana/glyphs on the next space you land on.");
+            player.activeSpells.Add(sSpellName);
         }
         else if (player.iMana < iManaCost)
         {
             PanelHolder.instance.displayNotify("You don't have enough mana to cast this spell.");
+        }
+        else
+        {
+            PanelHolder.instance.displayNotify("You don't have enough glyphs to cast this spell.");
         }
     }
 }

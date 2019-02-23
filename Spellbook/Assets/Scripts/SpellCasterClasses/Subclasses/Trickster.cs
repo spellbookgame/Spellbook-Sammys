@@ -21,14 +21,5 @@ public class Trickster : SpellCaster
         chapter = new Chapter(classType);
 
         characterSpritePath = "Characters/Illusionist";
-
-        // for playtesting purposes - delete later
-        if(easyMode)
-        {
-            spellPieces["Illusion B Spell Piece"] += 1;
-            spellPieces["Illusion C Spell Piece"] += 1;
-
-            glyphs["Illusion B Glyph"] += 4;
-        }
     }
 }

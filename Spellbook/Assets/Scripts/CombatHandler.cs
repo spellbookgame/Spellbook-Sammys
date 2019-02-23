@@ -14,8 +14,7 @@ public class CombatHandler : MonoBehaviour
     // buttons
     [SerializeField] private Button attackButton;
     [SerializeField] private Button mainButton;
-    [SerializeField] private Button scanButton;
-    [SerializeField] private Button spellsButton;
+    [SerializeField] private Button spellbookButton;
 
     // for the player
     [SerializeField] private Slider Slider_healthbar;
@@ -54,53 +53,53 @@ public class CombatHandler : MonoBehaviour
 
         // collect spell pieces
         if (Input.GetKeyDown(KeyCode.Alpha1) && enemy.fCurrentHealth > 0)
-            localPlayer.Spellcaster.CollectSpellPiece("Alchemy A Spell Piece");
+            localPlayer.Spellcaster.CollectGlyph("Alchemy A Glyph");
         if (Input.GetKeyDown(KeyCode.Alpha2) && enemy.fCurrentHealth > 0)
-            localPlayer.Spellcaster.CollectSpellPiece("Alchemy B Spell Piece");
+            localPlayer.Spellcaster.CollectGlyph("Alchemy B Glyph");
         if (Input.GetKeyDown(KeyCode.Alpha3) && enemy.fCurrentHealth > 0)
-            localPlayer.Spellcaster.CollectSpellPiece("Alchemy C Spell Piece");
+            localPlayer.Spellcaster.CollectGlyph("Alchemy C Glyph");
         if (Input.GetKeyDown(KeyCode.Alpha4) && enemy.fCurrentHealth > 0)
-            localPlayer.Spellcaster.CollectSpellPiece("Alchemy D Spell Piece");
+            localPlayer.Spellcaster.CollectGlyph("Alchemy D Glyph");
         if (Input.GetKeyDown(KeyCode.Alpha5) && enemy.fCurrentHealth > 0)
-            localPlayer.Spellcaster.CollectSpellPiece("Arcane A Spell Piece");
+            localPlayer.Spellcaster.CollectGlyph("Arcane A Glyph");
         if (Input.GetKeyDown(KeyCode.Alpha6) && enemy.fCurrentHealth > 0)
-            localPlayer.Spellcaster.CollectSpellPiece("Arcane B Spell Piece");
+            localPlayer.Spellcaster.CollectGlyph("Arcane B Glyph");
         if (Input.GetKeyDown(KeyCode.Alpha7) && enemy.fCurrentHealth > 0)
-            localPlayer.Spellcaster.CollectSpellPiece("Arcane C Spell Piece");
+            localPlayer.Spellcaster.CollectGlyph("Arcane C Glyph");
         if (Input.GetKeyDown(KeyCode.Alpha8) && enemy.fCurrentHealth > 0)
-            localPlayer.Spellcaster.CollectSpellPiece("Arcane D Spell Piece");
+            localPlayer.Spellcaster.CollectGlyph("Arcane D Glyph");
         if (Input.GetKeyDown(KeyCode.Alpha9) && enemy.fCurrentHealth > 0)
-            localPlayer.Spellcaster.CollectSpellPiece("Elemental A Spell Piece");
+            localPlayer.Spellcaster.CollectGlyph("Elemental A Glyph");
         if (Input.GetKeyDown(KeyCode.Alpha0) && enemy.fCurrentHealth > 0)
-            localPlayer.Spellcaster.CollectSpellPiece("Elemental B Spell Piece");
+            localPlayer.Spellcaster.CollectGlyph("Elemental B Glyph");
         if (Input.GetKeyDown(KeyCode.Q) && enemy.fCurrentHealth > 0)
-            localPlayer.Spellcaster.CollectSpellPiece("Elemental C Spell Piece");
+            localPlayer.Spellcaster.CollectGlyph("Elemental C Glyph");
         if (Input.GetKeyDown(KeyCode.W) && enemy.fCurrentHealth > 0)
-            localPlayer.Spellcaster.CollectSpellPiece("Elemental D Spell Piece");
+            localPlayer.Spellcaster.CollectGlyph("Elemental D Glyph");
         if (Input.GetKeyDown(KeyCode.E) && enemy.fCurrentHealth > 0)
-            localPlayer.Spellcaster.CollectSpellPiece("Illusion A Spell Piece");
+            localPlayer.Spellcaster.CollectGlyph("Illusion A Glyph");
         if (Input.GetKeyDown(KeyCode.R) && enemy.fCurrentHealth > 0)
-            localPlayer.Spellcaster.CollectSpellPiece("Illusion B Spell Piece");
+            localPlayer.Spellcaster.CollectGlyph("Illusion B Glyph");
         if (Input.GetKeyDown(KeyCode.T) && enemy.fCurrentHealth > 0)
-            localPlayer.Spellcaster.CollectSpellPiece("Illusion C Spell Piece");
+            localPlayer.Spellcaster.CollectGlyph("Illusion C Glyph");
         if (Input.GetKeyDown(KeyCode.Y) && enemy.fCurrentHealth > 0)
-            localPlayer.Spellcaster.CollectSpellPiece("Illusion D Spell Piece");
+            localPlayer.Spellcaster.CollectGlyph("Illusion D Glyph");
         if (Input.GetKeyDown(KeyCode.U) && enemy.fCurrentHealth > 0)
-            localPlayer.Spellcaster.CollectSpellPiece("Summoning A Spell Piece");
+            localPlayer.Spellcaster.CollectGlyph("Summoning A Glyph");
         if (Input.GetKeyDown(KeyCode.I) && enemy.fCurrentHealth > 0)
-            localPlayer.Spellcaster.CollectSpellPiece("Summoning B Spell Piece");
+            localPlayer.Spellcaster.CollectGlyph("Summoning B Glyph");
         if (Input.GetKeyDown(KeyCode.O) && enemy.fCurrentHealth > 0)
-            localPlayer.Spellcaster.CollectSpellPiece("Summoning C Spell Piece");
+            localPlayer.Spellcaster.CollectGlyph("Summoning C Glyph");
         if (Input.GetKeyDown(KeyCode.P) && enemy.fCurrentHealth > 0)
-            localPlayer.Spellcaster.CollectSpellPiece("Summoning D Spell Piece");
+            localPlayer.Spellcaster.CollectGlyph("Summoning D Glyph");
         if (Input.GetKeyDown(KeyCode.A) && enemy.fCurrentHealth > 0)
-            localPlayer.Spellcaster.CollectSpellPiece("Time A Spell Piece");
+            localPlayer.Spellcaster.CollectGlyph("Time A Glyph");
         if (Input.GetKeyDown(KeyCode.S) && enemy.fCurrentHealth > 0)
-            localPlayer.Spellcaster.CollectSpellPiece("Time B Spell Piece");
+            localPlayer.Spellcaster.CollectGlyph("Time B Glyph");
         if (Input.GetKeyDown(KeyCode.D) && enemy.fCurrentHealth > 0)
-            localPlayer.Spellcaster.CollectSpellPiece("Time C Spell Piece");
+            localPlayer.Spellcaster.CollectGlyph("Time C Glyph");
         if (Input.GetKeyDown(KeyCode.F) && enemy.fCurrentHealth > 0)
-            localPlayer.Spellcaster.CollectSpellPiece("Time D Spell Piece");
+            localPlayer.Spellcaster.CollectGlyph("Time D Glyph");
 
         UpdatePlayerStats();
         UpdateEnemyStats();
@@ -194,15 +193,10 @@ public class CombatHandler : MonoBehaviour
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
             SceneManager.LoadScene("MainPlayerScene");
         });
-        scanButton.onClick.AddListener(() =>
+        spellbookButton.onClick.AddListener(() =>
         {
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
-            SceneManager.LoadScene("VuforiaScene");
-        });
-        spellsButton.onClick.AddListener(() =>
-        {
-            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
-            SceneManager.LoadScene("SpellCastScene");
+            SceneManager.LoadScene("SpellbookScene");
         });
     }
 }

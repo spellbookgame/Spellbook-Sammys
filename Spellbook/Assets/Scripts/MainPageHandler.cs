@@ -12,9 +12,8 @@ public class MainPageHandler : MonoBehaviour
     [SerializeField] private Image characterImage;
 
     [SerializeField] private Button scanButton;
-    [SerializeField] private Button createSpellButton;
-    [SerializeField] private Button castSpellButton;
     [SerializeField] private Button combatButton;
+    [SerializeField] private Button spellbookButton;
 
     Player localPlayer;
     public static MainPageHandler instance = null;
@@ -59,7 +58,7 @@ public class MainPageHandler : MonoBehaviour
             enemy.fCurrentHealth = enemy.fMaxHealth;
         }
 
-        // TODO: set player's image based on class
+        // set player's image based on class
         Debug.Log(localPlayer.Spellcaster.characterSpritePath);
         characterImage.sprite = Resources.Load<Sprite>(localPlayer.Spellcaster.characterSpritePath);
 
@@ -69,20 +68,15 @@ public class MainPageHandler : MonoBehaviour
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
             SceneManager.LoadScene("VuforiaScene");
         });
-        createSpellButton.onClick.AddListener(() =>
-        {
-            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
-            SceneManager.LoadScene("SpellCreateScene");
-        });
-        castSpellButton.onClick.AddListener(() =>
-        {
-            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
-            SceneManager.LoadScene("SpellCastScene");
-        });
         combatButton.onClick.AddListener(() =>
         {
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
             SceneManager.LoadScene("CombatScene");
+        });
+        spellbookButton.onClick.AddListener(() =>
+        {
+            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+            SceneManager.LoadScene("SpellbookScene");
         });
     }
 }

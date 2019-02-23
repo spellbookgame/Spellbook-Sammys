@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 // example spell for Trickster class
 public class Playwright : Spell
@@ -9,34 +10,40 @@ public class Playwright : Spell
         iTier = 2;
         iManaCost = 400;
         sSpellClass = "Trickster";
+        sSpellInfo = "Destroy one of your puppets and upgrade two glyphs into their next highest tier. Can cast on an ally.";
 
-        requiredPieces.Add("Illusion B Spell Piece", 1);
-        requiredPieces.Add("Illusion C Spell Piece", 1);
-        requiredPieces.Add("Time C Spell Piece", 1);
-
-        requiredGlyphs.Add("Illusion B Glyph", 4);
+        requiredGlyphs.Add("Illusion A Glyph", 1);
+        requiredGlyphs.Add("Illusion B Glyph", 1);
+        requiredGlyphs.Add("Arcane A Glyph", 1);
     }
 
     public override void SpellCast(SpellCaster player)
     {
-        // if player has enough mana and glyphs, cast the spell
-        if (player.glyphs["Illusion B Glyph"] >= 4 && player.iMana >= iManaCost)
+        bool canCast = false;
+        // checking if player can actually cast the spell
+        foreach(KeyValuePair<string, int> kvp in requiredGlyphs)
         {
-            // subtract mana and glyphs
+            if(player.glyphs[kvp.Key] >= 1)
+                canCast = true;
+        }
+        if(canCast)
+        {
+            // subtract mana and glyph costs
             player.iMana -= iManaCost;
-            player.glyphs["Illusion B Glyph"] -= 4;
-            
-            PanelHolder.instance.displayNotify(sSpellName + " was cast. You may control your next roll to be a 1, 2, 3, 4, 5, or 6.");
+            foreach(KeyValuePair<string, int> kvp in requiredGlyphs)
+                player.glyphs[kvp.Key] -= 1;
+
+            PanelHolder.instance.displayNotify(sSpellName + " was cast.");
 
             player.activeSpells.Add(sSpellName);
         }
-        else if (player.glyphs["Illusion B Glyph"] < 4)
-        {
-            PanelHolder.instance.displayNotify("You don't have enough glyphs to cast this spell.");
-        }
-        else if (player.iMana < iManaCost)
+        else if(player.iMana < iManaCost)
         {
             PanelHolder.instance.displayNotify("You don't have enough mana to cast this spell.");
+        }
+        else
+        {
+            PanelHolder.instance.displayNotify("You don't have enough glyphs to cast this spell.");
         }
     }
 }
