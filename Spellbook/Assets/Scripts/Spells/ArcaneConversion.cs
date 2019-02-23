@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-// spell for Summoner class
-public class CoWBear : Spell
+// example spell for Arcanist class
+public class ArcaneConversion : Spell
 {
-    public CoWBear()
+    public ArcaneConversion()
     {
-        sSpellName = "Call of the Wild - Sign of the Bear";
-        iTier = 2;
-        iManaCost = 400;
-        sSpellClass = "Summoner";
+        sSpellName = "Arcane Conversion";
+        iTier = 3;
+        iManaCost = 100;
+        sSpellClass = "Arcanist";
 
-        requiredGlyphs.Add("Summoning B Glyph", 1);
-        requiredGlyphs.Add("Summoning C Glyph", 1);
-        requiredGlyphs.Add("Time D Glyph", 1);
+        sSpellInfo = "Destroy any number of items, and deal 2 damage for each item destroyed";
+
+        requiredGlyphs.Add("Arcane C Glyph", 1);
     }
 
     public override void SpellCast(SpellCaster player)
@@ -36,9 +36,9 @@ public class CoWBear : Spell
             foreach (KeyValuePair<string, int> kvp in requiredGlyphs)
                 player.glyphs[kvp.Key] -= 1;
 
-            int damage = Random.Range(3, 18);
+            int damage = Random.Range(3, 12);
             enemy.HitEnemy(damage);
-            PanelHolder.instance.displayCombat("You summoned a great bear and inflicted " + damage + " damage!");
+            PanelHolder.instance.displayCombat("You cast Arcane Conversion, and it did " + damage + " damage!");
         }
         else if (player.iMana < iManaCost)
         {

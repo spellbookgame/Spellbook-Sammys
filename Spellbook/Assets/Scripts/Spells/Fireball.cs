@@ -11,6 +11,7 @@ public class Fireball : Spell
         iTier = 3;
         iManaCost = 100;
         sSpellClass = "Elementalist";
+        sSpellInfo = "Cast 2 fireballs that deal 1-6 damage each.";
 
         requiredGlyphs.Add("Elemental D Glyph", 1);
     }

@@ -1,25 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-// example spell for Arcanist class
-public class MagicMissiles : Spell
+// example spell for Chronomancy class
+public class Decelerate : Spell
 {
-    public MagicMissiles()
+    public Decelerate()
     {
-        sSpellName = "Magic Missiles";
+        sSpellName = "Decelerate";
         iTier = 3;
         iManaCost = 100;
-        sSpellClass = "Arcanist";
+        sSpellClass = "Chronomancer";
+        sSpellInfo = "Your next move dice will roll a one, two, or a three. Can cast on an ally.";
 
-        requiredGlyphs.Add("Arcane C Glyph", 1);
+        requiredGlyphs.Add("Time D Glyph", 1);
     }
 
     public override void SpellCast(SpellCaster player)
     {
-        Enemy enemy = GameObject.FindGameObjectWithTag("Enemy").GetComponent<Enemy>();
-
         bool canCast = false;
         // checking if player can actually cast the spell
         foreach (KeyValuePair<string, int> kvp in requiredGlyphs)
@@ -34,9 +31,8 @@ public class MagicMissiles : Spell
             foreach (KeyValuePair<string, int> kvp in requiredGlyphs)
                 player.glyphs[kvp.Key] -= 1;
 
-            int damage = Random.Range(3, 12);
-            enemy.HitEnemy(damage);
-            PanelHolder.instance.displayCombat("You cast Magic Missles, and they did " + damage + " damage!");
+            PanelHolder.instance.displayNotify("You cast Decelerate. Your next move dice will roll a 1, 2, or 3.");
+            player.activeSpells.Add(sSpellName);
         }
         else if (player.iMana < iManaCost)
         {

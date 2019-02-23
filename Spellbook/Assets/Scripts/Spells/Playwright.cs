@@ -10,10 +10,11 @@ public class Playwright : Spell
         iTier = 2;
         iManaCost = 400;
         sSpellClass = "Trickster";
+        sSpellInfo = "Destroy one of your puppets and upgrade two glyphs into their next highest tier. Can cast on an ally.";
 
+        requiredGlyphs.Add("Illusion A Glyph", 1);
         requiredGlyphs.Add("Illusion B Glyph", 1);
-        requiredGlyphs.Add("Illusion C Glyph", 1);
-        requiredGlyphs.Add("Time C Glyph", 1);
+        requiredGlyphs.Add("Arcane A Glyph", 1);
     }
 
     public override void SpellCast(SpellCaster player)
@@ -32,7 +33,7 @@ public class Playwright : Spell
             foreach(KeyValuePair<string, int> kvp in requiredGlyphs)
                 player.glyphs[kvp.Key] -= 1;
 
-            PanelHolder.instance.displayNotify(sSpellName + " was cast. You may control your next roll to be a 1, 2, 3, 4, 5, or 6.");
+            PanelHolder.instance.displayNotify(sSpellName + " was cast.");
 
             player.activeSpells.Add(sSpellName);
         }

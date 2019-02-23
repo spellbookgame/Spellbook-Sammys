@@ -1,21 +1,26 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-// example spell for Alchemy class
-public class ManaConstruct : Spell
+// spell for Summoner class
+public class CoDSkeletons : Spell
 {
-    public ManaConstruct()
+    public CoDSkeletons()
     {
-        sSpellName = "Mana Construct";
+        sSpellName = "Call of the Dead - Skeletons";
         iTier = 3;
-        iManaCost = 700;
-        sSpellClass = "Alchemist";
+        iManaCost = 400;
+        sSpellClass = "Summoner";
+        sSpellInfo = "Summon a skeleton that attacks the enemy for 1-6 damage. It will remain for two turns.";
 
-        requiredGlyphs.Add("Alchemy D Glyph", 1);
+        requiredGlyphs.Add("Summoning D Glyph", 1);
     }
 
     public override void SpellCast(SpellCaster player)
     {
+        Enemy enemy = GameObject.FindGameObjectWithTag("Enemy").GetComponent<Enemy>();
+
         bool canCast = false;
         // checking if player can actually cast the spell
         foreach (KeyValuePair<string, int> kvp in requiredGlyphs)
@@ -30,8 +35,9 @@ public class ManaConstruct : Spell
             foreach (KeyValuePair<string, int> kvp in requiredGlyphs)
                 player.glyphs[kvp.Key] -= 1;
 
-            string collectedGlyph = player.CollectRandomGlyph();
-            PanelHolder.instance.displayNotify("You spent " + iManaCost + " mana and created a " + collectedGlyph + ".");
+            int damage = Random.Range(1, 6);
+            enemy.HitEnemy(damage);
+            PanelHolder.instance.displayCombat("You summoned a skeleton and inflicted " + damage + " damage!");
         }
         else if (player.iMana < iManaCost)
         {

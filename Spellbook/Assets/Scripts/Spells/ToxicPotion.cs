@@ -1,17 +1,19 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-// example spell for Chronomancy class
-public class Accelerate : Spell
+// example spell for Alchemy class
+public class ToxicPotion : Spell
 {
-    public Accelerate()
+    public ToxicPotion()
     {
-        sSpellName = "Accelerate";
+        sSpellName = "Brew - Toxic Potion";
         iTier = 3;
         iManaCost = 100;
-        sSpellClass = "Chronomancer";
+        sSpellClass = "Alchemist";
+        sSpellInfo = "Brew a toxic potion that will grant an additional 3 " +
+                        "damage to your (basic) attack for the duration of the fight. Can cast on an ally.";
 
-        requiredGlyphs.Add("Time C Glyph", 1);
+        requiredGlyphs.Add("Alchemy C Glyph", 1);
     }
 
     public override void SpellCast(SpellCaster player)
@@ -30,8 +32,8 @@ public class Accelerate : Spell
             foreach (KeyValuePair<string, int> kvp in requiredGlyphs)
                 player.glyphs[kvp.Key] -= 1;
 
-            PanelHolder.instance.displayNotify("You cast Accelerate. Your next move dice will roll a five or a six.");
-            player.activeSpells.Add(sSpellName);
+            string collectedGlyph = player.CollectRandomGlyph();
+            PanelHolder.instance.displayNotify("You cast " + sSpellName + "!");
         }
         else if (player.iMana < iManaCost)
         {

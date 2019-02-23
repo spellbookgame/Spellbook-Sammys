@@ -9,6 +9,7 @@ public class SpellbookHandler : MonoBehaviour
     [SerializeField] private Button spellCreateButton;
     [SerializeField] private Button spellCastButton;
     [SerializeField] private Button mainButton;
+    [SerializeField] private Button collectionButton;
     [SerializeField] private Text glyphText;
 
     Player localPlayer;
@@ -32,6 +33,11 @@ public class SpellbookHandler : MonoBehaviour
         {
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
             SceneManager.LoadScene("MainPlayerScene");
+        });
+        collectionButton.onClick.AddListener(() =>
+        {
+            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+            SceneManager.LoadScene("SpellCollectionScene");
         });
 
         // show player how many glyphs they have

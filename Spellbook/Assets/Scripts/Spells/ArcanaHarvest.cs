@@ -12,6 +12,8 @@ public class ArcanaHarvest : Spell
         iManaCost = 100;
         sSpellClass = "Arcanist";
 
+        sSpellInfo = "Earn double resources (mana, glyphs) on the next mana/glyph space you land on. Can cast on an ally.";
+
         requiredGlyphs.Add("Arcane D Glyph", 1);
     }
 

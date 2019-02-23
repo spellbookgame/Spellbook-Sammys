@@ -24,22 +24,22 @@ public class Chapter : MonoBehaviour
         switch (classType)
         {
             case "Alchemist":
-                Spell manaConstruct = new ManaConstruct();
-                spellsAllowed.Add(manaConstruct);
+                Spell toxicPotion = new ToxicPotion();
+                spellsAllowed.Add(toxicPotion);
                 break;
             case "Arcanist":
-                Spell magicMissiles = new MagicMissiles();
-                spellsAllowed.Add(magicMissiles);
+                Spell arcaneConversion = new ArcaneConversion();
+                spellsAllowed.Add(arcaneConversion);
                 Spell arcanaHarvest = new ArcanaHarvest();
                 spellsAllowed.Add(arcanaHarvest);
                 break;
             case "Summoner":
-                Spell cowBear = new CoWBear();
-                spellsAllowed.Add(cowBear);
+                Spell codSkeletons = new CoDSkeletons();
+                spellsAllowed.Add(codSkeletons);
                 break;
             case "Chronomancer":
-                Spell accelerate = new Accelerate();
-                spellsAllowed.Add(accelerate);
+                Spell decelerate = new Decelerate();
+                spellsAllowed.Add(decelerate);
                 break;
             case "Elementalist":
                 Spell fireball = new Fireball();
