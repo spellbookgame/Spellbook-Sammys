@@ -11,8 +11,9 @@ public class Player : Bolt.EntityEventListener<ISpellcasterState>
     //The player's chosen spellcaster class.
     private SpellCaster spellcaster;
 
-    // References to the turn order.
+    // References to the turn order for all players combined.
     private int currentTurn = 0;
+    private int numTurnsIHad = 0;
     private ArrayList spellcasterTurnOrder;
 
     // Remains -1 if you do not control this player.
@@ -80,6 +81,8 @@ public class Player : Bolt.EntityEventListener<ISpellcasterState>
         if (spellcasterClass == (int)spellcasterTurnOrder[0])
         {
             BoltConsole.Write("My Turn");
+            numTurnsIHad++;
+            spellcaster.NumOfTurnsSoFar = numTurnsIHad;
             bIsMyTurn = true;
             PanelHolder panelHolder = GameObject.Find("PanelHolder").GetComponent<PanelHolder>();
             panelHolder.displayYourTurn();
@@ -145,6 +148,8 @@ public class Player : Bolt.EntityEventListener<ISpellcasterState>
         if((int) spellcasterTurnOrder[currentTurn] == spellcasterClass)
         {
             BoltConsole.Write("Its my turn.");
+            numTurnsIHad++;
+            spellcaster.NumOfTurnsSoFar = numTurnsIHad;
             bIsMyTurn = true;
             PanelHolder panelHolder = GameObject.Find("PanelHolder").GetComponent<PanelHolder>();
             panelHolder.displayYourTurn();
