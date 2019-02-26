@@ -9,6 +9,7 @@ public class CrystalScent : Spell
         iTier = 3;
         iManaCost = 100;
         iCoolDown = 0;
+        iTurnsActive = 3;
 
         sSpellName = "Brew - Crystal Scent";
         sSpellClass = "Alchemist";
@@ -26,6 +27,7 @@ public class CrystalScent : Spell
             if (player.glyphs[kvp.Key] >= 1)
                 canCast = true;
         }
+        // cast the spell
         if (canCast && player.iMana > iManaCost)
         {
             // subtract mana and glyph costs
@@ -33,8 +35,11 @@ public class CrystalScent : Spell
             foreach (KeyValuePair<string, int> kvp in requiredGlyphs)
                 player.glyphs[kvp.Key] -= 1;
 
-            PanelHolder.instance.displayNotify("You cast " + sSpellName + "!");
-            player.activeSpells.Add(sSpellName);
+            PanelHolder.instance.displayNotify("You cast " + sSpellName + ". For the next 3 turns, you will gain 20% more mana crystals.");
+
+            // iCastedTurn is the number turn that player casted the spell.
+            iCastedTurn = player.NumOfTurnsSoFar;
+            player.activeSpells.Add(this);
         }
         else if (player.iMana < iManaCost)
         {

@@ -4,15 +4,16 @@ using UnityEngine;
 
 public abstract class Spell
 {
+    // turn these to private later
     public int iTier;
     public int iManaCost;
     public int iCoolDown;
+    public int iTurnsActive;
+    public int iCastedTurn;
 
     public string sSpellName;
     public string sSpellClass;
     public string sSpellInfo;
-
-    public bool currentlyActive;
 
     public Dictionary<string, int> requiredGlyphs;
 

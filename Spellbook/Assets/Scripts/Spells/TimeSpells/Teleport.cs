@@ -35,7 +35,7 @@ public class Teleport : Spell
                 player.glyphs[kvp.Key] -= 1;
 
             PanelHolder.instance.displayNotify("You cast " + sSpellName + "!");
-            player.activeSpells.Add(sSpellName);
+            player.activeSpells.Add(this);
         }
         else if (player.iMana < iManaCost)
         {

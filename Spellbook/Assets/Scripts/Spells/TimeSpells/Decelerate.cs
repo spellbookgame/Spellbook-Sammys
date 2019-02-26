@@ -34,7 +34,7 @@ public class Decelerate : Spell
                 player.glyphs[kvp.Key] -= 1;
 
             PanelHolder.instance.displayNotify("You cast Decelerate. Your next move dice will roll a 1, 2, or 3.");
-            player.activeSpells.Add(sSpellName);
+            player.activeSpells.Add(this);
         }
         else if (player.iMana < iManaCost)
         {

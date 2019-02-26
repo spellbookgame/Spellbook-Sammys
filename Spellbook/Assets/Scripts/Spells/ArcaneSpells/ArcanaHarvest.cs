@@ -35,7 +35,7 @@ public class ArcanaHarvest : Spell
                 player.glyphs[kvp.Key] -= 1;
             
             PanelHolder.instance.displayNotify("You cast Arcana Harvest. You will receive double mana/glyphs on the next space you land on.");
-            player.activeSpells.Add(sSpellName);
+            player.activeSpells.Add(this);
         }
         else if (player.iMana < iManaCost)
         {

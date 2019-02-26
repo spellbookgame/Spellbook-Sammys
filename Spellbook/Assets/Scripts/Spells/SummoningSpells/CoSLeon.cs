@@ -38,7 +38,7 @@ public class CoSLeon : Spell
                 player.glyphs[kvp.Key] -= 1;
 
             PanelHolder.instance.displayCombat("You cast " + sSpellName + "!");
-            player.activeSpells.Add(sSpellName);
+            player.activeSpells.Add(this);
         }
         else if (player.iMana < iManaCost)
         {

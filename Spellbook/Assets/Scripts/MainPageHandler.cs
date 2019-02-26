@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -35,6 +36,11 @@ public class MainPageHandler : MonoBehaviour
         setupMainPage();
     }
 
+    private void Update()
+    {
+        if(localPlayer.Spellcaster.activeSpells.Count > 0)
+            UpdateActiveSpells();
+    }
 
     public void setupMainPage()
     {
@@ -44,9 +50,9 @@ public class MainPageHandler : MonoBehaviour
 
         classText.text = "You are playing as " + localPlayer.Spellcaster.classType;
 
-        foreach (string entry in localPlayer.Spellcaster.activeSpells)
+        foreach (Spell entry in localPlayer.Spellcaster.activeSpells)
         {
-            activeSpellsValue.text = activeSpellsValue.text + entry + "\n";
+            activeSpellsValue.text = activeSpellsValue.text + entry.sSpellName + "\n";
         }
 
         // if an enemy does not exist, create one
@@ -78,5 +84,23 @@ public class MainPageHandler : MonoBehaviour
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
             SceneManager.LoadScene("SpellbookScene");
         });
+    }
+    
+    // changing the list of active spells
+    private void UpdateActiveSpells()
+    {
+        // if player's active spell wore off, notify them
+        foreach (Spell entry in localPlayer.Spellcaster.chapter.spellsCollected)
+        {
+            // if the player has gone the amount of turns that the spell lasts
+            if (localPlayer.Spellcaster.NumOfTurnsSoFar - entry.iCastedTurn == entry.iTurnsActive)
+            {
+                localPlayer.Spellcaster.activeSpells.Remove(entry);
+                PanelHolder.instance.displayNotify(entry.sSpellName + " wore off...");
+
+                // removing the text
+                activeSpellsValue.text = activeSpellsValue.text.Replace(entry.sSpellName, "");
+            }
+        }
     }
 }

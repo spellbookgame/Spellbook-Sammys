@@ -104,7 +104,7 @@ public class Chapter : MonoBehaviour
                     // if equal and player does not have the spell yet
                     if (equal && !player.chapter.spellsCollected.Contains(player.chapter.spellsAllowed[i]))
                     {
-                        player.CollectSpell(player.chapter.spellsAllowed[i], player);
+                        player.CollectSpell(player.chapter.spellsAllowed[i]);
                         break;
                     }
                 }
@@ -126,7 +126,7 @@ public class Chapter : MonoBehaviour
                 }
                 if (equal && !player.chapter.spellsCollected.Contains(player.chapter.spellsAllowed[i]))
                 {
-                    player.CollectSpell(player.chapter.spellsAllowed[i], player);
+                    player.CollectSpell(player.chapter.spellsAllowed[i]);
                     break;
                 }
             }
