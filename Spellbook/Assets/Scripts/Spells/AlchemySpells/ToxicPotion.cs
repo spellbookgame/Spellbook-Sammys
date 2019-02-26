@@ -2,19 +2,20 @@
 using UnityEngine;
 
 // spell for Alchemy class
-public class CrystalScent : Spell
+public class ToxicPotion : Spell
 {
-    public CrystalScent()
+    public ToxicPotion()
     {
         iTier = 3;
         iManaCost = 100;
         iCoolDown = 0;
 
-        sSpellName = "Brew - Crystal Scent";
+        sSpellName = "Brew - Toxic Potion";
         sSpellClass = "Alchemist";
-        sSpellInfo = "You will have a 20% increase in mana crystals whenever you collect mana for the next 3 turns. Can cast on an ally.";
+        sSpellInfo = "Brew a toxic potion that will grant an additional 3 " +
+                        "damage to your (basic) attack for the duration of the fight. Can cast on an ally.";
 
-        requiredGlyphs.Add("Alchemy D Glyph", 1);
+        requiredGlyphs.Add("Alchemy C Glyph", 1);
     }
 
     public override void SpellCast(SpellCaster player)
@@ -26,13 +27,13 @@ public class CrystalScent : Spell
             if (player.glyphs[kvp.Key] >= 1)
                 canCast = true;
         }
-        if (canCast)
+        if (canCast && player.iMana > iManaCost)
         {
             // subtract mana and glyph costs
             player.iMana -= iManaCost;
             foreach (KeyValuePair<string, int> kvp in requiredGlyphs)
                 player.glyphs[kvp.Key] -= 1;
-
+            
             PanelHolder.instance.displayNotify("You cast " + sSpellName + "!");
             player.activeSpells.Add(sSpellName);
         }

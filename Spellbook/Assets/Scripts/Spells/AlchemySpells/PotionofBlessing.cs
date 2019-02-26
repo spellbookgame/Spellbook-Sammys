@@ -28,7 +28,7 @@ public class PotionofBlessing : Spell
             if (player.glyphs[kvp.Key] >= 1)
                 canCast = true;
         }
-        if (canCast)
+        if (canCast && player.iMana > iManaCost)
         {
             // subtract mana and glyph costs
             player.iMana -= iManaCost;

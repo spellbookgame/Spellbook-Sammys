@@ -1,25 +1,25 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-// example spell for Elementalist class
-public class Fireball : Spell
+// spell for Chronomancy class
+public class Teleport : Spell
 {
-    public Fireball()
+    public Teleport()
     {
-        sSpellName = "Fireball";
-        iTier = 3;
-        iManaCost = 100;
-        sSpellClass = "Elementalist";
-        sSpellInfo = "Cast 2 fireballs that deal 1-6 damage each.";
+        iTier = 2;
+        iManaCost = 900;
+        iCoolDown = 2;
 
-        requiredGlyphs.Add("Elemental D Glyph", 1);
+        sSpellName = "Teleport";
+        sSpellClass = "Chronomancer";
+        sSpellInfo = "Control your next roll to be what you want (between 1-6). Can cast on an ally.";
+
+        requiredGlyphs.Add("Time B Glyph", 1);
+        requiredGlyphs.Add("Time C Glyph", 1);
     }
 
     public override void SpellCast(SpellCaster player)
     {
-        Enemy enemy = GameObject.FindGameObjectWithTag("Enemy").GetComponent<Enemy>();
-
         bool canCast = false;
         // checking if player can actually cast the spell
         foreach (KeyValuePair<string, int> kvp in requiredGlyphs)
@@ -27,16 +27,15 @@ public class Fireball : Spell
             if (player.glyphs[kvp.Key] >= 1)
                 canCast = true;
         }
-        if (canCast)
+        if (canCast && player.iMana > iManaCost)
         {
             // subtract mana and glyph costs
             player.iMana -= iManaCost;
             foreach (KeyValuePair<string, int> kvp in requiredGlyphs)
                 player.glyphs[kvp.Key] -= 1;
 
-            int damage = Random.Range(2, 12);
-            enemy.HitEnemy(damage);
-            PanelHolder.instance.displayCombat("You cast Fireball and it did " + damage + " damage!");
+            PanelHolder.instance.displayNotify("You cast " + sSpellName + "!");
+            player.activeSpells.Add(sSpellName);
         }
         else if (player.iMana < iManaCost)
         {

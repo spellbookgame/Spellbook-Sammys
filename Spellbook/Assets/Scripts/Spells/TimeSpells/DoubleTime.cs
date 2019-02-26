@@ -1,26 +1,26 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-// spell for Summoner class
-public class CoDSkeletons : Spell
+// spell for Chronomancy class
+public class DoubleTime : Spell
 {
-    public CoDSkeletons()
+    public DoubleTime()
     {
-        sSpellName = "Call of the Dead - Skeletons";
-        iTier = 3;
-        iManaCost = 400;
-        sSpellClass = "Summoner";
-        sSpellInfo = "Summon a skeleton that attacks the enemy for 1-6 damage. It will remain for two turns.";
+        iTier = 1;
+        iManaCost = 4000;
+        iCoolDown = 3;
 
-        requiredGlyphs.Add("Summoning D Glyph", 1);
+        sSpellName = "Double Time";
+        sSpellClass = "Chronomancer";
+        sSpellInfo = "Take two turns this round. Can cast on an ally.";
+
+        requiredGlyphs.Add("Time A Glyph", 1);
+        requiredGlyphs.Add("Time B Glyph", 1);
+        requiredGlyphs.Add("Arcane A Glyph", 1);
     }
 
     public override void SpellCast(SpellCaster player)
     {
-        Enemy enemy = GameObject.FindGameObjectWithTag("Enemy").GetComponent<Enemy>();
-
         bool canCast = false;
         // checking if player can actually cast the spell
         foreach (KeyValuePair<string, int> kvp in requiredGlyphs)
@@ -28,16 +28,14 @@ public class CoDSkeletons : Spell
             if (player.glyphs[kvp.Key] >= 1)
                 canCast = true;
         }
-        if (canCast)
+        if (canCast && player.iMana > iManaCost)
         {
             // subtract mana and glyph costs
             player.iMana -= iManaCost;
             foreach (KeyValuePair<string, int> kvp in requiredGlyphs)
                 player.glyphs[kvp.Key] -= 1;
 
-            int damage = Random.Range(1, 6);
-            enemy.HitEnemy(damage);
-            PanelHolder.instance.displayCombat("You summoned a skeleton and inflicted " + damage + " damage!");
+            PanelHolder.instance.displayNotify("You cast " + sSpellName + "!");
         }
         else if (player.iMana < iManaCost)
         {

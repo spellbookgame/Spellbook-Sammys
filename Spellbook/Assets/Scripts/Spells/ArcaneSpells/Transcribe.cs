@@ -1,18 +1,23 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-// example spell for Chronomancy class
-public class Decelerate : Spell
+// spell for Arcanist class
+public class Transcribe : Spell
 {
-    public Decelerate()
+    public Transcribe()
     {
-        sSpellName = "Decelerate";
-        iTier = 3;
-        iManaCost = 100;
-        sSpellClass = "Chronomancer";
-        sSpellInfo = "Your next move dice will roll a one, two, or a three. Can cast on an ally.";
+        iTier = 1;
+        iManaCost = 1500;
+        iCoolDown = 3;
 
-        requiredGlyphs.Add("Time D Glyph", 1);
+        sSpellName = "Transcribe";
+        sSpellClass = "Arcanist";
+        sSpellInfo = "Upgrade a glyph into its next highest tier. Can cast on an ally.";
+
+        requiredGlyphs.Add("Alchemy B Glyph", 1);
+        requiredGlyphs.Add("Arcane A Glyph", 1);
+        requiredGlyphs.Add("Illusion B Glyph", 1);
     }
 
     public override void SpellCast(SpellCaster player)
@@ -24,15 +29,14 @@ public class Decelerate : Spell
             if (player.glyphs[kvp.Key] >= 1)
                 canCast = true;
         }
-        if (canCast)
+        if (canCast && player.iMana > iManaCost)
         {
             // subtract mana and glyph costs
             player.iMana -= iManaCost;
             foreach (KeyValuePair<string, int> kvp in requiredGlyphs)
                 player.glyphs[kvp.Key] -= 1;
 
-            PanelHolder.instance.displayNotify("You cast Decelerate. Your next move dice will roll a 1, 2, or 3.");
-            player.activeSpells.Add(sSpellName);
+            PanelHolder.instance.displayNotify("You cast " + sSpellName + "!");
         }
         else if (player.iMana < iManaCost)
         {

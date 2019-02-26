@@ -1,20 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-// example spell for Arcanist class
-public class ArcanaHarvest : Spell
+// spell for Summoner class
+public class CoSLeon : Spell
 {
-    public ArcanaHarvest()
+    public CoSLeon()
     {
-        sSpellName = "Arcana Harvest";
         iTier = 3;
-        iManaCost = 100;
-        sSpellClass = "Arcanist";
+        iManaCost = 1800;
+        iCoolDown = 3;
 
-        sSpellInfo = "Earn double resources (mana, glyphs) on the next mana/glyph space you land on. Can cast on an ally.";
+        sSpellName = "Call of the Sun - Leon's Shining";
+        sSpellClass = "Summoner";
+        sSpellInfo = "You and your allies in the same town as you will be able to cast your next spell for free.";
 
-        requiredGlyphs.Add("Arcane D Glyph", 1);
+        requiredGlyphs.Add("Elemental A Glyph", 1);
+        requiredGlyphs.Add("Summoning A Glyph", 1);
+        requiredGlyphs.Add("Time A Glyph", 1);
     }
 
     public override void SpellCast(SpellCaster player)
@@ -26,14 +30,14 @@ public class ArcanaHarvest : Spell
             if (player.glyphs[kvp.Key] >= 1)
                 canCast = true;
         }
-        if (canCast)
+        if (canCast && player.iMana > iManaCost)
         {
             // subtract mana and glyph costs
             player.iMana -= iManaCost;
             foreach (KeyValuePair<string, int> kvp in requiredGlyphs)
                 player.glyphs[kvp.Key] -= 1;
-            
-            PanelHolder.instance.displayNotify("You cast Arcana Harvest. You will receive double mana/glyphs on the next space you land on.");
+
+            PanelHolder.instance.displayCombat("You cast " + sSpellName + "!");
             player.activeSpells.Add(sSpellName);
         }
         else if (player.iMana < iManaCost)

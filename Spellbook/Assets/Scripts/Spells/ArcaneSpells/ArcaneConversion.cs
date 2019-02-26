@@ -1,25 +1,28 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-// spell for Alchemy class
-public class CharmingNegotiator : Spell
+// example spell for Arcanist class
+public class ArcaneConversion : Spell
 {
-    public CharmingNegotiator()
+    public ArcaneConversion()
     {
-        iTier = 2;
-        iManaCost = 600;
+        iTier = 3;
+        iManaCost = 100;
         iCoolDown = 0;
 
-        sSpellName = "Brew - Charming Negotiator";
-        sSpellClass = "Alchemist";
-        sSpellInfo = "The next time you meet a shop keeper, you'll get 30% discount on all items. Can cast on an ally.";
+        sSpellName = "Arcane Conversion";
+        sSpellClass = "Arcanist";
+        sSpellInfo = "Destroy any number of items, and deal 2 damage for each item destroyed";
 
-        requiredGlyphs.Add("Alchemy D Glyph", 1);
-        requiredGlyphs.Add("Summoning B Glyph", 1);
+        requiredGlyphs.Add("Arcane C Glyph", 1);
     }
 
     public override void SpellCast(SpellCaster player)
     {
+        Enemy enemy = GameObject.FindGameObjectWithTag("Enemy").GetComponent<Enemy>();
+
         bool canCast = false;
         // checking if player can actually cast the spell
         foreach (KeyValuePair<string, int> kvp in requiredGlyphs)
@@ -27,15 +30,16 @@ public class CharmingNegotiator : Spell
             if (player.glyphs[kvp.Key] >= 1)
                 canCast = true;
         }
-        if (canCast)
+        if (canCast && player.iMana > iManaCost)
         {
             // subtract mana and glyph costs
             player.iMana -= iManaCost;
             foreach (KeyValuePair<string, int> kvp in requiredGlyphs)
                 player.glyphs[kvp.Key] -= 1;
 
-            PanelHolder.instance.displayNotify("You cast " + sSpellName + "!");
-            player.activeSpells.Add(sSpellName);
+            int damage = Random.Range(3, 12);
+            enemy.HitEnemy(damage);
+            PanelHolder.instance.displayCombat("You cast Arcane Conversion, and it did " + damage + " damage!");
         }
         else if (player.iMana < iManaCost)
         {

@@ -60,11 +60,11 @@ public class SpellCollectionHandler : MonoBehaviour
             Transform child = glyphPanel.transform.GetChild(0);
             child.SetParent(glyphContainer.transform);
             child.localPosition = Vector3.zero;
-            Debug.Log("removed " + child.gameObject.name + " from glyph panel");
         }
 
         spellInfoPanel.transform.GetChild(0).GetComponent<Text>().text = spell.sSpellName;
-        spellInfoPanel.transform.GetChild(1).GetComponent<Text>().text = spell.sSpellInfo + "\n\nRequired Glyphs";
+        spellInfoPanel.transform.GetChild(1).GetComponent<Text>().text = "Tier: " + spell.iTier.ToString();
+        spellInfoPanel.transform.GetChild(2).GetComponent<Text>().text = spell.sSpellInfo;
         
         // add glyph images to the panel to show player required glyphs
         foreach (KeyValuePair<string, int> kvp in spell.requiredGlyphs)

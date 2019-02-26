@@ -168,7 +168,10 @@ public class CombatHandler : MonoBehaviour
         {
             Debug.Log("local player is null");
         }
-        enemy = GameObject.FindGameObjectWithTag("Enemy").GetComponent<Enemy>();
+
+        // check to see if enemy exists
+        if(GameObject.FindGameObjectWithTag("Enemy"))
+            enemy = GameObject.FindGameObjectWithTag("Enemy").GetComponent<Enemy>();
 
         // setting player's current health to equal max health
         localPlayer.Spellcaster.fCurrentHealth = localPlayer.Spellcaster.fMaxHealth;
