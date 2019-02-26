@@ -17,9 +17,6 @@ public abstract class SpellCaster
     public bool hasAttacked;
     public Chapter chapter;
 
-    // for playtest purposes - delete later
-    public bool easyMode;       // default to false
-
     // player's collection of spell pieces, glyphs, and active spells stored as strings
     public Dictionary<string, int> glyphs;
     public List<string> activeSpells;
@@ -30,7 +27,6 @@ public abstract class SpellCaster
     // TODO:
     //private string backGroundStory; 
     //private Inventory inventory;
-    //public Image icon;
     //Implement:
     //Object DeleteFromInventory(string itemName, int count); 
 

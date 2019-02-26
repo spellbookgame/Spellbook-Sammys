@@ -2,20 +2,21 @@
 using UnityEngine;
 
 // spell for Alchemy class
-public class ToxicPotion : Spell
+public class PotionofBlessing : Spell
 {
-    public ToxicPotion()
+    public PotionofBlessing()
     {
-        iTier = 3;
-        iManaCost = 100;
-        iCoolDown = 0;
+        iTier = 1;
+        iManaCost = 1500;
+        iCoolDown = 3;
 
-        sSpellName = "Brew - Toxic Potion";
+        sSpellName = "Potion of Blessing";
         sSpellClass = "Alchemist";
-        sSpellInfo = "Brew a toxic potion that will grant an additional 3 " +
-                        "damage to your (basic) attack for the duration of the fight. Can cast on an ally.";
+        sSpellInfo = "Give all allies currently in your city double movement on their move rolls next turn.";
 
-        requiredGlyphs.Add("Alchemy C Glyph", 1);
+        requiredGlyphs.Add("Alchemy A Glyph", 1);
+        requiredGlyphs.Add("Summoning B Glyph", 1);
+        requiredGlyphs.Add("Time A Glyph", 1);
     }
 
     public override void SpellCast(SpellCaster player)
@@ -33,7 +34,7 @@ public class ToxicPotion : Spell
             player.iMana -= iManaCost;
             foreach (KeyValuePair<string, int> kvp in requiredGlyphs)
                 player.glyphs[kvp.Key] -= 1;
-            
+
             PanelHolder.instance.displayNotify("You cast " + sSpellName + "!");
             player.activeSpells.Add(sSpellName);
         }

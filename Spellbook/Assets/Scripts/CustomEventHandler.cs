@@ -132,6 +132,20 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
             case "city":
                 PanelHolder.instance.displayEvent("You landed in the city. Nothing really to see here...");
                 break;
+            case "city_color":
+                PanelHolder.instance.displayEvent("City color scanned");
+                break;
+            case "mana_color":
+                PanelHolder.instance.displayEvent("Mana color scanned");
+                break;
+            case "glyph_color":
+                PanelHolder.instance.displayEvent("Glyph color scanned");
+                break;
+            case "spellpiece_color":
+                PanelHolder.instance.displayEvent("Spellpiece color scanned");
+                break;
+            default:
+                break;
         }
     }
 }

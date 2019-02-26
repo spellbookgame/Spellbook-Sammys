@@ -5,11 +5,14 @@ using UnityEngine;
 public abstract class Spell
 {
     public int iTier;
-    public int iManaCost;   // cost in mana crystals
+    public int iManaCost;
+    public int iCoolDown;
 
     public string sSpellName;
     public string sSpellClass;
     public string sSpellInfo;
+
+    public bool currentlyActive;
 
     public Dictionary<string, int> requiredGlyphs;
 

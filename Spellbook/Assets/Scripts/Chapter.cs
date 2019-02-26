@@ -26,6 +26,12 @@ public class Chapter : MonoBehaviour
             case "Alchemist":
                 Spell toxicPotion = new ToxicPotion();
                 spellsAllowed.Add(toxicPotion);
+                Spell crystalScent = new CrystalScent();
+                spellsAllowed.Add(crystalScent);
+                Spell charmingNegotiator = new CharmingNegotiator();
+                spellsAllowed.Add(charmingNegotiator);
+                Spell potionOfBlessing = new PotionofBlessing();
+                spellsAllowed.Add(potionOfBlessing);
                 break;
             case "Arcanist":
                 Spell arcaneConversion = new ArcaneConversion();
