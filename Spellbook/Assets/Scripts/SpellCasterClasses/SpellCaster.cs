@@ -7,12 +7,14 @@ using UnityEngine;
      */
 public abstract class SpellCaster 
 {
+    private int numOfTurnsSoFar = 0;
+
     public float fMaxHealth;
     public float fCurrentHealth;
     public float fBasicAttackStrength;
 
     public int iMana;
-
+    
     public string classType;
     public bool hasAttacked;
     public Chapter chapter;
@@ -164,5 +166,11 @@ public abstract class SpellCaster
                 g.GetComponent<SpellManager>().RemovePrefabs(spell);
             }
         }
+    }
+
+    public int NumOfTurnsSoFar
+    {
+        get => numOfTurnsSoFar;
+        set => numOfTurnsSoFar = value;
     }
 }
