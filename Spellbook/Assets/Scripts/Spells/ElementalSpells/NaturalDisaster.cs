@@ -14,7 +14,7 @@ public class NaturalDisaster : Spell
 
         sSpellName = "Natural Disaster";
         sSpellClass = "Elementalist";
-        sSpellInfo = "Instantly kill the enemy, exit at a random town, and cannot cast spells for the nex 2 turns.";
+        sSpellInfo = "If the enemy has less than half health left, instantly kill it. However, no loot will be earned from this battle.";
 
         requiredGlyphs.Add("Elemental A Glyph", 1);
         requiredGlyphs.Add("Elemental B Glyph", 1);
@@ -38,9 +38,13 @@ public class NaturalDisaster : Spell
             player.iMana -= iManaCost;
             foreach (KeyValuePair<string, int> kvp in requiredGlyphs)
                 player.glyphs[kvp.Key] -= 1;
-         
-            PanelHolder.instance.displayCombat("You cast " + sSpellName, "You destroyed the enemy!");
-            enemy.EnemyDefeated();
+            
+            // TODO: destroy enemy without giving player loot
+            if(enemy.fCurrentHealth < enemy.fMaxHealth / 2)
+            {
+                PanelHolder.instance.displayCombat(sSpellName, "You destroyed the enemy!");
+                enemy.EnemyDefeated();
+            }
         }
         else if (player.iMana < iManaCost)
         {

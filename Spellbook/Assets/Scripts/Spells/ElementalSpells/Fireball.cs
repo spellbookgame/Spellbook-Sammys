@@ -8,7 +8,7 @@ public class Fireball : Spell
     public Fireball()
     {
         iTier = 3;
-        iManaCost = 100;
+        iManaCost = 300;
         iCoolDown = 0;
 
         sSpellName = "Fireball";

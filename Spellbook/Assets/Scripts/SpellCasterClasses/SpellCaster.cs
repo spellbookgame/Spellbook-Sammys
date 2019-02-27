@@ -105,6 +105,13 @@ public abstract class SpellCaster
             Debug.Log("Crystal Scent is active, gained 20% more mana");
             PanelHolder.instance.displayEvent("Brew - Crystal Scent", "You found " + manaCount + " mana!");
         }
+        // if Arcana Harvest is active, double mana
+        else if(this.classType.Equals("Arcanist") && this.activeSpells.Contains(this.chapter.spellsAllowed[1]))
+        {
+            manaCount *= 2;
+            Debug.Log("Arcana Harvest is active, gained double mana");
+            PanelHolder.instance.displayEvent("Arcana Harvest", "You found " + manaCount + " mana!");
+        }
         else
         {
             PanelHolder.instance.displayEvent("You found Mana!", "You earned " + manaCount + " mana.");
@@ -128,10 +135,18 @@ public abstract class SpellCaster
         int random = (int)Random.Range(0, glyphList.Count + 1);
 
         string randomKey = glyphList[random];
-        this.glyphs[randomKey] += 1;
 
-        PanelHolder.instance.displayEvent("You found a Glyph!", "You found a " + randomKey + ".");
-
+        // if arcana harvest is active
+        if (this.classType.Equals("Arcanist") && this.activeSpells.Contains(this.chapter.spellsAllowed[1]))
+        {
+            this.glyphs[randomKey] += 2;
+            PanelHolder.instance.displayEvent("Arcana Harvest", "You found 2 " + randomKey + ".");
+        }
+        else
+        {
+            this.glyphs[randomKey] += 1;
+            PanelHolder.instance.displayEvent("You found a Glyph!", "You found a " + randomKey + ".");
+        }
         return randomKey;
     }
 

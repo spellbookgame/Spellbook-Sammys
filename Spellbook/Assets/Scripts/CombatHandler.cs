@@ -44,6 +44,8 @@ public class CombatHandler : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.X))
             localPlayer.Spellcaster.TakeDamage(6);
+        if (Input.GetKeyDown(KeyCode.C))
+            enemy.HitEnemy(6);
 
         // collect spell pieces
         if (Input.GetKeyDown(KeyCode.Alpha1) && enemy.fCurrentHealth > 0)

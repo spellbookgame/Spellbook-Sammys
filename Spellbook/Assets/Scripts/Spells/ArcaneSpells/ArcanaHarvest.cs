@@ -8,12 +8,13 @@ public class ArcanaHarvest : Spell
     public ArcanaHarvest()
     {
         iTier = 3;
-        iManaCost = 100;
+        iManaCost = 400;
         iCoolDown = 0;
+        iTurnsActive = 2;
 
         sSpellName = "Arcana Harvest";
         sSpellClass = "Arcanist";
-        sSpellInfo = "Earn double resources (mana, glyphs) on the next mana/glyph space you land on. Can cast on an ally.";
+        sSpellInfo = "Until your next turn, earn double resources (mana, glyphs). Can cast on an ally.";
 
         requiredGlyphs.Add("Arcane D Glyph", 1);
     }
@@ -34,7 +35,7 @@ public class ArcanaHarvest : Spell
             foreach (KeyValuePair<string, int> kvp in requiredGlyphs)
                 player.glyphs[kvp.Key] -= 1;
             
-            PanelHolder.instance.displayNotify("You cast " + sSpellName, "You will receive double mana/glyphs on the next space you land on.");
+            PanelHolder.instance.displayNotify("You cast " + sSpellName, "You will receive double mana/glyphs until your next turn.");
             player.activeSpells.Add(this);
         }
         else if (player.iMana < iManaCost)
