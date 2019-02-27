@@ -17,10 +17,11 @@ public class Chronomancer : SpellCaster
         //You can override variables in here.
         classType = "Chronomancer";
         fMaxHealth = 20.0f;
+        fCurrentHealth = fMaxHealth;
 
         // creating the class-specific chapter
         chapter = new Chapter(classType);
 
-        characterSpritePath = "Characters/TimeWizardFlat";
+        characterSpritePath = "Characters/Chronomancer";
     }
 }

@@ -16,6 +16,7 @@ public class Elementalist : SpellCaster
         //You can override variables in here.
         classType = "Elementalist";
         fMaxHealth = 20.0f;
+        fCurrentHealth = fMaxHealth;
 
         // creating the class-specific chapter
         chapter = new Chapter(classType);

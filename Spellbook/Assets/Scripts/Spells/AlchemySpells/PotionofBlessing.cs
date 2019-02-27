@@ -12,11 +12,11 @@ public class PotionofBlessing : Spell
 
         sSpellName = "Potion of Blessing";
         sSpellClass = "Alchemist";
-        sSpellInfo = "Give all allies currently in your city double movement on their move rolls next turn.";
+        sSpellInfo = "Heal all allies by half of their max health.";
 
         requiredGlyphs.Add("Alchemy A Glyph", 1);
+        requiredGlyphs.Add("Illusion A Glyph", 1);
         requiredGlyphs.Add("Summoning B Glyph", 1);
-        requiredGlyphs.Add("Time A Glyph", 1);
     }
 
     public override void SpellCast(SpellCaster player)
@@ -36,7 +36,6 @@ public class PotionofBlessing : Spell
                 player.glyphs[kvp.Key] -= 1;
 
             PanelHolder.instance.displayNotify("You cast " + sSpellName + "!");
-            player.activeSpells.Add(this);
         }
         else if (player.iMana < iManaCost)
         {

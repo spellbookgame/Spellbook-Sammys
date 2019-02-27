@@ -16,10 +16,11 @@ public class Trickster : SpellCaster
         //You can override variables in here.
         classType = "Trickster";
         fMaxHealth = 20.0f;
+        fCurrentHealth = fMaxHealth;
 
         // creating the class-specific chapter
         chapter = new Chapter(classType);
 
-        characterSpritePath = "Characters/Illusionist";
+        characterSpritePath = "Characters/Trickster";
     }
 }

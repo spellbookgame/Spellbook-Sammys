@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class MainPageHandler : MonoBehaviour
 {
     [SerializeField] private Text manaCrystalsValue;
+    [SerializeField] private Text healthValue;
     [SerializeField] private Text activeSpellsValue;
     [SerializeField] private Text classText;
     [SerializeField] private Enemy enemy;
@@ -47,6 +48,7 @@ public class MainPageHandler : MonoBehaviour
         if (GameObject.FindGameObjectWithTag("LocalPlayer") == null) return;
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
         manaCrystalsValue.text = localPlayer.Spellcaster.iMana.ToString();
+        healthValue.text = localPlayer.Spellcaster.fCurrentHealth.ToString();
 
         classText.text = "You are playing as " + localPlayer.Spellcaster.classType;
 
@@ -89,16 +91,16 @@ public class MainPageHandler : MonoBehaviour
     // changing the list of active spells
     private void UpdateActiveSpells()
     {
-        // if player's active spell wore off, notify them
         foreach (Spell entry in localPlayer.Spellcaster.chapter.spellsCollected)
         {
             // if the player has gone the amount of turns that the spell lasts
             if (localPlayer.Spellcaster.NumOfTurnsSoFar - entry.iCastedTurn == entry.iTurnsActive)
             {
+                // remove the spell from the active spells list
                 localPlayer.Spellcaster.activeSpells.Remove(entry);
                 PanelHolder.instance.displayNotify(entry.sSpellName + " wore off...");
 
-                // removing the text
+                // remove the text from the screen
                 activeSpellsValue.text = activeSpellsValue.text.Replace(entry.sSpellName, "");
             }
         }

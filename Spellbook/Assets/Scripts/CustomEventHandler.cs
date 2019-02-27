@@ -98,11 +98,9 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
             case "mana":
                 int manaCount = (int)UnityEngine.Random.Range(100, 1000);
                 localPlayer.Spellcaster.CollectMana(manaCount);
-                PanelHolder.instance.displayEvent("You found " + manaCount + " mana!");
                 break;
             case "glyph":
-                string collectedGlyph = localPlayer.Spellcaster.CollectRandomGlyph();
-                PanelHolder.instance.displayEvent("You found the " + collectedGlyph + "!");
+                localPlayer.Spellcaster.CollectRandomGlyph();
                 break;
             // we will eventually be taking event spaces out!
             case "event":

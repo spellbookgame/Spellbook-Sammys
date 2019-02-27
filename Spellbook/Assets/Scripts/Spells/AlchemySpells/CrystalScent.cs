@@ -7,7 +7,7 @@ public class CrystalScent : Spell
     public CrystalScent()
     {
         iTier = 3;
-        iManaCost = 100;
+        iManaCost = 500;
         iCoolDown = 0;
         iTurnsActive = 3;
 
