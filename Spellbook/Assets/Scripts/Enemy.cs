@@ -74,8 +74,8 @@ public class Enemy : MonoBehaviour
         localPlayer.Spellcaster.CollectMana(manaCount);
 
         // set text and show in panel
-        string panelText = "You defeated the enemy!\nYou received: " + randomGlyph1 + ", " + randomGlyph2 + ", " + manaCount + " mana.";
-        PanelHolder.instance.displayNotify(panelText);
+        string panelText = "You received: " + randomGlyph1 + ", " + randomGlyph2 + ", " + manaCount + " mana.";
+        PanelHolder.instance.displayNotify("Enemy Defeated!", panelText);
 
         Destroy(this.gameObject);
     }

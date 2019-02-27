@@ -33,16 +33,16 @@ public class Decelerate : Spell
             foreach (KeyValuePair<string, int> kvp in requiredGlyphs)
                 player.glyphs[kvp.Key] -= 1;
 
-            PanelHolder.instance.displayNotify("You cast Decelerate. Your next move dice will roll a 1, 2, or 3.");
+            PanelHolder.instance.displayNotify("You cast " + sSpellName, "Your next move dice will roll a 1, 2, or 3.");
             player.activeSpells.Add(this);
         }
         else if (player.iMana < iManaCost)
         {
-            PanelHolder.instance.displayNotify("You don't have enough mana to cast this spell.");
+            PanelHolder.instance.displayNotify("Not enough mana!", "You don't have enough mana to cast this spell.");
         }
         else
         {
-            PanelHolder.instance.displayNotify("You don't have enough glyphs to cast this spell.");
+            PanelHolder.instance.displayNotify("Not enough glyphs!", "You don't have enough glyphs to cast this spell.");
         }
     }
 }

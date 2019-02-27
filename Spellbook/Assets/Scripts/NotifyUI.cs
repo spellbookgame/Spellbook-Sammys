@@ -6,29 +6,33 @@ using System.Collections;
 //Notifies the player when it is their turn.
 public class NotifyUI : MonoBehaviour
 {
+    public Text titleText;
     public Text infoText;
     public Text buttonText;
     [SerializeField] private Button singleButton;
 
-    public void Display(string text)
+    public void DisplayNotify(string title, string info)
     {
-        infoText.text = text;
+        titleText.text = title;
+        infoText.text = info;
 
         singleButton.onClick.AddListener((okClick));
 
         gameObject.SetActive(true);
     }
-    public void DisplayCombat(string text)
+    public void DisplayCombat(string title, string info)
     {
-        infoText.text = text;
+        titleText.text = title;
+        infoText.text = info;
 
         singleButton.onClick.AddListener((combatClick));
 
         gameObject.SetActive(true);
     }
-    public void DisplayEvent(string text)
+    public void DisplayEvent(string title, string info)
     {
-        infoText.text = text;
+        titleText.text = title;
+        infoText.text = info;
 
         singleButton.onClick.AddListener((eventClick));
 

@@ -36,15 +36,15 @@ public class Playwright : Spell
             foreach(KeyValuePair<string, int> kvp in requiredGlyphs)
                 player.glyphs[kvp.Key] -= 1;
 
-            PanelHolder.instance.displayNotify(sSpellName + " was cast.");
+            PanelHolder.instance.displayNotify("You cast " + sSpellName, "");
         }
-        else if(player.iMana < iManaCost)
+        else if (player.iMana < iManaCost)
         {
-            PanelHolder.instance.displayNotify("You don't have enough mana to cast this spell.");
+            PanelHolder.instance.displayNotify("Not enough mana!", "You don't have enough mana to cast this spell.");
         }
         else
         {
-            PanelHolder.instance.displayNotify("You don't have enough glyphs to cast this spell.");
+            PanelHolder.instance.displayNotify("Not enough glyphs!", "You don't have enough glyphs to cast this spell.");
         }
     }
 }

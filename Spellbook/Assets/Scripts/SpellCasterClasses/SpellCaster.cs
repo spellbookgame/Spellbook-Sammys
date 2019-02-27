@@ -103,11 +103,11 @@ public abstract class SpellCaster
         {
             manaCount += (int)(manaCount * 0.2);
             Debug.Log("Crystal Scent is active, gained 20% more mana");
-            PanelHolder.instance.displayEvent("Brew - Crystal Scent is active, so you found " + manaCount + " mana!");
+            PanelHolder.instance.displayEvent("Brew - Crystal Scent", "You found " + manaCount + " mana!");
         }
         else
         {
-            PanelHolder.instance.displayEvent("You found " + manaCount + " mana!");
+            PanelHolder.instance.displayEvent("You found Mana!", "You earned " + manaCount + " mana.");
         }
         this.iMana += manaCount;
     }
@@ -130,7 +130,7 @@ public abstract class SpellCaster
         string randomKey = glyphList[random];
         this.glyphs[randomKey] += 1;
 
-        PanelHolder.instance.displayEvent("You found a " + randomKey + "!");
+        PanelHolder.instance.displayEvent("You found a Glyph!", "You found a " + randomKey + ".");
 
         return randomKey;
     }

@@ -38,15 +38,15 @@ public class Fireball : Spell
 
             int damage = Random.Range(2, 12);
             enemy.HitEnemy(damage);
-            PanelHolder.instance.displayCombat("You cast Fireball and it did " + damage + " damage!");
+            PanelHolder.instance.displayCombat("You cast " + sSpellName, "It did " + damage + " damage!");
         }
         else if (player.iMana < iManaCost)
         {
-            PanelHolder.instance.displayNotify("You don't have enough mana to cast this spell.");
+            PanelHolder.instance.displayNotify("Not enough mana!", "You don't have enough mana to cast this spell.");
         }
         else
         {
-            PanelHolder.instance.displayNotify("You don't have enough glyphs to cast this spell.");
+            PanelHolder.instance.displayNotify("Not enough glyphs!", "You don't have enough glyphs to cast this spell.");
         }
     }
 }

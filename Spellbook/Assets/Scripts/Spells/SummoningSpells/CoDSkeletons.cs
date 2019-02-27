@@ -39,15 +39,15 @@ public class CoDSkeletons : Spell
 
             int damage = Random.Range(1, 6);
             enemy.HitEnemy(damage);
-            PanelHolder.instance.displayCombat("You summoned a skeleton and inflicted " + damage + " damage!");
+            PanelHolder.instance.displayCombat("You cast " + sSpellName, "The Skeleton did " + damage + " damage!");
         }
         else if (player.iMana < iManaCost)
         {
-            PanelHolder.instance.displayNotify("You don't have enough mana to cast this spell.");
+            PanelHolder.instance.displayNotify("Not enough mana!", "You don't have enough mana to cast this spell.");
         }
         else
         {
-            PanelHolder.instance.displayNotify("You don't have enough glyphs to cast this spell.");
+            PanelHolder.instance.displayNotify("Not enough glyphs!", "You don't have enough glyphs to cast this spell.");
         }
     }
 }

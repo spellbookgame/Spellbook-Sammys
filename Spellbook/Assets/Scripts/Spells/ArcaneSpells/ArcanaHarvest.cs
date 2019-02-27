@@ -34,16 +34,16 @@ public class ArcanaHarvest : Spell
             foreach (KeyValuePair<string, int> kvp in requiredGlyphs)
                 player.glyphs[kvp.Key] -= 1;
             
-            PanelHolder.instance.displayNotify("You cast Arcana Harvest. You will receive double mana/glyphs on the next space you land on.");
+            PanelHolder.instance.displayNotify("You cast " + sSpellName, "You will receive double mana/glyphs on the next space you land on.");
             player.activeSpells.Add(this);
         }
         else if (player.iMana < iManaCost)
         {
-            PanelHolder.instance.displayNotify("You don't have enough mana to cast this spell.");
+            PanelHolder.instance.displayNotify("Not enough mana!", "You don't have enough mana to cast this spell.");
         }
         else
         {
-            PanelHolder.instance.displayNotify("You don't have enough glyphs to cast this spell.");
+            PanelHolder.instance.displayNotify("Not enough glyphs!", "You don't have enough glyphs to cast this spell.");
         }
     }
 }

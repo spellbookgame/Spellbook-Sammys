@@ -98,7 +98,7 @@ public class MainPageHandler : MonoBehaviour
             {
                 // remove the spell from the active spells list
                 localPlayer.Spellcaster.activeSpells.Remove(entry);
-                PanelHolder.instance.displayNotify(entry.sSpellName + " wore off...");
+                PanelHolder.instance.displayNotify(entry.sSpellName, entry.sSpellName + " wore off...");
 
                 // remove the text from the screen
                 activeSpellsValue.text = activeSpellsValue.text.Replace(entry.sSpellName, "");
