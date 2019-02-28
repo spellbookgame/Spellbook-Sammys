@@ -97,7 +97,7 @@ MonoBehaviour:
   m_ChildAlignment: 4
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 390, y: 390}
+  m_CellSize: {x: 200, y: 200}
   m_Spacing: {x: 0, y: 0}
   m_Constraint: 0
   m_ConstraintCount: 2
@@ -229,6 +229,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6804164589233188230, guid: 4b7d82826d3d5404880441b65495d86b,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 6804164589233188230, guid: 4b7d82826d3d5404880441b65495d86b,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -115
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4b7d82826d3d5404880441b65495d86b, type: 3}

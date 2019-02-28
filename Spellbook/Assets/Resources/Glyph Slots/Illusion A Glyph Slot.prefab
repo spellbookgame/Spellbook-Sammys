@@ -97,7 +97,7 @@ MonoBehaviour:
   m_ChildAlignment: 4
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 390, y: 390}
+  m_CellSize: {x: 200, y: 200}
   m_Spacing: {x: 0, y: 0}
   m_Constraint: 0
   m_ConstraintCount: 2
@@ -244,6 +244,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3689037803407285621, guid: 0c89a6e82c5a9b54fb22ada271fa755d,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 3689037803407285621, guid: 0c89a6e82c5a9b54fb22ada271fa755d,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -115
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c89a6e82c5a9b54fb22ada271fa755d, type: 3}
