@@ -27,18 +27,18 @@ public class PanelHolder : MonoBehaviour
         yourTurnPanel.Display();
     }
 
-    public void displayEvent(string evnt)
+    public void displayEvent(string title, string info)
     {
-        notifyPanel.DisplayEvent(evnt);
+        notifyPanel.DisplayEvent(title, info);
     }
 
-    public void displayNotify(string evnt)
+    public void displayNotify(string title, string info)
     {
-        notifyPanel.Display(evnt);
+        notifyPanel.DisplayNotify(title, info);
     }
 
-    public void displayCombat(string evnt)
+    public void displayCombat(string title, string info)
     {
-        notifyPanel.DisplayCombat(evnt);
+        notifyPanel.DisplayCombat(title, info);
     }
 }

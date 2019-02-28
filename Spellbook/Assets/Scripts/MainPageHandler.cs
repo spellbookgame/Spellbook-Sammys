@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -6,6 +7,7 @@ using UnityEngine.UI;
 public class MainPageHandler : MonoBehaviour
 {
     [SerializeField] private Text manaCrystalsValue;
+    [SerializeField] private Text healthValue;
     [SerializeField] private Text activeSpellsValue;
     [SerializeField] private Text classText;
     [SerializeField] private Enemy enemy;
@@ -35,18 +37,24 @@ public class MainPageHandler : MonoBehaviour
         setupMainPage();
     }
 
+    private void Update()
+    {
+        if(localPlayer.Spellcaster.activeSpells.Count > 0)
+            UpdateActiveSpells();
+    }
 
     public void setupMainPage()
     {
         if (GameObject.FindGameObjectWithTag("LocalPlayer") == null) return;
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
         manaCrystalsValue.text = localPlayer.Spellcaster.iMana.ToString();
+        healthValue.text = localPlayer.Spellcaster.fCurrentHealth.ToString();
 
         classText.text = "You are playing as " + localPlayer.Spellcaster.classType;
 
-        foreach (string entry in localPlayer.Spellcaster.activeSpells)
+        foreach (Spell entry in localPlayer.Spellcaster.activeSpells)
         {
-            activeSpellsValue.text = activeSpellsValue.text + entry + "\n";
+            activeSpellsValue.text = activeSpellsValue.text + entry.sSpellName + "\n";
         }
 
         // if an enemy does not exist, create one
@@ -78,5 +86,23 @@ public class MainPageHandler : MonoBehaviour
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
             SceneManager.LoadScene("SpellbookScene");
         });
+    }
+    
+    // changing the list of active spells
+    private void UpdateActiveSpells()
+    {
+        foreach (Spell entry in localPlayer.Spellcaster.chapter.spellsCollected)
+        {
+            // if the player has gone the amount of turns that the spell lasts
+            if (localPlayer.Spellcaster.NumOfTurnsSoFar - entry.iCastedTurn == entry.iTurnsActive)
+            {
+                // remove the spell from the active spells list
+                localPlayer.Spellcaster.activeSpells.Remove(entry);
+                PanelHolder.instance.displayNotify(entry.sSpellName, entry.sSpellName + " wore off...");
+
+                // remove the text from the screen
+                activeSpellsValue.text = activeSpellsValue.text.Replace(entry.sSpellName, "");
+            }
+        }
     }
 }

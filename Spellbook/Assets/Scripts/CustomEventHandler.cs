@@ -97,40 +97,19 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
         {
             case "mana":
                 int manaCount = (int)UnityEngine.Random.Range(100, 1000);
-                if (localPlayer.Spellcaster.activeSpells.Contains("Arcana Harvest"))
-                {
-                    manaCount *= 2;
-                    localPlayer.Spellcaster.CollectMana(manaCount);
-                    PanelHolder.instance.displayEvent("Because of Arcana Harvest, you found double mana and received " + manaCount + " mana!");
-                    localPlayer.Spellcaster.activeSpells.Remove("Arcana Harvest");
-                    break;
-                }
-                else
-                {
-                    localPlayer.Spellcaster.CollectMana(manaCount);
-                    PanelHolder.instance.displayEvent("You found " + manaCount + " mana!");
-                    break;
-                }
+                localPlayer.Spellcaster.CollectMana(manaCount);
+                break;
             case "glyph":
-                string collectedGlyph = localPlayer.Spellcaster.CollectRandomGlyph();
-                if(localPlayer.Spellcaster.activeSpells.Contains("Arcana Harvest"))
-                {
-                    localPlayer.Spellcaster.glyphs[collectedGlyph] += 1;
-                    PanelHolder.instance.displayEvent("Because of Arcana Harvest, you found double glyphs and found 2 " + collectedGlyph + "!");
-                    localPlayer.Spellcaster.activeSpells.Remove("Arcana Harvest");
-                    break;
-                }
-                else
-                {
-                    PanelHolder.instance.displayEvent("You found the " + collectedGlyph + "!");
-                    break;
-                }
+                localPlayer.Spellcaster.CollectRandomGlyph();
+                break;
             // we will eventually be taking event spaces out!
             case "event":
                 EventSpaceManager.instance.executeEventSpace();
                 break;
             case "city":
-                PanelHolder.instance.displayEvent("You landed in the city. Nothing really to see here...");
+                PanelHolder.instance.displayEvent("You landed in the city", "Nothing really to see here...");
+                break;
+            default:
                 break;
         }
     }

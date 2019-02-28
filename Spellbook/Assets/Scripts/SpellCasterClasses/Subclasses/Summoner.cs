@@ -17,10 +17,11 @@ public class Summoner : SpellCaster
         //You can override variables in here.
         classType = "Summoner";
         fMaxHealth = 20.0f;
+        fCurrentHealth = fMaxHealth;
 
         // creating the class-specific chapter
         chapter = new Chapter(classType);
 
-        characterSpritePath = "Characters/Summoner casting";
+        characterSpritePath = "Characters/Summoner";
     }
 }

@@ -7,10 +7,6 @@ using UnityEngine.UI;
 // slider from https://www.youtube.com/watch?v=GfuxWs6UAJQ
 public class CombatHandler : MonoBehaviour
 {
-    // serializefield private variables
-    [SerializeField] private GameObject Panel_help;
-    [SerializeField] private Text Text_mana;
-
     // buttons
     [SerializeField] private Button attackButton;
     [SerializeField] private Button mainButton;
@@ -23,9 +19,6 @@ public class CombatHandler : MonoBehaviour
     // for the enemy
     [SerializeField] private Slider Slider_enemyHealthBar;
     [SerializeField] private Text Text_enemyHealthText;
-
-    // private variables
-    private bool bHelpOpen = false;
 
     Player localPlayer;
     Enemy enemy;
@@ -49,7 +42,10 @@ public class CombatHandler : MonoBehaviour
 
     private void Update()
     {
-        Text_mana.text = localPlayer.Spellcaster.iMana.ToString();
+        if (Input.GetKeyDown(KeyCode.X))
+            localPlayer.Spellcaster.TakeDamage(6);
+        if (Input.GetKeyDown(KeyCode.C))
+            enemy.HitEnemy(6);
 
         // collect spell pieces
         if (Input.GetKeyDown(KeyCode.Alpha1) && enemy.fCurrentHealth > 0)
@@ -128,23 +124,6 @@ public class CombatHandler : MonoBehaviour
         Text_enemyHealthText.text = enemy.fCurrentHealth.ToString();
     }
 
-
-// ---------------------------------------------- BUTTONS ----------------------------------------------------
-    // when help button is clicked
-    public void helpClick()
-    {
-        if (bHelpOpen == false)
-        {
-            Panel_help.SetActive(true);
-            bHelpOpen = true;
-        }
-        else if (bHelpOpen == true)
-        {
-            Panel_help.SetActive(false);
-            bHelpOpen = false;
-        }
-    }
-
     // player's basic attack
     public void attackClick()
     {
@@ -157,7 +136,7 @@ public class CombatHandler : MonoBehaviour
         }
         else
         {
-            PanelHolder.instance.displayNotify("You already attacked this turn.");
+            PanelHolder.instance.displayNotify("Oops!", "You already attacked this turn.");
         }
     }
 
@@ -168,19 +147,17 @@ public class CombatHandler : MonoBehaviour
         {
             Debug.Log("local player is null");
         }
-        enemy = GameObject.FindGameObjectWithTag("Enemy").GetComponent<Enemy>();
 
-        // setting player's current health to equal max health
-        localPlayer.Spellcaster.fCurrentHealth = localPlayer.Spellcaster.fMaxHealth;
+        // check to see if enemy exists
+        if(GameObject.FindGameObjectWithTag("Enemy"))
+            enemy = GameObject.FindGameObjectWithTag("Enemy").GetComponent<Enemy>();
 
-        // setting the slider and text value to max health
+        // setting the slider and text value to current health
         Slider_healthbar.value = CalculatePlayerHealth();
         Text_healthtext.text = localPlayer.Spellcaster.fCurrentHealth.ToString();
 
         Slider_enemyHealthBar.value = CalculateEnemyHealth();
         Text_enemyHealthText.text = enemy.fCurrentHealth.ToString();
-
-        Text_mana.text = localPlayer.Spellcaster.iMana.ToString();
 
         // adding onclick listeners to buttons
         attackButton.onClick.AddListener(() =>

@@ -55,18 +55,18 @@ public class SpellCollectionHandler : MonoBehaviour
     private void showSpellInfo(Spell spell)
     {
         // if the panel still has glyphs in it, return them to the glyph container
-        if(glyphPanel.transform.childCount > 0)
+        while(glyphPanel.transform.childCount > 0)
         {
-            foreach(Transform child in glyphPanel.transform)
-            {
-                child.SetParent(glyphContainer.transform);
-                child.localPosition = Vector3.zero;
-            }
+            Transform child = glyphPanel.transform.GetChild(0);
+            child.SetParent(glyphContainer.transform);
+            child.localPosition = Vector3.zero;
         }
 
         spellInfoPanel.transform.GetChild(0).GetComponent<Text>().text = spell.sSpellName;
-        spellInfoPanel.transform.GetChild(1).GetComponent<Text>().text = spell.sSpellInfo + "\n\nRequired Glyphs";
+        spellInfoPanel.transform.GetChild(1).GetComponent<Text>().text = "Tier: " + spell.iTier.ToString();
+        spellInfoPanel.transform.GetChild(2).GetComponent<Text>().text = spell.sSpellInfo;
         
+        // add glyph images to the panel to show player required glyphs
         foreach (KeyValuePair<string, int> kvp in spell.requiredGlyphs)
         {
             string glyphName = kvp.Key;

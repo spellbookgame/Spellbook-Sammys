@@ -17,6 +17,7 @@ public class Alchemist : SpellCaster
         //You can override variables in here.
         classType = "Alchemist";
         fMaxHealth = 20.0f;
+        fCurrentHealth = fMaxHealth;
 
         // creating the class-specific chapter
         chapter = new Chapter(classType);

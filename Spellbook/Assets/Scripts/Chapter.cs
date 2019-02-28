@@ -26,28 +26,54 @@ public class Chapter : MonoBehaviour
             case "Alchemist":
                 Spell toxicPotion = new ToxicPotion();
                 spellsAllowed.Add(toxicPotion);
+                Spell crystalScent = new CrystalScent();
+                spellsAllowed.Add(crystalScent);
+                Spell charmingNegotiator = new CharmingNegotiator();
+                spellsAllowed.Add(charmingNegotiator);
+                Spell potionOfBlessing = new PotionofBlessing();
+                spellsAllowed.Add(potionOfBlessing);
                 break;
             case "Arcanist":
                 Spell arcaneConversion = new ArcaneConversion();
                 spellsAllowed.Add(arcaneConversion);
                 Spell arcanaHarvest = new ArcanaHarvest();
                 spellsAllowed.Add(arcanaHarvest);
-                break;
-            case "Summoner":
-                Spell codSkeletons = new CoDSkeletons();
-                spellsAllowed.Add(codSkeletons);
+                Spell combinedKnowledge = new CombinedKnowledge();
+                spellsAllowed.Add(combinedKnowledge);
+                Spell transcribe = new Transcribe();
+                spellsAllowed.Add(transcribe);
                 break;
             case "Chronomancer":
                 Spell decelerate = new Decelerate();
                 spellsAllowed.Add(decelerate);
+                Spell teleport = new Teleport();
+                spellsAllowed.Add(teleport);
+                Spell doubleTime = new DoubleTime();
+                spellsAllowed.Add(doubleTime);
                 break;
             case "Elementalist":
                 Spell fireball = new Fireball();
                 spellsAllowed.Add(fireball);
+                Spell elementalOrb = new ElementalOrb();
+                spellsAllowed.Add(elementalOrb);
+                Spell naturalDisaster = new NaturalDisaster();
+                spellsAllowed.Add(naturalDisaster);
+                break;
+            case "Summoner":
+                Spell codSkeletons = new CoDSkeletons();
+                spellsAllowed.Add(codSkeletons);
+                Spell cowRaven = new CoWRaven();
+                spellsAllowed.Add(cowRaven);
+                Spell cosLeon = new CoSLeon();
+                spellsAllowed.Add(cosLeon);
                 break;
             case "Trickster":
                 Spell playwright = new Playwright();
                 spellsAllowed.Add(playwright);
+                Spell marionetteCatharsis = new MarionetteCatharsis();
+                spellsAllowed.Add(marionetteCatharsis);
+                Spell playBack = new Playback();
+                spellsAllowed.Add(playBack);
                 break;
             default:
                 break;
@@ -78,13 +104,13 @@ public class Chapter : MonoBehaviour
                     // if equal and player does not have the spell yet
                     if (equal && !player.chapter.spellsCollected.Contains(player.chapter.spellsAllowed[i]))
                     {
-                        player.CollectSpell(player.chapter.spellsAllowed[i], player);
+                        player.CollectSpell(player.chapter.spellsAllowed[i]);
                         break;
                     }
                 }
             }
-            // tier 2 spells: need 3 required pieces
-            else if(player.chapter.spellsAllowed[i].iTier == 2)
+            // tier 2 spells: need 2 required pieces
+            else if(player.chapter.spellsAllowed[i].iTier == 2 || player.chapter.spellsAllowed[i].iTier == 1)
             {
                 foreach(KeyValuePair<string, int> kvp in dictionary2)
                 {
@@ -100,22 +126,8 @@ public class Chapter : MonoBehaviour
                 }
                 if (equal && !player.chapter.spellsCollected.Contains(player.chapter.spellsAllowed[i]))
                 {
-                    player.CollectSpell(player.chapter.spellsAllowed[i], player);
+                    player.CollectSpell(player.chapter.spellsAllowed[i]);
                     break;
-                }
-            }
-            // tier 1 spell: need 4 required pieces
-            else if(player.chapter.spellsAllowed[i].iTier == 1)
-            {
-                if(dictionary1.Keys.Count == dictionary2.Keys.Count && dictionary1.Keys.All(k => dictionary2.ContainsKey(k) 
-                    && object.Equals(dictionary2[k], dictionary1[k])))
-                {
-                    equal = true;
-                    if (equal)
-                    {
-                        player.CollectSpell(player.chapter.spellsAllowed[i], player);
-                        break;
-                    }
                 }
             }
         }
