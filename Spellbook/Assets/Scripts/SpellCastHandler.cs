@@ -19,7 +19,7 @@ public class SpellCastHandler : MonoBehaviour
     {
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
 
-        int yPos = 880;
+        int yPos = 780;
         // add buttons for each spell the player has collected
         for (int i = 0; i < localPlayer.Spellcaster.chapter.spellsCollected.Count; i++)
         {
@@ -34,7 +34,7 @@ public class SpellCastHandler : MonoBehaviour
             newSpellButton.onClick.AddListener(() => localPlayer.Spellcaster.chapter.spellsCollected[i2].SpellCast(localPlayer.Spellcaster));
 
             // to position new button underneath prev button
-            yPos -= 200;
+            yPos -= 150;
         }
 
         // adding onclick listeners to buttons

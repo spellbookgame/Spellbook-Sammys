@@ -33,7 +33,7 @@ public class SpellCollectionHandler : MonoBehaviour
             SceneManager.LoadScene("SpellbookScene");
         });
 
-        int yPos = 850;
+        int yPos = 780;
         // add buttons for each spell the player can collect
         for (int i = 0; i < localPlayer.Spellcaster.chapter.spellsAllowed.Count; i++)
         {
@@ -48,7 +48,7 @@ public class SpellCollectionHandler : MonoBehaviour
             newSpellButton.onClick.AddListener(() => showSpellInfo(localPlayer.Spellcaster.chapter.spellsAllowed[i2]));
 
             // to position new button underneath prev button
-            yPos -= 200;
+            yPos -= 150;
         }
     }
 
