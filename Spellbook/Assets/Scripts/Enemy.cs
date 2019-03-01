@@ -53,12 +53,14 @@ public class Enemy : MonoBehaviour
     public void HitEnemy(float damage)
     {
         if(fCurrentHealth > 0)
+        {
             fCurrentHealth -= damage;
 
-        if (fCurrentHealth <= 0)
-        {
-            fCurrentHealth = 0;
-            EnemyDefeated();
+            if (fCurrentHealth <= 0)
+            {
+                fCurrentHealth = 0;
+                EnemyDefeated();
+            }
         }
     }
 
