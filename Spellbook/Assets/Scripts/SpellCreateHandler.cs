@@ -9,7 +9,7 @@ using UnityEngine.UI;
  * this script creates a builder that builds strings of item 
  * names as they are dropped into slots 
  */
-public class SpellManager : MonoBehaviour, IHasChanged
+public class SpellCreateHandler : MonoBehaviour, IHasChanged
 {
     [SerializeField] Transform slots;
     [SerializeField] public Text inventoryText;
@@ -137,7 +137,7 @@ public class SpellManager : MonoBehaviour, IHasChanged
         {
             for (int i = 4; i < iSlotCount; ++i)
             {
-                panelRect.sizeDelta = new Vector2((float)panelRect.sizeDelta.x + 400, panelRect.sizeDelta.y);
+                panelRect.sizeDelta = new Vector2((float)panelRect.sizeDelta.x + 250, panelRect.sizeDelta.y);
             }
         }
     }

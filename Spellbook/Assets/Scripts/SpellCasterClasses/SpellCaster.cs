@@ -176,7 +176,7 @@ public abstract class SpellCaster
             // if chapter.spellsAllowed already contains spell, give error notice
             if (chapter.spellsCollected.Contains(spell))
             {
-                g.GetComponent<SpellManager>().inventoryText.text = "You already have " + spell.sSpellName + ".";
+                g.GetComponent<SpellCreateHandler>().inventoryText.text = "You already have " + spell.sSpellName + ".";
             }
             else
             {
@@ -184,7 +184,7 @@ public abstract class SpellCaster
                 chapter.spellsCollected.Add(spell);
 
                 // tell player that the spell is collected
-                g.GetComponent<SpellManager>().inventoryText.text = "You unlocked " + spell.sSpellName + "!";
+                g.GetComponent<SpellCreateHandler>().inventoryText.text = "You unlocked " + spell.sSpellName + "!";
                 Debug.Log("In your chapter you have:");
                 for (int i = 0; i < chapter.spellsCollected.Count; ++i)
                     Debug.Log(chapter.spellsCollected[i].sSpellName);
@@ -192,7 +192,7 @@ public abstract class SpellCaster
                 Debug.Log("You have " + chapter.spellsCollected.Count + " spells collected.");
 
                 // call function that removes prefabs in SpellManager.cs
-                g.GetComponent<SpellManager>().RemovePrefabs(spell);
+                g.GetComponent<SpellCreateHandler>().RemovePrefabs(spell);
             }
         }
     }

@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 // script from Kiwasi Games
 public class SlotHandler : MonoBehaviour, IDropHandler
 {
-    SpellManager spellManager;
+    SpellCreateHandler spellCreateHandler;
     Player localPlayer;
 
     public GameObject item
@@ -23,7 +23,7 @@ public class SlotHandler : MonoBehaviour, IDropHandler
 
     void Start()
     {
-        spellManager = GameObject.Find("Canvas").GetComponent<SpellManager>();
+        spellCreateHandler = GameObject.Find("Canvas").GetComponent<SpellCreateHandler>();
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
     }
 
@@ -53,7 +53,7 @@ public class SlotHandler : MonoBehaviour, IDropHandler
     public void OnDrop(PointerEventData eventData)
     {
         // play drop sound
-        SoundManager.instance.PlaySingle(spellManager.placespellpiece);
+        SoundManager.instance.PlaySingle(spellCreateHandler.placespellpiece);
 
         // if the slot contains an item and it is a child of the spell pieces panel, destroy itemToDrag
         if (item && transform.parent.name.Equals("panel_spellpieces"))
@@ -62,10 +62,10 @@ public class SlotHandler : MonoBehaviour, IDropHandler
             localPlayer.Spellcaster.glyphs[DragHandler.itemToDrag.name] += 1;
 
             // remove it from dictionary to compare
-            if (DragHandler.itemToDrag && spellManager.slotPieces.ContainsKey(DragHandler.itemToDrag.name))
+            if (DragHandler.itemToDrag && spellCreateHandler.slotPieces.ContainsKey(DragHandler.itemToDrag.name))
             {
-                spellManager.slotPieces[DragHandler.itemToDrag.name] -= 1;
-                Debug.Log(DragHandler.itemToDrag.name + spellManager.slotPieces[DragHandler.itemToDrag.name]);
+                spellCreateHandler.slotPieces[DragHandler.itemToDrag.name] -= 1;
+                Debug.Log(DragHandler.itemToDrag.name + spellCreateHandler.slotPieces[DragHandler.itemToDrag.name]);
             }
             Destroy(DragHandler.itemToDrag.gameObject);
 
@@ -86,16 +86,16 @@ public class SlotHandler : MonoBehaviour, IDropHandler
             if (transform.parent.name.Equals("panel_spellpage"))
             {
                 // if the spell piece is a duplicate, increment its value
-                if (spellManager.slotPieces.ContainsKey(transform.GetChild(0).name))
+                if (spellCreateHandler.slotPieces.ContainsKey(transform.GetChild(0).name))
                 {
-                    spellManager.slotPieces[transform.GetChild(0).name] += 1;
+                    spellCreateHandler.slotPieces[transform.GetChild(0).name] += 1;
                 }
                 else
                 {
-                    spellManager.slotPieces.Add(transform.GetChild(0).name, 1);
+                    spellCreateHandler.slotPieces.Add(transform.GetChild(0).name, 1);
                 }
                 Debug.Log("Added " + transform.GetChild(0).name + " to dictionary");
-                Debug.Log("Slot count: " + spellManager.slotPieces.Count);
+                Debug.Log("Slot count: " + spellCreateHandler.slotPieces.Count);
             }
         }
     }
