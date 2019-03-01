@@ -9,6 +9,7 @@ public class Accelerate : Spell
         iTier = 3;
         iManaCost = 400;
         iCoolDown = 0;
+        iTurnsActive = 2;
 
         sSpellName = "Accelerate";
         sSpellClass = "Chronomancer";

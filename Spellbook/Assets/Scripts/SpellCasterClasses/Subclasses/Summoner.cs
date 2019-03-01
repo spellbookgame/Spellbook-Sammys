@@ -23,5 +23,6 @@ public class Summoner : SpellCaster
         chapter = new Chapter(classType);
 
         characterSpritePath = "Characters/Summoner";
+        characterBackgroundPath = "Characters/Summoner bgd";
     }
 }

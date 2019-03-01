@@ -11,6 +11,7 @@ public class SpellbookHandler : MonoBehaviour
     [SerializeField] private Button mainButton;
     [SerializeField] private Button collectionButton;
     [SerializeField] private Text glyphText;
+    [SerializeField] private Text activeSpellsText;
 
     Player localPlayer;
 
@@ -47,6 +48,12 @@ public class SpellbookHandler : MonoBehaviour
             {
                 glyphText.text = glyphText.text + kvp.Key + ": " + kvp.Value + "\n";
             }
+        }
+
+        // show player's active spells
+        foreach (Spell entry in localPlayer.Spellcaster.activeSpells)
+        {
+            activeSpellsText.text = activeSpellsText.text + entry.sSpellName + "\n";
         }
     }
 }

@@ -23,5 +23,6 @@ public class Chronomancer : SpellCaster
         chapter = new Chapter(classType);
 
         characterSpritePath = "Characters/Chronomancer";
+        characterBackgroundPath = "Characters/Chronomancer bgd";
     }
 }

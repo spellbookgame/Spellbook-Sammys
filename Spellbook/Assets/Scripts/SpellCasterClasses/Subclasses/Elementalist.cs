@@ -22,5 +22,6 @@ public class Elementalist : SpellCaster
         chapter = new Chapter(classType);
 
         characterSpritePath = "Characters/ElementalWizardFlat";
+        characterBackgroundPath = "Characters/Elementalist bgd";
     }
 }

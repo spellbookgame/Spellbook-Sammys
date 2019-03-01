@@ -22,5 +22,6 @@ public class Trickster : SpellCaster
         chapter = new Chapter(classType);
 
         characterSpritePath = "Characters/Trickster";
+        characterBackgroundPath = "Characters/Trickster bgd";
     }
 }

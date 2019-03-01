@@ -23,5 +23,6 @@ public class Alchemist : SpellCaster
         chapter = new Chapter(classType);
 
         characterSpritePath = "Characters/AlchemyWizardFlat";
+        characterBackgroundPath = "Characters/Alchemist bgd";
     }
 }
