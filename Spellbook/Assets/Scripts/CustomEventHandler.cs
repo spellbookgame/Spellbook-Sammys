@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 using Vuforia;
 
 public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
@@ -11,11 +9,9 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
     protected TrackableBehaviour.Status m_PreviousStatus;
     protected TrackableBehaviour.Status m_NewStatus;
 
-    [SerializeField] private GameObject panel;
-    private bool panelOpen = false;
-
     private Coroutine coroutineReference;
     private bool CR_running;
+    private bool spaceScanned = false;
 
     Player localPlayer;
     
@@ -84,7 +80,7 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
         CR_running = false;
 
         // only track once; after a space is scanned, do not scan anymore
-        if(!panelOpen)
+        if(!spaceScanned)
         {
             OnTrackingFound();
         }
@@ -102,15 +98,24 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
             case "glyph":
                 localPlayer.Spellcaster.CollectRandomGlyph();
                 break;
-            // we will eventually be taking event spaces out!
-            case "event":
-                EventSpaceManager.instance.executeEventSpace();
-                break;
             case "city":
                 PanelHolder.instance.displayEvent("You landed in the city", "Nothing really to see here...");
+                break;
+            case "alchemy_mana":
+                PanelHolder.instance.displayEvent("Alchemy Mana", "Alchemy mana scanned");
+                break;
+            case "arcane_mana":
+                PanelHolder.instance.displayEvent("Arcane Mana", "Arcane mana scanned");
+                break;
+            case "alchemy_city":
+                PanelHolder.instance.displayEvent("Alchemy City", "Alchemy city scanned");
+                break;
+            case "arcane_city":
+                PanelHolder.instance.displayEvent("Arcane City", "Arcane city scanned");
                 break;
             default:
                 break;
         }
+        spaceScanned = true;
     }
 }
