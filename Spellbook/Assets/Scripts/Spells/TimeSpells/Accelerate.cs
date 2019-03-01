@@ -2,21 +2,19 @@
 using UnityEngine;
 
 // spell for Chronomancy class
-public class DoubleTime : Spell
+public class Accelerate : Spell
 {
-    public DoubleTime()
+    public Accelerate()
     {
-        iTier = 1;
-        iManaCost = 4000;
-        iCoolDown = 3;
+        iTier = 3;
+        iManaCost = 400;
+        iCoolDown = 0;
 
-        sSpellName = "Double Time";
+        sSpellName = "Accelerate";
         sSpellClass = "Chronomancer";
-        sSpellInfo = "Take two turns this round. Can cast on an ally.";
+        sSpellInfo = "Your next move dice will roll a 5 or a 6. Can cast on an ally.";
 
-        requiredGlyphs.Add("Time A Glyph", 1);
-        requiredGlyphs.Add("Time B Glyph", 1);
-        requiredGlyphs.Add("Arcane A Glyph", 1);
+        requiredGlyphs.Add("Time D Glyph", 1);
     }
 
     public override void SpellCast(SpellCaster player)
@@ -35,7 +33,8 @@ public class DoubleTime : Spell
             foreach (KeyValuePair<string, int> kvp in requiredGlyphs)
                 player.glyphs[kvp.Key] -= 1;
 
-            PanelHolder.instance.displayNotify("You cast " + sSpellName, "");
+            PanelHolder.instance.displayNotify("You cast " + sSpellName, "Your next move dice will roll a 5 or 6.");
+            player.activeSpells.Add(this);
         }
         else if (player.iMana < iManaCost)
         {

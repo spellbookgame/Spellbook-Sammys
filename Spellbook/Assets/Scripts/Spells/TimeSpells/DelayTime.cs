@@ -2,19 +2,21 @@
 using UnityEngine;
 
 // spell for Chronomancy class
-public class Decelerate : Spell
+public class DelayTime : Spell
 {
-    public Decelerate()
+    public DelayTime()
     {
-        iTier = 3;
-        iManaCost = 100;
-        iCoolDown = 0;
+        iTier = 1;
+        iManaCost = 3000;
+        iCoolDown = 5;
 
-        sSpellName = "Decelerate";
+        sSpellName = "Delay Time";
         sSpellClass = "Chronomancer";
-        sSpellInfo = "Your next move dice will roll a one, two, or a three. Can cast on an ally.";
+        sSpellInfo = "Delay the amount of time before the next global event by one turn.";
 
-        requiredGlyphs.Add("Time D Glyph", 1);
+        requiredGlyphs.Add("Time A Glyph", 1);
+        requiredGlyphs.Add("Time B Glyph", 1);
+        requiredGlyphs.Add("Arcane A Glyph", 1);
     }
 
     public override void SpellCast(SpellCaster player)
@@ -33,8 +35,7 @@ public class Decelerate : Spell
             foreach (KeyValuePair<string, int> kvp in requiredGlyphs)
                 player.glyphs[kvp.Key] -= 1;
 
-            PanelHolder.instance.displayNotify("You cast " + sSpellName, "Your next move dice will roll a 1, 2, or 3.");
-            player.activeSpells.Add(this);
+            PanelHolder.instance.displayNotify("You cast " + sSpellName, "The next event will come 1 turn later.");
         }
         else if (player.iMana < iManaCost)
         {

@@ -44,12 +44,12 @@ public class Chapter : MonoBehaviour
                 spellsAllowed.Add(transcribe);
                 break;
             case "Chronomancer":
-                Spell decelerate = new Decelerate();
-                spellsAllowed.Add(decelerate);
+                Spell accelerate = new Accelerate();
+                spellsAllowed.Add(accelerate);
                 Spell teleport = new Teleport();
                 spellsAllowed.Add(teleport);
-                Spell doubleTime = new DoubleTime();
-                spellsAllowed.Add(doubleTime);
+                Spell delayTime = new DelayTime();
+                spellsAllowed.Add(delayTime);
                 break;
             case "Elementalist":
                 Spell fireball = new Fireball();
