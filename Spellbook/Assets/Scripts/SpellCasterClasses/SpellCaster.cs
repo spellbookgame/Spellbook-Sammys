@@ -26,6 +26,7 @@ public abstract class SpellCaster
     // reference to the character's sprite/background
     public string characterSpritePath;
     public string characterBackgroundPath;
+    public string characterIconPath;
 
     // TODO:
     //private string backGroundStory; 

@@ -86,14 +86,13 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
             OnTrackingFound();
         }
     }
-
-    #region board_space_handling
+    
     private void scanItem(string trackableName)
     {
         // call function based on target name
         switch (trackableName)
         {
-            // mana spaces
+            #region mana_spaces
             case "alchemist_mana":
                 int r1 = (int)UnityEngine.Random.Range(100, 700);
                 localPlayer.Spellcaster.CollectMana(r1);
@@ -118,8 +117,9 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
                 int r6 = (int)UnityEngine.Random.Range(100, 700);
                 localPlayer.Spellcaster.CollectMana(r6);
                 break;
+            #endregion
 
-            // city spaces
+            #region city_spaces
             case "alchemist_city":
                 PanelHolder.instance.displayEvent("Alchemist city", "Nothing really to see here...");
                 break;
@@ -138,8 +138,9 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
             case "summoner_city":
                 PanelHolder.instance.displayEvent("Summoner city", "Nothing really to see here...");
                 break;
+            #endregion
 
-            // glyph spaces
+            #region glyph_spaces
             case "alchemist_glyph":
                 localPlayer.Spellcaster.CollectRandomGlyph();
                 break;
@@ -158,8 +159,9 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
             case "summoner_glyph":
                 localPlayer.Spellcaster.CollectRandomGlyph();
                 break;
+            #endregion
 
-            // item spaces
+            #region item_spaces
             case "alchemist_item":
                 PanelHolder.instance.displayEvent("Alchemist item", "You got a [item name] item!");
                 break;
@@ -178,10 +180,11 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
             case "summoner_item":
                 PanelHolder.instance.displayEvent("Summoner item", "You got a [item name] item!");
                 break;
+            #endregion
+
             default:
                 break;
         }
         spaceScanned = true;
     }
-    #endregion
 }

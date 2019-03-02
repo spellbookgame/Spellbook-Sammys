@@ -10,8 +10,10 @@ public class MainPageHandler : MonoBehaviour
     [SerializeField] private Text manaCrystalsValue;
     [SerializeField] private Text healthValue;
     [SerializeField] private Enemy enemy;
+
     [SerializeField] private Image characterImage;
     [SerializeField] private Image backgroundImage;
+    [SerializeField] private Image symbolImage;
 
     [SerializeField] private Button scanButton;
     [SerializeField] private Button combatButton;
@@ -67,6 +69,9 @@ public class MainPageHandler : MonoBehaviour
 
         // set background image based on class
         backgroundImage.sprite = Resources.Load<Sprite>(localPlayer.Spellcaster.characterBackgroundPath);
+
+        // set class symbol image based on class
+        symbolImage.sprite = Resources.Load<Sprite>(localPlayer.Spellcaster.characterIconPath);
 
         // set onclick listeners for buttons
         scanButton.onClick.AddListener(() =>
