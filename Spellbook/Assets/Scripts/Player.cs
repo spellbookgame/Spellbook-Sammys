@@ -1,15 +1,17 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Player : Bolt.EntityEventListener<ISpellcasterState>
 {
+
     //TODO: Change to private when done testing.
     public bool bIsMyTurn = false;
     
     //The player's chosen spellcaster class.
-    private SpellCaster spellcaster;
+    public SpellCaster spellcaster;
 
     // References to the turn order for all players combined.
     private int currentTurn = 0;
@@ -18,7 +20,7 @@ public class Player : Bolt.EntityEventListener<ISpellcasterState>
 
     // Remains -1 if you do not control this player.
     // TODO: Change to private when done testing.
-    public int spellcasterClass = -1;
+    public int spellcasterID = -1;
 
     public SpellCaster Spellcaster {
         get => spellcaster;
@@ -35,14 +37,16 @@ public class Player : Bolt.EntityEventListener<ISpellcasterState>
     }
 
     /* Setup for play */
-    public void setup(int spellcasterID)
+    public void setup(int id)
     {
         if (entity.isOwner)
         {
-            spellcasterClass = spellcasterID;
+            chooseSpellcaster(id);
             BoltConsole.Write("Initialized LocalPlayer with Spellcaster ID " + spellcasterID);
             state.SpellcasterClass = spellcasterID;
-            chooseSpellcaster(spellcasterID);
+           
+          
+            
             spellcasterTurnOrder = new ArrayList();
             StartCoroutine(determineTurnOrder());
             gameObject.tag = "LocalPlayer";
@@ -78,7 +82,7 @@ public class Player : Bolt.EntityEventListener<ISpellcasterState>
             listIds = listIds + ", " + spellcasterTurnOrder[i];
         }
         BoltConsole.Write("All SpellcasterIds: " + listIds);
-        if (spellcasterClass == (int)spellcasterTurnOrder[0])
+        if (spellcasterID == (int)spellcasterTurnOrder[0])
         {
             BoltConsole.Write("My Turn");
             numTurnsIHad++;
@@ -87,34 +91,55 @@ public class Player : Bolt.EntityEventListener<ISpellcasterState>
             PanelHolder panelHolder = GameObject.Find("PanelHolder").GetComponent<PanelHolder>();
             panelHolder.displayYourTurn();
         }
+        //saveData();
         //BoltConsole.print("Time done: " + Time.time);
         
     }
 
     private void chooseSpellcaster(int num)
     {
+        bool loaded = false;
         switch (num)
         {
+            case -1:
+                spellcaster = SpellCaster.loadPlayerData();
+                spellcasterID = spellcaster.spellcasterID;
+                loaded = true;
+                break;
             case 0:
                 spellcaster = new Alchemist();
+                spellcasterID = 0;
                 break;
             case 1:
                 spellcaster = new Arcanist();
+                spellcasterID = 1;
                 break;
             case 2:
                 spellcaster = new Elementalist();
+                spellcasterID = 2;
                 break;
             case 3:
                 spellcaster = new Chronomancer();
+                spellcasterID = 3;
                 break;
             case 4:
                 spellcaster = new Trickster();
+                spellcasterID = 4;
                 break;
             case 5:
                 spellcaster = new Summoner();
+                spellcasterID = 5;
                 break;
         }
+        if (!loaded)
+        {
+            SpellCaster.savePlayerData(spellcaster);
+        }
+       
     }
+
+    
+
     #region turn_handlers
 
     /* Called when player clicks the end turn button. 
@@ -145,7 +170,7 @@ public class Player : Bolt.EntityEventListener<ISpellcasterState>
         BoltConsole.Write("NextTurnEvent()");
         currentTurn++;
         if (currentTurn > spellcasterTurnOrder.Count - 1) currentTurn = 0;
-        if((int) spellcasterTurnOrder[currentTurn] == spellcasterClass)
+        if((int) spellcasterTurnOrder[currentTurn] == spellcasterID)
         {
             BoltConsole.Write("Its my turn.");
             numTurnsIHad++;

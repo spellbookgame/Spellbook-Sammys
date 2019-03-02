@@ -16,11 +16,12 @@ namespace Bolt.Samples.Photon.Lobby
         static public LobbyManager s_Singleton;
         BoltEntity characterSelection;
         BoltEntity playerEntity;
+        BoltEntity gameStateEntity;
         [Header("Lobby Configuration")]
         public SceneField lobbyScene;
         public SceneField gameScene;
         public int minPlayers = 2;
-        public int localPlayerSpellcasterID;
+        public int localPlayerSpellcasterID = -1;
 
         [Header("UI Lobby")]
         [Tooltip("Time in second between all players ready & match start")]
@@ -240,6 +241,7 @@ namespace Bolt.Samples.Photon.Lobby
 
                 // Build Server Entity
                 BoltEntity entity = BoltNetwork.Instantiate(BoltPrefabs.CharacterSelectionEntity);
+                
                 entity.TakeControl();
                 startGameButton.SetActive(true);
 

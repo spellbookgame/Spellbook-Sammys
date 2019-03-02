@@ -1938,6 +1938,10 @@ PrefabInstance:
       propertyPath: easyModeButton
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 11475086, guid: c0978251ff7b10d4fb954a4b56acd9f0, type: 3}
+      propertyPath: localPlayerSpellcasterID
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 22459552, guid: c0978251ff7b10d4fb954a4b56acd9f0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2792,6 +2796,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: SoundManager
       objectReference: {fileID: 0}
+    - target: {fileID: 7657592968730287289, guid: 647537f2318593846b3dc8974a14df53,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 9725d67e5b5a65445b9ad99d9007b1bc, type: 3}
+    - target: {fileID: 7657592968730287289, guid: 647537f2318593846b3dc8974a14df53,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.7
+      objectReference: {fileID: 0}
     - target: {fileID: 7657592968730287295, guid: 647537f2318593846b3dc8974a14df53,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2846,16 +2860,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7657592968730287289, guid: 647537f2318593846b3dc8974a14df53,
-        type: 3}
-      propertyPath: m_audioClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 9725d67e5b5a65445b9ad99d9007b1bc, type: 3}
-    - target: {fileID: 7657592968730287289, guid: 647537f2318593846b3dc8974a14df53,
-        type: 3}
-      propertyPath: m_Volume
-      value: 0.7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 647537f2318593846b3dc8974a14df53, type: 3}

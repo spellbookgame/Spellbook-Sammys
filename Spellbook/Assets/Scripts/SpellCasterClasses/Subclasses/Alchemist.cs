@@ -16,6 +16,7 @@ public class Alchemist : SpellCaster
         
         //You can override variables in here.
         classType = "Alchemist";
+        spellcasterID = 0;
         fMaxHealth = 20.0f;
         fCurrentHealth = fMaxHealth;
 

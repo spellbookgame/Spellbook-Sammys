@@ -15,6 +15,7 @@ public class Arcanist : SpellCaster
     {
         //You can override variables in here.
         classType = "Arcanist";
+        spellcasterID = 1;
         fMaxHealth = 20.0f;
         fCurrentHealth = fMaxHealth;
 

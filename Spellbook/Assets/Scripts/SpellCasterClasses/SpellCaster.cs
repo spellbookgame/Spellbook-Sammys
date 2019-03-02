@@ -1,13 +1,17 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
 /*
  A base class that all SpellCaster types/classes will inherit from.
      */
+
 public abstract class SpellCaster 
 {
-    private int numOfTurnsSoFar = 0;
+    public int numOfTurnsSoFar = 0;
 
     public float fMaxHealth;
     public float fCurrentHealth;
@@ -16,6 +20,7 @@ public abstract class SpellCaster
     public int iMana;
     
     public string classType;
+    public int spellcasterID;
     public bool hasAttacked;
     public Chapter chapter;
 
@@ -132,7 +137,7 @@ public abstract class SpellCaster
     public string CollectRandomGlyph()
     {
         List<string> glyphList = new List<string>(this.glyphs.Keys);
-        int random = (int)Random.Range(0, glyphList.Count + 1);
+        int random = (int)UnityEngine.Random.Range(0, glyphList.Count + 1);
 
         string randomKey = glyphList[random];
 
@@ -153,7 +158,7 @@ public abstract class SpellCaster
     public string LoseRandomGlyph()
     {
         List<string> glyphList = new List<string>(this.glyphs.Keys);
-        int random = (int)Random.Range(0, glyphList.Count);
+        int random = (int)UnityEngine.Random.Range(0, glyphList.Count);
 
         string randomKey = glyphList[random];
 
@@ -201,4 +206,159 @@ public abstract class SpellCaster
         get => numOfTurnsSoFar;
         set => numOfTurnsSoFar = value;
     }
-}
+
+    public static void savePlayerData(SpellCaster s)
+    {
+        BoltLog.Info("savePlayerData0");
+        BinaryFormatter bf = new BinaryFormatter();
+        FileStream file = File.Create(Application.persistentDataPath + "/playerData.dat");
+        PlayerData pd = new PlayerData(s);
+        bf.Serialize(file, pd);
+        file.Close();
+        BoltLog.Info("savePlayerData1");
+    }
+    public static SpellCaster loadPlayerData()
+    {
+        BoltLog.Info("loadPlayerData0");
+        if (File.Exists(Application.persistentDataPath + "/playerData.dat"))
+        {
+            BoltLog.Info("loadPlayerData1");
+
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream file = File.Open(Application.persistentDataPath + "/playerData.dat", FileMode.Open);
+            PlayerData data = (PlayerData) bf.Deserialize(file);
+            file.Close();
+            data.printPlayerData();
+            BoltLog.Info("loadPlayerData2");
+
+            SpellCaster spellcaster;
+            switch (data.spellcasterID)
+            {
+                case 0:
+                    spellcaster = new Alchemist();
+                    break;
+                case 1:
+                    spellcaster = new Arcanist();
+                    break;
+                case 2:
+                    spellcaster = new Elementalist();
+                    break;
+                case 3:
+                    spellcaster = new Chronomancer();
+                    break;
+                case 4:
+                    spellcaster = new Trickster();
+                    break;
+                default:
+                    spellcaster = new Summoner();
+                    break;
+            }
+
+            spellcaster.spellcasterID = data.spellcasterID;
+            spellcaster.classType = data.classType;
+            spellcaster.characterSpritePath = data.characterSpritePath;
+            spellcaster.fCurrentHealth = data.fCurrentHealth;
+            spellcaster.iMana = data.iMana;
+            spellcaster.hasAttacked = data.hasAttacked;
+            spellcaster.fBasicAttackStrength = data.fBasicAttackStrength;
+            spellcaster.numOfTurnsSoFar = data.numOfTurnsSoFar;
+            //spellcaster.activeSpells = data.activeSpells;
+
+            return spellcaster;
+        }
+        BoltLog.Info("loadPlayerData3");
+
+        return null;
+    }
+        /*
+        //Serialize
+        public static void savePlayerData(SpellCaster s)
+        {
+            BoltLog.Info("savePlayerData0");
+
+            PlayerData pd = new PlayerData(s);
+            string json = JsonUtility.ToJson(pd, true);
+            BoltLog.Info("savePlayerData1");
+
+    #if UNITY_EDITOR
+            File.WriteAllText(Application.dataPath + "/saveFile.json", json);
+            BoltLog.Info("Saved file in unity editor");
+    #endif
+            if(Application.platform == RuntimePlatform.Android)
+            {
+                BoltLog.Info("Attempting to save on android");
+
+
+                string folderPath = (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer ? Application.persistentDataPath : Application.dataPath) + "/myDataFolder/";
+                string filePath = folderPath + "saveFile.json";
+                if (!Directory.Exists(folderPath))
+                {
+                    Directory.CreateDirectory(folderPath);
+                }
+                if (!File.Exists(filePath))
+                {
+                    BoltLog.Info("Created filepath");
+                    File.Create(filePath).Close();
+
+                }
+                File.WriteAllText(filePath, json);
+                BoltLog.Info("Saved file in android");
+            }
+            //File.WriteAllText(Application.persistentDataPath, "saved files", "data.json");
+
+
+        }
+
+        //Deserialize
+        public static SpellCaster loadPlayerData()
+        {
+            //string json = File.ReadAllText(Application.dataPath + "/saveFile.json");
+            string json;
+    #if UNITY_EDITOR
+            BoltLog.Info("Loading from unity editor");
+
+            json = File.ReadAllText(Application.dataPath + "/saveFile.json");
+
+    #elif UNITY_ANDROID
+            BoltLog.Info("Loading from android device");
+            json= Path.Combine(Application.persistentDataPath+"/myDataFolder/", "saveFile.json");
+    #endif
+            BoltLog.Info("Found JSON FIle");
+            PlayerData playerData = JsonUtility.FromJson<PlayerData>(json);
+            BoltLog.Info("Converted file to PlayerData");
+            playerData.printPlayerData();
+            SpellCaster spellcaster;
+            switch (playerData.spellcasterID)
+            {
+                case 0:
+                    spellcaster = new Alchemist();
+                    break;
+                case 1:
+                    spellcaster = new Arcanist();
+                    break;
+                case 2:
+                    spellcaster = new Elementalist();
+                    break;
+                case 3:
+                    spellcaster = new Chronomancer();
+                    break;
+                case 4:
+                    spellcaster = new Trickster();
+                    break;
+                default:
+                    spellcaster = new Summoner();
+                    break;
+            }
+
+            spellcaster.spellcasterID = playerData.spellcasterID;
+            spellcaster.classType = playerData.classType;
+            spellcaster.characterSpritePath = playerData.characterSpritePath;
+            spellcaster.fCurrentHealth = playerData.fCurrentHealth;
+            spellcaster.iMana = playerData.iMana;
+            spellcaster.hasAttacked = playerData.hasAttacked;
+
+            return spellcaster;
+        }*/
+
+
+    }

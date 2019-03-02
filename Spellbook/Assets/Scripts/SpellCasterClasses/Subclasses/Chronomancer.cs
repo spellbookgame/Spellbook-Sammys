@@ -16,6 +16,7 @@ public class Chronomancer : SpellCaster
         
         //You can override variables in here.
         classType = "Chronomancer";
+        spellcasterID = 3;
         fMaxHealth = 20.0f;
         fCurrentHealth = fMaxHealth;
 
