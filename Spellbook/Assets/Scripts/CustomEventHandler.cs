@@ -142,22 +142,46 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
 
             #region glyph_spaces
             case "alchemist_glyph":
-                localPlayer.Spellcaster.CollectRandomGlyph();
+                int g1 = (int)UnityEngine.Random.Range(0, 2);
+                if (g1 == 0)
+                    localPlayer.Spellcaster.CollectGlyph("Alchemy D Glyph");
+                else
+                    localPlayer.Spellcaster.CollectGlyph("Alchemy C Glyph");
                 break;
             case "arcanist_glyph":
-                localPlayer.Spellcaster.CollectRandomGlyph();
+                int g2 = (int)UnityEngine.Random.Range(0, 2);
+                if (g2 == 0)
+                    localPlayer.Spellcaster.CollectGlyph("Arcane D Glyph");
+                else
+                    localPlayer.Spellcaster.CollectGlyph("Arcane C Glyph");
                 break;
             case "chronomancer_glyph":
-                localPlayer.Spellcaster.CollectRandomGlyph();
+                int g3 = (int)UnityEngine.Random.Range(0, 2);
+                if (g3 == 0)
+                    localPlayer.Spellcaster.CollectGlyph("Time D Glyph");
+                else
+                    localPlayer.Spellcaster.CollectGlyph("Time C Glyph");
                 break;
             case "elementalist_glyph":
-                localPlayer.Spellcaster.CollectRandomGlyph();
+                int g4 = (int)UnityEngine.Random.Range(0, 2);
+                if (g4 == 0)
+                    localPlayer.Spellcaster.CollectGlyph("Elemental D Glyph");
+                else
+                    localPlayer.Spellcaster.CollectGlyph("Elemental C Glyph");
                 break;
             case "illusionist_glyph":
-                localPlayer.Spellcaster.CollectRandomGlyph();
+                int g5 = (int)UnityEngine.Random.Range(0, 2);
+                if (g5 == 0)
+                    localPlayer.Spellcaster.CollectGlyph("Illusion D Glyph");
+                else
+                    localPlayer.Spellcaster.CollectGlyph("Illusion C Glyph");
                 break;
             case "summoner_glyph":
-                localPlayer.Spellcaster.CollectRandomGlyph();
+                int g6 = (int)UnityEngine.Random.Range(0, 2);
+                if (g6 == 0)
+                    localPlayer.Spellcaster.CollectGlyph("Summoning D Glyph");
+                else
+                    localPlayer.Spellcaster.CollectGlyph("Summoning C Glyph");
                 break;
             #endregion
 

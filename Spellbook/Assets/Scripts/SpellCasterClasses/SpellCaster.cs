@@ -128,7 +128,7 @@ public abstract class SpellCaster
     public void CollectGlyph(string glyphName)
     {
         this.glyphs[glyphName] += 1;
-        Debug.Log("You collected " + glyphName + ".");
+        PanelHolder.instance.displayEvent("You found a glyph!", "You found 1 " + glyphName + ".");
     }
 
     public string CollectRandomGlyph()
