@@ -62,6 +62,7 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
 
     protected virtual void OnTrackingFound()
     {
+        // in board_space_handling region
         scanItem(mTrackableBehaviour.TrackableName);
     }
 
@@ -86,36 +87,101 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
         }
     }
 
+    #region board_space_handling
     private void scanItem(string trackableName)
     {
         // call function based on target name
         switch (trackableName)
         {
-            case "mana":
-                int manaCount = (int)UnityEngine.Random.Range(100, 1000);
-                localPlayer.Spellcaster.CollectMana(manaCount);
+            // mana spaces
+            case "alchemist_mana":
+                int r1 = (int)UnityEngine.Random.Range(100, 700);
+                localPlayer.Spellcaster.CollectMana(r1);
                 break;
-            case "glyph":
+            case "arcanist_mana":
+                int r2 = (int)UnityEngine.Random.Range(100, 700);
+                localPlayer.Spellcaster.CollectMana(r2);
+                break;
+            case "chronomancer_mana":
+                int r3 = (int)UnityEngine.Random.Range(100, 700);
+                localPlayer.Spellcaster.CollectMana(r3);
+                break;
+            case "elementalist_mana":
+                int r4 = (int)UnityEngine.Random.Range(100, 700);
+                localPlayer.Spellcaster.CollectMana(r4);
+                break;
+            case "illusionist_mana":
+                int r5 = (int)UnityEngine.Random.Range(100, 700);
+                localPlayer.Spellcaster.CollectMana(r5);
+                break;
+            case "summoner_mana":
+                int r6 = (int)UnityEngine.Random.Range(100, 700);
+                localPlayer.Spellcaster.CollectMana(r6);
+                break;
+
+            // city spaces
+            case "alchemist_city":
+                PanelHolder.instance.displayEvent("Alchemist city", "Nothing really to see here...");
+                break;
+            case "arcanist_city":
+                PanelHolder.instance.displayEvent("Arcanist city", "Nothing really to see here...");
+                break;
+            case "chronomancer_city":
+                PanelHolder.instance.displayEvent("Chronomancer city", "Nothing really to see here...");
+                break;
+            case "elementalist_city":
+                PanelHolder.instance.displayEvent("Elementalist city", "Nothing really to see here...");
+                break;
+            case "illusionist_city":
+                PanelHolder.instance.displayEvent("Illusionist city", "Nothing really to see here...");
+                break;
+            case "summoner_city":
+                PanelHolder.instance.displayEvent("Summoner city", "Nothing really to see here...");
+                break;
+
+            // glyph spaces
+            case "alchemist_glyph":
                 localPlayer.Spellcaster.CollectRandomGlyph();
                 break;
-            case "city":
-                PanelHolder.instance.displayEvent("You landed in the city", "Nothing really to see here...");
+            case "arcanist_glyph":
+                localPlayer.Spellcaster.CollectRandomGlyph();
                 break;
-            case "alchemy_mana":
-                PanelHolder.instance.displayEvent("Alchemy Mana", "Alchemy mana scanned");
+            case "chronomancer_glyph":
+                localPlayer.Spellcaster.CollectRandomGlyph();
                 break;
-            case "arcane_mana":
-                PanelHolder.instance.displayEvent("Arcane Mana", "Arcane mana scanned");
+            case "elementalist_glyph":
+                localPlayer.Spellcaster.CollectRandomGlyph();
                 break;
-            case "alchemy_city":
-                PanelHolder.instance.displayEvent("Alchemy City", "Alchemy city scanned");
+            case "illusionist_glyph":
+                localPlayer.Spellcaster.CollectRandomGlyph();
                 break;
-            case "arcane_city":
-                PanelHolder.instance.displayEvent("Arcane City", "Arcane city scanned");
+            case "summoner_glyph":
+                localPlayer.Spellcaster.CollectRandomGlyph();
+                break;
+
+            // item spaces
+            case "alchemist_item":
+                PanelHolder.instance.displayEvent("Alchemist item", "You got a [item name] item!");
+                break;
+            case "arcanist_item":
+                PanelHolder.instance.displayEvent("Arcanist item", "You got a [item name] item!");
+                break;
+            case "chronomancer_item":
+                PanelHolder.instance.displayEvent("Chronomancer item", "You got a [item name] item!");
+                break;
+            case "elementalist_item":
+                PanelHolder.instance.displayEvent("Elementalist item", "You got a [item name] item!");
+                break;
+            case "illusionist_item":
+                PanelHolder.instance.displayEvent("Illusionist item", "You got a [item name] item!");
+                break;
+            case "summoner_item":
+                PanelHolder.instance.displayEvent("Summoner item", "You got a [item name] item!");
                 break;
             default:
                 break;
         }
         spaceScanned = true;
     }
+    #endregion
 }
