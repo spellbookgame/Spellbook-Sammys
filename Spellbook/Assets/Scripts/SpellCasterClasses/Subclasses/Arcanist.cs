@@ -23,5 +23,7 @@ public class Arcanist : SpellCaster
         chapter = new Chapter(classType);
 
         characterSpritePath = "Characters/ArcaneWizardFlat";
+        characterBackgroundPath = "Characters/Arcane bgd blank";
+        characterIconPath = "Characters/symbol_glow_arcanist";
     }
 }

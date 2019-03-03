@@ -15,20 +15,20 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     private Transform startParent;
 
     Player localPlayer;
-    SpellManager spellManager;
+    SpellCreateHandler spellCreateHandler;
 
     void Start()
     {
         originalParent = transform.parent;
 
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
-        spellManager = GameObject.Find("Canvas").GetComponent<SpellManager>();
+        spellCreateHandler = GameObject.Find("Canvas").GetComponent<SpellCreateHandler>();
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
         // play grab sound
-        SoundManager.instance.PlaySingle(spellManager.grabspellpiece);
+        SoundManager.instance.PlaySingle(spellCreateHandler.grabspellpiece);
 
         // itemToDrag is the game object that this script is on
         itemToDrag = gameObject;
@@ -77,7 +77,7 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         GetComponent<CanvasGroup>().blocksRaycasts = true;
 
         // if item's parent is where it started from onBeginDrag() and drag ended without changing parent, snap it back
-        if (transform.parent == startParent || transform.parent.tag != "Slot")
+        if (transform.parent == startParent || !transform.parent.tag.Equals("Slot"))
         {
             transform.position = startPos;
             Destroy(itemBeingDragged.gameObject);

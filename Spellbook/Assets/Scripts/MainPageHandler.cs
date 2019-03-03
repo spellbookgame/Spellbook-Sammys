@@ -6,12 +6,14 @@ using UnityEngine.UI;
 
 public class MainPageHandler : MonoBehaviour
 {
+    [SerializeField] private Text classType;
     [SerializeField] private Text manaCrystalsValue;
     [SerializeField] private Text healthValue;
-    [SerializeField] private Text activeSpellsValue;
-    [SerializeField] private Text classText;
     [SerializeField] private Enemy enemy;
+
     [SerializeField] private Image characterImage;
+    [SerializeField] private Image backgroundImage;
+    [SerializeField] private Image symbolImage;
 
     [SerializeField] private Button scanButton;
     [SerializeField] private Button combatButton;
@@ -39,7 +41,8 @@ public class MainPageHandler : MonoBehaviour
 
     private void Update()
     {
-        if(localPlayer.Spellcaster.activeSpells.Count > 0)
+        // update player's list of active spells
+        if (localPlayer.Spellcaster.activeSpells.Count > 0)
             UpdateActiveSpells();
     }
 
@@ -47,15 +50,10 @@ public class MainPageHandler : MonoBehaviour
     {
         if (GameObject.FindGameObjectWithTag("LocalPlayer") == null) return;
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
+
+        classType.text = localPlayer.Spellcaster.classType;
         manaCrystalsValue.text = localPlayer.Spellcaster.iMana.ToString();
-        healthValue.text = localPlayer.Spellcaster.fCurrentHealth.ToString();
-
-        classText.text = "You are playing as " + localPlayer.Spellcaster.classType;
-
-        foreach (Spell entry in localPlayer.Spellcaster.activeSpells)
-        {
-            activeSpellsValue.text = activeSpellsValue.text + entry.sSpellName + "\n";
-        }
+        healthValue.text = localPlayer.Spellcaster.fCurrentHealth.ToString() + "/ " + localPlayer.Spellcaster.fMaxHealth.ToString();
 
         // if an enemy does not exist, create one
         if (GameObject.FindGameObjectWithTag("Enemy") == null)
@@ -66,9 +64,14 @@ public class MainPageHandler : MonoBehaviour
             enemy.fCurrentHealth = enemy.fMaxHealth;
         }
 
-        // set player's image based on class
-        Debug.Log(localPlayer.Spellcaster.characterSpritePath);
+        // set character image based on class
         characterImage.sprite = Resources.Load<Sprite>(localPlayer.Spellcaster.characterSpritePath);
+
+        // set background image based on class
+        backgroundImage.sprite = Resources.Load<Sprite>(localPlayer.Spellcaster.characterBackgroundPath);
+
+        // set class symbol image based on class
+        symbolImage.sprite = Resources.Load<Sprite>(localPlayer.Spellcaster.characterIconPath);
 
         // set onclick listeners for buttons
         scanButton.onClick.AddListener(() =>
@@ -88,7 +91,7 @@ public class MainPageHandler : MonoBehaviour
         });
     }
     
-    // changing the list of active spells
+    // updating the list of active spells
     private void UpdateActiveSpells()
     {
         foreach (Spell entry in localPlayer.Spellcaster.chapter.spellsCollected)
@@ -96,12 +99,9 @@ public class MainPageHandler : MonoBehaviour
             // if the player has gone the amount of turns that the spell lasts
             if (localPlayer.Spellcaster.NumOfTurnsSoFar - entry.iCastedTurn == entry.iTurnsActive)
             {
-                // remove the spell from the active spells list
+                // remove the spell from the active spells list and notify player
                 localPlayer.Spellcaster.activeSpells.Remove(entry);
                 PanelHolder.instance.displayNotify(entry.sSpellName, entry.sSpellName + " wore off...");
-
-                // remove the text from the screen
-                activeSpellsValue.text = activeSpellsValue.text.Replace(entry.sSpellName, "");
             }
         }
     }

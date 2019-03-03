@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 using Vuforia;
 
 public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
@@ -11,11 +9,9 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
     protected TrackableBehaviour.Status m_PreviousStatus;
     protected TrackableBehaviour.Status m_NewStatus;
 
-    [SerializeField] private GameObject panel;
-    private bool panelOpen = false;
-
     private Coroutine coroutineReference;
     private bool CR_running;
+    private bool spaceScanned = false;
 
     Player localPlayer;
     
@@ -66,6 +62,7 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
 
     protected virtual void OnTrackingFound()
     {
+        // in board_space_handling region
         scanItem(mTrackableBehaviour.TrackableName);
     }
 
@@ -84,33 +81,134 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
         CR_running = false;
 
         // only track once; after a space is scanned, do not scan anymore
-        if(!panelOpen)
+        if(!spaceScanned)
         {
             OnTrackingFound();
         }
     }
-
+    
     private void scanItem(string trackableName)
     {
         // call function based on target name
         switch (trackableName)
         {
-            case "mana":
-                int manaCount = (int)UnityEngine.Random.Range(100, 1000);
-                localPlayer.Spellcaster.CollectMana(manaCount);
+            #region mana_spaces
+            case "alchemist_mana":
+                int r1 = (int)UnityEngine.Random.Range(100, 700);
+                localPlayer.Spellcaster.CollectMana(r1);
                 break;
-            case "glyph":
-                localPlayer.Spellcaster.CollectRandomGlyph();
+            case "arcanist_mana":
+                int r2 = (int)UnityEngine.Random.Range(100, 700);
+                localPlayer.Spellcaster.CollectMana(r2);
                 break;
-            // we will eventually be taking event spaces out!
-            case "event":
-                EventSpaceManager.instance.executeEventSpace();
+            case "chronomancer_mana":
+                int r3 = (int)UnityEngine.Random.Range(100, 700);
+                localPlayer.Spellcaster.CollectMana(r3);
                 break;
-            case "city":
-                PanelHolder.instance.displayEvent("You landed in the city", "Nothing really to see here...");
+            case "elementalist_mana":
+                int r4 = (int)UnityEngine.Random.Range(100, 700);
+                localPlayer.Spellcaster.CollectMana(r4);
                 break;
+            case "illusionist_mana":
+                int r5 = (int)UnityEngine.Random.Range(100, 700);
+                localPlayer.Spellcaster.CollectMana(r5);
+                break;
+            case "summoner_mana":
+                int r6 = (int)UnityEngine.Random.Range(100, 700);
+                localPlayer.Spellcaster.CollectMana(r6);
+                break;
+            #endregion
+
+            #region city_spaces
+            case "alchemist_city":
+                PanelHolder.instance.displayEvent("Alchemist city", "Nothing really to see here...");
+                break;
+            case "arcanist_city":
+                PanelHolder.instance.displayEvent("Arcanist city", "Nothing really to see here...");
+                break;
+            case "chronomancer_city":
+                PanelHolder.instance.displayEvent("Chronomancer city", "Nothing really to see here...");
+                break;
+            case "elementalist_city":
+                PanelHolder.instance.displayEvent("Elementalist city", "Nothing really to see here...");
+                break;
+            case "illusionist_city":
+                PanelHolder.instance.displayEvent("Illusionist city", "Nothing really to see here...");
+                break;
+            case "summoner_city":
+                PanelHolder.instance.displayEvent("Summoner city", "Nothing really to see here...");
+                break;
+            #endregion
+
+            #region glyph_spaces
+            case "alchemist_glyph":
+                int g1 = (int)UnityEngine.Random.Range(0, 2);
+                if (g1 == 0)
+                    localPlayer.Spellcaster.CollectGlyph("Alchemy D Glyph");
+                else
+                    localPlayer.Spellcaster.CollectGlyph("Alchemy C Glyph");
+                break;
+            case "arcanist_glyph":
+                int g2 = (int)UnityEngine.Random.Range(0, 2);
+                if (g2 == 0)
+                    localPlayer.Spellcaster.CollectGlyph("Arcane D Glyph");
+                else
+                    localPlayer.Spellcaster.CollectGlyph("Arcane C Glyph");
+                break;
+            case "chronomancer_glyph":
+                int g3 = (int)UnityEngine.Random.Range(0, 2);
+                if (g3 == 0)
+                    localPlayer.Spellcaster.CollectGlyph("Time D Glyph");
+                else
+                    localPlayer.Spellcaster.CollectGlyph("Time C Glyph");
+                break;
+            case "elementalist_glyph":
+                int g4 = (int)UnityEngine.Random.Range(0, 2);
+                if (g4 == 0)
+                    localPlayer.Spellcaster.CollectGlyph("Elemental D Glyph");
+                else
+                    localPlayer.Spellcaster.CollectGlyph("Elemental C Glyph");
+                break;
+            case "illusionist_glyph":
+                int g5 = (int)UnityEngine.Random.Range(0, 2);
+                if (g5 == 0)
+                    localPlayer.Spellcaster.CollectGlyph("Illusion D Glyph");
+                else
+                    localPlayer.Spellcaster.CollectGlyph("Illusion C Glyph");
+                break;
+            case "summoner_glyph":
+                int g6 = (int)UnityEngine.Random.Range(0, 2);
+                if (g6 == 0)
+                    localPlayer.Spellcaster.CollectGlyph("Summoning D Glyph");
+                else
+                    localPlayer.Spellcaster.CollectGlyph("Summoning C Glyph");
+                break;
+            #endregion
+
+            #region item_spaces
+            case "alchemist_item":
+                PanelHolder.instance.displayEvent("Alchemist item", "You got a [item name] item!");
+                break;
+            case "arcanist_item":
+                PanelHolder.instance.displayEvent("Arcanist item", "You got a [item name] item!");
+                break;
+            case "chronomancer_item":
+                PanelHolder.instance.displayEvent("Chronomancer item", "You got a [item name] item!");
+                break;
+            case "elementalist_item":
+                PanelHolder.instance.displayEvent("Elementalist item", "You got a [item name] item!");
+                break;
+            case "illusionist_item":
+                PanelHolder.instance.displayEvent("Illusionist item", "You got a [item name] item!");
+                break;
+            case "summoner_item":
+                PanelHolder.instance.displayEvent("Summoner item", "You got a [item name] item!");
+                break;
+            #endregion
+
             default:
                 break;
         }
+        spaceScanned = true;
     }
 }

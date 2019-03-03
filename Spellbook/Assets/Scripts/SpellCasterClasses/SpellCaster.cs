@@ -28,8 +28,10 @@ public abstract class SpellCaster
     public Dictionary<string, int> glyphs;
     public List<Spell> activeSpells;
 
-    // reference to the character's sprite
+    // reference to the character's sprite/background
     public string characterSpritePath;
+    public string characterBackgroundPath;
+    public string characterIconPath;
 
     // TODO:
     //private string backGroundStory; 
@@ -131,7 +133,7 @@ public abstract class SpellCaster
     public void CollectGlyph(string glyphName)
     {
         this.glyphs[glyphName] += 1;
-        Debug.Log("You collected " + glyphName + ".");
+        PanelHolder.instance.displayEvent("You found a glyph!", "You found 1 " + glyphName + ".");
     }
 
     public string CollectRandomGlyph()
@@ -180,7 +182,7 @@ public abstract class SpellCaster
             // if chapter.spellsAllowed already contains spell, give error notice
             if (chapter.spellsCollected.Contains(spell))
             {
-                g.GetComponent<SpellManager>().inventoryText.text = "You already have " + spell.sSpellName + ".";
+                g.GetComponent<SpellCreateHandler>().inventoryText.text = "You already have " + spell.sSpellName + ".";
             }
             else
             {
@@ -188,7 +190,7 @@ public abstract class SpellCaster
                 chapter.spellsCollected.Add(spell);
 
                 // tell player that the spell is collected
-                g.GetComponent<SpellManager>().inventoryText.text = "You unlocked " + spell.sSpellName + "!";
+                g.GetComponent<SpellCreateHandler>().inventoryText.text = "You unlocked " + spell.sSpellName + "!";
                 Debug.Log("In your chapter you have:");
                 for (int i = 0; i < chapter.spellsCollected.Count; ++i)
                     Debug.Log(chapter.spellsCollected[i].sSpellName);
@@ -196,7 +198,7 @@ public abstract class SpellCaster
                 Debug.Log("You have " + chapter.spellsCollected.Count + " spells collected.");
 
                 // call function that removes prefabs in SpellManager.cs
-                g.GetComponent<SpellManager>().RemovePrefabs(spell);
+                g.GetComponent<SpellCreateHandler>().RemovePrefabs(spell);
             }
         }
     }
