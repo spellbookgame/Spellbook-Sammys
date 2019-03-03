@@ -46,7 +46,7 @@ namespace Bolt.Samples.Photon.Lobby
         public GameObject playerController;
         public Text statusInfo;
         public Text hostInfo;
-
+        public Text numPlayersInfo;
         protected bool _isCountdown = false;
         protected string _matchName;
 
@@ -246,6 +246,8 @@ namespace Bolt.Samples.Photon.Lobby
 
                 gameStateEntity = BoltNetwork.Instantiate(BoltPrefabs.GameState);
                 gameStateEntity.TakeControl();
+                
+                numPlayersInfo.text = gameStateEntity.GetComponent<NetworkGameState>().onPlayerJoined()+ "";
                 startGameButton.SetActive(true);
 
             } else if (BoltNetwork.IsClient)
@@ -350,6 +352,11 @@ namespace Bolt.Samples.Photon.Lobby
             countdownPanel.gameObject.SetActive(evnt.Time != 0);
         }
 
+        public override void OnEvent(PlayerJoinedEvent evnt)
+        {
+            numPlayersInfo.text = evnt.numOfPlayers + "";
+        }
+
         /*Only the server recieves this event.*/
         public override void OnEvent(SelectSpellcaster evnt)
         {
@@ -372,6 +379,18 @@ namespace Bolt.Samples.Photon.Lobby
         public override void EntityReceived(BoltEntity entity)
         {
             BoltConsole.Write("EntityReceived");
+            /*
+            if (BoltNetwork.IsServer)
+            {
+                
+                if (entity.StateIs(typeof(ISpellcasterState))){
+                    int numPlayers = gameStateEntity.GetComponent<NetworkGameState>().onPlayerJoined();
+                    var playerTurnEvnt = PlayerJoinedEvent.Create(Bolt.GlobalTargets.Everyone);
+                    playerTurnEvnt.numOfPlayers = numPlayers;
+                    playerTurnEvnt.Send();
+                }
+            }
+            */
         }
 
         public override void EntityAttached(BoltEntity entity)
@@ -404,11 +423,16 @@ namespace Bolt.Samples.Photon.Lobby
             else if (BoltNetwork.IsServer)
             {
                 BoltConsole.Write("Connected Server: " + connection, Color.blue);
-                
+               
+
                 BoltEntity entity = BoltNetwork.Instantiate(BoltPrefabs.CharacterSelectionEntity);
                 entity.AssignControl(connection);
 
-                
+                int numPlayers = gameStateEntity.GetComponent<NetworkGameState>().onPlayerJoined();
+                var playerTurnEvnt = PlayerJoinedEvent.Create(Bolt.GlobalTargets.Everyone);
+                playerTurnEvnt.numOfPlayers = numPlayers;
+                playerTurnEvnt.Send();
+
                 /*
                 BoltEntity entity = BoltNetwork.Instantiate(BoltPrefabs.PlayerInfo);
 
@@ -460,6 +484,12 @@ namespace Bolt.Samples.Photon.Lobby
             BoltConsole.Write("About to update UI but not implemented");
             //TODO: Call a method in SpellCasterLobbyChoose to update the UI to the # of players.
         }
-        
+
+        public void updateNumOfSpellcasters(int numSpellcasters)
+        {
+            BoltConsole.Write("About to update UI but not implemented");
+            //TODO: Call a method in SpellCasterLobbyChoose to update the UI to the # of spellcasters.
+        }
+
     }
 }

@@ -48,6 +48,12 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
         return turnsUntilNextEvent + displayGlobalEvent + nextGlobalEvent;
     }
 
+    public int onPlayerJoined()
+    {
+        numOfPlayers++;
+        state.NumOfPlayers++;
+        return state.NumOfPlayers;
+    }
 
     public void onSpellcasterSelected(int spellcasterID, int previous)
     {
@@ -60,8 +66,8 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
         else
         {
             numOfSpellcasters++;
-            state.NumOfPlayers++;
-            Bolt.Samples.Photon.Lobby.LobbyManager.s_Singleton.updateNumOfPlayers(numOfSpellcasters);
+            state.NumOfSpellcasters++;
+            Bolt.Samples.Photon.Lobby.LobbyManager.s_Singleton.updateNumOfSpellcasters(numOfSpellcasters);
         }
         spellcasterList[spellcasterID] = 1;
         state.SpellcasterList[spellcasterID] = 1;
