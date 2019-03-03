@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bolt.Samples.Photon.Lobby;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +10,7 @@ public class Player : Bolt.EntityEventListener<ISpellcasterState>
 
     //TODO: Change to private when done testing.
     public bool bIsMyTurn = false;
-    
+
     //The player's chosen spellcaster class.
     public SpellCaster spellcaster;
 
@@ -22,7 +23,8 @@ public class Player : Bolt.EntityEventListener<ISpellcasterState>
     // TODO: Change to private when done testing.
     public int spellcasterID = -1;
 
-    public SpellCaster Spellcaster {
+    public SpellCaster Spellcaster
+    {
         get => spellcaster;
         set => spellcaster = value;
     }
@@ -44,9 +46,9 @@ public class Player : Bolt.EntityEventListener<ISpellcasterState>
             chooseSpellcaster(id);
             BoltConsole.Write("Initialized LocalPlayer with Spellcaster ID " + spellcasterID);
             state.SpellcasterClass = spellcasterID;
-           
-          
-            
+
+
+
             spellcasterTurnOrder = new ArrayList();
             StartCoroutine(determineTurnOrder());
             gameObject.tag = "LocalPlayer";
@@ -93,7 +95,7 @@ public class Player : Bolt.EntityEventListener<ISpellcasterState>
         }
         //saveData();
         //BoltConsole.print("Time done: " + Time.time);
-        
+
     }
 
     private void chooseSpellcaster(int num)
@@ -104,6 +106,16 @@ public class Player : Bolt.EntityEventListener<ISpellcasterState>
             case -1:
                 spellcaster = SpellCaster.loadPlayerData();
                 spellcasterID = spellcaster.spellcasterID;
+                BoltConsole.Write("Loading data");
+
+                foreach (var e in BoltNetwork.Entities)
+                {
+                    if (e.StateIs(typeof(IGameState)))
+                    {
+                        BoltConsole.Write("Found GameState");
+                        nextTurnEvent(e.GetState<IGameState>().CurrentSpellcasterTurn);
+                    }
+                }
                 loaded = true;
                 break;
             case 0:
@@ -135,10 +147,10 @@ public class Player : Bolt.EntityEventListener<ISpellcasterState>
         {
             SpellCaster.savePlayerData(spellcaster);
         }
-       
+
     }
 
-    
+
 
     #region turn_handlers
 
@@ -154,9 +166,9 @@ public class Player : Bolt.EntityEventListener<ISpellcasterState>
         {
             bIsMyTurn = false;
             BoltConsole.Write("My Turn is over");
-            var nextTurnEvnt = NextPlayerTurnEvent.Create(Bolt.GlobalTargets.Everyone);
-            nextTurnEvnt.NextSpellcaster = "Next";
+            var nextTurnEvnt = NextTurnEvent.Create(Bolt.GlobalTargets.OnlyServer);
             nextTurnEvnt.Send();
+            SpellCaster.savePlayerData(spellcaster);
             return true;
         }
         return false;
@@ -165,12 +177,9 @@ public class Player : Bolt.EntityEventListener<ISpellcasterState>
     /* When our LobbyManager (aka our GlobalEventListener) recieves a
      NextTurnEvent, this method is called.
      The second if-statement does nothing if its not this player's turn.*/
-    public void nextTurnEvent()
+    public void nextTurnEvent(int sID)
     {
-        BoltConsole.Write("NextTurnEvent()");
-        currentTurn++;
-        if (currentTurn > spellcasterTurnOrder.Count - 1) currentTurn = 0;
-        if((int) spellcasterTurnOrder[currentTurn] == spellcasterID)
+        if (sID == spellcasterID)
         {
             BoltConsole.Write("Its my turn.");
             numTurnsIHad++;
@@ -180,54 +189,6 @@ public class Player : Bolt.EntityEventListener<ISpellcasterState>
             panelHolder.displayYourTurn();
         }
     }
-    #endregion
-
-    #region button_class_clicks
-    /*
-     Class choosing.  This region may move to another file 
-     in the future, possibly a singleton (GameManager).
-        
-
-    public void onClickAclhemist()
-    {
-        spellcaster = new Alchemist();
-        Debug.Log("Local Player chose " + spellcaster.classType);
-    }
-
-    public void onClickElementalist()
-    {
-        spellcaster = new Elementalist();
-        Debug.Log("Local Player chose " + spellcaster.classType);
-    }
-
-    public void onClickArcanist()
-    {
-        spellcaster = new Arcanist();
-        Debug.Log("Local Player chose " + spellcaster.classType);
-
-    }
-
-    public void onClickChronomancer()
-    {
-        spellcaster = new Chronomancer();
-        Debug.Log("Local Player chose " + spellcaster.classType);
-
-    }
-
-    public void onClickTrickster()
-    {
-        spellcaster = new Trickster();
-        Debug.Log("Local Player chose " + spellcaster.classType);
-
-    }
-
-    public void onClickSummoner()
-    {
-        spellcaster = new Summoner();
-        Debug.Log("Local Player chose " + spellcaster.classType);
-
-    }
-    */
     #endregion
 
 }

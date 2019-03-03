@@ -35,6 +35,8 @@ namespace Photon.Lobby
 
         public Button readyButton;
         public Text text;
+        //public Text text_numOfPlayers_join;
+        public int numOfPlayers = 0;
 
         public Color alchemistColor = Color.green;
         public Color arcanistColor = Color.magenta;
@@ -248,7 +250,7 @@ namespace Photon.Lobby
             currentSelected = 0;
             alchemistChosen = true;
             openPreviousSpellcaster();
-            lobbyManager.localPlayerSpellcasterID = 0;
+            lobbyManager.notifySelectSpellcaster(0, previousSelected);
             text.text = "You chose Alchemist!";
         }
 
@@ -259,7 +261,7 @@ namespace Photon.Lobby
             currentSelected = 1;
             arcanistChosen = true;
             openPreviousSpellcaster();
-            lobbyManager.localPlayerSpellcasterID = 1;
+            lobbyManager.notifySelectSpellcaster(1, previousSelected);
             text.text = "You chose Arcanist!";
         }
 
@@ -270,7 +272,7 @@ namespace Photon.Lobby
             currentSelected = 2;
             elementalistChosen = true;
             openPreviousSpellcaster();
-            lobbyManager.localPlayerSpellcasterID = 2;
+            lobbyManager.notifySelectSpellcaster(2, previousSelected);
             text.text = "You chose Elementalist!";
         }
 
@@ -281,7 +283,7 @@ namespace Photon.Lobby
             currentSelected = 3;
             chronomancerChosen = true;
             openPreviousSpellcaster();
-            lobbyManager.localPlayerSpellcasterID = 3;
+            lobbyManager.notifySelectSpellcaster(3, previousSelected);
             text.text = "You chose Chronomancer!";
         }
 
@@ -292,7 +294,7 @@ namespace Photon.Lobby
             currentSelected = 4;
             illusionistChosen = true;
             openPreviousSpellcaster();
-            lobbyManager.localPlayerSpellcasterID = 4;
+            lobbyManager.notifySelectSpellcaster(4, previousSelected);
             text.text = "You chose Illusionist!";
         }
 
@@ -303,7 +305,7 @@ namespace Photon.Lobby
             currentSelected = 5;
             summonerChosen = true;
             openPreviousSpellcaster();
-            lobbyManager.localPlayerSpellcasterID = 5;
+            lobbyManager.notifySelectSpellcaster(5, previousSelected);
             text.text = "You chose Summoner!";
         }
 

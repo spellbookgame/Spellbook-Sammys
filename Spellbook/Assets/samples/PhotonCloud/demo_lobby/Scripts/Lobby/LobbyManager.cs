@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 
 using Bolt.Samples.Photon.Lobby.Utilities;
 using Bolt.Samples.Photon.Simple;
+using Photon.Lobby;
 
 namespace Bolt.Samples.Photon.Lobby
 {
@@ -241,8 +242,10 @@ namespace Bolt.Samples.Photon.Lobby
 
                 // Build Server Entity
                 BoltEntity entity = BoltNetwork.Instantiate(BoltPrefabs.CharacterSelectionEntity);
-                
                 entity.TakeControl();
+
+                gameStateEntity = BoltNetwork.Instantiate(BoltPrefabs.GameState);
+                gameStateEntity.TakeControl();
                 startGameButton.SetActive(true);
 
             } else if (BoltNetwork.IsClient)
@@ -338,13 +341,32 @@ namespace Bolt.Samples.Photon.Lobby
         {
             Debug.Log("Recieved Event!!!!!!!!!!!!!!!!!");
             BoltConsole.Write("Recieved Event!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            playerEntity.GetComponent<Player>().nextTurnEvent();
+            playerEntity.GetComponent<Player>().nextTurnEvent(evnt.NextSpellcaster);
         }
 
         public override void OnEvent(LobbyCountdown evnt)
         {
             countdownPanel.UIText.text = "Match Starting in " + evnt.Time;
             countdownPanel.gameObject.SetActive(evnt.Time != 0);
+        }
+
+        /*Only the server recieves this event.*/
+        public override void OnEvent(SelectSpellcaster evnt)
+        {
+            BoltConsole.Write("SERVER: Recieved a new character selection event");
+            gameStateEntity.GetComponent<NetworkGameState>()
+                .onSpellcasterSelected(evnt.spellcasterID, evnt.previousID);
+        }
+
+        /*Only the server recieves this event.*/
+        public override void OnEvent(NextTurnEvent evnt)
+        {
+            BoltConsole.Write("SERVER: Recieved a new end turn event");
+            int nextSpellcaster = gameStateEntity.GetComponent<NetworkGameState>().startNewTurn();
+            var nextTurnEvnt = NextPlayerTurnEvent.Create(Bolt.GlobalTargets.Everyone);
+            nextTurnEvnt.NextSpellcaster = nextSpellcaster;
+            nextTurnEvnt.Send();
+
         }
 
         public override void EntityReceived(BoltEntity entity)
@@ -385,6 +407,8 @@ namespace Bolt.Samples.Photon.Lobby
                 
                 BoltEntity entity = BoltNetwork.Instantiate(BoltPrefabs.CharacterSelectionEntity);
                 entity.AssignControl(connection);
+
+                
                 /*
                 BoltEntity entity = BoltNetwork.Instantiate(BoltPrefabs.PlayerInfo);
 
@@ -414,12 +438,28 @@ namespace Bolt.Samples.Photon.Lobby
         {
         }
 
-        // Spawners
+        // Spawner
         private void SpawnGamePlayer()
         {
             playerEntity = BoltNetwork.Instantiate(BoltPrefabs.LocalPlayer); //, pos, Quaternion.identity);
             playerEntity.TakeControl();
             playerEntity.GetComponent<Player>().setup(localPlayerSpellcasterID);
         }
+
+        public void notifySelectSpellcaster(int spellcasterID, int previous)
+        {
+            localPlayerSpellcasterID = spellcasterID;
+            var selected = SelectSpellcaster.Create(Bolt.GlobalTargets.OnlyServer);
+            selected.spellcasterID = spellcasterID;
+            selected.previousID = previous;
+            selected.Send();
+        }
+
+        public void updateNumOfPlayers(int numOfPlayrs)
+        {
+            BoltConsole.Write("About to update UI but not implemented");
+            //TODO: Call a method in SpellCasterLobbyChoose to update the UI to the # of players.
+        }
+        
     }
 }

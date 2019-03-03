@@ -51,7 +51,7 @@ MonoBehaviour:
   _autoFreezeProxyFrames: 0
   _clientPredicted: 1
   _allowInstantiateOnClient: 1
-  _persistThroughSceneLoads: 0
+  _persistThroughSceneLoads: 1
   _sceneObjectDestroyOnDetach: 1
   _sceneObjectAutoAttach: 1
   _alwaysProxy: 0
@@ -73,3 +73,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 883ef4ad1f853e44dae8431df32d9f9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  numOfPlayers: 0
+  numOfSpellcasters: 0
+  spellcasterList: 
+  combatOrder: 
+  turnsUntilNextEvent: 0
+  nextGlobalEvent: 
+  turn_i: 0
