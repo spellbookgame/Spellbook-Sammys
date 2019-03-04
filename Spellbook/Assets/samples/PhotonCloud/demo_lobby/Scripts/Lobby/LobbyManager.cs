@@ -366,6 +366,14 @@ namespace Bolt.Samples.Photon.Lobby
         }
 
         /*Only the server recieves this event.*/
+        public override void OnEvent(CollectSpellEvent evnt)
+        {
+            BoltConsole.Write("SERVER: Recieved a new spell collected event");
+            gameStateEntity.GetComponent<NetworkGameState>()
+                .onCollectedSpell(evnt.SpellcasterID, evnt.SpellName);
+        }
+
+        /*Only the server recieves this event.*/
         public override void OnEvent(NextTurnEvent evnt)
         {
             BoltConsole.Write("SERVER: Recieved a new end turn event");
@@ -489,6 +497,14 @@ namespace Bolt.Samples.Photon.Lobby
         {
             BoltConsole.Write("About to update UI but not implemented");
             //TODO: Call a method in SpellCasterLobbyChoose to update the UI to the # of spellcasters.
+        }
+
+        public void notifyHostAboutCollectedSpell(int sID, string spellName)
+        {
+            var spellCollectedEvnt = CollectSpellEvent.Create(Bolt.GlobalTargets.OnlyServer);
+            spellCollectedEvnt.SpellcasterID = sID;
+            spellCollectedEvnt.SpellName = spellName;
+            spellCollectedEvnt.Send();
         }
 
     }

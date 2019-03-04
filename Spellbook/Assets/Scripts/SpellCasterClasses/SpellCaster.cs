@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Bolt.Samples.Photon.Lobby;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
@@ -188,6 +190,7 @@ public abstract class SpellCaster
             {
                 // add spell to its chapter
                 chapter.spellsCollected.Add(spell);
+                LobbyManager.s_Singleton.notifyHostAboutCollectedSpell(spellcasterID, spell.sSpellName);
 
                 // tell player that the spell is collected
                 g.GetComponent<SpellCreateHandler>().inventoryText.text = "You unlocked " + spell.sSpellName + "!";
@@ -213,6 +216,7 @@ public abstract class SpellCaster
     {
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Create(Application.persistentDataPath + "/playerData.dat");
+        BoltConsole.Write("Saved in" + Application.persistentDataPath + "/playerData.dat");
         PlayerData pd = new PlayerData(s);
         bf.Serialize(file, pd);
         file.Close();
@@ -222,11 +226,14 @@ public abstract class SpellCaster
     {
         if (File.Exists(Application.persistentDataPath + "/playerData.dat"))
         {
+            BoltConsole.Write("checkpoint0");
+
             BinaryFormatter bf = new BinaryFormatter();
             FileStream file = File.Open(Application.persistentDataPath + "/playerData.dat", FileMode.Open);
             PlayerData data = (PlayerData) bf.Deserialize(file);
             file.Close();
             data.printPlayerData();
+            BoltConsole.Write("checkpoint1");
 
             SpellCaster spellcaster;
             switch (data.spellcasterID)
@@ -250,7 +257,7 @@ public abstract class SpellCaster
                     spellcaster = new Summoner();
                     break;
             }
-
+            BoltConsole.Write("checkpoint3");
             spellcaster.spellcasterID = data.spellcasterID;
             spellcaster.classType = data.classType;
             spellcaster.characterSpritePath = data.characterSpritePath;
@@ -260,6 +267,56 @@ public abstract class SpellCaster
             spellcaster.fBasicAttackStrength = data.fBasicAttackStrength;
             spellcaster.numOfTurnsSoFar = data.numOfTurnsSoFar;
             //spellcaster.activeSpells = data.activeSpells;
+            BoltConsole.Write("Before Forloop ");
+            /*TODO: finish debugging.
+            foreach (string spell_name in data.spellsCollected)
+            {
+                BoltConsole.Write("outterLoop: " + spell_name);
+
+                foreach (Spell s in spellcaster.chapter.spellsAllowed)
+                {
+                    BoltConsole.Write("innerLoop: " + s);
+                    if (spell_name == s.sSpellName)
+                    {
+                        //Remove white spaces
+                        BoltConsole.Write("Checking " + spell_name);
+                        string className = string.Join("", spell_name.Split(default(string[]), StringSplitOptions.RemoveEmptyEntries));
+                        BoltConsole.Write("Converted to " + className);
+                        Assembly assembly = Assembly.Load("Actions");
+                        Type t = assembly.GetType("Actions." + className);
+
+                        
+                       
+                        ConstructorInfo constructor = t.GetConstructor(new Type[] { typeof(Spell) });
+                        //Initialise the Type instance
+                        System.Object action = constructor.Invoke(new System.Object[] { });
+                        BoltConsole.Write("Converted to Action ");
+                        //If it's child of the main class
+                        if (action is Action)
+                        {
+                            BoltConsole.Write("Adding to chapter.spellsCollected");
+                            spellcaster.chapter.spellsCollected.Add((Spell)action);
+                        }
+                        //Error otherwise
+                        else
+                        {
+                            Debug.LogError("'" + className + "' is not child of Action!");
+                            return null;
+                        }
+                        
+                    }
+                }
+            }
+            */
+
+
+            int mapSize = data.glyphNames.Length;
+           
+            for (int j = 0; j < mapSize; j++ )
+            {
+                spellcaster.glyphs[data.glyphNames[j]] = data.glyphCount[j];
+            }
+
 
             return spellcaster;
         }

@@ -14,7 +14,11 @@ public class PlayerData
     public bool hasAttacked;
     public float fBasicAttackStrength;
     public int numOfTurnsSoFar;
-    //public List<Spell> activeSpells;
+    public string[] spellsCollected;
+
+    // These 2 arrays correspond to make the Glyph Dictionary in SpellCaster.cs
+    public string[] glyphNames; 
+    public int[] glyphCount;
 
     public PlayerData(SpellCaster spellCasterData)
     {
@@ -26,7 +30,25 @@ public class PlayerData
         this.hasAttacked = spellCasterData.hasAttacked;
         this.fBasicAttackStrength = spellCasterData.fBasicAttackStrength;
         this.numOfTurnsSoFar = spellCasterData.numOfTurnsSoFar;
-        //this.activeSpells = spellCasterData.activeSpells;
+        this.spellsCollected = new string[spellCasterData.chapter.spellsCollected.Count];
+        for(int i = 0; i < spellsCollected.Length; i++)
+        {
+            this.spellsCollected[i] = spellCasterData.chapter.spellsCollected[i].sSpellName;
+        }
+
+      
+
+        int mapSize = spellCasterData.glyphs.Count;
+        glyphNames = new string[mapSize];
+        glyphCount = new int[mapSize];
+        int j = 0;
+        foreach (KeyValuePair<string, int> entry in spellCasterData.glyphs)
+        {
+            glyphNames[j] = entry.Key;
+            glyphCount[j] = entry.Value;
+            j++;
+        }
+
 
     }
 
