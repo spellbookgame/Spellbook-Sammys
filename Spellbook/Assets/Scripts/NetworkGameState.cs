@@ -53,15 +53,32 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
         }
     }
 
+    public string getMatchName()
+    {
+        return state.MatchName;
+    }
+
     public string getGlobalEventString()
     {
         return turnsUntilNextEvent + displayGlobalEvent + nextGlobalEvent;
+    }
+
+    public void onCreateRoom(string matchName)
+    {
+        state.MatchName = matchName;
     }
 
     public int onPlayerJoined()
     {
         numOfPlayers++;
         state.NumOfPlayers++;
+        return state.NumOfPlayers;
+    }
+
+    public int actuallyAReturningPlayer()
+    {
+        numOfPlayers--;
+        state.NumOfPlayers--;
         return state.NumOfPlayers;
     }
 
@@ -77,7 +94,6 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
         {
             numOfSpellcasters++;
             state.NumOfSpellcasters++;
-            Bolt.Samples.Photon.Lobby.LobbyManager.s_Singleton.updateNumOfSpellcasters(numOfSpellcasters);
         }
         spellcasterList[spellcasterID] = 1;
         state.SpellcasterList[spellcasterID] = 1;
@@ -126,7 +142,7 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
     }
 
 
-    public void determineTurnOrder()
+    private void determineTurnOrder()
     {
         turnOrder.Clear();
         for (int i = 0; i < spellcasterList.Length; i++)
@@ -136,6 +152,7 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
                 turnOrder.Add(i);
             }
         }
+        state.CurrentSpellcasterTurn = turnOrder[0];
     }
 
     /* When our LobbyManager (aka our GlobalEventListener) recieves a
@@ -162,9 +179,29 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
 
     public int getCurrentTurn()
     {
-        return turnOrder[turn_i];
+        return state.CurrentSpellcasterTurn;
     }
 
+    public string getTurnSpellcasterName()
+    {
+        switch (state.CurrentSpellcasterTurn)
+        {
+            case 0:
+                return "Alchemist";
+            case 1:
+                return "Arcanist";
+            case 2:
+                return "Elementalist";
+            case 3:
+                return "Time Wizard";
+            case 4:
+                return "Illusionist";
+            default:
+                return "Summoner";
+        }
+    }
+
+    //Returns a formatted string to display in the spellbook progress scene.
     public string getSpellbookProgess()
     {
         int pCount = state.NumOfSpellcasters;

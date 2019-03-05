@@ -32,6 +32,7 @@ namespace Bolt.Samples.Photon.Lobby
 
             lobbyManager.backDelegate = lobbyManager.Stop;
             lobbyManager.DisplayIsConnecting();
+            lobbyManager.matchName = match.HostName;
         }
     }
 }

@@ -3,9 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ This class is used to store player data into a local .dat file,  
+ for recovery/reconnection purposes.
+     */
+
 [Serializable]
 public class PlayerData
 {
+    public string matchname;
     public int spellcasterID;
     public string classType;
     public string characterSpritePath;
@@ -22,6 +28,7 @@ public class PlayerData
 
     public PlayerData(SpellCaster spellCasterData)
     {
+        this.matchname = NetworkGameState.instance.getMatchName();
         this.spellcasterID = spellCasterData.spellcasterID;
         this.classType = spellCasterData.classType;
         this.characterSpritePath = spellCasterData.characterSpritePath;
@@ -54,6 +61,6 @@ public class PlayerData
 
     public void printPlayerData()
     {
-        Debug.Log(this.classType + " class ");
+        //Debug.Log(this.classType + " class ");
     }
 }

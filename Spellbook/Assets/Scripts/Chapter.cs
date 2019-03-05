@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using UnityEngine;
 
 public class Chapter : MonoBehaviour
@@ -12,12 +14,12 @@ public class Chapter : MonoBehaviour
 
     public List<Spell> spellsAllowed;
     public List<Spell> spellsCollected;
-
+    public Dictionary<string, Spell> spellNamePairs;
     public Chapter(string classType)
     {
         spellsAllowed = new List<Spell>();
         spellsCollected = new List<Spell>();
-
+        spellNamePairs = new Dictionary<string, Spell>();
         sChapterName = classType;
 
         // add spells into spellsAllowed list depending on class type
@@ -78,6 +80,7 @@ public class Chapter : MonoBehaviour
             default:
                 break;
         }
+        MapToDictionary();
     }
 
     /* called in SpellManager.cs
@@ -130,6 +133,31 @@ public class Chapter : MonoBehaviour
                     break;
                 }
             }
+        }
+    }
+
+    /*For reconnecting purposes, reloads the spellcaster's collected spells.*/
+    public void DeserializeSpells(SpellCaster spellCaster, string[] spellNames)
+    {
+        foreach(string spellName in spellNames)
+        {
+            foreach(Spell spell in spellsAllowed)
+            {
+                if(spellName == spell.sSpellName)
+                {
+                    spellsCollected.Add(spellNamePairs[spellName]);
+                    //LobbyManager.s_Singleton.notifyHostAboutCollectedSpell(spellcasterID, spell.sSpellName);
+                    break;
+                }
+            }
+        }
+    }
+
+    private void MapToDictionary()
+    {
+        foreach(Spell spell in spellsAllowed)
+        {
+            spellNamePairs[spell.sSpellName] = spell;
         }
     }
 }

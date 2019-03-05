@@ -13,6 +13,7 @@ using UnityEngine;
 
 public abstract class SpellCaster 
 {
+    public string matchname;
     public int numOfTurnsSoFar = 0;
 
     public float fMaxHealth;
@@ -191,6 +192,7 @@ public abstract class SpellCaster
                 // add spell to its chapter
                 chapter.spellsCollected.Add(spell);
                 LobbyManager.s_Singleton.notifyHostAboutCollectedSpell(spellcasterID, spell.sSpellName);
+                savePlayerData(this);
 
                 // tell player that the spell is collected
                 g.GetComponent<SpellCreateHandler>().inventoryText.text = "You unlocked " + spell.sSpellName + "!";
@@ -221,6 +223,8 @@ public abstract class SpellCaster
         bf.Serialize(file, pd);
         file.Close();
     }
+
+    
 
     public static SpellCaster loadPlayerData()
     {
@@ -268,48 +272,7 @@ public abstract class SpellCaster
             spellcaster.numOfTurnsSoFar = data.numOfTurnsSoFar;
             //spellcaster.activeSpells = data.activeSpells;
             BoltConsole.Write("Before Forloop ");
-            /*TODO: finish debugging.
-            foreach (string spell_name in data.spellsCollected)
-            {
-                BoltConsole.Write("outterLoop: " + spell_name);
-
-                foreach (Spell s in spellcaster.chapter.spellsAllowed)
-                {
-                    BoltConsole.Write("innerLoop: " + s);
-                    if (spell_name == s.sSpellName)
-                    {
-                        //Remove white spaces
-                        BoltConsole.Write("Checking " + spell_name);
-                        string className = string.Join("", spell_name.Split(default(string[]), StringSplitOptions.RemoveEmptyEntries));
-                        BoltConsole.Write("Converted to " + className);
-                        Assembly assembly = Assembly.Load("Actions");
-                        Type t = assembly.GetType("Actions." + className);
-
-                        
-                       
-                        ConstructorInfo constructor = t.GetConstructor(new Type[] { typeof(Spell) });
-                        //Initialise the Type instance
-                        System.Object action = constructor.Invoke(new System.Object[] { });
-                        BoltConsole.Write("Converted to Action ");
-                        //If it's child of the main class
-                        if (action is Action)
-                        {
-                            BoltConsole.Write("Adding to chapter.spellsCollected");
-                            spellcaster.chapter.spellsCollected.Add((Spell)action);
-                        }
-                        //Error otherwise
-                        else
-                        {
-                            Debug.LogError("'" + className + "' is not child of Action!");
-                            return null;
-                        }
-                        
-                    }
-                }
-            }
-            */
-
-
+            spellcaster.chapter.DeserializeSpells(spellcaster, data.spellsCollected);
             int mapSize = data.glyphNames.Length;
            
             for (int j = 0; j < mapSize; j++ )
