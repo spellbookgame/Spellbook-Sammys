@@ -16,6 +16,7 @@ public class Alchemist : SpellCaster
         
         //You can override variables in here.
         classType = "Alchemist";
+        spellcasterID = 0;
         fMaxHealth = 20.0f;
         fCurrentHealth = fMaxHealth;
 
@@ -23,5 +24,7 @@ public class Alchemist : SpellCaster
         chapter = new Chapter(classType);
 
         characterSpritePath = "Characters/AlchemyWizardFlat";
+        characterBackgroundPath = "Characters/Alchemist bgd blank";
+        characterIconPath = "Characters/symbol_glow_alchemist";
     }
 }

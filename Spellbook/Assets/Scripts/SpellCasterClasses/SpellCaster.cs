@@ -1,13 +1,20 @@
-﻿using System.Collections;
+﻿using Bolt.Samples.Photon.Lobby;
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
+using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
 /*
  A base class that all SpellCaster types/classes will inherit from.
      */
+
 public abstract class SpellCaster 
 {
-    private int numOfTurnsSoFar = 0;
+    public string matchname;
+    public int numOfTurnsSoFar = 0;
 
     public float fMaxHealth;
     public float fCurrentHealth;
@@ -16,6 +23,7 @@ public abstract class SpellCaster
     public int iMana;
     
     public string classType;
+    public int spellcasterID;
     public bool hasAttacked;
     public Chapter chapter;
 
@@ -23,8 +31,10 @@ public abstract class SpellCaster
     public Dictionary<string, int> glyphs;
     public List<Spell> activeSpells;
 
-    // reference to the character's sprite
+    // reference to the character's sprite/background
     public string characterSpritePath;
+    public string characterBackgroundPath;
+    public string characterIconPath;
 
     // TODO:
     //private string backGroundStory; 
@@ -126,13 +136,13 @@ public abstract class SpellCaster
     public void CollectGlyph(string glyphName)
     {
         this.glyphs[glyphName] += 1;
-        Debug.Log("You collected " + glyphName + ".");
+        PanelHolder.instance.displayEvent("You found a glyph!", "You found 1 " + glyphName + ".");
     }
 
     public string CollectRandomGlyph()
     {
         List<string> glyphList = new List<string>(this.glyphs.Keys);
-        int random = (int)Random.Range(0, glyphList.Count + 1);
+        int random = (int)UnityEngine.Random.Range(0, glyphList.Count + 1);
 
         string randomKey = glyphList[random];
 
@@ -153,7 +163,7 @@ public abstract class SpellCaster
     public string LoseRandomGlyph()
     {
         List<string> glyphList = new List<string>(this.glyphs.Keys);
-        int random = (int)Random.Range(0, glyphList.Count);
+        int random = (int)UnityEngine.Random.Range(0, glyphList.Count);
 
         string randomKey = glyphList[random];
 
@@ -175,15 +185,17 @@ public abstract class SpellCaster
             // if chapter.spellsAllowed already contains spell, give error notice
             if (chapter.spellsCollected.Contains(spell))
             {
-                g.GetComponent<SpellManager>().inventoryText.text = "You already have " + spell.sSpellName + ".";
+                g.GetComponent<SpellCreateHandler>().inventoryText.text = "You already have " + spell.sSpellName + ".";
             }
             else
             {
                 // add spell to its chapter
                 chapter.spellsCollected.Add(spell);
+                LobbyManager.s_Singleton.notifyHostAboutCollectedSpell(spellcasterID, spell.sSpellName);
+                savePlayerData(this);
 
                 // tell player that the spell is collected
-                g.GetComponent<SpellManager>().inventoryText.text = "You unlocked " + spell.sSpellName + "!";
+                g.GetComponent<SpellCreateHandler>().inventoryText.text = "You unlocked " + spell.sSpellName + "!";
                 Debug.Log("In your chapter you have:");
                 for (int i = 0; i < chapter.spellsCollected.Count; ++i)
                     Debug.Log(chapter.spellsCollected[i].sSpellName);
@@ -191,7 +203,7 @@ public abstract class SpellCaster
                 Debug.Log("You have " + chapter.spellsCollected.Count + " spells collected.");
 
                 // call function that removes prefabs in SpellManager.cs
-                g.GetComponent<SpellManager>().RemovePrefabs(spell);
+                g.GetComponent<SpellCreateHandler>().RemovePrefabs(spell);
             }
         }
     }
@@ -200,5 +212,77 @@ public abstract class SpellCaster
     {
         get => numOfTurnsSoFar;
         set => numOfTurnsSoFar = value;
+    }
+
+    public static void savePlayerData(SpellCaster s)
+    {
+        BinaryFormatter bf = new BinaryFormatter();
+        FileStream file = File.Create(Application.persistentDataPath + "/playerData.dat");
+        BoltConsole.Write("Saved in" + Application.persistentDataPath + "/playerData.dat");
+        PlayerData pd = new PlayerData(s);
+        bf.Serialize(file, pd);
+        file.Close();
+    }
+
+    
+
+    public static SpellCaster loadPlayerData()
+    {
+        if (File.Exists(Application.persistentDataPath + "/playerData.dat"))
+        {
+            BoltConsole.Write("checkpoint0");
+
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream file = File.Open(Application.persistentDataPath + "/playerData.dat", FileMode.Open);
+            PlayerData data = (PlayerData) bf.Deserialize(file);
+            file.Close();
+            data.printPlayerData();
+            BoltConsole.Write("checkpoint1");
+
+            SpellCaster spellcaster;
+            switch (data.spellcasterID)
+            {
+                case 0:
+                    spellcaster = new Alchemist();
+                    break;
+                case 1:
+                    spellcaster = new Arcanist();
+                    break;
+                case 2:
+                    spellcaster = new Elementalist();
+                    break;
+                case 3:
+                    spellcaster = new Chronomancer();
+                    break;
+                case 4:
+                    spellcaster = new Trickster();
+                    break;
+                default:
+                    spellcaster = new Summoner();
+                    break;
+            }
+            BoltConsole.Write("checkpoint3");
+            spellcaster.spellcasterID = data.spellcasterID;
+            spellcaster.classType = data.classType;
+            spellcaster.characterSpritePath = data.characterSpritePath;
+            spellcaster.fCurrentHealth = data.fCurrentHealth;
+            spellcaster.iMana = data.iMana;
+            spellcaster.hasAttacked = data.hasAttacked;
+            spellcaster.fBasicAttackStrength = data.fBasicAttackStrength;
+            spellcaster.numOfTurnsSoFar = data.numOfTurnsSoFar;
+            //spellcaster.activeSpells = data.activeSpells;
+            BoltConsole.Write("Before Forloop ");
+            spellcaster.chapter.DeserializeSpells(spellcaster, data.spellsCollected);
+            int mapSize = data.glyphNames.Length;
+           
+            for (int j = 0; j < mapSize; j++ )
+            {
+                spellcaster.glyphs[data.glyphNames[j]] = data.glyphCount[j];
+            }
+
+
+            return spellcaster;
+        }
+        return null;
     }
 }

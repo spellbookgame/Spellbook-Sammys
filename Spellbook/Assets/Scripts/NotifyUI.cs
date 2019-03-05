@@ -8,7 +8,7 @@ public class NotifyUI : MonoBehaviour
 {
     public Text titleText;
     public Text infoText;
-    public Text buttonText;
+
     [SerializeField] private Button singleButton;
 
     public void DisplayNotify(string title, string info)
@@ -54,6 +54,21 @@ public class NotifyUI : MonoBehaviour
     {
         SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
         gameObject.SetActive(false);
-        SceneManager.LoadScene("MainPlayerScene");
+
+        Debug.Log("On click");
+        //GameObject player = GameObject.Find("LocalPlayer(Clone)");
+        GameObject player = GameObject.FindGameObjectWithTag("LocalPlayer");
+
+        bool endSuccessful = player.GetComponent<Player>().onEndTurnClick();
+        if (endSuccessful)
+        {
+            player.GetComponent<Player>().Spellcaster.hasAttacked = false;
+            Scene m_Scene = SceneManager.GetActiveScene();
+            if (m_Scene.name != "MainPlayerScene")
+            {
+                SceneManager.LoadScene("MainPlayerScene");
+            }
+
+        }
     }
 }

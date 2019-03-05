@@ -15,6 +15,7 @@ public class Arcanist : SpellCaster
     {
         //You can override variables in here.
         classType = "Arcanist";
+        spellcasterID = 1;
         fMaxHealth = 20.0f;
         fCurrentHealth = fMaxHealth;
 
@@ -22,5 +23,7 @@ public class Arcanist : SpellCaster
         chapter = new Chapter(classType);
 
         characterSpritePath = "Characters/ArcaneWizardFlat";
+        characterBackgroundPath = "Characters/Arcane bgd blank";
+        characterIconPath = "Characters/symbol_glow_arcanist";
     }
 }

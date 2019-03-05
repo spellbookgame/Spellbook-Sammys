@@ -1,0 +1,82 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1989108739575539035
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1989108739575539032}
+  - component: {fileID: 3908460467677527865}
+  - component: {fileID: 9168120704156714920}
+  m_Layer: 0
+  m_Name: GameState
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1989108739575539032
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1989108739575539035}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3908460467677527865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1989108739575539035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -36112512, guid: 5b00bf8b25851d440940a40ec23344f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sceneGuid: 
+  _serializerGuid: 10f4a57d-bd6b-4808-b591-4c14a02ffb47
+  _prefabId: 1
+  _updateRate: 1
+  _autoFreezeProxyFrames: 0
+  _clientPredicted: 1
+  _allowInstantiateOnClient: 1
+  _persistThroughSceneLoads: 1
+  _sceneObjectDestroyOnDetach: 1
+  _sceneObjectAutoAttach: 1
+  _alwaysProxy: 0
+  _detachOnDisable: 1
+  _allowFirstReplicationWhenFrozen: 0
+  _autoRemoveChildEntities: 0
+  _entityBehaviourQueryOption: 0
+  _entityPriorityCalculatorQueryOption: 0
+  _entityReplicationFilterQueryOption: 0
+--- !u!114 &9168120704156714920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1989108739575539035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 883ef4ad1f853e44dae8431df32d9f9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numOfPlayers: 0
+  numOfSpellcasters: 0
+  spellcasterList: 
+  combatOrder: 
+  turnsUntilNextEvent: 0
+  nextGlobalEvent: 
+  turn_i: 0

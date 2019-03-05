@@ -15,6 +15,7 @@ public class Trickster : SpellCaster
     {
         //You can override variables in here.
         classType = "Trickster";
+        spellcasterID = 4;
         fMaxHealth = 20.0f;
         fCurrentHealth = fMaxHealth;
 
@@ -22,5 +23,7 @@ public class Trickster : SpellCaster
         chapter = new Chapter(classType);
 
         characterSpritePath = "Characters/Trickster";
+        characterBackgroundPath = "Characters/Illusionist bgd blank";
+        characterIconPath = "Characters/symbol_glow_illusion";
     }
 }

@@ -35,6 +35,8 @@ namespace Photon.Lobby
 
         public Button readyButton;
         public Text text;
+        //public Text text_numOfPlayers_join;
+        public int numOfPlayers = 0;
 
         public Color alchemistColor = Color.green;
         public Color arcanistColor = Color.magenta;
@@ -52,111 +54,128 @@ namespace Photon.Lobby
         // Handlers
         public override void Attached()
         {
-            //Innefficient, for demoing purposes.
-            lobbyManager = GameObject.Find("LobbyManager").GetComponent<LobbyManager>();
-            alchemistButton = GameObject.Find("button_alchemist").GetComponent<Button>();
-            arcanistButton = GameObject.Find("button_arcanist").GetComponent<Button>();
-            elementalistButton = GameObject.Find("button_elementalist").GetComponent<Button>(); 
-            chronomancerButton = GameObject.Find("button_chronomancer").GetComponent<Button>();
-            illusionistButton = GameObject.Find("button_trickster").GetComponent<Button>();
-            summonerButton = GameObject.Find("button_summoner").GetComponent<Button>();
-            text = GameObject.Find("ChooseClass").GetComponent<Text>();
-            // A callback is basically another way of saying "getting an update from the network"
-            state.AddCallback("AlchemistSelected", () =>
+            try
             {
-                if (state.AlchemistSelected)
-                {
-                    alchemistButton.image.color = alchemistColor;
-                    alchemistButton.interactable = false;
-                }
-                else
-                {
-                    unselectedColor.a = 1;
-                    alchemistButton.image.color = unselectedColor;
-                    alchemistButton.interactable = true;
-                }
-            });
 
-            state.AddCallback("ArcanistSelected", () =>
-            {
-                if (state.ArcanistSelected)
-                {
-                    arcanistButton.image.color = arcanistColor;
-                    arcanistButton.interactable = false;
-                }
-                else
-                {
-                    unselectedColor.a = 1;
-                    arcanistButton.image.color = unselectedColor;
-                    arcanistButton.interactable = true;
-                }
-            });
 
-            state.AddCallback("ElementalistSelected", () =>
-            {
-                if (state.ElementalistSelected)
+                //Innefficient, for demoing purposes.
+                lobbyManager = GameObject.Find("LobbyManager").GetComponent<LobbyManager>();
+                alchemistButton = GameObject.Find("button_alchemist").GetComponent<Button>();
+                arcanistButton = GameObject.Find("button_arcanist").GetComponent<Button>();
+                elementalistButton = GameObject.Find("button_elementalist").GetComponent<Button>();
+                chronomancerButton = GameObject.Find("button_chronomancer").GetComponent<Button>();
+                illusionistButton = GameObject.Find("button_trickster").GetComponent<Button>();
+                summonerButton = GameObject.Find("button_summoner").GetComponent<Button>();
+                text = GameObject.Find("ChooseClass").GetComponent<Text>();
+                // A callback is basically another way of saying "getting an update from the network"
+                state.AddCallback("AlchemistSelected", () =>
                 {
-                    elementalistButton.image.color = elementalistColor;
-                    elementalistButton.interactable = false;
-                }
-                else
-                {
-                    unselectedColor.a = 1;
-                    elementalistButton.image.color = unselectedColor;
-                    elementalistButton.interactable = true;
-                }
-            });
+                    if (state.AlchemistSelected)
+                    {
+                        alchemistButton.image.color = alchemistColor;
+                        alchemistButton.interactable = false;
+                    }
+                    else
+                    {
+                        unselectedColor.a = 1;
+                        alchemistButton.image.color = unselectedColor;
+                        alchemistButton.interactable = true;
+                    }
+                });
 
-            state.AddCallback("ChronomancerSelected", () =>
-            {
-                if (state.ChronomancerSelected)
+                state.AddCallback("ArcanistSelected", () =>
                 {
-                    chronomancerButton.image.color = chronomancerColor;
-                    chronomancerButton.interactable = false;
-                }
-                else
-                {
-                    unselectedColor.a = 1;
-                    chronomancerButton.image.color = unselectedColor;
-                    chronomancerButton.interactable = true;
-                }
-            });
+                    if (state.ArcanistSelected)
+                    {
+                        arcanistButton.image.color = arcanistColor;
+                        arcanistButton.interactable = false;
+                    }
+                    else
+                    {
+                        unselectedColor.a = 1;
+                        arcanistButton.image.color = unselectedColor;
+                        arcanistButton.interactable = true;
+                    }
+                });
 
-            state.AddCallback("IllusionistSelected", () =>
-            {
-                if (state.IllusionistSelected)
+                state.AddCallback("ElementalistSelected", () =>
                 {
-                    illusionistButton.image.color = illusionistColor;
-                    illusionistButton.interactable = false;
-                }
-                else
-                {
-                    unselectedColor.a = 1;
-                    illusionistButton.image.color = unselectedColor;
-                    illusionistButton.interactable = true;
-                }
-            });
+                    if (state.ElementalistSelected)
+                    {
+                        elementalistButton.image.color = elementalistColor;
+                        elementalistButton.interactable = false;
+                    }
+                    else
+                    {
+                        unselectedColor.a = 1;
+                        elementalistButton.image.color = unselectedColor;
+                        elementalistButton.interactable = true;
+                    }
+                });
 
-            state.AddCallback("SummonerSelected", () =>
+                state.AddCallback("ChronomancerSelected", () =>
+                {
+                    if (state.ChronomancerSelected)
+                    {
+                        chronomancerButton.image.color = chronomancerColor;
+                        chronomancerButton.interactable = false;
+                    }
+                    else
+                    {
+                        unselectedColor.a = 1;
+                        chronomancerButton.image.color = unselectedColor;
+                        chronomancerButton.interactable = true;
+                    }
+                });
+
+                state.AddCallback("IllusionistSelected", () =>
+                {
+                    if (state.IllusionistSelected)
+                    {
+                        illusionistButton.image.color = illusionistColor;
+                        illusionistButton.interactable = false;
+                    }
+                    else
+                    {
+                        unselectedColor.a = 1;
+                        illusionistButton.image.color = unselectedColor;
+                        illusionistButton.interactable = true;
+                    }
+                });
+
+                state.AddCallback("SummonerSelected", () =>
+                {
+                    if (state.SummonerSelected)
+                    {
+                        summonerButton.image.color = summonerColor;
+                        summonerButton.interactable = false;
+                    }
+                    else
+                    {
+                        unselectedColor.a = 1;
+                        summonerButton.image.color = unselectedColor;
+                        summonerButton.interactable = true;
+                    }
+                });
+            }
+            catch
             {
-                if (state.SummonerSelected)
-                {
-                    summonerButton.image.color = summonerColor;
-                    summonerButton.interactable = false;
-                }
-                else
-                {
-                    unselectedColor.a = 1;
-                    summonerButton.image.color = unselectedColor;
-                    summonerButton.interactable = true;
-                }
-            });
+                //Loading previous game
+            }
         }
 
         public override void ControlGained()
         {
             BoltConsole.Write("ControlGained", Color.blue);
-            SetupCharacterSelectionUI();
+            try
+            {
+                SetupCharacterSelectionUI();
+            }
+            catch
+            {
+                //loading previous game.
+            }
+           
         }
 
         public override void SimulateController()
@@ -231,7 +250,7 @@ namespace Photon.Lobby
             currentSelected = 0;
             alchemistChosen = true;
             openPreviousSpellcaster();
-            lobbyManager.localPlayerSpellcasterID = 0;
+            lobbyManager.notifySelectSpellcaster(0, previousSelected);
             text.text = "You chose Alchemist!";
         }
 
@@ -242,7 +261,7 @@ namespace Photon.Lobby
             currentSelected = 1;
             arcanistChosen = true;
             openPreviousSpellcaster();
-            lobbyManager.localPlayerSpellcasterID = 1;
+            lobbyManager.notifySelectSpellcaster(1, previousSelected);
             text.text = "You chose Arcanist!";
         }
 
@@ -253,7 +272,7 @@ namespace Photon.Lobby
             currentSelected = 2;
             elementalistChosen = true;
             openPreviousSpellcaster();
-            lobbyManager.localPlayerSpellcasterID = 2;
+            lobbyManager.notifySelectSpellcaster(2, previousSelected);
             text.text = "You chose Elementalist!";
         }
 
@@ -264,7 +283,7 @@ namespace Photon.Lobby
             currentSelected = 3;
             chronomancerChosen = true;
             openPreviousSpellcaster();
-            lobbyManager.localPlayerSpellcasterID = 3;
+            lobbyManager.notifySelectSpellcaster(3, previousSelected);
             text.text = "You chose Chronomancer!";
         }
 
@@ -275,7 +294,7 @@ namespace Photon.Lobby
             currentSelected = 4;
             illusionistChosen = true;
             openPreviousSpellcaster();
-            lobbyManager.localPlayerSpellcasterID = 4;
+            lobbyManager.notifySelectSpellcaster(4, previousSelected);
             text.text = "You chose Illusionist!";
         }
 
@@ -286,7 +305,7 @@ namespace Photon.Lobby
             currentSelected = 5;
             summonerChosen = true;
             openPreviousSpellcaster();
-            lobbyManager.localPlayerSpellcasterID = 5;
+            lobbyManager.notifySelectSpellcaster(5, previousSelected);
             text.text = "You chose Summoner!";
         }
 
