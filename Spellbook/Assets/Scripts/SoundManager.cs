@@ -12,6 +12,10 @@ public class SoundManager : MonoBehaviour
     // static clip so any script can access it
     [SerializeField] AudioClip buttonConfirmHelper;
     public static AudioClip buttonconfirm;
+    [SerializeField] AudioClip grabspellpieceHelper;
+    public static AudioClip grabspellpiece;
+    [SerializeField] AudioClip placespellpieceHelper;
+    public static AudioClip placespellpiece;
 
     void Awake()
     {
@@ -26,6 +30,8 @@ public class SoundManager : MonoBehaviour
 
         // setting buttonconfirm to sound in serializefield
         buttonconfirm = buttonConfirmHelper;
+        grabspellpiece = grabspellpieceHelper;
+        placespellpiece = placespellpieceHelper;
 
         //Set SoundManager to DontDestroyOnLoad so that it won't be destroyed when reloading our scene.
         DontDestroyOnLoad(gameObject);

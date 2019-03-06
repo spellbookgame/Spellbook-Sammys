@@ -15,20 +15,18 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     private Transform startParent;
 
     Player localPlayer;
-    SpellCreateHandler spellCreateHandler;
 
     void Start()
     {
         originalParent = transform.parent;
 
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
-        spellCreateHandler = GameObject.Find("Canvas").GetComponent<SpellCreateHandler>();
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
         // play grab sound
-        SoundManager.instance.PlaySingle(spellCreateHandler.grabspellpiece);
+        SoundManager.instance.PlaySingle(SoundManager.grabspellpiece);
 
         // itemToDrag is the game object that this script is on
         itemToDrag = gameObject;
@@ -82,6 +80,8 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
             transform.position = startPos;
             Destroy(itemBeingDragged.gameObject);
             localPlayer.Spellcaster.glyphs[itemBeingDragged.name] += 1;
+            // update the glyph info text
+            ExecuteEvents.ExecuteHierarchy<IHasChanged>(gameObject, null, (x, y) => x.HasChanged());
         }
     }
 }
