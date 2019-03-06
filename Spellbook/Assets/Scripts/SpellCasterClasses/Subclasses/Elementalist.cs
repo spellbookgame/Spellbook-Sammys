@@ -15,6 +15,7 @@ public class Elementalist : SpellCaster
     {
         //You can override variables in here.
         classType = "Elementalist";
+        spellcasterID = 2;
         fMaxHealth = 20.0f;
         fCurrentHealth = fMaxHealth;
 

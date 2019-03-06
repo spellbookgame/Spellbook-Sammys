@@ -16,6 +16,7 @@ public class Summoner : SpellCaster
     {
         //You can override variables in here.
         classType = "Summoner";
+        spellcasterID = 5;
         fMaxHealth = 20.0f;
         fCurrentHealth = fMaxHealth;
 
