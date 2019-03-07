@@ -203,7 +203,7 @@ public abstract class SpellCaster
                 Debug.Log("You have " + chapter.spellsCollected.Count + " spells collected.");
 
                 // call function that removes prefabs in SpellManager.cs
-                g.GetComponent<SpellCreateHandler>().RemovePrefabs(spell);
+                g.GetComponent<SpellCreateHandler>().RemovePrefabs();
             }
         }
     }

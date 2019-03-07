@@ -72,7 +72,7 @@ public class SpellCreateHandler : MonoBehaviour, IHasChanged
     }
 
     // iterates through each slot and deletes child
-    public void RemovePrefabs(Spell spell)
+    public void RemovePrefabs()
     {
         // remove slot children
         foreach(Transform slotTransform in slots)

@@ -45,7 +45,7 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
             clone.AddComponent<DragHandler>();
 
-            // subtract 1 from the player's inventory whenever the spell piece is used
+            // subtract 1 from the player's inventory whenever the glyph is used
             localPlayer.Spellcaster.glyphs[itemToDrag.name] -= 1;
 
             // set the instantiated clone's text to the number player has

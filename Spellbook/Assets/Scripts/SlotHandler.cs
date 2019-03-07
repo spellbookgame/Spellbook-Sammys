@@ -31,7 +31,7 @@ public class SlotHandler : MonoBehaviour, IDropHandler
     {
         if(transform.parent.name.Equals("panel_glyphs"))
         {
-            // updating the text for each spell piece
+            // updating the text for each glyph
             transform.GetChild(0).GetChild(0).GetComponent<Text>().text = localPlayer.Spellcaster.glyphs[transform.GetChild(0).name].ToString();
 
             // if drag handler script exists, disable/enable DragHandler script
