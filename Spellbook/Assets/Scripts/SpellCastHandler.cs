@@ -18,6 +18,7 @@ public class SpellCastHandler : MonoBehaviour
     [SerializeField] private Transform slots;
 
     private int iSlotCount;
+    private bool spellWasCast;
     private RectTransform panelRect;
     private Spell currentSpell;
 
@@ -84,22 +85,32 @@ public class SpellCastHandler : MonoBehaviour
         {
             // check if player has enough mana
             if(localPlayer.Spellcaster.iMana < currentSpell.iManaCost)
+            {
                 PanelHolder.instance.displayNotify("Not enough mana!", "You don't have enough mana to cast this spell.");
+                spellWasCast = false;
+                RemovePrefabs(spellWasCast);
+            }
             else
             {
                 currentSpell.SpellCast(localPlayer.Spellcaster);
-                RemovePrefabs();
+                spellWasCast = true;
+                RemovePrefabs(spellWasCast);
             }
         }
     }
 
     // removes all glyphs from casting circle once the spell is cast
-    public void RemovePrefabs()
+    public void RemovePrefabs(bool spellWasCast)
     {
         // remove slot children
         foreach (Transform slotTransform in slots)
         {
             Destroy(slotTransform.GetChild(0).gameObject);
+            // if the spell wasn't cast, return the glyphs to player's inventory
+            if (!spellWasCast)
+            {
+                localPlayer.Spellcaster.glyphs[slotTransform.GetChild(0).name] += 1;
+            }
         }
     }
 
