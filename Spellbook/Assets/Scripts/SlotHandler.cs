@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-// script from Kiwasi Games
+// drag and drop implementation from Kiwasi Games
 public class SlotHandler : MonoBehaviour, IDropHandler
 {
     SpellCreateHandler spellCreateHandler;
@@ -29,9 +29,9 @@ public class SlotHandler : MonoBehaviour, IDropHandler
 
     void Update()
     {
-        if(transform.parent.name.Equals("panel_spellpieces"))
+        if(transform.parent.name.Equals("panel_glyphs"))
         {
-            // updating the text for each spell piece
+            // updating the text for each glyph
             transform.GetChild(0).GetChild(0).GetComponent<Text>().text = localPlayer.Spellcaster.glyphs[transform.GetChild(0).name].ToString();
 
             // if drag handler script exists, disable/enable DragHandler script
@@ -53,10 +53,10 @@ public class SlotHandler : MonoBehaviour, IDropHandler
     public void OnDrop(PointerEventData eventData)
     {
         // play drop sound
-        SoundManager.instance.PlaySingle(spellCreateHandler.placespellpiece);
+        SoundManager.instance.PlaySingle(SoundManager.placespellpiece);
 
-        // if the slot contains an item and it is a child of the spell pieces panel, destroy itemToDrag
-        if (item && transform.parent.name.Equals("panel_spellpieces"))
+        // if the slot contains an item and it is a child of the glyph panel, destroy itemToDrag
+        if (item && transform.parent.name.Equals("panel_glyphs"))
         {
             // add the spell piece back to player's inventory
             localPlayer.Spellcaster.glyphs[DragHandler.itemToDrag.name] += 1;
@@ -67,6 +67,7 @@ public class SlotHandler : MonoBehaviour, IDropHandler
                 spellCreateHandler.slotPieces[DragHandler.itemToDrag.name] -= 1;
                 Debug.Log(DragHandler.itemToDrag.name + spellCreateHandler.slotPieces[DragHandler.itemToDrag.name]);
             }
+
             Destroy(DragHandler.itemToDrag.gameObject);
 
             // using lambda function to call HasChanged method in SpellManager.cs

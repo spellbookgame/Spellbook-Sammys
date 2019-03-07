@@ -17,9 +17,6 @@ public class SpellCreateHandler : MonoBehaviour, IHasChanged
     [SerializeField] private GameObject glyphPieceContainer;
     [SerializeField] private Button mainButton;
     [SerializeField] private Button backButton;
-
-    public AudioClip grabspellpiece;
-    public AudioClip placespellpiece;
     
     public Dictionary<string, int> slotPieces;
     private RectTransform panelRect;
@@ -75,7 +72,7 @@ public class SpellCreateHandler : MonoBehaviour, IHasChanged
     }
 
     // iterates through each slot and deletes child
-    public void RemovePrefabs(Spell spell)
+    public void RemovePrefabs()
     {
         // remove slot children
         foreach(Transform slotTransform in slots)
