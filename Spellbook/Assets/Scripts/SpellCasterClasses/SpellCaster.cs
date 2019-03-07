@@ -174,18 +174,18 @@ public abstract class SpellCaster
     }
 
     // method that adds spell to player's chapter
-    // called from Chapter.cs
-    public void CollectSpell(Spell spell)
+    public bool CollectSpell(Spell spell)
     {
-        GameObject g = GameObject.FindWithTag("SpellManager");
+        bool spellCollected = false;
+        GameObject g = GameObject.FindGameObjectWithTag("SpellManager");
 
         // only add the spell if the player is the spell's class
         if (spell.sSpellClass == this.classType)
         {
-            // if chapter.spellsAllowed already contains spell, give error notice
+            // if chapter.spellsCollected already contains spell, give error notice
             if (chapter.spellsCollected.Contains(spell))
             {
-                g.GetComponent<SpellCreateHandler>().inventoryText.text = "You already have " + spell.sSpellName + ".";
+                Debug.Log("You already have " + spell.sSpellName + ".");
             }
             else
             {
@@ -196,16 +196,13 @@ public abstract class SpellCaster
 
                 // tell player that the spell is collected
                 g.GetComponent<SpellCreateHandler>().inventoryText.text = "You unlocked " + spell.sSpellName + "!";
-                Debug.Log("In your chapter you have:");
-                for (int i = 0; i < chapter.spellsCollected.Count; ++i)
-                    Debug.Log(chapter.spellsCollected[i].sSpellName);
 
                 Debug.Log("You have " + chapter.spellsCollected.Count + " spells collected.");
 
-                // call function that removes prefabs in SpellManager.cs
-                g.GetComponent<SpellCreateHandler>().RemovePrefabs();
+                spellCollected = true;
             }
         }
+        return spellCollected;
     }
 
     public int NumOfTurnsSoFar

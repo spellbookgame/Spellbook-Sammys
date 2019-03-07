@@ -83,25 +83,25 @@ public class Chapter : MonoBehaviour
         MapToDictionary();
     }
 
-    /* called in SpellManager.cs
-     * compares 2 dictionaries (requiredPieces and slotPieces)
-     * if they match, calls CollectSpell in SpellCaster.cs
-     */
-    public void CompareSpells(SpellCaster player, Dictionary<string, int> slotPieces)
+    /* called in SpellCreateHandler.cs
+ * compares 2 dictionaries (requiredPieces and slotPieces)
+ * if they match, calls CollectSpell in SpellCaster.cs
+ */
+    /*public void CompareSpells(SpellCaster player, Dictionary<string, int> slotPieces)
     {
         bool equal = false;
 
         Dictionary<string, int> dictionary1 = slotPieces;
 
         // iterate through each spell that player can collect
-        for(int i = 0; i < player.chapter.spellsAllowed.Count; ++i)
+        for (int i = 0; i < player.chapter.spellsAllowed.Count; ++i)
         {
             Dictionary<string, int> dictionary2 = player.chapter.spellsAllowed[i].requiredGlyphs;
-            
+
             // tier 3 spells: only need 1 required piece
             if (player.chapter.spellsAllowed[i].iTier == 3)
             {
-                if(dictionary2.Keys.All(k => dictionary1.ContainsKey(k)))
+                if (dictionary2.Keys.All(k => dictionary1.ContainsKey(k)))
                 {
                     equal = true;
                     // if equal and player does not have the spell yet
@@ -113,9 +113,9 @@ public class Chapter : MonoBehaviour
                 }
             }
             // tier 2 spells: need 2 required pieces
-            else if(player.chapter.spellsAllowed[i].iTier == 2 || player.chapter.spellsAllowed[i].iTier == 1)
+            else if (player.chapter.spellsAllowed[i].iTier == 2 || player.chapter.spellsAllowed[i].iTier == 1)
             {
-                foreach(KeyValuePair<string, int> kvp in dictionary2)
+                foreach (KeyValuePair<string, int> kvp in dictionary2)
                 {
                     if (dictionary1.ContainsKey(kvp.Key))
                     {
@@ -134,7 +134,7 @@ public class Chapter : MonoBehaviour
                 }
             }
         }
-    }
+    }*/
 
     /*For reconnecting purposes, reloads the spellcaster's collected spells.*/
     public void DeserializeSpells(SpellCaster spellCaster, string[] spellNames)

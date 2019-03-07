@@ -117,6 +117,10 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
                 int r6 = (int)UnityEngine.Random.Range(100, 700);
                 localPlayer.Spellcaster.CollectMana(r6);
                 break;
+            case "generic_mana":
+                int m = (int)UnityEngine.Random.Range(100, 700);
+                localPlayer.Spellcaster.CollectMana(m);
+                break;
             #endregion
 
             #region city_spaces
@@ -137,6 +141,9 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
                 break;
             case "summoner_city":
                 PanelHolder.instance.displayEvent("Summoner city", "Nothing really to see here...");
+                break;
+            case "generic_city":
+                PanelHolder.instance.displayEvent("Generic city", "Nothing really to see here...");
                 break;
             #endregion
 
@@ -182,6 +189,9 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
                     localPlayer.Spellcaster.CollectGlyph("Summoning D Glyph");
                 else
                     localPlayer.Spellcaster.CollectGlyph("Summoning C Glyph");
+                break;
+            case "generic_glyph":
+                localPlayer.Spellcaster.CollectRandomGlyph();
                 break;
             #endregion
 
