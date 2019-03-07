@@ -22,32 +22,12 @@ public class CoDSkeletons : Spell
     public override void SpellCast(SpellCaster player)
     {
         Enemy enemy = GameObject.FindGameObjectWithTag("Enemy").GetComponent<Enemy>();
+        
+        // subtract mana and glyph costs
+        player.iMana -= iManaCost;
 
-        bool canCast = false;
-        // checking if player can actually cast the spell
-        foreach (KeyValuePair<string, int> kvp in requiredGlyphs)
-        {
-            if (player.glyphs[kvp.Key] >= 1)
-                canCast = true;
-        }
-        if (canCast && player.iMana > iManaCost)
-        {
-            // subtract mana and glyph costs
-            player.iMana -= iManaCost;
-            foreach (KeyValuePair<string, int> kvp in requiredGlyphs)
-                player.glyphs[kvp.Key] -= 1;
-
-            int damage = Random.Range(1, 6);
-            enemy.HitEnemy(damage);
-            PanelHolder.instance.displayCombat("You cast " + sSpellName, "The Skeleton did " + damage + " damage!");
-        }
-        else if (player.iMana < iManaCost)
-        {
-            PanelHolder.instance.displayNotify("Not enough mana!", "You don't have enough mana to cast this spell.");
-        }
-        else
-        {
-            PanelHolder.instance.displayNotify("Not enough glyphs!", "You don't have enough glyphs to cast this spell.");
-        }
+        int damage = Random.Range(1, 6);
+        enemy.HitEnemy(damage);
+        PanelHolder.instance.displayCombat("You cast " + sSpellName, "The Skeleton did " + damage + " damage!");
     }
 }

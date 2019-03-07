@@ -43,7 +43,7 @@ public class SpellCastHandler : MonoBehaviour
             SceneManager.LoadScene("SpellbookScene");
         });
 
-        int yPos = 780;
+        int xPos = -470;
         // add buttons for each spell the player has collected
         for (int i = 0; i < localPlayer.Spellcaster.chapter.spellsCollected.Count; i++)
         {
@@ -52,7 +52,7 @@ public class SpellCastHandler : MonoBehaviour
 
             string spellName = localPlayer.Spellcaster.chapter.spellsCollected[i].sSpellName;
             newSpellButton.GetComponentInChildren<Text>().text = spellName;
-            newSpellButton.transform.localPosition = new Vector3(0, yPos, 0);
+            newSpellButton.transform.localPosition = new Vector3(xPos, 730, 0);
 
             // helper variable to pass in incremental value
             int i2 = i;
@@ -60,8 +60,8 @@ public class SpellCastHandler : MonoBehaviour
             // add listener to button
             newSpellButton.onClick.AddListener(() => SpellButtonClicked(localPlayer.Spellcaster.chapter.spellsCollected[i2]));
 
-            // to position new button underneath prev button
-            yPos -= 150;
+            // to position new button next to prev button
+            xPos += 250;
         }
 
         GenerateSpellSlots();
@@ -94,7 +94,6 @@ public class SpellCastHandler : MonoBehaviour
     }
 
     // removes all glyphs from casting circle once the spell is cast
-    // called in spell.SpellCast();
     public void RemovePrefabs()
     {
         // remove slot children
