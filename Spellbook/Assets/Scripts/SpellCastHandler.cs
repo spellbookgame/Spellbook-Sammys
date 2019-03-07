@@ -160,16 +160,19 @@ public class SpellCastHandler : MonoBehaviour
     // when the button is clicked, add its required glyphs into the casting circle
     private void SpellButtonClicked(Spell spell)
     {
-        // if a new spell button was clicked
-        if(currentSpell != spell)
-        {
-            // update current spell
-            currentSpell = spell;
-            // remove any glyphs from spell casting circle
-            spellWasCast = false;
-            RemovePrefabs(spellWasCast);
-        }
+        // update current spell
+        currentSpell = spell;
+        // remove any glyphs from spell casting circle
+        spellWasCast = false;
+        RemovePrefabs(spellWasCast);
         StartCoroutine("WaitALittle", spell);
+    }
+
+    // creates a delay before populating circle
+    IEnumerator WaitALittle(Spell spell)
+    {
+        yield return new WaitForSeconds(0.1f);
+        PopulateCircle(spell);
     }
 
     private void PopulateCircle(Spell spell)
@@ -209,11 +212,5 @@ public class SpellCastHandler : MonoBehaviour
                 localPlayer.Spellcaster.glyphs[kvp.Key] -= 1;
             }
         }
-    }
-
-    IEnumerator WaitALittle(Spell spell)
-    {
-        yield return new WaitForSeconds(0.1f);
-        PopulateCircle(spell);
     }
 }
