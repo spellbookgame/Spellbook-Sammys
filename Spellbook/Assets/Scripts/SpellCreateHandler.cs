@@ -79,12 +79,15 @@ public class SpellCreateHandler : MonoBehaviour, IHasChanged
         // remove slot children
         foreach(Transform slotTransform in slots)
         {
-            Destroy(slotTransform.GetChild(0).gameObject);
-            // if the spell wasn't collected, return the glyphs to player's inventory
-            if(!collected)
+            if(slotTransform.childCount > 0)
             {
-                localPlayer.Spellcaster.glyphs[slotTransform.GetChild(0).name] += 1;
-                inventoryText.text = "This spell was NOT created.";
+                Destroy(slotTransform.GetChild(0).gameObject);
+                // if the spell wasn't collected, return the glyphs to player's inventory
+                if (!collected)
+                {
+                    localPlayer.Spellcaster.glyphs[slotTransform.GetChild(0).name] += 1;
+                    inventoryText.text = "This spell was NOT created.";
+                }
             }
         }
         slotPieces.Clear();
@@ -162,25 +165,8 @@ public class SpellCreateHandler : MonoBehaviour, IHasChanged
         {
             Dictionary<string, int> dictionary2 = localPlayer.Spellcaster.chapter.spellsAllowed[i].requiredGlyphs;
 
-            // tier 3 spells: only need 1 required piece
-            if (localPlayer.Spellcaster.chapter.spellsAllowed[i].iTier == 3)
-            {
-                if (dictionary2.Keys.All(k => dictionary1.ContainsKey(k)))
-                {
-                    equal = true;
-                    // if equal and player does not have the spell yet
-                    if (equal && !localPlayer.Spellcaster.chapter.spellsCollected.Contains(localPlayer.Spellcaster.chapter.spellsAllowed[i]))
-                    {
-                        // collect the spell and remove the glyphs from the circle
-                        spellCollected = localPlayer.Spellcaster.CollectSpell(localPlayer.Spellcaster.chapter.spellsAllowed[i]);
-                        break;
-                    }
-                    else
-                        spellCollected = false;
-                }
-            }
             // checking for tier 2 and tier 1 spells
-            else if (localPlayer.Spellcaster.chapter.spellsAllowed[i].iTier == 2 || localPlayer.Spellcaster.chapter.spellsAllowed[i].iTier == 1)
+            if (localPlayer.Spellcaster.chapter.spellsAllowed[i].iTier == 2 || localPlayer.Spellcaster.chapter.spellsAllowed[i].iTier == 1)
             {
                 foreach (KeyValuePair<string, int> kvp in dictionary2)
                 {
@@ -199,6 +185,23 @@ public class SpellCreateHandler : MonoBehaviour, IHasChanged
                 {
                     spellCollected = localPlayer.Spellcaster.CollectSpell(localPlayer.Spellcaster.chapter.spellsAllowed[i]);
                     break;
+                }
+            }
+            // tier 3 spells: only need 1 required piece
+            else if (localPlayer.Spellcaster.chapter.spellsAllowed[i].iTier == 3)
+            {
+                if (dictionary2.Keys.All(k => dictionary1.ContainsKey(k)))
+                {
+                    equal = true;
+                    // if equal and player does not have the spell yet
+                    if (equal && !localPlayer.Spellcaster.chapter.spellsCollected.Contains(localPlayer.Spellcaster.chapter.spellsAllowed[i]))
+                    {
+                        // collect the spell and remove the glyphs from the circle
+                        spellCollected = localPlayer.Spellcaster.CollectSpell(localPlayer.Spellcaster.chapter.spellsAllowed[i]);
+                        break;
+                    }
+                    else
+                        spellCollected = false;
                 }
             }
         }

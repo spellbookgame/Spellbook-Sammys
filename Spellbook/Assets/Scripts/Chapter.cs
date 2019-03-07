@@ -26,24 +26,24 @@ public class Chapter : MonoBehaviour
         switch (classType)
         {
             case "Alchemist":
+                Spell potionOfBlessing = new PotionofBlessing();
+                spellsAllowed.Add(potionOfBlessing);
                 Spell toxicPotion = new ToxicPotion();
                 spellsAllowed.Add(toxicPotion);
                 Spell crystalScent = new CrystalScent();
                 spellsAllowed.Add(crystalScent);
                 Spell charmingNegotiator = new CharmingNegotiator();
                 spellsAllowed.Add(charmingNegotiator);
-                Spell potionOfBlessing = new PotionofBlessing();
-                spellsAllowed.Add(potionOfBlessing);
                 break;
             case "Arcanist":
+                Spell transcribe = new Transcribe();
+                spellsAllowed.Add(transcribe);
+                Spell combinedKnowledge = new CombinedKnowledge();
+                spellsAllowed.Add(combinedKnowledge);
                 Spell arcaneConversion = new ArcaneConversion();
                 spellsAllowed.Add(arcaneConversion);
                 Spell arcanaHarvest = new ArcanaHarvest();
                 spellsAllowed.Add(arcanaHarvest);
-                Spell combinedKnowledge = new CombinedKnowledge();
-                spellsAllowed.Add(combinedKnowledge);
-                Spell transcribe = new Transcribe();
-                spellsAllowed.Add(transcribe);
                 break;
             case "Chronomancer":
                 Spell accelerate = new Accelerate();

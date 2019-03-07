@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -105,11 +106,15 @@ public class SpellCastHandler : MonoBehaviour
         // remove slot children
         foreach (Transform slotTransform in slots)
         {
-            Destroy(slotTransform.GetChild(0).gameObject);
-            // if the spell wasn't cast, return the glyphs to player's inventory
-            if (!spellWasCast)
+            // if there is a glyph in the current slot
+            if(slotTransform.childCount > 0)
             {
-                localPlayer.Spellcaster.glyphs[slotTransform.GetChild(0).name] += 1;
+                Destroy(slotTransform.GetChild(0).gameObject);
+                // if the spell wasn't cast, return the glyphs to player's inventory
+                if (!spellWasCast)
+                {
+                    localPlayer.Spellcaster.glyphs[slotTransform.GetChild(0).name] += 1;
+                }
             }
         }
     }
@@ -155,11 +160,24 @@ public class SpellCastHandler : MonoBehaviour
     // when the button is clicked, add its required glyphs into the casting circle
     private void SpellButtonClicked(Spell spell)
     {
-        currentSpell = spell;
-        foreach(KeyValuePair<string, int> kvp in spell.requiredGlyphs)
+        // if a new spell button was clicked
+        if(currentSpell != spell)
+        {
+            // update current spell
+            currentSpell = spell;
+            // remove any glyphs from spell casting circle
+            spellWasCast = false;
+            RemovePrefabs(spellWasCast);
+        }
+        StartCoroutine("WaitALittle", spell);
+    }
+
+    private void PopulateCircle(Spell spell)
+    {
+        foreach (KeyValuePair<string, int> kvp in spell.requiredGlyphs)
         {
             // if player doesn't have this glyph in the inventory, notify them.
-            if(localPlayer.Spellcaster.glyphs[kvp.Key] <= 0)
+            if (localPlayer.Spellcaster.glyphs[kvp.Key] <= 0)
             {
                 PanelHolder.instance.displayNotify("Not enough glyphs!", "You do not have enough glyphs to cast this spell.");
             }
@@ -170,7 +188,7 @@ public class SpellCastHandler : MonoBehaviour
                 Transform glyphSlot = panel.transform.Find(kvp.Key + " Slot");
                 Transform glyphObject = glyphSlot.GetChild(0);
                 // change its parent to be the first available slot in casting circle
-                foreach(Transform slotTransform in slots)
+                foreach (Transform slotTransform in slots)
                 {
                     if (slotTransform.childCount <= 0)
                     {
@@ -191,5 +209,11 @@ public class SpellCastHandler : MonoBehaviour
                 localPlayer.Spellcaster.glyphs[kvp.Key] -= 1;
             }
         }
+    }
+
+    IEnumerator WaitALittle(Spell spell)
+    {
+        yield return new WaitForSeconds(0.1f);
+        PopulateCircle(spell);
     }
 }
