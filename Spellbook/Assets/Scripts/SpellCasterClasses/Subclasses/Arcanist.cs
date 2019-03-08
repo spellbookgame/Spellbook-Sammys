@@ -23,8 +23,10 @@ public class Arcanist : SpellCaster
         chapter = new Chapter(classType);
 
         characterSpritePath = "Characters/ArcaneWizardFlat";
-        characterBackgroundPath = "Characters/Arcane bgd blank";
         characterIconPath = "Characters/symbol_glow_arcanist";
+
+        hexStringDark = "#300049";
+        hexStringLight = "#853CBF";
 
         glyphs["Alchemy A Glyph"] += 3;
         glyphs["Alchemy B Glyph"] += 3;

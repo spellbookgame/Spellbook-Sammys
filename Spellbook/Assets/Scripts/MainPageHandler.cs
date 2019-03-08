@@ -14,7 +14,8 @@ public class MainPageHandler : MonoBehaviour
     [SerializeField] private Enemy enemy;
 
     [SerializeField] private Image characterImage;
-    [SerializeField] private Image backgroundImage;
+    [SerializeField] private GameObject warpBackground1;
+    [SerializeField] private GameObject warpBackground2;
     [SerializeField] private Image symbolImage;
 
     [SerializeField] private Button scanButton;
@@ -71,12 +72,15 @@ public class MainPageHandler : MonoBehaviour
 
         // set character image based on class
         characterImage.sprite = Resources.Load<Sprite>(localPlayer.Spellcaster.characterSpritePath);
-
-        // set background image based on class
-        backgroundImage.sprite = Resources.Load<Sprite>(localPlayer.Spellcaster.characterBackgroundPath);
-
         // set class symbol image based on class
         symbolImage.sprite = Resources.Load<Sprite>(localPlayer.Spellcaster.characterIconPath);
+        // set background color based on class
+        Color lightCol = new Color();
+        ColorUtility.TryParseHtmlString(localPlayer.Spellcaster.hexStringLight, out lightCol);
+        Color darkCol = new Color();
+        ColorUtility.TryParseHtmlString(localPlayer.Spellcaster.hexStringDark, out darkCol);
+        warpBackground1.GetComponent<Image>().color = darkCol;
+        warpBackground2.GetComponent<Image>().color = lightCol;
 
         // set onclick listeners for buttons
         scanButton.onClick.AddListener(() =>
