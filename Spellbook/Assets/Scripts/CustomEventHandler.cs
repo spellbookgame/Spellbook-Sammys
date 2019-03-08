@@ -143,7 +143,10 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
                 PanelHolder.instance.displayEvent("Summoner city", "Nothing really to see here...");
                 break;
             case "generic_city":
-                PanelHolder.instance.displayEvent("Generic city", "Nothing really to see here...");
+                Quest manaQuest = new AlchemyManaQuest();
+                PanelHolder.instance.displayEvent(manaQuest.questName, manaQuest.questDescription + "\n\nReward: " + manaQuest.questReward);
+                localPlayer.Spellcaster.activeQuests.Add(manaQuest);
+                Debug.Log(localPlayer.Spellcaster.activeQuests[0].questName);
                 break;
             #endregion
 

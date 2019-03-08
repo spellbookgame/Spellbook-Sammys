@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class MainPageHandler : MonoBehaviour
 {
+    [SerializeField] private GameObject questTracker;
+
     [SerializeField] private Text classType;
     [SerializeField] private Text manaCrystalsValue;
     [SerializeField] private Text healthValue;
@@ -63,6 +65,9 @@ public class MainPageHandler : MonoBehaviour
             enemy.Initialize(20f);
             enemy.fCurrentHealth = enemy.fMaxHealth;
         }
+
+        // create instance of QuestTracker prefab
+        GameObject q = Instantiate(questTracker);
 
         // set character image based on class
         characterImage.sprite = Resources.Load<Sprite>(localPlayer.Spellcaster.characterSpritePath);

@@ -48,7 +48,7 @@ public class SpellCollectionHandler : MonoBehaviour
             newSpellButton.onClick.AddListener(() => showSpellInfo(localPlayer.Spellcaster.chapter.spellsAllowed[i2]));
 
             // to position new button underneath prev button
-            yPos -= 150;
+            yPos -= 225;
         }
     }
 

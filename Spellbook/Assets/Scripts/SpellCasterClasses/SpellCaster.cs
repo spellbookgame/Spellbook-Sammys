@@ -30,6 +30,7 @@ public abstract class SpellCaster
     // player's collection of spell pieces, glyphs, and active spells stored as strings
     public Dictionary<string, int> glyphs;
     public List<Spell> activeSpells;
+    public List<Quest> activeQuests;
 
     // reference to the character's sprite/background
     public string characterSpritePath;
@@ -54,6 +55,7 @@ public abstract class SpellCaster
         hasAttacked = false;
 
         activeSpells = new List<Spell>();
+        activeQuests = new List<Quest>();
 
         glyphs = new Dictionary<string, int>()
         {
@@ -112,19 +114,20 @@ public abstract class SpellCaster
         if(this.classType.Equals("Alchemist") && this.activeSpells.Contains(this.chapter.spellsAllowed[1]))
         {
             manaCount += (int)(manaCount * 0.2);
-            Debug.Log("Crystal Scent is active, gained 20% more mana");
             PanelHolder.instance.displayEvent("Brew - Crystal Scent", "You found " + manaCount + " mana!");
+            QuestTracker.instance.CheckQuest(manaCount);
         }
         // if Arcana Harvest is active, double mana
         else if(this.classType.Equals("Arcanist") && this.activeSpells.Contains(this.chapter.spellsAllowed[1]))
         {
             manaCount *= 2;
-            Debug.Log("Arcana Harvest is active, gained double mana");
             PanelHolder.instance.displayEvent("Arcana Harvest", "You found " + manaCount + " mana!");
+            QuestTracker.instance.CheckQuest(manaCount);
         }
         else
         {
             PanelHolder.instance.displayEvent("You found Mana!", "You earned " + manaCount + " mana.");
+            QuestTracker.instance.CheckQuest(manaCount);
         }
         this.iMana += manaCount;
     }
