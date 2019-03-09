@@ -5,6 +5,7 @@ using UnityEngine;
 public class NetworkGameState : Bolt.EntityEventListener<IGameState>
 {
     public static NetworkGameState instance = null;
+    public GlobalEvents globalEvents;
 
     public int numOfPlayers = 0;  //Players in lobby
     public int numOfSpellcasters = 0;
@@ -22,9 +23,11 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
 
     public int turnsUntilNextEvent;
     public string nextGlobalEvent;
-    const string displayGlobalEvent = " years until next ";
+    const string sYearsUntilNext = " years until next ";
     private List<int> turnOrder;
     public int turn_i = 0;  //
+
+
 
     // Bolt's version of the Unity's Start()
     public override void Attached()
@@ -45,6 +48,8 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
             spellcasterList = new int[6];
             //state.SpellcasterList[0] = 0;
             combatOrder = new int[6];
+
+            state.TurnsUntilNextEvent = 3;
             turnsUntilNextEvent = 3;  // TODO: rewrite.
             nextGlobalEvent = "Dragon Attack";
             state.NextGlobalEventName = nextGlobalEvent;
@@ -60,7 +65,8 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
 
     public string getGlobalEventString()
     {
-        return turnsUntilNextEvent + displayGlobalEvent + nextGlobalEvent;
+        //return turnsUntilNextEvent + displayGlobalEvent + nextGlobalEvent;
+        return state.TurnsUntilNextEvent + sYearsUntilNext + state.NextGlobalEventName;
     }
 
     public void onCreateRoom(string matchName)
@@ -163,9 +169,9 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
         state.TurnsUntilNextEvent--;
         if (turnsUntilNextEvent <= 0)
         {
-            //Make Global Event happen (Example: dragon invasion)
             turnsUntilNextEvent = 3;
             state.TurnsUntilNextEvent = 3;
+            globalEvents.executeGlobalEvent();
         }
         turn_i++;
         if (turn_i >= turnOrder.Count)

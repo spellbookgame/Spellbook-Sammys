@@ -18,6 +18,7 @@ namespace Bolt.Samples.Photon.Lobby
         static public LobbyManager s_Singleton;
         BoltEntity characterSelection;
         BoltEntity playerEntity;
+        SpellCaster playerSpellcaster;
         BoltEntity gameStateEntity;
         [Header("Lobby Configuration")]
         public SceneField lobbyScene;
@@ -357,9 +358,41 @@ namespace Bolt.Samples.Photon.Lobby
             countdownPanel.gameObject.SetActive(evnt.Time != 0);
         }
 
+        public override void OnEvent(CheckIfCanCounterEvent evnt)
+        {
+            playerSpellcaster = playerEntity.GetComponent<Player>().spellcaster;
+            if (playerSpellcaster.spellcasterID == evnt.requiredSpellcaster)
+            {
+                var counterEvent = CounterGlobalEvent.Create(GlobalTargets.OnlyServer);
+                counterEvent.EventID = evnt.eventID;
+                foreach(Spell spell in playerSpellcaster.chapter.spellsCollected)
+                {
+                    if(spell.iTier >= evnt.requiredSpellTier)
+                    { 
+                       
+                        counterEvent.IsCountered = true;
+                        counterEvent.Send();
+                    }
+                }
+                counterEvent.IsCountered = false;
+                counterEvent.Send();
+
+            }
+        }
+
         public override void OnEvent(PlayerJoinedEvent evnt)
         {
             numPlayersInfo.text = evnt.numOfPlayers + "";
+        }
+
+        public override void OnEvent(DealPercentDmgEvent evnt)
+        {
+            playerSpellcaster = playerEntity.GetComponent<Player>().spellcaster;
+            if (playerSpellcaster.spellcasterID == evnt.SpellcasterID)
+            {
+                playerSpellcaster.TakeDamage((int) (playerSpellcaster.fCurrentHealth * evnt.PercentDmgDecimal));
+                SpellCaster.savePlayerData(playerSpellcaster);
+            }
         }
 
         /*Only the server recieves this event.*/
@@ -393,6 +426,13 @@ namespace Bolt.Samples.Photon.Lobby
         public override void OnEvent(ReturnPlayerEvent evnt)
         {
             NetworkGameState.instance.actuallyAReturningPlayer();
+        }
+
+        /*Only the server recieves this event.*/
+        public override void OnEvent(CounterGlobalEvent evnt)
+        {
+            gameStateEntity.GetComponent<GlobalEvents>()
+                .GlobalEventCounter(evnt.EventID, evnt.IsCountered);
         }
 
         public override void EntityReceived(BoltEntity entity)
@@ -505,6 +545,24 @@ namespace Bolt.Samples.Photon.Lobby
             spellCollectedEvnt.SpellName = spellName;
             spellCollectedEvnt.Send();
         }
+
+        public void DealPercentDamage(int spellcasterID, float percentDamage)
+        {
+            var evnt = DealPercentDmgEvent.Create(Bolt.GlobalTargets.Everyone);
+            evnt.SpellcasterID = spellcasterID;
+            evnt.PercentDmgDecimal = percentDamage;
+            evnt.Send();
+        }
+        
+        public void CheckIfCanCounter(int spellcasterID, int requiredSpellTier, int evntID)
+        {
+            var evnt = CheckIfCanCounterEvent.Create(Bolt.GlobalTargets.Everyone);
+            evnt.requiredSpellcaster = spellcasterID;
+            evnt.requiredSpellTier = requiredSpellTier;
+            evnt.eventID = evntID;
+            evnt.Send();
+        }
+
 
     }
 }

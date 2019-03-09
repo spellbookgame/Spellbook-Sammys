@@ -112,14 +112,15 @@ public class Shop : MonoBehaviour
         text_itemDesc.text = item.description;
     }
 
+    class Item
+    {
+        public Image image;
+        public float buyPrice;
+        public float sellPrice;
+        public string name;
+        public string description;
+    }
 }
 
 
-class Item
-{
-    public Image image;
-    public float buyPrice;
-    public float sellPrice;
-    //public string name;
-    public string description;
-}
+
