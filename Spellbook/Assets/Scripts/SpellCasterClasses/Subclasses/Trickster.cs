@@ -25,7 +25,7 @@ public class Trickster : SpellCaster
         characterSpritePath = "Characters/Trickster";
         characterIconPath = "Characters/symbol_glow_illusion";
 
-        hexStringDark = "#28160B";
-        hexStringLight = "#6D4021";
+        hexStringDark = "#224740";
+        hexStringLight = "#4A7C75";
     }
 }
