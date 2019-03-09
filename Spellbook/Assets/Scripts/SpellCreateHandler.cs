@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -22,6 +23,7 @@ public class SpellCreateHandler : MonoBehaviour, IHasChanged
     private RectTransform panelRect;
     private float fWidth;
     private int iSlotCount;
+    private bool spellCollected;
 
     Player localPlayer;
     
@@ -67,17 +69,26 @@ public class SpellCreateHandler : MonoBehaviour, IHasChanged
         // if all slots are filled, call the CompareSpells() function
         if(i >= 4)
         {
-            localPlayer.Spellcaster.chapter.CompareSpells(localPlayer.Spellcaster, slotPieces);
+            CompareSpells();
         }
     }
 
     // iterates through each slot and deletes child
-    public void RemovePrefabs()
+    public void RemovePrefabs(bool collected)
     {
         // remove slot children
         foreach(Transform slotTransform in slots)
         {
-            Destroy(slotTransform.GetChild(0).gameObject);
+            if(slotTransform.childCount > 0)
+            {
+                Destroy(slotTransform.GetChild(0).gameObject);
+                // if the spell wasn't collected, return the glyphs to player's inventory
+                if (!collected)
+                {
+                    localPlayer.Spellcaster.glyphs[slotTransform.GetChild(0).name] += 1;
+                    inventoryText.text = "This spell was NOT created.";
+                }
+            }
         }
         slotPieces.Clear();
     }
@@ -137,6 +148,64 @@ public class SpellCreateHandler : MonoBehaviour, IHasChanged
                 panelRect.sizeDelta = new Vector2((float)panelRect.sizeDelta.x + 250, panelRect.sizeDelta.y);
             }
         }
+    }
+
+    /* called in SpellCreateHandler.cs
+     * compares 2 dictionaries (requiredPieces and slotPieces)
+     * if they match, calls CollectSpell in SpellCaster.cs
+     */
+    public void CompareSpells()
+    {
+        bool equal = false;
+
+        Dictionary<string, int> dictionary1 = slotPieces;
+
+        // iterate through each spell that player can collect
+        for (int i = 0; i < localPlayer.Spellcaster.chapter.spellsAllowed.Count; ++i)
+        {
+            Dictionary<string, int> dictionary2 = localPlayer.Spellcaster.chapter.spellsAllowed[i].requiredGlyphs;
+
+            // checking for tier 2 and tier 1 spells
+            if (localPlayer.Spellcaster.chapter.spellsAllowed[i].iTier == 2 || localPlayer.Spellcaster.chapter.spellsAllowed[i].iTier == 1)
+            {
+                foreach (KeyValuePair<string, int> kvp in dictionary2)
+                {
+                    if (dictionary1.ContainsKey(kvp.Key))
+                    {
+                        equal = true;
+                    }
+                    else
+                    {
+                        equal = false;
+                        spellCollected = false;
+                        break;
+                    }
+                }
+                if (equal && !localPlayer.Spellcaster.chapter.spellsCollected.Contains(localPlayer.Spellcaster.chapter.spellsAllowed[i]))
+                {
+                    spellCollected = localPlayer.Spellcaster.CollectSpell(localPlayer.Spellcaster.chapter.spellsAllowed[i]);
+                    break;
+                }
+            }
+            // tier 3 spells: only need 1 required piece
+            else if (localPlayer.Spellcaster.chapter.spellsAllowed[i].iTier == 3)
+            {
+                if (dictionary2.Keys.All(k => dictionary1.ContainsKey(k)))
+                {
+                    equal = true;
+                    // if equal and player does not have the spell yet
+                    if (equal && !localPlayer.Spellcaster.chapter.spellsCollected.Contains(localPlayer.Spellcaster.chapter.spellsAllowed[i]))
+                    {
+                        // collect the spell and remove the glyphs from the circle
+                        spellCollected = localPlayer.Spellcaster.CollectSpell(localPlayer.Spellcaster.chapter.spellsAllowed[i]);
+                        break;
+                    }
+                    else
+                        spellCollected = false;
+                }
+            }
+        }
+        RemovePrefabs(spellCollected);
     }
 }
 

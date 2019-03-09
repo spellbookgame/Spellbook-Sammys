@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -11,14 +12,17 @@ using UnityEngine.UI;
 public class SpellCastHandler : MonoBehaviour
 {
     [SerializeField] private Button spellButton;
+    [SerializeField] private Button selectedSpell;
     [SerializeField] private Button mainButton;
     [SerializeField] private Button backButton;
     [SerializeField] public GameObject panel;
+    [SerializeField] private GameObject spellPanel;
     [SerializeField] private GameObject glyphPieceContainer;
     [SerializeField] private Transform slots;
 
     private int iSlotCount;
     private bool spellWasCast;
+    private bool spellPanelOpen;
     private RectTransform panelRect;
     private Spell currentSpell;
 
@@ -32,7 +36,7 @@ public class SpellCastHandler : MonoBehaviour
         currentSpell = null;
         panelRect = panel.GetComponent<RectTransform>();
 
-        // adding onclick listeners to buttons
+        // adding onclick listeners to UI buttons
         mainButton.onClick.AddListener(() =>
         {
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
@@ -43,29 +47,29 @@ public class SpellCastHandler : MonoBehaviour
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
             SceneManager.LoadScene("SpellbookScene");
         });
+        selectedSpell.onClick.AddListener(() =>
+        {
+            SoundManager.instance.PlaySingle(SoundManager.placespellpiece);
+            OpenClosePanel();
+        });
 
-        int xPos = -470;
+        // add glyph slots to the upper panel
+        GenerateSpellSlots();
+
         // add buttons for each spell the player has collected
         for (int i = 0; i < localPlayer.Spellcaster.chapter.spellsCollected.Count; i++)
         {
-            Button newSpellButton = Instantiate(spellButton);
-            newSpellButton.transform.parent = GameObject.Find("Canvas").transform;
+            // get the button from spell panel
+            Button newSpellButton = spellPanel.transform.GetChild(0).GetChild(i).GetComponent<Button>();
 
-            string spellName = localPlayer.Spellcaster.chapter.spellsCollected[i].sSpellName;
-            newSpellButton.GetComponentInChildren<Text>().text = spellName;
-            newSpellButton.transform.localPosition = new Vector3(xPos, 730, 0);
+            // set its text to spell's name
+            newSpellButton.GetComponentInChildren<Text>().text = localPlayer.Spellcaster.chapter.spellsCollected[i].sSpellName;
 
             // helper variable to pass in incremental value
             int i2 = i;
-
-            // add listener to button
+            // add onclick listener to button
             newSpellButton.onClick.AddListener(() => SpellButtonClicked(localPlayer.Spellcaster.chapter.spellsCollected[i2]));
-
-            // to position new button next to prev button
-            xPos += 250;
         }
-
-        GenerateSpellSlots();
     }
 
     private void Update()
@@ -105,11 +109,15 @@ public class SpellCastHandler : MonoBehaviour
         // remove slot children
         foreach (Transform slotTransform in slots)
         {
-            Destroy(slotTransform.GetChild(0).gameObject);
-            // if the spell wasn't cast, return the glyphs to player's inventory
-            if (!spellWasCast)
+            // if there is a glyph in the current slot
+            if(slotTransform.childCount > 0)
             {
-                localPlayer.Spellcaster.glyphs[slotTransform.GetChild(0).name] += 1;
+                Destroy(slotTransform.GetChild(0).gameObject);
+                // if the spell wasn't cast, return the glyphs to player's inventory
+                if (!spellWasCast)
+                {
+                    localPlayer.Spellcaster.glyphs[slotTransform.GetChild(0).name] += 1;
+                }
             }
         }
     }
@@ -126,6 +134,7 @@ public class SpellCastHandler : MonoBehaviour
         }
     }
 
+    // generates the glyphs in the upper panel
     private void GenerateSpellSlots()
     {
         // for each glyph player has, child its spell slot to panel
@@ -152,14 +161,51 @@ public class SpellCastHandler : MonoBehaviour
         }
     }
 
+    // panel handler to open and close spell select panel
+    private void OpenClosePanel()
+    {
+        if(!spellPanelOpen)
+        {
+            spellPanel.SetActive(true);
+            spellPanelOpen = true;
+        }
+        else
+        {
+            spellPanel.SetActive(false);
+            spellPanelOpen = false;
+        }
+    }
+
     // when the button is clicked, add its required glyphs into the casting circle
     private void SpellButtonClicked(Spell spell)
     {
+        // open up spell panel
+        OpenClosePanel();
+        // change selectedSpell button text to spell name
+        selectedSpell.GetComponentInChildren<Text>().text = spell.sSpellName;
+
+        // update current spell
         currentSpell = spell;
-        foreach(KeyValuePair<string, int> kvp in spell.requiredGlyphs)
+        // remove any glyphs from spell casting circle
+        spellWasCast = false;
+        RemovePrefabs(spellWasCast);
+        StartCoroutine("WaitALittle", spell);
+    }
+
+    // creates a delay before populating circle
+    IEnumerator WaitALittle(Spell spell)
+    {
+        yield return new WaitForSeconds(0.1f);
+        PopulateCircle(spell);
+    }
+
+    // add required glyphs into the caster's circle
+    private void PopulateCircle(Spell spell)
+    {
+        foreach (KeyValuePair<string, int> kvp in spell.requiredGlyphs)
         {
             // if player doesn't have this glyph in the inventory, notify them.
-            if(localPlayer.Spellcaster.glyphs[kvp.Key] <= 0)
+            if (localPlayer.Spellcaster.glyphs[kvp.Key] <= 0)
             {
                 PanelHolder.instance.displayNotify("Not enough glyphs!", "You do not have enough glyphs to cast this spell.");
             }
@@ -170,7 +216,7 @@ public class SpellCastHandler : MonoBehaviour
                 Transform glyphSlot = panel.transform.Find(kvp.Key + " Slot");
                 Transform glyphObject = glyphSlot.GetChild(0);
                 // change its parent to be the first available slot in casting circle
-                foreach(Transform slotTransform in slots)
+                foreach (Transform slotTransform in slots)
                 {
                     if (slotTransform.childCount <= 0)
                     {

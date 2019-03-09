@@ -23,7 +23,9 @@ public class Trickster : SpellCaster
         chapter = new Chapter(classType);
 
         characterSpritePath = "Characters/Trickster";
-        characterBackgroundPath = "Characters/Illusionist bgd blank";
         characterIconPath = "Characters/symbol_glow_illusion";
+
+        hexStringDark = "#224740";
+        hexStringLight = "#4A7C75";
     }
 }

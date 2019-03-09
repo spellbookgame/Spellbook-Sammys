@@ -30,11 +30,13 @@ public abstract class SpellCaster
     // player's collection of spell pieces, glyphs, and active spells stored as strings
     public Dictionary<string, int> glyphs;
     public List<Spell> activeSpells;
+    public List<Quest> activeQuests;
 
     // reference to the character's sprite/background
     public string characterSpritePath;
-    public string characterBackgroundPath;
     public string characterIconPath;
+    public string hexStringLight;
+    public string hexStringDark;
 
     // TODO:
     //private string backGroundStory; 
@@ -54,6 +56,7 @@ public abstract class SpellCaster
         hasAttacked = false;
 
         activeSpells = new List<Spell>();
+        activeQuests = new List<Quest>();
 
         glyphs = new Dictionary<string, int>()
         {
@@ -112,19 +115,20 @@ public abstract class SpellCaster
         if(this.classType.Equals("Alchemist") && this.activeSpells.Contains(this.chapter.spellsAllowed[1]))
         {
             manaCount += (int)(manaCount * 0.2);
-            Debug.Log("Crystal Scent is active, gained 20% more mana");
             PanelHolder.instance.displayEvent("Brew - Crystal Scent", "You found " + manaCount + " mana!");
+            QuestTracker.instance.CheckQuest(manaCount);
         }
         // if Arcana Harvest is active, double mana
         else if(this.classType.Equals("Arcanist") && this.activeSpells.Contains(this.chapter.spellsAllowed[1]))
         {
             manaCount *= 2;
-            Debug.Log("Arcana Harvest is active, gained double mana");
             PanelHolder.instance.displayEvent("Arcana Harvest", "You found " + manaCount + " mana!");
+            QuestTracker.instance.CheckQuest(manaCount);
         }
         else
         {
             PanelHolder.instance.displayEvent("You found Mana!", "You earned " + manaCount + " mana.");
+            QuestTracker.instance.CheckQuest(manaCount);
         }
         this.iMana += manaCount;
     }
@@ -174,18 +178,18 @@ public abstract class SpellCaster
     }
 
     // method that adds spell to player's chapter
-    // called from Chapter.cs
-    public void CollectSpell(Spell spell)
+    public bool CollectSpell(Spell spell)
     {
-        GameObject g = GameObject.FindWithTag("SpellManager");
+        bool spellCollected = false;
+        GameObject g = GameObject.FindGameObjectWithTag("SpellManager");
 
         // only add the spell if the player is the spell's class
         if (spell.sSpellClass == this.classType)
         {
-            // if chapter.spellsAllowed already contains spell, give error notice
+            // if chapter.spellsCollected already contains spell, give error notice
             if (chapter.spellsCollected.Contains(spell))
             {
-                g.GetComponent<SpellCreateHandler>().inventoryText.text = "You already have " + spell.sSpellName + ".";
+                Debug.Log("You already have " + spell.sSpellName + ".");
             }
             else
             {
@@ -196,16 +200,13 @@ public abstract class SpellCaster
 
                 // tell player that the spell is collected
                 g.GetComponent<SpellCreateHandler>().inventoryText.text = "You unlocked " + spell.sSpellName + "!";
-                Debug.Log("In your chapter you have:");
-                for (int i = 0; i < chapter.spellsCollected.Count; ++i)
-                    Debug.Log(chapter.spellsCollected[i].sSpellName);
 
                 Debug.Log("You have " + chapter.spellsCollected.Count + " spells collected.");
 
-                // call function that removes prefabs in SpellManager.cs
-                g.GetComponent<SpellCreateHandler>().RemovePrefabs();
+                spellCollected = true;
             }
         }
+        return spellCollected;
     }
 
     public int NumOfTurnsSoFar
