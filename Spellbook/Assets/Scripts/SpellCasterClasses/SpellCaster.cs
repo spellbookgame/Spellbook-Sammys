@@ -140,7 +140,7 @@ public abstract class SpellCaster
     public void CollectGlyph(string glyphName)
     {
         this.glyphs[glyphName] += 1;
-        //PanelHolder.instance.displayEvent("You found a glyph!", "You found 1 " + glyphName + ".");
+        PanelHolder.instance.displayEvent("You found a glyph!", "You found 1 " + glyphName + ".");
     }
 
     public string CollectRandomGlyph()

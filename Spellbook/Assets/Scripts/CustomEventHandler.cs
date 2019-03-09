@@ -144,7 +144,7 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
                 break;
             case "generic_city":
                 Quest manaQuest = new AlchemyManaQuest();
-                PanelHolder.instance.displayEvent(manaQuest.questName, manaQuest.questDescription + "\n\nReward: " + manaQuest.questReward);
+                PanelHolder.instance.displayEvent(manaQuest.questName, manaQuest.questDescription + "\n\nReward:\n" + manaQuest.DisplayReward());
                 localPlayer.Spellcaster.activeQuests.Add(manaQuest);
                 Debug.Log(localPlayer.Spellcaster.activeQuests[0].questName);
                 break;

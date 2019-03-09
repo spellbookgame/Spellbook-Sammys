@@ -45,10 +45,37 @@ public class QuestTracker : MonoBehaviour
             }
             if(q.questCompleted)
             {
-                PanelHolder.instance.displayNotify(q.questName + " Completed!", "You completed the quest! You earned: " + q.questReward);
-                // TODO
-                // actually give the rewards to player
+                PanelHolder.instance.displayNotify(q.questName + " Completed!", "You completed the quest! You earned:\n\n" + q.DisplayReward());
+                GiveRewards(q);
             }
+        }
+    }
+
+    // give player rewards when quest is completed
+    public void GiveRewards(Quest q)
+    {
+        int i = 0;
+        foreach (KeyValuePair<string, List<string>> kvp in q.rewards)
+        {
+            foreach(string s in kvp.Value)
+            {
+                // calls switch statement in another method b/c we don't want to break loop
+                string r = CheckRewards(kvp.Key, kvp.Value[i]);
+                ++i;
+            }
+        }
+    }
+
+    // checks w/ switch statement to give rewards (from dictionary's list value)
+    private string CheckRewards(string key, string value)
+    {
+        switch(key)
+        {
+            case "Glyph":
+                localPlayer.Spellcaster.glyphs[value] += 1;
+                return value;
+            default:
+                return value;
         }
     }
 }
