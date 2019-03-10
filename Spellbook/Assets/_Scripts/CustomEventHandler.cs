@@ -105,7 +105,7 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
                 PanelHolder.instance.displayEvent("Capital", "Display shop scene here.");
                 break;
 
-            #region city_spaces
+            #region town_spaces
             case "town_alchemist":
                 Quest manaQuest = new AlchemyManaQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
                 PanelHolder.instance.displayEvent(manaQuest.questName, manaQuest.questDescription + "\nTurn Limit: " + manaQuest.turnLimit
@@ -133,7 +133,10 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
                 break;
 
             case "town_summoner":
-                PanelHolder.instance.displayEvent("Summoner town", "Nothing really to see here...");
+                Quest summonManaQuest = new SummoningManaQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
+                PanelHolder.instance.displayEvent(summonManaQuest.questName, summonManaQuest.questDescription + "\nTurn Limit: " 
+                                                    + summonManaQuest.turnLimit + "\n\nReward:\n" + summonManaQuest.DisplayReward());
+                localPlayer.Spellcaster.activeQuests.Add(summonManaQuest);
                 break;
             #endregion
 
