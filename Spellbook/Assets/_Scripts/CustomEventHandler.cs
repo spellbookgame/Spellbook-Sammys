@@ -92,65 +92,48 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
         // call function based on target name
         switch (trackableName)
         {
-            #region mana_spaces
-            case "alchemist_mana":
-                int r1 = (int)UnityEngine.Random.Range(100, 700);
-                localPlayer.Spellcaster.CollectMana(r1);
-                break;
-            case "arcanist_mana":
-                int r2 = (int)UnityEngine.Random.Range(100, 700);
-                localPlayer.Spellcaster.CollectMana(r2);
-                break;
-            case "chronomancer_mana":
-                int r3 = (int)UnityEngine.Random.Range(100, 700);
-                localPlayer.Spellcaster.CollectMana(r3);
-                break;
-            case "elementalist_mana":
-                int r4 = (int)UnityEngine.Random.Range(100, 700);
-                localPlayer.Spellcaster.CollectMana(r4);
-                break;
-            case "illusionist_mana":
-                int r5 = (int)UnityEngine.Random.Range(100, 700);
-                localPlayer.Spellcaster.CollectMana(r5);
-                break;
-            case "summoner_mana":
-                int r6 = (int)UnityEngine.Random.Range(100, 700);
-                localPlayer.Spellcaster.CollectMana(r6);
-                break;
-            case "generic_mana":
+            case "mana":
                 int m = (int)UnityEngine.Random.Range(100, 700);
                 localPlayer.Spellcaster.CollectMana(m);
                 break;
-            #endregion
+
+            case "item":
+                PanelHolder.instance.displayEvent("Item", "You got a [item name] item!");
+                break;
+
+            case "capital":
+                PanelHolder.instance.displayEvent("Capital", "Display shop scene here.");
+                break;
 
             #region city_spaces
-            case "alchemist_city":
-                PanelHolder.instance.displayEvent("Alchemist city", "Nothing really to see here...");
-                break;
-            case "arcanist_city":
-                PanelHolder.instance.displayEvent("Arcanist city", "Nothing really to see here...");
-                break;
-            case "chronomancer_city":
-                PanelHolder.instance.displayEvent("Chronomancer city", "Nothing really to see here...");
-                break;
-            case "elementalist_city":
-                PanelHolder.instance.displayEvent("Elementalist city", "Nothing really to see here...");
-                break;
-            case "illusionist_city":
-                PanelHolder.instance.displayEvent("Illusionist city", "Nothing really to see here...");
-                break;
-            case "summoner_city":
-                PanelHolder.instance.displayEvent("Summoner city", "Nothing really to see here...");
-                break;
-            case "generic_city":
+            case "town_alchemist":
                 Quest manaQuest = new AlchemyManaQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
                 PanelHolder.instance.displayEvent(manaQuest.questName, manaQuest.questDescription + "\nTurn Limit: " + manaQuest.turnLimit
                                                     + "\n\nReward:\n" + manaQuest.DisplayReward());
                 localPlayer.Spellcaster.activeQuests.Add(manaQuest);
-                /*Quest spaceQuest = new IllusionSpaceQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
+                break;
+
+            case "town_arcanist":
+                PanelHolder.instance.displayEvent("Arcanist town", "Nothing really to see here...");
+                break;
+
+            case "town_chronomancer":
+                PanelHolder.instance.displayEvent("Chronomancer town", "Nothing really to see here...");
+                break;
+
+            case "town_elementalist":
+                PanelHolder.instance.displayEvent("Elementalist town", "Nothing really to see here...");
+                break;
+
+            case "town_illusionist":
+                Quest spaceQuest = new IllusionSpaceQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
                 PanelHolder.instance.displayEvent(spaceQuest.questName, spaceQuest.questDescription + "\nTurn Limit: " + spaceQuest.turnLimit
                                                     + "\n\nReward:\n" + spaceQuest.DisplayReward());
-                localPlayer.Spellcaster.activeQuests.Add(spaceQuest);*/
+                localPlayer.Spellcaster.activeQuests.Add(spaceQuest);
+                break;
+
+            case "town_summoner":
+                PanelHolder.instance.displayEvent("Summoner town", "Nothing really to see here...");
                 break;
             #endregion
 
@@ -202,30 +185,6 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
                 else
                     localPlayer.Spellcaster.CollectGlyph("Summoning C Glyph");
                 QuestTracker.instance.CheckSpaceQuest(trackableName);
-                break;
-            case "generic_glyph":
-                localPlayer.Spellcaster.CollectRandomGlyph();
-                break;
-            #endregion
-
-            #region item_spaces
-            case "alchemist_item":
-                PanelHolder.instance.displayEvent("Alchemist item", "You got a [item name] item!");
-                break;
-            case "arcanist_item":
-                PanelHolder.instance.displayEvent("Arcanist item", "You got a [item name] item!");
-                break;
-            case "chronomancer_item":
-                PanelHolder.instance.displayEvent("Chronomancer item", "You got a [item name] item!");
-                break;
-            case "elementalist_item":
-                PanelHolder.instance.displayEvent("Elementalist item", "You got a [item name] item!");
-                break;
-            case "illusionist_item":
-                PanelHolder.instance.displayEvent("Illusionist item", "You got a [item name] item!");
-                break;
-            case "summoner_item":
-                PanelHolder.instance.displayEvent("Summoner item", "You got a [item name] item!");
                 break;
             #endregion
 
