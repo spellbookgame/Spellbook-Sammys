@@ -15,6 +15,7 @@ public abstract class SpellCaster
 {
     public string matchname;
     public int numOfTurnsSoFar = 0;
+    public int spacesTraveled = 0;
 
     public float fMaxHealth;
     public float fCurrentHealth;

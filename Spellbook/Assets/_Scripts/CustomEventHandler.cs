@@ -118,7 +118,10 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
                 break;
 
             case "town_chronomancer":
-                PanelHolder.instance.displayEvent("Chronomancer town", "Nothing really to see here...");
+                Quest moveQuest = new TimeMoveQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
+                PanelHolder.instance.displayEvent(moveQuest.questName, moveQuest.questDescription + "\nTurn Limit: " + moveQuest.turnLimit
+                                                    + "\n\nReward:\n" + moveQuest.DisplayReward());
+                localPlayer.Spellcaster.activeQuests.Add(moveQuest);
                 break;
 
             case "town_elementalist":

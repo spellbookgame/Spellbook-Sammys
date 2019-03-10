@@ -50,6 +50,7 @@ public class QuestTracker : MonoBehaviour
                 {
                     PanelHolder.instance.displayNotify(q.questName + " Completed!",
                                                         "You completed the quest! You earned:\n\n" + q.DisplayReward());
+                    localPlayer.Spellcaster.activeQuests.Remove(q);
                     GiveRewards(q);
                 }
             }
@@ -75,19 +76,20 @@ public class QuestTracker : MonoBehaviour
                 {
                     PanelHolder.instance.displayNotify(q.questName + " Completed!",
                                                         "You completed the quest! You earned:\n\n" + q.DisplayReward());
+                    localPlayer.Spellcaster.activeQuests.Remove(q);
                     GiveRewards(q);
                 }
             }
         }
     }
 
-    public void CheckMoveQuest(/*int moveSpaces*/)
+    public void CheckMoveQuest(int moveSpaces)
     {
         foreach (Quest q in localPlayer.Spellcaster.activeQuests)
         {
             if (q.questType.Equals("Movement"))
             {
-                // spacesTraveled += moveSpaces;
+                q.spacesTraveled += moveSpaces;
                 if (q.spacesTraveled >= q.spacesRequired)
                 {
                     q.questCompleted = true;
@@ -96,6 +98,7 @@ public class QuestTracker : MonoBehaviour
                 {
                     PanelHolder.instance.displayNotify(q.questName + " Completed!",
                                                         "You completed the quest! You earned:\n\n" + q.DisplayReward());
+                    localPlayer.Spellcaster.activeQuests.Remove(q);
                     GiveRewards(q);
                 }
             }

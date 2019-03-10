@@ -19,8 +19,12 @@ public class MainPageHandler : MonoBehaviour
     [SerializeField] private Image symbolImage;
 
     [SerializeField] private Button scanButton;
+    [SerializeField] private Button rollButton;
     [SerializeField] private Button combatButton;
     [SerializeField] private Button spellbookButton;
+
+    [SerializeField] private GameObject spellPromptPanel;
+    [SerializeField] private GameObject diceRollPanel;
 
     Player localPlayer;
     public static MainPageHandler instance = null;
@@ -90,6 +94,11 @@ public class MainPageHandler : MonoBehaviour
         {
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
             SceneManager.LoadScene("VuforiaScene");
+        });
+        rollButton.onClick.AddListener(() =>
+        {
+            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+            diceRollPanel.SetActive(true);
         });
         combatButton.onClick.AddListener(() =>
         {
