@@ -62,4 +62,19 @@ public class SpellbookHandler : MonoBehaviour
             activeSpellsText.text = activeSpellsText.text + entry.sSpellName + "\n";
         }
     }
+
+    private void Update()
+    {
+        // disable some buttons if not player's turn
+        if (!localPlayer.bIsMyTurn)
+        {
+            spellCastButton.enabled = false;
+            spellCreateButton.enabled = false;
+        }
+        else
+        {
+            spellCastButton.enabled = true;
+            spellCreateButton.enabled = true;
+        }
+    }
 }
