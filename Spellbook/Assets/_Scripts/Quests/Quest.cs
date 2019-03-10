@@ -8,6 +8,9 @@ public abstract class Quest
     public string questType;
     public string questDescription;
 
+    public int startTurn;
+    public int turnLimit;
+
     public bool questCompleted;
 
     // <reward type, reward names (stored in list)>

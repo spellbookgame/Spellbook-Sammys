@@ -37,19 +37,21 @@ public class QuestTracker : MonoBehaviour
     {
         foreach(Quest q in localPlayer.Spellcaster.activeQuests)
         {
-            if(q.questType.Equals("Collect Mana"))
+            if (q.questType.Equals("Collect Mana"))
             {
                 q.manaTracker += mana;
                 Debug.Log("Quest mana tracker: " + q.manaTracker);
-            }
-            if (q.manaTracker >= q.manaRequired)
-            {
-                q.questCompleted = true;
-            }
-            if(q.questCompleted)
-            {
-                PanelHolder.instance.displayNotify(q.questName + " Completed!", "You completed the quest! You earned:\n\n" + q.DisplayReward());
-                GiveRewards(q);
+
+                if (q.manaTracker >= q.manaRequired)
+                {
+                    q.questCompleted = true;
+                }
+                if (q.questCompleted)
+                {
+                    PanelHolder.instance.displayNotify(q.questName + " Completed!",
+                                                        "You completed the quest! You earned:\n\n" + q.DisplayReward());
+                    GiveRewards(q);
+                }
             }
         }
     }
@@ -60,19 +62,21 @@ public class QuestTracker : MonoBehaviour
         {
             if (q.questType.Equals("Specific Space"))
             {
-                if(spaceName.Equals(q.spaceName))
+                if (spaceName.Equals(q.spaceName))
                 {
                     ++q.spacesLanded;
                 }
-            }
-            if (q.spacesLanded >= q.spacesRequired)
-            {
-                q.questCompleted = true;
-            }
-            if (q.questCompleted)
-            {
-                PanelHolder.instance.displayNotify(q.questName + " Completed!", "You completed the quest! You earned:\n\n" + q.DisplayReward());
-                GiveRewards(q);
+
+                if (q.spacesLanded >= q.spacesRequired)
+                {
+                    q.questCompleted = true;
+                }
+                if (q.questCompleted)
+                {
+                    PanelHolder.instance.displayNotify(q.questName + " Completed!",
+                                                        "You completed the quest! You earned:\n\n" + q.DisplayReward());
+                    GiveRewards(q);
+                }
             }
         }
     }

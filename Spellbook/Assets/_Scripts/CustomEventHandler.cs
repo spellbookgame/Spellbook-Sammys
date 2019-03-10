@@ -143,12 +143,14 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
                 PanelHolder.instance.displayEvent("Summoner city", "Nothing really to see here...");
                 break;
             case "generic_city":
-                /*Quest manaQuest = new AlchemyManaQuest();
-                PanelHolder.instance.displayEvent(manaQuest.questName, manaQuest.questDescription + "\n\nReward:\n" + manaQuest.DisplayReward());
-                localPlayer.Spellcaster.activeQuests.Add(manaQuest);*/
-                Quest spaceQuest = new IllusionSpaceQuest();
-                PanelHolder.instance.displayEvent(spaceQuest.questName, spaceQuest.questDescription + "\n\nReward:\n" + spaceQuest.DisplayReward());
-                localPlayer.Spellcaster.activeQuests.Add(spaceQuest);
+                Quest manaQuest = new AlchemyManaQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
+                PanelHolder.instance.displayEvent(manaQuest.questName, manaQuest.questDescription + "\nTurn Limit: " + manaQuest.turnLimit
+                                                    + "\n\nReward:\n" + manaQuest.DisplayReward());
+                localPlayer.Spellcaster.activeQuests.Add(manaQuest);
+                /*Quest spaceQuest = new IllusionSpaceQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
+                PanelHolder.instance.displayEvent(spaceQuest.questName, spaceQuest.questDescription + "\nTurn Limit: " + spaceQuest.turnLimit
+                                                    + "\n\nReward:\n" + spaceQuest.DisplayReward());
+                localPlayer.Spellcaster.activeQuests.Add(spaceQuest);*/
                 break;
             #endregion
 

@@ -45,8 +45,11 @@ public class MainPageHandler : MonoBehaviour
     private void Update()
     {
         // update player's list of active spells
-        if (localPlayer.Spellcaster.activeSpells.Count > 0)
+        if (localPlayer != null && localPlayer.Spellcaster.activeSpells.Count > 0)
             UpdateActiveSpells();
+        // update player's list of active quests
+        if (localPlayer != null && localPlayer.Spellcaster.activeQuests.Count > 0)
+            UpdateActiveQuests();
     }
 
     public void setupMainPage()
@@ -111,6 +114,21 @@ public class MainPageHandler : MonoBehaviour
                 // remove the spell from the active spells list and notify player
                 localPlayer.Spellcaster.activeSpells.Remove(entry);
                 PanelHolder.instance.displayNotify(entry.sSpellName, entry.sSpellName + " wore off...");
+            }
+        }
+    }
+
+    // updating the list of active quests
+    private void UpdateActiveQuests()
+    {
+        foreach (Quest q in localPlayer.Spellcaster.activeQuests)
+        {
+            // if the player's turns from starting the quest exceeded the turn limit
+            if (localPlayer.Spellcaster.NumOfTurnsSoFar - q.startTurn > q.turnLimit)
+            {
+                // remove the quest from the active quests list and notify player
+                localPlayer.Spellcaster.activeQuests.Remove(q);
+                PanelHolder.instance.displayNotify(q.questName + " Failed...", "You failed to complete the quest in your given time.");
             }
         }
     }

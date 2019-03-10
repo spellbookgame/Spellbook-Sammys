@@ -5,11 +5,14 @@ using UnityEngine;
 
 public class IllusionSpaceQuest : Quest
 {
-    public IllusionSpaceQuest()
+    public IllusionSpaceQuest(int turnStarted)
     {
         questName = "Illusion Glyph Quest";
         questType = "Specific Space";
         questDescription = "Land on 3 Glyph spaces in the Summoner Town.";
+
+        startTurn = turnStarted;
+        turnLimit = 4;
 
         spaceName = "glyph_summoner";
         spacesLanded = 0;

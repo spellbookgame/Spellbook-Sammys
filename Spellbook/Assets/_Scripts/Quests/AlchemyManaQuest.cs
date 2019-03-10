@@ -5,11 +5,14 @@ using UnityEngine;
 
 public class AlchemyManaQuest : Quest
 {
-    public AlchemyManaQuest()
+    public AlchemyManaQuest(int turnStarted)
     {
         questName = "Alchemy Mana Quest";
         questType = "Collect Mana";
         questDescription = "Collect 1200 mana crystals.";
+
+        startTurn = turnStarted;
+        turnLimit = 4;
 
         List<string> rewardList = new List<string>();
         rewardList.Add("Alchemy A Glyph");
