@@ -17,13 +17,11 @@ public class MainPageHandler : MonoBehaviour
     [SerializeField] private GameObject warpBackground1;
     [SerializeField] private GameObject warpBackground2;
     [SerializeField] private Image symbolImage;
-
-    [SerializeField] private Button scanButton;
+    
     [SerializeField] private Button rollButton;
     [SerializeField] private Button combatButton;
     [SerializeField] private Button spellbookButton;
-
-    [SerializeField] private GameObject spellPromptPanel;
+    
     [SerializeField] private GameObject diceRollPanel;
 
     Player localPlayer;
@@ -54,6 +52,12 @@ public class MainPageHandler : MonoBehaviour
         // update player's list of active quests
         if (localPlayer != null && localPlayer.Spellcaster.activeQuests.Count > 0)
             UpdateActiveQuests();
+
+        // disable roll button if it's not player's turn
+        if (localPlayer != null && !localPlayer.bIsMyTurn)
+            rollButton.enabled = false;
+        else
+            rollButton.enabled = true;
     }
 
     public void setupMainPage()
@@ -90,11 +94,6 @@ public class MainPageHandler : MonoBehaviour
         warpBackground2.GetComponent<Image>().color = lightCol;
 
         // set onclick listeners for buttons
-        scanButton.onClick.AddListener(() =>
-        {
-            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
-            SceneManager.LoadScene("VuforiaScene");
-        });
         rollButton.onClick.AddListener(() =>
         {
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
