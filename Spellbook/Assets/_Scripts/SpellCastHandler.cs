@@ -13,6 +13,7 @@ public class SpellCastHandler : MonoBehaviour
 {
     [SerializeField] private Button spellButton;
     [SerializeField] private Button selectedSpell;
+    [SerializeField] private Button closePanelButton;
     [SerializeField] private Button mainButton;
     [SerializeField] private Button backButton;
     [SerializeField] public GameObject panel;
@@ -48,6 +49,11 @@ public class SpellCastHandler : MonoBehaviour
             SceneManager.LoadScene("SpellbookScene");
         });
         selectedSpell.onClick.AddListener(() =>
+        {
+            SoundManager.instance.PlaySingle(SoundManager.placespellpiece);
+            OpenClosePanel();
+        });
+        closePanelButton.onClick.AddListener(() =>
         {
             SoundManager.instance.PlaySingle(SoundManager.placespellpiece);
             OpenClosePanel();

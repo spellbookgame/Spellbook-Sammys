@@ -143,10 +143,12 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
                 PanelHolder.instance.displayEvent("Summoner city", "Nothing really to see here...");
                 break;
             case "generic_city":
-                Quest manaQuest = new AlchemyManaQuest();
+                /*Quest manaQuest = new AlchemyManaQuest();
                 PanelHolder.instance.displayEvent(manaQuest.questName, manaQuest.questDescription + "\n\nReward:\n" + manaQuest.DisplayReward());
-                localPlayer.Spellcaster.activeQuests.Add(manaQuest);
-                Debug.Log(localPlayer.Spellcaster.activeQuests[0].questName);
+                localPlayer.Spellcaster.activeQuests.Add(manaQuest);*/
+                Quest spaceQuest = new IllusionSpaceQuest();
+                PanelHolder.instance.displayEvent(spaceQuest.questName, spaceQuest.questDescription + "\n\nReward:\n" + spaceQuest.DisplayReward());
+                localPlayer.Spellcaster.activeQuests.Add(spaceQuest);
                 break;
             #endregion
 
@@ -157,6 +159,7 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
                     localPlayer.Spellcaster.CollectGlyph("Alchemy D Glyph");
                 else
                     localPlayer.Spellcaster.CollectGlyph("Alchemy C Glyph");
+                QuestTracker.instance.CheckSpaceQuest(trackableName);
                 break;
             case "glyph_arcanist":
                 int g2 = (int)UnityEngine.Random.Range(0, 2);
@@ -164,6 +167,7 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
                     localPlayer.Spellcaster.CollectGlyph("Arcane D Glyph");
                 else
                     localPlayer.Spellcaster.CollectGlyph("Arcane C Glyph");
+                QuestTracker.instance.CheckSpaceQuest(trackableName);
                 break;
             case "glyph_chronomancer":
                 int g3 = (int)UnityEngine.Random.Range(0, 2);
@@ -171,6 +175,7 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
                     localPlayer.Spellcaster.CollectGlyph("Time D Glyph");
                 else
                     localPlayer.Spellcaster.CollectGlyph("Time C Glyph");
+                QuestTracker.instance.CheckSpaceQuest(trackableName);
                 break;
             case "glyph_elementalist":
                 int g4 = (int)UnityEngine.Random.Range(0, 2);
@@ -178,6 +183,7 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
                     localPlayer.Spellcaster.CollectGlyph("Elemental D Glyph");
                 else
                     localPlayer.Spellcaster.CollectGlyph("Elemental C Glyph");
+                QuestTracker.instance.CheckSpaceQuest(trackableName);
                 break;
             case "glyph_illusionist":
                 int g5 = (int)UnityEngine.Random.Range(0, 2);
@@ -185,6 +191,7 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
                     localPlayer.Spellcaster.CollectGlyph("Illusion D Glyph");
                 else
                     localPlayer.Spellcaster.CollectGlyph("Illusion C Glyph");
+                QuestTracker.instance.CheckSpaceQuest(trackableName);
                 break;
             case "glyph_summoner":
                 int g6 = (int)UnityEngine.Random.Range(0, 2);
@@ -192,6 +199,7 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
                     localPlayer.Spellcaster.CollectGlyph("Summoning D Glyph");
                 else
                     localPlayer.Spellcaster.CollectGlyph("Summoning C Glyph");
+                QuestTracker.instance.CheckSpaceQuest(trackableName);
                 break;
             case "generic_glyph":
                 localPlayer.Spellcaster.CollectRandomGlyph();

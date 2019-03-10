@@ -17,6 +17,11 @@ public abstract class Quest
     public int manaTracker;
     public int manaRequired;
 
+    // tracking variables for specific space quests
+    public string spaceName;
+    public int spacesLanded;
+    public int spacesRequired;
+
     public Quest()
     {
         rewards = new Dictionary<string, List<string>>();

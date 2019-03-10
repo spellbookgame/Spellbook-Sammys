@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// singleton used to track player's quests
-// called in MainPageHandler.setUpMainPage();
+/// <summary>
+/// Written by Grace Ko 
+/// singleton used to track player's quests
+/// instantiated in MainPageHandler.setUpMainPage();
+/// </summary>
 public class QuestTracker : MonoBehaviour
 {
     public static QuestTracker instance = null;
@@ -30,7 +33,7 @@ public class QuestTracker : MonoBehaviour
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
     }
 
-    public void CheckQuest(int mana)
+    public void CheckManaQuest(int mana)
     {
         foreach(Quest q in localPlayer.Spellcaster.activeQuests)
         {
@@ -44,6 +47,29 @@ public class QuestTracker : MonoBehaviour
                 q.questCompleted = true;
             }
             if(q.questCompleted)
+            {
+                PanelHolder.instance.displayNotify(q.questName + " Completed!", "You completed the quest! You earned:\n\n" + q.DisplayReward());
+                GiveRewards(q);
+            }
+        }
+    }
+
+    public void CheckSpaceQuest(string spaceName)
+    {
+        foreach (Quest q in localPlayer.Spellcaster.activeQuests)
+        {
+            if (q.questType.Equals("Specific Space"))
+            {
+                if(spaceName.Equals(q.spaceName))
+                {
+                    ++q.spacesLanded;
+                }
+            }
+            if (q.spacesLanded >= q.spacesRequired)
+            {
+                q.questCompleted = true;
+            }
+            if (q.questCompleted)
             {
                 PanelHolder.instance.displayNotify(q.questName + " Completed!", "You completed the quest! You earned:\n\n" + q.DisplayReward());
                 GiveRewards(q);
