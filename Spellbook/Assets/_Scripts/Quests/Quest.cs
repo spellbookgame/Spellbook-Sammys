@@ -25,6 +25,9 @@ public abstract class Quest
     public int spacesLanded;
     public int spacesRequired;
 
+    // tracking variables for movement quests
+    public int spacesTraveled;
+
     public Quest()
     {
         rewards = new Dictionary<string, List<string>>();

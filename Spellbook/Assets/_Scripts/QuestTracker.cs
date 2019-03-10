@@ -81,6 +81,27 @@ public class QuestTracker : MonoBehaviour
         }
     }
 
+    public void CheckMoveQuest(/*int moveSpaces*/)
+    {
+        foreach (Quest q in localPlayer.Spellcaster.activeQuests)
+        {
+            if (q.questType.Equals("Movement"))
+            {
+                // spacesTraveled += moveSpaces;
+                if (q.spacesTraveled >= q.spacesRequired)
+                {
+                    q.questCompleted = true;
+                }
+                if (q.questCompleted)
+                {
+                    PanelHolder.instance.displayNotify(q.questName + " Completed!",
+                                                        "You completed the quest! You earned:\n\n" + q.DisplayReward());
+                    GiveRewards(q);
+                }
+            }
+        }
+    }
+
     // give player rewards when quest is completed
     public void GiveRewards(Quest q)
     {
