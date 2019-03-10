@@ -23,6 +23,6 @@ public abstract class Spell
         requiredGlyphs = new Dictionary<string, int>();
     }
 
-    // Virtual functions
+    // Abstract functions
     public abstract void SpellCast(SpellCaster player);
 }

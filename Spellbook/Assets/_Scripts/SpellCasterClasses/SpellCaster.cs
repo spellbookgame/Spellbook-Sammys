@@ -116,20 +116,18 @@ public abstract class SpellCaster
         {
             manaCount += (int)(manaCount * 0.2);
             PanelHolder.instance.displayEvent("Brew - Crystal Scent", "You found " + manaCount + " mana!");
-            QuestTracker.instance.CheckQuest(manaCount);
         }
         // if Arcana Harvest is active, double mana
         else if(this.classType.Equals("Arcanist") && this.activeSpells.Contains(this.chapter.spellsAllowed[1]))
         {
             manaCount *= 2;
             PanelHolder.instance.displayEvent("Arcana Harvest", "You found " + manaCount + " mana!");
-            QuestTracker.instance.CheckQuest(manaCount);
         }
         else
         {
             PanelHolder.instance.displayEvent("You found Mana!", "You earned " + manaCount + " mana.");
-            QuestTracker.instance.CheckQuest(manaCount);
         }
+        QuestTracker.instance.CheckManaQuest(manaCount);
         this.iMana += manaCount;
     }
     public void LoseMana(int manaCount)
@@ -140,7 +138,7 @@ public abstract class SpellCaster
     public void CollectGlyph(string glyphName)
     {
         this.glyphs[glyphName] += 1;
-        //PanelHolder.instance.displayEvent("You found a glyph!", "You found 1 " + glyphName + ".");
+        PanelHolder.instance.displayEvent("You found a glyph!", "You found 1 " + glyphName + ".");
     }
 
     public string CollectRandomGlyph()
