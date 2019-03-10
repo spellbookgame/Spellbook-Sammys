@@ -23,7 +23,7 @@ public class Alchemist : SpellCaster
         // creating the class-specific chapter
         chapter = new Chapter(classType);
 
-        characterSpritePath = "Characters/AlchemyWizardFlat";
+        characterSpritePath = "Characters/Alchemist";
         characterIconPath = "Characters/symbol_glow_alchemist";
 
         hexStringDark = "#0B350B";

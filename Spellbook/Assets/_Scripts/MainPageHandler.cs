@@ -76,7 +76,7 @@ public class MainPageHandler : MonoBehaviour
 
         // create instance of QuestTracker prefab
         GameObject q = Instantiate(questTracker);
-
+            
         // set character image based on class
         characterImage.sprite = Resources.Load<Sprite>(localPlayer.Spellcaster.characterSpritePath);
         // set class symbol image based on class

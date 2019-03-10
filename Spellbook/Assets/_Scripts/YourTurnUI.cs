@@ -16,7 +16,7 @@ public class YourTurnUI : MonoBehaviour
         {
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
             gameObject.SetActive(false);
-
+            
             if(!SceneManager.GetActiveScene().name.Equals("MainPlayerScene"))
                 SceneManager.LoadScene("MainPlayerScene");
         });
