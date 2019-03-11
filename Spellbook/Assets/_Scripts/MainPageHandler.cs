@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class MainPageHandler : MonoBehaviour
 {
     [SerializeField] private GameObject questTracker;
+    [SerializeField] private GameObject spellTracker;
 
     [SerializeField] private Text classType;
     [SerializeField] private Text manaCrystalsValue;
@@ -80,6 +81,7 @@ public class MainPageHandler : MonoBehaviour
 
         // create instance of QuestTracker prefab
         GameObject q = Instantiate(questTracker);
+        GameObject s = Instantiate(spellTracker);
             
         // set character image based on class
         characterImage.sprite = Resources.Load<Sprite>(localPlayer.Spellcaster.characterSpritePath);
@@ -90,8 +92,8 @@ public class MainPageHandler : MonoBehaviour
         ColorUtility.TryParseHtmlString(localPlayer.Spellcaster.hexStringLight, out lightCol);
         Color darkCol = new Color();
         ColorUtility.TryParseHtmlString(localPlayer.Spellcaster.hexStringDark, out darkCol);
-        warpBackground1.GetComponent<Image>().color = darkCol;
-        warpBackground2.GetComponent<Image>().color = lightCol;
+        warpBackground1.GetComponent<SpriteRenderer>().color = darkCol;
+        warpBackground2.GetComponent<SpriteRenderer>().color = lightCol;
 
         // set onclick listeners for buttons
         rollButton.onClick.AddListener(() =>

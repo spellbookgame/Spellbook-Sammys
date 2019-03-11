@@ -63,7 +63,7 @@ public class SpellCollectionHandler : MonoBehaviour
         }
 
         spellInfoPanel.transform.GetChild(0).GetComponent<Text>().text = spell.sSpellName;
-        spellInfoPanel.transform.GetChild(1).GetComponent<Text>().text = "Tier: " + spell.iTier.ToString();
+        spellInfoPanel.transform.GetChild(1).GetComponent<Text>().text = "Tier: " + spell.iTier.ToString() + "  |  Cost: " + spell.iManaCost.ToString();
         spellInfoPanel.transform.GetChild(2).GetComponent<Text>().text = spell.sSpellInfo;
         
         // add glyph images to the panel to show player required glyphs

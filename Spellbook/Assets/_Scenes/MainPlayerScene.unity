@@ -477,7 +477,7 @@ RectTransform:
   m_GameObject: {fileID: 120093640}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.0000118, y: 1.0000118, z: 1.0000118}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1166429379}
   m_RootOrder: 11
@@ -2449,6 +2449,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   questTracker: {fileID: 1410924789612325822, guid: ba9c5d80851dbcf449d3596948f50f4b,
     type: 3}
+  spellTracker: {fileID: 4925914753986074505, guid: ff1d37f4b893c474499d5a1d68b26163,
+    type: 3}
   classType: {fileID: 2040159813}
   manaCrystalsValue: {fileID: 466258137}
   healthValue: {fileID: 1990645398}
@@ -2472,6 +2474,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Warp
+      objectReference: {fileID: 0}
+    - target: {fileID: 503362684121189758, guid: b0cc5900deed24b9a93caec7a1aad6ff,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 503362684121189758, guid: b0cc5900deed24b9a93caec7a1aad6ff,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 503362684121189758, guid: b0cc5900deed24b9a93caec7a1aad6ff,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9004194990758757485, guid: b0cc5900deed24b9a93caec7a1aad6ff,
         type: 3}
@@ -3782,7 +3799,7 @@ RectTransform:
   m_GameObject: {fileID: 1996619079}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.0003201, y: 1.0003201, z: 1.0003201}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1166429379}
   m_RootOrder: 12
