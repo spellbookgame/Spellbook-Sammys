@@ -109,7 +109,7 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
             case "town_alchemist":
                 Quest manaQuest = new AlchemyManaQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
                 PanelHolder.instance.displayEvent(manaQuest.questName, manaQuest.questDescription + "\nTurn Limit: " + manaQuest.turnLimit
-                                                    + "\n\nReward:\n" + manaQuest.DisplayReward());
+                                                + "\n\nReward:\n" + manaQuest.DisplayReward());
                 localPlayer.Spellcaster.activeQuests.Add(manaQuest);
                 break;
 
@@ -120,7 +120,7 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
             case "town_chronomancer":
                 Quest moveQuest = new TimeMoveQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
                 PanelHolder.instance.displayEvent(moveQuest.questName, moveQuest.questDescription + "\nTurn Limit: " + moveQuest.turnLimit
-                                                    + "\n\nReward:\n" + moveQuest.DisplayReward());
+                                                + "\n\nReward:\n" + moveQuest.DisplayReward());
                 localPlayer.Spellcaster.activeQuests.Add(moveQuest);
                 break;
 
@@ -131,14 +131,14 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
             case "town_illusionist":
                 Quest spaceQuest = new IllusionSpaceQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
                 PanelHolder.instance.displayEvent(spaceQuest.questName, spaceQuest.questDescription + "\nTurn Limit: " + spaceQuest.turnLimit
-                                                    + "\n\nReward:\n" + spaceQuest.DisplayReward());
+                                                + "\n\nReward:\n" + spaceQuest.DisplayReward());
                 localPlayer.Spellcaster.activeQuests.Add(spaceQuest);
                 break;
 
             case "town_summoner":
                 Quest summonManaQuest = new SummoningManaQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
-                PanelHolder.instance.displayEvent(summonManaQuest.questName, summonManaQuest.questDescription + "\nTurn Limit: " 
-                                                    + summonManaQuest.turnLimit + "\n\nReward:\n" + summonManaQuest.DisplayReward());
+                PanelHolder.instance.displayEvent(summonManaQuest.questName, summonManaQuest.questDescription + "\nTurn Limit: "
+                                                + summonManaQuest.turnLimit + "\n\nReward:\n" + summonManaQuest.DisplayReward());
                 localPlayer.Spellcaster.activeQuests.Add(summonManaQuest);
                 break;
             #endregion

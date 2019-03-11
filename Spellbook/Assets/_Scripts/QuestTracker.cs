@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Written by Grace Ko 
 /// singleton used to track player's quests
 /// instantiated in MainPageHandler.setUpMainPage();
 /// </summary>
