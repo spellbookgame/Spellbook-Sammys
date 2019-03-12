@@ -12,9 +12,10 @@ public class GlyphPanelShifter : MonoBehaviour
     private void Start()
     {
         scrollRect = gameObject.transform.GetComponentInParent<ScrollRect>();
-        Debug.Log("child count: " + gameObject.transform.childCount);
-        movePos = (decimal)5 / (decimal)gameObject.transform.childCount;
-        Debug.Log(movePos);
+        if (gameObject.transform.childCount > 0)
+            movePos = (decimal)5 / (decimal)gameObject.transform.childCount;
+        else
+            movePos = 0;
     }
 
     public void LeftClick()
