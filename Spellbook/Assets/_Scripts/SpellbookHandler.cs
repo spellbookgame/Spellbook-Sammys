@@ -11,7 +11,6 @@ public class SpellbookHandler : MonoBehaviour
     [SerializeField] private Button mainButton;
     [SerializeField] private Button collectionButton;
     [SerializeField] private Button spellbookProgressButton;
-    [SerializeField] private Text glyphText;
     [SerializeField] private Text activeSpellsText;
 
     Player localPlayer;
@@ -47,19 +46,25 @@ public class SpellbookHandler : MonoBehaviour
             SceneManager.LoadScene("SpellbookProgress");
         });
 
-        // show player how many glyphs they have
-        foreach (KeyValuePair<string, int> kvp in localPlayer.Spellcaster.glyphs)
-        {
-            if (kvp.Value > 0)
-            {
-                glyphText.text = glyphText.text + kvp.Key + ": " + kvp.Value + "\n";
-            }
-        }
-
         // show player's active spells
         foreach (Spell entry in localPlayer.Spellcaster.activeSpells)
         {
             activeSpellsText.text = activeSpellsText.text + entry.sSpellName + "\n";
+        }
+    }
+
+    private void Update()
+    {
+        // disable some buttons if not player's turn
+        if (!localPlayer.bIsMyTurn)
+        {
+            spellCastButton.enabled = false;
+            spellCreateButton.enabled = false;
+        }
+        else
+        {
+            spellCastButton.enabled = true;
+            spellCreateButton.enabled = true;
         }
     }
 }
