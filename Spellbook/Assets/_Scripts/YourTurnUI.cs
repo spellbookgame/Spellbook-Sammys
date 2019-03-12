@@ -7,7 +7,6 @@ using System.Collections;
 public class YourTurnUI : MonoBehaviour
 {
     public Text infoText;
-    public Text buttonText;
     public Button singleButton;
 
     public void Display()
