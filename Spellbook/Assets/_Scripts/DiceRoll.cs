@@ -26,7 +26,12 @@ public class DiceRoll : MonoBehaviour
         // when button is clicked for first time, generate random number and change button to Scan
         if(pressedNum == 0)
         {
-            diceRoll = Random.Range(1, 7);
+            string spellActive = SpellTracker.instance.CheckMoveSpell();
+            if (spellActive.Equals("Accelerate"))
+                diceRoll = Random.Range(5, 7);
+            else
+                diceRoll = Random.Range(1, 7);
+
             TextBox.GetComponent<Text>().text = diceRoll.ToString();
 
             localPlayer.Spellcaster.spacesTraveled += diceRoll;

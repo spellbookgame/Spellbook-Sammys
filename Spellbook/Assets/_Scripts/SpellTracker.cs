@@ -113,4 +113,21 @@ public class SpellTracker : MonoBehaviour
             return glyphCount;
         }
     }
+
+    // referenced in DiceRoll.cs
+    public string CheckMoveSpell()
+    {
+        if(spellCaster.activeSpells.Any(x => x.sSpellName == "Accelerate"))
+        {
+            return "Accelerate";
+        }
+        else if(spellCaster.activeSpells.Any(x => x.sSpellName == "Teleport"))
+        {
+            return "Teleport";
+        }
+        else
+        {
+            return "";
+        }
+    }
 }
