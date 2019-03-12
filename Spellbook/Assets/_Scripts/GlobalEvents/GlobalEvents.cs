@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 /*
  For host device only.
      */
-public class GlobalEvents
+public class GlobalEvents : MonoBehaviour
 {
 
     class GlobalEvent
@@ -39,7 +39,11 @@ public class GlobalEvents
 
     }
 
-    Dictionary<int,GlobalEvent> list_AllEvents;
+    List<GlobalEvent> list_AllEvents;
+    List<GlobalEvent> eventOrder;
+    int currentEventIndex = 0;
+    bool allEventsHappened = false;
+
     public int[] spellcasterList;
 
     int alchemistID = 0;
@@ -50,34 +54,67 @@ public class GlobalEvents
     int summonerID = 5;
 
     int counterSpellcasterID;
+    string counterSpellcasterClass;
 
     private void Start()
     {
         spellcasterList = NetworkGameState.instance.spellcasterList;
-        list_AllEvents = new Dictionary<int, GlobalEvent>();
+        list_AllEvents = new List<GlobalEvent>();
         
         if(spellcasterList[elementalistID] > 0)
         {
             GlobalEvent tsunami = new GlobalEvent("Tsunami", GlobalEventDescriptions.tsunamiDesc, 2, Tsunami);
-            list_AllEvents[2] = tsunami;
+            list_AllEvents.Add(tsunami);
         }
-        
+
+        //Over the weekend I built the global event system still in testing, 
+        //i got 2 events right now tsunami that deals 50 percent damage to all spellcasters and finalboss battle which just kills everyone for now
+        //everything is still in testing, and pretty soon i have to add the pop up panel to the scenes that lets players know about it.
+
+        /*Randomize event order at the start of the game*/
+        Shuffler.Shuffle(list_AllEvents);
+        BoltConsole.Write("Global Event Order:");
+        Debug.Log("Global Event Order:");
+        foreach(GlobalEvent evnt in list_AllEvents)
+        {
+            BoltConsole.Write(evnt.name);
+            Debug.Log(evnt.name);
+        }
+
+        GlobalEvent finalBoss = new GlobalEvent("Final Boss", "Final Boss", 7, FinalBossBattle);
+        list_AllEvents.Add(finalBoss);
+
+        NetworkGameState.instance.setNextEvent(list_AllEvents[currentEventIndex].name);
 
 
+    }
 
-       
+    public string GetNextEvent()
+    {
+        return list_AllEvents[currentEventIndex].name;
     }
 
     //Call this one for generic events
     public void executeGlobalEvent()
     {
-        // Update list just in case someone left/died.
-        spellcasterList = NetworkGameState.instance.spellcasterList;
+        if (!allEventsHappened && list_AllEvents.Count > 0)
+        {
+            // Update list just in case someone left/died.
+            spellcasterList = NetworkGameState.instance.spellcasterList;
 
-        int size = list_AllEvents.Count;
-        //Get a random function from the list of possible events and execute it.
-        Action evnt = list_AllEvents[(int)Random.Range(0, (float)size - 1)].action;
-        evnt();
+            int size = list_AllEvents.Count;
+            //Get a random function from the list of possible events and execute it.
+            Action evnt = list_AllEvents[currentEventIndex].action;
+            currentEventIndex++;
+            if (currentEventIndex >= list_AllEvents.Count)
+            {
+                currentEventIndex = 0;
+                //All events passed.
+                allEventsHappened = true;
+            }
+            evnt();
+        }
+        
     }
 
 
@@ -86,7 +123,9 @@ public class GlobalEvents
         if (isCountered)
         {
             // Give players feedback that their spellCaster friend saved them.
-            //LobbyManager.s_Singleton.LetEveryoneKnowCountered();
+            Debug.Log("Global event is countered by:" + counterSpellcasterClass);
+            BoltConsole.Write("Global event is countered by:" + counterSpellcasterClass);
+            LobbyManager.s_Singleton.LetEveryoneKnowCountered(counterSpellcasterClass);
         }
         else
         {
@@ -99,6 +138,7 @@ public class GlobalEvents
         }
     }
 
+    /*Each player loses x% of their health*/
     private void dealPercentDamageToAllSpellcasters(float percent)
     {
         for (int id = 0; id < spellcasterList.Length; id++)
@@ -110,9 +150,16 @@ public class GlobalEvents
         }
     }
 
+    private void FinalBossBattle()
+    {
+        //Not yet implemented until combat is done
+        LobbyManager.s_Singleton.startFinalBossBattle();
+    }
+
     //ID = 2
     private void Tsunami()
     {
+        counterSpellcasterClass = "Elementalist";
         counterSpellcasterID = elementalistID;
         LobbyManager.s_Singleton.CheckIfCanCounter(counterSpellcasterID, 0, 2);
     }
@@ -146,6 +193,22 @@ public class GlobalEvents
     {
 
     }
+    
+    
+}
 
-   
+static class Shuffler
+{
+    public static void Shuffle<T>(this IList<T> list)
+    {
+        int n = list.Count;
+        while (n > 1)
+        {
+            n--;
+            int k = Random.Range(0, n);
+            T value = list[k];
+            list[k] = list[n];
+            list[n] = value;
+        }
+    }
 }

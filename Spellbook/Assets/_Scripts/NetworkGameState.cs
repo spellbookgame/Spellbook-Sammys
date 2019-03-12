@@ -25,7 +25,7 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
     public string nextGlobalEvent;
     const string sYearsUntilNext = " years until next ";
     private List<int> turnOrder;
-    public int turn_i = 0;  //
+    public int turn_i = 0;  //index counter for List<int> turnOrder
 
 
 
@@ -51,11 +51,16 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
 
             state.TurnsUntilNextEvent = 3;
             turnsUntilNextEvent = 3;  // TODO: rewrite.
-            nextGlobalEvent = "Dragon Attack";
-            state.NextGlobalEventName = nextGlobalEvent;
+            
             turnOrder = new List<int>();
 
         }
+    }
+
+    public void setNextEvent(string evnt)
+    {
+        nextGlobalEvent = globalEvents.GetNextEvent();
+        state.NextGlobalEventName = nextGlobalEvent;
     }
 
     public string getMatchName()

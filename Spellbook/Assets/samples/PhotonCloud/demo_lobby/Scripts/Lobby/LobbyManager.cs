@@ -361,22 +361,41 @@ namespace Bolt.Samples.Photon.Lobby
         public override void OnEvent(CheckIfCanCounterEvent evnt)
         {
             playerSpellcaster = playerEntity.GetComponent<Player>().spellcaster;
-            if (playerSpellcaster.spellcasterID == evnt.requiredSpellcaster)
+            Debug.Log("Check Counter Event");
+            if (true) //playerSpellcaster.spellcasterID == evnt.requiredSpellcaster
             {
                 var counterEvent = CounterGlobalEvent.Create(GlobalTargets.OnlyServer);
                 counterEvent.EventID = evnt.eventID;
-                foreach(Spell spell in playerSpellcaster.chapter.spellsCollected)
+                foreach (Spell spell in playerSpellcaster.chapter.spellsCollected)
                 {
-                    if(spell.iTier >= evnt.requiredSpellTier)
-                    { 
-                       
+                    if(spell.iTier >= evnt.requiredSpellTier) //
+                    {
+                        Debug.Log("COUNTEred doe brehhhh");
                         counterEvent.IsCountered = true;
                         counterEvent.Send();
+                        return;
                     }
                 }
-                counterEvent.IsCountered = false;
+                //counterEvent.IsCountered = false;
+                counterEvent.IsCountered = true;
                 counterEvent.Send();
 
+            }
+            
+        }
+
+        public override void OnEvent(LetEveryoneKnowAboutCounter evnt)
+        {
+
+            if(playerSpellcaster.classType == evnt.Savior)
+            {
+                BoltConsole.Write("You saved the world with your spell!");
+                Debug.Log("You saved the world with your spell!");
+            }
+            else
+            {
+                BoltConsole.Write(evnt.Savior+" saved the world!");
+                Debug.Log(evnt.Savior + " saved the world!");
             }
         }
 
@@ -563,6 +582,16 @@ namespace Bolt.Samples.Photon.Lobby
             evnt.Send();
         }
 
+        public void LetEveryoneKnowCountered(string theSavior)
+        {
+            var evnt = LetEveryoneKnowAboutCounter.Create(Bolt.GlobalTargets.Everyone);
+            evnt.Savior = theSavior;
+            evnt.Send();
+        }
 
+        public void startFinalBossBattle()
+        {
+            
+        }
     }
 }
