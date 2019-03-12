@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections;
 
@@ -6,12 +7,18 @@ using System.Collections;
 public class YourTurnUI : MonoBehaviour
 {
     public Text infoText;
-    public Text buttonText;
     public Button singleButton;
 
     public void Display()
     {
-        singleButton.onClick.AddListener(() => { SoundManager.instance.PlaySingle(SoundManager.buttonconfirm); gameObject.SetActive(false); });
+        singleButton.onClick.AddListener(() => 
+        {
+            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+            gameObject.SetActive(false);
+            
+            if(!SceneManager.GetActiveScene().name.Equals("MainPlayerScene"))
+                SceneManager.LoadScene("MainPlayerScene");
+        });
 
         gameObject.SetActive(true);
     }

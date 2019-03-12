@@ -94,7 +94,7 @@ public class SpellCastHandler : MonoBehaviour
         if (i >= 4)
         {
             // check if player has enough mana
-            if(localPlayer.Spellcaster.iMana < currentSpell.iManaCost)
+            if (localPlayer.Spellcaster.iMana < currentSpell.iManaCost)
             {
                 PanelHolder.instance.displayNotify("Not enough mana!", "You don't have enough mana to cast this spell.");
                 spellWasCast = false;

@@ -15,6 +15,7 @@ public abstract class SpellCaster
 {
     public string matchname;
     public int numOfTurnsSoFar = 0;
+    public int spacesTraveled = 0;
 
     public float fMaxHealth;
     public float fCurrentHealth;
@@ -44,10 +45,6 @@ public abstract class SpellCaster
     //Implement:
     //Object DeleteFromInventory(string itemName, int count); 
 
-    // Virtual Functions
-    // SpellCast() moved to Spell.cs
-    // public abstract void SpellCast();
-
     // CTOR
     public SpellCaster()
     {
@@ -60,30 +57,30 @@ public abstract class SpellCaster
 
         glyphs = new Dictionary<string, int>()
         {
-            { "Alchemy A Glyph", 0 },
-            { "Alchemy B Glyph", 0 },
-            { "Alchemy C Glyph", 0 },
-            { "Alchemy D Glyph", 0 },
-            { "Arcane A Glyph", 0},
-            { "Arcane B Glyph", 0 },
-            { "Arcane C Glyph", 0 },
-            { "Arcane D Glyph", 0 },
-            { "Elemental A Glyph", 0 },
-            { "Elemental B Glyph", 0 },
-            { "Elemental C Glyph", 0 },
-            { "Elemental D Glyph", 0 },
-            { "Illusion A Glyph", 0 },
-            { "Illusion B Glyph", 0 },
-            { "Illusion C Glyph", 0 },
-            { "Illusion D Glyph", 0 },
-            { "Summoning A Glyph", 0 },
-            { "Summoning B Glyph", 0 },
-            { "Summoning C Glyph", 0 },
-            { "Summoning D Glyph", 0 },
-            { "Time A Glyph", 0 },
-            { "Time B Glyph", 0 },
-            { "Time C Glyph", 0 },
-            { "Time D Glyph", 0 },
+            { "Alchemy A Glyph", 3 },
+            { "Alchemy B Glyph", 3 },
+            { "Alchemy C Glyph", 3 },
+            { "Alchemy D Glyph", 3 },
+            { "Arcane A Glyph", 3 },
+            { "Arcane B Glyph", 3 },
+            { "Arcane C Glyph", 3 },
+            { "Arcane D Glyph", 3 },
+            { "Elemental A Glyph", 3 },
+            { "Elemental B Glyph", 3 },
+            { "Elemental C Glyph", 3 },
+            { "Elemental D Glyph", 3 },
+            { "Illusion A Glyph", 3 },
+            { "Illusion B Glyph", 3 },
+            { "Illusion C Glyph", 3 },
+            { "Illusion D Glyph", 3 },
+            { "Summoning A Glyph", 3 },
+            { "Summoning B Glyph", 3 },
+            { "Summoning C Glyph", 3 },
+            { "Summoning D Glyph", 3 },
+            { "Time A Glyph", 3 },
+            { "Time B Glyph", 3 },
+            { "Time C Glyph", 3 },
+            { "Time D Glyph", 3 },
         };
     }
 
@@ -111,22 +108,9 @@ public abstract class SpellCaster
 
     public void CollectMana(int manaCount)
     {
-        // if Crystal Scent is active, add 20% more mana
-        if(this.classType.Equals("Alchemist") && this.activeSpells.Contains(this.chapter.spellsAllowed[1]))
-        {
-            manaCount += (int)(manaCount * 0.2);
-            PanelHolder.instance.displayEvent("Brew - Crystal Scent", "You found " + manaCount + " mana!");
-        }
-        // if Arcana Harvest is active, double mana
-        else if(this.classType.Equals("Arcanist") && this.activeSpells.Contains(this.chapter.spellsAllowed[1]))
-        {
-            manaCount *= 2;
-            PanelHolder.instance.displayEvent("Arcana Harvest", "You found " + manaCount + " mana!");
-        }
-        else
-        {
-            PanelHolder.instance.displayEvent("You found Mana!", "You earned " + manaCount + " mana.");
-        }
+        Debug.Log("mana count initial: " + manaCount);
+        manaCount = SpellTracker.instance.CheckManaSpell(manaCount);
+        Debug.Log("mana count after: " + manaCount);
         QuestTracker.instance.CheckManaQuest(manaCount);
         this.iMana += manaCount;
     }
@@ -137,10 +121,11 @@ public abstract class SpellCaster
 
     public void CollectGlyph(string glyphName)
     {
-        this.glyphs[glyphName] += 1;
-        PanelHolder.instance.displayEvent("You found a glyph!", "You found 1 " + glyphName + ".");
+        int glyphCount = SpellTracker.instance.CheckGlyphSpell(glyphName);
+        this.glyphs[glyphName] += glyphCount;
     }
 
+    // fix this up after removing from eventhandler and enemy drop
     public string CollectRandomGlyph()
     {
         List<string> glyphList = new List<string>(this.glyphs.Keys);

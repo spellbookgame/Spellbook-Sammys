@@ -4,7 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-// script from Kiwasi Games
+/// <summary>
+/// Kiwasi Games, Grace Ko
+/// script created to handle dragging of glyphs
+/// SpellCreateScene, SpellCastScene
+/// </summary>
 public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     public static GameObject itemToDrag;
@@ -33,10 +37,14 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         startPos = transform.position;
         startParent = transform.parent;
 
-        // set the parent to canvas so the spell piece slot will no longer have a child
+        // set the anchors of the glyph so it'll follow mouse correctly
+        gameObject.GetComponent<RectTransform>().anchorMin = new Vector2(0.5f, 0.5f);
+        gameObject.GetComponent<RectTransform>().anchorMax = new Vector2(0.5f, 0.5f);
+
+        // set the parent to canvas so the glyph slot will no longer have a child
         transform.SetParent(GameObject.Find("Canvas").transform);
 
-        // if player has enough spell pieces and the slot has less than 1 child in it
+        // if player has enough glyphs and the slot has less than 1 child in it
         if (localPlayer.Spellcaster.glyphs[itemToDrag.name] > 0 && originalParent.childCount < 1)
         {
             // instantiate prefab of whatever was dragged, and omit (clone) from its name
@@ -65,7 +73,10 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     public void OnDrag(PointerEventData eventData)
     {
         // setting transform position to current mouse position
-        transform.position = Input.mousePosition;
+        Vector3 screenpoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z);
+        screenpoint.z = 10.0f;
+        itemToDrag.transform.position = Camera.main.ScreenToWorldPoint(screenpoint);
+
         itemBeingDragged = itemToDrag;
     }
 

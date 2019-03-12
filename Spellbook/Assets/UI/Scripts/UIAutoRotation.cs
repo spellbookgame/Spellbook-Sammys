@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 
 /// <summary>
-/// Automatically rotates the attached RectTransform object.
+/// Automatically rotates the attached transform object.
+/// 
+/// Written by Malcolm Riley
+/// CMPS 17X, Winter 2019
 /// </summary>
-[RequireComponent(typeof(RectTransform))]
 public class UIAutoRotation : MonoBehaviour {
 
 	// Public Fields
@@ -13,8 +15,7 @@ public class UIAutoRotation : MonoBehaviour {
 
 	void Update() {
 		if (spinning) {
-			RectTransform component = GetComponent<RectTransform>();
-			component.Rotate(Vector3.forward * (rotationSpeed * Time.deltaTime));
+			transform.Rotate(Vector3.forward * (rotationSpeed * Time.deltaTime));
 		}
 	}
 }

@@ -33,7 +33,7 @@ public class SpellCollectionHandler : MonoBehaviour
             SceneManager.LoadScene("SpellbookScene");
         });
 
-        int yPos = 780;
+        int yPos = 720;
         // add buttons for each spell the player can collect
         for (int i = 0; i < localPlayer.Spellcaster.chapter.spellsAllowed.Count; i++)
         {
@@ -48,7 +48,7 @@ public class SpellCollectionHandler : MonoBehaviour
             newSpellButton.onClick.AddListener(() => showSpellInfo(localPlayer.Spellcaster.chapter.spellsAllowed[i2]));
 
             // to position new button underneath prev button
-            yPos -= 225;
+            yPos -= 170;
         }
     }
 
@@ -63,7 +63,7 @@ public class SpellCollectionHandler : MonoBehaviour
         }
 
         spellInfoPanel.transform.GetChild(0).GetComponent<Text>().text = spell.sSpellName;
-        spellInfoPanel.transform.GetChild(1).GetComponent<Text>().text = "Tier: " + spell.iTier.ToString();
+        spellInfoPanel.transform.GetChild(1).GetComponent<Text>().text = "Tier: " + spell.iTier.ToString() + "  |  Cost: " + spell.iManaCost.ToString();
         spellInfoPanel.transform.GetChild(2).GetComponent<Text>().text = spell.sSpellInfo;
         
         // add glyph images to the panel to show player required glyphs
