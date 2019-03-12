@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.37312013, g: 0.3807403, b: 0.35872707, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -127,7 +127,7 @@ PrefabInstance:
     - target: {fileID: 873220232188341161, guid: 97185e19ca9de41bfa9217c72270d897,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 873220232188341160, guid: 97185e19ca9de41bfa9217c72270d897,
         type: 3}
@@ -253,11 +253,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Inventory
-      objectReference: {fileID: 0}
-    - target: {fileID: 7078290289232769975, guid: c126685900e65468aac6447038215cd4,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5838927604537826120, guid: c126685900e65468aac6447038215cd4,
         type: 3}
@@ -727,15 +722,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1516016929}
     m_Modifications:
+    - target: {fileID: 4954876023780541051, guid: 0b3b2cfc0850e4ab7ba7114ed762ecdb,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5023817612402026031, guid: 0b3b2cfc0850e4ab7ba7114ed762ecdb,
         type: 3}
       propertyPath: m_Name
       value: UI Panel Paper
-      objectReference: {fileID: 0}
-    - target: {fileID: 5023817612402026031, guid: 0b3b2cfc0850e4ab7ba7114ed762ecdb,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3516319931277220670, guid: 0b3b2cfc0850e4ab7ba7114ed762ecdb,
         type: 3}
@@ -841,11 +836,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4954876023780541051, guid: 0b3b2cfc0850e4ab7ba7114ed762ecdb,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0b3b2cfc0850e4ab7ba7114ed762ecdb, type: 3}
@@ -978,6 +968,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: bdb05868649fc415ebcf3f8979082329,
         type: 3}
+    - target: {fileID: 4265290815135420922, guid: f10562070b429420496d6bdda9e6c70f,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 44ffdc30b50f14c2a9c0698eb2735407,
+        type: 3}
     - target: {fileID: 7783259258589082575, guid: f10562070b429420496d6bdda9e6c70f,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -1008,12 +1004,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
-    - target: {fileID: 4265290815135420922, guid: f10562070b429420496d6bdda9e6c70f,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 44ffdc30b50f14c2a9c0698eb2735407,
-        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f10562070b429420496d6bdda9e6c70f, type: 3}
 --- !u!1001 &760678949
@@ -1027,11 +1017,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: UI Panel Uncolored
-      objectReference: {fileID: 0}
-    - target: {fileID: 1785726485622236672, guid: 72d67d86933524dd882ae91aee855895,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1220242956395639457, guid: 72d67d86933524dd882ae91aee855895,
         type: 3}
@@ -1285,11 +1270,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: UI Panel Default
-      objectReference: {fileID: 0}
-    - target: {fileID: 6678922744368288471, guid: d5fb0586ac92c41c8b53b1c9a21e55f4,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7479557980947568578, guid: d5fb0586ac92c41c8b53b1c9a21e55f4,
         type: 3}
@@ -1670,6 +1650,21 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1280937021296419689, guid: bee0cfa54d1c34c70b759de91ad5627e,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1521773719
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280937021296419689, guid: bee0cfa54d1c34c70b759de91ad5627e,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280937021296419689, guid: bee0cfa54d1c34c70b759de91ad5627e,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2085430614737275599, guid: bee0cfa54d1c34c70b759de91ad5627e,
         type: 3}
       propertyPath: m_Color.r
@@ -1728,21 +1723,6 @@ PrefabInstance:
     - target: {fileID: 2085430614737275598, guid: bee0cfa54d1c34c70b759de91ad5627e,
         type: 3}
       propertyPath: m_Colors.m_PressedColor.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1280937021296419689, guid: bee0cfa54d1c34c70b759de91ad5627e,
-        type: 3}
-      propertyPath: m_SortingLayerID
-      value: 1521773719
-      objectReference: {fileID: 0}
-    - target: {fileID: 1280937021296419689, guid: bee0cfa54d1c34c70b759de91ad5627e,
-        type: 3}
-      propertyPath: m_SortingLayer
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1280937021296419689, guid: bee0cfa54d1c34c70b759de91ad5627e,
-        type: 3}
-      propertyPath: m_SortingOrder
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1951,11 +1931,6 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1876714547}
-    - target: {fileID: 8828164677501303834, guid: d3a76262da91f41bcaafa1723527076a,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d3a76262da91f41bcaafa1723527076a, type: 3}
 --- !u!1001 &7155033722568792327

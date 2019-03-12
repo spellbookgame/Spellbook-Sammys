@@ -4,13 +4,13 @@ using System.Text;
 using UnityEngine;
 
 /// <summary>
+/// Grace Ko
 /// singleton used to track player's spells
 /// instantiated in MainPageHandler.setUpMainPage();
 /// </summary>
 public class SpellTracker : MonoBehaviour
 {
     public static SpellTracker instance = null;
-    public Dictionary<string, Spell> spellLibrary;
 
     private SpellCaster spellCaster;
 
@@ -32,37 +32,6 @@ public class SpellTracker : MonoBehaviour
     private void Start()
     {
         spellCaster = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().Spellcaster;
-
-        // a list of every spell in the game so the tracker can reference
-        spellLibrary = new Dictionary<string, Spell>()
-        {
-            // Alchemy
-            { "Brew - Potion of Blessing", new PotionofBlessing() },
-            { "Brew - Charming Negotiator", new CharmingNegotiator() },
-            { "Brew - Toxic Potion", new ToxicPotion() },
-            { "Brew - Crystal Scent", new CrystalScent() },
-            // Arcane
-            { "Transcribe", new Transcribe() },
-            { "Combined Knowledge", new CombinedKnowledge() },
-            { "Arcana Harvest", new ArcanaHarvest() },
-            { "Arcane Conversion", new ArcaneConversion() },
-            // Time
-            { "Delay Time", new DelayTime() },
-            { "Teleport", new Teleport() },
-            { "Accelerate", new Accelerate() },
-            // Elemental
-            { "Natural Disaster", new NaturalDisaster() },
-            { "Elemental Orb", new ElementalOrb() },
-            { "Fireball", new Fireball() },
-            // Illusion
-            { "Playwright", new Playwright() },
-            { "Playback", new Playback() },
-            { "Marionette - Catharsis", new MarionetteCatharsis() },
-            // Summoning
-            { "Call of the Sun - Leon's Shining", new CoSLeon() },
-            { "Call of the Wild - Sign of the Raven", new CoWRaven() },
-            { "Call of the Dead - Skeletons", new CoDSkeletons() }
-        };
     }
 
     // checks if any spells affect mana, calculates accordingly, and sets panel text

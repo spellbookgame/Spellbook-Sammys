@@ -4,7 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-// script from Kiwasi Games
+/// <summary>
+/// Kiwasi Games, Grace Ko
+/// script created to handle dragging of glyphs
+/// SpellCreateScene, SpellCastScene
+/// </summary>
 public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     public static GameObject itemToDrag;
