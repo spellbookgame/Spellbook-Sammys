@@ -2261,6 +2261,29 @@ PrefabInstance:
       propertyPath: m_SortingLayerID
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 303893319588026433, guid: 38719199e7b35d04ca45e36f1744a315,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 303893319588026433, guid: 38719199e7b35d04ca45e36f1744a315,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 860605245}
+    - target: {fileID: 303893319588026433, guid: 38719199e7b35d04ca45e36f1744a315,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Wiggle
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 38719199e7b35d04ca45e36f1744a315, type: 3}
 --- !u!1 &860605243 stripped
@@ -2269,6 +2292,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 860605242}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &860605245 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3326064339856164961, guid: 38719199e7b35d04ca45e36f1744a315,
+    type: 3}
+  m_PrefabInstance: {fileID: 860605242}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f36c9cc0838f44448aa6d0eabee4576, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1015061575
 GameObject:
   m_ObjectHideFlags: 0
