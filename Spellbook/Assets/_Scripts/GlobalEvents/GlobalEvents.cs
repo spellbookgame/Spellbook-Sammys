@@ -67,9 +67,7 @@ public class GlobalEvents : MonoBehaviour
             list_AllEvents.Add(tsunami);
         }
 
-        //Over the weekend I built the global event system still in testing, 
-        //i got 2 events right now tsunami that deals 50 percent damage to all spellcasters and finalboss battle which just kills everyone for now
-        //everything is still in testing, and pretty soon i have to add the pop up panel to the scenes that lets players know about it.
+      
 
         /*Randomize event order at the start of the game*/
         Shuffler.Shuffle(list_AllEvents);
