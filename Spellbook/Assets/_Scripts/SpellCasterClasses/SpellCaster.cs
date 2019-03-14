@@ -28,10 +28,11 @@ public abstract class SpellCaster
     public bool hasAttacked;
     public Chapter chapter;
 
-    // player's collection of spell pieces, glyphs, and active spells stored as strings
+    // player's collection of spell pieces, glyphs, items, and active spells stored as strings
     public Dictionary<string, int> glyphs;
     public List<Spell> activeSpells;
     public List<Quest> activeQuests;
+    public List<ItemObject> inventory;
 
     // reference to the character's sprite/background
     public string characterSpritePath;
@@ -41,7 +42,6 @@ public abstract class SpellCaster
 
     // TODO:
     //private string backGroundStory; 
-    //private Inventory inventory;
     //Implement:
     //Object DeleteFromInventory(string itemName, int count); 
 
@@ -54,6 +54,7 @@ public abstract class SpellCaster
 
         activeSpells = new List<Spell>();
         activeQuests = new List<Quest>();
+        inventory = new List<ItemObject>();
 
         glyphs = new Dictionary<string, int>()
         {
@@ -84,9 +85,9 @@ public abstract class SpellCaster
         };
     }
 
-    public void AddToInventory(string item, int count)
+    public void AddToInventory(ItemObject newItem)
     {
-        //inventory.add(item, count);
+        inventory.Add(newItem);
     }
 
     public void TakeDamage(int dmg)
