@@ -33,9 +33,10 @@ public class QuestTracker : MonoBehaviour
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
     }
 
+    // AlchemyManaQuest and SummoningManaQuest - Checked in Spellcaster.cs in CollectMana()
     public void CheckManaQuest(int mana)
     {
-        foreach(Quest q in localPlayer.Spellcaster.activeQuests)
+        foreach(Quest q in localPlayer.Spellcaster.activeQuests.ToArray())
         {
             if (q.questType.Equals("Collect Mana"))
             {
@@ -57,9 +58,10 @@ public class QuestTracker : MonoBehaviour
         }
     }
 
+    // IllusionSpaceQuest - Checked in CustomEventHandler.cs in ScanItem()
     public void CheckSpaceQuest(string spaceName)
     {
-        foreach (Quest q in localPlayer.Spellcaster.activeQuests)
+        foreach (Quest q in localPlayer.Spellcaster.activeQuests.ToArray())
         {
             if (q.questType.Equals("Specific Space"))
             {
@@ -83,9 +85,10 @@ public class QuestTracker : MonoBehaviour
         }
     }
 
+    // TimeMoveQuest - Checked in DiceRoll.cs in Roll()
     public void CheckMoveQuest(int moveSpaces)
     {
-        foreach (Quest q in localPlayer.Spellcaster.activeQuests)
+        foreach (Quest q in localPlayer.Spellcaster.activeQuests.ToArray())
         {
             if (q.questType.Equals("Movement"))
             {
@@ -93,6 +96,60 @@ public class QuestTracker : MonoBehaviour
                 if (q.spacesTraveled >= q.spacesRequired)
                 {
                     q.questCompleted = true;
+                }
+                if (q.questCompleted)
+                {
+                    PanelHolder.instance.displayNotify(q.questName + " Completed!",
+                                                        "You completed the quest! You earned:\n\n" + q.DisplayReward());
+                    localPlayer.Spellcaster.activeQuests.Remove(q);
+                    GiveRewards(q);
+                }
+            }
+        }
+    }
+
+    // ElementalErrandQuest -  checked in CustomEventHandler.cs in ScanItem()
+    public void CheckErrandQuest(string spaceName)
+    {
+        foreach (Quest q in localPlayer.Spellcaster.activeQuests.ToArray())
+        {
+            if (q.questType.Equals("Errand"))
+            {
+                if (spaceName.Equals(q.spaceName))
+                {
+                    // check if player has the item for the errand
+                    if(localPlayer.Spellcaster.inventory.Contains(q.item))
+                    {
+                        q.questCompleted = true;
+                    }
+                }
+                if (q.questCompleted)
+                {
+                    PanelHolder.instance.displayNotify(q.questName + " Completed!",
+                                                        "You completed the quest! You earned:\n\n" + q.DisplayReward());
+                    localPlayer.Spellcaster.activeQuests.Remove(q);
+                    // localPlayer.Spellcaster.inventory.Remove(q.item);
+                    GiveRewards(q);
+                }
+            }
+        }
+    }
+
+    // ArcaneSpellQuest - checked in SpellCastHandler.cs in Update()
+    public void CheckSpellQuest(Spell spell)
+    {
+        foreach (Quest q in localPlayer.Spellcaster.activeQuests.ToArray())
+        {
+            if (q.questType.Equals("Spell"))
+            {
+                if (q.spellsCast.Contains(spell))
+                {
+                    // if player has cast this spell before
+                    q.questCompleted = true;
+                }
+                else
+                {
+                    q.spellsCast.Add(spell);
                 }
                 if (q.questCompleted)
                 {

@@ -97,7 +97,7 @@ public class MainPageHandler : MonoBehaviour
         // set onclick listeners for buttons
         rollButton.onClick.AddListener(() =>
         {
-            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+            SoundManager.instance.PlaySingle(SoundManager.dicetrayopen);
             diceRollPanel.SetActive(true);
         });
         spellbookButton.onClick.AddListener(() =>
@@ -125,7 +125,7 @@ public class MainPageHandler : MonoBehaviour
     // updating the list of active quests
     private void UpdateActiveQuests()
     {
-        foreach (Quest q in localPlayer.Spellcaster.activeQuests)
+        foreach (Quest q in localPlayer.Spellcaster.activeQuests.ToArray())
         {
             // if the player's turns from starting the quest exceeded the turn limit
             if (localPlayer.Spellcaster.NumOfTurnsSoFar - q.startTurn > q.turnLimit)

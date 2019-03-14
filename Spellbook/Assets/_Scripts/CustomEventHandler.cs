@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Vuforia;
 
 public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
@@ -89,6 +90,10 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
     
     private void scanItem(string trackableName)
     {
+        // checking quests that require space scan
+        QuestTracker.instance.CheckSpaceQuest(trackableName);
+        QuestTracker.instance.CheckErrandQuest(trackableName);
+
         // call function based on target name
         switch (trackableName)
         {
@@ -102,42 +107,38 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
                 break;
 
             case "capital":
-                PanelHolder.instance.displayEvent("Capital", "Display shop scene here.");
+                SceneManager.LoadScene("ShopScene");
                 break;
 
             #region town_spaces
             case "town_alchemist":
-                Quest manaQuest = new AlchemyManaQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
-                PanelHolder.instance.displayQuest(manaQuest);
+                Quest alchemyManaQuest = new AlchemyManaQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
+                PanelHolder.instance.displayQuest(alchemyManaQuest);
                 break;
 
             case "town_arcanist":
-                PanelHolder.instance.displayEvent("Arcanist town", "Nothing really to see here...");
+                Quest arcaneSpellQuest = new ArcaneSpellQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
+                PanelHolder.instance.displayQuest(arcaneSpellQuest);
                 break;
 
             case "town_chronomancer":
-                Quest moveQuest = new TimeMoveQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
-                PanelHolder.instance.displayEvent(moveQuest.questName, moveQuest.questDescription + "\nTurn Limit: " + moveQuest.turnLimit
-                                                + "\n\nReward:\n" + moveQuest.DisplayReward());
-                localPlayer.Spellcaster.activeQuests.Add(moveQuest);
+                Quest timeMoveQuest = new TimeMoveQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
+                PanelHolder.instance.displayQuest(timeMoveQuest);
                 break;
 
             case "town_elementalist":
-                PanelHolder.instance.displayEvent("Elementalist town", "Nothing really to see here...");
+                Quest elementalErrandQuest = new ElementalErrandQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
+                PanelHolder.instance.displayQuest(elementalErrandQuest);
                 break;
 
             case "town_illusionist":
-                Quest spaceQuest = new IllusionSpaceQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
-                PanelHolder.instance.displayEvent(spaceQuest.questName, spaceQuest.questDescription + "\nTurn Limit: " + spaceQuest.turnLimit
-                                                + "\n\nReward:\n" + spaceQuest.DisplayReward());
-                localPlayer.Spellcaster.activeQuests.Add(spaceQuest);
+                Quest illusionSpaceQuest = new IllusionSpaceQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
+                PanelHolder.instance.displayQuest(illusionSpaceQuest);
                 break;
 
             case "town_summoner":
                 Quest summonManaQuest = new SummoningManaQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
-                PanelHolder.instance.displayEvent(summonManaQuest.questName, summonManaQuest.questDescription + "\nTurn Limit: "
-                                                + summonManaQuest.turnLimit + "\n\nReward:\n" + summonManaQuest.DisplayReward());
-                localPlayer.Spellcaster.activeQuests.Add(summonManaQuest);
+                PanelHolder.instance.displayQuest(summonManaQuest);
                 break;
             #endregion
 
@@ -148,7 +149,6 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
                     localPlayer.Spellcaster.CollectGlyph("Alchemy D Glyph");
                 else
                     localPlayer.Spellcaster.CollectGlyph("Alchemy C Glyph");
-                QuestTracker.instance.CheckSpaceQuest(trackableName);
                 break;
             case "glyph_arcanist":
                 int g2 = (int)UnityEngine.Random.Range(0, 2);
@@ -156,7 +156,6 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
                     localPlayer.Spellcaster.CollectGlyph("Arcane D Glyph");
                 else
                     localPlayer.Spellcaster.CollectGlyph("Arcane C Glyph");
-                QuestTracker.instance.CheckSpaceQuest(trackableName);
                 break;
             case "glyph_chronomancer":
                 int g3 = (int)UnityEngine.Random.Range(0, 2);
@@ -164,7 +163,6 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
                     localPlayer.Spellcaster.CollectGlyph("Time D Glyph");
                 else
                     localPlayer.Spellcaster.CollectGlyph("Time C Glyph");
-                QuestTracker.instance.CheckSpaceQuest(trackableName);
                 break;
             case "glyph_elementalist":
                 int g4 = (int)UnityEngine.Random.Range(0, 2);
@@ -172,7 +170,6 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
                     localPlayer.Spellcaster.CollectGlyph("Elemental D Glyph");
                 else
                     localPlayer.Spellcaster.CollectGlyph("Elemental C Glyph");
-                QuestTracker.instance.CheckSpaceQuest(trackableName);
                 break;
             case "glyph_illusionist":
                 int g5 = (int)UnityEngine.Random.Range(0, 2);
@@ -180,7 +177,6 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
                     localPlayer.Spellcaster.CollectGlyph("Illusion D Glyph");
                 else
                     localPlayer.Spellcaster.CollectGlyph("Illusion C Glyph");
-                QuestTracker.instance.CheckSpaceQuest(trackableName);
                 break;
             case "glyph_summoner":
                 int g6 = (int)UnityEngine.Random.Range(0, 2);
@@ -188,7 +184,6 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
                     localPlayer.Spellcaster.CollectGlyph("Summoning D Glyph");
                 else
                     localPlayer.Spellcaster.CollectGlyph("Summoning C Glyph");
-                QuestTracker.instance.CheckSpaceQuest(trackableName);
                 break;
             #endregion
 

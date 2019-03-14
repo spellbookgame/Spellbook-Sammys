@@ -1783,11 +1783,26 @@ MonoBehaviour:
   musicSource: {fileID: 1859850891}
   lowPitchRange: 0.95
   highPitchRange: 1.05
-  buttonConfirmHelper: {fileID: 8300000, guid: 8626bf00d717c134dbdfbf1aa170126f, type: 3}
-  grabspellpieceHelper: {fileID: 8300000, guid: 880d333f4503ca048bfc600f47f8f91e,
-    type: 3}
-  placespellpieceHelper: {fileID: 8300000, guid: 9478adb9b7660a74882c882f25337d09,
-    type: 3}
+  soundeffects:
+  - {fileID: 8300000, guid: 8626bf00d717c134dbdfbf1aa170126f, type: 3}
+  - {fileID: 8300000, guid: 11bce18337bcace47b5df3f9dd0b869e, type: 3}
+  - {fileID: 8300000, guid: ac0ac90a4d4b7d0489db622ba6056e1a, type: 3}
+  - {fileID: 8300000, guid: bcd6a28ea13983a499a9c517e60fc1c0, type: 3}
+  - {fileID: 8300000, guid: cd36f2c07868e274d9b57288640a998a, type: 3}
+  - {fileID: 8300000, guid: 2e1d98a1be5556740a4587298a1b698d, type: 3}
+  - {fileID: 8300000, guid: 880d333f4503ca048bfc600f47f8f91e, type: 3}
+  - {fileID: 8300000, guid: a539cdc87b6089640b4d9046a5b004fb, type: 3}
+  - {fileID: 8300000, guid: 539224400a7ce0c4d99e642bea676c98, type: 3}
+  - {fileID: 8300000, guid: 9671216d1bbc4a04f98330745375614e, type: 3}
+  - {fileID: 8300000, guid: 3a2373ed406e7c040abce12273da0330, type: 3}
+  - {fileID: 8300000, guid: 9478adb9b7660a74882c882f25337d09, type: 3}
+  - {fileID: 8300000, guid: 5cf91d3245a060a49bd22e86abaacb46, type: 3}
+  - {fileID: 8300000, guid: 367ce2fe2d74d7d4d8e6d04dd16168ea, type: 3}
+  - {fileID: 8300000, guid: 045a716a50fcfb14ba13909b7d869a50, type: 3}
+  - {fileID: 8300000, guid: 5abbd593b3b23a945a8c72dbe0802088, type: 3}
+  - {fileID: 8300000, guid: b85fa361eb689124b9c15a8903c5af41, type: 3}
+  - {fileID: 8300000, guid: 5460dcffd07190a4d8f046ebef354d07, type: 3}
+  - {fileID: 8300000, guid: bb7cb27be50fc654e8cff6a65de6b97d, type: 3}
 --- !u!82 &1859850891
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2961,6 +2976,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SoundManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 7657592968730287294, guid: 647537f2318593846b3dc8974a14df53,
+        type: 3}
+      propertyPath: soundeffects.Array.size
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 7657592968730287289, guid: 647537f2318593846b3dc8974a14df53,
         type: 3}

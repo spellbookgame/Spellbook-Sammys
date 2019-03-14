@@ -12,7 +12,7 @@ public class TimeMoveQuest : Quest
         questDescription = "Travel 12 spaces.";
 
         startTurn = turnStarted;
-        turnLimit = 4;
+        turnLimit = 5;
 
         spacesTraveled = 0;
         spacesRequired = 12;
