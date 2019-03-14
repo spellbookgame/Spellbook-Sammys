@@ -33,12 +33,11 @@ public class SpellCollectionHandler : MonoBehaviour
             SceneManager.LoadScene("SpellbookScene");
         });
 
-        int yPos = 720;
+        int yPos = 780;
         // add buttons for each spell the player can collect
         for (int i = 0; i < localPlayer.Spellcaster.chapter.spellsAllowed.Count; i++)
         {
-            Button newSpellButton = Instantiate(spellButton);
-            newSpellButton.transform.parent = GameObject.Find("Canvas").transform;
+            Button newSpellButton = Instantiate(spellButton, GameObject.Find("Canvas").transform);
             newSpellButton.GetComponentInChildren<Text>().text = localPlayer.Spellcaster.chapter.spellsAllowed[i].sSpellName;
             newSpellButton.transform.localPosition = new Vector3(0, yPos, 0);
 

@@ -108,9 +108,7 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
             #region town_spaces
             case "town_alchemist":
                 Quest manaQuest = new AlchemyManaQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
-                PanelHolder.instance.displayEvent(manaQuest.questName, manaQuest.questDescription + "\nTurn Limit: " + manaQuest.turnLimit
-                                                + "\n\nReward:\n" + manaQuest.DisplayReward());
-                localPlayer.Spellcaster.activeQuests.Add(manaQuest);
+                PanelHolder.instance.displayQuest(manaQuest);
                 break;
 
             case "town_arcanist":
