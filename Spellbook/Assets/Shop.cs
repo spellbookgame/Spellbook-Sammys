@@ -144,7 +144,7 @@ public class Shop : MonoBehaviour
         currentSelected = item;
         text_itemName.text = item.name;
         text_itemPrice.text = item.buyPrice + "";
-        text_itemDesc.text = item.mechanicsDescription+ "\n" +item.flavorDescription;
+        text_itemDesc.text = item.flavorDescription + "\n\n" +item.mechanicsDescription;
     }
 }
 
