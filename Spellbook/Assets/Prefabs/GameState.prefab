@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1989108739575539032}
   - component: {fileID: 3908460467677527865}
   - component: {fileID: 9168120704156714920}
+  - component: {fileID: 1530173236517680519}
   m_Layer: 0
   m_Name: GameState
   m_TagString: Untagged
@@ -73,10 +74,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 883ef4ad1f853e44dae8431df32d9f9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  globalEvents: {fileID: 1530173236517680519}
   numOfPlayers: 0
   numOfSpellcasters: 0
   spellcasterList: 
   combatOrder: 
-  turnsUntilNextEvent: 0
+  yearsUntilNextEvent: 0
   nextGlobalEvent: 
   turn_i: 0
+  totalYearsSoFar: 0
+--- !u!114 &1530173236517680519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1989108739575539035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a6840e9b51f6e846988c1ca65c7bccf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spellcasterList: 

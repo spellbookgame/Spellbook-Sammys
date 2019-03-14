@@ -50,8 +50,19 @@ public class Player : Bolt.EntityEventListener<ISpellcasterState>
 
 
             spellcasterTurnOrder = new ArrayList();
-            StartCoroutine(determineTurnOrder());
+            //StartCoroutine(determineTurnOrder());
             gameObject.tag = "LocalPlayer";
+
+            if (spellcasterID == NetworkGameState.instance.getCurrentTurn())
+            {
+                BoltConsole.Write("My Turn");
+                numTurnsIHad++;
+                spellcaster.NumOfTurnsSoFar = numTurnsIHad;
+                bIsMyTurn = true;
+                PanelHolder panelHolder = GameObject.Find("PanelHolder").GetComponent<PanelHolder>();
+                panelHolder.displayYourTurn();
+            }
+
         }
     }
 
@@ -176,7 +187,7 @@ public class Player : Bolt.EntityEventListener<ISpellcasterState>
 
     /* When our LobbyManager (aka our GlobalEventListener) recieves a
      NextTurnEvent, this method is called.
-     The second if-statement does nothing if its not this player's turn.*/
+     The if-statement does nothing if its not this player's turn.*/
     public void nextTurnEvent(int sID)
     {
         if (sID == spellcasterID)
@@ -185,8 +196,8 @@ public class Player : Bolt.EntityEventListener<ISpellcasterState>
             numTurnsIHad++;
             spellcaster.NumOfTurnsSoFar = numTurnsIHad;
             bIsMyTurn = true;
-            PanelHolder panelHolder = GameObject.Find("PanelHolder").GetComponent<PanelHolder>();
-            panelHolder.displayYourTurn();
+            //PanelHolder panelHolder = GameObject.Find("PanelHolder").GetComponent<PanelHolder>();
+            PanelHolder.instance.displayYourTurn();
         }
     }
     #endregion
