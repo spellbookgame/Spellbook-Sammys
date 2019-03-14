@@ -97,7 +97,7 @@ public class MainPageHandler : MonoBehaviour
         // set onclick listeners for buttons
         rollButton.onClick.AddListener(() =>
         {
-            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+            SoundManager.instance.PlaySingle(SoundManager.dicetrayopen);
             diceRollPanel.SetActive(true);
         });
         spellbookButton.onClick.AddListener(() =>
