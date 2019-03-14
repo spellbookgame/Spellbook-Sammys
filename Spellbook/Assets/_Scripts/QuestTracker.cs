@@ -35,7 +35,7 @@ public class QuestTracker : MonoBehaviour
 
     public void CheckManaQuest(int mana)
     {
-        foreach(Quest q in localPlayer.Spellcaster.activeQuests)
+        foreach(Quest q in localPlayer.Spellcaster.activeQuests.ToArray())
         {
             if (q.questType.Equals("Collect Mana"))
             {
@@ -59,7 +59,7 @@ public class QuestTracker : MonoBehaviour
 
     public void CheckSpaceQuest(string spaceName)
     {
-        foreach (Quest q in localPlayer.Spellcaster.activeQuests)
+        foreach (Quest q in localPlayer.Spellcaster.activeQuests.ToArray())
         {
             if (q.questType.Equals("Specific Space"))
             {
@@ -85,7 +85,7 @@ public class QuestTracker : MonoBehaviour
 
     public void CheckMoveQuest(int moveSpaces)
     {
-        foreach (Quest q in localPlayer.Spellcaster.activeQuests)
+        foreach (Quest q in localPlayer.Spellcaster.activeQuests.ToArray())
         {
             if (q.questType.Equals("Movement"))
             {
@@ -99,6 +99,33 @@ public class QuestTracker : MonoBehaviour
                     PanelHolder.instance.displayNotify(q.questName + " Completed!",
                                                         "You completed the quest! You earned:\n\n" + q.DisplayReward());
                     localPlayer.Spellcaster.activeQuests.Remove(q);
+                    GiveRewards(q);
+                }
+            }
+        }
+    }
+
+    public void CheckErrandQuest(string spaceName)
+    {
+        foreach (Quest q in localPlayer.Spellcaster.activeQuests.ToArray())
+        {
+            if (q.questType.Equals("Errand"))
+            {
+                if (spaceName.Equals(q.spaceName))
+                {
+                    // check if player has the item for the errand
+                    /*if(localPlayer.Spellcaster.inventory.Contains(q.item))
+                    {
+                        q.questCompleted = true;
+                    }*/
+                    q.questCompleted = true;
+                }
+                if (q.questCompleted)
+                {
+                    PanelHolder.instance.displayNotify(q.questName + " Completed!",
+                                                        "You completed the quest! You earned:\n\n" + q.DisplayReward());
+                    localPlayer.Spellcaster.activeQuests.Remove(q);
+                    // localPlayer.Spellcaster.inventory.Remove(q.item);
                     GiveRewards(q);
                 }
             }

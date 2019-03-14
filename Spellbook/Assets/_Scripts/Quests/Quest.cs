@@ -25,6 +25,9 @@ public abstract class Quest
     public int spacesLanded;
     public int spacesRequired;
 
+    // tracking variables for errand quests (uses spaceName as well)
+    // public Item item;
+
     // tracking variables for movement quests
     public int spacesTraveled;
 
