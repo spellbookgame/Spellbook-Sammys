@@ -17,12 +17,13 @@ public class GlobalEvents : MonoBehaviour
         public string description;
         public int ID;
         public Action action;
-
-        public GlobalEvent(string name, string description, int ID, Action action)
+        public int yearsItTakesToHappen; 
+        public GlobalEvent(string name, string description, int ID, int years, Action action)
         {
             this.name = name;
             this.description = description;
             this.ID = ID;
+            this.yearsItTakesToHappen = years;
             this.action = action;
         }
     }
@@ -36,11 +37,13 @@ public class GlobalEvents : MonoBehaviour
             "of current health of all wizards.If the Elementalist has a level " +
             "three spell unlocked the Elementalist will be able to stop the waters " +
             "from crashing into the cities.";
+        
 
     }
 
     List<GlobalEvent> list_AllEvents;
     List<GlobalEvent> eventOrder;
+    Dictionary<string, string> evntInfo;
     int currentEventIndex = 0;
     bool allEventsHappened = false;
 
@@ -56,14 +59,17 @@ public class GlobalEvents : MonoBehaviour
     int counterSpellcasterID;
     string counterSpellcasterClass;
 
-    private void Start()
+    /*TODO: Have this only be called when Host presess start game in the lobby*/
+    public void determineGlobalEvents()
     {
         spellcasterList = NetworkGameState.instance.spellcasterList;
         list_AllEvents = new List<GlobalEvent>();
-        
-        if(spellcasterList[elementalistID] > 0)
+        evntInfo = new Dictionary<string, string>();
+        if (spellcasterList[elementalistID] > 0)
         {
-            GlobalEvent tsunami = new GlobalEvent("Tsunami", GlobalEventDescriptions.tsunamiDesc, 2, Tsunami);
+            Debug.Log("Adding elementalist");
+            GlobalEvent tsunami = new GlobalEvent("Tsunami", GlobalEventDescriptions.tsunamiDesc, 2, 3, Tsunami);
+            evntInfo[tsunami.name] = tsunami.description;
             list_AllEvents.Add(tsunami);
         }
 
@@ -71,25 +77,38 @@ public class GlobalEvents : MonoBehaviour
 
         /*Randomize event order at the start of the game*/
         Shuffler.Shuffle(list_AllEvents);
+        GlobalEvent finalBoss = new GlobalEvent("Apocalypse", "Final Boss", 7, 10, FinalBossBattle);
+        list_AllEvents.Add(finalBoss);
+        evntInfo[finalBoss.name] = finalBoss.description;
+
         BoltConsole.Write("Global Event Order:");
         Debug.Log("Global Event Order:");
-        foreach(GlobalEvent evnt in list_AllEvents)
+        foreach (GlobalEvent evnt in list_AllEvents)
         {
             BoltConsole.Write(evnt.name);
             Debug.Log(evnt.name);
         }
 
-        GlobalEvent finalBoss = new GlobalEvent("Final Boss", "Final Boss", 7, FinalBossBattle);
-        list_AllEvents.Add(finalBoss);
-
-        NetworkGameState.instance.setNextEvent(list_AllEvents[currentEventIndex].name);
-
-
+        NetworkGameState.instance.
+            setNextEvent(list_AllEvents[currentEventIndex].name, 
+            list_AllEvents[currentEventIndex].description, 
+            list_AllEvents[currentEventIndex].yearsItTakesToHappen);
     }
 
     public string GetNextEvent()
     {
         return list_AllEvents[currentEventIndex].name;
+    }
+
+    public string getDesc(string evntName)
+    {
+        return evntInfo[evntName];
+    }
+
+    public void notifyAboutNewUpcomingEvent()
+    {
+        LobbyManager.s_Singleton.
+            notifyAboutNewUpcomingEvent(list_AllEvents[currentEventIndex].name, list_AllEvents[currentEventIndex].description);
     }
 
     //Call this one for generic events
@@ -104,11 +123,18 @@ public class GlobalEvents : MonoBehaviour
             //Get a random function from the list of possible events and execute it.
             Action evnt = list_AllEvents[currentEventIndex].action;
             currentEventIndex++;
-            if (currentEventIndex >= list_AllEvents.Count)
+           
+            if (currentEventIndex >= size)
             {
                 currentEventIndex = 0;
-                //All events passed.
                 allEventsHappened = true;
+            }
+            else
+            {
+                NetworkGameState.instance.
+                setNextEvent(list_AllEvents[currentEventIndex].name,
+                list_AllEvents[currentEventIndex].description,
+                list_AllEvents[currentEventIndex].yearsItTakesToHappen);
             }
             evnt();
         }
@@ -130,20 +156,20 @@ public class GlobalEvents : MonoBehaviour
             switch (evntID)
             {
                 case 2:
-                    dealPercentDamageToAllSpellcasters(0.5f);
+                    dealPercentDamageToAllSpellcasters(0.5f, "Tsunami");
                     break;
             }
         }
     }
 
     /*Each player loses x% of their health*/
-    private void dealPercentDamageToAllSpellcasters(float percent)
+    private void dealPercentDamageToAllSpellcasters(float percent, string name)
     {
         for (int id = 0; id < spellcasterList.Length; id++)
         {
             if (spellcasterList[id] > 0)
             {
-                LobbyManager.s_Singleton.DealPercentDamage(id, percent);
+                LobbyManager.s_Singleton.DealPercentDamage(id, percent, name);
             }
         }
     }

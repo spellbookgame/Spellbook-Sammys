@@ -309,6 +309,8 @@ namespace Bolt.Samples.Photon.Lobby
 
         public void onGameStart()
         {
+            //NetworkGameState.instance.determineTurnOrder();
+            gameStateEntity.GetComponent<NetworkGameState>().globalEvents.determineGlobalEvents();
             _isCountdown = true;
             StartCoroutine(ServerCountdownCoroutine());
         }
@@ -358,28 +360,37 @@ namespace Bolt.Samples.Photon.Lobby
             countdownPanel.gameObject.SetActive(evnt.Time != 0);
         }
 
+        public override void OnEvent(NewUpcomingEvent evnt)
+        {
+            Debug.Log("New Upcoming event : " + evnt.Name);
+            BoltConsole.Write("New Upcoming event : " + evnt.Name + " cool");
+            //PanelHolder.instance.displayNotify(evnt.Name, evnt.Description);
+            PanelHolder.instance.displayNotify("Global Event Coming Soon", NetworkGameState.instance.getEventInfo());
+        }
+
+        // Player recieves this event from the network, the event contains
+        // the spellcasterID  of the spellcaster that can counter the event
+        // if this client's spellcasterId matches that ID then check if they 
+        // can counter it.
         public override void OnEvent(CheckIfCanCounterEvent evnt)
         {
             playerSpellcaster = playerEntity.GetComponent<Player>().spellcaster;
             Debug.Log("Check Counter Event");
-            if (true) //playerSpellcaster.spellcasterID == evnt.requiredSpellcaster
+            if (playerSpellcaster.spellcasterID == evnt.requiredSpellcaster)
             {
                 var counterEvent = CounterGlobalEvent.Create(GlobalTargets.OnlyServer);
                 counterEvent.EventID = evnt.eventID;
                 foreach (Spell spell in playerSpellcaster.chapter.spellsCollected)
                 {
-                    if(spell.iTier >= evnt.requiredSpellTier) //
+                    if(spell.iTier >= evnt.requiredSpellTier)
                     {
-                        Debug.Log("COUNTEred doe brehhhh");
                         counterEvent.IsCountered = true;
                         counterEvent.Send();
                         return;
                     }
                 }
-                //counterEvent.IsCountered = false;
-                counterEvent.IsCountered = true;
+                counterEvent.IsCountered = false;
                 counterEvent.Send();
-
             }
             
         }
@@ -391,11 +402,13 @@ namespace Bolt.Samples.Photon.Lobby
             {
                 BoltConsole.Write("You saved the world with your spell!");
                 Debug.Log("You saved the world with your spell!");
+                PanelHolder.instance.displayNotify("Congratulations", "You saved the world with your spell!");
             }
             else
             {
                 BoltConsole.Write(evnt.Savior+" saved the world!");
                 Debug.Log(evnt.Savior + " saved the world!");
+                PanelHolder.instance.displayNotify("Congratulations", evnt.Savior + " saved the world!");
             }
         }
 
@@ -404,13 +417,37 @@ namespace Bolt.Samples.Photon.Lobby
             numPlayersInfo.text = evnt.numOfPlayers + "";
         }
 
+        public override void OnEvent(FinalBoss evnt)
+        {
+            BoltConsole.Write("Final Boss battle (not yet implemented so everyone dies)");
+            Debug.Log("Final Boss battle (not yet implemented so everyone dies)");
+            PanelHolder.instance.displayNotify("Final Boss Battle", "(not yet implemented so everyone dies)");
+            playerSpellcaster = playerEntity.GetComponent<Player>().spellcaster;
+            playerSpellcaster.TakeDamage((int)(playerSpellcaster.fCurrentHealth));
+            SpellCaster.savePlayerData(playerSpellcaster);
+        }
+
         public override void OnEvent(DealPercentDmgEvent evnt)
         {
             playerSpellcaster = playerEntity.GetComponent<Player>().spellcaster;
             if (playerSpellcaster.spellcasterID == evnt.SpellcasterID)
             {
+                PanelHolder.instance.displayNotify(evnt.EventName, "Lose " +((int) (evnt.PercentDmgDecimal * 100)) +"% health");
                 playerSpellcaster.TakeDamage((int) (playerSpellcaster.fCurrentHealth * evnt.PercentDmgDecimal));
                 SpellCaster.savePlayerData(playerSpellcaster);
+                try
+                {
+                    GameObject health = GameObject.Find("text_healthvalue");
+                    if(health != null)
+                    {
+                        health.GetComponent<Text>().text = playerSpellcaster.fCurrentHealth + " / 20";
+                    }
+                    
+                }
+                catch
+                {
+                    // Not in home page
+                }
             }
         }
 
@@ -546,6 +583,7 @@ namespace Bolt.Samples.Photon.Lobby
             playerEntity = BoltNetwork.Instantiate(BoltPrefabs.LocalPlayer); //, pos, Quaternion.identity);
             playerEntity.TakeControl();
             playerEntity.GetComponent<Player>().setup(localPlayerSpellcasterID);
+            PanelHolder.instance.displayNotify("Global Event Coming Soon", NetworkGameState.instance.getEventInfo());
         }
 
         public void notifySelectSpellcaster(int spellcasterID, int previous)
@@ -565,11 +603,12 @@ namespace Bolt.Samples.Photon.Lobby
             spellCollectedEvnt.Send();
         }
 
-        public void DealPercentDamage(int spellcasterID, float percentDamage)
+        public void DealPercentDamage(int spellcasterID, float percentDamage, string evntName)
         {
             var evnt = DealPercentDmgEvent.Create(Bolt.GlobalTargets.Everyone);
             evnt.SpellcasterID = spellcasterID;
             evnt.PercentDmgDecimal = percentDamage;
+            evnt.EventName = evntName;
             evnt.Send();
         }
         
@@ -591,7 +630,16 @@ namespace Bolt.Samples.Photon.Lobby
 
         public void startFinalBossBattle()
         {
-            
+            var evnt = FinalBoss.Create(Bolt.GlobalTargets.Everyone);
+            evnt.Send();
+        }
+
+        public void notifyAboutNewUpcomingEvent(string eName, string eDesc)
+        {
+            var evnt = NewUpcomingEvent.Create(Bolt.GlobalTargets.Everyone);
+            evnt.Name = eName;
+            evnt.Description = eDesc;
+            evnt.Send();
         }
     }
 }
