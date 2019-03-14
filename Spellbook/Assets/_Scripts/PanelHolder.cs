@@ -6,6 +6,7 @@ public class PanelHolder : MonoBehaviour
 {
     public YourTurnUI yourTurnPanel;
     public NotifyUI notifyPanel;
+    public QuestUI questPanel;
 
     // Start is called before the first frame update
     public static PanelHolder instance = null;
@@ -40,5 +41,11 @@ public class PanelHolder : MonoBehaviour
     public void displayCombat(string title, string info)
     {
         notifyPanel.DisplayCombat(title, info);
+    }
+
+    public void displayQuest(Quest quest)
+    {
+        Debug.Log("PanelHolder called, calling displayQuestGlyphs");
+        questPanel.DisplayQuestGlyphs(quest);
     }
 }

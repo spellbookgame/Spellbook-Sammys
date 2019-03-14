@@ -90,7 +90,6 @@ GameObject:
   - component: {fileID: 67331911}
   - component: {fileID: 67331919}
   - component: {fileID: 8952370739636183357}
-  - component: {fileID: 67331914}
   m_Layer: 0
   m_Name: Roll Dice Panel
   m_TagString: Untagged
@@ -177,20 +176,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &67331914
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 67331913}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d062640f0083d8e4da94f1c6f7b169a8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TextBox: {fileID: 9528672}
-  rollButton: {fileID: 303893319588026433}
 --- !u!1 &3303538592245730984
 GameObject:
   m_ObjectHideFlags: 0
@@ -281,6 +266,32 @@ MonoBehaviour:
   wiggleSpeed: 0.063
   wiggleQuantity: 3
   wiggleInterrupt: 0
+--- !u!114 &1156389391392062851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5432303293057665183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d062640f0083d8e4da94f1c6f7b169a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dicePips: {fileID: 5432303293780634361}
+  diceCube: {fileID: 5432303293101308633}
+  pipsNine: {fileID: 21300000, guid: c9b89b867be134d389528f9456314508, type: 3}
+  pipsEight: {fileID: 21300000, guid: cbd81c580c5ba45fdba6f41614ba7db0, type: 3}
+  pipsSeven: {fileID: 21300000, guid: b267ea5f7239940b7bbbcb6b8427f000, type: 3}
+  pipsSix: {fileID: 21300000, guid: f1835f9f41d5a42d981702999efd21c0, type: 3}
+  pipsFive: {fileID: 21300000, guid: c83fc9fa91b0d4ff499670ddb210a525, type: 3}
+  pipsFour: {fileID: 21300000, guid: 455a40e72359d47b6ae1fdbeb8a2ce65, type: 3}
+  pipsThree: {fileID: 21300000, guid: a85f71cd89ea446b48228cc16de1544c, type: 3}
+  pipsTwo: {fileID: 21300000, guid: 1767481ed19de44b79499ff89dde4ab8, type: 3}
+  pipsOne: {fileID: 21300000, guid: 32adb021d37b941cc9370ed322a37e99, type: 3}
+  maxRoll: 6
+  rollButton: {fileID: 303893319588026433}
+  diceTrayPanel: {fileID: 67331913}
 --- !u!1001 &1561271886
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -417,7 +428,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 7223256110480379692}
+      objectReference: {fileID: 0}
     - target: {fileID: 303893320577811983, guid: c147beda408f4419a80b6b91fea8841c,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -586,6 +597,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Magic Dice
       objectReference: {fileID: 0}
+    - target: {fileID: 7155033722360528406, guid: af9cd99159afb45129d22693cd7f83eb,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.5660378
+      objectReference: {fileID: 0}
+    - target: {fileID: 7155033722360528406, guid: af9cd99159afb45129d22693cd7f83eb,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.43691316
+      objectReference: {fileID: 0}
+    - target: {fileID: 7155033722360528406, guid: af9cd99159afb45129d22693cd7f83eb,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.21626917
+      objectReference: {fileID: 0}
+    - target: {fileID: 7155033722360528406, guid: af9cd99159afb45129d22693cd7f83eb,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7155033721100622975, guid: af9cd99159afb45129d22693cd7f83eb,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -706,26 +737,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 7155033722360528406, guid: af9cd99159afb45129d22693cd7f83eb,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 0.5660378
-      objectReference: {fileID: 0}
-    - target: {fileID: 7155033722360528406, guid: af9cd99159afb45129d22693cd7f83eb,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0.43691316
-      objectReference: {fileID: 0}
-    - target: {fileID: 7155033722360528406, guid: af9cd99159afb45129d22693cd7f83eb,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 0.21626917
-      objectReference: {fileID: 0}
-    - target: {fileID: 7155033722360528406, guid: af9cd99159afb45129d22693cd7f83eb,
-        type: 3}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7155033721966112311, guid: af9cd99159afb45129d22693cd7f83eb,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -761,7 +772,8 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.8
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5482722960560987075, guid: af9cd99159afb45129d22693cd7f83eb, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: af9cd99159afb45129d22693cd7f83eb, type: 3}
 --- !u!1 &5432303293057665183 stripped
 GameObject:
@@ -775,15 +787,15 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 2893741236219794671}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7223256110480379692 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5482722960560987075, guid: af9cd99159afb45129d22693cd7f83eb,
+--- !u!212 &5432303293101308633 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 7155033721966112310, guid: af9cd99159afb45129d22693cd7f83eb,
     type: 3}
   m_PrefabInstance: {fileID: 2893741236219794671}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5432303293057665183}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b783753087c8439ca6346c5c5303d06, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+--- !u!212 &5432303293780634361 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 7155033722360528406, guid: af9cd99159afb45129d22693cd7f83eb,
+    type: 3}
+  m_PrefabInstance: {fileID: 2893741236219794671}
+  m_PrefabAsset: {fileID: 0}
