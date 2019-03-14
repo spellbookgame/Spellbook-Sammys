@@ -9,15 +9,18 @@ public class ElementalErrandQuest : Quest
     {
         questName = "Errand Quest";
         questType = "Errand";
-        questDescription = "Bring this item to the Alchemist Town. (You received [item name]).";
+        questDescription = "Bring this item to the Alchemist Town. You received [Infused Sapphire].";
 
         startTurn = turnStarted;
         turnLimit = 5;
 
         spaceName = "town_alchemist";
 
-        // Item item = new Item();
-        // spellcaster.AddToInventory(item);
+        // give player item to deliver
+        item = new ItemObject("Infused Sapphire", null, 2000, 1000, 
+            "This sapphire is embued with pure arcane energy. When shattered, it gives its user a temporary power boost.", 
+            "Add +6 to your next damage spell (one time use).");
+        GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().Spellcaster.AddToInventory(item);
 
         List<string> rewardList = new List<string>();
         rewardList.Add("Elemental A Glyph");

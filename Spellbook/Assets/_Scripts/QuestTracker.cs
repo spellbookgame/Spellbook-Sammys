@@ -114,11 +114,10 @@ public class QuestTracker : MonoBehaviour
                 if (spaceName.Equals(q.spaceName))
                 {
                     // check if player has the item for the errand
-                    /*if(localPlayer.Spellcaster.inventory.Contains(q.item))
+                    if(localPlayer.Spellcaster.inventory.Contains(q.item))
                     {
                         q.questCompleted = true;
-                    }*/
-                    q.questCompleted = true;
+                    }
                 }
                 if (q.questCompleted)
                 {
