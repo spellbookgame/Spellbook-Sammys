@@ -103,6 +103,7 @@ public class SpellCastHandler : MonoBehaviour
             else
             {
                 currentSpell.SpellCast(localPlayer.Spellcaster);
+                QuestTracker.instance.CheckSpellQuest(currentSpell);
                 spellWasCast = true;
                 RemovePrefabs(spellWasCast);
             }

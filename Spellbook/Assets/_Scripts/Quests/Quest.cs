@@ -31,6 +31,9 @@ public abstract class Quest
     // tracking variables for movement quests
     public int spacesTraveled;
 
+    // tracking variables for spell quests
+    public List<Spell> spellsCast;
+
     public Quest()
     {
         rewards = new Dictionary<string, List<string>>();

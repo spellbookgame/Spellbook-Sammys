@@ -33,6 +33,7 @@ public class QuestTracker : MonoBehaviour
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
     }
 
+    // AlchemyManaQuest and SummoningManaQuest - Checked in Spellcaster.cs in CollectMana()
     public void CheckManaQuest(int mana)
     {
         foreach(Quest q in localPlayer.Spellcaster.activeQuests.ToArray())
@@ -57,6 +58,7 @@ public class QuestTracker : MonoBehaviour
         }
     }
 
+    // IllusionSpaceQuest - Checked in CustomEventHandler.cs in ScanItem()
     public void CheckSpaceQuest(string spaceName)
     {
         foreach (Quest q in localPlayer.Spellcaster.activeQuests.ToArray())
@@ -83,6 +85,7 @@ public class QuestTracker : MonoBehaviour
         }
     }
 
+    // TimeMoveQuest - Checked in DiceRoll.cs in Roll()
     public void CheckMoveQuest(int moveSpaces)
     {
         foreach (Quest q in localPlayer.Spellcaster.activeQuests.ToArray())
@@ -105,6 +108,7 @@ public class QuestTracker : MonoBehaviour
         }
     }
 
+    // ElementalErrandQuest -  checked in CustomEventHandler.cs in ScanItem()
     public void CheckErrandQuest(string spaceName)
     {
         foreach (Quest q in localPlayer.Spellcaster.activeQuests.ToArray())
@@ -125,6 +129,33 @@ public class QuestTracker : MonoBehaviour
                                                         "You completed the quest! You earned:\n\n" + q.DisplayReward());
                     localPlayer.Spellcaster.activeQuests.Remove(q);
                     // localPlayer.Spellcaster.inventory.Remove(q.item);
+                    GiveRewards(q);
+                }
+            }
+        }
+    }
+
+    // ArcaneSpellQuest - checked in SpellCastHandler.cs in Update()
+    public void CheckSpellQuest(Spell spell)
+    {
+        foreach (Quest q in localPlayer.Spellcaster.activeQuests.ToArray())
+        {
+            if (q.questType.Equals("Spell"))
+            {
+                if (q.spellsCast.Contains(spell))
+                {
+                    // if player has cast this spell before
+                    q.questCompleted = true;
+                }
+                else
+                {
+                    q.spellsCast.Add(spell);
+                }
+                if (q.questCompleted)
+                {
+                    PanelHolder.instance.displayNotify(q.questName + " Completed!",
+                                                        "You completed the quest! You earned:\n\n" + q.DisplayReward());
+                    localPlayer.Spellcaster.activeQuests.Remove(q);
                     GiveRewards(q);
                 }
             }

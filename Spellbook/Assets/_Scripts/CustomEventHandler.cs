@@ -112,27 +112,28 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
 
             #region town_spaces
             case "town_alchemist":
-                Quest manaQuest = new AlchemyManaQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
-                PanelHolder.instance.displayQuest(manaQuest);
+                Quest alchemyManaQuest = new AlchemyManaQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
+                PanelHolder.instance.displayQuest(alchemyManaQuest);
                 break;
 
             case "town_arcanist":
-                PanelHolder.instance.displayEvent("Arcanist town", "Nothing really to see here...");
+                Quest arcaneSpellQuest = new ArcaneSpellQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
+                PanelHolder.instance.displayQuest(arcaneSpellQuest);
                 break;
 
             case "town_chronomancer":
-                Quest moveQuest = new TimeMoveQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
-                PanelHolder.instance.displayQuest(moveQuest);
+                Quest timeMoveQuest = new TimeMoveQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
+                PanelHolder.instance.displayQuest(timeMoveQuest);
                 break;
 
             case "town_elementalist":
-                Quest errandQuest = new ElementalErrandQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
-                PanelHolder.instance.displayQuest(errandQuest);
+                Quest elementalErrandQuest = new ElementalErrandQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
+                PanelHolder.instance.displayQuest(elementalErrandQuest);
                 break;
 
             case "town_illusionist":
-                Quest spaceQuest = new IllusionSpaceQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
-                PanelHolder.instance.displayQuest(spaceQuest);
+                Quest illusionSpaceQuest = new IllusionSpaceQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
+                PanelHolder.instance.displayQuest(illusionSpaceQuest);
                 break;
 
             case "town_summoner":
