@@ -5,6 +5,7 @@ using UnityEngine;
 public class NetworkGameState : Bolt.EntityEventListener<IGameState>
 {
     public static NetworkGameState instance = null;
+    public GlobalEvents globalEvents;
 
     public int numOfPlayers = 0;  //Players in lobby
     public int numOfSpellcasters = 0;
@@ -20,12 +21,14 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
     public int[] combatOrder;
 
 
-    public int turnsUntilNextEvent;
+    public int yearsUntilNextEvent;
     public string nextGlobalEvent;
-    const string displayGlobalEvent = " years until next ";
+    const string sYearsUntilNext = " years until next ";
     private List<int> turnOrder;
-    public int turn_i = 0;  //
+    public int turn_i = 0;  //index counter for List<int> turnOrder
+    public int totalYearsSoFar = 0;
 
+    bool needToNotifyPlayersNewEvent = false;
     // Bolt's version of the Unity's Start()
     public override void Attached()
     {
@@ -38,6 +41,7 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
         else if (instance != this)
             //Destroy this, this enforces our singleton pattern so there can only be one instance of SoundManager.
             Destroy(gameObject);
+
         DontDestroyOnLoad(this);
 
         if (entity.isOwner)
@@ -45,12 +49,20 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
             spellcasterList = new int[6];
             //state.SpellcasterList[0] = 0;
             combatOrder = new int[6];
-            turnsUntilNextEvent = 3;  // TODO: rewrite.
-            nextGlobalEvent = "Dragon Attack";
-            state.NextGlobalEventName = nextGlobalEvent;
+            
+            
             turnOrder = new List<int>();
 
         }
+    }
+
+    public void setNextEvent(string evnt, string desc, int years)
+    {
+        //nextGlobalEvent = globalEvents.GetNextEvent();
+        state.NextGlobalEventName = evnt;
+        state.NextGlobalEventDesc = desc;
+        state.YearsUntilNextEvent = years;
+        yearsUntilNextEvent = years;
     }
 
     public string getMatchName()
@@ -60,7 +72,14 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
 
     public string getGlobalEventString()
     {
-        return turnsUntilNextEvent + displayGlobalEvent + nextGlobalEvent;
+        //return turnsUntilNextEvent + displayGlobalEvent + nextGlobalEvent;
+        return state.YearsUntilNextEvent + sYearsUntilNext + state.NextGlobalEventName;
+    }
+
+    public string getEventInfo()
+    {
+        //string evntName = state.NextGlobalEventName;
+        return state.NextGlobalEventName + "\n" + state.NextGlobalEventDesc;
     }
 
     public void onCreateRoom(string matchName)
@@ -98,6 +117,7 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
         spellcasterList[spellcasterID] = 1;
         state.SpellcasterList[spellcasterID] = 1;
         determineTurnOrder();
+        //globalEvents.determineGlobalEvents();
     }
 
     public void onCollectedSpell(int spellcasterId, string spellName)
@@ -142,7 +162,7 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
     }
 
 
-    private void determineTurnOrder()
+    public void determineTurnOrder()
     {
         turnOrder.Clear();
         for (int i = 0; i < spellcasterList.Length; i++)
@@ -159,22 +179,35 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
      NextTurnEvent, this method is called.*/
     public int startNewTurn()
     {
-        turnsUntilNextEvent--;
-        state.TurnsUntilNextEvent--;
-        if (turnsUntilNextEvent <= 0)
+        if (state.YearsUntilNextEvent <= 1)
         {
-            //Make Global Event happen (Example: dragon invasion)
-            turnsUntilNextEvent = 3;
-            state.TurnsUntilNextEvent = 3;
+            globalEvents.executeGlobalEvent();
+            needToNotifyPlayersNewEvent = true;
         }
         turn_i++;
+        
+        //If everyone moved this turn, then a year has passed. 
         if (turn_i >= turnOrder.Count)
         {
-
+            yearsUntilNextEvent--;
+            state.YearsUntilNextEvent--;
             turn_i = 0;
+            if (needToNotifyPlayersNewEvent)
+            {
+                needToNotifyPlayersNewEvent = false;
+                //PanelHolder.instance.displayNotify("", "");
+                DisplayNextEvent();
+                
+                
+            }
         }
         state.CurrentSpellcasterTurn = turnOrder[turn_i];
         return turnOrder[turn_i];
+    }
+
+    public void DisplayNextEvent()
+    {
+        globalEvents.notifyAboutNewUpcomingEvent();
     }
 
     public int getCurrentTurn()
@@ -223,7 +256,7 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
                 sCount++;
                 result += state.AlchemistProgress[i] + " ";
             }
-            result += sCount + " spells";
+            result +="\n"+ sCount + " spells";
         }
 
 
@@ -241,7 +274,7 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
                 sCount++;
                 result += state.ArcanistProgress[i] + " ";
             }
-            result += sCount + " spells";
+            result += "\n" + sCount + " spells";
         }
 
         if (state.SpellcasterList[2] != 0)
@@ -258,7 +291,7 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
                 sCount++;
                 result += state.ElementalistProgress[i] + " ";
             }
-            result += sCount + " spells";
+            result += "\n" + sCount + " spells";
         }
 
         if (state.SpellcasterList[3] != 0)
@@ -275,7 +308,7 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
                 sCount++;
                 result += state.ChronomancerProgress[i] + " ";
             }
-            result += sCount + " spells";
+            result += "\n" + sCount + " spells";
         }
 
         if (state.SpellcasterList[4] != 0)
@@ -292,7 +325,7 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
                 sCount++;
                 result += state.TricksterProgress[i] + " ";
             }
-            result += sCount + " spells";
+            result += "\n" + sCount + " spells";
         }
 
         if (state.SpellcasterList[5] != 0)
@@ -309,7 +342,7 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
                 sCount++;
                 result += state.SummonerProgress[i] + " ";
             }
-            result += sCount + " spells";
+            result += "\n" + sCount + " spells";
         }
 
 
