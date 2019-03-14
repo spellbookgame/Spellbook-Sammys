@@ -10,6 +10,7 @@ public class SpellbookHandler : MonoBehaviour
     [SerializeField] private Button spellCastButton;
     [SerializeField] private Button mainButton;
     [SerializeField] private Button collectionButton;
+    [SerializeField] private Button questLogButton;
     [SerializeField] private Button spellbookProgressButton;
     [SerializeField] private Text activeSpellsText;
 
@@ -39,6 +40,11 @@ public class SpellbookHandler : MonoBehaviour
         {
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
             SceneManager.LoadScene("SpellCollectionScene");
+        });
+        questLogButton.onClick.AddListener(() =>
+        {
+            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+            SceneManager.LoadScene("QuestLogScene");
         });
         spellbookProgressButton.onClick.AddListener(() =>
         {

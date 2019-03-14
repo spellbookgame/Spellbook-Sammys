@@ -12,7 +12,7 @@ public class AlchemyManaQuest : Quest
         questDescription = "Collect 1200 mana crystals.";
 
         startTurn = turnStarted;
-        turnLimit = 4;
+        turnLimit = 5;
 
         List<string> rewardList = new List<string>();
         rewardList.Add("Alchemy A Glyph");

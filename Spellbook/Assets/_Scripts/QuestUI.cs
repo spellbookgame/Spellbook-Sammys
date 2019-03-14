@@ -12,9 +12,6 @@ public class QuestUI : MonoBehaviour
     [SerializeField] private Button singleButton;
     [SerializeField] private Button singleButton1;
 
-    [SerializeField] private Image rewardImage1;
-    [SerializeField] private Image rewardImage2;
-
     // use this if quest rewards are glyphs
     public void DisplayQuestGlyphs(Quest quest)
     {
@@ -33,11 +30,10 @@ public class QuestUI : MonoBehaviour
                 reward2 = kvp.Value[1];
             }
         }
-        Debug.Log("reward 1: " + reward1);
-        Debug.Log("reward 2: " + reward2);
+
         // setting panel images to glyphs to display rewards
-        rewardImage1.sprite = Resources.Load<Sprite>("Glyphs/" + reward1);
-        rewardImage2.sprite = Resources.Load<Sprite>("Glyphs/" + reward2);
+        gameObject.transform.Find("image_reward1").GetComponent<Image>().sprite = Resources.Load<Sprite>("GlyphArt/" + reward1);
+        gameObject.transform.Find("image_reward2").GetComponent<Image>().sprite = Resources.Load<Sprite>("GlyphArt/" + reward2);
 
         singleButton.onClick.AddListener(() => buttonClicked("accept", quest));
         singleButton1.onClick.AddListener(() => buttonClicked("deny", quest));

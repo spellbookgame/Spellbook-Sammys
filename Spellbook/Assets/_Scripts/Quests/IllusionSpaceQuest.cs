@@ -12,7 +12,7 @@ public class IllusionSpaceQuest : Quest
         questDescription = "Land on 3 Glyph spaces in the Summoner Town.";
 
         startTurn = turnStarted;
-        turnLimit = 4;
+        turnLimit = 5;
 
         spaceName = "glyph_summoner";
         spacesLanded = 0;

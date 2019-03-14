@@ -12,7 +12,7 @@ public class SummoningManaQuest : Quest
         questDescription = "Collect 2000 mana crystals.";
 
         startTurn = turnStarted;
-        turnLimit = 5;
+        turnLimit = 6;
 
         List<string> rewardList = new List<string>();
         rewardList.Add("Summoning A Glyph");

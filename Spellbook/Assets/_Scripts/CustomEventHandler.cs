@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Vuforia;
 
 public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
@@ -102,7 +103,7 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
                 break;
 
             case "capital":
-                PanelHolder.instance.displayEvent("Capital", "Display shop scene here.");
+                SceneManager.LoadScene("ShopScene");
                 break;
 
             #region town_spaces
@@ -117,9 +118,7 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
 
             case "town_chronomancer":
                 Quest moveQuest = new TimeMoveQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
-                PanelHolder.instance.displayEvent(moveQuest.questName, moveQuest.questDescription + "\nTurn Limit: " + moveQuest.turnLimit
-                                                + "\n\nReward:\n" + moveQuest.DisplayReward());
-                localPlayer.Spellcaster.activeQuests.Add(moveQuest);
+                PanelHolder.instance.displayQuest(moveQuest);
                 break;
 
             case "town_elementalist":
@@ -128,16 +127,12 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
 
             case "town_illusionist":
                 Quest spaceQuest = new IllusionSpaceQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
-                PanelHolder.instance.displayEvent(spaceQuest.questName, spaceQuest.questDescription + "\nTurn Limit: " + spaceQuest.turnLimit
-                                                + "\n\nReward:\n" + spaceQuest.DisplayReward());
-                localPlayer.Spellcaster.activeQuests.Add(spaceQuest);
+                PanelHolder.instance.displayQuest(spaceQuest);
                 break;
 
             case "town_summoner":
                 Quest summonManaQuest = new SummoningManaQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
-                PanelHolder.instance.displayEvent(summonManaQuest.questName, summonManaQuest.questDescription + "\nTurn Limit: "
-                                                + summonManaQuest.turnLimit + "\n\nReward:\n" + summonManaQuest.DisplayReward());
-                localPlayer.Spellcaster.activeQuests.Add(summonManaQuest);
+                PanelHolder.instance.displayQuest(summonManaQuest);
                 break;
             #endregion
 
