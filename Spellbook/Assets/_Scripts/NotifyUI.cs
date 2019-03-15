@@ -3,13 +3,24 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
 
-//Notifies the player when it is their turn.
+// used to display all notification panels
 public class NotifyUI : MonoBehaviour
 {
-    public Text titleText;
-    public Text infoText;
-
+    [SerializeField] private Text titleText;
+    [SerializeField] private Text infoText;
     [SerializeField] private Button singleButton;
+
+    public bool panelActive = false;
+    public string panelID = "notify";
+
+    private void DisablePanel()
+    {
+        gameObject.SetActive(false);
+    }
+    public void EnablePanel()
+    {
+        gameObject.SetActive(true);
+    }
 
     public void DisplayNotify(string title, string info)
     {
@@ -17,8 +28,27 @@ public class NotifyUI : MonoBehaviour
         infoText.text = info;
 
         singleButton.onClick.AddListener((okClick));
+        
+        gameObject.SetActive(true);
+
+        if(!PanelHolder.instance.panelQueue.Peek().Equals(panelID))
+        {
+            DisablePanel();
+        }
+    }
+    public void DisplayEvent(string title, string info)
+    {
+        titleText.text = title;
+        infoText.text = info;
+
+        singleButton.onClick.AddListener((eventClick));
 
         gameObject.SetActive(true);
+
+        if (!PanelHolder.instance.panelQueue.Peek().Equals(panelID))
+        {
+            DisablePanel();
+        }
     }
     public void DisplayCombat(string title, string info)
     {
@@ -29,31 +59,20 @@ public class NotifyUI : MonoBehaviour
 
         gameObject.SetActive(true);
     }
-    public void DisplayEvent(string title, string info)
-    {
-        titleText.text = title;
-        infoText.text = info;
-
-        singleButton.onClick.AddListener((eventClick));
-
-        gameObject.SetActive(true);
-    }
 
     private void okClick()
     {
         SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
         gameObject.SetActive(false);
-    }
-    private void combatClick()
-    {
-        SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
-        gameObject.SetActive(false);
-        SceneManager.LoadScene("CombatScene");
+
+        PanelHolder.instance.panelQueue.Dequeue();
+        PanelHolder.instance.CheckPanelQueue();
     }
     private void eventClick()
     {
         SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
         gameObject.SetActive(false);
+
 
         Debug.Log("On click");
         //GameObject player = GameObject.Find("LocalPlayer(Clone)");
@@ -70,5 +89,13 @@ public class NotifyUI : MonoBehaviour
             }
 
         }
+        PanelHolder.instance.panelQueue.Dequeue();
+        PanelHolder.instance.CheckPanelQueue();
+    }
+    private void combatClick()
+    {
+        SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+        gameObject.SetActive(false);
+        SceneManager.LoadScene("CombatScene");
     }
 }

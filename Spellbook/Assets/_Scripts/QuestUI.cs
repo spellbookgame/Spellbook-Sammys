@@ -4,21 +4,31 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+// used for all quest purposes
 public class QuestUI : MonoBehaviour
 {
-    public Text titleText;
-    public Text infoText;
-
+    [SerializeField] private Text titleText;
+    [SerializeField] private Text infoText;
     [SerializeField] private Button singleButton;
     [SerializeField] private Button singleButton1;
+
+    public bool panelActive = false;
+    public string panelID = "quest";
+
+    private void DisablePanel()
+    {
+        gameObject.SetActive(false);
+    }
+    public void EnablePanel()
+    {
+        gameObject.SetActive(true);
+    }
 
     // use this if quest rewards are glyphs
     public void DisplayQuestGlyphs(Quest quest)
     {
         titleText.text = quest.questName;
         infoText.text = quest.questDescription + "\nTurn Limit: " + quest.turnLimit;
-
-        gameObject.SetActive(true);
 
         string reward1 = "", reward2 = "";
         // getting the glyph rewards of the quest and loading its image
@@ -37,6 +47,13 @@ public class QuestUI : MonoBehaviour
 
         singleButton.onClick.AddListener(() => buttonClicked("accept", quest));
         singleButton1.onClick.AddListener(() => buttonClicked("deny", quest));
+        
+        gameObject.SetActive(true);
+
+        if (!PanelHolder.instance.panelQueue.Peek().Equals(panelID))
+        {
+            DisablePanel();
+        }
     }
 
     private void buttonClicked(string input, Quest q)
@@ -62,5 +79,7 @@ public class QuestUI : MonoBehaviour
             }
 
         }
+        PanelHolder.instance.panelQueue.Dequeue();
+        PanelHolder.instance.CheckPanelQueue();
     }
 }

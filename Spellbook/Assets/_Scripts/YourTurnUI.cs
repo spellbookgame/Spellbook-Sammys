@@ -3,14 +3,33 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections;
 
-//Notifies the player when it is their turn.
+// Used to notify player it is their turn
 public class YourTurnUI : MonoBehaviour
 {
-    public Text infoText;
-    public Button singleButton;
+    [SerializeField] private Text infoText;
+    [SerializeField] private Button singleButton;
+
+    public bool panelActive = false;
+    public string panelID = "yourturn";
+
+    private void DisablePanel()
+    {
+        gameObject.SetActive(false);
+    }
+    public void EnablePanel()
+    {
+        gameObject.SetActive(true);
+    }
 
     public void Display()
     {
+        if (!PanelHolder.instance.panelQueue.Peek().Equals(panelID))
+        {
+            DisablePanel();
+        }
+
+        gameObject.SetActive(true);
+        
         singleButton.onClick.AddListener(() => 
         {
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
@@ -18,8 +37,9 @@ public class YourTurnUI : MonoBehaviour
             
             if(!SceneManager.GetActiveScene().name.Equals("MainPlayerScene"))
                 SceneManager.LoadScene("MainPlayerScene");
-        });
 
-        gameObject.SetActive(true);
+            PanelHolder.instance.panelQueue.Dequeue();
+            PanelHolder.instance.CheckPanelQueue();
+        });
     }
 }
