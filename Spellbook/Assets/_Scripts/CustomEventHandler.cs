@@ -103,6 +103,10 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
                 break;
 
             case "item":
+                // add item list to the vuforia scene
+                // choose a random item to give to player from list
+                //ItemObject item = new ItemObject(string newName, Sprite newSprite, int newBuyPrice, int newSellPrice,
+        //string newFlavorDescription, string newMechanicsDescription)
                 PanelHolder.instance.displayEvent("Item", "You got a [item name] item!");
                 break;
 

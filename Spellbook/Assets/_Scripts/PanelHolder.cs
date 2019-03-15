@@ -7,6 +7,7 @@ public class PanelHolder : MonoBehaviour
     public YourTurnUI yourTurnPanel;
     public NotifyUI notifyPanel;
     public QuestUI questPanel;
+    public BoardScanUI boardScanPanel;
     
     public static PanelHolder instance = null;
 
@@ -52,6 +53,8 @@ public class PanelHolder : MonoBehaviour
                 questPanel.EnablePanel();
             else if (panelQueue.Peek().Equals(yourTurnPanel.panelID))
                 yourTurnPanel.EnablePanel();
+            else if (panelQueue.Peek().Equals(boardScanPanel.panelID))
+                boardScanPanel.EnablePanel();
         }
     }
 
@@ -88,5 +91,12 @@ public class PanelHolder : MonoBehaviour
         panelQueue.Enqueue(questPanel.panelID);
         Debug.Log("Queued: " + questPanel.panelID);
         questPanel.DisplayQuestGlyphs(quest);
+    }
+
+    public void displayBoardScan(string title, string info, Sprite sprite)
+    {
+        panelQueue.Enqueue(boardScanPanel.panelID);
+        Debug.Log("Queued: " + boardScanPanel.panelID);
+        boardScanPanel.DisplayScanEvent(title, info, sprite);
     }
 }
