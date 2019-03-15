@@ -182,12 +182,12 @@ PrefabInstance:
     - target: {fileID: 6156868824951549593, guid: 0f98253437449134c833bafa5a29b347,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 200
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 6156868824951549593, guid: 0f98253437449134c833bafa5a29b347,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 350
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 6156868824951549593, guid: 0f98253437449134c833bafa5a29b347,
         type: 3}
@@ -313,12 +313,12 @@ PrefabInstance:
     - target: {fileID: 8415552393259991121, guid: 187f050a693bf6944ac6cf2f16659445,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 165
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 8415552393259991121, guid: 187f050a693bf6944ac6cf2f16659445,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -180
+      value: -120
       objectReference: {fileID: 0}
     - target: {fileID: 8415552393259991121, guid: 187f050a693bf6944ac6cf2f16659445,
         type: 3}
@@ -490,12 +490,12 @@ PrefabInstance:
     - target: {fileID: 4309401842177250799, guid: 75417c306f32be449868d48743652d73,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -13
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4309401842177250799, guid: 75417c306f32be449868d48743652d73,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -1207
+      value: -900
       objectReference: {fileID: 0}
     - target: {fileID: 4309401842177250799, guid: 75417c306f32be449868d48743652d73,
         type: 3}
@@ -569,7 +569,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1600064610}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -843,7 +843,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: ccc45134afc20eb4e95deb620f8e9c8f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bd31f632710ac60469ab3c98cdffc13c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -992,6 +992,7 @@ PrefabInstance:
     - target: {fileID: 1301121883415585451, guid: e239bf56bf047d04cabfe32636c4e6ff,
         type: 3}
       propertyPath: m_RootOrder
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1301121883415585451, guid: e239bf56bf047d04cabfe32636c4e6ff,
         type: 3}

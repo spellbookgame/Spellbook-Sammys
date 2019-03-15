@@ -67,6 +67,8 @@ public class DiceRoll : MonoBehaviour
         // when button is clicked for first time, roll and change button to Scan
         if (pressedNum == 0)
         {
+            SoundManager.instance.PlaySingle(SoundManager.diceroll);
+
             string spellActive = SpellTracker.instance.CheckMoveSpell();
             if (spellActive.Equals("Accelerate"))
             {

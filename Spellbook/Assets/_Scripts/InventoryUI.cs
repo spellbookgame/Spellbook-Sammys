@@ -27,7 +27,8 @@ public class InventoryUI : MonoBehaviour
 
     void UpdateUI() 
     {
-        List<ItemObject> sInventory = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().spellcaster.inventory;
+        Player localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
+        List<ItemObject> sInventory = new List<ItemObject>(localPlayer.spellcaster.inventory);
         for(int i = 0; i < slots.Length; i++)
         {
             if(i < sInventory.Count)

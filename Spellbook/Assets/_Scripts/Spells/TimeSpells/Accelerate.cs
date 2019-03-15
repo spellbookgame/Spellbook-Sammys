@@ -13,7 +13,7 @@ public class Accelerate : Spell
 
         sSpellName = "Accelerate";
         sSpellClass = "Chronomancer";
-        sSpellInfo = "Your next move dice will roll a 5 or a 6. Can cast on an ally.";
+        sSpellInfo = "Your next move dice will roll between 5-9. Can cast on an ally.";
 
         requiredGlyphs.Add("Time D Glyph", 1);
     }

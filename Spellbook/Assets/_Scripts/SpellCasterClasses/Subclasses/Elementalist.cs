@@ -22,7 +22,7 @@ public class Elementalist : SpellCaster
         // creating the class-specific chapter
         chapter = new Chapter(classType);
 
-        characterSpritePath = "Characters/ElementalWizardFlat";
+        characterSpritePath = "Characters/Elementalist";
         characterIconPath = "Characters/symbol_glow_elementalist";
 
         hexStringDark = "#500000";

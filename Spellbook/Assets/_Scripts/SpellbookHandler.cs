@@ -21,34 +21,34 @@ public class SpellbookHandler : MonoBehaviour
     {
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
 
-        spellCreateButton.onClick.AddListener(() =>
-        {
-            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
-            SceneManager.LoadScene("SpellCreateScene");
-        });
-        spellCastButton.onClick.AddListener(() =>
-        {
-            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
-            SceneManager.LoadScene("SpellCastScene");
-        });
         mainButton.onClick.AddListener(() =>
         {
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
             SceneManager.LoadScene("MainPlayerScene");
         });
+        spellCreateButton.onClick.AddListener(() =>
+        {
+            SoundManager.instance.PlaySingle(SoundManager.pageturn);
+            SceneManager.LoadScene("SpellCreateScene");
+        });
+        spellCastButton.onClick.AddListener(() =>
+        {
+            SoundManager.instance.PlaySingle(SoundManager.pageturn);
+            SceneManager.LoadScene("SpellCastScene");
+        });
         collectionButton.onClick.AddListener(() =>
         {
-            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+            SoundManager.instance.PlaySingle(SoundManager.pageturn);
             SceneManager.LoadScene("SpellCollectionScene");
         });
         questLogButton.onClick.AddListener(() =>
         {
-            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+            SoundManager.instance.PlaySingle(SoundManager.pageturn);
             SceneManager.LoadScene("QuestLogScene");
         });
         spellbookProgressButton.onClick.AddListener(() =>
         {
-            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+            SoundManager.instance.PlaySingle(SoundManager.pageturn);
             SceneManager.LoadScene("SpellbookProgress");
         });
 
