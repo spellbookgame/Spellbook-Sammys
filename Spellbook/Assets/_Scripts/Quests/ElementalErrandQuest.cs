@@ -17,7 +17,7 @@ public class ElementalErrandQuest : Quest
         spaceName = "town_alchemist";
 
         // give player item to deliver
-        item = new ItemObject("Infused Sapphire", null, 2000, 1000, 
+        item = new ItemObject("Infused Sapphire", Resources.Load<Sprite>("Art Assets/Items and Currency/InfusedSapphire"), 2000, 1000, 
             "This sapphire is embued with pure arcane energy. When shattered, it gives its user a temporary power boost.", 
             "Add +6 to your next damage spell (one time use).");
         GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().Spellcaster.AddToInventory(item);

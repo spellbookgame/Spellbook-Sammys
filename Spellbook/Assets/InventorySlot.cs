@@ -6,14 +6,14 @@ public class InventorySlot : MonoBehaviour
     public Image icon;
     public Button removeButton;
 
-    Item item;
+    ItemObject item;
     
 
-    public void AddItem (Item newItem)
+    public void AddItem (ItemObject newItem)
     {
         item = newItem;
 
-        icon.sprite = newItem.icon;
+        icon.sprite = newItem.sprite;
         icon.enabled = true;
         removeButton.interactable = true;
     }
@@ -29,7 +29,8 @@ public class InventorySlot : MonoBehaviour
 
     public void OnRemoveButton() 
     {
-        Inventory.instance.Remove(item);
+        GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().Spellcaster.RemoveFromInventory(item);
+        this.ClearSlot();
     }
 
 }
