@@ -56,11 +56,13 @@ public class SpellTracker : MonoBehaviour
             }
 
             PanelHolder.instance.displayEvent("You found Mana!", sb.ToString() + " is active and you earned " + manaCount + " mana.");
+            SoundManager.instance.PlaySingle(SoundManager.manafound);
             return manaCount;
         }
         else
         {
             PanelHolder.instance.displayEvent("You found Mana!", "You earned " + manaCount + " mana.");
+            SoundManager.instance.PlaySingle(SoundManager.manafound);
             return manaCount;
         }
     }
@@ -73,12 +75,16 @@ public class SpellTracker : MonoBehaviour
         if(spellCaster.activeSpells.Any(x => x.sSpellName == "Arcana Harvest"))
         {
             glyphCount = 2;
-            PanelHolder.instance.displayEvent("You found a Glyph!", "Arcana Harvest is active and you earned 2 " + glyph + "s.");
+            Sprite sprite = Resources.Load<Sprite>("GlyphArt/" + glyph);
+            PanelHolder.instance.displayBoardScan("You found a Glyph!", "Arcana Harvest is active and you earned 2 " + glyph + "s.", sprite);
+            SoundManager.instance.PlaySingle(SoundManager.glyphfound);
             return glyphCount;
         }
         else
         {
-            PanelHolder.instance.displayEvent("You found a Glyph!", "You found 1 " + glyph + ".");
+            Sprite sprite = Resources.Load<Sprite>("GlyphArt/" + glyph);
+            PanelHolder.instance.displayBoardScan("You found a Glyph!", "You found 1 " + glyph + ".", sprite);
+            SoundManager.instance.PlaySingle(SoundManager.glyphfound);
             return glyphCount;
         }
     }

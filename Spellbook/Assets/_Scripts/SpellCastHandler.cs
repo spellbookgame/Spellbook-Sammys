@@ -50,12 +50,12 @@ public class SpellCastHandler : MonoBehaviour
         });
         selectedSpell.onClick.AddListener(() =>
         {
-            SoundManager.instance.PlaySingle(SoundManager.placespellpiece);
+            SoundManager.instance.PlaySingle(SoundManager.spellbookopen);
             OpenClosePanel();
         });
         closePanelButton.onClick.AddListener(() =>
         {
-            SoundManager.instance.PlaySingle(SoundManager.placespellpiece);
+            SoundManager.instance.PlaySingle(SoundManager.spellbookopen);
             OpenClosePanel();
         });
 
@@ -103,6 +103,7 @@ public class SpellCastHandler : MonoBehaviour
             else
             {
                 currentSpell.SpellCast(localPlayer.Spellcaster);
+                SoundManager.instance.PlaySingle(SoundManager.spellcast);
                 QuestTracker.instance.CheckSpellQuest(currentSpell);
                 spellWasCast = true;
                 RemovePrefabs(spellWasCast);
@@ -186,6 +187,7 @@ public class SpellCastHandler : MonoBehaviour
     // when the button is clicked, add its required glyphs into the casting circle
     private void SpellButtonClicked(Spell spell)
     {
+        SoundManager.instance.PlaySingle(SoundManager.placespellpiece);
         // open up spell panel
         OpenClosePanel();
         // change selectedSpell button text to spell name

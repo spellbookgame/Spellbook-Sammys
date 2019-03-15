@@ -13,6 +13,9 @@ using UnityEngine;
 
 public abstract class SpellCaster 
 {
+    // to track panel being open only once at start of game
+    public bool procPanelShown;
+
     public string matchname;
     public int numOfTurnsSoFar = 0;
     public int spacesTraveled = 0;
@@ -177,6 +180,7 @@ public abstract class SpellCaster
             }
             else
             {
+                SoundManager.instance.PlaySingle(SoundManager.spellcreate);
                 // add spell to its chapter
                 chapter.spellsCollected.Add(spell);
                 LobbyManager.s_Singleton.notifyHostAboutCollectedSpell(spellcasterID, spell.sSpellName);

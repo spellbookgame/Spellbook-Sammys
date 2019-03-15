@@ -18,6 +18,7 @@ public abstract class RandomShiftingOpacity<T> : MonoBehaviour {
 	public float octaveRatio = 0.6F;
 	public int octaves = 4;
 	public bool initializeOnStart = true;
+    public float offsetFactor = 0.0F;
 
 	// Internal Fields
 	private Octave[] _octaves;
@@ -54,7 +55,7 @@ public abstract class RandomShiftingOpacity<T> : MonoBehaviour {
 	}
 
 	protected float ApplyTerm(Octave term, float time) {
-		return term.AMPLITUDE * Mathf.Sin(time * term.FREQUENCY);
+		return term.AMPLITUDE * Mathf.Sin(time * term.FREQUENCY + offsetFactor);
 	}
 
 	protected struct Octave {

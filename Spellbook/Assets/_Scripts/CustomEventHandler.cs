@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Vuforia;
@@ -15,10 +16,12 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
     private bool spaceScanned = false;
 
     Player localPlayer;
+    List<ItemObject> itemList;
     
     void Start()
     {
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
+        itemList = GameObject.Find("ItemList").GetComponent<ItemList>().listOfItems;
 
         mTrackableBehaviour = GetComponent<TrackableBehaviour>();
         if (mTrackableBehaviour)
@@ -103,7 +106,11 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
                 break;
 
             case "item":
-                PanelHolder.instance.displayEvent("Item", "You got a [item name] item!");
+                // choose a random item to give to player from list
+                ItemObject item = itemList[UnityEngine.Random.Range(0, itemList.Count - 1)];
+                PanelHolder.instance.displayBoardScan("You found an Item!", "You got found a " + item.name + "!", item.sprite);
+                SoundManager.instance.PlaySingle(SoundManager.itemfound);
+                localPlayer.Spellcaster.AddToInventory(item);
                 break;
 
             case "capital":
@@ -113,32 +120,147 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
             #region town_spaces
             case "town_alchemist":
                 Quest alchemyManaQuest = new AlchemyManaQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
-                PanelHolder.instance.displayQuest(alchemyManaQuest);
+
+                if(localPlayer.Spellcaster.activeQuests.Count > 0)
+                {
+                    foreach(Quest q in localPlayer.Spellcaster.activeQuests)
+                    {
+                        if (q.questName.Equals(alchemyManaQuest.questName))
+                        {
+                            PanelHolder.instance.displayEvent("Alchemy Town", "You're already on a quest for this town.");
+                            break;
+                        }
+                        else
+                        {
+                            PanelHolder.instance.displayQuest(alchemyManaQuest);
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    PanelHolder.instance.displayQuest(alchemyManaQuest);
+                }
                 break;
 
             case "town_arcanist":
                 Quest arcaneSpellQuest = new ArcaneSpellQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
-                PanelHolder.instance.displayQuest(arcaneSpellQuest);
+                if (localPlayer.Spellcaster.activeQuests.Count > 0)
+                {
+                    foreach (Quest q in localPlayer.Spellcaster.activeQuests)
+                    {
+                        if (q.questName.Equals(arcaneSpellQuest.questName))
+                        {
+                            PanelHolder.instance.displayEvent("Arcane Town", "You're already on a quest for this town.");
+                            break;
+                        }
+                        else
+                        {
+                            PanelHolder.instance.displayQuest(arcaneSpellQuest);
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    PanelHolder.instance.displayQuest(arcaneSpellQuest);
+                }
                 break;
 
             case "town_chronomancer":
                 Quest timeMoveQuest = new TimeMoveQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
-                PanelHolder.instance.displayQuest(timeMoveQuest);
+                if (localPlayer.Spellcaster.activeQuests.Count > 0)
+                {
+                    foreach (Quest q in localPlayer.Spellcaster.activeQuests)
+                    {
+                        if (q.questName.Equals(timeMoveQuest.questName))
+                        {
+                            PanelHolder.instance.displayEvent("Chronomancy Town", "You're already on a quest for this town.");
+                            break;
+                        }
+                        else
+                        {
+                            PanelHolder.instance.displayQuest(timeMoveQuest);
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    PanelHolder.instance.displayQuest(timeMoveQuest);
+                }
                 break;
 
             case "town_elementalist":
                 Quest elementalErrandQuest = new ElementalErrandQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
-                PanelHolder.instance.displayQuest(elementalErrandQuest);
+                if (localPlayer.Spellcaster.activeQuests.Count > 0)
+                {
+                    foreach (Quest q in localPlayer.Spellcaster.activeQuests)
+                    {
+                        if (q.questName.Equals(elementalErrandQuest.questName))
+                        {
+                            PanelHolder.instance.displayEvent("Elemental Town", "You're already on a quest for this town.");
+                            break;
+                        }
+                        else
+                        {
+                            PanelHolder.instance.displayQuest(elementalErrandQuest);
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    PanelHolder.instance.displayQuest(elementalErrandQuest);
+                }
                 break;
 
             case "town_illusionist":
                 Quest illusionSpaceQuest = new IllusionSpaceQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
-                PanelHolder.instance.displayQuest(illusionSpaceQuest);
+                if (localPlayer.Spellcaster.activeQuests.Count > 0)
+                {
+                    foreach (Quest q in localPlayer.Spellcaster.activeQuests)
+                    {
+                        if (q.questName.Equals(illusionSpaceQuest.questName))
+                        {
+                            PanelHolder.instance.displayEvent("Trickster Town", "You're already on a quest for this town.");
+                            break;
+                        }
+                        else
+                        {
+                            PanelHolder.instance.displayQuest(illusionSpaceQuest);
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    PanelHolder.instance.displayQuest(illusionSpaceQuest);
+                }
                 break;
 
             case "town_summoner":
                 Quest summonManaQuest = new SummoningManaQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
-                PanelHolder.instance.displayQuest(summonManaQuest);
+                if (localPlayer.Spellcaster.activeQuests.Count > 0)
+                {
+                    foreach (Quest q in localPlayer.Spellcaster.activeQuests)
+                    {
+                        if (q.questName.Equals(summonManaQuest.questName))
+                        {
+                            PanelHolder.instance.displayEvent("Summoner Town", "You're already on a quest for this town.");
+                            break;
+                        }
+                        else
+                        {
+                            PanelHolder.instance.displayQuest(summonManaQuest);
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    PanelHolder.instance.displayQuest(summonManaQuest);
+                }
                 break;
             #endregion
 
