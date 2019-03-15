@@ -14,15 +14,16 @@ public class MainPageHandler : MonoBehaviour
     [SerializeField] private Text healthValue;
     [SerializeField] private Enemy enemy;
 
-    [SerializeField] private Image characterImage;
+    [SerializeField] private SpriteRenderer characterImage;
     [SerializeField] private GameObject warpBackground1;
     [SerializeField] private GameObject warpBackground2;
-    [SerializeField] private Image symbolImage;
+    [SerializeField] private SpriteRenderer symbolImage;
     
     [SerializeField] private Button rollButton;
     [SerializeField] private Button spellbookButton;
     
     [SerializeField] private GameObject diceRollPanel;
+    [SerializeField] private GameObject proclamationPanel;
 
     Player localPlayer;
     public static MainPageHandler instance = null;
@@ -135,5 +136,11 @@ public class MainPageHandler : MonoBehaviour
                 PanelHolder.instance.displayNotify(q.questName + " Failed...", "You failed to complete the quest in your given time.");
             }
         }
+    }
+
+    // closing the proclamation panel
+    public void CloseProclamationPanel()
+    {
+        proclamationPanel.SetActive(false);
     }
 }
