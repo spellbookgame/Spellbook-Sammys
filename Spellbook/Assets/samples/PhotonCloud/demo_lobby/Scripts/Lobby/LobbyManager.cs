@@ -28,7 +28,7 @@ namespace Bolt.Samples.Photon.Lobby
 
         [Header("UI Lobby")]
         [Tooltip("Time in second between all players ready & match start")]
-        public float prematchCountdown = 5.0f;
+        public float prematchCountdown = 3.0f;
 
         [Space]
         [Header("UI Reference")]
@@ -46,6 +46,7 @@ namespace Bolt.Samples.Photon.Lobby
         public Button backButton;
         public GameObject startGameButton;
         public GameObject playerController;
+        public GameObject bookShelf;
         public Text statusInfo;
         public Text hostInfo;
         public Text numPlayersInfo;
@@ -96,6 +97,8 @@ namespace Bolt.Samples.Photon.Lobby
 
             Debug.Log("Lobby Scene: " + lobbyScene.SimpleSceneName);
             Debug.Log("Game Scene: " + gameScene.SimpleSceneName);
+
+            SoundManager.instance.musicSource.Play();
         }
 
         void FixedUpdate()
@@ -125,10 +128,11 @@ namespace Bolt.Samples.Photon.Lobby
                     backDelegate = Stop;
                     topPanel.isInGame = true;
                     topPanel.ToggleVisibility(false);
-
+                    bookShelf.SetActive(false);
                     // Spawn Player
                     SpawnGamePlayer();
                     MainPageHandler.instance.setupMainPage();
+                    SoundManager.instance.PlayGameBCM();
                 }
 
             } catch (Exception e)
@@ -167,7 +171,9 @@ namespace Bolt.Samples.Photon.Lobby
         public void DisplayIsConnecting()
         {
             var _this = this;
-            infoPanel.Display("Connecting...", "Cancel", () => { _this.backDelegate(); });
+            //infoPanel.Display("Connecting...", "Cancel", () => { _this.backDelegate(); });
+            infoPanel.Display();
+            //PanelHolder.instance.displayConnectingToGame();
         }
 
         public void SetServerInfo(string status, string host)
@@ -238,12 +244,13 @@ namespace Bolt.Samples.Photon.Lobby
                 BoltNetwork.EnableLanBroadcast();
                 // Setup Host
                 infoPanel.gameObject.SetActive(false);
+                //PanelHolder.instance.hideConnectingPanel();
                 ChangeTo(lobbyPanel);
 
                 backDelegate = Stop;
                 SetServerInfo("Host", "");
 
-                SoundManager.instance.musicSource.Play();
+                //SoundManager.instance.musicSource.Play();
 
                 // Build Server Entity
                 BoltEntity entity = BoltNetwork.Instantiate(BoltPrefabs.CharacterSelectionEntity);
@@ -311,6 +318,7 @@ namespace Bolt.Samples.Photon.Lobby
         {
             //NetworkGameState.instance.determineTurnOrder();
             gameStateEntity.GetComponent<NetworkGameState>().globalEvents.determineGlobalEvents();
+            lobbyPanel.gameObject.SetActive(false);
             _isCountdown = true;
             StartCoroutine(ServerCountdownCoroutine());
         }
@@ -356,6 +364,11 @@ namespace Bolt.Samples.Photon.Lobby
 
         public override void OnEvent(LobbyCountdown evnt)
         {
+            if(_isCountdown == false)
+            {
+                lobbyPanel.gameObject.SetActive(false);
+            }
+            _isCountdown = true;
             countdownPanel.UIText.text = "Match Starting in " + evnt.Time;
             countdownPanel.gameObject.SetActive(evnt.Time != 0);
         }

@@ -269,6 +269,12 @@ public abstract class SpellCaster
                 spellcaster.glyphs[data.glyphNames[j]] = data.glyphCount[j];
             }
 
+            int itemSize = data.inventory.Length;
+            for(int j = 0; j < itemSize; j++)
+            {
+                //TODO: Reload inventory.
+            }
+
 
             return spellcaster;
         }

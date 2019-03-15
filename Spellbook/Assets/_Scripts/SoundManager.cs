@@ -10,7 +10,7 @@ public class SoundManager : MonoBehaviour
     public float highPitchRange = 1.05f;            //The highest a sound effect will be randomly pitched.
 
     // static clip so any script can access it
-    [SerializeField] AudioClip[] soundeffects = new AudioClip[19];
+    [SerializeField] AudioClip[] soundeffects = new AudioClip[21];
 
     #region static_clips
     public static AudioClip buttonconfirm;
@@ -32,6 +32,10 @@ public class SoundManager : MonoBehaviour
     public static AudioClip spellcast;
     public static AudioClip spellcreate;
     public static AudioClip yourturn;
+
+    //Music
+    public static AudioClip lobby;
+    public static AudioClip gameBCG;
     #endregion
 
     void Awake()
@@ -65,6 +69,8 @@ public class SoundManager : MonoBehaviour
         spellcast = soundeffects[16];
         spellcreate = soundeffects[17];
         yourturn = soundeffects[18];
+        lobby = soundeffects[19];
+        gameBCG = soundeffects[20];
 
         //Set SoundManager to DontDestroyOnLoad so that it won't be destroyed when reloading our scene.
         DontDestroyOnLoad(gameObject);
@@ -79,5 +85,11 @@ public class SoundManager : MonoBehaviour
 
         //Play the clip.
         efxSource.Play();
+    }
+
+    public void PlayGameBCM()
+    {
+        musicSource.clip = gameBCG;
+        musicSource.Play();
     }
 }

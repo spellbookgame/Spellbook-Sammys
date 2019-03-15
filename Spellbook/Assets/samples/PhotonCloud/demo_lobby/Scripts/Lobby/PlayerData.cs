@@ -26,6 +26,8 @@ public class PlayerData
     public string[] glyphNames; 
     public int[] glyphCount;
 
+    public string[] inventory;
+
     public PlayerData(SpellCaster spellCasterData)
     {
         this.matchname = NetworkGameState.instance.getMatchName();
@@ -54,6 +56,13 @@ public class PlayerData
             glyphNames[j] = entry.Key;
             glyphCount[j] = entry.Value;
             j++;
+        }
+
+        int size = spellCasterData.inventory.Count;
+        inventory = new string[size];
+        for(int i = 0; i < size; i++)
+        {
+            inventory[i] = spellCasterData.inventory[i].name;
         }
 
 
