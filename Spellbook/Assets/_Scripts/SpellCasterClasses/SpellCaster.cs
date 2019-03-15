@@ -180,6 +180,7 @@ public abstract class SpellCaster
             }
             else
             {
+                SoundManager.instance.PlaySingle(SoundManager.spellcreate);
                 // add spell to its chapter
                 chapter.spellsCollected.Add(spell);
                 LobbyManager.s_Singleton.notifyHostAboutCollectedSpell(spellcasterID, spell.sSpellName);

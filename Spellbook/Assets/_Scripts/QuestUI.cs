@@ -58,14 +58,18 @@ public class QuestUI : MonoBehaviour
 
     private void buttonClicked(string input, Quest q)
     {
-        SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
         gameObject.SetActive(false);
         
         GameObject player = GameObject.FindGameObjectWithTag("LocalPlayer");
 
         // add quest to player's list of active quests if they accept
         if (input.Equals("accept"))
+        {
             player.GetComponent<Player>().Spellcaster.activeQuests.Add(q);
+            SoundManager.instance.PlaySingle(SoundManager.questaccept);
+        }
+        else
+            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
 
         // end player's turn and take them back to main page
         bool endSuccessful = player.GetComponent<Player>().onEndTurnClick();

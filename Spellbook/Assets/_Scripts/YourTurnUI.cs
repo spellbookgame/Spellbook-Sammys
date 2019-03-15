@@ -25,14 +25,10 @@ public class YourTurnUI : MonoBehaviour
     {
         gameObject.SetActive(true);
 
+        // for start of game
         if (GameObject.Find("Proclamation Panel"))
         {
             DisablePanel();
-            /*if(GameObject.FindGameObjectWithTag("LocalPlayer") && GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().Spellcaster.procPanelShown == false)
-            {
-                DisablePanel();
-                Debug.Log("your turn panel disabled");
-            }*/
         }  
 
         if (!PanelHolder.panelQueue.Peek().Equals(panelID))

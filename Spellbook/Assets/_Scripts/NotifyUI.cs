@@ -31,14 +31,10 @@ public class NotifyUI : MonoBehaviour
 
         gameObject.SetActive(true);
 
+        // for start of game
         if (GameObject.Find("Proclamation Panel"))
         {
             DisablePanel();
-            /*if (GameObject.FindGameObjectWithTag("LocalPlayer") && GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().Spellcaster.procPanelShown == false)
-            {
-                DisablePanel();
-                Debug.Log("notify panel disabled");
-            }*/
         }
 
         if (!PanelHolder.panelQueue.Peek().Equals(panelID))

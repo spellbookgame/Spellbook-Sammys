@@ -31,10 +31,13 @@ public class PanelHolder : MonoBehaviour
 
     private void Update()
     {
-        // repeatedly checks panelqueue in case a new event comes up
-        if(GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().Spellcaster.procPanelShown)
-            if (panelQueue.Count > 0)
-                CheckPanelQueue();
+        if(GameObject.FindGameObjectWithTag("LocalPlayer"))
+        {
+            // repeatedly checks panelqueue in case a new event comes up
+            if (GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().Spellcaster.procPanelShown)
+                if (panelQueue.Count > 0)
+                    CheckPanelQueue();
+        }
     }
 
     // enables panel if it's next in queue

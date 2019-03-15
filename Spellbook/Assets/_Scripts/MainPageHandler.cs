@@ -113,7 +113,7 @@ public class MainPageHandler : MonoBehaviour
         });
         spellbookButton.onClick.AddListener(() =>
         {
-            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+            SoundManager.instance.PlaySingle(SoundManager.spellbookopen);
             SceneManager.LoadScene("SpellbookScene");
         });
     }
@@ -143,6 +143,7 @@ public class MainPageHandler : MonoBehaviour
             {
                 // remove the quest from the active quests list and notify player
                 localPlayer.Spellcaster.activeQuests.Remove(q);
+                SoundManager.instance.PlaySingle(SoundManager.questfailed);
                 PanelHolder.instance.displayNotify(q.questName + " Failed...", "You failed to complete the quest in your given time.");
             }
         }
