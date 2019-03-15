@@ -30,6 +30,7 @@ public class InventorySlot : MonoBehaviour
     public void OnRemoveButton() 
     {
         GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().Spellcaster.RemoveFromInventory(item);
+        this.ClearSlot();
     }
 
 }
