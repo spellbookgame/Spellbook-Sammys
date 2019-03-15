@@ -92,6 +92,10 @@ public abstract class SpellCaster
     {
         inventory.Add(newItem);
     }
+    public void RemoveFromInventory(ItemObject newItem)
+    {
+        inventory.Remove(newItem);
+    }
 
     public void TakeDamage(int dmg)
     {

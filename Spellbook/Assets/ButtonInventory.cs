@@ -10,11 +10,13 @@ public class ButtonInventory : MonoBehaviour
     {
         if (isShowing)
         {
+            SoundManager.instance.PlaySingle(SoundManager.closeinventory);
             isShowing = false;
             inventory.SetActive(false);
         }
         else
         {
+            SoundManager.instance.PlaySingle(SoundManager.openinventory);
             isShowing = true;
             inventory.SetActive(true);
         }
