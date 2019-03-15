@@ -133,9 +133,9 @@ namespace Bolt.Samples.Photon.Lobby
 
             } catch (Exception e)
             {
-                BoltConsole.Write(e.Message, Color.red);
-                BoltConsole.Write(e.Source, Color.red);
-                BoltConsole.Write(e.StackTrace, Color.red);
+                //BoltConsole.Write(e.Message, Color.red);
+                //BoltConsole.Write(e.Source, Color.red);
+                //BoltConsole.Write(e.StackTrace, Color.red);
             }
         }
 
