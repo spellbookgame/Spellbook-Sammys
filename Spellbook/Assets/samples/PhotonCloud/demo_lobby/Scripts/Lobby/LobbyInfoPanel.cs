@@ -27,5 +27,10 @@ namespace Bolt.Samples.Photon.Lobby
 
             gameObject.SetActive(true);
         }
+
+        public void Display()
+        {
+            gameObject.SetActive(true);
+        }
     }
 }
