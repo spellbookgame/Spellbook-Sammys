@@ -79,6 +79,16 @@ public class MainPageHandler : MonoBehaviour
             enemy.fCurrentHealth = enemy.fMaxHealth;
         }
 
+        // if it's not first turn of game, then destroy proclamation panel each time scene starts
+        if (localPlayer.Spellcaster.procPanelShown)
+        {
+            Destroy(proclamationPanel.gameObject);
+
+            // in case a panel didn't display during scan scene, display them in main scene
+            PanelHolder.instance.CheckPanelQueue();
+            Debug.Log("queue checked in main scene");
+        }
+
         // create instance of QuestTracker prefab
         GameObject q = Instantiate(questTracker);
         GameObject s = Instantiate(spellTracker);
@@ -141,6 +151,8 @@ public class MainPageHandler : MonoBehaviour
     // closing the proclamation panel
     public void CloseProclamationPanel()
     {
-        proclamationPanel.SetActive(false);
+        Destroy(proclamationPanel.gameObject);
+        localPlayer.Spellcaster.procPanelShown = true;
+        PanelHolder.instance.CheckPanelQueue();
     }
 }

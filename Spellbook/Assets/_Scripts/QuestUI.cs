@@ -50,7 +50,7 @@ public class QuestUI : MonoBehaviour
         
         gameObject.SetActive(true);
 
-        if (!PanelHolder.instance.panelQueue.Peek().Equals(panelID))
+        if (!PanelHolder.panelQueue.Peek().Equals(panelID))
         {
             DisablePanel();
         }
@@ -79,7 +79,7 @@ public class QuestUI : MonoBehaviour
             }
 
         }
-        PanelHolder.instance.panelQueue.Dequeue();
+        PanelHolder.panelQueue.Dequeue();
         PanelHolder.instance.CheckPanelQueue();
     }
 }

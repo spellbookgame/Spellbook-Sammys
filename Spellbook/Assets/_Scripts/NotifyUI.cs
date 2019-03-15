@@ -28,10 +28,20 @@ public class NotifyUI : MonoBehaviour
         infoText.text = info;
 
         singleButton.onClick.AddListener((okClick));
-        
+
         gameObject.SetActive(true);
 
-        if(!PanelHolder.instance.panelQueue.Peek().Equals(panelID))
+        if (GameObject.Find("Proclamation Panel"))
+        {
+            DisablePanel();
+            /*if (GameObject.FindGameObjectWithTag("LocalPlayer") && GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().Spellcaster.procPanelShown == false)
+            {
+                DisablePanel();
+                Debug.Log("notify panel disabled");
+            }*/
+        }
+
+        if (!PanelHolder.panelQueue.Peek().Equals(panelID))
         {
             DisablePanel();
         }
@@ -45,7 +55,7 @@ public class NotifyUI : MonoBehaviour
 
         gameObject.SetActive(true);
 
-        if (!PanelHolder.instance.panelQueue.Peek().Equals(panelID))
+        if (!PanelHolder.panelQueue.Peek().Equals(panelID))
         {
             DisablePanel();
         }
@@ -65,7 +75,7 @@ public class NotifyUI : MonoBehaviour
         SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
         gameObject.SetActive(false);
 
-        PanelHolder.instance.panelQueue.Dequeue();
+        PanelHolder.panelQueue.Dequeue();
         PanelHolder.instance.CheckPanelQueue();
     }
     private void eventClick()
@@ -89,7 +99,7 @@ public class NotifyUI : MonoBehaviour
             }
 
         }
-        PanelHolder.instance.panelQueue.Dequeue();
+        PanelHolder.panelQueue.Dequeue();
         PanelHolder.instance.CheckPanelQueue();
     }
     private void combatClick()

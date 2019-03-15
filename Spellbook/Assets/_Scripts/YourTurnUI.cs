@@ -23,13 +23,23 @@ public class YourTurnUI : MonoBehaviour
 
     public void Display()
     {
-        if (!PanelHolder.instance.panelQueue.Peek().Equals(panelID))
+        gameObject.SetActive(true);
+
+        if (GameObject.Find("Proclamation Panel"))
+        {
+            DisablePanel();
+            /*if(GameObject.FindGameObjectWithTag("LocalPlayer") && GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().Spellcaster.procPanelShown == false)
+            {
+                DisablePanel();
+                Debug.Log("your turn panel disabled");
+            }*/
+        }  
+
+        if (!PanelHolder.panelQueue.Peek().Equals(panelID))
         {
             DisablePanel();
         }
 
-        gameObject.SetActive(true);
-        
         singleButton.onClick.AddListener(() => 
         {
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
@@ -38,7 +48,7 @@ public class YourTurnUI : MonoBehaviour
             if(!SceneManager.GetActiveScene().name.Equals("MainPlayerScene"))
                 SceneManager.LoadScene("MainPlayerScene");
 
-            PanelHolder.instance.panelQueue.Dequeue();
+            PanelHolder.panelQueue.Dequeue();
             PanelHolder.instance.CheckPanelQueue();
         });
     }

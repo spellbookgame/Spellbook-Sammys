@@ -11,7 +11,7 @@ public class PanelHolder : MonoBehaviour
     public static PanelHolder instance = null;
 
     // to determine panel display order
-    public Queue<string> panelQueue;
+    public static Queue<string> panelQueue;
 
     private void Awake()
     {
@@ -21,10 +21,20 @@ public class PanelHolder : MonoBehaviour
             instance = this;
         //If instance already exists:
         else if (instance != this)
-            //Destroy this, this enforces our singleton pattern so there can only be one instance of SoundManager.
+            //Destroy this, this enforces our singleton pattern so there can only be one instance of PanelHolder.
             Destroy(gameObject);
 
         panelQueue = new Queue<string>();
+
+        DontDestroyOnLoad(gameObject);
+    }
+
+    private void Update()
+    {
+        // repeatedly checks panelqueue in case a new event comes up
+        if(GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().Spellcaster.procPanelShown)
+            if (panelQueue.Count > 0)
+                CheckPanelQueue();
     }
 
     // enables panel if it's next in queue
