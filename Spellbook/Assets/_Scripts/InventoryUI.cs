@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class InventoryUI : MonoBehaviour
 {
@@ -26,11 +27,14 @@ public class InventoryUI : MonoBehaviour
 
     void UpdateUI() 
     {
+        List<ItemObject> sInventory = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().spellcaster.inventory;
         for(int i = 0; i < slots.Length; i++)
         {
-            if(i < inventory.items.Count)
+            if(i < sInventory.Count)
             {
-                slots[i].AddItem(inventory.items[i]);
+                ////
+                Item temp = new Item(sInventory[i]);
+                slots[i].AddItem(temp);
             } else
             {
                 slots[i].ClearSlot();

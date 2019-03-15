@@ -12,4 +12,14 @@ public class Item : ScriptableObject
     public string flavorDescription;
     public string mechanicsDescription;
     public bool isDefaultItem = false;
+
+    public Item(ItemObject newItem) 
+    {
+        this.name = newItem.name;
+        this.icon = newItem.sprite;
+        this.buyPrice = newItem.buyPrice;
+        this.sellPrice = newItem.sellPrice;
+        this.flavorDescription = newItem.flavorDescription;
+        this.mechanicsDescription = newItem.mechanicsDescription;
+    }
 }
