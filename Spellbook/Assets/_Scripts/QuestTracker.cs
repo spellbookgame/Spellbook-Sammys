@@ -49,6 +49,7 @@ public class QuestTracker : MonoBehaviour
                 }
                 if (q.questCompleted)
                 {
+                    SoundManager.instance.PlaySingle(SoundManager.questsuccess);
                     PanelHolder.instance.displayNotify(q.questName + " Completed!",
                                                         "You completed the quest! You earned:\n\n" + q.DisplayReward());
                     localPlayer.Spellcaster.activeQuests.Remove(q);
@@ -76,6 +77,7 @@ public class QuestTracker : MonoBehaviour
                 }
                 if (q.questCompleted)
                 {
+                    SoundManager.instance.PlaySingle(SoundManager.questsuccess);
                     PanelHolder.instance.displayNotify(q.questName + " Completed!",
                                                         "You completed the quest! You earned:\n\n" + q.DisplayReward());
                     localPlayer.Spellcaster.activeQuests.Remove(q);
@@ -99,6 +101,7 @@ public class QuestTracker : MonoBehaviour
                 }
                 if (q.questCompleted)
                 {
+                    SoundManager.instance.PlaySingle(SoundManager.questsuccess);
                     PanelHolder.instance.displayNotify(q.questName + " Completed!",
                                                         "You completed the quest! You earned:\n\n" + q.DisplayReward());
                     localPlayer.Spellcaster.activeQuests.Remove(q);
@@ -125,6 +128,7 @@ public class QuestTracker : MonoBehaviour
                 }
                 if (q.questCompleted)
                 {
+                    SoundManager.instance.PlaySingle(SoundManager.questsuccess);
                     PanelHolder.instance.displayNotify(q.questName + " Completed!",
                                                         "You completed the quest! You earned:\n\n" + q.DisplayReward());
                     localPlayer.Spellcaster.activeQuests.Remove(q);
@@ -153,6 +157,7 @@ public class QuestTracker : MonoBehaviour
                 }
                 if (q.questCompleted)
                 {
+                    SoundManager.instance.PlaySingle(SoundManager.questsuccess);
                     PanelHolder.instance.displayNotify(q.questName + " Completed!",
                                                         "You completed the quest! You earned:\n\n" + q.DisplayReward());
                     localPlayer.Spellcaster.activeQuests.Remove(q);
