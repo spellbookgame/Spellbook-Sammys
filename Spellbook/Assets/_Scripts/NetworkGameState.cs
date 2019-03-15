@@ -217,6 +217,7 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
 
     public string getTurnSpellcasterName()
     {
+
         switch (state.CurrentSpellcasterTurn)
         {
             case 0:
@@ -226,7 +227,7 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
             case 2:
                 return "Elementalist";
             case 3:
-                return "Time Wizard";
+                return "Chronomancer";
             case 4:
                 return "Illusionist";
             default:

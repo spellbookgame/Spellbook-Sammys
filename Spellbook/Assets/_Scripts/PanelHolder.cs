@@ -8,6 +8,7 @@ public class PanelHolder : MonoBehaviour
     public NotifyUI notifyPanel;
     public QuestUI questPanel;
     public BoardScanUI boardScanPanel;
+     
     
     public static PanelHolder instance = null;
 
@@ -99,4 +100,5 @@ public class PanelHolder : MonoBehaviour
         Debug.Log("Queued: " + boardScanPanel.panelID);
         boardScanPanel.DisplayScanEvent(title, info, sprite);
     }
+
 }
