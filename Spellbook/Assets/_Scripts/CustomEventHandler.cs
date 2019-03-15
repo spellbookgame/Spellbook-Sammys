@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Vuforia;
@@ -15,10 +16,12 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
     private bool spaceScanned = false;
 
     Player localPlayer;
+    List<ItemObject> itemList;
     
     void Start()
     {
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
+        itemList = GameObject.Find("ItemList").GetComponent<ItemList>().listOfItems;
 
         mTrackableBehaviour = GetComponent<TrackableBehaviour>();
         if (mTrackableBehaviour)
@@ -103,11 +106,11 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
                 break;
 
             case "item":
-                // add item list to the vuforia scene
                 // choose a random item to give to player from list
-                //ItemObject item = new ItemObject(string newName, Sprite newSprite, int newBuyPrice, int newSellPrice,
-        //string newFlavorDescription, string newMechanicsDescription)
-                PanelHolder.instance.displayEvent("Item", "You got a [item name] item!");
+                ItemObject item = itemList[UnityEngine.Random.Range(0, itemList.Count - 1)];
+                PanelHolder.instance.displayBoardScan("You found an Item!", "You got found a " + item.name + "!", item.sprite);
+                SoundManager.instance.PlaySingle(SoundManager.itemfound);
+                localPlayer.Spellcaster.AddToInventory(item);
                 break;
 
             case "capital":

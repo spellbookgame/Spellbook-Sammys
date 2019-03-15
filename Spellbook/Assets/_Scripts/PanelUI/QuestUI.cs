@@ -11,6 +11,7 @@ public class QuestUI : MonoBehaviour
     [SerializeField] private Text infoText;
     [SerializeField] private Button singleButton;
     [SerializeField] private Button singleButton1;
+    [SerializeField] private GameObject ribbon;
 
     public bool panelActive = false;
     public string panelID = "quest";
@@ -47,7 +48,20 @@ public class QuestUI : MonoBehaviour
 
         singleButton.onClick.AddListener(() => buttonClicked("accept", quest));
         singleButton1.onClick.AddListener(() => buttonClicked("deny", quest));
-        
+
+        // if current scene is Vuforia, change everything to image
+        if (SceneManager.GetActiveScene().name.Equals("VuforiaScene"))
+        {
+            gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            gameObject.GetComponent<Image>().enabled = true;
+
+            foreach(Transform t in ribbon.transform)
+            {
+                t.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+                t.gameObject.GetComponent<Image>().enabled = true;
+            }
+        }
+
         gameObject.SetActive(true);
 
         if (!PanelHolder.panelQueue.Peek().Equals(panelID))
