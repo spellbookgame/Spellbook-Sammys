@@ -152,6 +152,7 @@ public class MainPageHandler : MonoBehaviour
     // closing the proclamation panel
     public void CloseProclamationPanel()
     {
+        SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
         Destroy(proclamationPanel.gameObject);
         localPlayer.Spellcaster.procPanelShown = true;
         PanelHolder.instance.CheckPanelQueue();

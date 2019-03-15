@@ -27,6 +27,13 @@ public class NotifyUI : MonoBehaviour
         titleText.text = title;
         infoText.text = info;
 
+        // if current scene is Vuforia, change everything to image
+        if (SceneManager.GetActiveScene().name.Equals("VuforiaScene"))
+        {
+            gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            gameObject.GetComponent<Image>().enabled = true;
+        }
+
         singleButton.onClick.AddListener((okClick));
 
         gameObject.SetActive(true);
@@ -46,6 +53,13 @@ public class NotifyUI : MonoBehaviour
     {
         titleText.text = title;
         infoText.text = info;
+
+        // if current scene is Vuforia, change everything to image
+        if (SceneManager.GetActiveScene().name.Equals("VuforiaScene"))
+        {
+            gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            gameObject.GetComponent<Image>().enabled = true;
+        }
 
         singleButton.onClick.AddListener((eventClick));
 
