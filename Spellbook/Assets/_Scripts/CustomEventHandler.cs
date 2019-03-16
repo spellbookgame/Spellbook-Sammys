@@ -13,7 +13,6 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
 
     private Coroutine coroutineReference;
     private bool CR_running;
-    private bool spaceScanned = false;
 
     Player localPlayer;
     List<ItemObject> itemList;
@@ -63,11 +62,13 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
             OnTrackingLost();
         }
     }
-
     protected virtual void OnTrackingFound()
     {
+
         // in board_space_handling region
-        scanItem(mTrackableBehaviour.TrackableName);
+        // only scan item if player hasn't scanned a space this turn
+        if(!localPlayer.Spellcaster.scannedSpaceThisTurn)
+            scanItem(mTrackableBehaviour.TrackableName);
     }
 
     protected virtual void OnTrackingLost()
@@ -80,15 +81,12 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
 
     IEnumerator ScanTime()
     {
+        Debug.Log("coroutine running");
         CR_running = true;
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
         CR_running = false;
 
-        // only track once; after a space is scanned, do not scan anymore
-        if(!spaceScanned)
-        {
-            OnTrackingFound();
-        }
+        OnTrackingFound();
     }
     
     private void scanItem(string trackableName)
@@ -121,9 +119,9 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
             case "town_alchemist":
                 Quest alchemyManaQuest = new AlchemyManaQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
 
-                if(localPlayer.Spellcaster.activeQuests.Count > 0)
+                if (localPlayer.Spellcaster.activeQuests.Count > 0)
                 {
-                    foreach(Quest q in localPlayer.Spellcaster.activeQuests)
+                    foreach (Quest q in localPlayer.Spellcaster.activeQuests)
                     {
                         if (q.questName.Equals(alchemyManaQuest.questName))
                         {
@@ -312,6 +310,6 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
             default:
                 break;
         }
-        spaceScanned = true;
+        localPlayer.Spellcaster.scannedSpaceThisTurn = true;
     }
 }

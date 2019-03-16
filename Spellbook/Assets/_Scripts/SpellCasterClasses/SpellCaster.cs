@@ -29,6 +29,7 @@ public abstract class SpellCaster
     public string classType;
     public int spellcasterID;
     public bool hasAttacked;
+    public bool scannedSpaceThisTurn;
     public Chapter chapter;
 
     // player's collection of spell pieces, glyphs, items, and active spells stored as strings
