@@ -54,6 +54,10 @@ namespace Bolt.Samples.Photon.Lobby
         protected string _matchName;
 
 
+        //For returning client only, not host.
+        protected bool spawned = false;
+
+
         public string matchName;
 
         public string matchHost
@@ -113,7 +117,7 @@ namespace Bolt.Samples.Photon.Lobby
         public override void SceneLoadLocalDone(string scene)
         {
             BoltConsole.Write("New scene: " + scene, Color.yellow);
-
+            BoltConsole.Write("Spawned : " + spawned, Color.yellow);
             try
             {
                 if (lobbyScene.SimpleSceneName == scene)
@@ -130,8 +134,13 @@ namespace Bolt.Samples.Photon.Lobby
                     topPanel.ToggleVisibility(false);
                     bookShelf.SetActive(false);
                     // Spawn Player
-                    SpawnGamePlayer();
-                    MainPageHandler.instance.setupMainPage();
+                    if (!spawned)
+                    {
+                        spawned = true;
+                        SpawnGamePlayer();
+                        MainPageHandler.instance.setupMainPage();
+                    }
+                    
                     SoundManager.instance.PlayGameBCM();
                 }
 
@@ -314,11 +323,14 @@ namespace Bolt.Samples.Photon.Lobby
             }
         }*/
 
+
+        /*Called from host Start button*/
         public void onGameStart()
         {
             //NetworkGameState.instance.determineTurnOrder();
             gameStateEntity.GetComponent<NetworkGameState>().globalEvents.determineGlobalEvents();
-            lobbyPanel.gameObject.SetActive(false);
+            //lobbyPanel.gameObject.SetActive(false);
+            
             _isCountdown = true;
             StartCoroutine(ServerCountdownCoroutine());
         }
@@ -366,7 +378,7 @@ namespace Bolt.Samples.Photon.Lobby
         {
             if(_isCountdown == false)
             {
-                lobbyPanel.gameObject.SetActive(false);
+                //lobbyPanel.gameObject.SetActive(false);
             }
             _isCountdown = true;
             countdownPanel.UIText.text = "Match Starting in " + evnt.Time;

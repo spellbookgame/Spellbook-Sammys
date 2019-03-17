@@ -199,6 +199,13 @@ public class Player : Bolt.EntityEventListener<ISpellcasterState>
             //PanelHolder panelHolder = GameObject.Find("PanelHolder").GetComponent<PanelHolder>();
             PanelHolder.instance.displayYourTurn();
         }
+
+        GameObject currentTurnUI = GameObject.Find("CurrentPlayerTurn");
+        if(currentTurnUI != null)
+        {
+            BoltConsole.Write("Updating turn UI 0");
+            currentTurnUI.GetComponent<CurrentTurnUI>().UpdateText();
+        }
     }
     #endregion
 
