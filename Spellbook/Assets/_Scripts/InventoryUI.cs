@@ -4,6 +4,7 @@ using UnityEngine;
 public class InventoryUI : MonoBehaviour
 {
     public Transform itemsParent;
+    [SerializeField] private GameObject inventoryPanel;
 
     //Inventory inventory;
 
@@ -40,6 +41,15 @@ public class InventoryUI : MonoBehaviour
 
             ++i;
         }
+        
+        // if there are 5 or more items in the inventory, increase scroll rect size by 200 for each item > 5
+        if (i > 5)
+        {
+            int expandPanel = (i - 5) * 300;
+            inventoryPanel.GetComponent<RectTransform>().sizeDelta = new Vector2(inventoryPanel.GetComponent<RectTransform>().sizeDelta.x,
+                (float)inventoryPanel.GetComponent<RectTransform>().sizeDelta.y + expandPanel);
+        }
+
         /*for(int i = 0; i < slots.Length; i++)
         {
             if(i < sInventory.Count)

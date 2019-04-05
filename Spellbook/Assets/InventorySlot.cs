@@ -8,7 +8,6 @@ public class InventorySlot : MonoBehaviour
     public GameObject infoPanel;
 
     ItemObject item;
-    
 
     public void AddItem (ItemObject newItem)
     {

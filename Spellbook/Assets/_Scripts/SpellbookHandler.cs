@@ -16,10 +16,17 @@ public class SpellbookHandler : MonoBehaviour
 
     Player localPlayer;
 
+    // TESTING
+    ItemObject item;
+
     // Start is called before the first frame update
     void Start()
     {
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
+
+        // TESTING
+        item = new ItemObject("Glowing Mushroom", Resources.Load<Sprite>("Art Assets/Items and Currency/GlowingMushroom"),
+            1000, 500, "Oooo Glowy", "Heals 25% damage, can probably be sold to someone at a high price.");
 
         mainButton.onClick.AddListener(() =>
         {
@@ -61,6 +68,13 @@ public class SpellbookHandler : MonoBehaviour
 
     private void Update()
     {
+        // TESTING
+        if(Input.GetKeyDown(KeyCode.C))
+        {
+            localPlayer.Spellcaster.AddToInventory(item);
+            Debug.Log("item added");
+        }
+
         // disable some buttons if not player's turn
         if (!localPlayer.bIsMyTurn)
         {
