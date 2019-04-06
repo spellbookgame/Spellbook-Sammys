@@ -3,9 +3,9 @@ using UnityEngine.UI;
 
 public class InventorySlot : MonoBehaviour
 {
-    public Image icon;
     public Button removeButton;
-    public GameObject infoPanel;
+    public Button button;
+    [SerializeField] private Image icon;
 
     ItemObject item;
 
@@ -31,6 +31,5 @@ public class InventorySlot : MonoBehaviour
     {
         GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().Spellcaster.RemoveFromInventory(item);
         this.ClearSlot();
-    }
-
+    }    
 }
