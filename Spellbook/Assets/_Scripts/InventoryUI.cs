@@ -44,7 +44,7 @@ public class InventoryUI : MonoBehaviour
         // if there are 5 or more items in the inventory, increase scroll rect size by 200 for each item > 5
         if (i > 4)
         {
-            int expandPanel = (i - 4) * 300;
+            int expandPanel = (i - 4) * 350;
             inventoryPanel.GetComponent<RectTransform>().sizeDelta = new Vector2(inventoryPanel.GetComponent<RectTransform>().sizeDelta.x,
                 (float)inventoryPanel.GetComponent<RectTransform>().sizeDelta.y + expandPanel);
         }
