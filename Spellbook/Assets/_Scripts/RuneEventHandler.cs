@@ -85,33 +85,71 @@ public class RuneEventHandler : MonoBehaviour, ITrackableEventHandler
 
     private void ScanItem(string trackableName)
     {
-        switch(localPlayer.Spellcaster.classType)
+        #region RuneSpells1-01
+        if(trackableName.Equals("RuneSpells1-01"))
         {
-            // collect spell based on class
-            case "Alchemist":
-                Debug.Log("Alchemist scanned " + trackableName);
-                localPlayer.Spellcaster.CollectSpell(localPlayer.Spellcaster.chapter.spellsAllowed[3]);
-                break;
-            case "Arcanist":
-                Debug.Log("Arcanist scanned " + trackableName);
-                localPlayer.Spellcaster.CollectSpell(localPlayer.Spellcaster.chapter.spellsAllowed[3]);
-                break;
-            case "Chronomancer":
-                Debug.Log("Chronomancer scanned " + trackableName);
-                localPlayer.Spellcaster.CollectSpell(localPlayer.Spellcaster.chapter.spellsAllowed[2]);
-                break;
-            case "Elementalist":
-                Debug.Log("Elementalist scanned " + trackableName);
-                localPlayer.Spellcaster.CollectSpell(localPlayer.Spellcaster.chapter.spellsAllowed[2]);
-                break;
-            case "Summoner":
-                Debug.Log("Summoner scanned " + trackableName);
-                localPlayer.Spellcaster.CollectSpell(localPlayer.Spellcaster.chapter.spellsAllowed[2]);
-                break;
-            case "Trickster":
-                Debug.Log("Trickster scanned " + trackableName);
-                localPlayer.Spellcaster.CollectSpell(localPlayer.Spellcaster.chapter.spellsAllowed[2]);
-                break;
+            switch (localPlayer.Spellcaster.classType)
+            {
+                // collect spell based on class
+                case "Alchemist":
+                    Debug.Log("Alchemist scanned " + trackableName);
+                    localPlayer.Spellcaster.CollectSpell(localPlayer.Spellcaster.chapter.spellsAllowed[3]);
+                    break;
+                case "Arcanist":
+                    Debug.Log("Arcanist scanned " + trackableName);
+                    localPlayer.Spellcaster.CollectSpell(localPlayer.Spellcaster.chapter.spellsAllowed[3]);
+                    break;
+                case "Chronomancer":
+                    Debug.Log("Chronomancer scanned " + trackableName);
+                    localPlayer.Spellcaster.CollectSpell(localPlayer.Spellcaster.chapter.spellsAllowed[2]);
+                    break;
+                case "Elementalist":
+                    Debug.Log("Elementalist scanned " + trackableName);
+                    localPlayer.Spellcaster.CollectSpell(localPlayer.Spellcaster.chapter.spellsAllowed[2]);
+                    break;
+                case "Summoner":
+                    Debug.Log("Summoner scanned " + trackableName);
+                    localPlayer.Spellcaster.CollectSpell(localPlayer.Spellcaster.chapter.spellsAllowed[2]);
+                    break;
+                case "Trickster":
+                    Debug.Log("Trickster scanned " + trackableName);
+                    localPlayer.Spellcaster.CollectSpell(localPlayer.Spellcaster.chapter.spellsAllowed[2]);
+                    break;
+            }
         }
+        #endregion
+        #region RuneSpells2-01
+        else if (trackableName.Equals("RuneSpells2-01"))
+        {
+            switch (localPlayer.Spellcaster.classType)
+            {
+                // collect spell based on class
+                case "Alchemist":
+                    Debug.Log("Alchemist scanned " + trackableName);
+                    localPlayer.Spellcaster.CollectSpell(localPlayer.Spellcaster.chapter.spellsAllowed[2]);
+                    break;
+                case "Arcanist":
+                    Debug.Log("Arcanist scanned " + trackableName);
+                    localPlayer.Spellcaster.CollectSpell(localPlayer.Spellcaster.chapter.spellsAllowed[2]);
+                    break;
+                case "Chronomancer":
+                    Debug.Log("Chronomancer scanned " + trackableName);
+                    localPlayer.Spellcaster.CollectSpell(localPlayer.Spellcaster.chapter.spellsAllowed[1]);
+                    break;
+                case "Elementalist":
+                    Debug.Log("Elementalist scanned " + trackableName);
+                    localPlayer.Spellcaster.CollectSpell(localPlayer.Spellcaster.chapter.spellsAllowed[1]);
+                    break;
+                case "Summoner":
+                    Debug.Log("Summoner scanned " + trackableName);
+                    localPlayer.Spellcaster.CollectSpell(localPlayer.Spellcaster.chapter.spellsAllowed[1]);
+                    break;
+                case "Trickster":
+                    Debug.Log("Trickster scanned " + trackableName);
+                    localPlayer.Spellcaster.CollectSpell(localPlayer.Spellcaster.chapter.spellsAllowed[1]);
+                    break;
+            }
+        }
+        #endregion
     }
 }
