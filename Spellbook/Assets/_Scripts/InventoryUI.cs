@@ -29,12 +29,6 @@ public class InventoryUI : MonoBehaviour
         UpdateUI();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     void UpdateUI() 
     {
         int i = 0;
@@ -57,6 +51,7 @@ public class InventoryUI : MonoBehaviour
         Debug.Log("UPDATING UI");
     }
 
+    // panel that shows item information
     private void OpenItemPanel(ItemObject item)
     {
         if (!infoPanelOpen)
