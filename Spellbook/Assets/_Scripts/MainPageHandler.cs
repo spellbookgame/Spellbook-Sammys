@@ -153,7 +153,7 @@ public class MainPageHandler : MonoBehaviour
     public void CloseProclamationPanel()
     {
         SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
-        Destroy(proclamationPanel.gameObject);
+        //Destroy(proclamationPanel.gameObject);
         localPlayer.Spellcaster.procPanelShown = true;
         PanelHolder.instance.CheckPanelQueue();
     }
