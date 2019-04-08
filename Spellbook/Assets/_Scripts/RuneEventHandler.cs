@@ -87,24 +87,30 @@ public class RuneEventHandler : MonoBehaviour, ITrackableEventHandler
     {
         switch(localPlayer.Spellcaster.classType)
         {
-            // class specific scanning
+            // collect spell based on class
             case "Alchemist":
                 Debug.Log("Alchemist scanned " + trackableName);
+                localPlayer.Spellcaster.CollectSpell(localPlayer.Spellcaster.chapter.spellsAllowed[3]);
                 break;
             case "Arcanist":
                 Debug.Log("Arcanist scanned " + trackableName);
+                localPlayer.Spellcaster.CollectSpell(localPlayer.Spellcaster.chapter.spellsAllowed[3]);
                 break;
             case "Chronomancer":
                 Debug.Log("Chronomancer scanned " + trackableName);
+                localPlayer.Spellcaster.CollectSpell(localPlayer.Spellcaster.chapter.spellsAllowed[2]);
                 break;
             case "Elementalist":
                 Debug.Log("Elementalist scanned " + trackableName);
+                localPlayer.Spellcaster.CollectSpell(localPlayer.Spellcaster.chapter.spellsAllowed[2]);
                 break;
             case "Summoner":
                 Debug.Log("Summoner scanned " + trackableName);
+                localPlayer.Spellcaster.CollectSpell(localPlayer.Spellcaster.chapter.spellsAllowed[2]);
                 break;
             case "Trickster":
                 Debug.Log("Trickster scanned " + trackableName);
+                localPlayer.Spellcaster.CollectSpell(localPlayer.Spellcaster.chapter.spellsAllowed[2]);
                 break;
         }
     }
