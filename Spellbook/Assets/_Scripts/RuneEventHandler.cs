@@ -2,9 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Vuforia;
 
+// for scanning one image combination
 public class RuneEventHandler : MonoBehaviour, ITrackableEventHandler
 {
     protected TrackableBehaviour mTrackableBehaviour;

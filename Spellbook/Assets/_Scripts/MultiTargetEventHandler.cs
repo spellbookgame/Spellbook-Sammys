@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Vuforia;
 
+// for scanning multiple (4) images
 public class MultiTargetEventHandler : MonoBehaviour, ITrackableEventHandler
 {
     protected TrackableBehaviour mTrackableBehaviour;
@@ -12,13 +11,14 @@ public class MultiTargetEventHandler : MonoBehaviour, ITrackableEventHandler
     protected TrackableBehaviour.Status m_NewStatus;
 
     private bool isTracked = false;
-    private int numTracked = 0;
+    private Dictionary<string, int> targets;
 
     Player localPlayer;
 
     void Start()
     {
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
+        targets = new Dictionary<string, int>();
 
         mTrackableBehaviour = GetComponent<TrackableBehaviour>();
         if (mTrackableBehaviour)
@@ -66,12 +66,18 @@ public class MultiTargetEventHandler : MonoBehaviour, ITrackableEventHandler
 
     protected virtual void OnTrackingLost()
     {
-        // when trackable item is lost
+        // when track is lost, reset bool and remove from dictionary
+        isTracked = false;
+        if (targets.ContainsKey(this.name))
+        {
+            targets.Remove(this.name);
+        }
     }
 
+    // TEST
     private void ScanItem()
     {
-        // scan
+        // cast the spell
         switch (localPlayer.Spellcaster.classType)
         {
             // collect spell based on class
@@ -107,12 +113,46 @@ public class MultiTargetEventHandler : MonoBehaviour, ITrackableEventHandler
                 // do nothing
             }
             else
+            {
+                // if dictionary already tracked this image, increment its value. otherwise, add it to dictionary.
+                if (targets.ContainsKey(m.name))
+                {
+                    targets[m.name] += 1;
+                }
+                else
+                    targets.Add(m.name, 1);
+
                 ++targetsTracked;
+                Debug.Log("target tracked: " + m.name);
+            }
         }
+        // if 4 targets were tracked, start scanning
         if (targetsTracked >= 4)
         {
             Debug.Log("4 items tracked!");
-            ScanItem();
+            CompareSpells();
+            // ScanItem();
+        }
+    }
+
+    private void CompareSpells()
+    {
+        bool isEqual;
+
+        Dictionary<string, int> d1 = targets;
+        for(int i = 0; i <= localPlayer.Spellcaster.chapter.spellsAllowed.Count; i++)
+        {
+            Dictionary<string, int> d2 = localPlayer.Spellcaster.chapter.spellsAllowed[i].requiredGlyphs;
+
+            // sorting both dictionaries by key and checking if they're equal
+            isEqual = d1.OrderBy(kvp => kvp.Key).SequenceEqual(d2.OrderBy(kvp => kvp.Key));
+
+            if(isEqual)
+            {
+                Debug.Log("dictionaries are equal!");
+                localPlayer.Spellcaster.CollectSpell(localPlayer.Spellcaster.chapter.spellsAllowed[i]);
+                break;
+            }
         }
     }
 }

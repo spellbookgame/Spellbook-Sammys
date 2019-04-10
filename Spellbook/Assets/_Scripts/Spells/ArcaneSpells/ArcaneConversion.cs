@@ -16,7 +16,12 @@ public class ArcaneConversion : Spell
         sSpellClass = "Arcanist";
         sSpellInfo = "Destroy any number of items, and deal 2 damage for each item destroyed";
 
-        requiredGlyphs.Add("Arcane C Glyph", 1);
+        // requiredGlyphs.Add("Arcane C Glyph", 1);
+
+        requiredGlyphs.Add("piece1", 1);
+        requiredGlyphs.Add("piece2", 1);
+        requiredGlyphs.Add("piece3", 1);
+        requiredGlyphs.Add("piece4", 1);
     }
 
     public override void SpellCast(SpellCaster player)
