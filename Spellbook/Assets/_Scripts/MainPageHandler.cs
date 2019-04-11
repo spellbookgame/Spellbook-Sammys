@@ -56,9 +56,9 @@ public class MainPageHandler : MonoBehaviour
 
         // disable roll button if it's not player's turn
         if (localPlayer != null && !localPlayer.bIsMyTurn)
-            rollButton.enabled = false;
+            rollButton.interactable = false;
         else
-            rollButton.enabled = true;
+            rollButton.interactable = true;
     }
 
     public void setupMainPage()

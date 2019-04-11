@@ -135,6 +135,7 @@ public class MultiTargetEventHandler : MonoBehaviour, ITrackableEventHandler
         }
     }
 
+    // TO DO: account for tier 3 spells that only require 1 specific piece
     private void CompareSpells()
     {
         bool isEqual;
