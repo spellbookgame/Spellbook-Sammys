@@ -103,6 +103,8 @@ public class MultiTargetEventHandler : MonoBehaviour, ITrackableEventHandler
     }
 
     // if 4 targets are detected, scan item
+    // TO DO: currently not checking duplicates
+    // solution: multiple of same target in the scene?
     private void CheckTargetsTracked()
     {
         int targetsTracked = 0;
@@ -114,7 +116,6 @@ public class MultiTargetEventHandler : MonoBehaviour, ITrackableEventHandler
             }
             else
             {
-                // if dictionary already tracked this image, increment its value. otherwise, add it to dictionary.
                 if (targets.ContainsKey(m.name))
                 {
                     targets[m.name] += 1;
@@ -123,7 +124,7 @@ public class MultiTargetEventHandler : MonoBehaviour, ITrackableEventHandler
                     targets.Add(m.name, 1);
 
                 ++targetsTracked;
-                Debug.Log("target tracked: " + m.name);
+                Debug.Log("target tracked: " + mTrackableBehaviour.TrackableName);
             }
         }
         // if 4 targets were tracked, start scanning
@@ -135,24 +136,46 @@ public class MultiTargetEventHandler : MonoBehaviour, ITrackableEventHandler
         }
     }
 
-    // TO DO: account for tier 3 spells that only require 1 specific piece
+    // compares targets dictionary to spell's required glyphs dictionary
     private void CompareSpells()
     {
-        bool isEqual;
+        bool isEqual = false;
 
         Dictionary<string, int> d1 = targets;
         for(int i = 0; i <= localPlayer.Spellcaster.chapter.spellsAllowed.Count; i++)
         {
             Dictionary<string, int> d2 = localPlayer.Spellcaster.chapter.spellsAllowed[i].requiredGlyphs;
 
-            // sorting both dictionaries by key and checking if they're equal
-            isEqual = d1.OrderBy(kvp => kvp.Key).SequenceEqual(d2.OrderBy(kvp => kvp.Key));
-
-            if(isEqual)
+            // tier 3 spell: only needs to check if d1 contains the required glyph
+            if(localPlayer.Spellcaster.chapter.spellsAllowed[i].iTier == 3)
             {
-                Debug.Log("dictionaries are equal!");
-                localPlayer.Spellcaster.CollectSpell(localPlayer.Spellcaster.chapter.spellsAllowed[i]);
-                break;
+                if(d2.Keys.All(k => d1.ContainsKey(k)))
+                {
+                    Debug.Log("tier 3 spell collected");
+                    localPlayer.Spellcaster.CollectSpell(localPlayer.Spellcaster.chapter.spellsAllowed[i]);
+                    break;
+                }
+            }
+            // tier 2 and 1 spells
+            else
+            {
+                foreach(KeyValuePair<string, int> kvp in d2)
+                {
+                    if (d1.ContainsKey(kvp.Key))
+                    {
+                        isEqual = true;
+                    }
+                    else
+                    {
+                        isEqual = false;
+                        break;
+                    }
+                }
+                if(isEqual)
+                {
+                    Debug.Log("Tier 1 or 2 spell collected");
+                    localPlayer.Spellcaster.CollectSpell(localPlayer.Spellcaster.chapter.spellsAllowed[i]);
+                }
             }
         }
     }
