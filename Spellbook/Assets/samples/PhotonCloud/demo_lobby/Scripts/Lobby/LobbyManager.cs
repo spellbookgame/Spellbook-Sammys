@@ -270,7 +270,7 @@ namespace Bolt.Samples.Photon.Lobby
                 gameStateEntity.GetComponent<NetworkGameState>().onCreateRoom(_matchName);
                 
                 numPlayersInfo.text = gameStateEntity.GetComponent<NetworkGameState>().onPlayerJoined()+ "";
-                startGameButton.SetActive(true);
+
 
             } else if (BoltNetwork.IsClient)
             {
@@ -327,6 +327,10 @@ namespace Bolt.Samples.Photon.Lobby
         /*Called from host Start button*/
         public void onGameStart()
         {
+            if (!gameStateEntity.GetComponent<NetworkGameState>().allPlayersSelected())
+            {
+                return;
+            }
             //NetworkGameState.instance.determineTurnOrder();
             gameStateEntity.GetComponent<NetworkGameState>().globalEvents.determineGlobalEvents();
             //lobbyPanel.gameObject.SetActive(false);
@@ -440,6 +444,14 @@ namespace Bolt.Samples.Photon.Lobby
         public override void OnEvent(PlayerJoinedEvent evnt)
         {
             numPlayersInfo.text = evnt.numOfPlayers + "";
+            if (gameStateEntity.GetComponent<NetworkGameState>().allPlayersSelected())
+            {
+                startGameButton.SetActive(true);
+            }
+            else
+            {
+                startGameButton.SetActive(false);
+            }
         }
 
         public override void OnEvent(FinalBoss evnt)
@@ -482,6 +494,11 @@ namespace Bolt.Samples.Photon.Lobby
             BoltConsole.Write("SERVER: Recieved a new character selection event");
             gameStateEntity.GetComponent<NetworkGameState>()
                 .onSpellcasterSelected(evnt.spellcasterID, evnt.previousID);
+            if (gameStateEntity.GetComponent<NetworkGameState>().allPlayersSelected())
+            {
+                startGameButton.SetActive(true);
+            }
+            
         }
 
         /*Only the server recieves this event.*/

@@ -93,6 +93,20 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
         state.NumOfPlayers++;
         return state.NumOfPlayers;
     }
+    
+    public int numOfPlayersInGame()
+    {
+        return state.NumOfPlayers;
+    }
+
+    public bool allPlayersSelected()
+    {
+        if(state.NumOfPlayers - state.NumOfSpellcasters > 0)
+        {
+            return false;
+        }
+        return true;
+    }
 
     public int actuallyAReturningPlayer()
     {
