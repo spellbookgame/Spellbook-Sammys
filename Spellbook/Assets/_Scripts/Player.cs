@@ -185,7 +185,7 @@ public class Player : Bolt.EntityEventListener<ISpellcasterState>
         return false;
     }
 
-    /* When our LobbyManager (aka our GlobalEventListener) recieves a
+    /* When our NetworkManager (aka our GlobalEventListener) recieves a
      NextTurnEvent, this method is called.
      The if-statement does nothing if its not this player's turn.*/
     public void nextTurnEvent(int sID)

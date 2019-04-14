@@ -11,7 +11,7 @@ namespace Bolt.Samples.Photon.Lobby
 {
 	public class LobbyServerList : Bolt.GlobalEventListener
 	{
-		public LobbyManager lobbyManager;
+		public NetworkManager lobbyManager;
 
 		public RectTransform serverListRect;
 		public GameObject serverEntryPrefab;

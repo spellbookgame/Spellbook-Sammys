@@ -13,9 +13,10 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Bolt.Samples.Photon.Lobby
 {
-    public class LobbyManager : Bolt.GlobalEventListener
+    /*On every player's device not just the host's.*/
+    public class NetworkManager : Bolt.GlobalEventListener
     {
-        static public LobbyManager s_Singleton;
+        static public NetworkManager s_Singleton;
         BoltEntity characterSelection;
         BoltEntity playerEntity;
         SpellCaster playerSpellcaster;
@@ -42,6 +43,7 @@ namespace Bolt.Samples.Photon.Lobby
         public GameObject addPlayerButton;
 
         protected RectTransform currentPanel;
+        public Button selectButton;
 
         public Button backButton;
         public GameObject startGameButton;
@@ -54,7 +56,7 @@ namespace Bolt.Samples.Photon.Lobby
         protected string _matchName;
 
 
-        //For returning client only, not host.
+        //For returning client only, does not support a returning host (yet).
         protected bool spawned = false;
 
 
@@ -338,6 +340,15 @@ namespace Bolt.Samples.Photon.Lobby
             _isCountdown = true;
             StartCoroutine(ServerCountdownCoroutine());
         }
+
+        /*Called when player clicks on a spellcaster in the character selection panel.
+         The select button is enabled so the player can confirm their character selection.
+             */
+        public void activateSelectButton(bool isActive)
+        {
+            selectButton.gameObject.SetActive(isActive);
+        }
+        
 
         public IEnumerator ServerCountdownCoroutine()
         {

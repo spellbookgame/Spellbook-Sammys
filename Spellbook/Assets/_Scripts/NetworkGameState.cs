@@ -189,7 +189,7 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
         state.CurrentSpellcasterTurn = turnOrder[0];
     }
 
-    /* When our LobbyManager (aka our GlobalEventListener) recieves a
+    /* When our NetworkManager (aka our GlobalEventListener) recieves a
      NextTurnEvent, this method is called.*/
     public int startNewTurn()
     {

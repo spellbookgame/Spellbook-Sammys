@@ -7,7 +7,7 @@ namespace Bolt.Samples.Photon.Lobby
     //Main menu, mainly only a bunch of callback called by the UI (setup throught the Inspector)
     public class LobbyMainMenu : MonoBehaviour 
     {
-        public LobbyManager lobbyManager;
+        public NetworkManager lobbyManager;
 
         public RectTransform lobbyServerList;
         public RectTransform lobbyPanel;
@@ -57,11 +57,11 @@ namespace Bolt.Samples.Photon.Lobby
         {
             lobbyManager.CreateMatch(matchNameInput.text);
 
-            lobbyManager.backDelegate = LobbyManager.s_Singleton.Stop;
+            lobbyManager.backDelegate = NetworkManager.s_Singleton.Stop;
             lobbyManager.DisplayIsConnecting();
 
 
-            lobbyManager.SetServerInfo("Matchmaker Host", LobbyManager.s_Singleton.matchHost);
+            lobbyManager.SetServerInfo("Matchmaker Host", NetworkManager.s_Singleton.matchHost);
         }
 
         public void OnClickOpenServerList()

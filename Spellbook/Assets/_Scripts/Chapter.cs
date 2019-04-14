@@ -93,7 +93,7 @@ public class Chapter : MonoBehaviour
                 if(spellName == spell.sSpellName)
                 {
                     spellsCollected.Add(spellNamePairs[spellName]);
-                    //LobbyManager.s_Singleton.notifyHostAboutCollectedSpell(spellcasterID, spell.sSpellName);
+                    //NetworkManager.s_Singleton.notifyHostAboutCollectedSpell(spellcasterID, spell.sSpellName);
                     break;
                 }
             }
