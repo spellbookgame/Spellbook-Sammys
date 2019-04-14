@@ -26,6 +26,7 @@ namespace Photon.Lobby
 
         // To avoid filling the input queue, let's check if the player clicked on something first.
         private bool newClick = false;
+        private bool hasSelected = false;
 
         public Button alchemistButton;
         public Button arcanistButton;
@@ -62,7 +63,9 @@ namespace Photon.Lobby
 
         // Keep track of what the local player chooses.
         int previousSelected = -1;
+        int previousConfirmed = -1;
         public int currentSelected = -1;
+      
 
         // Handlers
         public override void Attached()
@@ -282,7 +285,11 @@ namespace Photon.Lobby
             openPreviousSpellcaster();
         }
         public void OnAlchemistClicked()
-        {
+        {if (hasSelected)
+            {
+                return;
+            }
+
             if (state.AlchemistSelected)
             {
                 text.text = "This spellcaster is taken.";
@@ -298,6 +305,10 @@ namespace Photon.Lobby
 
         public void OnArcanistClicked()
         {
+            if (hasSelected)
+            {
+                return;
+            }
             if (state.ArcanistSelected)
             {
                 text.text = "This spellcaster is taken.";
@@ -312,7 +323,10 @@ namespace Photon.Lobby
         }
 
         public void OnElementalistClicked()
-        {
+        {if (hasSelected)
+            {
+                return;
+            }
             if (state.ElementalistSelected)
             {
                 text.text = "This spellcaster is taken.";
@@ -327,7 +341,10 @@ namespace Photon.Lobby
         }
 
         public void OnChronomancerClicked()
-        {
+        {if (hasSelected)
+            {
+                return;
+            }
             if (state.ChronomancerSelected)
             {
                 text.text = "This spellcaster is taken.";
@@ -342,7 +359,10 @@ namespace Photon.Lobby
         }
 
         public void OnIllusionistClicked()
-        {
+        {if (hasSelected)
+            {
+                return;
+            }
             if (state.IllusionistSelected)
             {
                 text.text = "This spellcaster is taken.";
@@ -357,7 +377,10 @@ namespace Photon.Lobby
         }
 
         public void OnSummonerClicked()
-        {
+        {if (hasSelected)
+            {
+                return;
+            }
             if (state.SummonerSelected)
             {
                 text.text = "This spellcaster is taken.";
@@ -375,8 +398,31 @@ namespace Photon.Lobby
         /*Called when local player confirms their character*/
         public void onSelectClicked()
         {
+            hasSelected = true;
             newClick = true;
-            lobbyManager.notifySelectSpellcaster(currentSelected, previousSelected);
+            selectButton.onClick.RemoveAllListeners();
+            selectButton.onClick.AddListener(onCancelSelect);
+            selectButton.GetComponentInChildren<Text>().text = "Change";
+            Debug.Log(currentSelected + "," + previousConfirmed);
+            lobbyManager.notifySelectSpellcaster(currentSelected, previousConfirmed);
+        }
+
+        /*Called when local player cancels their character (click on "Change" button)*/
+        public void onCancelSelect()
+        {
+            selectActivated = false;
+            hasSelected = false;
+            selectButton.GetComponentInChildren<Text>().text = "Select";
+            lobbyManager.activateSelectButton(false);
+            previousSelected = currentSelected;
+            previousConfirmed = currentSelected;
+            currentSelectedUI.GetComponent<RectTransform>().localScale = new Vector3(1f, 1f, 1f);
+            lastSelectedUI = currentSelectedUI;
+            currentSelectedUI = null;
+            openPreviousSpellcaster();
+            newClick = true;
+            lobbyManager.notifyCancelSpellcaster(currentSelected);
+            currentSelected = -1;
         }
         
         void openPreviousSpellcaster()

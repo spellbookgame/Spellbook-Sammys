@@ -503,13 +503,30 @@ namespace Bolt.Samples.Photon.Lobby
         public override void OnEvent(SelectSpellcaster evnt)
         {
             BoltConsole.Write("SERVER: Recieved a new character selection event");
+            Debug.Log("New selection event");
             gameStateEntity.GetComponent<NetworkGameState>()
                 .onSpellcasterSelected(evnt.spellcasterID, evnt.previousID);
             if (gameStateEntity.GetComponent<NetworkGameState>().allPlayersSelected())
             {
+            Debug.Log("start button setactive");
                 startGameButton.SetActive(true);
             }
             
+        }
+
+        /*Only the server recieves this event.*/
+        public override void OnEvent(CancelSpellcaster evnt)
+        {
+            gameStateEntity.GetComponent<NetworkGameState>()
+                .onSpellcasterCanceled(evnt.spellcasterID);
+            if (gameStateEntity.GetComponent<NetworkGameState>().allPlayersSelected())
+            {
+                startGameButton.SetActive(true);
+            }
+            else
+            {
+                startGameButton.SetActive(false);
+            }
         }
 
         /*Only the server recieves this event.*/
@@ -648,6 +665,12 @@ namespace Bolt.Samples.Photon.Lobby
             selected.Send();
         }
 
+        public void notifyCancelSpellcaster(int spellcasterID)
+        {
+           var selected = CancelSpellcaster.Create(Bolt.GlobalTargets.OnlyServer);
+           selected.spellcasterID = spellcasterID;
+           selected.Send();
+        }
         public void notifyHostAboutCollectedSpell(int sID, string spellName)
         {
             var spellCollectedEvnt = CollectSpellEvent.Create(Bolt.GlobalTargets.OnlyServer);

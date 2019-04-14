@@ -117,21 +117,30 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
 
     public void onSpellcasterSelected(int spellcasterID, int previous)
     {
-        if (previous > -1)
+        /*if (previous > -1)
         {
             spellcasterList[previous] = 0;
             state.SpellcasterList[previous] = 0;
 
         }
         else
-        {
+        {*/
             numOfSpellcasters++;
             state.NumOfSpellcasters++;
-        }
+        //}
         spellcasterList[spellcasterID] = 1;
         state.SpellcasterList[spellcasterID] = 1;
         determineTurnOrder();
         //globalEvents.determineGlobalEvents();
+    }
+
+    public void onSpellcasterCanceled(int spellcasterID)
+    {
+        spellcasterList[spellcasterID] = 0;
+        state.SpellcasterList[spellcasterID] = 0;
+        numOfSpellcasters--;
+        state.NumOfSpellcasters--;
+        determineTurnOrder();
     }
 
     public void onCollectedSpell(int spellcasterId, string spellName)
@@ -186,7 +195,14 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
                 turnOrder.Add(i);
             }
         }
+        if(turnOrder.Count > 0)
+        {
         state.CurrentSpellcasterTurn = turnOrder[0];
+        }
+        else
+        {
+            state.CurrentSpellcasterTurn = -1;
+        }
     }
 
     /* When our NetworkManager (aka our GlobalEventListener) recieves a
