@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 using Vuforia;
 
 // for scanning multiple (4) images
@@ -10,15 +11,25 @@ public class MultiTargetEventHandler : MonoBehaviour, ITrackableEventHandler
     protected TrackableBehaviour.Status m_PreviousStatus;
     protected TrackableBehaviour.Status m_NewStatus;
 
+    private Text targetName;
+    private Text targetName1;
+    private Text targetNumber;
+
     private bool isTracked = false;
     private Dictionary<string, int> targets;
+    private int targetsTracked;
 
     Player localPlayer;
 
     void Start()
     {
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
+
         targets = new Dictionary<string, int>();
+
+        targetName = GameObject.Find("text_targetNameValue").GetComponent<Text>();
+        targetName1 = GameObject.Find("text_targetNameValue (1)").GetComponent<Text>();
+        targetNumber = GameObject.Find("text_targetNumberValue").GetComponent<Text>();
 
         mTrackableBehaviour = GetComponent<TrackableBehaviour>();
         if (mTrackableBehaviour)
@@ -42,6 +53,7 @@ public class MultiTargetEventHandler : MonoBehaviour, ITrackableEventHandler
             newStatus == TrackableBehaviour.Status.TRACKED ||
             newStatus == TrackableBehaviour.Status.EXTENDED_TRACKED)
         {
+            Debug.Log(mTrackableBehaviour.TrackableName + " found");
             OnTrackingFound();
         }
         else if (previousStatus == TrackableBehaviour.Status.TRACKED &&
@@ -68,47 +80,20 @@ public class MultiTargetEventHandler : MonoBehaviour, ITrackableEventHandler
     {
         // when track is lost, reset bool and remove from dictionary
         isTracked = false;
-        if (targets.ContainsKey(this.name))
-        {
-            targets.Remove(this.name);
-        }
-    }
-
-    // TEST
-    private void ScanItem()
-    {
-        // cast the spell
-        switch (localPlayer.Spellcaster.classType)
-        {
-            // collect spell based on class
-            case "Alchemist":
-                localPlayer.Spellcaster.CollectSpell(localPlayer.Spellcaster.chapter.spellsAllowed[3]);
-                break;
-            case "Arcanist":
-                localPlayer.Spellcaster.CollectSpell(localPlayer.Spellcaster.chapter.spellsAllowed[3]);
-                break;
-            case "Chronomancer":
-                localPlayer.Spellcaster.CollectSpell(localPlayer.Spellcaster.chapter.spellsAllowed[2]);
-                break;
-            case "Elementalist":
-                localPlayer.Spellcaster.CollectSpell(localPlayer.Spellcaster.chapter.spellsAllowed[2]);
-                break;
-            case "Summoner":
-                localPlayer.Spellcaster.CollectSpell(localPlayer.Spellcaster.chapter.spellsAllowed[2]);
-                break;
-            case "Trickster":
-                localPlayer.Spellcaster.CollectSpell(localPlayer.Spellcaster.chapter.spellsAllowed[2]);
-                break;
-        }
+        targets.Clear();
+        targetName.text = "";
+        targetName1.text = "";
+        targetNumber.text = "";
     }
 
     // if 4 targets are detected, scan item
-    // TO DO: currently not checking duplicates
-    // solution: multiple of same target in the scene?
     private void CheckTargetsTracked()
     {
-        int targetsTracked = 0;
-        foreach(MultiTargetEventHandler m in FindObjectsOfType<MultiTargetEventHandler>())
+        // reset values at the beginning, so it only reads accurately when there are 4 targets tracked
+        targetsTracked = 0;
+        targets.Clear();
+
+        foreach (MultiTargetEventHandler m in FindObjectsOfType<MultiTargetEventHandler>())
         {
             if (!m.isTracked)
             {
@@ -124,15 +109,20 @@ public class MultiTargetEventHandler : MonoBehaviour, ITrackableEventHandler
                     targets.Add(m.name, 1);
 
                 ++targetsTracked;
-                Debug.Log("target tracked: " + mTrackableBehaviour.TrackableName);
+                // set text on canvas to debug
+                targetName1.text = m.name;
+                targetNumber.text = targetsTracked.ToString();
             }
         }
         // if 4 targets were tracked, start scanning
         if (targetsTracked >= 4)
         {
-            Debug.Log("4 items tracked!");
+            Debug.Log("4 items tracked! Dictionary:");
+            foreach(KeyValuePair<string, int> kvp in targets)
+            {
+                targetName.text = targetName.text + "\n" + kvp.Key;
+            }
             CompareSpells();
-            // ScanItem();
         }
     }
 
@@ -151,9 +141,12 @@ public class MultiTargetEventHandler : MonoBehaviour, ITrackableEventHandler
             {
                 if(d2.Keys.All(k => d1.ContainsKey(k)))
                 {
-                    Debug.Log("tier 3 spell collected");
                     localPlayer.Spellcaster.CollectSpell(localPlayer.Spellcaster.chapter.spellsAllowed[i]);
                     break;
+                }
+                else
+                {
+                    PanelHolder.instance.displayEvent("No Spell Detected", "You did not create a spell.");
                 }
             }
             // tier 2 and 1 spells
@@ -168,12 +161,12 @@ public class MultiTargetEventHandler : MonoBehaviour, ITrackableEventHandler
                     else
                     {
                         isEqual = false;
+                        PanelHolder.instance.displayEvent("No Spell Detected", "You did not create a spell.");
                         break;
                     }
                 }
                 if(isEqual)
                 {
-                    Debug.Log("Tier 1 or 2 spell collected");
                     localPlayer.Spellcaster.CollectSpell(localPlayer.Spellcaster.chapter.spellsAllowed[i]);
                 }
             }
