@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Vuforia;
 
+// for scanning board spaces
 public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
 {
     protected TrackableBehaviour mTrackableBehaviour;
