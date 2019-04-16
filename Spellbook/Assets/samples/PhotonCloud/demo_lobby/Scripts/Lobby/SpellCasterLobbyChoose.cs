@@ -13,7 +13,7 @@ namespace Photon.Lobby
         public BoltConnection connection;
 
         // Lobby
-        public LobbyManager lobbyManager;
+        public NetworkManager lobbyManager;
 
         // By default, no body has selected anything yet.
         public bool alchemistChosen = false;
@@ -22,9 +22,11 @@ namespace Photon.Lobby
         public bool chronomancerChosen = false;
         public bool illusionistChosen = false;
         public bool summonerChosen = false;
+        public bool selectActivated = false;
 
         // To avoid filling the input queue, let's check if the player clicked on something first.
         private bool newClick = false;
+        private bool hasSelected = false;
 
         public Button alchemistButton;
         public Button arcanistButton;
@@ -33,7 +35,19 @@ namespace Photon.Lobby
         public Button illusionistButton;  //aka tricksterButton
         public Button summonerButton;
 
-        public Button readyButton;
+        public GameObject alchemistSelection;
+        public GameObject arcanistSelection;
+        public GameObject elementalSelection;
+        public GameObject chronomancerSelection;
+        public GameObject illusionistSelection;
+        public GameObject summonerSelection;
+        public GameObject lastSelectedUI;
+        public GameObject currentSelectedUI;
+
+
+
+        public Button selectButton;
+        public Button startGameButton;
         public Text text;
         //public Text text_numOfPlayers_join;
         public int numOfPlayers = 0;
@@ -49,24 +63,33 @@ namespace Photon.Lobby
 
         // Keep track of what the local player chooses.
         int previousSelected = -1;
+        int previousConfirmed = -1;
         public int currentSelected = -1;
+      
 
         // Handlers
         public override void Attached()
         {
             try
             {
-
-
                 //Innefficient, for demoing purposes.
-                lobbyManager = GameObject.Find("LobbyManager").GetComponent<LobbyManager>();
+                lobbyManager = GameObject.Find("LobbyManager").GetComponent<NetworkManager>();
                 alchemistButton = GameObject.Find("button_alchemist").GetComponent<Button>();
                 arcanistButton = GameObject.Find("button_arcanist").GetComponent<Button>();
                 elementalistButton = GameObject.Find("button_elementalist").GetComponent<Button>();
                 chronomancerButton = GameObject.Find("button_chronomancer").GetComponent<Button>();
                 illusionistButton = GameObject.Find("button_trickster").GetComponent<Button>();
                 summonerButton = GameObject.Find("button_summoner").GetComponent<Button>();
+
                 text = GameObject.Find("ChooseClass").GetComponent<Text>();
+
+                alchemistSelection = GameObject.Find("Image_Alchemist");
+                arcanistSelection = GameObject.Find("Image_Arcanist");
+                elementalSelection = GameObject.Find("Image_Elementalist");
+                chronomancerSelection = GameObject.Find("Image_Chronomancer");
+                illusionistSelection = GameObject.Find("Image_Illusionist");
+                summonerSelection = GameObject.Find("Image_Summoner");
+
                 // A callback is basically another way of saying "getting an update from the network"
                 state.AddCallback("AlchemistSelected", () =>
                 {
@@ -175,7 +198,7 @@ namespace Photon.Lobby
             {
                 //loading previous game.
             }
-           
+
         }
 
         public override void SimulateController()
@@ -191,7 +214,7 @@ namespace Photon.Lobby
                 input.illusionistChosen = illusionistChosen;
                 input.summonerChosen = summonerChosen;
                 entity.QueueInput(input);
-            }          
+            }
         }
 
         public override void ExecuteCommand(Command command, bool resetState)
@@ -214,7 +237,7 @@ namespace Photon.Lobby
         public void SetupCharacterSelectionUI()
         {
             BoltConsole.Write("SetupPlayer", Color.green);
-            Debug.Log("setup player");
+            Debug.Log("SetupPlayer");
 
             this.transform.SetParent(GameObject.Find("LobbyPanel").transform);
 
@@ -243,72 +266,165 @@ namespace Photon.Lobby
         }
 
         // UI
-        public void OnAlchemistClicked()
+        public void UIupdate()
         {
-            newClick = true;
+            if (!selectActivated)
+            {
+                selectActivated = true;
+                lobbyManager.activateSelectButton(true);
+                selectButton = lobbyManager.selectButton;
+                selectButton.onClick.RemoveAllListeners();
+                selectButton.onClick.AddListener(onSelectClicked);
+            }
             previousSelected = currentSelected;
-            currentSelected = 0;
-            alchemistChosen = true;
+            lastSelectedUI = currentSelectedUI;
+            if(lastSelectedUI != null)
+            {
+                lastSelectedUI.GetComponent<RectTransform>().localScale = new Vector3(1f, 1f, 1f);
+            }
             openPreviousSpellcaster();
-            lobbyManager.notifySelectSpellcaster(0, previousSelected);
-            text.text = "You chose Alchemist!";
+        }
+        public void OnAlchemistClicked()
+        {if (hasSelected)
+            {
+                return;
+            }
+
+            if (state.AlchemistSelected)
+            {
+                text.text = "This spellcaster is taken.";
+                return;
+            }
+            UIupdate();
+            currentSelected = 0;
+            currentSelectedUI = alchemistSelection;
+            alchemistChosen = true;
+            text.text = "Alchemist";
+            alchemistSelection.GetComponent<RectTransform>().localScale = new Vector3(1.17f, 1.17f, 1); //Why 1.17? Because it looks good.
         }
 
         public void OnArcanistClicked()
         {
-            newClick = true;
-            previousSelected = currentSelected;
+            if (hasSelected)
+            {
+                return;
+            }
+            if (state.ArcanistSelected)
+            {
+                text.text = "This spellcaster is taken.";
+                return;
+            }
+            UIupdate();
             currentSelected = 1;
+            currentSelectedUI = arcanistSelection;
             arcanistChosen = true;
-            openPreviousSpellcaster();
-            lobbyManager.notifySelectSpellcaster(1, previousSelected);
-            text.text = "You chose Arcanist!";
+            text.text = "Arcanist";
+            arcanistSelection.GetComponent<RectTransform>().localScale = new Vector3(1.17f, 1.17f, 1);
         }
 
         public void OnElementalistClicked()
-        {
-            newClick = true;
-            previousSelected = currentSelected;
+        {if (hasSelected)
+            {
+                return;
+            }
+            if (state.ElementalistSelected)
+            {
+                text.text = "This spellcaster is taken.";
+                return;
+            }
+            UIupdate();
             currentSelected = 2;
+            currentSelectedUI = elementalSelection;
             elementalistChosen = true;
-            openPreviousSpellcaster();
-            lobbyManager.notifySelectSpellcaster(2, previousSelected);
-            text.text = "You chose Elementalist!";
+            text.text = "Elementalist";
+            elementalSelection.GetComponent<RectTransform>().localScale = new Vector3(1.17f, 1.17f, 1);
         }
 
         public void OnChronomancerClicked()
-        {
-            newClick = true;
-            previousSelected = currentSelected;
+        {if (hasSelected)
+            {
+                return;
+            }
+            if (state.ChronomancerSelected)
+            {
+                text.text = "This spellcaster is taken.";
+                return;
+            }
+            UIupdate();
             currentSelected = 3;
+            currentSelectedUI = chronomancerSelection;
             chronomancerChosen = true;
-            openPreviousSpellcaster();
-            lobbyManager.notifySelectSpellcaster(3, previousSelected);
-            text.text = "You chose Chronomancer!";
+            text.text = "Chronomancer";
+            chronomancerSelection.GetComponent<RectTransform>().localScale = new Vector3(1.17f, 1.17f, 1);
         }
 
         public void OnIllusionistClicked()
-        {
-            newClick = true;
-            previousSelected = currentSelected;
+        {if (hasSelected)
+            {
+                return;
+            }
+            if (state.IllusionistSelected)
+            {
+                text.text = "This spellcaster is taken.";
+                return;
+            }
+            UIupdate();
             currentSelected = 4;
+            currentSelectedUI = illusionistSelection;
             illusionistChosen = true;
-            openPreviousSpellcaster();
-            lobbyManager.notifySelectSpellcaster(4, previousSelected);
-            text.text = "You chose Illusionist!";
+            text.text = "Illusionist";
+            illusionistSelection.GetComponent<RectTransform>().localScale = new Vector3(1.17f, 1.17f, 1);
         }
 
         public void OnSummonerClicked()
-        {
-            newClick = true;
-            previousSelected = currentSelected;
+        {if (hasSelected)
+            {
+                return;
+            }
+            if (state.SummonerSelected)
+            {
+                text.text = "This spellcaster is taken.";
+                return;
+            }
+            UIupdate();
             currentSelected = 5;
+            currentSelectedUI = summonerSelection;
             summonerChosen = true;
-            openPreviousSpellcaster();
-            lobbyManager.notifySelectSpellcaster(5, previousSelected);
-            text.text = "You chose Summoner!";
+            text.text = "Summoner";
+            summonerSelection.GetComponent<RectTransform>().localScale = new Vector3(1.17f, 1.17f, 1);
         }
 
+
+        /*Called when local player confirms their character*/
+        public void onSelectClicked()
+        {
+            hasSelected = true;
+            newClick = true;
+            selectButton.onClick.RemoveAllListeners();
+            selectButton.onClick.AddListener(onCancelSelect);
+            selectButton.GetComponentInChildren<Text>().text = "Change";
+            Debug.Log(currentSelected + "," + previousConfirmed);
+            lobbyManager.notifySelectSpellcaster(currentSelected, previousConfirmed);
+        }
+
+        /*Called when local player cancels their character (click on "Change" button)*/
+        public void onCancelSelect()
+        {
+            selectActivated = false;
+            hasSelected = false;
+            selectButton.GetComponentInChildren<Text>().text = "Select";
+            lobbyManager.activateSelectButton(false);
+            previousSelected = currentSelected;
+            previousConfirmed = currentSelected;
+            currentSelectedUI.GetComponent<RectTransform>().localScale = new Vector3(1f, 1f, 1f);
+            lastSelectedUI = currentSelectedUI;
+            currentSelectedUI = null;
+            openPreviousSpellcaster();
+            newClick = true;
+            lobbyManager.notifyCancelSpellcaster(currentSelected);
+            currentSelected = -1;
+        }
+        
         void openPreviousSpellcaster()
         {
             switch (previousSelected)

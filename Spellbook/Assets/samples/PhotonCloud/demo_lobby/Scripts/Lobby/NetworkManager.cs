@@ -13,9 +13,10 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Bolt.Samples.Photon.Lobby
 {
-    public class LobbyManager : Bolt.GlobalEventListener
+    /*On every player's device not just the host's.*/
+    public class NetworkManager : Bolt.GlobalEventListener
     {
-        static public LobbyManager s_Singleton;
+        static public NetworkManager s_Singleton;
         BoltEntity characterSelection;
         BoltEntity playerEntity;
         SpellCaster playerSpellcaster;
@@ -42,6 +43,7 @@ namespace Bolt.Samples.Photon.Lobby
         public GameObject addPlayerButton;
 
         protected RectTransform currentPanel;
+        public Button selectButton;
 
         public Button backButton;
         public GameObject startGameButton;
@@ -54,7 +56,7 @@ namespace Bolt.Samples.Photon.Lobby
         protected string _matchName;
 
 
-        //For returning client only, not host.
+        //For returning client only, does not support a returning host (yet).
         protected bool spawned = false;
 
 
@@ -270,7 +272,7 @@ namespace Bolt.Samples.Photon.Lobby
                 gameStateEntity.GetComponent<NetworkGameState>().onCreateRoom(_matchName);
                 
                 numPlayersInfo.text = gameStateEntity.GetComponent<NetworkGameState>().onPlayerJoined()+ "";
-                startGameButton.SetActive(true);
+
 
             } else if (BoltNetwork.IsClient)
             {
@@ -327,6 +329,10 @@ namespace Bolt.Samples.Photon.Lobby
         /*Called from host Start button*/
         public void onGameStart()
         {
+            if (!gameStateEntity.GetComponent<NetworkGameState>().allPlayersSelected())
+            {
+                return;
+            }
             //NetworkGameState.instance.determineTurnOrder();
             gameStateEntity.GetComponent<NetworkGameState>().globalEvents.determineGlobalEvents();
             //lobbyPanel.gameObject.SetActive(false);
@@ -334,6 +340,15 @@ namespace Bolt.Samples.Photon.Lobby
             _isCountdown = true;
             StartCoroutine(ServerCountdownCoroutine());
         }
+
+        /*Called when player clicks on a spellcaster in the character selection panel.
+         The select button is enabled so the player can confirm their character selection.
+             */
+        public void activateSelectButton(bool isActive)
+        {
+            selectButton.gameObject.SetActive(isActive);
+        }
+        
 
         public IEnumerator ServerCountdownCoroutine()
         {
@@ -440,6 +455,14 @@ namespace Bolt.Samples.Photon.Lobby
         public override void OnEvent(PlayerJoinedEvent evnt)
         {
             numPlayersInfo.text = evnt.numOfPlayers + "";
+            if (gameStateEntity.GetComponent<NetworkGameState>().allPlayersSelected())
+            {
+                startGameButton.SetActive(true);
+            }
+            else
+            {
+                startGameButton.SetActive(false);
+            }
         }
 
         public override void OnEvent(FinalBoss evnt)
@@ -480,8 +503,30 @@ namespace Bolt.Samples.Photon.Lobby
         public override void OnEvent(SelectSpellcaster evnt)
         {
             BoltConsole.Write("SERVER: Recieved a new character selection event");
+            Debug.Log("New selection event");
             gameStateEntity.GetComponent<NetworkGameState>()
                 .onSpellcasterSelected(evnt.spellcasterID, evnt.previousID);
+            if (gameStateEntity.GetComponent<NetworkGameState>().allPlayersSelected())
+            {
+            Debug.Log("start button setactive");
+                startGameButton.SetActive(true);
+            }
+            
+        }
+
+        /*Only the server recieves this event.*/
+        public override void OnEvent(CancelSpellcaster evnt)
+        {
+            gameStateEntity.GetComponent<NetworkGameState>()
+                .onSpellcasterCanceled(evnt.spellcasterID);
+            if (gameStateEntity.GetComponent<NetworkGameState>().allPlayersSelected())
+            {
+                startGameButton.SetActive(true);
+            }
+            else
+            {
+                startGameButton.SetActive(false);
+            }
         }
 
         /*Only the server recieves this event.*/
@@ -620,6 +665,12 @@ namespace Bolt.Samples.Photon.Lobby
             selected.Send();
         }
 
+        public void notifyCancelSpellcaster(int spellcasterID)
+        {
+           var selected = CancelSpellcaster.Create(Bolt.GlobalTargets.OnlyServer);
+           selected.spellcasterID = spellcasterID;
+           selected.Send();
+        }
         public void notifyHostAboutCollectedSpell(int sID, string spellName)
         {
             var spellCollectedEvnt = CollectSpellEvent.Create(Bolt.GlobalTargets.OnlyServer);

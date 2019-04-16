@@ -188,7 +188,7 @@ public abstract class SpellCaster
                 SoundManager.instance.PlaySingle(SoundManager.spellcreate);
                 // add spell to its chapter
                 chapter.spellsCollected.Add(spell);
-                LobbyManager.s_Singleton.notifyHostAboutCollectedSpell(spellcasterID, spell.sSpellName);
+                NetworkManager.s_Singleton.notifyHostAboutCollectedSpell(spellcasterID, spell.sSpellName);
                 savePlayerData(this);
 
                 // tell player that the spell is collected
