@@ -13,8 +13,8 @@ public class DiceRoll : MonoBehaviour
 {
 
     // Public fields
-    public SpriteRenderer dicePips;
-    public SpriteRenderer diceCube;
+    public Image dicePips;
+    public Image diceCube;
     public Sprite pipsNine;
     public Sprite pipsEight;
     public Sprite pipsSeven;
