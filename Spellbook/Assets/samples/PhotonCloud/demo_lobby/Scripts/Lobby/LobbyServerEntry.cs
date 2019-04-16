@@ -14,7 +14,7 @@ namespace Bolt.Samples.Photon.Lobby
         public Text slotInfo;
         public Button joinButton;
 
-		public void Populate(UdpSession match, LobbyManager lobbyManager, Color c)
+		public void Populate(UdpSession match, NetworkManager lobbyManager, Color c)
 		{
             serverInfoText.text = match.HostName;
 
@@ -26,7 +26,7 @@ namespace Bolt.Samples.Photon.Lobby
             GetComponent<Image>().color = c;
         }
 
-        void JoinMatch(UdpSession match, LobbyManager lobbyManager)
+        void JoinMatch(UdpSession match, NetworkManager lobbyManager)
         {
             BoltNetwork.Connect(match);
 
