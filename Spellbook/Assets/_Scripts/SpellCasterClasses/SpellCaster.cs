@@ -181,7 +181,7 @@ public abstract class SpellCaster
             // if chapter.spellsCollected already contains spell, give error notice
             if (chapter.spellsCollected.Contains(spell))
             {
-                Debug.Log("You already have " + spell.sSpellName + ".");
+                PanelHolder.instance.displayNotify(spell.sSpellName, "You already have " + spell.sSpellName + ".");
             }
             else
             {
@@ -192,7 +192,8 @@ public abstract class SpellCaster
                 savePlayerData(this);
 
                 // tell player that the spell is collected
-                g.GetComponent<SpellCreateHandler>().inventoryText.text = "You unlocked " + spell.sSpellName + "!";
+                //g.GetComponent<SpellCreateHandler>().inventoryText.text = "You unlocked " + spell.sSpellName + "!";
+                PanelHolder.instance.displayEvent(spell.sSpellName, "You unlocked " + spell.sSpellName + "!");
 
                 Debug.Log("You have " + chapter.spellsCollected.Count + " spells collected.");
 
