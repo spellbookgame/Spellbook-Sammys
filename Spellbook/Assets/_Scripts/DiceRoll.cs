@@ -72,6 +72,8 @@ public class DiceRoll : MonoBehaviour
         // only execute if roll is enabled
         if(rollEnabled)
         {
+            GameObject.Find("Dice Tray").GetComponent<DiceUIHandler>().hasRolled = true;
+
             // when button is clicked for first time, roll and change button to Scan
             if (pressedNum == 0)
             {

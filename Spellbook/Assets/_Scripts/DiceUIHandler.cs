@@ -10,10 +10,21 @@ public class DiceUIHandler : MonoBehaviour
     [SerializeField] private GameObject dice;
     [SerializeField] private GameObject diceScrollContent;
     [SerializeField] private Button rollButton;
+    [SerializeField] private Button diceButton;
 
+    public bool hasRolled;
     private bool diceTrayOpen;
 
     Player localPlayer;
+
+    private void Update()
+    {
+        // prevents player from closing dice tray if they rolled (hasRolled set in DiceRoll.cs)
+        if(hasRolled && diceTrayOpen)
+        {
+            diceButton.interactable = false;
+        }
+    }
 
     // call this function from onclick event on button
     public void OpenDiceTray()
@@ -73,19 +84,20 @@ public class DiceUIHandler : MonoBehaviour
         else
         {
             // destroy all dice in panel
-            foreach(Transform child in diceScrollContent.transform)
+            foreach (Transform child in diceScrollContent.transform)
             {
                 Destroy(child.gameObject);
             }
-            foreach(GameObject g in GameObject.FindGameObjectsWithTag("Slot"))
+            foreach (GameObject g in GameObject.FindGameObjectsWithTag("Slot"))
             {
-                if(g.transform.childCount > 0)
+                if (g.transform.childCount > 0)
                 {
                     Destroy(g.transform.GetChild(0).gameObject);
                 }
             }
             gameObject.SetActive(false);
             diceTrayOpen = false;
+            hasRolled = false;
         }
     }
 }
