@@ -6,8 +6,6 @@ using UnityEngine.UI;
 
 public class SpellbookHandler : MonoBehaviour
 {
-    [SerializeField] private Button spellCreateButton;
-    [SerializeField] private Button spellCastButton;
     [SerializeField] private Button mainButton;
     [SerializeField] private Button collectionButton;
     [SerializeField] private Button questLogButton;
@@ -32,16 +30,6 @@ public class SpellbookHandler : MonoBehaviour
         {
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
             SceneManager.LoadScene("MainPlayerScene");
-        });
-        spellCreateButton.onClick.AddListener(() =>
-        {
-            SoundManager.instance.PlaySingle(SoundManager.pageturn);
-            SceneManager.LoadScene("SpellCreateScene");
-        });
-        spellCastButton.onClick.AddListener(() =>
-        {
-            SoundManager.instance.PlaySingle(SoundManager.pageturn);
-            SceneManager.LoadScene("SpellCastScene");
         });
         collectionButton.onClick.AddListener(() =>
         {
@@ -73,18 +61,6 @@ public class SpellbookHandler : MonoBehaviour
         {
             localPlayer.Spellcaster.AddToInventory(item);
             Debug.Log("item added");
-        }
-
-        // disable some buttons if not player's turn
-        if (!localPlayer.bIsMyTurn)
-        {
-            spellCastButton.enabled = false;
-            spellCreateButton.enabled = false;
-        }
-        else
-        {
-            spellCastButton.enabled = true;
-            spellCreateButton.enabled = true;
         }
     }
 }

@@ -22,8 +22,9 @@ public class MainPageHandler : MonoBehaviour
     [SerializeField] private Button rollButton;
     [SerializeField] private Button spellbookButton;
     
-    [SerializeField] private GameObject diceRollPanel;
     [SerializeField] private GameObject proclamationPanel;
+
+    private bool diceTrayOpen;
 
     Player localPlayer;
     public static MainPageHandler instance = null;
@@ -106,11 +107,6 @@ public class MainPageHandler : MonoBehaviour
         warpBackground2.GetComponent<SpriteRenderer>().color = lightCol;
 
         // set onclick listeners for buttons
-        rollButton.onClick.AddListener(() =>
-        {
-            SoundManager.instance.PlaySingle(SoundManager.dicetrayopen);
-            diceRollPanel.SetActive(true);
-        });
         spellbookButton.onClick.AddListener(() =>
         {
             SoundManager.instance.PlaySingle(SoundManager.spellbookopen);

@@ -13,8 +13,8 @@ public class DiceRoll : MonoBehaviour
 {
 
     // Public fields
-    public SpriteRenderer dicePips;
-    public SpriteRenderer diceCube;
+    public Image dicePips;
+    public Image diceCube;
     public Sprite pipsNine;
     public Sprite pipsEight;
     public Sprite pipsSeven;
@@ -43,8 +43,9 @@ public class DiceRoll : MonoBehaviour
     private float _rollMult;
     
     // Grace Ko's additions: implementing spell/quest tracking and scanner
-    [SerializeField] private Button rollButton;
-    [SerializeField] private GameObject diceTrayPanel;
+    private Button rollButton;
+    private GameObject diceTrayPanel;
+    public bool rollEnabled;
 
     private int diceRoll;
     private int pressedNum;
@@ -57,38 +58,58 @@ public class DiceRoll : MonoBehaviour
         // Roll();
 
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
+        rollButton = GameObject.Find("button_roll").GetComponent<Button>();
+        diceTrayPanel = GameObject.Find("Dice Tray").gameObject;
 
         pressedNum = 0; // to set button text to either roll or scan
+
         rollButton.onClick.AddListener(() => Roll());
     }
 
     public void Roll()
     {
-        // when button is clicked for first time, roll and change button to Scan
-        if (pressedNum == 0)
+        // only execute if roll is enabled
+        if(rollEnabled)
         {
-            SoundManager.instance.PlaySingle(SoundManager.diceroll);
-
-            string spellActive = SpellTracker.instance.CheckMoveSpell();
-            if (spellActive.Equals("Accelerate"))
+            // when button is clicked for first time, roll and change button to Scan
+            if (pressedNum == 0)
             {
-                _rollMinimum = 5;
-                _rollMaximum = 9;
+                SoundManager.instance.PlaySingle(SoundManager.diceroll);
+
+                // wiggle the dice
+                gameObject.GetComponent<WiggleElement>().Wiggle();
+
+                /*string spellActive = SpellTracker.instance.CheckMoveSpell();
+                if (spellActive.Equals("Accelerate"))
+                {
+                    _rollMinimum = 5;
+                    _rollMaximum = 9;
+                }*/
+
+                LastRoll = Clamp((int)(_rollMult * Random.Range(_rollMinimum, _rollMaximum + 1) + _rollAdd), _rollMinimum, _rollMaximum);
+                SetDefaults();
+
+                //localPlayer.Spellcaster.spacesTraveled += LastRoll;
+                //QuestTracker.instance.CheckMoveQuest(diceRoll);
+
+                // disable drag on ALL dice once they're rolled
+                gameObject.GetComponent<DiceDragHandler>().enabled = false;
+                foreach(Transform t in GameObject.Find("Scroll Content").transform)
+                {
+                    if(t.childCount > 0)
+                    {
+                        t.GetChild(0).GetComponent<DiceDragHandler>().enabled = false;
+                    }
+                }
+
+                rollButton.GetComponentInChildren<Text>().text = "Scan!";
+                ++pressedNum;
             }
-
-            LastRoll = Clamp((int)(_rollMult * Random.Range(_rollMinimum, _rollMaximum + 1) + _rollAdd), _rollMinimum, _rollMaximum);
-            SetDefaults();
-
-            localPlayer.Spellcaster.spacesTraveled += LastRoll;
-            QuestTracker.instance.CheckMoveQuest(diceRoll);
-
-            rollButton.GetComponentInChildren<Text>().text = "Scan!";
-            ++pressedNum;
-        }
-        else if (pressedNum >= 1)
-        {
-            diceTrayPanel.SetActive(false);
-            SceneManager.LoadScene("VuforiaScene");
+            else if (pressedNum >= 1)
+            {
+                diceTrayPanel.SetActive(false);
+                SceneManager.LoadScene("VuforiaScene");
+            }
         }
     }
 

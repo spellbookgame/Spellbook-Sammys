@@ -34,6 +34,7 @@ public abstract class SpellCaster
 
     // player's collection of spell pieces, glyphs, items, and active spells stored as strings
     public Dictionary<string, int> glyphs;
+    public Dictionary<string, int> dice;
     public List<Spell> activeSpells;
     public List<Quest> activeQuests;
     public List<ItemObject> inventory;
@@ -86,6 +87,13 @@ public abstract class SpellCaster
             { "Time B Glyph", 3 },
             { "Time C Glyph", 3 },
             { "Time D Glyph", 3 },
+        };
+
+        dice = new Dictionary<string, int>()
+        {
+            { "D4", 1 },
+            { "D6", 2 },
+            { "D8", 1 }
         };
     }
 
