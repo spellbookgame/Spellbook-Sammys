@@ -25,6 +25,8 @@ public abstract class SpellCaster
     public float fBasicAttackStrength;
 
     public int iMana;
+    public decimal dManaMultiplier = 1;
+    public bool turnJustEnded = false;    // bool to track if "end of turn" mana should be collected or not
     
     public string classType;
     public int spellcasterID;
@@ -129,8 +131,21 @@ public abstract class SpellCaster
         manaCount = SpellTracker.instance.CheckManaSpell(manaCount);
         Debug.Log("mana count after: " + manaCount);
         QuestTracker.instance.CheckManaQuest(manaCount);
-        this.iMana += manaCount;
+        iMana += manaCount;
     }
+
+    public int CollectManaEndTurn()
+    {
+        int manaCount = (int)UnityEngine.Random.Range(30, 100);
+        Debug.Log("initial mana count: " + manaCount);
+        manaCount = (int)(manaCount * dManaMultiplier);
+        Debug.Log("mana multiplier: " + dManaMultiplier);
+        Debug.Log("final mana count: " + manaCount);
+        iMana += manaCount;
+        dManaMultiplier = 1;
+        return manaCount;
+    }
+
     public void LoseMana(int manaCount)
     {
         this.iMana -= manaCount;

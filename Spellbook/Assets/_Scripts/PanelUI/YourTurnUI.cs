@@ -43,7 +43,9 @@ public class YourTurnUI : MonoBehaviour
             gameObject.SetActive(false);
             
             if(!SceneManager.GetActiveScene().name.Equals("MainPlayerScene"))
+            {
                 SceneManager.LoadScene("MainPlayerScene");
+            }
 
             PanelHolder.panelQueue.Dequeue();
             PanelHolder.instance.CheckPanelQueue();

@@ -11,6 +11,7 @@ public class MainPageHandler : MonoBehaviour
 
     [SerializeField] private Text classType;
     [SerializeField] private Text manaCrystalsValue;
+    [SerializeField] private Text manaCrystalsAddition;
     [SerializeField] private Text healthValue;
     [SerializeField] private Enemy enemy;
 
@@ -48,6 +49,9 @@ public class MainPageHandler : MonoBehaviour
 
     private void Update()
     {
+        // update player's mana count
+        manaCrystalsValue.text = localPlayer.Spellcaster.iMana.ToString();
+
         // update player's list of active spells
         if (localPlayer != null && localPlayer.Spellcaster.activeSpells.Count > 0)
             UpdateActiveSpells();
@@ -70,6 +74,14 @@ public class MainPageHandler : MonoBehaviour
         classType.text = localPlayer.Spellcaster.classType;
         manaCrystalsValue.text = localPlayer.Spellcaster.iMana.ToString();
         healthValue.text = localPlayer.Spellcaster.fCurrentHealth.ToString() + "/ " + localPlayer.Spellcaster.fMaxHealth.ToString();
+
+        Debug.Log("main page turn just ended: " + localPlayer.Spellcaster.turnJustEnded);
+        // set text for earned mana briefly 
+        if(localPlayer.Spellcaster.turnJustEnded == true)
+        {
+            int endOfTurnMana = localPlayer.Spellcaster.CollectManaEndTurn();
+            StartCoroutine(ShowManaEarned(endOfTurnMana));
+        }
 
         // if an enemy does not exist, create one
         if (GameObject.FindGameObjectWithTag("Enemy") == null)
@@ -106,7 +118,7 @@ public class MainPageHandler : MonoBehaviour
         warpBackground1.GetComponent<SpriteRenderer>().color = darkCol;
         warpBackground2.GetComponent<SpriteRenderer>().color = lightCol;
 
-        // set onclick listeners for buttons
+        // set onclick listeners for spellbook button
         spellbookButton.onClick.AddListener(() =>
         {
             SoundManager.instance.PlaySingle(SoundManager.spellbookopen);
@@ -149,8 +161,18 @@ public class MainPageHandler : MonoBehaviour
     public void CloseProclamationPanel()
     {
         SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
-        //Destroy(proclamationPanel.gameObject);
         localPlayer.Spellcaster.procPanelShown = true;
         PanelHolder.instance.CheckPanelQueue();
+    }
+
+    // corouting to show mana earned
+    IEnumerator ShowManaEarned(int manaCount)
+    {
+        manaCrystalsAddition.text = "+" + manaCount.ToString();
+
+        yield return new WaitForSeconds(2f);
+
+        manaCrystalsAddition.text = "";
+        localPlayer.Spellcaster.turnJustEnded = false;
     }
 }

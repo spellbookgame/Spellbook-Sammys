@@ -36,11 +36,20 @@ public class DiceUIHandler : MonoBehaviour
                         clone.transform.GetChild(0).GetComponent<DiceRoll>().rollEnabled = false;
                         // set pips number to dice's max value
                         if (kvp.Key.Equals("D4"))
+                        {
                             clone.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = clone.transform.GetChild(0).GetComponent<DiceRoll>().pipsFour;
+                            clone.transform.GetChild(0).GetComponent<DiceRoll>()._rollMaximum = 4;
+                        }
                         else if(kvp.Key.Equals("D6"))
+                        {
                             clone.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = clone.transform.GetChild(0).GetComponent<DiceRoll>().pipsSix;
+                            clone.transform.GetChild(0).GetComponent<DiceRoll>()._rollMaximum = 6;
+                        }
                         else if(kvp.Key.Equals("D8"))
+                        {
                             clone.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = clone.transform.GetChild(0).GetComponent<DiceRoll>().pipsEight;
+                            clone.transform.GetChild(0).GetComponent<DiceRoll>()._rollMaximum = 8;
+                        }
                     }
                 }
             }
