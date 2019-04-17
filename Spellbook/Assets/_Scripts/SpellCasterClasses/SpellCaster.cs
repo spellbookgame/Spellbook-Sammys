@@ -25,14 +25,18 @@ public abstract class SpellCaster
     public float fBasicAttackStrength;
 
     public int iMana;
+    public decimal dManaMultiplier = 1;
+    public bool turnJustEnded = false;    // bool to track if "end of turn" mana should be collected or not
     
     public string classType;
     public int spellcasterID;
     public bool hasAttacked;
+    public bool scannedSpaceThisTurn;
     public Chapter chapter;
 
     // player's collection of spell pieces, glyphs, items, and active spells stored as strings
     public Dictionary<string, int> glyphs;
+    public Dictionary<string, int> dice;
     public List<Spell> activeSpells;
     public List<Quest> activeQuests;
     public List<ItemObject> inventory;
@@ -86,6 +90,13 @@ public abstract class SpellCaster
             { "Time C Glyph", 3 },
             { "Time D Glyph", 3 },
         };
+
+        dice = new Dictionary<string, int>()
+        {
+            { "D4", 0 },
+            { "D6", 2 },
+            { "D8", 0 }
+        };
     }
 
     public void AddToInventory(ItemObject newItem)
@@ -120,8 +131,21 @@ public abstract class SpellCaster
         manaCount = SpellTracker.instance.CheckManaSpell(manaCount);
         Debug.Log("mana count after: " + manaCount);
         QuestTracker.instance.CheckManaQuest(manaCount);
-        this.iMana += manaCount;
+        iMana += manaCount;
     }
+
+    public int CollectManaEndTurn()
+    {
+        int manaCount = (int)UnityEngine.Random.Range(30, 100);
+        Debug.Log("initial mana count: " + manaCount);
+        manaCount = (int)(manaCount * dManaMultiplier);
+        Debug.Log("mana multiplier: " + dManaMultiplier);
+        Debug.Log("final mana count: " + manaCount);
+        iMana += manaCount;
+        dManaMultiplier = 1;
+        return manaCount;
+    }
+
     public void LoseMana(int manaCount)
     {
         this.iMana -= manaCount;
@@ -180,18 +204,19 @@ public abstract class SpellCaster
             // if chapter.spellsCollected already contains spell, give error notice
             if (chapter.spellsCollected.Contains(spell))
             {
-                Debug.Log("You already have " + spell.sSpellName + ".");
+                PanelHolder.instance.displayNotify(spell.sSpellName, "You already have " + spell.sSpellName + ".", "OK");
             }
             else
             {
                 SoundManager.instance.PlaySingle(SoundManager.spellcreate);
                 // add spell to its chapter
                 chapter.spellsCollected.Add(spell);
-                LobbyManager.s_Singleton.notifyHostAboutCollectedSpell(spellcasterID, spell.sSpellName);
+                NetworkManager.s_Singleton.notifyHostAboutCollectedSpell(spellcasterID, spell.sSpellName);
                 savePlayerData(this);
 
                 // tell player that the spell is collected
-                g.GetComponent<SpellCreateHandler>().inventoryText.text = "You unlocked " + spell.sSpellName + "!";
+                //g.GetComponent<SpellCreateHandler>().inventoryText.text = "You unlocked " + spell.sSpellName + "!";
+                PanelHolder.instance.displayEvent(spell.sSpellName, "You unlocked " + spell.sSpellName + "!");
 
                 Debug.Log("You have " + chapter.spellsCollected.Count + " spells collected.");
 

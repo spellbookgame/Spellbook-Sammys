@@ -26,56 +26,30 @@ public class Chapter : MonoBehaviour
         switch (classType)
         {
             case "Alchemist":
-                Spell potionOfBlessing = new PotionofBlessing();
-                spellsAllowed.Add(potionOfBlessing);
-                Spell charmingNegotiator = new CharmingNegotiator();
-                spellsAllowed.Add(charmingNegotiator);
-                Spell toxicPotion = new ToxicPotion();
-                spellsAllowed.Add(toxicPotion);
+                Spell potionOfLuck = new PotionofLuck();
+                spellsAllowed.Add(potionOfLuck);
                 Spell crystalScent = new CrystalScent();
                 spellsAllowed.Add(crystalScent);
                 break;
             case "Arcanist":
                 Spell transcribe = new Transcribe();
                 spellsAllowed.Add(transcribe);
-                Spell combinedKnowledge = new CombinedKnowledge();
-                spellsAllowed.Add(combinedKnowledge);
-                Spell arcanaHarvest = new ArcanaHarvest();
-                spellsAllowed.Add(arcanaHarvest);
-                Spell arcaneConversion = new ArcaneConversion();
-                spellsAllowed.Add(arcaneConversion);
                 break;
             case "Chronomancer":
                 Spell delayTime = new DelayTime();
                 spellsAllowed.Add(delayTime);
-                Spell teleport = new Teleport();
-                spellsAllowed.Add(teleport);
-                Spell accelerate = new Accelerate();
-                spellsAllowed.Add(accelerate);
                 break;
             case "Elementalist":
                 Spell naturalDisaster = new NaturalDisaster();
                 spellsAllowed.Add(naturalDisaster);
-                Spell elementalOrb = new ElementalOrb();
-                spellsAllowed.Add(elementalOrb);
-                Spell fireball = new Fireball();
-                spellsAllowed.Add(fireball);
                 break;
             case "Summoner":
                 Spell cosLeon = new CoSLeon();
                 spellsAllowed.Add(cosLeon);
-                Spell cowRaven = new CoWRaven();
-                spellsAllowed.Add(cowRaven);
-                Spell codSkeletons = new CoDSkeletons();
-                spellsAllowed.Add(codSkeletons);
                 break;
             case "Trickster":
                 Spell playwright = new Playwright();
                 spellsAllowed.Add(playwright);
-                Spell playBack = new Playback();
-                spellsAllowed.Add(playBack);
-                Spell marionetteCatharsis = new MarionetteCatharsis();
-                spellsAllowed.Add(marionetteCatharsis);
                 break;
             default:
                 break;
@@ -93,7 +67,7 @@ public class Chapter : MonoBehaviour
                 if(spellName == spell.sSpellName)
                 {
                     spellsCollected.Add(spellNamePairs[spellName]);
-                    //LobbyManager.s_Singleton.notifyHostAboutCollectedSpell(spellcasterID, spell.sSpellName);
+                    //NetworkManager.s_Singleton.notifyHostAboutCollectedSpell(spellcasterID, spell.sSpellName);
                     break;
                 }
             }

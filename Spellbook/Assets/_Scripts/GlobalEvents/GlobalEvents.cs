@@ -107,7 +107,7 @@ public class GlobalEvents : MonoBehaviour
 
     public void notifyAboutNewUpcomingEvent()
     {
-        LobbyManager.s_Singleton.
+        NetworkManager.s_Singleton.
             notifyAboutNewUpcomingEvent(list_AllEvents[currentEventIndex].name, list_AllEvents[currentEventIndex].description);
     }
 
@@ -149,7 +149,7 @@ public class GlobalEvents : MonoBehaviour
             // Give players feedback that their spellCaster friend saved them.
             Debug.Log("Global event is countered by:" + counterSpellcasterClass);
             BoltConsole.Write("Global event is countered by:" + counterSpellcasterClass);
-            LobbyManager.s_Singleton.LetEveryoneKnowCountered(counterSpellcasterClass);
+            NetworkManager.s_Singleton.LetEveryoneKnowCountered(counterSpellcasterClass);
         }
         else
         {
@@ -169,7 +169,7 @@ public class GlobalEvents : MonoBehaviour
         {
             if (spellcasterList[id] > 0)
             {
-                LobbyManager.s_Singleton.DealPercentDamage(id, percent, name);
+                NetworkManager.s_Singleton.DealPercentDamage(id, percent, name);
             }
         }
     }
@@ -177,7 +177,7 @@ public class GlobalEvents : MonoBehaviour
     private void FinalBossBattle()
     {
         //Not yet implemented until combat is done
-        LobbyManager.s_Singleton.startFinalBossBattle();
+        NetworkManager.s_Singleton.startFinalBossBattle();
     }
 
     //ID = 2
@@ -185,7 +185,7 @@ public class GlobalEvents : MonoBehaviour
     {
         counterSpellcasterClass = "Elementalist";
         counterSpellcasterID = elementalistID;
-        LobbyManager.s_Singleton.CheckIfCanCounter(counterSpellcasterID, 0, 2);
+        NetworkManager.s_Singleton.CheckIfCanCounter(counterSpellcasterID, 0, 2);
     }
 
     //ID = 

@@ -6,8 +6,6 @@ using UnityEngine.UI;
 
 public class SpellbookHandler : MonoBehaviour
 {
-    [SerializeField] private Button spellCreateButton;
-    [SerializeField] private Button spellCastButton;
     [SerializeField] private Button mainButton;
     [SerializeField] private Button collectionButton;
     [SerializeField] private Button questLogButton;
@@ -16,25 +14,22 @@ public class SpellbookHandler : MonoBehaviour
 
     Player localPlayer;
 
+    // TESTING
+    ItemObject item;
+
     // Start is called before the first frame update
     void Start()
     {
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
 
+        // TESTING
+        item = new ItemObject("Glowing Mushroom", Resources.Load<Sprite>("Art Assets/Items and Currency/GlowingMushroom"),
+            1000, 500, "Oooo Glowy", "Heals 25% damage, can probably be sold to someone at a high price.");
+
         mainButton.onClick.AddListener(() =>
         {
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
             SceneManager.LoadScene("MainPlayerScene");
-        });
-        spellCreateButton.onClick.AddListener(() =>
-        {
-            SoundManager.instance.PlaySingle(SoundManager.pageturn);
-            SceneManager.LoadScene("SpellCreateScene");
-        });
-        spellCastButton.onClick.AddListener(() =>
-        {
-            SoundManager.instance.PlaySingle(SoundManager.pageturn);
-            SceneManager.LoadScene("SpellCastScene");
         });
         collectionButton.onClick.AddListener(() =>
         {
@@ -61,16 +56,11 @@ public class SpellbookHandler : MonoBehaviour
 
     private void Update()
     {
-        // disable some buttons if not player's turn
-        if (!localPlayer.bIsMyTurn)
+        // TESTING
+        if(Input.GetKeyDown(KeyCode.C))
         {
-            spellCastButton.enabled = false;
-            spellCreateButton.enabled = false;
-        }
-        else
-        {
-            spellCastButton.enabled = true;
-            spellCreateButton.enabled = true;
+            localPlayer.Spellcaster.AddToInventory(item);
+            Debug.Log("item added");
         }
     }
 }

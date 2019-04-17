@@ -136,7 +136,7 @@ public class CombatHandler : MonoBehaviour
         }
         else
         {
-            PanelHolder.instance.displayNotify("Oops!", "You already attacked this turn.");
+            //PanelHolder.instance.displayNotify("Oops!", "You already attacked this turn.");
         }
     }
 

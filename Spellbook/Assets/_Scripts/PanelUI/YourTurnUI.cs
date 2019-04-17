@@ -24,6 +24,7 @@ public class YourTurnUI : MonoBehaviour
     public void Display()
     {
         gameObject.SetActive(true);
+        GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().Spellcaster.scannedSpaceThisTurn = false;
 
         // for start of game
         if (GameObject.Find("Proclamation Panel"))
@@ -42,7 +43,9 @@ public class YourTurnUI : MonoBehaviour
             gameObject.SetActive(false);
             
             if(!SceneManager.GetActiveScene().name.Equals("MainPlayerScene"))
+            {
                 SceneManager.LoadScene("MainPlayerScene");
+            }
 
             PanelHolder.panelQueue.Dequeue();
             PanelHolder.instance.CheckPanelQueue();

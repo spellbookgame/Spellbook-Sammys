@@ -35,6 +35,6 @@ public class ElementalOrb : Spell
 
         int damage = elementGlyphCount * 4;
         enemy.HitEnemy(damage);
-        PanelHolder.instance.displayCombat("You cast " + sSpellName, "It did " + damage + " damage!");
+        PanelHolder.instance.displayNotify("You cast " + sSpellName, "It did " + damage + " damage!", "OK");
     }
 }

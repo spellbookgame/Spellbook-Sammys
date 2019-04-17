@@ -23,7 +23,7 @@ public class Teleport : Spell
         // subtract mana and glyph costs
         player.iMana -= iManaCost;
             
-        PanelHolder.instance.displayNotify("You cast " + sSpellName, "");
+        PanelHolder.instance.displayNotify("You cast " + sSpellName, "", "OK");
         player.activeSpells.Add(this);
     }
 }

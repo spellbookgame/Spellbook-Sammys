@@ -24,6 +24,6 @@ public class CombinedKnowledge : Spell
         // subtract mana and glyph costs
         player.iMana -= iManaCost;
 
-        PanelHolder.instance.displayNotify("You cast " + sSpellName, "Give random glyphs");
+        PanelHolder.instance.displayNotify("You cast " + sSpellName, "Give random glyphs", "OK");
     }
 }

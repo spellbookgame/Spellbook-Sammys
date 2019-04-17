@@ -34,6 +34,42 @@ public class SpellTracker : MonoBehaviour
         spellCaster = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().Spellcaster;
     }
 
+    private void Update()
+    {
+        // updating spells to make sure spellcaster knows a spell was cast on them
+        
+    }
+
+    public void UpdateActiveSpells()
+    {
+        foreach (Spell entry in spellCaster.chapter.spellsCollected)
+        {
+            // if the player has gone the amount of turns that the spell lasts
+            if (spellCaster.NumOfTurnsSoFar - entry.iCastedTurn == entry.iTurnsActive)
+            {
+                // remove the spell from the active spells list and notify player
+                spellCaster.activeSpells.Remove(entry);
+                PanelHolder.instance.displayNotify(entry.sSpellName, entry.sSpellName + " wore off...", "OK");
+            }
+        }
+    }
+
+    // call this after D8 is used up
+    public void PotionofLuck()
+    {
+        // if potion of luck is an active spell, remove the dice and the spell from active spells list
+        if(spellCaster.activeSpells.Any(x => x.sSpellName.Equals("Brew - Potion of Luck")))
+        {
+            spellCaster.dice["D8"] -= 1;
+
+            foreach(Spell entry in spellCaster.chapter.spellsCollected)
+            {
+                if(entry.sSpellName.Equals("Brew - Potion of Luck"))
+                    spellCaster.activeSpells.Remove(entry);
+            }
+        }
+    }
+
     // checks if any spells affect mana, calculates accordingly, and sets panel text
     public int CheckManaSpell(int manaCount)
     {

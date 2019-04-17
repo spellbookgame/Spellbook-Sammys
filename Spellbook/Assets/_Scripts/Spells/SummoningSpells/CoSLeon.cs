@@ -28,7 +28,7 @@ public class CoSLeon : Spell
         foreach (KeyValuePair<string, int> kvp in requiredGlyphs)
             player.glyphs[kvp.Key] -= 1;
 
-        PanelHolder.instance.displayCombat("You cast " + sSpellName, "");
+        PanelHolder.instance.displayNotify("You cast " + sSpellName, "", "OK");
         player.activeSpells.Add(this);
     }
 }

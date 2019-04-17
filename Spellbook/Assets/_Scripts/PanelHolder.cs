@@ -5,6 +5,7 @@ using UnityEngine;
 public class PanelHolder : MonoBehaviour
 {
     public YourTurnUI yourTurnPanel;
+    public PlayerChooseUI playerChoosePanel;
     public NotifyUI notifyPanel;
     public QuestUI questPanel;
     public BoardScanUI boardScanPanel;
@@ -56,6 +57,8 @@ public class PanelHolder : MonoBehaviour
                 yourTurnPanel.EnablePanel();
             else if (panelQueue.Peek().Equals(boardScanPanel.panelID))
                 boardScanPanel.EnablePanel();
+            else if (panelQueue.Peek().Equals(playerChoosePanel.panelID))
+                playerChoosePanel.EnablePanel();
         }
     }
 
@@ -66,6 +69,13 @@ public class PanelHolder : MonoBehaviour
         yourTurnPanel.Display();
     }
 
+    public void displayPlayerChoose()
+    {
+        panelQueue.Enqueue(playerChoosePanel.panelID);
+        Debug.Log("Queued: " + playerChoosePanel.panelID);
+        playerChoosePanel.DisplayPlayerChoose();
+    }
+
     public void displayEvent(string title, string info)
     {
         panelQueue.Enqueue(notifyPanel.panelID);
@@ -73,18 +83,11 @@ public class PanelHolder : MonoBehaviour
         notifyPanel.DisplayEvent(title, info);
     }
 
-    public void displayNotify(string title, string info)
+    public void displayNotify(string title, string info, string buttonClick)
     {
         panelQueue.Enqueue(notifyPanel.panelID);
         Debug.Log("Queued: " + notifyPanel.panelID);
-        notifyPanel.DisplayNotify(title, info);
-    }
-
-    public void displayCombat(string title, string info)
-    {
-        panelQueue.Enqueue(notifyPanel.panelID);
-        Debug.Log("Queued: " + notifyPanel.panelID);
-        notifyPanel.DisplayCombat(title, info);
+        notifyPanel.DisplayNotify(title, info, buttonClick);
     }
 
     public void displayQuest(Quest quest)

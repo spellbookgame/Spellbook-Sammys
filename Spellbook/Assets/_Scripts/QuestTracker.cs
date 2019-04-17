@@ -51,7 +51,7 @@ public class QuestTracker : MonoBehaviour
                 {
                     SoundManager.instance.PlaySingle(SoundManager.questsuccess);
                     PanelHolder.instance.displayNotify(q.questName + " Completed!",
-                                                        "You completed the quest! You earned:\n\n" + q.DisplayReward());
+                                                        "You completed the quest! You earned:\n\n" + q.DisplayReward(), "OK");
                     localPlayer.Spellcaster.activeQuests.Remove(q);
                     GiveRewards(q);
                 }
@@ -79,7 +79,7 @@ public class QuestTracker : MonoBehaviour
                 {
                     SoundManager.instance.PlaySingle(SoundManager.questsuccess);
                     PanelHolder.instance.displayNotify(q.questName + " Completed!",
-                                                        "You completed the quest! You earned:\n\n" + q.DisplayReward());
+                                                        "You completed the quest! You earned:\n\n" + q.DisplayReward(), "OK");
                     localPlayer.Spellcaster.activeQuests.Remove(q);
                     GiveRewards(q);
                 }
@@ -103,7 +103,7 @@ public class QuestTracker : MonoBehaviour
                 {
                     SoundManager.instance.PlaySingle(SoundManager.questsuccess);
                     PanelHolder.instance.displayNotify(q.questName + " Completed!",
-                                                        "You completed the quest! You earned:\n\n" + q.DisplayReward());
+                                                        "You completed the quest! You earned:\n\n" + q.DisplayReward(), "OK");
                     localPlayer.Spellcaster.activeQuests.Remove(q);
                     GiveRewards(q);
                 }
@@ -130,7 +130,7 @@ public class QuestTracker : MonoBehaviour
                 {
                     SoundManager.instance.PlaySingle(SoundManager.questsuccess);
                     PanelHolder.instance.displayNotify(q.questName + " Completed!",
-                                                        "You completed the quest! You earned:\n\n" + q.DisplayReward());
+                                                        "You completed the quest! You earned:\n\n" + q.DisplayReward(), "OK");
                     localPlayer.Spellcaster.activeQuests.Remove(q);
                     // localPlayer.Spellcaster.inventory.Remove(q.item);
                     GiveRewards(q);
@@ -159,7 +159,7 @@ public class QuestTracker : MonoBehaviour
                 {
                     SoundManager.instance.PlaySingle(SoundManager.questsuccess);
                     PanelHolder.instance.displayNotify(q.questName + " Completed!",
-                                                        "You completed the quest! You earned:\n\n" + q.DisplayReward());
+                                                        "You completed the quest! You earned:\n\n" + q.DisplayReward(), "OK");
                     localPlayer.Spellcaster.activeQuests.Remove(q);
                     GiveRewards(q);
                 }
