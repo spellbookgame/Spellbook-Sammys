@@ -66,16 +66,10 @@ public class MainPageHandler : MonoBehaviour
         else
             rollButton.interactable = true;
 
-        // TESTING AREA
-        Spell transcribe = new Transcribe();
-        Spell runeConversion = new RuneConversion();
-        Spell arcanaHarvest = new ArcanaHarvest();
+        // TESTING
+        Spell tailwind = new Tailwind();
         if (Input.GetKeyDown(KeyCode.P))
-            localPlayer.Spellcaster.CollectSpell(transcribe);
-        if (Input.GetKeyDown(KeyCode.O))
-            localPlayer.Spellcaster.CollectSpell(runeConversion);
-        if (Input.GetKeyDown(KeyCode.L))
-            localPlayer.Spellcaster.CollectSpell(arcanaHarvest);
+            localPlayer.Spellcaster.CollectSpell(tailwind);
     }
 
     public void setupMainPage()

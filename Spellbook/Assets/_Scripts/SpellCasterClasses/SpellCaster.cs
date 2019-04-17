@@ -155,7 +155,7 @@ public abstract class SpellCaster
         glyphs[glyphName] += 1;
     }
 
-    // fix this up after removing from eventhandler and enemy drop
+    // find a random glyph
     public string CollectRandomGlyph()
     {
         List<string> glyphList = new List<string>(this.glyphs.Keys);
@@ -163,17 +163,9 @@ public abstract class SpellCaster
 
         string randomKey = glyphList[random];
 
-        // if arcana harvest is active
-        if (this.classType.Equals("Arcanist") && this.activeSpells.Contains(this.chapter.spellsAllowed[1]))
-        {
-            this.glyphs[randomKey] += 2;
-            PanelHolder.instance.displayEvent("Arcana Harvest", "You found 2 " + randomKey + ".");
-        }
-        else
-        {
-            this.glyphs[randomKey] += 1;
-            PanelHolder.instance.displayEvent("You found a Glyph!", "You found a " + randomKey + ".");
-        }
+        glyphs[randomKey] += 1;
+        PanelHolder.instance.displayEvent("You found a Glyph!", "You found a " + randomKey + ".");
+
         return randomKey;
     }
 
@@ -190,7 +182,7 @@ public abstract class SpellCaster
         return randomKey;
     }
 
-    // method that adds spell to player's chapter
+    // function that adds spell to player's chapter
     public bool CollectSpell(Spell spell)
     {
         bool spellCollected = false;
@@ -239,8 +231,6 @@ public abstract class SpellCaster
         bf.Serialize(file, pd);
         file.Close();
     }
-
-    
 
     public static SpellCaster loadPlayerData()
     {

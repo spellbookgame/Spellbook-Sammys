@@ -85,9 +85,12 @@ public class DiceRoll : MonoBehaviour
 
                 // if Potion of Luck was cast, remove it after rolling dice
                 SpellTracker.instance.EndPotionofLuck();
+                // if Tailwind was cast, remove it after rolling dice
+                SpellTracker.instance.EndTailwind();
 
                 CheckMoveRoll(LastRoll);
                 CheckManaRoll(LastRoll);
+
                 //QuestTracker.instance.CheckMoveQuest(diceRoll);
 
                 // disable drag on ALL dice once they're rolled

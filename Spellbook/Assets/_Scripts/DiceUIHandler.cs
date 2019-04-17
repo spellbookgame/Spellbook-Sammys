@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class DiceUIHandler : MonoBehaviour
 {
     [SerializeField] private GameObject diceSlot;
+    [SerializeField] private GameObject dice;
     [SerializeField] private GameObject diceScrollContent;
     [SerializeField] private Button rollButton;
 
@@ -23,6 +25,18 @@ public class DiceUIHandler : MonoBehaviour
         if (!diceTrayOpen)
         {
             gameObject.SetActive(true);
+
+            // if player has tailwind active, add a D6 to movement
+            if(localPlayer.Spellcaster.activeSpells.Any(x => x.sSpellName.Equals("Tailwind")))
+            {
+                GameObject newDice = Instantiate(dice, transform.Find("slot1"));
+                newDice.transform.GetChild(0).GetComponent<Image>().sprite = newDice.GetComponent<DiceRoll>().pipsSix;
+                newDice.GetComponent<DiceRoll>()._rollMaximum = 6;
+                // disable drag on dice
+                newDice.GetComponent<DiceDragHandler>().enabled = false;
+                // enable roll
+                newDice.GetComponent<DiceRoll>().rollEnabled = true;
+            }
 
             // populate dice inventory with player's dice
             foreach (KeyValuePair<string, int> kvp in localPlayer.Spellcaster.dice)

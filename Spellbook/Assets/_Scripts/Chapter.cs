@@ -44,8 +44,8 @@ public class Chapter : MonoBehaviour
                 spellsAllowed.Add(delayTime);
                 break;
             case "Elementalist":
-                Spell naturalDisaster = new NaturalDisaster();
-                spellsAllowed.Add(naturalDisaster);
+                Spell tailwind = new Tailwind();
+                spellsAllowed.Add(tailwind);
                 break;
             case "Summoner":
                 Spell cosLeon = new CoSLeon();
