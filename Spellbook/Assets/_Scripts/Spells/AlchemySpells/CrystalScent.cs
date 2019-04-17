@@ -21,6 +21,6 @@ public class CrystalScent : Spell
         // subtract mana and glyph costs
         player.iMana -= iManaCost;
 
-        PanelHolder.instance.displayNotify("You cast " + sSpellName, "Teleport to the Marketplace now.", "Vuforia");
+        PanelHolder.instance.displayNotify("You cast " + sSpellName, "Move your piece to the Marketplace.", "Shop");
     }
 }

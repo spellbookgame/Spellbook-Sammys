@@ -34,6 +34,12 @@ public class SpellTracker : MonoBehaviour
         spellCaster = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().Spellcaster;
     }
 
+    private void Update()
+    {
+        // updating spells to make sure spellcaster knows a spell was cast on them
+        
+    }
+
     public void UpdateActiveSpells()
     {
         foreach (Spell entry in spellCaster.chapter.spellsCollected)

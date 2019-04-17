@@ -35,11 +35,21 @@ public class NotifyUI : MonoBehaviour
             gameObject.GetComponent<Image>().enabled = true;
         }
 
-        // setting different click listeners for button
-        if (buttonClick.Equals("OK"))
-            singleButton.onClick.AddListener((OkClick));
-        else if (buttonClick.Equals("Vuforia"))
-            singleButton.onClick.AddListener((VuforiaClick));
+        // different onclick listeners for different button inputs
+        switch(buttonClick)
+        {
+            case "OK":
+                singleButton.onClick.AddListener((OkClick));
+                break;
+            case "Vuforia":
+                singleButton.onClick.AddListener((VuforiaClick));
+                break;
+            case "Shop":
+                singleButton.onClick.AddListener((ShopClick));
+                break;
+            default:
+                break;
+        }
 
         gameObject.SetActive(true);
 
@@ -77,16 +87,6 @@ public class NotifyUI : MonoBehaviour
         }
     }
 
-    public void DisplayCombat(string title, string info)
-    {
-        titleText.text = title;
-        infoText.text = info;
-
-        singleButton.onClick.AddListener((combatClick));
-
-        gameObject.SetActive(true);
-    }
-
     private void OkClick()
     {
         SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
@@ -100,6 +100,15 @@ public class NotifyUI : MonoBehaviour
         SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
         gameObject.SetActive(false);
         SceneManager.LoadScene("VuforiaScene");
+
+        PanelHolder.panelQueue.Dequeue();
+        PanelHolder.instance.CheckPanelQueue();
+    }
+    private void ShopClick()
+    {
+        SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+        gameObject.SetActive(false);
+        SceneManager.LoadScene("ShopScene");
 
         PanelHolder.panelQueue.Dequeue();
         PanelHolder.instance.CheckPanelQueue();
@@ -129,11 +138,5 @@ public class NotifyUI : MonoBehaviour
         }
         PanelHolder.panelQueue.Dequeue();
         PanelHolder.instance.CheckPanelQueue();
-    }
-    private void combatClick()
-    {
-        SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
-        gameObject.SetActive(false);
-        SceneManager.LoadScene("CombatScene");
     }
 }
