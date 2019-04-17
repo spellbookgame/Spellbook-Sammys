@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DiceUIHandler : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class DiceUIHandler : MonoBehaviour
     {
         SoundManager.instance.PlaySingle(SoundManager.dicetrayopen);
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
+        gameObject.transform.Find("button_roll").GetChild(0).GetComponent<Text>().text = "Roll!";
 
         if (!diceTrayOpen)
         {
@@ -24,8 +26,13 @@ public class DiceUIHandler : MonoBehaviour
             {
                 if (kvp.Value > 0)
                 {
-                    // instantiate a prefab of dice slot and set its parent to the inventory tray
-                    Instantiate(diceSlot, diceScrollContent.transform);
+                    for(int i = 0; i < kvp.Value; ++i)
+                    {
+                        // instantiate a prefab of dice slot and set its parent to the inventory tray
+                        GameObject clone = Instantiate(diceSlot, diceScrollContent.transform);
+                        // disable dice roll unless it's in the tray
+                        clone.transform.GetChild(0).GetComponent<DiceRoll>().enabled = false;
+                    }
                 }
             }
             diceTrayOpen = true;

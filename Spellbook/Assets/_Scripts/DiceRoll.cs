@@ -72,6 +72,9 @@ public class DiceRoll : MonoBehaviour
         {
             SoundManager.instance.PlaySingle(SoundManager.diceroll);
 
+            // wiggle the dice
+            gameObject.GetComponent<WiggleElement>().Wiggle();
+
             /*string spellActive = SpellTracker.instance.CheckMoveSpell();
             if (spellActive.Equals("Accelerate"))
             {

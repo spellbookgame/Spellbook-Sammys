@@ -29,13 +29,18 @@ public class DiceSlotHandler : MonoBehaviour, IDropHandler
     public void OnDrop(PointerEventData eventData)
     {
         // play drop sound
-        //SoundManager.instance.PlaySingle(SoundManager.placespellpiece);
+        SoundManager.instance.PlaySingle(SoundManager.placespellpiece);
 
         // if the slot has no item, then allow item to be dragged in
         if (!item)
         {
             // set item being dragged's parent to current slot's transform
             DiceDragHandler.itemToDrag.transform.SetParent(transform);
+        }
+        // enable dice roll if it's in the tray
+        if(transform.parent.name == "Dice Tray")
+        {
+            DiceDragHandler.itemToDrag.GetComponent<DiceRoll>().enabled = true;
         }
     }
 }
