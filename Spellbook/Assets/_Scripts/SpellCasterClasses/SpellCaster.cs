@@ -127,10 +127,6 @@ public abstract class SpellCaster
 
     public void CollectMana(int manaCount)
     {
-        Debug.Log("mana count initial: " + manaCount);
-        manaCount = SpellTracker.instance.CheckManaSpell(manaCount);
-        Debug.Log("mana count after: " + manaCount);
-        QuestTracker.instance.CheckManaQuest(manaCount);
         iMana += manaCount;
     }
 
@@ -153,8 +149,10 @@ public abstract class SpellCaster
 
     public void CollectGlyph(string glyphName)
     {
-        int glyphCount = SpellTracker.instance.CheckGlyphSpell(glyphName);
-        this.glyphs[glyphName] += glyphCount;
+        Sprite sprite = Resources.Load<Sprite>("GlyphArt/" + glyphName);
+        PanelHolder.instance.displayBoardScan("You found a Glyph!", "You found 1 " + glyphName + ".", sprite);
+        SoundManager.instance.PlaySingle(SoundManager.glyphfound);
+        glyphs[glyphName] += 1;
     }
 
     // fix this up after removing from eventhandler and enemy drop
