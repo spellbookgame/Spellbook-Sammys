@@ -42,6 +42,7 @@ public class YourTurnUI : MonoBehaviour
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
             gameObject.SetActive(false);
             
+            // bring player to main player scene
             if(!SceneManager.GetActiveScene().name.Equals("MainPlayerScene"))
             {
                 SceneManager.LoadScene("MainPlayerScene");

@@ -10,21 +10,14 @@ public class DiceUIHandler : MonoBehaviour
     [SerializeField] private GameObject dice;
     [SerializeField] private GameObject diceScrollContent;
     [SerializeField] private Button rollButton;
-    [SerializeField] private Button diceButton;
 
-    public bool hasRolled;
+    [SerializeField] private Button diceButton;
+    [SerializeField] private Button spellBookButton;
+    [SerializeField] private Button inventoryButton;
+
     private bool diceTrayOpen;
 
     Player localPlayer;
-
-    private void Update()
-    {
-        // prevents player from closing dice tray if they rolled (hasRolled set in DiceRoll.cs)
-        if(hasRolled && diceTrayOpen)
-        {
-            diceButton.interactable = false;
-        }
-    }
 
     // call this function from onclick event on button
     public void OpenDiceTray()
@@ -81,7 +74,7 @@ public class DiceUIHandler : MonoBehaviour
             }
             diceTrayOpen = true;
         }
-        else
+        else if(diceTrayOpen)
         {
             // destroy all dice in panel
             foreach (Transform child in diceScrollContent.transform)
@@ -97,7 +90,17 @@ public class DiceUIHandler : MonoBehaviour
             }
             gameObject.SetActive(false);
             diceTrayOpen = false;
-            hasRolled = false;
+        }
+    }
+
+    public void DisableButtons()
+    {
+        // disable all other buttons if player rolled
+        if (diceTrayOpen)
+        {
+            diceButton.interactable = false;
+            spellBookButton.interactable = false;
+            inventoryButton.interactable = false;
         }
     }
 }

@@ -719,7 +719,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.34117648, g: 0.30980393, b: 0.30980393, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -1091,7 +1091,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_DisabledColor: {r: 0.33962262, g: 0.30918473, b: 0.30918473, a: 1}
+    m_DisabledColor: {r: 0.33962262, g: 0.30918473, b: 0.30918473, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -2790,6 +2790,16 @@ PrefabInstance:
       propertyPath: diceButton
       value: 
       objectReference: {fileID: 364770031}
+    - target: {fileID: 6043100741950410746, guid: 745cc5bf935f91449bb17fb80a06297e,
+        type: 3}
+      propertyPath: spellBookButton
+      value: 
+      objectReference: {fileID: 1996619081}
+    - target: {fileID: 6043100741950410746, guid: 745cc5bf935f91449bb17fb80a06297e,
+        type: 3}
+      propertyPath: inventoryButton
+      value: 
+      objectReference: {fileID: 120093642}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 745cc5bf935f91449bb17fb80a06297e, type: 3}
 --- !u!114 &1017870111 stripped
@@ -3063,7 +3073,7 @@ MonoBehaviour:
   warpBackground1: {fileID: 1083516537}
   warpBackground2: {fileID: 1083516536}
   symbolImage: {fileID: 132603536}
-  rollButton: {fileID: 364770031}
+  diceButton: {fileID: 364770031}
   spellbookButton: {fileID: 1996619081}
   proclamationPanel: {fileID: 1754068372}
 --- !u!1001 &1083516535
@@ -5014,7 +5024,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.34117648, g: 0.30980393, b: 0.30980393, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:

@@ -20,12 +20,13 @@ public class MainPageHandler : MonoBehaviour
     [SerializeField] private GameObject warpBackground2;
     [SerializeField] private SpriteRenderer symbolImage;
     
-    [SerializeField] private Button rollButton;
+    [SerializeField] private Button diceButton;
     [SerializeField] private Button spellbookButton;
     
     [SerializeField] private GameObject proclamationPanel;
 
     private bool diceTrayOpen;
+    private bool manaHasChanged;
 
     Player localPlayer;
     public static MainPageHandler instance = null;
@@ -50,8 +51,15 @@ public class MainPageHandler : MonoBehaviour
     private void Update()
     {
         // update player's mana count
-        if (localPlayer != null)
+        if (localPlayer != null && manaHasChanged)
+        {
             manaCrystalsValue.text = localPlayer.Spellcaster.iMana.ToString();
+            manaHasChanged = false;
+        }
+
+        // disable dice button if it's not player's turn
+        if (localPlayer != null && !localPlayer.bIsMyTurn)
+            diceButton.interactable = false;
 
         // update player's list of active spells
         if (localPlayer != null && localPlayer.Spellcaster.activeSpells.Count > 0)
@@ -59,17 +67,6 @@ public class MainPageHandler : MonoBehaviour
         // update player's list of active quests
         if (localPlayer != null && localPlayer.Spellcaster.activeQuests.Count > 0)
             UpdateActiveQuests();
-
-        // disable roll button if it's not player's turn
-        if (localPlayer != null && !localPlayer.bIsMyTurn)
-            rollButton.interactable = false;
-        else
-            rollButton.interactable = true;
-
-        // TESTING
-        Spell tailwind = new Tailwind();
-        if (Input.GetKeyDown(KeyCode.P))
-            localPlayer.Spellcaster.CollectSpell(tailwind);
     }
 
     public void setupMainPage()
@@ -89,15 +86,6 @@ public class MainPageHandler : MonoBehaviour
             StartCoroutine(ShowManaEarned(endOfTurnMana));
         }
 
-        // if an enemy does not exist, create one
-        if (GameObject.FindGameObjectWithTag("Enemy") == null)
-        {
-            // instantiating enemy with 20 health
-            enemy = Instantiate(enemy);
-            enemy.Initialize(20f);
-            enemy.fCurrentHealth = enemy.fMaxHealth;
-        }
-
         // if it's not first turn of game, then destroy proclamation panel each time scene starts
         if (localPlayer.Spellcaster.procPanelShown)
         {
@@ -108,7 +96,7 @@ public class MainPageHandler : MonoBehaviour
             Debug.Log("queue checked in main scene");
         }
 
-        // create instance of QuestTracker prefab
+        // create instances of QuestTracker/SpellTracker prefabs
         GameObject q = Instantiate(questTracker);
         GameObject s = Instantiate(spellTracker);
             
@@ -156,7 +144,7 @@ public class MainPageHandler : MonoBehaviour
         PanelHolder.instance.CheckPanelQueue();
     }
 
-    // corouting to show mana earned
+    // coroutine to show mana earned
     IEnumerator ShowManaEarned(int manaCount)
     {
         manaCrystalsAddition.text = "+" + manaCount.ToString();
@@ -165,5 +153,6 @@ public class MainPageHandler : MonoBehaviour
 
         manaCrystalsAddition.text = "";
         localPlayer.Spellcaster.turnJustEnded = false;
+        manaHasChanged = true;
     }
 }

@@ -9,6 +9,7 @@ public class SpellCollectionHandler : MonoBehaviour
     [SerializeField] private Button exitButton;
     [SerializeField] private Button backButton;
     [SerializeField] private Button spellButton;
+    [SerializeField] private Button castButton;
     [SerializeField] private GameObject spellPanel;
 
     private bool spellPanelOpen;
@@ -47,6 +48,15 @@ public class SpellCollectionHandler : MonoBehaviour
 
             // to position new button underneath prev button
             yPos -= 220;
+        }
+    }
+
+    private void Update()
+    {
+        // disable spell casting if it's not player's turn
+        if(!localPlayer.bIsMyTurn)
+        {
+            castButton.interactable = false;
         }
     }
 
