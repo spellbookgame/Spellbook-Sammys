@@ -92,6 +92,16 @@ public class DiceRoll : MonoBehaviour
                 //localPlayer.Spellcaster.spacesTraveled += LastRoll;
                 //QuestTracker.instance.CheckMoveQuest(diceRoll);
 
+                // disable drag on ALL dice once they're rolled
+                gameObject.GetComponent<DiceDragHandler>().enabled = false;
+                foreach(Transform t in GameObject.Find("Scroll Content").transform)
+                {
+                    if(t.childCount > 0)
+                    {
+                        t.GetChild(0).GetComponent<DiceDragHandler>().enabled = false;
+                    }
+                }
+
                 rollButton.GetComponentInChildren<Text>().text = "Scan!";
                 ++pressedNum;
             }

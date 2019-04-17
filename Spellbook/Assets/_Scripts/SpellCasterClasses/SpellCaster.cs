@@ -91,9 +91,9 @@ public abstract class SpellCaster
 
         dice = new Dictionary<string, int>()
         {
-            { "D4", 0 },
+            { "D4", 1 },
             { "D6", 2 },
-            { "D8", 0 }
+            { "D8", 1 }
         };
     }
 
