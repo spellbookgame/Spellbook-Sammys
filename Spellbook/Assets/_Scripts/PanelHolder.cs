@@ -69,11 +69,11 @@ public class PanelHolder : MonoBehaviour
         yourTurnPanel.Display();
     }
 
-    public void displayPlayerChoose()
+    public void displayPlayerChoose(string spellName)
     {
         panelQueue.Enqueue(playerChoosePanel.panelID);
         Debug.Log("Queued: " + playerChoosePanel.panelID);
-        playerChoosePanel.DisplayPlayerChoose();
+        playerChoosePanel.DisplayPlayerChoose(spellName);
     }
 
     public void displayEvent(string title, string info)

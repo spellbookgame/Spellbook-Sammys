@@ -23,7 +23,7 @@ public class PotionofLuck : Spell
         // subtract mana and glyph costs
         player.iMana -= iManaCost;
 
-        PanelHolder.instance.displayNotify("You cast " + sSpellName, "You and your ally will receive an extra D8 next time you roll.", "OK");
+        PanelHolder.instance.displayNotify(sSpellName, "You and your ally will have an extra D8 next time you roll.", "OK");
         player.dice["D8"] += 1;
         player.activeSpells.Add(this);
     }

@@ -33,13 +33,6 @@ public class SpellTracker : MonoBehaviour
     {
         spellCaster = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().Spellcaster;
     }
-
-    private void Update()
-    {
-        // updating spells to make sure spellcaster knows a spell was cast on them
-        
-    }
-
     public void UpdateActiveSpells()
     {
         foreach (Spell entry in spellCaster.chapter.spellsCollected)
@@ -55,7 +48,7 @@ public class SpellTracker : MonoBehaviour
     }
 
     // call this after D8 is used up
-    public void PotionofLuck()
+    public void EndPotionofLuck()
     {
         // if potion of luck is an active spell, remove the dice and the spell from active spells list
         if(spellCaster.activeSpells.Any(x => x.sSpellName.Equals("Brew - Potion of Luck")))

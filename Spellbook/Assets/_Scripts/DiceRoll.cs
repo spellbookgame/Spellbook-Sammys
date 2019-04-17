@@ -84,7 +84,7 @@ public class DiceRoll : MonoBehaviour
                 SetDefaults();
 
                 // if Potion of Luck was cast, remove it after rolling dice
-                SpellTracker.instance.PotionofLuck();
+                SpellTracker.instance.EndPotionofLuck();
 
                 CheckMoveRoll(LastRoll);
                 CheckManaRoll(LastRoll);

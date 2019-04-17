@@ -67,7 +67,7 @@ public class MainPageHandler : MonoBehaviour
             rollButton.interactable = true;
 
         // TESTING AREA
-        Spell pOL = new CrystalScent();
+        Spell pOL = new ArcanaHarvest();
         if(Input.GetKeyDown(KeyCode.P))
         {
             pOL.SpellCast(localPlayer.Spellcaster);

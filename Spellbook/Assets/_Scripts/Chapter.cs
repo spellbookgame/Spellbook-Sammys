@@ -34,6 +34,8 @@ public class Chapter : MonoBehaviour
             case "Arcanist":
                 Spell transcribe = new Transcribe();
                 spellsAllowed.Add(transcribe);
+                Spell arcanaHarvest = new ArcanaHarvest();
+                spellsAllowed.Add(arcanaHarvest);
                 break;
             case "Chronomancer":
                 Spell delayTime = new DelayTime();

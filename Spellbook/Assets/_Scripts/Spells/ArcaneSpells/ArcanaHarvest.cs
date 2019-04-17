@@ -8,13 +8,11 @@ public class ArcanaHarvest : Spell
     public ArcanaHarvest()
     {
         iTier = 3;
-        iManaCost = 400;
-        iCoolDown = 0;
-        iTurnsActive = 2;
+        iManaCost = 300;
 
         sSpellName = "Arcana Harvest";
         sSpellClass = "Arcanist";
-        sSpellInfo = "Until your next turn, earn double resources (mana, glyphs). Can cast on an ally.";
+        sSpellInfo = "Sacrifice half your mana crystals and move directly to the Mana Crystal Mines. Can cast on an ally.";
 
         requiredGlyphs.Add("Arcane D Glyph", 1);
     }
@@ -23,8 +21,8 @@ public class ArcanaHarvest : Spell
     {
         // subtract mana and glyph costs
         player.iMana -= iManaCost;
+        player.iMana /= 2;
             
-        PanelHolder.instance.displayNotify("You cast " + sSpellName, "You will receive double mana/glyphs until your next turn.", "OK");
-        player.activeSpells.Add(this);
+        PanelHolder.instance.displayNotify(sSpellName, "Move your piece to the Crystal Mines.", "Vuforia");
     }
 }
