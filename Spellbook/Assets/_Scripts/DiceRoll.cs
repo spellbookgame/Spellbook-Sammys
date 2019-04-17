@@ -43,8 +43,8 @@ public class DiceRoll : MonoBehaviour
     private float _rollMult;
     
     // Grace Ko's additions: implementing spell/quest tracking and scanner
-    [SerializeField] private Button rollButton;
-    [SerializeField] private GameObject diceTrayPanel;
+    private Button rollButton;
+    private GameObject diceTrayPanel;
 
     private int diceRoll;
     private int pressedNum;
@@ -56,9 +56,12 @@ public class DiceRoll : MonoBehaviour
         SetDefaults();
         // Roll();
 
-        //localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
+        localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
+        rollButton = GameObject.Find("button_roll").GetComponent<Button>();
+        diceTrayPanel = GameObject.Find("Dice Tray").gameObject;
 
         pressedNum = 0; // to set button text to either roll or scan
+
         rollButton.onClick.AddListener(() => Roll());
     }
 
