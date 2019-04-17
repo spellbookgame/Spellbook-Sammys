@@ -22,8 +22,9 @@ public class MainPageHandler : MonoBehaviour
     [SerializeField] private Button rollButton;
     [SerializeField] private Button spellbookButton;
     
-    [SerializeField] private GameObject diceRollPanel;
     [SerializeField] private GameObject proclamationPanel;
+
+    private bool diceTrayOpen;
 
     Player localPlayer;
     public static MainPageHandler instance = null;
@@ -66,6 +67,11 @@ public class MainPageHandler : MonoBehaviour
         if (GameObject.FindGameObjectWithTag("LocalPlayer") == null) return;
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
 
+        foreach(KeyValuePair<string, int> kvp in localPlayer.Spellcaster.dice)
+        {
+            Debug.Log(kvp.Key + ": " + kvp.Value);
+        }
+
         classType.text = localPlayer.Spellcaster.classType;
         manaCrystalsValue.text = localPlayer.Spellcaster.iMana.ToString();
         healthValue.text = localPlayer.Spellcaster.fCurrentHealth.ToString() + "/ " + localPlayer.Spellcaster.fMaxHealth.ToString();
@@ -106,11 +112,6 @@ public class MainPageHandler : MonoBehaviour
         warpBackground2.GetComponent<SpriteRenderer>().color = lightCol;
 
         // set onclick listeners for buttons
-        rollButton.onClick.AddListener(() =>
-        {
-            SoundManager.instance.PlaySingle(SoundManager.dicetrayopen);
-            diceRollPanel.SetActive(true);
-        });
         spellbookButton.onClick.AddListener(() =>
         {
             SoundManager.instance.PlaySingle(SoundManager.spellbookopen);

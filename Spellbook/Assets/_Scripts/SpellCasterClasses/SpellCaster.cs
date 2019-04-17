@@ -93,8 +93,7 @@ public abstract class SpellCaster
         {
             { "D4", 0 },
             { "D6", 2 },
-            { "D8", 0 },
-            { "D10", 0 },
+            { "D8", 0 }
         };
     }
 

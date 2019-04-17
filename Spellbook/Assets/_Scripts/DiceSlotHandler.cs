@@ -36,9 +36,6 @@ public class DiceSlotHandler : MonoBehaviour, IDropHandler
         {
             // set item being dragged's parent to current slot's transform
             DiceDragHandler.itemToDrag.transform.SetParent(transform);
-
-            // using lambda function to call HasChanged method in SpellManager.cs
-            // ExecuteEvents.ExecuteHierarchy<IHasChanged>(gameObject, null, (x, y) => x.HasChanged());
         }
     }
 }

@@ -28,7 +28,6 @@ public class DiceDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        Debug.Log("onbegindrag called");
         // play grab sound
         // SoundManager.instance.PlaySingle(SoundManager.grabspellpiece);
 
@@ -67,10 +66,6 @@ public class DiceDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         if (transform.parent == startParent || !transform.parent.tag.Equals("Slot"))
         {
             transform.position = startPos;
-            Destroy(itemBeingDragged.gameObject);
-            //localPlayer.Spellcaster.glyphs[itemBeingDragged.name] += 1;
-            // update the glyph info text
-            //ExecuteEvents.ExecuteHierarchy<IHasChanged>(gameObject, null, (x, y) => x.HasChanged());
         }
     }
 }

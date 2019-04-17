@@ -56,7 +56,7 @@ public class DiceRoll : MonoBehaviour
         SetDefaults();
         // Roll();
 
-        localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
+        //localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
 
         pressedNum = 0; // to set button text to either roll or scan
         rollButton.onClick.AddListener(() => Roll());
@@ -69,18 +69,18 @@ public class DiceRoll : MonoBehaviour
         {
             SoundManager.instance.PlaySingle(SoundManager.diceroll);
 
-            string spellActive = SpellTracker.instance.CheckMoveSpell();
+            /*string spellActive = SpellTracker.instance.CheckMoveSpell();
             if (spellActive.Equals("Accelerate"))
             {
                 _rollMinimum = 5;
                 _rollMaximum = 9;
-            }
+            }*/
 
             LastRoll = Clamp((int)(_rollMult * Random.Range(_rollMinimum, _rollMaximum + 1) + _rollAdd), _rollMinimum, _rollMaximum);
             SetDefaults();
 
-            localPlayer.Spellcaster.spacesTraveled += LastRoll;
-            QuestTracker.instance.CheckMoveQuest(diceRoll);
+            //localPlayer.Spellcaster.spacesTraveled += LastRoll;
+            //QuestTracker.instance.CheckMoveQuest(diceRoll);
 
             rollButton.GetComponentInChildren<Text>().text = "Scan!";
             ++pressedNum;
