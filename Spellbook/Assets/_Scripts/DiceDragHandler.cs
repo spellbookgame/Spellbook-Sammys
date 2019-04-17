@@ -23,13 +23,13 @@ public class DiceDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     {
         originalParent = transform.parent;
 
-        //localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
+        localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
         // play grab sound
-        // SoundManager.instance.PlaySingle(SoundManager.grabspellpiece);
+        SoundManager.instance.PlaySingle(SoundManager.grabspellpiece);
 
         // itemToDrag is the game object that this script is on
         itemToDrag = gameObject;

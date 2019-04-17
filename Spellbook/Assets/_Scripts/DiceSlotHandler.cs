@@ -22,7 +22,7 @@ public class DiceSlotHandler : MonoBehaviour, IDropHandler
 
     void Start()
     {
-        //localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
+        localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
     }
 
     // happens before OnEndDrag in DragHandler.cs
