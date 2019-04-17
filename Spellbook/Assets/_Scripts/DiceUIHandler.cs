@@ -7,6 +7,8 @@ public class DiceUIHandler : MonoBehaviour
 {
     [SerializeField] private GameObject diceSlot;
     [SerializeField] private GameObject diceScrollContent;
+    [SerializeField] private Button rollButton;
+
     private bool diceTrayOpen;
 
     Player localPlayer;
@@ -16,7 +18,7 @@ public class DiceUIHandler : MonoBehaviour
     {
         SoundManager.instance.PlaySingle(SoundManager.dicetrayopen);
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
-        gameObject.transform.Find("button_roll").GetChild(0).GetComponent<Text>().text = "Roll!";
+        rollButton.transform.GetChild(0).GetComponent<Text>().text = "Roll!";
 
         if (!diceTrayOpen)
         {
@@ -30,8 +32,10 @@ public class DiceUIHandler : MonoBehaviour
                     {
                         // instantiate a prefab of dice slot and set its parent to the inventory tray
                         GameObject clone = Instantiate(diceSlot, diceScrollContent.transform);
-                        // disable dice roll unless it's in the tray
-                        clone.transform.GetChild(0).GetComponent<DiceRoll>().enabled = false;
+                        // disable roll if dice is still in inventory
+                        clone.transform.GetChild(0).GetComponent<DiceRoll>().rollEnabled = false;
+                        // set pips number to dice's max value
+                        clone.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = clone.transform.GetChild(0).GetComponent<DiceRoll>().pipsSix;
                     }
                 }
             }

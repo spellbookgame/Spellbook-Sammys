@@ -40,7 +40,11 @@ public class DiceSlotHandler : MonoBehaviour, IDropHandler
         // enable dice roll if it's in the tray
         if(transform.parent.name == "Dice Tray")
         {
-            DiceDragHandler.itemToDrag.GetComponent<DiceRoll>().enabled = true;
+            DiceDragHandler.itemToDrag.GetComponent<DiceRoll>().rollEnabled = true;
+        }
+        else if(transform.parent.name == "Scroll Content")
+        {
+            DiceDragHandler.itemToDrag.GetComponent<DiceRoll>().rollEnabled = false;
         }
     }
 }

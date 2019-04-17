@@ -45,6 +45,7 @@ public class DiceRoll : MonoBehaviour
     // Grace Ko's additions: implementing spell/quest tracking and scanner
     private Button rollButton;
     private GameObject diceTrayPanel;
+    public bool rollEnabled;
 
     private int diceRoll;
     private int pressedNum;
@@ -67,34 +68,38 @@ public class DiceRoll : MonoBehaviour
 
     public void Roll()
     {
-        // when button is clicked for first time, roll and change button to Scan
-        if (pressedNum == 0)
+        // only execute if roll is enabled
+        if(rollEnabled)
         {
-            SoundManager.instance.PlaySingle(SoundManager.diceroll);
-
-            // wiggle the dice
-            gameObject.GetComponent<WiggleElement>().Wiggle();
-
-            /*string spellActive = SpellTracker.instance.CheckMoveSpell();
-            if (spellActive.Equals("Accelerate"))
+            // when button is clicked for first time, roll and change button to Scan
+            if (pressedNum == 0)
             {
-                _rollMinimum = 5;
-                _rollMaximum = 9;
-            }*/
+                SoundManager.instance.PlaySingle(SoundManager.diceroll);
 
-            LastRoll = Clamp((int)(_rollMult * Random.Range(_rollMinimum, _rollMaximum + 1) + _rollAdd), _rollMinimum, _rollMaximum);
-            SetDefaults();
+                // wiggle the dice
+                gameObject.GetComponent<WiggleElement>().Wiggle();
 
-            //localPlayer.Spellcaster.spacesTraveled += LastRoll;
-            //QuestTracker.instance.CheckMoveQuest(diceRoll);
+                /*string spellActive = SpellTracker.instance.CheckMoveSpell();
+                if (spellActive.Equals("Accelerate"))
+                {
+                    _rollMinimum = 5;
+                    _rollMaximum = 9;
+                }*/
 
-            rollButton.GetComponentInChildren<Text>().text = "Scan!";
-            ++pressedNum;
-        }
-        else if (pressedNum >= 1)
-        {
-            diceTrayPanel.SetActive(false);
-            SceneManager.LoadScene("VuforiaScene");
+                LastRoll = Clamp((int)(_rollMult * Random.Range(_rollMinimum, _rollMaximum + 1) + _rollAdd), _rollMinimum, _rollMaximum);
+                SetDefaults();
+
+                //localPlayer.Spellcaster.spacesTraveled += LastRoll;
+                //QuestTracker.instance.CheckMoveQuest(diceRoll);
+
+                rollButton.GetComponentInChildren<Text>().text = "Scan!";
+                ++pressedNum;
+            }
+            else if (pressedNum >= 1)
+            {
+                diceTrayPanel.SetActive(false);
+                SceneManager.LoadScene("VuforiaScene");
+            }
         }
     }
 
