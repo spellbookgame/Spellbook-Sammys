@@ -20,9 +20,16 @@ public class RuneConversion : Spell
 
     public override void SpellCast(SpellCaster player)
     {
-        // subtract mana and glyph costs
-        player.iMana -= iManaCost;
+        if (player.iMana < iManaCost)
+        {
+            PanelHolder.instance.displayNotify("Not enough Mana!", "You do not have enough mana to cast this spell.", "OK");
+        }
+        else
+        {
+            // subtract mana and glyph costs
+            player.iMana -= iManaCost;
 
-        PanelHolder.instance.displayNotify(sSpellName, "Discard one of your current runes. Draw a new one from the deck.", "OK");
+            PanelHolder.instance.displayNotify(sSpellName, "Discard one of your current runes. Draw a new one from the deck.", "OK");
+        }
     }
 }

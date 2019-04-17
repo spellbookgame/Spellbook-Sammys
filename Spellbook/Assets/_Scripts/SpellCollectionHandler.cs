@@ -1,80 +1,84 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class SpellCollectionHandler : MonoBehaviour
 {
-    [SerializeField] private Button mainButton;
+    [SerializeField] private Button exitButton;
     [SerializeField] private Button backButton;
     [SerializeField] private Button spellButton;
-    [SerializeField] private GameObject glyphContainer;
-    [SerializeField] private GameObject spellInfoPanel;
-    [SerializeField] private GameObject glyphPanel;
+    [SerializeField] private GameObject spellPanel;
+
+    private bool spellPanelOpen;
 
     Player localPlayer;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
 
-        // adding onClick listener for UI buttons
-        mainButton.onClick.AddListener(() =>
+        // add onclick listeners to buttons
+        exitButton.onClick.AddListener(() =>
         {
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
             SceneManager.LoadScene("MainPlayerScene");
         });
         backButton.onClick.AddListener(() =>
         {
-            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+            SoundManager.instance.PlaySingle(SoundManager.pageturn);
             SceneManager.LoadScene("SpellbookScene");
         });
 
-        int yPos = 780;
-        // add buttons for each spell the player can collect
-        for (int i = 0; i < localPlayer.Spellcaster.chapter.spellsAllowed.Count; i++)
+        int yPos = 600;
+        // add buttons for each spell the player has collected
+        for (int i = 0; i < localPlayer.Spellcaster.chapter.spellsCollected.Count; i++)
         {
             Button newSpellButton = Instantiate(spellButton, GameObject.Find("Canvas").transform);
-            newSpellButton.GetComponentInChildren<Text>().text = localPlayer.Spellcaster.chapter.spellsAllowed[i].sSpellName;
+            newSpellButton.GetComponentInChildren<Text>().text = localPlayer.Spellcaster.chapter.spellsCollected[i].sSpellName;
             newSpellButton.transform.localPosition = new Vector3(0, yPos, 0);
+            newSpellButton.transform.SetAsFirstSibling();
 
             // new int to pass into button onClick listener so loop will not throw index out of bounds error
             int i2 = i;
             // add listener to button
-            newSpellButton.onClick.AddListener(() => showSpellInfo(localPlayer.Spellcaster.chapter.spellsAllowed[i2]));
+            newSpellButton.onClick.AddListener(() => OpenSpellPanel(localPlayer.Spellcaster.chapter.spellsCollected[i2]));
 
             // to position new button underneath prev button
-            yPos -= 170;
+            yPos -= 220;
         }
     }
 
-    private void showSpellInfo(Spell spell)
+    private void OpenSpellPanel(Spell spell)
     {
-        // if the panel still has glyphs in it, return them to the glyph container
-        while(glyphPanel.transform.childCount > 0)
-        {
-            Transform child = glyphPanel.transform.GetChild(0);
-            child.SetParent(glyphContainer.transform);
-            child.localPosition = Vector3.zero;
-        }
+        SoundManager.instance.PlaySingle(SoundManager.spellbookopen);
 
-        spellInfoPanel.transform.GetChild(0).GetComponent<Text>().text = spell.sSpellName;
-        spellInfoPanel.transform.GetChild(1).GetComponent<Text>().text = "Tier: " + spell.iTier.ToString() + "  |  Cost: " + spell.iManaCost.ToString();
-        spellInfoPanel.transform.GetChild(2).GetComponent<Text>().text = spell.sSpellInfo;
-        
-        // add glyph images to the panel to show player required glyphs
-        foreach (KeyValuePair<string, int> kvp in spell.requiredGlyphs)
-        {
-            string glyphName = kvp.Key;
-            GameObject glyphImage = glyphContainer.transform.Find(glyphName).gameObject;
-            glyphImage.transform.SetParent(glyphPanel.transform);
+        // set spell name and info
+        spellPanel.transform.Find("text_spellname").GetComponent<Text>().text = spell.sSpellName;
+        spellPanel.transform.Find("text_spellinfo").GetComponent<Text>().text = spell.sSpellInfo;
 
-            // removing text child from image
-            if (glyphImage.transform.childCount > 0)
-                Destroy(glyphImage.transform.GetChild(0).gameObject);
+        // add onclick listener to close button
+        spellPanel.transform.Find("button_exit").GetComponent<Button>().onClick.AddListener(CloseSpellPanel);
+
+        // add onclick listener to cast button
+        spellPanel.transform.Find("button_cast").GetComponent<Button>().onClick.AddListener(() =>
+        {
+            spell.SpellCast(localPlayer.Spellcaster);
+            CloseSpellPanel();
+        });
+
+        spellPanel.SetActive(true);
+        spellPanelOpen = true;
+    }
+    
+    private void CloseSpellPanel()
+    {
+        if(spellPanelOpen == true)
+        {
+            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+            spellPanel.SetActive(false);
+            spellPanelOpen = false;
         }
     }
 }

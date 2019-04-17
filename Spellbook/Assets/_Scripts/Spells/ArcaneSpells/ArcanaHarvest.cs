@@ -19,10 +19,17 @@ public class ArcanaHarvest : Spell
 
     public override void SpellCast(SpellCaster player)
     {
-        // subtract mana and glyph costs
-        player.iMana -= iManaCost;
-        player.iMana /= 2;
-            
-        PanelHolder.instance.displayNotify(sSpellName, "Move your piece to the Crystal Mines.", "Vuforia");
+        if (player.iMana < iManaCost)
+        {
+            PanelHolder.instance.displayNotify("Not enough Mana!", "You do not have enough mana to cast this spell.", "OK");
+        }
+        else
+        {
+            // subtract mana and glyph costs
+            player.iMana -= iManaCost;
+            player.iMana /= 2;
+
+            PanelHolder.instance.displayNotify(sSpellName, "Move your piece to the Crystal Mines.", "Vuforia");
+        }
     }
 }

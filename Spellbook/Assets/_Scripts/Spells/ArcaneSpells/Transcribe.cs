@@ -21,9 +21,16 @@ public class Transcribe : Spell
 
     public override void SpellCast(SpellCaster player)
     {
-        // subtract mana 
-        player.iMana -= iManaCost;
+        if (player.iMana < iManaCost)
+        {
+            PanelHolder.instance.displayNotify("Not enough Mana!", "You do not have enough mana to cast this spell.", "OK");
+        }
+        else
+        {
+            // subtract mana 
+            player.iMana -= iManaCost;
 
-        PanelHolder.instance.displayNotify(sSpellName, "Discard your rune hand and draw new ones from the top tier deck.", "OK");
+            PanelHolder.instance.displayNotify(sSpellName, "Discard your rune hand and draw new ones from the top tier deck.", "OK");
+        }
     }
 }

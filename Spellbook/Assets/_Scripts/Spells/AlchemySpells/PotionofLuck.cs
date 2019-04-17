@@ -20,11 +20,20 @@ public class PotionofLuck : Spell
 
     public override void SpellCast(SpellCaster player)
     {
-        // subtract mana and glyph costs
-        player.iMana -= iManaCost;
+        if(player.iMana < iManaCost)
+        {
+            PanelHolder.instance.displayNotify("Not enough Mana!", "You do not have enough mana to cast this spell.", "OK");
+        }
+        else
+        {
+            SoundManager.instance.PlaySingle(SoundManager.spellcast);
 
-        PanelHolder.instance.displayNotify(sSpellName, "You and your ally will have an extra D8 next time you roll.", "OK");
-        player.dice["D8"] += 1;
-        player.activeSpells.Add(this);
+            // subtract mana
+            player.iMana -= iManaCost;
+
+            PanelHolder.instance.displayNotify(sSpellName, "You and your ally will have an extra D8 next time you roll.", "OK");
+            player.dice["D8"] += 1;
+            player.activeSpells.Add(this);
+        }
     }
 }
