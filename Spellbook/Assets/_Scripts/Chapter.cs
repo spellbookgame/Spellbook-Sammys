@@ -34,6 +34,8 @@ public class Chapter : MonoBehaviour
             case "Arcanist":
                 Spell transcribe = new Transcribe();
                 spellsAllowed.Add(transcribe);
+                Spell runeConversion = new RuneConversion();
+                spellsAllowed.Add(runeConversion);
                 Spell arcanaHarvest = new ArcanaHarvest();
                 spellsAllowed.Add(arcanaHarvest);
                 break;
