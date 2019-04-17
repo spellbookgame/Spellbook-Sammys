@@ -73,11 +73,11 @@ public class PanelHolder : MonoBehaviour
         notifyPanel.DisplayEvent(title, info);
     }
 
-    public void displayNotify(string title, string info)
+    public void displayNotify(string title, string info, string buttonClick)
     {
         panelQueue.Enqueue(notifyPanel.panelID);
         Debug.Log("Queued: " + notifyPanel.panelID);
-        notifyPanel.DisplayNotify(title, info);
+        notifyPanel.DisplayNotify(title, info, buttonClick);
     }
 
     public void displayCombat(string title, string info)

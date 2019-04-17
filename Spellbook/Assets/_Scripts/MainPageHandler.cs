@@ -50,11 +50,12 @@ public class MainPageHandler : MonoBehaviour
     private void Update()
     {
         // update player's mana count
-        manaCrystalsValue.text = localPlayer.Spellcaster.iMana.ToString();
+        if (localPlayer != null)
+            manaCrystalsValue.text = localPlayer.Spellcaster.iMana.ToString();
 
         // update player's list of active spells
         if (localPlayer != null && localPlayer.Spellcaster.activeSpells.Count > 0)
-            UpdateActiveSpells();
+            SpellTracker.instance.UpdateActiveSpells();
         // update player's list of active quests
         if (localPlayer != null && localPlayer.Spellcaster.activeQuests.Count > 0)
             UpdateActiveQuests();
@@ -64,6 +65,13 @@ public class MainPageHandler : MonoBehaviour
             rollButton.interactable = false;
         else
             rollButton.interactable = true;
+
+        // TESTING AREA
+        Spell pOL = new CrystalScent();
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            pOL.SpellCast(localPlayer.Spellcaster);
+        }
     }
 
     public void setupMainPage()
@@ -125,21 +133,6 @@ public class MainPageHandler : MonoBehaviour
             SceneManager.LoadScene("SpellbookScene");
         });
     }
-    
-    // updating the list of active spells
-    private void UpdateActiveSpells()
-    {
-        foreach (Spell entry in localPlayer.Spellcaster.chapter.spellsCollected)
-        {
-            // if the player has gone the amount of turns that the spell lasts
-            if (localPlayer.Spellcaster.NumOfTurnsSoFar - entry.iCastedTurn == entry.iTurnsActive)
-            {
-                // remove the spell from the active spells list and notify player
-                localPlayer.Spellcaster.activeSpells.Remove(entry);
-                PanelHolder.instance.displayNotify(entry.sSpellName, entry.sSpellName + " wore off...");
-            }
-        }
-    }
 
     // updating the list of active quests
     private void UpdateActiveQuests()
@@ -152,7 +145,7 @@ public class MainPageHandler : MonoBehaviour
                 // remove the quest from the active quests list and notify player
                 localPlayer.Spellcaster.activeQuests.Remove(q);
                 SoundManager.instance.PlaySingle(SoundManager.questfailed);
-                PanelHolder.instance.displayNotify(q.questName + " Failed...", "You failed to complete the quest in your given time.");
+                PanelHolder.instance.displayNotify(q.questName + " Failed...", "You failed to complete the quest in your given time.", "OK");
             }
         }
     }

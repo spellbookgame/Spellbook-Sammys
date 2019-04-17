@@ -96,7 +96,7 @@ public class SpellCastHandler : MonoBehaviour
             // check if player has enough mana
             if (localPlayer.Spellcaster.iMana < currentSpell.iManaCost)
             {
-                PanelHolder.instance.displayNotify("Not enough mana!", "You don't have enough mana to cast this spell.");
+                PanelHolder.instance.displayNotify("Not enough mana!", "You don't have enough mana to cast this spell.", "OK");
                 spellWasCast = false;
                 RemovePrefabs(spellWasCast);
             }
@@ -216,7 +216,7 @@ public class SpellCastHandler : MonoBehaviour
             // if player doesn't have this glyph in the inventory, notify them.
             if (localPlayer.Spellcaster.glyphs[kvp.Key] <= 0)
             {
-                PanelHolder.instance.displayNotify("Not enough glyphs!", "You do not have enough glyphs to cast this spell.");
+                PanelHolder.instance.displayNotify("Not enough glyphs!", "You do not have enough glyphs to cast this spell.", "OK");
             }
             // else, add that glyph to the casting circle
             else

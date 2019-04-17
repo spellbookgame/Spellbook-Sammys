@@ -23,6 +23,7 @@ public class DiceUIHandler : MonoBehaviour
         if (!diceTrayOpen)
         {
             gameObject.SetActive(true);
+
             // populate dice inventory with player's dice
             foreach (KeyValuePair<string, int> kvp in localPlayer.Spellcaster.dice)
             {
@@ -34,7 +35,7 @@ public class DiceUIHandler : MonoBehaviour
                         GameObject clone = Instantiate(diceSlot, diceScrollContent.transform);
                         // disable roll if dice is still in inventory
                         clone.transform.GetChild(0).GetComponent<DiceRoll>().rollEnabled = false;
-                        // set pips number to dice's max value
+                        // set dice max values
                         if (kvp.Key.Equals("D4"))
                         {
                             clone.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = clone.transform.GetChild(0).GetComponent<DiceRoll>().pipsFour;

@@ -405,7 +405,7 @@ namespace Bolt.Samples.Photon.Lobby
             Debug.Log("New Upcoming event : " + evnt.Name);
             BoltConsole.Write("New Upcoming event : " + evnt.Name + " cool");
             //PanelHolder.instance.displayNotify(evnt.Name, evnt.Description);
-            PanelHolder.instance.displayNotify("Global Event Coming Soon", NetworkGameState.instance.getEventInfo());
+            PanelHolder.instance.displayNotify("Global Event Coming Soon", NetworkGameState.instance.getEventInfo(), "OK");
         }
 
         // Player recieves this event from the network, the event contains
@@ -442,13 +442,13 @@ namespace Bolt.Samples.Photon.Lobby
             {
                 BoltConsole.Write("You saved the world with your spell!");
                 Debug.Log("You saved the world with your spell!");
-                PanelHolder.instance.displayNotify("Congratulations", "You saved the world with your spell!");
+                PanelHolder.instance.displayNotify("Congratulations", "You saved the world with your spell!", "OK");
             }
             else
             {
                 BoltConsole.Write(evnt.Savior+" saved the world!");
                 Debug.Log(evnt.Savior + " saved the world!");
-                PanelHolder.instance.displayNotify("Congratulations", evnt.Savior + " saved the world!");
+                PanelHolder.instance.displayNotify("Congratulations", evnt.Savior + " saved the world!", "OK");
             }
         }
 
@@ -469,7 +469,7 @@ namespace Bolt.Samples.Photon.Lobby
         {
             BoltConsole.Write("Final Boss battle (not yet implemented so everyone dies)");
             Debug.Log("Final Boss battle (not yet implemented so everyone dies)");
-            PanelHolder.instance.displayNotify("Final Boss Battle", "(not yet implemented so everyone dies)");
+            PanelHolder.instance.displayNotify("Final Boss Battle", "(not yet implemented so everyone dies)", "OK");
             playerSpellcaster = playerEntity.GetComponent<Player>().spellcaster;
             playerSpellcaster.TakeDamage((int)(playerSpellcaster.fCurrentHealth));
             SpellCaster.savePlayerData(playerSpellcaster);
@@ -480,7 +480,7 @@ namespace Bolt.Samples.Photon.Lobby
             playerSpellcaster = playerEntity.GetComponent<Player>().spellcaster;
             if (playerSpellcaster.spellcasterID == evnt.SpellcasterID)
             {
-                PanelHolder.instance.displayNotify(evnt.EventName, "Lose " +((int) (evnt.PercentDmgDecimal * 100)) +"% health");
+                PanelHolder.instance.displayNotify(evnt.EventName, "Lose " +((int) (evnt.PercentDmgDecimal * 100)) +"% health", "OK");
                 playerSpellcaster.TakeDamage((int) (playerSpellcaster.fCurrentHealth * evnt.PercentDmgDecimal));
                 SpellCaster.savePlayerData(playerSpellcaster);
                 try
@@ -653,7 +653,7 @@ namespace Bolt.Samples.Photon.Lobby
             playerEntity = BoltNetwork.Instantiate(BoltPrefabs.LocalPlayer); //, pos, Quaternion.identity);
             playerEntity.TakeControl();
             playerEntity.GetComponent<Player>().setup(localPlayerSpellcasterID);
-            PanelHolder.instance.displayNotify("Global Event Coming Soon", NetworkGameState.instance.getEventInfo());
+            PanelHolder.instance.displayNotify("Global Event Coming Soon", NetworkGameState.instance.getEventInfo(), "OK");
         }
 
         public void notifySelectSpellcaster(int spellcasterID, int previous)

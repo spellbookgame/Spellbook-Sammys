@@ -80,15 +80,11 @@ public class DiceRoll : MonoBehaviour
                 // wiggle the dice
                 gameObject.GetComponent<WiggleElement>().Wiggle();
 
-                /*string spellActive = SpellTracker.instance.CheckMoveSpell();
-                if (spellActive.Equals("Accelerate"))
-                {
-                    _rollMinimum = 5;
-                    _rollMaximum = 9;
-                }*/
-
                 LastRoll = Clamp((int)(_rollMult * Random.Range(_rollMinimum, _rollMaximum + 1) + _rollAdd), _rollMinimum, _rollMaximum);
                 SetDefaults();
+
+                // if Potion of Luck was cast, remove it after rolling dice
+                SpellTracker.instance.PotionofLuck();
 
                 CheckMoveRoll(LastRoll);
                 CheckManaRoll(LastRoll);

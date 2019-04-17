@@ -26,6 +26,6 @@ public class Transcribe : Spell
         // subtract mana 
         player.iMana -= iManaCost;
 
-        PanelHolder.instance.displayNotify("You cast " + sSpellName, "");
+        PanelHolder.instance.displayNotify("You cast " + sSpellName, "", "OK");
     }
 }

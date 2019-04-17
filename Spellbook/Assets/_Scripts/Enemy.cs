@@ -77,7 +77,7 @@ public class Enemy : MonoBehaviour
 
         // set text and show in panel
         string panelText = "You received: " + randomGlyph1 + ", " + randomGlyph2 + ", " + manaCount + " mana.";
-        PanelHolder.instance.displayNotify("Enemy Defeated!", panelText);
+        //PanelHolder.instance.displayNotify("Enemy Defeated!", panelText);
 
         Destroy(this.gameObject);
     }

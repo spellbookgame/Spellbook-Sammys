@@ -22,7 +22,8 @@ public class NotifyUI : MonoBehaviour
         gameObject.SetActive(true);
     }
 
-    public void DisplayNotify(string title, string info)
+    // used to notify players of various events. input a buttonClick string to change the onClick listener
+    public void DisplayNotify(string title, string info, string buttonClick)
     {
         titleText.text = title;
         infoText.text = info;
@@ -34,7 +35,11 @@ public class NotifyUI : MonoBehaviour
             gameObject.GetComponent<Image>().enabled = true;
         }
 
-        singleButton.onClick.AddListener((okClick));
+        // setting different click listeners for button
+        if (buttonClick.Equals("OK"))
+            singleButton.onClick.AddListener((OkClick));
+        else if (buttonClick.Equals("Vuforia"))
+            singleButton.onClick.AddListener((VuforiaClick));
 
         gameObject.SetActive(true);
 
@@ -49,6 +54,7 @@ public class NotifyUI : MonoBehaviour
             DisablePanel();
         }
     }
+    // Display Event button click leads to player ending turn and going to home scene
     public void DisplayEvent(string title, string info)
     {
         titleText.text = title;
@@ -70,6 +76,7 @@ public class NotifyUI : MonoBehaviour
             DisablePanel();
         }
     }
+
     public void DisplayCombat(string title, string info)
     {
         titleText.text = title;
@@ -80,10 +87,19 @@ public class NotifyUI : MonoBehaviour
         gameObject.SetActive(true);
     }
 
-    private void okClick()
+    private void OkClick()
     {
         SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
         gameObject.SetActive(false);
+
+        PanelHolder.panelQueue.Dequeue();
+        PanelHolder.instance.CheckPanelQueue();
+    }
+    private void VuforiaClick()
+    {
+        SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+        gameObject.SetActive(false);
+        SceneManager.LoadScene("VuforiaScene");
 
         PanelHolder.panelQueue.Dequeue();
         PanelHolder.instance.CheckPanelQueue();

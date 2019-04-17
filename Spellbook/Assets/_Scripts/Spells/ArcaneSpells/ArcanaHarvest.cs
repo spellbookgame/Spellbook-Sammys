@@ -24,7 +24,7 @@ public class ArcanaHarvest : Spell
         // subtract mana and glyph costs
         player.iMana -= iManaCost;
             
-        PanelHolder.instance.displayNotify("You cast " + sSpellName, "You will receive double mana/glyphs until your next turn.");
+        PanelHolder.instance.displayNotify("You cast " + sSpellName, "You will receive double mana/glyphs until your next turn.", "OK");
         player.activeSpells.Add(this);
     }
 }
