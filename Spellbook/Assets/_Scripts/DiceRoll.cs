@@ -44,7 +44,7 @@ public class DiceRoll : MonoBehaviour
     public int _rollMinimum;
     public int _rollMaximum;
 
-    // Grace Ko's additions: implementing spell/quest tracking and scanner
+    // Grace Ko's additions: implementing spell/quest tracking
     private Button rollButton;
     private GameObject diceTrayPanel;
     public bool rollEnabled;
@@ -70,7 +70,7 @@ public class DiceRoll : MonoBehaviour
 
     public void Roll()
     {
-        // only execute if roll is enabled
+        // only execute if roll is enabled (DiceSlotHandler.cs)
         if(rollEnabled)
         {
             SoundManager.instance.PlaySingle(SoundManager.diceroll);
@@ -98,7 +98,7 @@ public class DiceRoll : MonoBehaviour
             LastRoll = Clamp((int)(_rollMult * Random.Range(_rollMinimum, _rollMaximum + 1) + _rollAdd), _rollMinimum, _rollMaximum);
             SetDefaults();
 
-            // if Echo is an active spell, player may reroll one more time
+            // if Echo is active, player may reroll one more time
             if (localPlayer.Spellcaster.activeSpells.Any(x => x.sSpellName.Equals("Echo")))
             {
                 if (pressedNum <= 1)

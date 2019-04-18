@@ -66,7 +66,7 @@ public class SpellCollectionHandler : MonoBehaviour
 
         // set spell name and info
         spellPanel.transform.Find("text_spellname").GetComponent<Text>().text = spell.sSpellName;
-        spellPanel.transform.Find("text_spellinfo").GetComponent<Text>().text = spell.sSpellInfo;
+        spellPanel.transform.Find("text_spellinfo").GetComponent<Text>().text = "Cost: " + spell.iManaCost + "\n\n" + spell.sSpellInfo;
 
         // add onclick listener to close button
         spellPanel.transform.Find("button_exit").GetComponent<Button>().onClick.AddListener(CloseSpellPanel);

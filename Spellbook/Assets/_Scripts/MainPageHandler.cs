@@ -92,7 +92,6 @@ public class MainPageHandler : MonoBehaviour
 
             // in case a panel didn't display during scan scene, display them in main scene
             PanelHolder.instance.CheckPanelQueue();
-            Debug.Log("queue checked in main scene");
         }
 
         // create instances of QuestTracker/SpellTracker prefabs
@@ -138,7 +137,7 @@ public class MainPageHandler : MonoBehaviour
     // FOR TESTING ONLY - DELETE LATER
     public void CollectSpell()
     {
-        localPlayer.Spellcaster.CollectSpell(localPlayer.Spellcaster.chapter.spellsAllowed[0]);
+        localPlayer.Spellcaster.CollectSpell(localPlayer.Spellcaster.chapter.spellsAllowed[1]);
     }
 
     // closing the proclamation panel
