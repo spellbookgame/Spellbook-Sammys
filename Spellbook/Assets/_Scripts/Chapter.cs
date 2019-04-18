@@ -43,6 +43,7 @@ public class Chapter : MonoBehaviour
                 break;
             case "Summoner":
                 spellsAllowed.Add(new CoSLeon());
+                spellsAllowed.Add(new CoMUmbra());
                 break;
             case "Trickster":
                 spellsAllowed.Add(new Playwright());

@@ -56,4 +56,14 @@ public class SpellTracker : MonoBehaviour
             }
         }
     }
+
+    public bool CheckUmbra()
+    {
+        if (spellCaster.activeSpells.Any(x => x.sSpellName.Equals("Call of the Moon - Umbra's Eclipse")))
+        {
+            return true;
+        }
+        else
+            return false;
+    }
 }

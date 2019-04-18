@@ -17,8 +17,14 @@ public class CrystalScent : Spell
     }
 
     public override void SpellCast(SpellCaster player)
-    {
-        if (player.iMana < iManaCost)
+    {   
+        // cast spell for free if Umbra's Eclipse is active
+        if (SpellTracker.instance.CheckUmbra())
+        {
+            SpellTracker.instance.RemoveFromActiveSpells("Call of the Moon - Umbra's Eclipse");
+            PanelHolder.instance.displayNotify("You cast " + sSpellName, "Move your piece to the Marketplace.", "Shop");
+        }
+        else if (player.iMana < iManaCost)
         {
             PanelHolder.instance.displayNotify("Not enough Mana!", "You do not have enough mana to cast this spell.", "OK");
         }
