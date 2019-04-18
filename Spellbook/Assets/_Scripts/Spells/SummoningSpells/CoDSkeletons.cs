@@ -28,6 +28,6 @@ public class CoDSkeletons : Spell
 
         int damage = Random.Range(1, 6);
         enemy.HitEnemy(damage);
-        PanelHolder.instance.displayCombat("You cast " + sSpellName, "The Skeleton did " + damage + " damage!");
+        PanelHolder.instance.displayNotify("You cast " + sSpellName, "The Skeleton did " + damage + " damage!", "OK");
     }
 }

@@ -37,11 +37,12 @@ public class DiceRoll : MonoBehaviour
     // private fields
     private int _roll;
     private Sprite[] _pipsArray;
-    private int _rollMinimum;
-    private int _rollMaximum;
     private int _rollAdd;
     private float _rollMult;
-    
+
+    public int _rollMinimum;
+    public int _rollMaximum;
+
     // Grace Ko's additions: implementing spell/quest tracking and scanner
     private Button rollButton;
     private GameObject diceTrayPanel;
@@ -79,17 +80,14 @@ public class DiceRoll : MonoBehaviour
                 // wiggle the dice
                 gameObject.GetComponent<WiggleElement>().Wiggle();
 
-                /*string spellActive = SpellTracker.instance.CheckMoveSpell();
-                if (spellActive.Equals("Accelerate"))
-                {
-                    _rollMinimum = 5;
-                    _rollMaximum = 9;
-                }*/
-
                 LastRoll = Clamp((int)(_rollMult * Random.Range(_rollMinimum, _rollMaximum + 1) + _rollAdd), _rollMinimum, _rollMaximum);
                 SetDefaults();
 
-                //localPlayer.Spellcaster.spacesTraveled += LastRoll;
+                // if Potion of Luck was cast, remove it after rolling dice
+                SpellTracker.instance.PotionofLuck();
+
+                CheckMoveRoll(LastRoll);
+                CheckManaRoll(LastRoll);
                 //QuestTracker.instance.CheckMoveQuest(diceRoll);
 
                 // disable drag on ALL dice once they're rolled
@@ -111,6 +109,31 @@ public class DiceRoll : MonoBehaviour
                 SceneManager.LoadScene("VuforiaScene");
             }
         }
+    }
+
+    // store the number of spaces player has traveled
+    private void CheckMoveRoll(int rollValue)
+    {
+        if(transform.parent.name.Equals("slot1"))
+        {
+            localPlayer.Spellcaster.spacesTraveled += rollValue;
+        }
+    }
+
+    // add a percentage to mana multiplier for earning mana at the end of turn
+    private void CheckManaRoll(int rollValue)
+    {
+        if(transform.parent.name.Equals("slot2"))
+        {
+            decimal m = (decimal)0.05 * rollValue;
+            Debug.Log("Roll: " + rollValue + "\n" + "Multiplier: " + m);
+            localPlayer.Spellcaster.dManaMultiplier += m;
+        }
+    }
+
+    private void CheckHealRoll()
+    {
+        // do something
     }
 
     // Internal Methods

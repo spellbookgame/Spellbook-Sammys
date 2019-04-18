@@ -11,6 +11,7 @@ public class MainPageHandler : MonoBehaviour
 
     [SerializeField] private Text classType;
     [SerializeField] private Text manaCrystalsValue;
+    [SerializeField] private Text manaCrystalsAddition;
     [SerializeField] private Text healthValue;
     [SerializeField] private Enemy enemy;
 
@@ -48,9 +49,13 @@ public class MainPageHandler : MonoBehaviour
 
     private void Update()
     {
+        // update player's mana count
+        if (localPlayer != null)
+            manaCrystalsValue.text = localPlayer.Spellcaster.iMana.ToString();
+
         // update player's list of active spells
         if (localPlayer != null && localPlayer.Spellcaster.activeSpells.Count > 0)
-            UpdateActiveSpells();
+            SpellTracker.instance.UpdateActiveSpells();
         // update player's list of active quests
         if (localPlayer != null && localPlayer.Spellcaster.activeQuests.Count > 0)
             UpdateActiveQuests();
@@ -60,6 +65,13 @@ public class MainPageHandler : MonoBehaviour
             rollButton.interactable = false;
         else
             rollButton.interactable = true;
+
+        // TESTING AREA
+        Spell pOL = new CrystalScent();
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            pOL.SpellCast(localPlayer.Spellcaster);
+        }
     }
 
     public void setupMainPage()
@@ -70,6 +82,14 @@ public class MainPageHandler : MonoBehaviour
         classType.text = localPlayer.Spellcaster.classType;
         manaCrystalsValue.text = localPlayer.Spellcaster.iMana.ToString();
         healthValue.text = localPlayer.Spellcaster.fCurrentHealth.ToString() + "/ " + localPlayer.Spellcaster.fMaxHealth.ToString();
+
+        Debug.Log("main page turn just ended: " + localPlayer.Spellcaster.turnJustEnded);
+        // set text for earned mana briefly 
+        if(localPlayer.Spellcaster.turnJustEnded == true)
+        {
+            int endOfTurnMana = localPlayer.Spellcaster.CollectManaEndTurn();
+            StartCoroutine(ShowManaEarned(endOfTurnMana));
+        }
 
         // if an enemy does not exist, create one
         if (GameObject.FindGameObjectWithTag("Enemy") == null)
@@ -106,27 +126,12 @@ public class MainPageHandler : MonoBehaviour
         warpBackground1.GetComponent<SpriteRenderer>().color = darkCol;
         warpBackground2.GetComponent<SpriteRenderer>().color = lightCol;
 
-        // set onclick listeners for buttons
+        // set onclick listeners for spellbook button
         spellbookButton.onClick.AddListener(() =>
         {
             SoundManager.instance.PlaySingle(SoundManager.spellbookopen);
             SceneManager.LoadScene("SpellbookScene");
         });
-    }
-    
-    // updating the list of active spells
-    private void UpdateActiveSpells()
-    {
-        foreach (Spell entry in localPlayer.Spellcaster.chapter.spellsCollected)
-        {
-            // if the player has gone the amount of turns that the spell lasts
-            if (localPlayer.Spellcaster.NumOfTurnsSoFar - entry.iCastedTurn == entry.iTurnsActive)
-            {
-                // remove the spell from the active spells list and notify player
-                localPlayer.Spellcaster.activeSpells.Remove(entry);
-                PanelHolder.instance.displayNotify(entry.sSpellName, entry.sSpellName + " wore off...");
-            }
-        }
     }
 
     // updating the list of active quests
@@ -140,7 +145,7 @@ public class MainPageHandler : MonoBehaviour
                 // remove the quest from the active quests list and notify player
                 localPlayer.Spellcaster.activeQuests.Remove(q);
                 SoundManager.instance.PlaySingle(SoundManager.questfailed);
-                PanelHolder.instance.displayNotify(q.questName + " Failed...", "You failed to complete the quest in your given time.");
+                PanelHolder.instance.displayNotify(q.questName + " Failed...", "You failed to complete the quest in your given time.", "OK");
             }
         }
     }
@@ -149,8 +154,18 @@ public class MainPageHandler : MonoBehaviour
     public void CloseProclamationPanel()
     {
         SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
-        //Destroy(proclamationPanel.gameObject);
         localPlayer.Spellcaster.procPanelShown = true;
         PanelHolder.instance.CheckPanelQueue();
+    }
+
+    // corouting to show mana earned
+    IEnumerator ShowManaEarned(int manaCount)
+    {
+        manaCrystalsAddition.text = "+" + manaCount.ToString();
+
+        yield return new WaitForSeconds(2f);
+
+        manaCrystalsAddition.text = "";
+        localPlayer.Spellcaster.turnJustEnded = false;
     }
 }

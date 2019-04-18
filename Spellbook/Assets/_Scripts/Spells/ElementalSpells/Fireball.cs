@@ -28,6 +28,6 @@ public class Fireball : Spell
 
         int damage = Random.Range(2, 12);
         enemy.HitEnemy(damage);
-        PanelHolder.instance.displayCombat("You cast " + sSpellName, "It did " + damage + " damage!");
+        PanelHolder.instance.displayNotify("You cast " + sSpellName, "It did " + damage + " damage!", "OK");
     }
 }

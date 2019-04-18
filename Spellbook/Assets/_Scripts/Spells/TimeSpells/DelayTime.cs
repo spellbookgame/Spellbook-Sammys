@@ -24,6 +24,6 @@ public class DelayTime : Spell
         // subtract mana and glyph costs
         player.iMana -= iManaCost;
 
-        PanelHolder.instance.displayNotify("You cast " + sSpellName, "The next event will come 1 turn later.");
+        PanelHolder.instance.displayNotify("You cast " + sSpellName, "The next event will come 1 turn later.", "OK");
     }
 }

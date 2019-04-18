@@ -31,7 +31,7 @@ public class NaturalDisaster : Spell
         // TODO: destroy enemy without giving player loot
         if(enemy.fCurrentHealth < enemy.fMaxHealth / 2)
         {
-            PanelHolder.instance.displayCombat(sSpellName, "You destroyed the enemy!");
+            PanelHolder.instance.displayNotify(sSpellName, "You destroyed the enemy!", "OK");
             enemy.EnemyDefeated();
         }
     }

@@ -23,7 +23,7 @@ public class Accelerate : Spell
         // subtract mana and glyph costs
         player.iMana -= iManaCost;
 
-        PanelHolder.instance.displayNotify("You cast " + sSpellName, "Your next move dice will roll a 5 or 6.");
+        PanelHolder.instance.displayNotify("You cast " + sSpellName, "Your next move dice will roll a 5 or 6.", "OK");
         player.activeSpells.Add(this);
     }
 }
