@@ -6,6 +6,8 @@ public class ButtonInventory : MonoBehaviour
 {
     bool isShowing = false;
     public GameObject inventory;
+    [SerializeField] GameObject itemInfoPanel;
+
     public void onClickInventory()
     {
         if (isShowing)
@@ -13,6 +15,7 @@ public class ButtonInventory : MonoBehaviour
             SoundManager.instance.PlaySingle(SoundManager.closeinventory);
             isShowing = false;
             inventory.SetActive(false);
+            itemInfoPanel.SetActive(false);
         }
         else
         {
