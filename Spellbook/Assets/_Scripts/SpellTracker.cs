@@ -35,16 +35,24 @@ public class SpellTracker : MonoBehaviour
     }
 
     // making sure player is notified if a spell wears off
-    public void UpdateActiveSpells()
+    public void UpdateActiveSpells(string spellName)
     {
-        foreach (Spell entry in spellCaster.chapter.spellsCollected)
+        // if spell is active
+        if (spellCaster.activeSpells.Any(x => x.sSpellName.Equals(spellName)))
         {
-            // if the player has gone the amount of turns that the spell lasts
-            if (spellCaster.NumOfTurnsSoFar - entry.iCastedTurn == entry.iTurnsActive)
+            // removing D8 after it is used
+            if (spellName.Equals("Brew - Potion of Luck"))
             {
-                // remove the spell from the active spells list and notify player
-                spellCaster.activeSpells.Remove(entry);
-                PanelHolder.instance.displayNotify(entry.sSpellName, entry.sSpellName + " wore off...", "OK");
+                spellCaster.dice["D8"] -= 1;
+            }
+            // remove spell from active spells list once it wears off
+            foreach (Spell entry in spellCaster.chapter.spellsCollected)
+            {
+                if (entry.sSpellName.Equals(spellName))
+                {
+                    spellCaster.activeSpells.Remove(entry);
+                    Debug.Log(entry.sSpellName + " was removed from active spells list");
+                }
             }
         }
     }

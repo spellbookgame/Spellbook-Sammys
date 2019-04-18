@@ -2,6 +2,7 @@
 using UnityEditor;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 /// <summary>
 /// Controller for the MagicDice prefab.
@@ -74,6 +75,8 @@ public class DiceRoll : MonoBehaviour
         {
             SoundManager.instance.PlaySingle(SoundManager.diceroll);
 
+            ++pressedNum;
+
             // after dice are rolled, disable roll button, enable scan button, and lock dice into position
             diceTrayPanel.GetComponent<DiceUIHandler>().scanButton.interactable = true;
             diceTrayPanel.GetComponent<DiceUIHandler>().rollButton.interactable = false;
@@ -95,10 +98,24 @@ public class DiceRoll : MonoBehaviour
             LastRoll = Clamp((int)(_rollMult * Random.Range(_rollMinimum, _rollMaximum + 1) + _rollAdd), _rollMinimum, _rollMaximum);
             SetDefaults();
 
+            // if Echo is an active spell, player may reroll one more time
+            if (localPlayer.Spellcaster.activeSpells.Any(x => x.sSpellName.Equals("Echo")))
+            {
+                if (pressedNum <= 1)
+                {
+                    diceTrayPanel.GetComponent<DiceUIHandler>().rollButton.interactable = true;
+                }
+                else if(pressedNum > 1)
+                {
+                    diceTrayPanel.GetComponent<DiceUIHandler>().rollButton.interactable = false;
+                    SpellTracker.instance.UpdateActiveSpells("Echo");
+                }
+            }
+
             // if Potion of Luck was cast, remove it after rolling dice
-            SpellTracker.instance.EndPotionofLuck();
+            SpellTracker.instance.UpdateActiveSpells("Brew - Potion of Luck");
             // if Tailwind was cast, remove it after rolling dice
-            SpellTracker.instance.EndTailwind();
+            SpellTracker.instance.UpdateActiveSpells("Tailwind");
 
             CheckMoveRoll(LastRoll);
             CheckManaRoll(LastRoll);

@@ -61,9 +61,6 @@ public class MainPageHandler : MonoBehaviour
         if (localPlayer != null && !localPlayer.bIsMyTurn)
             diceButton.interactable = false;
 
-        // update player's list of active spells
-        if (localPlayer != null && localPlayer.Spellcaster.activeSpells.Count > 0)
-            SpellTracker.instance.UpdateActiveSpells();
         // update player's list of active quests
         if (localPlayer != null && localPlayer.Spellcaster.activeQuests.Count > 0)
             UpdateActiveQuests();
@@ -136,6 +133,12 @@ public class MainPageHandler : MonoBehaviour
         }
     }
 
+    // FOR TESTING ONLY - DELETE LATER
+    public void CollectSpell()
+    {
+        localPlayer.Spellcaster.CollectSpell(localPlayer.Spellcaster.chapter.spellsAllowed[0]);
+    }
+
     // closing the proclamation panel
     public void CloseProclamationPanel()
     {
@@ -148,11 +151,11 @@ public class MainPageHandler : MonoBehaviour
     IEnumerator ShowManaEarned(int manaCount)
     {
         manaCrystalsAddition.text = "+" + manaCount.ToString();
+        manaHasChanged = true;
 
         yield return new WaitForSeconds(2f);
 
         manaCrystalsAddition.text = "";
         localPlayer.Spellcaster.turnJustEnded = false;
-        manaHasChanged = true;
     }
 }
