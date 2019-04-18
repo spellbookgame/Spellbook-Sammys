@@ -65,6 +65,23 @@ public class SpellTracker : MonoBehaviour
         }
     }
 
+    // call this after player rolls
+    public void EndEcho()
+    {
+        // if echo is an active spell, remove spell from active spells list
+        if (spellCaster.activeSpells.Any(x => x.sSpellName.Equals("Echo")))
+        {
+            foreach (Spell entry in spellCaster.chapter.spellsCollected)
+            {
+                if (entry.sSpellName.Equals("Echo"))
+                {
+                    spellCaster.activeSpells.Remove(entry);
+                    Debug.Log(entry.sSpellName + " was removed from active spells list");
+                }
+            }
+        }
+    }
+
     // call this to end tailwind spell (after player rolls)
     public void EndTailwind()
     {

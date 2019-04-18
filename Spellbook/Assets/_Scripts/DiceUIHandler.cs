@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+// Grace Ko
+// Populating dice tray when gameobject is set active
 public class DiceUIHandler : MonoBehaviour
 {
     [SerializeField] private GameObject diceSlot;
     [SerializeField] private GameObject dice;
     [SerializeField] private GameObject diceScrollContent;
-    [SerializeField] private Button rollButton;
 
     [SerializeField] private Button diceButton;
     [SerializeField] private Button spellBookButton;
@@ -17,16 +19,31 @@ public class DiceUIHandler : MonoBehaviour
 
     private bool diceTrayOpen;
 
+    public Button rollButton;
+    public Button scanButton;
+    public bool diceLocked;
+
     Player localPlayer;
+
+    private void Start()
+    {
+        scanButton.onClick.AddListener(() =>
+        {
+            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+            SceneManager.LoadScene("VuforiaScene");
+        });
+        // disable scan button until player has rolled
+        scanButton.interactable = false;
+    }
 
     // call this function from onclick event on button
     public void OpenDiceTray()
     {
         SoundManager.instance.PlaySingle(SoundManager.dicetrayopen);
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
-        rollButton.transform.GetChild(0).GetComponent<Text>().text = "Roll!";
 
-        if (!diceTrayOpen)
+        // if dice are not locked, populate dice normally
+        if (!diceTrayOpen && !diceLocked)
         {
             gameObject.SetActive(true);
 
@@ -72,9 +89,25 @@ public class DiceUIHandler : MonoBehaviour
                     }
                 }
             }
+            // disable spellbook/inventory buttons while dice tray is open
+            spellBookButton.interactable = false;
+            inventoryButton.interactable = false;
+
             diceTrayOpen = true;
         }
-        else if(diceTrayOpen)
+        // if dice tray is closed and dice are locked, open tray the way the dice were originally
+        else if(!diceTrayOpen && diceLocked)
+        {
+            gameObject.SetActive(true);
+
+            // disable spellbook/inventory buttons while dice tray is open
+            spellBookButton.interactable = false;
+            inventoryButton.interactable = false;
+
+            diceTrayOpen = true;
+        }
+        // if dice are not locked, reset dice when panel is closed
+        else if(diceTrayOpen && !diceLocked)
         {
             // destroy all dice in panel
             foreach (Transform child in diceScrollContent.transform)
@@ -89,18 +122,23 @@ public class DiceUIHandler : MonoBehaviour
                 }
             }
             gameObject.SetActive(false);
+
+            // enable spellbook/inventory buttons while dice tray is open
+            spellBookButton.interactable = true;
+            inventoryButton.interactable = true;
+
             diceTrayOpen = false;
         }
-    }
-
-    public void DisableButtons()
-    {
-        // disable all other buttons if player rolled
-        if (diceTrayOpen)
+        // if dice are locked, keep dice the same when panel is closed
+        else if(diceTrayOpen && diceLocked)
         {
-            diceButton.interactable = false;
-            spellBookButton.interactable = false;
-            inventoryButton.interactable = false;
+            gameObject.SetActive(false);
+
+            // enable spellbook/inventory buttons while dice tray is open
+            spellBookButton.interactable = true;
+            inventoryButton.interactable = true;
+
+            diceTrayOpen = false;
         }
     }
 }

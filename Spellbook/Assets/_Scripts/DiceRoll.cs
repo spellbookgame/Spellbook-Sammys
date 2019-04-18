@@ -72,47 +72,38 @@ public class DiceRoll : MonoBehaviour
         // only execute if roll is enabled
         if(rollEnabled)
         {
-            GameObject.Find("Dice Tray").GetComponent<DiceUIHandler>().DisableButtons();
+            SoundManager.instance.PlaySingle(SoundManager.diceroll);
 
-            // when button is clicked for first time, roll and change button to Scan
-            if (pressedNum == 0)
+            // after dice are rolled, disable roll button, enable scan button, and lock dice into position
+            diceTrayPanel.GetComponent<DiceUIHandler>().scanButton.interactable = true;
+            diceTrayPanel.GetComponent<DiceUIHandler>().rollButton.interactable = false;
+            diceTrayPanel.GetComponent<DiceUIHandler>().diceLocked = true;
+
+            // disable drag on ALL dice once they're rolled
+            gameObject.GetComponent<DiceDragHandler>().enabled = false;
+            foreach (Transform t in GameObject.Find("Scroll Content").transform)
             {
-                SoundManager.instance.PlaySingle(SoundManager.diceroll);
-
-                // wiggle the dice
-                gameObject.GetComponent<WiggleElement>().Wiggle();
-
-                LastRoll = Clamp((int)(_rollMult * Random.Range(_rollMinimum, _rollMaximum + 1) + _rollAdd), _rollMinimum, _rollMaximum);
-                SetDefaults();
-
-                // if Potion of Luck was cast, remove it after rolling dice
-                SpellTracker.instance.EndPotionofLuck();
-                // if Tailwind was cast, remove it after rolling dice
-                SpellTracker.instance.EndTailwind();
-
-                CheckMoveRoll(LastRoll);
-                CheckManaRoll(LastRoll);
-
-                //QuestTracker.instance.CheckMoveQuest(diceRoll);
-
-                // disable drag on ALL dice once they're rolled
-                gameObject.GetComponent<DiceDragHandler>().enabled = false;
-                foreach(Transform t in GameObject.Find("Scroll Content").transform)
+                if (t.childCount > 0)
                 {
-                    if(t.childCount > 0)
-                    {
-                        t.GetChild(0).GetComponent<DiceDragHandler>().enabled = false;
-                    }
+                    t.GetChild(0).GetComponent<DiceDragHandler>().enabled = false;
                 }
+            }
 
-                rollButton.GetComponentInChildren<Text>().text = "Scan!";
-                ++pressedNum;
-            }
-            else if (pressedNum >= 1)
-            {
-                diceTrayPanel.SetActive(false);
-                SceneManager.LoadScene("VuforiaScene");
-            }
+            // wiggle the dice
+            gameObject.GetComponent<WiggleElement>().Wiggle();
+
+            LastRoll = Clamp((int)(_rollMult * Random.Range(_rollMinimum, _rollMaximum + 1) + _rollAdd), _rollMinimum, _rollMaximum);
+            SetDefaults();
+
+            // if Potion of Luck was cast, remove it after rolling dice
+            SpellTracker.instance.EndPotionofLuck();
+            // if Tailwind was cast, remove it after rolling dice
+            SpellTracker.instance.EndTailwind();
+
+            CheckMoveRoll(LastRoll);
+            CheckManaRoll(LastRoll);
+
+            //QuestTracker.instance.CheckMoveQuest(diceRoll);
         }
     }
 
