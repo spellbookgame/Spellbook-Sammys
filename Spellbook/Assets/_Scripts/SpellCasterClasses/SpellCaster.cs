@@ -26,7 +26,7 @@ public abstract class SpellCaster
 
     public int iMana;
     public decimal dManaMultiplier = 1;
-    public bool turnJustEnded = false;    // bool to track if "end of turn" mana should be collected or not
+    public bool endTurnManaCollected;    // bool to track if "end of turn" mana should be collected or not
     
     public string classType;
     public int spellcasterID;
@@ -133,12 +133,13 @@ public abstract class SpellCaster
     public int CollectManaEndTurn()
     {
         int manaCount = (int)UnityEngine.Random.Range(30, 100);
-        Debug.Log("initial mana count: " + manaCount);
         manaCount = (int)(manaCount * dManaMultiplier);
-        Debug.Log("mana multiplier: " + dManaMultiplier);
-        Debug.Log("final mana count: " + manaCount);
         iMana += manaCount;
+
+        /// reset mana multiplier
         dManaMultiplier = 1;
+
+        endTurnManaCollected = true;
         return manaCount;
     }
 
@@ -206,7 +207,7 @@ public abstract class SpellCaster
 
                 // tell player that the spell is collected
                 //g.GetComponent<SpellCreateHandler>().inventoryText.text = "You unlocked " + spell.sSpellName + "!";
-                PanelHolder.instance.displayEvent(spell.sSpellName, "You unlocked " + spell.sSpellName + "!");
+                PanelHolder.instance.displayNotify(spell.sSpellName, "You unlocked " + spell.sSpellName + "!", "Main");
 
                 Debug.Log("You have " + chapter.spellsCollected.Count + " spells collected.");
 

@@ -13,7 +13,6 @@ public class DiceUIHandler : MonoBehaviour
     [SerializeField] private GameObject dice;
     [SerializeField] private GameObject diceScrollContent;
 
-    [SerializeField] private Button diceButton;
     [SerializeField] private Button spellBookButton;
     [SerializeField] private Button inventoryButton;
 

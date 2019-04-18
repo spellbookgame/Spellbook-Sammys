@@ -7,7 +7,7 @@ public class Playwright : Spell
     public Playwright()
     {
         iTier = 1;
-        iManaCost = 200;
+        iManaCost = 2000;
 
         sSpellName = "Playwright";
         sSpellClass = "Trickster";

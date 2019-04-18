@@ -47,6 +47,9 @@ public class NotifyUI : MonoBehaviour
             case "Shop":
                 singleButton.onClick.AddListener((ShopClick));
                 break;
+            case "Main":
+                singleButton.onClick.AddListener((MainClick));
+                break;
             default:
                 break;
         }
@@ -113,6 +116,15 @@ public class NotifyUI : MonoBehaviour
         PanelHolder.panelQueue.Dequeue();
         PanelHolder.instance.CheckPanelQueue();
     }
+    private void MainClick()
+    {
+        SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+        gameObject.SetActive(false);
+        SceneManager.LoadScene("MainPlayerScene");
+
+        PanelHolder.panelQueue.Dequeue();
+        PanelHolder.instance.CheckPanelQueue();
+    }
     private void eventClick()
     {
         SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
@@ -127,7 +139,6 @@ public class NotifyUI : MonoBehaviour
         if (endSuccessful)
         {
             player.GetComponent<Player>().Spellcaster.hasAttacked = false;
-            player.GetComponent<Player>().Spellcaster.turnJustEnded = true;
 
             Scene m_Scene = SceneManager.GetActiveScene();
             if (m_Scene.name != "MainPlayerScene")

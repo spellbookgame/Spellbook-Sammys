@@ -64,7 +64,6 @@ public class BoardScanUI : MonoBehaviour
         if (endSuccessful)
         {
             player.GetComponent<Player>().Spellcaster.hasAttacked = false;
-            player.GetComponent<Player>().Spellcaster.turnJustEnded = true;
             Scene m_Scene = SceneManager.GetActiveScene();
             if (m_Scene.name != "MainPlayerScene")
             {

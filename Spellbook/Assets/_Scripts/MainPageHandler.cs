@@ -50,6 +50,16 @@ public class MainPageHandler : MonoBehaviour
 
     private void Update()
     {
+        // earn mana at end of turn (besides first turn of game)
+        if (localPlayer != null && !(localPlayer.Spellcaster.numOfTurnsSoFar <= 1))
+        {
+            if (localPlayer.Spellcaster.endTurnManaCollected == false)
+            {
+                int endOfTurnMana = localPlayer.Spellcaster.CollectManaEndTurn();
+                StartCoroutine(ShowManaEarned(endOfTurnMana));
+            }
+        }
+
         // update player's mana count
         if (localPlayer != null && manaHasChanged)
         {
@@ -74,14 +84,6 @@ public class MainPageHandler : MonoBehaviour
         classType.text = localPlayer.Spellcaster.classType;
         manaCrystalsValue.text = localPlayer.Spellcaster.iMana.ToString();
         healthValue.text = localPlayer.Spellcaster.fCurrentHealth.ToString() + "/ " + localPlayer.Spellcaster.fMaxHealth.ToString();
-
-        Debug.Log("main page turn just ended: " + localPlayer.Spellcaster.turnJustEnded);
-        // set text for earned mana briefly 
-        if(localPlayer.Spellcaster.turnJustEnded == true)
-        {
-            int endOfTurnMana = localPlayer.Spellcaster.CollectManaEndTurn();
-            StartCoroutine(ShowManaEarned(endOfTurnMana));
-        }
 
         // if it's not first turn of game, then destroy proclamation panel each time scene starts
         if (localPlayer.Spellcaster.procPanelShown)
@@ -156,6 +158,5 @@ public class MainPageHandler : MonoBehaviour
         yield return new WaitForSeconds(2f);
 
         manaCrystalsAddition.text = "";
-        localPlayer.Spellcaster.turnJustEnded = false;
     }
 }
