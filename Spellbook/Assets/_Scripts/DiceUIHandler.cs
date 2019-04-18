@@ -47,16 +47,15 @@ public class DiceUIHandler : MonoBehaviour
         {
             gameObject.SetActive(true);
 
-            // if player has tailwind active, add a D6 to movement
+            // if player has Tailwind active, add a D6 to movement slot
             if(localPlayer.Spellcaster.activeSpells.Any(x => x.sSpellName.Equals("Tailwind")))
             {
-                GameObject newDice = Instantiate(dice, transform.Find("slot1"));
-                newDice.transform.GetChild(0).GetComponent<Image>().sprite = newDice.GetComponent<DiceRoll>().pipsSix;
-                newDice.GetComponent<DiceRoll>()._rollMaximum = 6;
-                // disable drag on dice
-                newDice.GetComponent<DiceDragHandler>().enabled = false;
-                // enable roll
-                newDice.GetComponent<DiceRoll>().rollEnabled = true;
+                D6ToMovement();
+            }
+            // if player has Allegro active, add a D6 to movement slot
+            if (localPlayer.Spellcaster.activeSpells.Any(x => x.sSpellName.Equals("Allegro")))
+            {
+                D6ToMovement();
             }
 
             // populate dice inventory with player's dice
@@ -139,6 +138,25 @@ public class DiceUIHandler : MonoBehaviour
             inventoryButton.interactable = true;
 
             diceTrayOpen = false;
+        }
+    }
+
+    // add a D6 into a movement slot if given a temporary dice
+    private void D6ToMovement()
+    {
+        foreach (GameObject slot in GameObject.FindGameObjectsWithTag("Slot"))
+        {
+            if (slot.name.Equals("slot1") && slot.transform.childCount == 0)
+            {
+                GameObject newDice = Instantiate(dice, slot.transform);
+                newDice.transform.GetChild(0).GetComponent<Image>().sprite = newDice.GetComponent<DiceRoll>().pipsSix;
+                newDice.GetComponent<DiceRoll>()._rollMaximum = 6;
+                // disable drag on dice
+                newDice.GetComponent<DiceDragHandler>().enabled = false;
+                // enable roll
+                newDice.GetComponent<DiceRoll>().rollEnabled = true;
+                break;
+            }
         }
     }
 }

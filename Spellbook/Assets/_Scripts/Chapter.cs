@@ -42,12 +42,11 @@ public class Chapter : MonoBehaviour
                 spellsAllowed.Add(new Tailwind());
                 break;
             case "Summoner":
-                Spell cosLeon = new CoSLeon();
-                spellsAllowed.Add(cosLeon);
+                spellsAllowed.Add(new CoSLeon());
                 break;
             case "Trickster":
-                Spell playwright = new Playwright();
-                spellsAllowed.Add(playwright);
+                spellsAllowed.Add(new Playwright());
+                spellsAllowed.Add(new Allegro());
                 break;
             default:
                 break;

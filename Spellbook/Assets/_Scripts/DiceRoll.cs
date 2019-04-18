@@ -108,14 +108,16 @@ public class DiceRoll : MonoBehaviour
                 else if(pressedNum > 1)
                 {
                     diceTrayPanel.GetComponent<DiceUIHandler>().rollButton.interactable = false;
-                    SpellTracker.instance.UpdateActiveSpells("Echo");
+                    SpellTracker.instance.RemoveFromActiveSpells("Echo");
                 }
             }
 
             // if Potion of Luck was cast, remove it after rolling dice
-            SpellTracker.instance.UpdateActiveSpells("Brew - Potion of Luck");
+            SpellTracker.instance.RemoveFromActiveSpells("Brew - Potion of Luck");
             // if Tailwind was cast, remove it after rolling dice
-            SpellTracker.instance.UpdateActiveSpells("Tailwind");
+            SpellTracker.instance.RemoveFromActiveSpells("Tailwind");
+            // if Allegro was cast, remove it after rolling dice
+            SpellTracker.instance.RemoveFromActiveSpells("Allegro");
 
             CheckMoveRoll(LastRoll);
             CheckManaRoll(LastRoll);

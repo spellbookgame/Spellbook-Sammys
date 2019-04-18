@@ -35,7 +35,7 @@ public class SpellTracker : MonoBehaviour
     }
 
     // making sure player is notified if a spell wears off
-    public void UpdateActiveSpells(string spellName)
+    public void RemoveFromActiveSpells(string spellName)
     {
         // if spell is active
         if (spellCaster.activeSpells.Any(x => x.sSpellName.Equals(spellName)))
