@@ -17,6 +17,7 @@ public class DiceUIHandler : MonoBehaviour
     [SerializeField] private Button inventoryButton;
 
     private bool diceTrayOpen;
+    private int numDice;
 
     public Button rollButton;
     public Button scanButton;
@@ -84,8 +85,16 @@ public class DiceUIHandler : MonoBehaviour
                             clone.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = clone.transform.GetChild(0).GetComponent<DiceRoll>().pipsEight;
                             clone.transform.GetChild(0).GetComponent<DiceRoll>()._rollMaximum = 8;
                         }
+                        // track num of dice to expand scroll rect
+                        ++numDice;
                     }
                 }
+            }
+            // expand scroll rect for each die that exceeds 4
+            if(numDice > 4)
+            {
+                RectTransform rect = diceScrollContent.GetComponent<RectTransform>();
+                rect.sizeDelta = new Vector2((float)rect.sizeDelta.x + (260 * (numDice - 4)), rect.sizeDelta.y);
             }
             // disable spellbook/inventory buttons while dice tray is open
             spellBookButton.interactable = false;

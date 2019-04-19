@@ -74,6 +74,12 @@ public class MainPageHandler : MonoBehaviour
         // update player's list of active quests
         if (localPlayer != null && localPlayer.Spellcaster.activeQuests.Count > 0)
             UpdateActiveQuests();
+
+        // TESTING AREA
+        if(Input.GetKeyDown(KeyCode.D))
+        {
+            localPlayer.Spellcaster.dice["D6"] += 1;
+        }
     }
 
     public void setupMainPage()
