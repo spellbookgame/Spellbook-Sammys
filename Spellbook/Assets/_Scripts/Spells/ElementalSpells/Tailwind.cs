@@ -13,9 +13,9 @@ public class Tailwind : Spell
         sSpellClass = "Elementalist";
         sSpellInfo = "Everyone will receive an extra D6 to their movement next turn.";
 
-        requiredGlyphs.Add("Elemental A Glyph", 1);
-        requiredGlyphs.Add("Elemental B Glyph", 1);
-        requiredGlyphs.Add("Elemental C Glyph", 1);
+        requiredGlyphs.Add("Elemental A Rune", 1);
+        requiredGlyphs.Add("Elemental B Rune", 1);
+        requiredGlyphs.Add("Elemental C Rune", 1);
     }
 
     public override void SpellCast(SpellCaster player)

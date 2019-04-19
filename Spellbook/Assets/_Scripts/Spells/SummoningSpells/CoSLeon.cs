@@ -16,9 +16,9 @@ public class CoSLeon : Spell
         sSpellClass = "Summoner";
         sSpellInfo = "You and your allies in the same town as you will be able to cast your next spell for free.";
 
-        requiredGlyphs.Add("Elemental A Glyph", 1);
-        requiredGlyphs.Add("Summoning A Glyph", 1);
-        requiredGlyphs.Add("Time A Glyph", 1);
+        requiredGlyphs.Add("Elemental A Rune", 1);
+        requiredGlyphs.Add("Summoning A Rune", 1);
+        requiredGlyphs.Add("Time A Rune", 1);
     }
 
     public override void SpellCast(SpellCaster player)

@@ -13,7 +13,7 @@ public class CrystalScent : Spell
         sSpellClass = "Alchemist";
         sSpellInfo = "Teleport to the Marketplace. Can cast on an ally.";
 
-        requiredGlyphs.Add("Alchemy D Glyph", 1);
+        requiredGlyphs.Add("Alchemy D Rune", 1);
     }
 
     public override void SpellCast(SpellCaster player)

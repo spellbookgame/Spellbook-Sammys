@@ -15,7 +15,7 @@ public class RuneConversion : Spell
         sSpellClass = "Arcanist";
         sSpellInfo = "Discard one of your current runes in to draw one directly from the deck. Can cast on an ally.";
 
-        requiredGlyphs.Add("Arcane A Glyph", 1);
+        requiredGlyphs.Add("Arcane A Rune", 1);
     }
 
     public override void SpellCast(SpellCaster player)

@@ -13,7 +13,7 @@ public class Allegro : Spell
         sSpellClass = "Trickster";
         sSpellInfo = "Add a D6 to your movement next time you roll. Can cast on an ally.";
 
-        requiredGlyphs.Add("Illusion D Glyph", 1);
+        requiredGlyphs.Add("Illusion D Rune", 1);
     }
 
     public override void SpellCast(SpellCaster player)
