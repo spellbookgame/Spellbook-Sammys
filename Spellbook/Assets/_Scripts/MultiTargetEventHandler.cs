@@ -147,6 +147,7 @@ public class MultiTargetEventHandler : MonoBehaviour, ITrackableEventHandler
                 else
                 {
                     PanelHolder.instance.displayEvent("No Spell Detected", "You did not create a spell.");
+                    break;
                 }
             }
             // tier 2 and 1 spells
@@ -161,13 +162,17 @@ public class MultiTargetEventHandler : MonoBehaviour, ITrackableEventHandler
                     else
                     {
                         isEqual = false;
-                        PanelHolder.instance.displayEvent("No Spell Detected", "You did not create a spell.");
-                        break;
                     }
                 }
                 if(isEqual)
                 {
                     localPlayer.Spellcaster.CollectSpell(localPlayer.Spellcaster.chapter.spellsAllowed[i]);
+                    break;
+                }
+                else
+                {
+                    PanelHolder.instance.displayEvent("No Spell Detected", "You did not create a spell.");
+                    break;
                 }
             }
         }
