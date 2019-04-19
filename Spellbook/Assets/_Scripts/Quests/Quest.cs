@@ -6,10 +6,12 @@ public abstract class Quest
 {
     public string questName;
     public string questType;
-    public string questDescription;
+    public string questTask;
+    public string questFlavor;
 
     public int startTurn;
     public int turnLimit;
+    public int consequenceMana;
 
     public bool questCompleted;
 

@@ -71,10 +71,6 @@ public class MainPageHandler : MonoBehaviour
         if (localPlayer != null && !localPlayer.bIsMyTurn)
             diceButton.interactable = false;
 
-        // update player's list of active quests
-        if (localPlayer != null && localPlayer.Spellcaster.activeQuests.Count > 0)
-            UpdateActiveQuests();
-
         // TESTING AREA
         if(Input.GetKeyDown(KeyCode.D))
         {
@@ -122,22 +118,6 @@ public class MainPageHandler : MonoBehaviour
             SoundManager.instance.PlaySingle(SoundManager.spellbookopen);
             SceneManager.LoadScene("SpellbookScene");
         });
-    }
-
-    // updating the list of active quests
-    private void UpdateActiveQuests()
-    {
-        foreach (Quest q in localPlayer.Spellcaster.activeQuests.ToArray())
-        {
-            // if the player's turns from starting the quest exceeded the turn limit
-            if (localPlayer.Spellcaster.NumOfTurnsSoFar - q.startTurn > q.turnLimit)
-            {
-                // remove the quest from the active quests list and notify player
-                localPlayer.Spellcaster.activeQuests.Remove(q);
-                SoundManager.instance.PlaySingle(SoundManager.questfailed);
-                PanelHolder.instance.displayNotify(q.questName + " Failed...", "You failed to complete the quest in your given time.", "OK");
-            }
-        }
     }
 
     // FOR TESTING ONLY - DELETE LATER

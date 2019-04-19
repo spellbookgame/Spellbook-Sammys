@@ -9,7 +9,7 @@ public class ArcaneSpellQuest : Quest
     {
         questName = "Arcane Spell Quest";
         questType = "Spell";
-        questDescription = "Cast the same spell twice in a row.";
+        questTask = "Cast the same spell twice in a row.";
 
         startTurn = turnStarted;
         turnLimit = 3;

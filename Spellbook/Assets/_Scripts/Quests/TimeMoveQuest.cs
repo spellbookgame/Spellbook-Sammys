@@ -9,7 +9,7 @@ public class TimeMoveQuest : Quest
     {
         questName = "Time Move Quest";
         questType = "Movement";
-        questDescription = "Travel 12 spaces.";
+        questTask = "Travel 12 spaces.";
 
         startTurn = turnStarted;
         turnLimit = 5;

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -33,7 +34,34 @@ public class QuestTracker : MonoBehaviour
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
     }
 
-    // AlchemyManaQuest and SummoningManaQuest - Checked in Spellcaster.cs in CollectMana()
+    private void Update()
+    {
+        if (localPlayer.Spellcaster.activeQuests.Count > 0)
+            UpdateActiveQuests();
+    }
+
+    // updating the list of active quests
+    private void UpdateActiveQuests()
+    {
+        foreach (Quest q in localPlayer.Spellcaster.activeQuests.ToArray())
+        {
+            // if the player's turns from starting the quest exceeded the turn limit
+            if (localPlayer.Spellcaster.NumOfTurnsSoFar - q.startTurn > q.turnLimit)
+            {
+                QuestFailed(q);
+            }
+        }
+    }
+
+    // notify player of quest failed, remove from their list of active quests, subtract mana
+    private void QuestFailed(Quest q)
+    {
+        SoundManager.instance.PlaySingle(SoundManager.questfailed);
+        localPlayer.Spellcaster.activeQuests.Remove(q);
+        PanelHolder.instance.displayNotify(q.questName + " Failed...", "You failed to complete the quest in time. You paid " + q.consequenceMana + " for the trouble.", "OK");
+        localPlayer.Spellcaster.LoseMana(q.consequenceMana);
+    }
+
     public void CheckManaQuest(int mana)
     {
         foreach(Quest q in localPlayer.Spellcaster.activeQuests.ToArray())
@@ -187,8 +215,8 @@ public class QuestTracker : MonoBehaviour
     {
         switch(key)
         {
-            case "Glyph":
-                localPlayer.Spellcaster.glyphs[value] += 1;
+            case "Rune":
+                PanelHolder.instance.displayNotify("Rune Reward", "Take a " + value + " from the deck.", "OK");
                 return value;
             default:
                 return value;

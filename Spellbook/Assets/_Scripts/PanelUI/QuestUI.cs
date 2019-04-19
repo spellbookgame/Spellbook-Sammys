@@ -29,9 +29,9 @@ public class QuestUI : MonoBehaviour
     public void DisplayQuestGlyphs(Quest quest)
     {
         titleText.text = quest.questName;
-        infoText.text = quest.questDescription + "\nTurn Limit: " + quest.turnLimit;
+        infoText.text = quest.questTask + "\nTurn Limit: " + quest.turnLimit;
 
-        string reward1 = "", reward2 = "";
+        /*string reward1 = "", reward2 = "";
         // getting the glyph rewards of the quest and loading its image
         foreach(KeyValuePair<string, List<string>> kvp in quest.rewards)
         {
@@ -44,7 +44,7 @@ public class QuestUI : MonoBehaviour
 
         // setting panel images to glyphs to display rewards
         gameObject.transform.Find("image_reward1").GetComponent<Image>().sprite = Resources.Load<Sprite>("GlyphArt/" + reward1);
-        gameObject.transform.Find("image_reward2").GetComponent<Image>().sprite = Resources.Load<Sprite>("GlyphArt/" + reward2);
+        gameObject.transform.Find("image_reward2").GetComponent<Image>().sprite = Resources.Load<Sprite>("GlyphArt/" + reward2);*/
 
         singleButton.onClick.AddListener(() => buttonClicked("accept", quest));
         singleButton1.onClick.AddListener(() => buttonClicked("deny", quest));

@@ -9,7 +9,7 @@ public class SummoningManaQuest : Quest
     {
         questName = "Summoning Mana Quest";
         questType = "Collect Mana";
-        questDescription = "Collect 2000 mana crystals.";
+        questTask = "Collect 2000 mana crystals.";
 
         startTurn = turnStarted;
         turnLimit = 6;
@@ -22,7 +22,6 @@ public class SummoningManaQuest : Quest
 
         questCompleted = false;
 
-        manaTracker = 0;
         manaRequired = 2000;
     }
 

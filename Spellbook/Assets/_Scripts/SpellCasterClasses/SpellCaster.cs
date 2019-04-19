@@ -128,6 +128,7 @@ public abstract class SpellCaster
     public void CollectMana(int manaCount)
     {
         iMana += manaCount;
+        QuestTracker.instance.CheckManaQuest(iMana);
     }
 
     public int CollectManaEndTurn()
@@ -140,12 +141,15 @@ public abstract class SpellCaster
         dManaMultiplier = 1;
 
         endTurnManaCollected = true;
+        QuestTracker.instance.CheckManaQuest(iMana);
         return manaCount;
     }
 
     public void LoseMana(int manaCount)
     {
-        this.iMana -= manaCount;
+        iMana -= manaCount;
+        if (iMana <= 0)
+            iMana = 0;
     }
 
     public void CollectGlyph(string glyphName)

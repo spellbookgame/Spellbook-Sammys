@@ -9,7 +9,7 @@ public class IllusionSpaceQuest : Quest
     {
         questName = "Illusion Glyph Quest";
         questType = "Specific Space";
-        questDescription = "Land on 3 Glyph spaces in the Summoner Town.";
+        questTask = "Land on 3 Glyph spaces in the Summoner Town.";
 
         startTurn = turnStarted;
         turnLimit = 5;

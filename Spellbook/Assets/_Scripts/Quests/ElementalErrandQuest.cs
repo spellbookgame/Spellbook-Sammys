@@ -9,7 +9,7 @@ public class ElementalErrandQuest : Quest
     {
         questName = "Errand Quest";
         questType = "Errand";
-        questDescription = "Bring this item to the Alchemist Town. You received [Infused Sapphire].";
+        questTask = "Bring this item to the Alchemist Town. You received [Infused Sapphire].";
 
         startTurn = turnStarted;
         turnLimit = 5;
