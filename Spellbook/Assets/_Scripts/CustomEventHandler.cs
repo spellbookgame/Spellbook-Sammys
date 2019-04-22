@@ -143,27 +143,6 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
                 break;
 
             case "town_arcanist":
-                Quest arcaneSpellQuest = new ArcaneSpellQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
-                if (localPlayer.Spellcaster.activeQuests.Count > 0)
-                {
-                    foreach (Quest q in localPlayer.Spellcaster.activeQuests)
-                    {
-                        if (q.questName.Equals(arcaneSpellQuest.questName))
-                        {
-                            PanelHolder.instance.displayEvent("Arcane Town", "You're already on a quest for this town.");
-                            break;
-                        }
-                        else
-                        {
-                            PanelHolder.instance.displayQuest(arcaneSpellQuest);
-                            break;
-                        }
-                    }
-                }
-                else
-                {
-                    PanelHolder.instance.displayQuest(arcaneSpellQuest);
-                }
                 break;
 
             case "town_chronomancer":
@@ -191,31 +170,10 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
                 break;
 
             case "town_elementalist":
-                Quest elementalErrandQuest = new ElementalErrandQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
-                if (localPlayer.Spellcaster.activeQuests.Count > 0)
-                {
-                    foreach (Quest q in localPlayer.Spellcaster.activeQuests)
-                    {
-                        if (q.questName.Equals(elementalErrandQuest.questName))
-                        {
-                            PanelHolder.instance.displayEvent("Elemental Town", "You're already on a quest for this town.");
-                            break;
-                        }
-                        else
-                        {
-                            PanelHolder.instance.displayQuest(elementalErrandQuest);
-                            break;
-                        }
-                    }
-                }
-                else
-                {
-                    PanelHolder.instance.displayQuest(elementalErrandQuest);
-                }
                 break;
 
             case "town_illusionist":
-                Quest illusionSpaceQuest = new IllusionSpaceQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
+                Quest illusionSpaceQuest = new IllusionManaQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
                 if (localPlayer.Spellcaster.activeQuests.Count > 0)
                 {
                     foreach (Quest q in localPlayer.Spellcaster.activeQuests)

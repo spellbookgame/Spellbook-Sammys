@@ -3,25 +3,25 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-public class TimeMoveQuest : Quest
+public class IllusionManaQuest : Quest
 {
-    public TimeMoveQuest(int turnStarted)
+    public IllusionManaQuest(int turnStarted)
     {
-        questName = "Time Move Quest";
-        questType = "Move";
-        questFlavor = "Movement is a subset of time, and something that we Chronomancers take seriously. Show me what you can do.";
-        questTask = "Travel 20 spaces.";
+        questName = "Illusion Retrieval Quest";
+        questType = "Collect Mana";
+        questFlavor = "Every spellcaster needs some money to travel.";
+        questTask = "Collect 1200 mana.";
 
         startTurn = turnStarted;
-        turnLimit = 4;
+        turnLimit = 3;
 
-        spacesTraveled = 0;
-        spacesRequired = 20;
+        manaTracker = 0;
+        manaRequired = 1200;
 
-        rewards.Add("Rune", "Time A Rune");
-        rewards.Add("Class Rune", "A Rune");
+        rewards.Add("Mana", "400");
+        rewards.Add("Item", "item name");
 
-        consequenceMana = 900;
+        consequenceMana = 600;
 
         questCompleted = false;
     }

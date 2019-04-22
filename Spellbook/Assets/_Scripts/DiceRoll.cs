@@ -49,7 +49,6 @@ public class DiceRoll : MonoBehaviour
     private GameObject diceTrayPanel;
     public bool rollEnabled;
 
-    private int diceRoll;
     private int pressedNum;
     Player localPlayer;
 
@@ -122,7 +121,7 @@ public class DiceRoll : MonoBehaviour
             CheckMoveRoll(LastRoll);
             CheckManaRoll(LastRoll);
 
-            //QuestTracker.instance.CheckMoveQuest(diceRoll);
+            QuestTracker.instance.TrackMoveQuest(LastRoll);
         }
     }
 

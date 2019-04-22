@@ -1005,7 +1005,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Collect Spell
+  m_Text: Collect Mana
 --- !u!222 &309724484
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4163,7 +4163,7 @@ PrefabInstance:
     - target: {fileID: 5023817612402026031, guid: 0b3b2cfc0850e4ab7ba7114ed762ecdb,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3516319931277220670, guid: 0b3b2cfc0850e4ab7ba7114ed762ecdb,
         type: 3}
@@ -5457,7 +5457,7 @@ GameObject:
   - component: {fileID: 2141358832}
   - component: {fileID: 2141358831}
   m_Layer: 5
-  m_Name: button_collectSpell
+  m_Name: button_collectMana
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5524,7 +5524,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1062409578}
-        m_MethodName: CollectSpell
+        m_MethodName: CollectMana
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

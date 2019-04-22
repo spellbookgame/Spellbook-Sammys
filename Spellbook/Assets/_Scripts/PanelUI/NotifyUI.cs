@@ -56,12 +56,13 @@ public class NotifyUI : MonoBehaviour
 
         gameObject.SetActive(true);
 
-        // for start of game
+        // if proclamation panel is found in the scene, disable notify panel 
         if (GameObject.Find("Proclamation Panel"))
         {
             DisablePanel();
         }
 
+        // if next panel in queue is NOT a notify panel, disable this panel
         if (!PanelHolder.panelQueue.Peek().Equals(panelID))
         {
             DisablePanel();
@@ -90,6 +91,7 @@ public class NotifyUI : MonoBehaviour
         }
     }
 
+    // when OK button is clicked and there are still strings in the queues, display next strings
     private void OkClick()
     {
         SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);

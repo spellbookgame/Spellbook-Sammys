@@ -13,13 +13,11 @@ public class AlchemyManaQuest : Quest
         questTask = "Collect 1500 mana crystals.";
 
         startTurn = turnStarted;
-        turnLimit = 5;
+        turnLimit = 4;
 
-        List<string> rewardList = new List<string>();
-        rewardList.Add("Alchemy A Rune");
-        rewardList.Add("Alchemy B Rune");
+        rewards.Add("Rune", "Alchemy A Rune");
+        rewards.Add("Item", "item name");
 
-        rewards.Add("Rune", rewardList);
         consequenceMana = 1000;
 
         questCompleted = false;
@@ -33,13 +31,10 @@ public class AlchemyManaQuest : Quest
     {
         StringBuilder sb = new StringBuilder();
 
-        foreach(KeyValuePair<string, List<string>> kvp in rewards)
+        foreach(KeyValuePair<string, string> kvp in rewards)
         {
-            foreach(string s in kvp.Value)
-            {
-                sb.Append(s);
-                sb.Append("\n");
-            }
+            sb.Append(kvp.Value);
+            sb.Append("\n");
         }
 
         return sb.ToString();

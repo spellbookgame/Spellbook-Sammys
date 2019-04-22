@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -62,7 +63,18 @@ public class QuestTracker : MonoBehaviour
         localPlayer.Spellcaster.LoseMana(q.consequenceMana);
     }
 
-    public void CheckManaQuest(int mana)
+    IEnumerator QuestCompleted(Quest q)
+    {
+        SoundManager.instance.PlaySingle(SoundManager.questsuccess);
+        PanelHolder.instance.displayNotify(q.questName + " Completed!",
+                                            "You completed the quest! You earned:\n\n" + q.DisplayReward(), "OK");
+        localPlayer.Spellcaster.activeQuests.Remove(q);
+
+        yield return new WaitForSeconds(1f);
+        GiveRewards(q);
+    }
+
+    public void TrackManaQuest(int mana)
     {
         foreach(Quest q in localPlayer.Spellcaster.activeQuests.ToArray())
         {
@@ -73,15 +85,22 @@ public class QuestTracker : MonoBehaviour
 
                 if (q.manaTracker >= q.manaRequired)
                 {
-                    q.questCompleted = true;
+                    StartCoroutine("QuestCompleted", q);
                 }
-                if (q.questCompleted)
+            }
+        }
+    }
+
+    public void TrackMoveQuest(int moveSpaces)
+    {
+        foreach (Quest q in localPlayer.Spellcaster.activeQuests.ToArray())
+        {
+            if (q.questType.Equals("Move"))
+            {
+                q.spacesTraveled += moveSpaces;
+                if (q.spacesTraveled >= q.spacesRequired)
                 {
-                    SoundManager.instance.PlaySingle(SoundManager.questsuccess);
-                    PanelHolder.instance.displayNotify(q.questName + " Completed!",
-                                                        "You completed the quest! You earned:\n\n" + q.DisplayReward(), "OK");
-                    localPlayer.Spellcaster.activeQuests.Remove(q);
-                    GiveRewards(q);
+                    StartCoroutine("QuestCompleted", q);
                 }
             }
         }
@@ -101,39 +120,7 @@ public class QuestTracker : MonoBehaviour
 
                 if (q.spacesLanded >= q.spacesRequired)
                 {
-                    q.questCompleted = true;
-                }
-                if (q.questCompleted)
-                {
-                    SoundManager.instance.PlaySingle(SoundManager.questsuccess);
-                    PanelHolder.instance.displayNotify(q.questName + " Completed!",
-                                                        "You completed the quest! You earned:\n\n" + q.DisplayReward(), "OK");
-                    localPlayer.Spellcaster.activeQuests.Remove(q);
-                    GiveRewards(q);
-                }
-            }
-        }
-    }
-
-    // TimeMoveQuest - Checked in DiceRoll.cs in Roll()
-    public void CheckMoveQuest(int moveSpaces)
-    {
-        foreach (Quest q in localPlayer.Spellcaster.activeQuests.ToArray())
-        {
-            if (q.questType.Equals("Movement"))
-            {
-                q.spacesTraveled += moveSpaces;
-                if (q.spacesTraveled >= q.spacesRequired)
-                {
-                    q.questCompleted = true;
-                }
-                if (q.questCompleted)
-                {
-                    SoundManager.instance.PlaySingle(SoundManager.questsuccess);
-                    PanelHolder.instance.displayNotify(q.questName + " Completed!",
-                                                        "You completed the quest! You earned:\n\n" + q.DisplayReward(), "OK");
-                    localPlayer.Spellcaster.activeQuests.Remove(q);
-                    GiveRewards(q);
+                    StartCoroutine("QuestCompleted", q);
                 }
             }
         }
@@ -167,46 +154,13 @@ public class QuestTracker : MonoBehaviour
         }
     }
 
-    // ArcaneSpellQuest - checked in SpellCastHandler.cs in Update()
-    public void CheckSpellQuest(Spell spell)
-    {
-        foreach (Quest q in localPlayer.Spellcaster.activeQuests.ToArray())
-        {
-            if (q.questType.Equals("Spell"))
-            {
-                if (q.spellsCast.Contains(spell))
-                {
-                    // if player has cast this spell before
-                    q.questCompleted = true;
-                }
-                else
-                {
-                    q.spellsCast.Add(spell);
-                }
-                if (q.questCompleted)
-                {
-                    SoundManager.instance.PlaySingle(SoundManager.questsuccess);
-                    PanelHolder.instance.displayNotify(q.questName + " Completed!",
-                                                        "You completed the quest! You earned:\n\n" + q.DisplayReward(), "OK");
-                    localPlayer.Spellcaster.activeQuests.Remove(q);
-                    GiveRewards(q);
-                }
-            }
-        }
-    }
-
     // give player rewards when quest is completed
     public void GiveRewards(Quest q)
     {
-        int i = 0;
-        foreach (KeyValuePair<string, List<string>> kvp in q.rewards)
+        foreach (KeyValuePair<string, string> kvp in q.rewards)
         {
-            foreach(string s in kvp.Value)
-            {
-                // calls switch statement in another method b/c we don't want to break loop
-                string r = CheckRewards(kvp.Key, kvp.Value[i]);
-                ++i;
-            }
+            // calls switch statement in another method b/c we don't want to break loop
+            string r = CheckRewards(kvp.Key, kvp.Value);
         }
     }
 
@@ -217,6 +171,19 @@ public class QuestTracker : MonoBehaviour
         {
             case "Rune":
                 PanelHolder.instance.displayNotify("Rune Reward", "Take a " + value + " from the deck.", "OK");
+                return value;
+            case "Random Rune":
+                PanelHolder.instance.displayNotify("Random Rune", "Take a " + value + " from the deck.", "OK");
+                return value;
+            case "Class Rune":
+                PanelHolder.instance.displayNotify("Class Rune", "Take a " + localPlayer.Spellcaster.classType + " " + value + " from the deck.", "OK");
+                return value;
+            case "Mana":
+                PanelHolder.instance.displayNotify("Mana Reward", "You earned " + value + " mana!", "OK");
+                localPlayer.Spellcaster.CollectMana(Int32.Parse(value));
+                return value;
+            case "Item":
+                PanelHolder.instance.displayNotify("Item Reward", "You received " + value + "!", "OK");
                 return value;
             default:
                 return value;

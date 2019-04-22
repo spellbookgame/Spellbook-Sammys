@@ -121,9 +121,9 @@ public class MainPageHandler : MonoBehaviour
     }
 
     // FOR TESTING ONLY - DELETE LATER
-    public void CollectSpell()
+    public void CollectMana()
     {
-        localPlayer.Spellcaster.CollectSpell(localPlayer.Spellcaster.chapter.spellsAllowed[1]);
+        localPlayer.Spellcaster.CollectMana(500);
     }
 
     // closing the proclamation panel

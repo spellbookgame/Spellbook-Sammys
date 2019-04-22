@@ -16,7 +16,7 @@ public abstract class Quest
     public bool questCompleted;
 
     // <reward type, reward names (stored in list)>
-    public Dictionary<string, List<string>> rewards;
+    public Dictionary<string, string> rewards;
 
     // tracking variables for mana quests
     public int manaTracker;
@@ -38,7 +38,7 @@ public abstract class Quest
 
     public Quest()
     {
-        rewards = new Dictionary<string, List<string>>();
+        rewards = new Dictionary<string, string>();
     }
 
     public virtual string DisplayReward()

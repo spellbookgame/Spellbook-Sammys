@@ -104,7 +104,6 @@ public class SpellCastHandler : MonoBehaviour
             {
                 currentSpell.SpellCast(localPlayer.Spellcaster);
                 SoundManager.instance.PlaySingle(SoundManager.spellcast);
-                QuestTracker.instance.CheckSpellQuest(currentSpell);
                 spellWasCast = true;
                 RemovePrefabs(spellWasCast);
             }

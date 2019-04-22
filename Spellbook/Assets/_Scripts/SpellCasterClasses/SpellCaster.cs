@@ -128,7 +128,7 @@ public abstract class SpellCaster
     public void CollectMana(int manaCount)
     {
         iMana += manaCount;
-        QuestTracker.instance.CheckManaQuest(iMana);
+        QuestTracker.instance.TrackManaQuest(iMana);
     }
 
     public int CollectManaEndTurn()
@@ -141,7 +141,7 @@ public abstract class SpellCaster
         dManaMultiplier = 1;
 
         endTurnManaCollected = true;
-        QuestTracker.instance.CheckManaQuest(iMana);
+        QuestTracker.instance.TrackManaQuest(iMana);
         return manaCount;
     }
 
