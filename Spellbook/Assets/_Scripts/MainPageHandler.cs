@@ -124,6 +124,15 @@ public class MainPageHandler : MonoBehaviour
     public void CollectMana()
     {
         localPlayer.Spellcaster.CollectMana(500);
+        manaHasChanged = true;
+    }
+    public void CollectRandomItem()
+    {
+        SoundManager.instance.PlaySingle(SoundManager.itemfound);
+        List<ItemObject> itemList = GameObject.Find("ItemList").GetComponent<ItemList>().listOfItems;
+        ItemObject item = itemList[Random.Range(0, itemList.Count - 1)];
+        PanelHolder.instance.displayNotify("You found an Item!", "You got found a " + item.name + "!", "OK");
+        localPlayer.Spellcaster.AddToInventory(item);
     }
 
     // closing the proclamation panel
