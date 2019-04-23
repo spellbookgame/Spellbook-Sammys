@@ -76,8 +76,7 @@ public class DiceRoll : MonoBehaviour
 
             ++pressedNum;
 
-            // after dice are rolled, disable roll button, enable scan button, and lock dice into position
-            diceTrayPanel.GetComponent<DiceUIHandler>().scanButton.interactable = true;
+            // after dice are rolled, disable roll button and lock dice into position
             diceTrayPanel.GetComponent<DiceUIHandler>().rollButton.interactable = false;
             diceTrayPanel.GetComponent<DiceUIHandler>().diceLocked = true;
 

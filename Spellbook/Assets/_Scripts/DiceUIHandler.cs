@@ -32,8 +32,6 @@ public class DiceUIHandler : MonoBehaviour
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
             SceneManager.LoadScene("VuforiaScene");
         });
-        // disable scan button until player has rolled
-        scanButton.interactable = false;
     }
 
     // call this function from onclick event on button
