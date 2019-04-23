@@ -8,6 +8,7 @@ public class PanelHolder : MonoBehaviour
     public PlayerChooseUI playerChoosePanel;
     public NotifyUI notifyPanel;
     public QuestUI questPanel;
+    public QuestRewardUI questRewardPanel;
     public BoardScanUI boardScanPanel;
      
     
@@ -53,6 +54,8 @@ public class PanelHolder : MonoBehaviour
                 notifyPanel.EnablePanel();
             else if (panelQueue.Peek().Equals(questPanel.panelID))
                 questPanel.EnablePanel();
+            else if (panelQueue.Peek().Equals(questRewardPanel.panelID))
+                questRewardPanel.EnablePanel();
             else if (panelQueue.Peek().Equals(yourTurnPanel.panelID))
                 yourTurnPanel.EnablePanel();
             else if (panelQueue.Peek().Equals(boardScanPanel.panelID))
@@ -90,6 +93,14 @@ public class PanelHolder : MonoBehaviour
         questPanel.DisplayQuest(quest);
     }
 
+    public void displayQuestRewards(Quest quest)
+    {
+        panelQueue.Enqueue(questRewardPanel.panelID);
+        Debug.Log("Queued: " + questRewardPanel.panelID);
+        questRewardPanel.DisplayQuestRewards(quest);
+    }
+
+    // delete after scenes for each board scan is created
     public void displayBoardScan(string title, string info, Sprite sprite)
     {
         panelQueue.Enqueue(boardScanPanel.panelID);

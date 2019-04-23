@@ -9,6 +9,8 @@ public class QuestUI : MonoBehaviour
 {
     [SerializeField] private Text titleText;
     [SerializeField] private Text infoText;
+    [SerializeField] private Image rewardImage1;
+    [SerializeField] private Image rewardImage2;
     [SerializeField] private Button singleButton;
     [SerializeField] private Button singleButton1;
     [SerializeField] private GameObject ribbon;
@@ -34,8 +36,8 @@ public class QuestUI : MonoBehaviour
         infoText.text = quest.questTask + "\nTurn Limit: " + quest.turnLimit;
 
         // set the images for quest rewards
-        rewardImages[0] = gameObject.transform.Find("image_reward1").GetComponent<Image>();
-        rewardImages[1] = gameObject.transform.Find("image_reward2").GetComponent<Image>();
+        rewardImages[0] = rewardImage1;
+        rewardImages[1] = rewardImage2;
 
         if(quest.rewards.Count > 1)
         {

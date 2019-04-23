@@ -63,14 +63,13 @@ public class QuestTracker : MonoBehaviour
         localPlayer.Spellcaster.LoseMana(q.consequenceMana);
     }
 
-    IEnumerator QuestCompleted(Quest q)
+    private void QuestCompleted(Quest q)
     {
         SoundManager.instance.PlaySingle(SoundManager.questsuccess);
         PanelHolder.instance.displayNotify(q.questName + " Completed!",
-                                            "You completed the quest! You earned:\n\n" + q.DisplayReward(), "OK");
+                                            "Congratulations, you completed the quest! Prepare to accept your rewards.", "OK");
         localPlayer.Spellcaster.activeQuests.Remove(q);
-
-        yield return new WaitForSeconds(1f);
+        PanelHolder.instance.displayQuestRewards(q);
         GiveRewards(q);
     }
 
@@ -85,7 +84,7 @@ public class QuestTracker : MonoBehaviour
 
                 if (q.manaTracker >= q.manaRequired)
                 {
-                    StartCoroutine("QuestCompleted", q);
+                    QuestCompleted(q);
                 }
             }
         }
@@ -100,7 +99,7 @@ public class QuestTracker : MonoBehaviour
                 q.spacesTraveled += moveSpaces;
                 if (q.spacesTraveled >= q.spacesRequired)
                 {
-                    StartCoroutine("QuestCompleted", q);
+                    QuestCompleted(q);
                 }
             }
         }
@@ -120,7 +119,7 @@ public class QuestTracker : MonoBehaviour
 
                 if (q.spacesLanded >= q.spacesRequired)
                 {
-                    StartCoroutine("QuestCompleted", q);
+                    QuestCompleted(q);
                 }
             }
         }
@@ -169,18 +168,11 @@ public class QuestTracker : MonoBehaviour
     {
         switch(key)
         {
-            case "Rune":
-                PanelHolder.instance.displayNotify("Rune Reward", "Take a " + value + " from the deck.", "OK");
-                return value;
-            case "Class Rune":
-                PanelHolder.instance.displayNotify("Class Rune", "Take a " + localPlayer.Spellcaster.classType + " " + value + " from the deck.", "OK");
-                return value;
             case "Mana":
-                PanelHolder.instance.displayNotify("Mana Reward", "You earned " + value + " mana!", "OK");
                 localPlayer.Spellcaster.CollectMana(Int32.Parse(value));
                 return value;
             case "Item":
-                PanelHolder.instance.displayNotify("Item Reward", "You received " + value + "!", "OK");
+                // localPlayer.Spellcaster.AddtoInventory(item);
                 return value;
             default:
                 return value;

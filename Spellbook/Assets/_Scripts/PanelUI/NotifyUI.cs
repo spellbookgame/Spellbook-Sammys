@@ -71,8 +71,7 @@ public class NotifyUI : MonoBehaviour
             DisablePanel();
         }
     }
-
-    // when OK button is clicked and there are still strings in the queues, display next strings
+    
     private void OkClick()
     {
         SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
