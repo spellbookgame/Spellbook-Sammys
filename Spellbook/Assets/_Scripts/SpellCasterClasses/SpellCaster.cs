@@ -28,6 +28,7 @@ public abstract class SpellCaster
     public decimal dManaMultiplier = 1;
     public bool endTurnManaCollected;    // bool to track if "end of turn" mana should be collected or not
     
+    // misc attributes
     public string classType;
     public int spellcasterID;
     public bool hasAttacked;

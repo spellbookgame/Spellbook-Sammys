@@ -117,17 +117,15 @@ public class MultiTargetEventHandler : MonoBehaviour, ITrackableEventHandler
         // if 4 targets were tracked, start scanning
         if (targetsTracked >= 4)
         {
-            Debug.Log("4 items tracked! Dictionary:");
             foreach(KeyValuePair<string, int> kvp in targets)
             {
-                targetName.text = targetName.text + "\n" + kvp.Key;
+                targetName.text = targetName.text + kvp.Key + "\n";
             }
             CompareSpells();
         }
     }
 
     // compares targets dictionary to spell's required runes dictionary
-    // TEST THIS WITH DEBUG
     private void CompareSpells()
     {
         bool isEqual = false;
@@ -136,18 +134,6 @@ public class MultiTargetEventHandler : MonoBehaviour, ITrackableEventHandler
         for (int i = 0; i < localPlayer.Spellcaster.chapter.spellsAllowed.Count; ++i)
         {
             Dictionary<string, int> d2 = localPlayer.Spellcaster.chapter.spellsAllowed[i].requiredRunes;
-
-            Debug.Log("Printing targets runes: ");
-            foreach(KeyValuePair<string, int> kvp in d1)
-            {
-                Debug.Log(kvp.Key);
-            }
-
-            Debug.Log("Printing spell's required runes");
-            foreach(KeyValuePair<string, int> kvp in d2)
-            {
-                Debug.Log(kvp.Key);
-            }
 
             // tier 2 and 1 spells
             if(localPlayer.Spellcaster.chapter.spellsAllowed[i].iTier == 2 || localPlayer.Spellcaster.chapter.spellsAllowed[i].iTier == 1)
@@ -161,6 +147,7 @@ public class MultiTargetEventHandler : MonoBehaviour, ITrackableEventHandler
                     else
                     {
                         isEqual = false;
+                        break;
                     }
                 }
                 if (isEqual)
@@ -168,29 +155,22 @@ public class MultiTargetEventHandler : MonoBehaviour, ITrackableEventHandler
                     localPlayer.Spellcaster.CollectSpell(localPlayer.Spellcaster.chapter.spellsAllowed[i]);
                     break;
                 }
-                else
-                {
-                    PanelHolder.instance.displayNotify("No Spell Detected", "You did not create a spell.", "OK");
-                    break;
-                }
             }
 
-            // tier 3 spell: only needs to check if d1 contains the required glyph
+            // tier 3 spell: only needs to check if d1 contains the required rune
             else if(localPlayer.Spellcaster.chapter.spellsAllowed[i].iTier == 3)
             {
                 var first = d2.First();     // can use First() here because tier 3 requiredRune will only have 1 entry
                 if(d1.ContainsKey(first.Key))
                 {
-                    Debug.Log("Tier 3 spell matches");
                     localPlayer.Spellcaster.CollectSpell(localPlayer.Spellcaster.chapter.spellsAllowed[i]);
                     break;
                 }
-                else
-                {
-                    Debug.Log("Tier 3 spell not matching");
-                    PanelHolder.instance.displayNotify("No Spell Detected", "You did not create a spell.", "OK");
-                    break;
-                }
+            }
+            // if no spells are found
+            else
+            {
+                PanelHolder.instance.displayNotify("No Spell!", "No spell was found...", "OK");
             }
         }
     }
