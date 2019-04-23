@@ -92,10 +92,6 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
     
     private void scanItem(string trackableName)
     {
-        // checking quests that require space scan
-        QuestTracker.instance.CheckSpaceQuest(trackableName);
-        QuestTracker.instance.CheckErrandQuest(trackableName);
-
         // call function based on target name
         switch (trackableName)
         {
@@ -119,22 +115,9 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
             #region town_spaces
             case "town_alchemist":
                 Quest alchemyManaQuest = new AlchemyManaQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
-
-                if (localPlayer.Spellcaster.activeQuests.Count > 0)
+                if (QuestTracker.instance.HasQuest(alchemyManaQuest))
                 {
-                    foreach (Quest q in localPlayer.Spellcaster.activeQuests)
-                    {
-                        if (q.questName.Equals(alchemyManaQuest.questName))
-                        {
-                            PanelHolder.instance.displayNotify("Alchemy Town", "You're already on a quest for this town.", "OK");
-                            break;
-                        }
-                        else
-                        {
-                            PanelHolder.instance.displayQuest(alchemyManaQuest);
-                            break;
-                        }
-                    }
+                    PanelHolder.instance.displayNotify("Alchemist Town", "You're already on a quest for this town.", "End");
                 }
                 else
                 {
@@ -147,21 +130,9 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
 
             case "town_chronomancer":
                 Quest timeMoveQuest = new TimeMoveQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
-                if (localPlayer.Spellcaster.activeQuests.Count > 0)
+                if (QuestTracker.instance.HasQuest(timeMoveQuest))
                 {
-                    foreach (Quest q in localPlayer.Spellcaster.activeQuests)
-                    {
-                        if (q.questName.Equals(timeMoveQuest.questName))
-                        {
-                            PanelHolder.instance.displayNotify("Chronomancy Town", "You're already on a quest for this town.", "OK");
-                            break;
-                        }
-                        else
-                        {
-                            PanelHolder.instance.displayQuest(timeMoveQuest);
-                            break;
-                        }
-                    }
+                    PanelHolder.instance.displayNotify("Chronomancer Town", "You're already on a quest for this town.", "End");
                 }
                 else
                 {
@@ -170,25 +141,22 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
                 break;
 
             case "town_elementalist":
+                Quest elementalMoveQuest = new ElementalMoveQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
+                if (QuestTracker.instance.HasQuest(elementalMoveQuest))
+                {
+                    PanelHolder.instance.displayNotify("Elemental Town", "You're already on a quest for this town.", "End");
+                }
+                else
+                {
+                    PanelHolder.instance.displayQuest(elementalMoveQuest);
+                }
                 break;
 
             case "town_illusionist":
                 Quest illusionSpaceQuest = new IllusionManaQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
-                if (localPlayer.Spellcaster.activeQuests.Count > 0)
+                if (QuestTracker.instance.HasQuest(illusionSpaceQuest))
                 {
-                    foreach (Quest q in localPlayer.Spellcaster.activeQuests)
-                    {
-                        if (q.questName.Equals(illusionSpaceQuest.questName))
-                        {
-                            PanelHolder.instance.displayNotify("Trickster Town", "You're already on a quest for this town.", "OK");
-                            break;
-                        }
-                        else
-                        {
-                            PanelHolder.instance.displayQuest(illusionSpaceQuest);
-                            break;
-                        }
-                    }
+                    PanelHolder.instance.displayNotify("Illusion Town", "You're already on a quest for this town.", "End");
                 }
                 else
                 {
@@ -198,21 +166,9 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
 
             case "town_summoner":
                 Quest summonManaQuest = new SummoningManaQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
-                if (localPlayer.Spellcaster.activeQuests.Count > 0)
+                if (QuestTracker.instance.HasQuest(summonManaQuest))
                 {
-                    foreach (Quest q in localPlayer.Spellcaster.activeQuests)
-                    {
-                        if (q.questName.Equals(summonManaQuest.questName))
-                        {
-                            PanelHolder.instance.displayNotify("Summoner Town", "You're already on a quest for this town.", "OK");
-                            break;
-                        }
-                        else
-                        {
-                            PanelHolder.instance.displayQuest(summonManaQuest);
-                            break;
-                        }
-                    }
+                    PanelHolder.instance.displayNotify("Summoner Town", "You're already on a quest for this town.", "End");
                 }
                 else
                 {

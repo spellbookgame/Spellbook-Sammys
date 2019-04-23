@@ -41,6 +41,23 @@ public class QuestTracker : MonoBehaviour
             UpdateActiveQuests();
     }
 
+    public bool HasQuest(Quest q)
+    {
+        bool hasQuest = false;
+        foreach (Quest quest in localPlayer.Spellcaster.activeQuests)
+        {
+            if (quest.questName.Equals(q.questName))
+            {
+                hasQuest = true;
+            }
+            else
+            {
+                hasQuest = false;
+            }
+        }
+        return hasQuest;
+    }
+
     // updating the list of active quests
     private void UpdateActiveQuests()
     {
@@ -59,7 +76,8 @@ public class QuestTracker : MonoBehaviour
     {
         SoundManager.instance.PlaySingle(SoundManager.questfailed);
         localPlayer.Spellcaster.activeQuests.Remove(q);
-        PanelHolder.instance.displayNotify(q.questName + " Failed...", "You failed to complete the quest in time. You paid " + q.consequenceMana + " for the trouble.", "OK");
+        PanelHolder.instance.displayNotify(q.questName + " Failed...", "You failed to complete the quest in time. You paid " + 
+                                            q.consequenceMana + " mana for the trouble.", "OK");
         localPlayer.Spellcaster.LoseMana(q.consequenceMana);
     }
 
@@ -100,54 +118,6 @@ public class QuestTracker : MonoBehaviour
                 if (q.spacesTraveled >= q.spacesRequired)
                 {
                     QuestCompleted(q);
-                }
-            }
-        }
-    }
-
-    // IllusionSpaceQuest - Checked in CustomEventHandler.cs in ScanItem()
-    public void CheckSpaceQuest(string spaceName)
-    {
-        foreach (Quest q in localPlayer.Spellcaster.activeQuests.ToArray())
-        {
-            if (q.questType.Equals("Specific Space"))
-            {
-                if (spaceName.Equals(q.spaceName))
-                {
-                    ++q.spacesLanded;
-                }
-
-                if (q.spacesLanded >= q.spacesRequired)
-                {
-                    QuestCompleted(q);
-                }
-            }
-        }
-    }
-
-    // ElementalErrandQuest -  checked in CustomEventHandler.cs in ScanItem()
-    public void CheckErrandQuest(string spaceName)
-    {
-        foreach (Quest q in localPlayer.Spellcaster.activeQuests.ToArray())
-        {
-            if (q.questType.Equals("Errand"))
-            {
-                if (spaceName.Equals(q.spaceName))
-                {
-                    // check if player has the item for the errand
-                    if(localPlayer.Spellcaster.inventory.Contains(q.item))
-                    {
-                        q.questCompleted = true;
-                    }
-                }
-                if (q.questCompleted)
-                {
-                    SoundManager.instance.PlaySingle(SoundManager.questsuccess);
-                    PanelHolder.instance.displayNotify(q.questName + " Completed!",
-                                                        "You completed the quest! You earned:\n\n" + q.DisplayReward(), "OK");
-                    localPlayer.Spellcaster.activeQuests.Remove(q);
-                    // localPlayer.Spellcaster.inventory.Remove(q.item);
-                    GiveRewards(q);
                 }
             }
         }

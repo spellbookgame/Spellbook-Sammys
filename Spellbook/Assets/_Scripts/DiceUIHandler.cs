@@ -16,7 +16,7 @@ public class DiceUIHandler : MonoBehaviour
     [SerializeField] private Button spellBookButton;
     [SerializeField] private Button inventoryButton;
 
-    private bool diceTrayOpen;
+    public bool diceTrayOpen;
     private int numDice;
 
     public Button rollButton;

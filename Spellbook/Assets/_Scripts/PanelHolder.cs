@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PanelHolder : MonoBehaviour
 {
@@ -81,6 +82,15 @@ public class PanelHolder : MonoBehaviour
 
     public void displayNotify(string title, string info, string buttonClick)
     {
+        // close dice tray if it's open (find a better solution soon; Panels are not showing up above dice tray)
+        if (SceneManager.GetActiveScene().name.Equals("MainPlayerScene") && GameObject.Find("Dice Tray"))
+        {
+            DiceUIHandler diceUIHandler = GameObject.Find("Dice Tray").GetComponent<DiceUIHandler>();
+            if (diceUIHandler.diceTrayOpen)
+            {
+                diceUIHandler.OpenDiceTray();
+            }
+        }
         panelQueue.Enqueue(notifyPanel.panelID);
         Debug.Log("Queued: " + notifyPanel.panelID);
         notifyPanel.DisplayNotify(title, info, buttonClick);
@@ -95,6 +105,15 @@ public class PanelHolder : MonoBehaviour
 
     public void displayQuestRewards(Quest quest)
     {
+        // close dice tray if it's open
+        if (SceneManager.GetActiveScene().name.Equals("MainPlayerScene") && GameObject.Find("Dice Tray"))
+        {
+            DiceUIHandler diceUIHandler = GameObject.Find("Dice Tray").GetComponent<DiceUIHandler>();
+            if (diceUIHandler.diceTrayOpen)
+            {
+                diceUIHandler.OpenDiceTray();
+            }
+        }
         panelQueue.Enqueue(questRewardPanel.panelID);
         Debug.Log("Queued: " + questRewardPanel.panelID);
         questRewardPanel.DisplayQuestRewards(quest);
@@ -107,5 +126,4 @@ public class PanelHolder : MonoBehaviour
         Debug.Log("Queued: " + boardScanPanel.panelID);
         boardScanPanel.DisplayScanEvent(title, info, sprite);
     }
-
 }
