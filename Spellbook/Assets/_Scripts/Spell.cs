@@ -15,12 +15,12 @@ public abstract class Spell
     public string sSpellClass;
     public string sSpellInfo;
 
-    public Dictionary<string, int> requiredGlyphs;
+    public Dictionary<string, int> requiredRunes;
 
     // CTOR
     public Spell()
     {
-        requiredGlyphs = new Dictionary<string, int>();
+        requiredRunes = new Dictionary<string, int>();
     }
 
     // Abstract functions

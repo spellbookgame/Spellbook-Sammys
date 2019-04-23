@@ -10,9 +10,9 @@ public class LibraryHandler : MonoBehaviour
     [SerializeField] private Button mainButton;
     [SerializeField] private Button backButton;
     [SerializeField] private Button spellButton;
-    [SerializeField] private GameObject glyphContainer;
+    [SerializeField] private GameObject runeContainer;
     [SerializeField] private GameObject spellInfoPanel;
-    [SerializeField] private GameObject glyphPanel;
+    [SerializeField] private GameObject runePanel;
 
     Player localPlayer;
 
@@ -44,20 +44,20 @@ public class LibraryHandler : MonoBehaviour
             // new int to pass into button onClick listener so loop will not throw index out of bounds error
             int i2 = i;
             // add listener to button
-            newSpellButton.onClick.AddListener(() => showSpellInfo(localPlayer.Spellcaster.chapter.spellsAllowed[i2]));
+            newSpellButton.onClick.AddListener(() => ShowSpellInfo(localPlayer.Spellcaster.chapter.spellsAllowed[i2]));
 
             // to position new button underneath prev button
             yPos -= 170;
         }
     }
 
-    private void showSpellInfo(Spell spell)
+    private void ShowSpellInfo(Spell spell)
     {
         // if the panel still has glyphs in it, return them to the glyph container
-        while(glyphPanel.transform.childCount > 0)
+        while(runePanel.transform.childCount > 0)
         {
-            Transform child = glyphPanel.transform.GetChild(0);
-            child.SetParent(glyphContainer.transform);
+            Transform child = runePanel.transform.GetChild(0);
+            child.SetParent(runeContainer.transform);
             child.localPosition = Vector3.zero;
         }
 
@@ -66,15 +66,10 @@ public class LibraryHandler : MonoBehaviour
         spellInfoPanel.transform.GetChild(2).GetComponent<Text>().text = spell.sSpellInfo;
         
         // add glyph images to the panel to show player required glyphs
-        foreach (KeyValuePair<string, int> kvp in spell.requiredGlyphs)
+        foreach (KeyValuePair<string, int> kvp in spell.requiredRunes)
         {
-            string glyphName = kvp.Key;
-            GameObject glyphImage = glyphContainer.transform.Find(glyphName).gameObject;
-            glyphImage.transform.SetParent(glyphPanel.transform);
-
-            // removing text child from image
-            if (glyphImage.transform.childCount > 0)
-                Destroy(glyphImage.transform.GetChild(0).gameObject);
+            GameObject runeImage = runeContainer.transform.Find(kvp.Key).gameObject;
+            runeImage.transform.SetParent(runePanel.transform, false);  // false means object won't scale with Parent
         }
     }
 }

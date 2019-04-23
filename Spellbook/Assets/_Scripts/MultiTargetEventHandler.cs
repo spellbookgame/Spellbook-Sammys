@@ -134,7 +134,7 @@ public class MultiTargetEventHandler : MonoBehaviour, ITrackableEventHandler
         Dictionary<string, int> d1 = targets;
         for(int i = 0; i <= localPlayer.Spellcaster.chapter.spellsAllowed.Count; i++)
         {
-            Dictionary<string, int> d2 = localPlayer.Spellcaster.chapter.spellsAllowed[i].requiredGlyphs;
+            Dictionary<string, int> d2 = localPlayer.Spellcaster.chapter.spellsAllowed[i].requiredRunes;
 
             // tier 3 spell: only needs to check if d1 contains the required glyph
             if(localPlayer.Spellcaster.chapter.spellsAllowed[i].iTier == 3)
@@ -146,7 +146,7 @@ public class MultiTargetEventHandler : MonoBehaviour, ITrackableEventHandler
                 }
                 else
                 {
-                    PanelHolder.instance.displayEvent("No Spell Detected", "You did not create a spell.");
+                    PanelHolder.instance.displayNotify("No Spell Detected", "You did not create a spell.", "OK");
                     break;
                 }
             }
@@ -171,7 +171,7 @@ public class MultiTargetEventHandler : MonoBehaviour, ITrackableEventHandler
                 }
                 else
                 {
-                    PanelHolder.instance.displayEvent("No Spell Detected", "You did not create a spell.");
+                    PanelHolder.instance.displayNotify("No Spell Detected", "You did not create a spell.", "OK");
                     break;
                 }
             }

@@ -14,9 +14,9 @@ public class DelayTime : Spell
         sSpellClass = "Chronomancer";
         sSpellInfo = "Delay the amount of time before the next global event by one turn.";
 
-        requiredGlyphs.Add("Time A Rune", 1);
-        requiredGlyphs.Add("Time B Rune", 1);
-        requiredGlyphs.Add("Arcane A Rune", 1);
+        requiredRunes.Add("Chronomancer A Rune", 1);
+        requiredRunes.Add("Chronomancer B Rune", 1);
+        requiredRunes.Add("Arcanist A Rune", 1);
     }
 
     public override void SpellCast(SpellCaster player)

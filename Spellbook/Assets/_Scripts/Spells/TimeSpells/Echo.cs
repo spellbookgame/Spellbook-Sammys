@@ -13,7 +13,7 @@ public class Echo : Spell
         sSpellClass = "Chronomancer";
         sSpellInfo = "If you are not satisfied with your first roll, you may roll again. Can cast on an ally.";
 
-        requiredGlyphs.Add("Time C Rune", 1);
+        requiredRunes.Add("Chronomancer C Rune", 1);
     }
 
     public override void SpellCast(SpellCaster player)

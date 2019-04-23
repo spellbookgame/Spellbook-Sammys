@@ -14,9 +14,9 @@ public class Transcribe : Spell
         sSpellClass = "Arcanist";
         sSpellInfo = "Discard your rune hand and draw new ones from the top tier deck.";
 
-        requiredGlyphs.Add("Arcane A Rune", 1);
-        requiredGlyphs.Add("Illusion A Rune", 1);
-        requiredGlyphs.Add("Illusion B Rune", 1);
+        requiredRunes.Add("Arcanist A Rune", 1);
+        requiredRunes.Add("Trickster A Rune", 1);
+        requiredRunes.Add("Trickster B Rune", 1);
     }
 
     public override void SpellCast(SpellCaster player)

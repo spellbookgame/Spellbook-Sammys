@@ -163,7 +163,7 @@ public class SpellCreateHandler : MonoBehaviour, IHasChanged
         // iterate through each spell that player can collect
         for (int i = 0; i < localPlayer.Spellcaster.chapter.spellsAllowed.Count; ++i)
         {
-            Dictionary<string, int> dictionary2 = localPlayer.Spellcaster.chapter.spellsAllowed[i].requiredGlyphs;
+            Dictionary<string, int> dictionary2 = localPlayer.Spellcaster.chapter.spellsAllowed[i].requiredRunes;
 
             // checking for tier 2 and tier 1 spells
             if (localPlayer.Spellcaster.chapter.spellsAllowed[i].iTier == 2 || localPlayer.Spellcaster.chapter.spellsAllowed[i].iTier == 1)

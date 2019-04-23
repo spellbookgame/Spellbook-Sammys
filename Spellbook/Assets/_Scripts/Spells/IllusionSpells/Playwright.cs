@@ -13,9 +13,9 @@ public class Playwright : Spell
         sSpellClass = "Trickster";
         sSpellInfo = "Destroy a random item to change two of your runes into any runes of your choice.";
 
-        requiredGlyphs.Add("Illusion A Rune", 1);
-        requiredGlyphs.Add("Illusion B Rune", 1);
-        requiredGlyphs.Add("Arcane A Rune", 1);
+        requiredRunes.Add("Trickster A Rune", 1);
+        requiredRunes.Add("Trickster B Rune", 1);
+        requiredRunes.Add("Arcanist A Rune", 1);
     }
 
     public override void SpellCast(SpellCaster player)

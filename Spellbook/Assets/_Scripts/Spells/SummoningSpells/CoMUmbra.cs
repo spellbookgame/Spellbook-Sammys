@@ -15,8 +15,8 @@ public class CoMUmbra : Spell
         sSpellClass = "Summoner";
         sSpellInfo = "Your next spell you cast (except this one) will be free. Can cast on an ally.";
 
-        requiredGlyphs.Add("Summoner B Rune", 1);
-        requiredGlyphs.Add("Arcane B Rune", 1);
+        requiredRunes.Add("Summoner B Rune", 1);
+        requiredRunes.Add("Arcanist B Rune", 1);
     }
 
     public override void SpellCast(SpellCaster player)

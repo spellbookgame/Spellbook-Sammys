@@ -13,9 +13,9 @@ public class PotionofLuck : Spell
         sSpellClass = "Alchemist";
         sSpellInfo = "Give you and an ally an extra D8 next time you roll.";
 
-        requiredGlyphs.Add("Alchemy A Rune", 1);
-        requiredGlyphs.Add("Alchemy B Rune", 1);
-        requiredGlyphs.Add("Elemental A Rune", 1);
+        requiredRunes.Add("Alchemist A Rune", 1);
+        requiredRunes.Add("Alchemist B Rune", 1);
+        requiredRunes.Add("Elementalist A Rune", 1);
     }
 
     public override void SpellCast(SpellCaster player)

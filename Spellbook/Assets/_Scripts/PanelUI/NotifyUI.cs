@@ -50,41 +50,22 @@ public class NotifyUI : MonoBehaviour
             case "Main":
                 singleButton.onClick.AddListener((MainClick));
                 break;
+            case "End":
+                singleButton.onClick.AddListener((eventClick));
+                break;
             default:
                 break;
         }
 
         gameObject.SetActive(true);
 
-        // if proclamation panel is found in the scene, disable notify panel 
+        // if proclamation panel is found in the scene, disable this panel 
         if (GameObject.Find("Proclamation Panel"))
         {
             DisablePanel();
         }
 
         // if next panel in queue is NOT a notify panel, disable this panel
-        if (!PanelHolder.panelQueue.Peek().Equals(panelID))
-        {
-            DisablePanel();
-        }
-    }
-    // Display Event button click leads to player ending turn and going to home scene
-    public void DisplayEvent(string title, string info)
-    {
-        titleText.text = title;
-        infoText.text = info;
-
-        // if current scene is Vuforia, change everything to image
-        if (SceneManager.GetActiveScene().name.Equals("VuforiaScene"))
-        {
-            gameObject.GetComponent<SpriteRenderer>().enabled = false;
-            gameObject.GetComponent<Image>().enabled = true;
-        }
-
-        singleButton.onClick.AddListener((eventClick));
-
-        gameObject.SetActive(true);
-
         if (!PanelHolder.panelQueue.Peek().Equals(panelID))
         {
             DisablePanel();

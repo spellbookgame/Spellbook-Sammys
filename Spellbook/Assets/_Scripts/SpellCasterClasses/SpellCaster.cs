@@ -169,7 +169,7 @@ public abstract class SpellCaster
         string randomKey = glyphList[random];
 
         glyphs[randomKey] += 1;
-        PanelHolder.instance.displayEvent("You found a Glyph!", "You found a " + randomKey + ".");
+        PanelHolder.instance.displayNotify("You found a Glyph!", "You found a " + randomKey + ".", "OK");
 
         return randomKey;
     }

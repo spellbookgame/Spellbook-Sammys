@@ -14,7 +14,7 @@ public class ArcanaHarvest : Spell
         sSpellClass = "Arcanist";
         sSpellInfo = "Sacrifice half your mana crystals and move directly to the Mana Crystal Mines. Can cast on an ally.";
 
-        requiredGlyphs.Add("Arcane D Rune", 1);
+        requiredRunes.Add("Arcanist D Rune", 1);
     }
 
     public override void SpellCast(SpellCaster player)

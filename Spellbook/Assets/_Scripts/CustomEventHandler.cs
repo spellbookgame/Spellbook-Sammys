@@ -126,7 +126,7 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
                     {
                         if (q.questName.Equals(alchemyManaQuest.questName))
                         {
-                            PanelHolder.instance.displayEvent("Alchemy Town", "You're already on a quest for this town.");
+                            PanelHolder.instance.displayNotify("Alchemy Town", "You're already on a quest for this town.", "OK");
                             break;
                         }
                         else
@@ -153,7 +153,7 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
                     {
                         if (q.questName.Equals(timeMoveQuest.questName))
                         {
-                            PanelHolder.instance.displayEvent("Chronomancy Town", "You're already on a quest for this town.");
+                            PanelHolder.instance.displayNotify("Chronomancy Town", "You're already on a quest for this town.", "OK");
                             break;
                         }
                         else
@@ -180,7 +180,7 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
                     {
                         if (q.questName.Equals(illusionSpaceQuest.questName))
                         {
-                            PanelHolder.instance.displayEvent("Trickster Town", "You're already on a quest for this town.");
+                            PanelHolder.instance.displayNotify("Trickster Town", "You're already on a quest for this town.", "OK");
                             break;
                         }
                         else
@@ -204,7 +204,7 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
                     {
                         if (q.questName.Equals(summonManaQuest.questName))
                         {
-                            PanelHolder.instance.displayEvent("Summoner Town", "You're already on a quest for this town.");
+                            PanelHolder.instance.displayNotify("Summoner Town", "You're already on a quest for this town.", "OK");
                             break;
                         }
                         else

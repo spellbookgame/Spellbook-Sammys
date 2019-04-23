@@ -76,13 +76,6 @@ public class PanelHolder : MonoBehaviour
         playerChoosePanel.DisplayPlayerChoose(spellName);
     }
 
-    public void displayEvent(string title, string info)
-    {
-        panelQueue.Enqueue(notifyPanel.panelID);
-        Debug.Log("Queued: " + notifyPanel.panelID);
-        notifyPanel.DisplayEvent(title, info);
-    }
-
     public void displayNotify(string title, string info, string buttonClick)
     {
         panelQueue.Enqueue(notifyPanel.panelID);
