@@ -11,6 +11,7 @@ public class SpellCollectionHandler : MonoBehaviour
     [SerializeField] private Button spellButton;
     [SerializeField] private Button castButton;
     [SerializeField] private GameObject spellPanel;
+    [SerializeField] private Text noSpellsText;
 
     private bool spellPanelOpen;
 
@@ -19,6 +20,9 @@ public class SpellCollectionHandler : MonoBehaviour
     private void Start()
     {
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
+
+        if (localPlayer.Spellcaster.chapter.spellsCollected.Count > 0)
+            noSpellsText.text = "";
 
         // add onclick listeners to buttons
         exitButton.onClick.AddListener(() =>

@@ -15,7 +15,7 @@ public class AlchemyManaQuest : Quest
         startTurn = turnStarted;
         turnLimit = 4;
 
-        rewards.Add("Rune", "Alchemy A Rune");
+        rewards.Add("Rune", "Alchemist A Rune");
         rewards.Add("Item", "item name");
 
         consequenceMana = 1000;

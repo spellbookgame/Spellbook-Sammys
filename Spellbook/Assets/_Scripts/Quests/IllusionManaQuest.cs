@@ -18,8 +18,8 @@ public class IllusionManaQuest : Quest
         manaTracker = 0;
         manaRequired = 1200;
 
+        rewards.Add("Class Rune", "A Rune");
         rewards.Add("Mana", "400");
-        rewards.Add("Item", "item name");
 
         consequenceMana = 600;
 

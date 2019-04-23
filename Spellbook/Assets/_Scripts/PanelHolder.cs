@@ -87,7 +87,7 @@ public class PanelHolder : MonoBehaviour
     {
         panelQueue.Enqueue(questPanel.panelID);
         Debug.Log("Queued: " + questPanel.panelID);
-        questPanel.DisplayQuestGlyphs(quest);
+        questPanel.DisplayQuest(quest);
     }
 
     public void displayBoardScan(string title, string info, Sprite sprite)

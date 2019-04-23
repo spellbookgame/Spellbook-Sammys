@@ -172,9 +172,6 @@ public class QuestTracker : MonoBehaviour
             case "Rune":
                 PanelHolder.instance.displayNotify("Rune Reward", "Take a " + value + " from the deck.", "OK");
                 return value;
-            case "Random Rune":
-                PanelHolder.instance.displayNotify("Random Rune", "Take a " + value + " from the deck.", "OK");
-                return value;
             case "Class Rune":
                 PanelHolder.instance.displayNotify("Class Rune", "Take a " + localPlayer.Spellcaster.classType + " " + value + " from the deck.", "OK");
                 return value;

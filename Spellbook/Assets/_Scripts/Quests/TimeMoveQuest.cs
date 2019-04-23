@@ -18,7 +18,7 @@ public class TimeMoveQuest : Quest
         spacesTraveled = 0;
         spacesRequired = 20;
 
-        rewards.Add("Rune", "Time A Rune");
+        rewards.Add("Rune", "Chronomancer A Rune");
         rewards.Add("Class Rune", "A Rune");
 
         consequenceMana = 900;
