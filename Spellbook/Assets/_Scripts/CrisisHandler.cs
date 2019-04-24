@@ -7,6 +7,11 @@ public class CrisisHandler : MonoBehaviour
 {
     public static CrisisHandler instance = null;
 
+    // private variables
+    private string crisisTitle;
+    private string crisisInfo;
+
+    // public variables
     public bool crisisSolved;
 
     public string requiredLocation = "";
@@ -52,9 +57,11 @@ public class CrisisHandler : MonoBehaviour
         requiredClass = "Elementalist";
         requiredSpellTier = 3;
 
-        PanelHolder.instance.displayNotify("Tsunami Incoming", "A tsunami is about to hit the cities from the South. To prevent it," +
-                                            " the Elementalist must create a tier 3 spell and go to the Forest before the tsunami hits. It will" +
-                                            " arrive in 3 rounds.", "OK");
+        crisisTitle = "Tsunami Incoming";
+        crisisInfo = "A tsunami is about to hit the cities from the South. To prevent it," +
+                        " the Elementalist must create a tier 3 spell and go to the Forest before the tsunami hits.";
+
+        PanelHolder.instance.displayCrisis(crisisTitle, crisisInfo, roundsUntilCrisis);
     }
 
     // call this to check if tsunami requirements are met

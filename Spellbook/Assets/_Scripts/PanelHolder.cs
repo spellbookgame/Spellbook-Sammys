@@ -11,6 +11,7 @@ public class PanelHolder : MonoBehaviour
     public QuestUI questPanel;
     public QuestRewardUI questRewardPanel;
     public BoardScanUI boardScanPanel;
+    public CrisisUI crisisPanel;
      
     
     public static PanelHolder instance = null;
@@ -63,6 +64,8 @@ public class PanelHolder : MonoBehaviour
                 boardScanPanel.EnablePanel();
             else if (panelQueue.Peek().Equals(playerChoosePanel.panelID))
                 playerChoosePanel.EnablePanel();
+            else if (panelQueue.Peek().Equals(crisisPanel.panelID))
+                crisisPanel.EnablePanel();
         }
     }
 
@@ -117,6 +120,13 @@ public class PanelHolder : MonoBehaviour
         panelQueue.Enqueue(questRewardPanel.panelID);
         Debug.Log("Queued: " + questRewardPanel.panelID);
         questRewardPanel.DisplayQuestRewards(quest);
+    }
+
+    public void displayCrisis(string title, string info, int rounds)
+    {
+        panelQueue.Enqueue(crisisPanel.panelID);
+        Debug.Log("Queued: " + crisisPanel.panelID);
+        crisisPanel.DisplayCrisis(title, info, rounds);
     }
 
     // delete after scenes for each board scan is created

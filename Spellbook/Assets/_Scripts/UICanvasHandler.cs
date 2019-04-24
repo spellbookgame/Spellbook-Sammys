@@ -39,7 +39,10 @@ public class UICanvasHandler : MonoBehaviour
         {
             // if dice tray is open in another scene other than main player, close it
             if(diceUIHandler.diceTrayOpen)
+            {
                 diceUIHandler.OpenCloseDiceTray();
+                diceUIHandler.diceTrayOpen = false;
+            }
 
             spellbookButton.SetActive(false);
             diceButton.SetActive(false);

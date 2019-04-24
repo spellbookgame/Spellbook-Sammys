@@ -84,7 +84,8 @@ public class NotifyUI : MonoBehaviour
         gameObject.SetActive(false);
         SceneManager.LoadScene("VuforiaScene");
 
-        PanelHolder.panelQueue.Dequeue();
+        if (PanelHolder.panelQueue.Count > 0)
+            PanelHolder.panelQueue.Dequeue();
         PanelHolder.instance.CheckPanelQueue();
     }
     private void ShopClick()
@@ -93,7 +94,8 @@ public class NotifyUI : MonoBehaviour
         gameObject.SetActive(false);
         SceneManager.LoadScene("ShopScene");
 
-        PanelHolder.panelQueue.Dequeue();
+        if (PanelHolder.panelQueue.Count > 0)
+            PanelHolder.panelQueue.Dequeue();
         PanelHolder.instance.CheckPanelQueue();
     }
     private void MainClick()
@@ -102,7 +104,8 @@ public class NotifyUI : MonoBehaviour
         gameObject.SetActive(false);
         SceneManager.LoadScene("MainPlayerScene");
 
-        PanelHolder.panelQueue.Dequeue();
+        if(PanelHolder.panelQueue.Count > 0)
+            PanelHolder.panelQueue.Dequeue();
         PanelHolder.instance.CheckPanelQueue();
     }
 }
