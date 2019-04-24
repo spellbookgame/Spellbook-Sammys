@@ -8,23 +8,36 @@ public class ArcanaHarvest : Spell
     public ArcanaHarvest()
     {
         iTier = 3;
-        iManaCost = 400;
-        iCoolDown = 0;
-        iTurnsActive = 2;
+        iManaCost = 300;
+
+        combatSpell = false;
 
         sSpellName = "Arcana Harvest";
         sSpellClass = "Arcanist";
-        sSpellInfo = "Until your next turn, earn double resources (mana, glyphs). Can cast on an ally.";
+        sSpellInfo = "Sacrifice half your mana crystals and move directly to the Mana Crystal Mines. Can cast on an ally.";
 
-        requiredGlyphs.Add("Arcane D Glyph", 1);
+        requiredRunes.Add("Arcanist D Rune", 1);
     }
 
     public override void SpellCast(SpellCaster player)
     {
-        // subtract mana and glyph costs
-        player.iMana -= iManaCost;
-            
-        PanelHolder.instance.displayNotify("You cast " + sSpellName, "You will receive double mana/glyphs until your next turn.", "OK");
-        player.activeSpells.Add(this);
+        // cast spell for free if Umbra's Eclipse is active
+        if (SpellTracker.instance.CheckUmbra())
+        {
+            SpellTracker.instance.RemoveFromActiveSpells("Call of the Moon - Umbra's Eclipse");
+            PanelHolder.instance.displayNotify(sSpellName, "Move your piece to the Crystal Mines.", "Vuforia");
+        }
+        else if (player.iMana < iManaCost)
+        {
+            PanelHolder.instance.displayNotify("Not enough Mana!", "You do not have enough mana to cast this spell.", "OK");
+        }
+        else
+        {
+            // subtract mana and glyph costs
+            player.iMana -= iManaCost;
+            player.iMana /= 2;
+
+            PanelHolder.instance.displayNotify(sSpellName, "Move your piece to the Crystal Mines.", "Vuforia");
+        }
     }
 }

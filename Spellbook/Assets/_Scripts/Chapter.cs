@@ -26,30 +26,28 @@ public class Chapter : MonoBehaviour
         switch (classType)
         {
             case "Alchemist":
-                Spell potionOfLuck = new PotionofLuck();
-                spellsAllowed.Add(potionOfLuck);
-                Spell crystalScent = new CrystalScent();
-                spellsAllowed.Add(crystalScent);
+                spellsAllowed.Add(new PotionofLuck());
+                spellsAllowed.Add(new CrystalScent());
                 break;
             case "Arcanist":
-                Spell transcribe = new Transcribe();
-                spellsAllowed.Add(transcribe);
+                spellsAllowed.Add(new Transcribe());
+                spellsAllowed.Add(new RuneConversion());
+                spellsAllowed.Add(new ArcanaHarvest());
                 break;
             case "Chronomancer":
-                Spell delayTime = new DelayTime();
-                spellsAllowed.Add(delayTime);
+                spellsAllowed.Add(new DelayTime());
+                spellsAllowed.Add(new Echo());
                 break;
             case "Elementalist":
-                Spell naturalDisaster = new NaturalDisaster();
-                spellsAllowed.Add(naturalDisaster);
+                spellsAllowed.Add(new Tailwind());
                 break;
             case "Summoner":
-                Spell cosLeon = new CoSLeon();
-                spellsAllowed.Add(cosLeon);
+                spellsAllowed.Add(new CoSLeon());
+                spellsAllowed.Add(new CoMUmbra());
                 break;
             case "Trickster":
-                Spell playwright = new Playwright();
-                spellsAllowed.Add(playwright);
+                spellsAllowed.Add(new Playwright());
+                spellsAllowed.Add(new Allegro());
                 break;
             default:
                 break;

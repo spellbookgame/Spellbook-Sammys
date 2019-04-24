@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -33,8 +35,63 @@ public class QuestTracker : MonoBehaviour
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
     }
 
-    // AlchemyManaQuest and SummoningManaQuest - Checked in Spellcaster.cs in CollectMana()
-    public void CheckManaQuest(int mana)
+    private void Update()
+    {
+        if (localPlayer.Spellcaster.activeQuests.Count > 0)
+            UpdateActiveQuests();
+    }
+
+    public bool HasQuest(Quest q)
+    {
+        bool hasQuest = false;
+        foreach (Quest quest in localPlayer.Spellcaster.activeQuests)
+        {
+            if (quest.questName.Equals(q.questName))
+            {
+                hasQuest = true;
+            }
+            else
+            {
+                hasQuest = false;
+            }
+        }
+        return hasQuest;
+    }
+
+    // updating the list of active quests
+    private void UpdateActiveQuests()
+    {
+        foreach (Quest q in localPlayer.Spellcaster.activeQuests.ToArray())
+        {
+            // if the player's turns from starting the quest exceeded the turn limit
+            if (localPlayer.Spellcaster.NumOfTurnsSoFar - q.startTurn > q.turnLimit)
+            {
+                QuestFailed(q);
+            }
+        }
+    }
+
+    // notify player of quest failed, remove from their list of active quests, subtract mana
+    private void QuestFailed(Quest q)
+    {
+        SoundManager.instance.PlaySingle(SoundManager.questfailed);
+        localPlayer.Spellcaster.activeQuests.Remove(q);
+        PanelHolder.instance.displayNotify(q.questName + " Failed...", "You failed to complete the quest in time. You paid " + 
+                                            q.consequenceMana + " mana for the trouble.", "OK");
+        localPlayer.Spellcaster.LoseMana(q.consequenceMana);
+    }
+
+    private void QuestCompleted(Quest q)
+    {
+        SoundManager.instance.PlaySingle(SoundManager.questsuccess);
+        PanelHolder.instance.displayNotify(q.questName + " Completed!",
+                                            "Congratulations, you completed the quest! Prepare to accept your rewards.", "OK");
+        localPlayer.Spellcaster.activeQuests.Remove(q);
+        PanelHolder.instance.displayQuestRewards(q);
+        GiveRewards(q);
+    }
+
+    public void TrackManaQuest(int mana)
     {
         foreach(Quest q in localPlayer.Spellcaster.activeQuests.ToArray())
         {
@@ -45,123 +102,22 @@ public class QuestTracker : MonoBehaviour
 
                 if (q.manaTracker >= q.manaRequired)
                 {
-                    q.questCompleted = true;
-                }
-                if (q.questCompleted)
-                {
-                    SoundManager.instance.PlaySingle(SoundManager.questsuccess);
-                    PanelHolder.instance.displayNotify(q.questName + " Completed!",
-                                                        "You completed the quest! You earned:\n\n" + q.DisplayReward(), "OK");
-                    localPlayer.Spellcaster.activeQuests.Remove(q);
-                    GiveRewards(q);
+                    QuestCompleted(q);
                 }
             }
         }
     }
 
-    // IllusionSpaceQuest - Checked in CustomEventHandler.cs in ScanItem()
-    public void CheckSpaceQuest(string spaceName)
+    public void TrackMoveQuest(int moveSpaces)
     {
         foreach (Quest q in localPlayer.Spellcaster.activeQuests.ToArray())
         {
-            if (q.questType.Equals("Specific Space"))
-            {
-                if (spaceName.Equals(q.spaceName))
-                {
-                    ++q.spacesLanded;
-                }
-
-                if (q.spacesLanded >= q.spacesRequired)
-                {
-                    q.questCompleted = true;
-                }
-                if (q.questCompleted)
-                {
-                    SoundManager.instance.PlaySingle(SoundManager.questsuccess);
-                    PanelHolder.instance.displayNotify(q.questName + " Completed!",
-                                                        "You completed the quest! You earned:\n\n" + q.DisplayReward(), "OK");
-                    localPlayer.Spellcaster.activeQuests.Remove(q);
-                    GiveRewards(q);
-                }
-            }
-        }
-    }
-
-    // TimeMoveQuest - Checked in DiceRoll.cs in Roll()
-    public void CheckMoveQuest(int moveSpaces)
-    {
-        foreach (Quest q in localPlayer.Spellcaster.activeQuests.ToArray())
-        {
-            if (q.questType.Equals("Movement"))
+            if (q.questType.Equals("Move"))
             {
                 q.spacesTraveled += moveSpaces;
                 if (q.spacesTraveled >= q.spacesRequired)
                 {
-                    q.questCompleted = true;
-                }
-                if (q.questCompleted)
-                {
-                    SoundManager.instance.PlaySingle(SoundManager.questsuccess);
-                    PanelHolder.instance.displayNotify(q.questName + " Completed!",
-                                                        "You completed the quest! You earned:\n\n" + q.DisplayReward(), "OK");
-                    localPlayer.Spellcaster.activeQuests.Remove(q);
-                    GiveRewards(q);
-                }
-            }
-        }
-    }
-
-    // ElementalErrandQuest -  checked in CustomEventHandler.cs in ScanItem()
-    public void CheckErrandQuest(string spaceName)
-    {
-        foreach (Quest q in localPlayer.Spellcaster.activeQuests.ToArray())
-        {
-            if (q.questType.Equals("Errand"))
-            {
-                if (spaceName.Equals(q.spaceName))
-                {
-                    // check if player has the item for the errand
-                    if(localPlayer.Spellcaster.inventory.Contains(q.item))
-                    {
-                        q.questCompleted = true;
-                    }
-                }
-                if (q.questCompleted)
-                {
-                    SoundManager.instance.PlaySingle(SoundManager.questsuccess);
-                    PanelHolder.instance.displayNotify(q.questName + " Completed!",
-                                                        "You completed the quest! You earned:\n\n" + q.DisplayReward(), "OK");
-                    localPlayer.Spellcaster.activeQuests.Remove(q);
-                    // localPlayer.Spellcaster.inventory.Remove(q.item);
-                    GiveRewards(q);
-                }
-            }
-        }
-    }
-
-    // ArcaneSpellQuest - checked in SpellCastHandler.cs in Update()
-    public void CheckSpellQuest(Spell spell)
-    {
-        foreach (Quest q in localPlayer.Spellcaster.activeQuests.ToArray())
-        {
-            if (q.questType.Equals("Spell"))
-            {
-                if (q.spellsCast.Contains(spell))
-                {
-                    // if player has cast this spell before
-                    q.questCompleted = true;
-                }
-                else
-                {
-                    q.spellsCast.Add(spell);
-                }
-                if (q.questCompleted)
-                {
-                    SoundManager.instance.PlaySingle(SoundManager.questsuccess);
-                    PanelHolder.instance.displayNotify(q.questName + " Completed!",
-                                                        "You completed the quest! You earned:\n\n" + q.DisplayReward(), "OK");
-                    localPlayer.Spellcaster.activeQuests.Remove(q);
-                    GiveRewards(q);
+                    QuestCompleted(q);
                 }
             }
         }
@@ -170,15 +126,10 @@ public class QuestTracker : MonoBehaviour
     // give player rewards when quest is completed
     public void GiveRewards(Quest q)
     {
-        int i = 0;
-        foreach (KeyValuePair<string, List<string>> kvp in q.rewards)
+        foreach (KeyValuePair<string, string> kvp in q.rewards)
         {
-            foreach(string s in kvp.Value)
-            {
-                // calls switch statement in another method b/c we don't want to break loop
-                string r = CheckRewards(kvp.Key, kvp.Value[i]);
-                ++i;
-            }
+            // calls switch statement in another method b/c we don't want to break loop
+            string r = CheckRewards(kvp.Key, kvp.Value);
         }
     }
 
@@ -187,8 +138,11 @@ public class QuestTracker : MonoBehaviour
     {
         switch(key)
         {
-            case "Glyph":
-                localPlayer.Spellcaster.glyphs[value] += 1;
+            case "Mana":
+                localPlayer.Spellcaster.CollectMana(Int32.Parse(value));
+                return value;
+            case "Item":
+                // localPlayer.Spellcaster.AddtoInventory(item);
                 return value;
             default:
                 return value;

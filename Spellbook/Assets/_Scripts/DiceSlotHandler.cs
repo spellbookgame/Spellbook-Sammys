@@ -29,7 +29,7 @@ public class DiceSlotHandler : MonoBehaviour, IDropHandler
     public void OnDrop(PointerEventData eventData)
     {
         // play drop sound
-        SoundManager.instance.PlaySingle(SoundManager.placespellpiece);
+        SoundManager.instance.PlaySingle(SoundManager.dicePlace);
 
         // if the slot has no item, then allow item to be dragged in
         if (!item)

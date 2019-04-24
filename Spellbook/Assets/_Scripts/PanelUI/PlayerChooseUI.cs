@@ -3,7 +3,8 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
 
-// used to display all notification panels
+// used to display player choose panel
+// currently has no function
 public class PlayerChooseUI : MonoBehaviour
 {
     [SerializeField] private Button bAlchemist;
@@ -26,7 +27,7 @@ public class PlayerChooseUI : MonoBehaviour
     }
 
     // used to notify players of various events. input a buttonClick string to change the onClick listener
-    public void DisplayPlayerChoose()
+    public void DisplayPlayerChoose(string spellName)
     {
         // if current scene is Vuforia, change everything to image
         if (SceneManager.GetActiveScene().name.Equals("VuforiaScene"))

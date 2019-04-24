@@ -45,8 +45,8 @@ public class InventoryUI : MonoBehaviour
         if (i > 4)
         {
             int expandPanel = (i - 4) * 350;
-            inventoryPanel.GetComponent<RectTransform>().sizeDelta = new Vector2(inventoryPanel.GetComponent<RectTransform>().sizeDelta.x,
-                (float)inventoryPanel.GetComponent<RectTransform>().sizeDelta.y + expandPanel);
+            inventoryPanel.GetComponent<RectTransform>().sizeDelta = new Vector2((float)inventoryPanel.GetComponent<RectTransform>().sizeDelta.x
+                                                                            + expandPanel, inventoryPanel.GetComponent<RectTransform>().sizeDelta.y);
         }
         Debug.Log("UPDATING UI");
     }

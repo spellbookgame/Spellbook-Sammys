@@ -104,7 +104,6 @@ public class SpellCastHandler : MonoBehaviour
             {
                 currentSpell.SpellCast(localPlayer.Spellcaster);
                 SoundManager.instance.PlaySingle(SoundManager.spellcast);
-                QuestTracker.instance.CheckSpellQuest(currentSpell);
                 spellWasCast = true;
                 RemovePrefabs(spellWasCast);
             }
@@ -211,7 +210,7 @@ public class SpellCastHandler : MonoBehaviour
     // add required glyphs into the caster's circle
     private void PopulateCircle(Spell spell)
     {
-        foreach (KeyValuePair<string, int> kvp in spell.requiredGlyphs)
+        foreach (KeyValuePair<string, int> kvp in spell.requiredRunes)
         {
             // if player doesn't have this glyph in the inventory, notify them.
             if (localPlayer.Spellcaster.glyphs[kvp.Key] <= 0)

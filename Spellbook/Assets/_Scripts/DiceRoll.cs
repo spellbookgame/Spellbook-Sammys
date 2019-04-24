@@ -2,6 +2,7 @@
 using UnityEditor;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 /// <summary>
 /// Controller for the MagicDice prefab.
@@ -43,12 +44,11 @@ public class DiceRoll : MonoBehaviour
     public int _rollMinimum;
     public int _rollMaximum;
 
-    // Grace Ko's additions: implementing spell/quest tracking and scanner
+    // Grace Ko's additions: implementing spell/quest tracking
     private Button rollButton;
     private GameObject diceTrayPanel;
     public bool rollEnabled;
 
-    private int diceRoll;
     private int pressedNum;
     Player localPlayer;
 
@@ -69,45 +69,59 @@ public class DiceRoll : MonoBehaviour
 
     public void Roll()
     {
-        // only execute if roll is enabled
+        // only execute if roll is enabled (DiceSlotHandler.cs)
         if(rollEnabled)
         {
-            // when button is clicked for first time, roll and change button to Scan
-            if (pressedNum == 0)
+            SoundManager.instance.PlaySingle(SoundManager.diceroll);
+
+            ++pressedNum;
+
+            // after dice are rolled, disable roll button and lock dice into position
+            diceTrayPanel.GetComponent<DiceUIHandler>().rollButton.interactable = false;
+            // diceTrayPanel.GetComponent<DiceUIHandler>().diceLocked = true;
+            localPlayer.Spellcaster.hasRolled = true;
+
+            // disable drag on ALL dice once they're rolled
+            gameObject.GetComponent<DiceDragHandler>().enabled = false;
+            foreach (Transform t in GameObject.Find("Scroll Content").transform)
             {
-                SoundManager.instance.PlaySingle(SoundManager.diceroll);
-
-                // wiggle the dice
-                gameObject.GetComponent<WiggleElement>().Wiggle();
-
-                LastRoll = Clamp((int)(_rollMult * Random.Range(_rollMinimum, _rollMaximum + 1) + _rollAdd), _rollMinimum, _rollMaximum);
-                SetDefaults();
-
-                // if Potion of Luck was cast, remove it after rolling dice
-                SpellTracker.instance.PotionofLuck();
-
-                CheckMoveRoll(LastRoll);
-                CheckManaRoll(LastRoll);
-                //QuestTracker.instance.CheckMoveQuest(diceRoll);
-
-                // disable drag on ALL dice once they're rolled
-                gameObject.GetComponent<DiceDragHandler>().enabled = false;
-                foreach(Transform t in GameObject.Find("Scroll Content").transform)
+                if (t.childCount > 0)
                 {
-                    if(t.childCount > 0)
-                    {
-                        t.GetChild(0).GetComponent<DiceDragHandler>().enabled = false;
-                    }
+                    t.GetChild(0).GetComponent<DiceDragHandler>().enabled = false;
                 }
+            }
 
-                rollButton.GetComponentInChildren<Text>().text = "Scan!";
-                ++pressedNum;
-            }
-            else if (pressedNum >= 1)
+            // wiggle the dice
+            gameObject.GetComponent<WiggleElement>().Wiggle();
+
+            LastRoll = Clamp((int)(_rollMult * Random.Range(_rollMinimum, _rollMaximum + 1) + _rollAdd), _rollMinimum, _rollMaximum);
+            SetDefaults();
+
+            // if Echo is active, player may reroll one more time
+            if (localPlayer.Spellcaster.activeSpells.Any(x => x.sSpellName.Equals("Echo")))
             {
-                diceTrayPanel.SetActive(false);
-                SceneManager.LoadScene("VuforiaScene");
+                if (pressedNum <= 1)
+                {
+                    diceTrayPanel.GetComponent<DiceUIHandler>().rollButton.interactable = true;
+                }
+                else if(pressedNum > 1)
+                {
+                    diceTrayPanel.GetComponent<DiceUIHandler>().rollButton.interactable = false;
+                    SpellTracker.instance.RemoveFromActiveSpells("Echo");
+                }
             }
+
+            // if Potion of Luck was cast, remove it after rolling dice
+            SpellTracker.instance.RemoveFromActiveSpells("Brew - Potion of Luck");
+            // if Tailwind was cast, remove it after rolling dice
+            SpellTracker.instance.RemoveFromActiveSpells("Tailwind");
+            // if Allegro was cast, remove it after rolling dice
+            SpellTracker.instance.RemoveFromActiveSpells("Allegro");
+
+            CheckMoveRoll(LastRoll);
+            CheckManaRoll(LastRoll);
+
+            QuestTracker.instance.TrackMoveQuest(LastRoll);
         }
     }
 

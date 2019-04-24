@@ -34,111 +34,36 @@ public class SpellTracker : MonoBehaviour
         spellCaster = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().Spellcaster;
     }
 
-    private void Update()
+    // making sure player is notified if a spell wears off
+    public void RemoveFromActiveSpells(string spellName)
     {
-        // updating spells to make sure spellcaster knows a spell was cast on them
-        
-    }
-
-    public void UpdateActiveSpells()
-    {
-        foreach (Spell entry in spellCaster.chapter.spellsCollected)
+        // if spell is active
+        if (spellCaster.activeSpells.Any(x => x.sSpellName.Equals(spellName)))
         {
-            // if the player has gone the amount of turns that the spell lasts
-            if (spellCaster.NumOfTurnsSoFar - entry.iCastedTurn == entry.iTurnsActive)
+            // removing D8 after it is used
+            if (spellName.Equals("Brew - Potion of Luck"))
             {
-                // remove the spell from the active spells list and notify player
-                spellCaster.activeSpells.Remove(entry);
-                PanelHolder.instance.displayNotify(entry.sSpellName, entry.sSpellName + " wore off...", "OK");
+                spellCaster.dice["D8"] -= 1;
             }
-        }
-    }
-
-    // call this after D8 is used up
-    public void PotionofLuck()
-    {
-        // if potion of luck is an active spell, remove the dice and the spell from active spells list
-        if(spellCaster.activeSpells.Any(x => x.sSpellName.Equals("Brew - Potion of Luck")))
-        {
-            spellCaster.dice["D8"] -= 1;
-
-            foreach(Spell entry in spellCaster.chapter.spellsCollected)
+            // remove spell from active spells list once it wears off
+            foreach (Spell entry in spellCaster.chapter.spellsCollected)
             {
-                if(entry.sSpellName.Equals("Brew - Potion of Luck"))
+                if (entry.sSpellName.Equals(spellName))
+                {
                     spellCaster.activeSpells.Remove(entry);
+                    Debug.Log(entry.sSpellName + " was removed from active spells list");
+                }
             }
         }
     }
 
-    // checks if any spells affect mana, calculates accordingly, and sets panel text
-    public int CheckManaSpell(int manaCount)
+    public bool CheckUmbra()
     {
-        StringBuilder sb = new StringBuilder();
-        
-        // if player's active spells list contains Crystal Scent or Arcana Harvest
-        if (spellCaster.activeSpells.Any(x => x.sSpellName == "Brew - Crystal Scent" || x.sSpellName == "Arcana Harvest"))
+        if (spellCaster.activeSpells.Any(x => x.sSpellName.Equals("Call of the Moon - Umbra's Eclipse")))
         {
-            // if Crystal Scent is active, + 20% mana
-            if (spellCaster.activeSpells.Any(x => x.sSpellName == "Brew - Crystal Scent"))
-            {
-                manaCount += (int)(manaCount * 0.2);
-                sb.Append(" Brew - Crystal Scent ");
-            }
-            // if Arcana Harvest is active, double mana
-            if (spellCaster.activeSpells.Any(x => x.sSpellName == "Arcana Harvest"))
-            {
-                manaCount *= 2;
-                sb.Append(" Arcana Harvest ");
-            }
-
-            PanelHolder.instance.displayEvent("You found Mana!", sb.ToString() + " is active and you earned " + manaCount + " mana.");
-            SoundManager.instance.PlaySingle(SoundManager.manafound);
-            return manaCount;
+            return true;
         }
         else
-        {
-            PanelHolder.instance.displayEvent("You found Mana!", "You earned " + manaCount + " mana.");
-            SoundManager.instance.PlaySingle(SoundManager.manafound);
-            return manaCount;
-        }
-    }
-
-    public int CheckGlyphSpell(string glyph)
-    {
-        int glyphCount = 1;
-
-        // add an additional glyph to player's inventory if arcana harvest is active
-        if(spellCaster.activeSpells.Any(x => x.sSpellName == "Arcana Harvest"))
-        {
-            glyphCount = 2;
-            Sprite sprite = Resources.Load<Sprite>("GlyphArt/" + glyph);
-            PanelHolder.instance.displayBoardScan("You found a Glyph!", "Arcana Harvest is active and you earned 2 " + glyph + "s.", sprite);
-            SoundManager.instance.PlaySingle(SoundManager.glyphfound);
-            return glyphCount;
-        }
-        else
-        {
-            Sprite sprite = Resources.Load<Sprite>("GlyphArt/" + glyph);
-            PanelHolder.instance.displayBoardScan("You found a Glyph!", "You found 1 " + glyph + ".", sprite);
-            SoundManager.instance.PlaySingle(SoundManager.glyphfound);
-            return glyphCount;
-        }
-    }
-
-    // referenced in DiceRoll.cs
-    public string CheckMoveSpell()
-    {
-        if(spellCaster.activeSpells.Any(x => x.sSpellName == "Accelerate"))
-        {
-            return "Accelerate";
-        }
-        else if(spellCaster.activeSpells.Any(x => x.sSpellName == "Teleport"))
-        {
-            return "Teleport";
-        }
-        else
-        {
-            return "";
-        }
+            return false;
     }
 }

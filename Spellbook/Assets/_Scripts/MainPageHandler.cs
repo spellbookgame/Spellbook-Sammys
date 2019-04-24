@@ -8,6 +8,7 @@ public class MainPageHandler : MonoBehaviour
 {
     [SerializeField] private GameObject questTracker;
     [SerializeField] private GameObject spellTracker;
+    [SerializeField] private GameObject crisisHandler;
 
     [SerializeField] private Text classType;
     [SerializeField] private Text manaCrystalsValue;
@@ -20,12 +21,14 @@ public class MainPageHandler : MonoBehaviour
     [SerializeField] private GameObject warpBackground2;
     [SerializeField] private SpriteRenderer symbolImage;
     
-    [SerializeField] private Button rollButton;
+    [SerializeField] private Button diceButton;
     [SerializeField] private Button spellbookButton;
+    [SerializeField] private Button inventoryButton;
     
     [SerializeField] private GameObject proclamationPanel;
 
     private bool diceTrayOpen;
+    private bool manaHasChanged;
 
     Player localPlayer;
     public static MainPageHandler instance = null;
@@ -49,28 +52,41 @@ public class MainPageHandler : MonoBehaviour
 
     private void Update()
     {
+        // earn mana at end of turn (besides first turn of game)
+        if (localPlayer != null && !(localPlayer.Spellcaster.numOfTurnsSoFar <= 1))
+        {
+            if (localPlayer.Spellcaster.endTurnManaCollected == false)
+            {
+                int endOfTurnMana = localPlayer.Spellcaster.CollectManaEndTurn();
+                StartCoroutine(ShowManaEarned(endOfTurnMana));
+            }
+        }
+
         // update player's mana count
-        if (localPlayer != null)
+        if (localPlayer != null && manaHasChanged)
+        {
             manaCrystalsValue.text = localPlayer.Spellcaster.iMana.ToString();
+            manaHasChanged = false;
+        }
 
-        // update player's list of active spells
-        if (localPlayer != null && localPlayer.Spellcaster.activeSpells.Count > 0)
-            SpellTracker.instance.UpdateActiveSpells();
-        // update player's list of active quests
-        if (localPlayer != null && localPlayer.Spellcaster.activeQuests.Count > 0)
-            UpdateActiveQuests();
-
-        // disable roll button if it's not player's turn
+        // disable dice button if it's not player's turn
         if (localPlayer != null && !localPlayer.bIsMyTurn)
-            rollButton.interactable = false;
-        else
-            rollButton.interactable = true;
+            diceButton.interactable = false;
+        else if (localPlayer != null && localPlayer.bIsMyTurn)
+            diceButton.interactable = true;
 
         // TESTING AREA
-        Spell pOL = new CrystalScent();
-        if(Input.GetKeyDown(KeyCode.P))
+        if(Input.GetKeyDown(KeyCode.D))
         {
-            pOL.SpellCast(localPlayer.Spellcaster);
+            localPlayer.Spellcaster.dice["D6"] += 1;
+        }
+        if(Input.GetKeyDown(KeyCode.T))
+        {
+            CrisisHandler.instance.CallTsunami();
+        }
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            localPlayer.Spellcaster.CollectSpell(new Fireball());
         }
     }
 
@@ -83,23 +99,6 @@ public class MainPageHandler : MonoBehaviour
         manaCrystalsValue.text = localPlayer.Spellcaster.iMana.ToString();
         healthValue.text = localPlayer.Spellcaster.fCurrentHealth.ToString() + "/ " + localPlayer.Spellcaster.fMaxHealth.ToString();
 
-        Debug.Log("main page turn just ended: " + localPlayer.Spellcaster.turnJustEnded);
-        // set text for earned mana briefly 
-        if(localPlayer.Spellcaster.turnJustEnded == true)
-        {
-            int endOfTurnMana = localPlayer.Spellcaster.CollectManaEndTurn();
-            StartCoroutine(ShowManaEarned(endOfTurnMana));
-        }
-
-        // if an enemy does not exist, create one
-        if (GameObject.FindGameObjectWithTag("Enemy") == null)
-        {
-            // instantiating enemy with 20 health
-            enemy = Instantiate(enemy);
-            enemy.Initialize(20f);
-            enemy.fCurrentHealth = enemy.fMaxHealth;
-        }
-
         // if it's not first turn of game, then destroy proclamation panel each time scene starts
         if (localPlayer.Spellcaster.procPanelShown)
         {
@@ -107,12 +106,13 @@ public class MainPageHandler : MonoBehaviour
 
             // in case a panel didn't display during scan scene, display them in main scene
             PanelHolder.instance.CheckPanelQueue();
-            Debug.Log("queue checked in main scene");
         }
 
-        // create instance of QuestTracker prefab
+        // create instances of QuestTracker/SpellTracker prefabs
         GameObject q = Instantiate(questTracker);
         GameObject s = Instantiate(spellTracker);
+        // CHANGE CRISISHANDLER TO BE INSTANTIATED IN LOBBY SCENE
+        GameObject c = Instantiate(crisisHandler);
             
         // set character image based on class
         characterImage.sprite = Resources.Load<Sprite>(localPlayer.Spellcaster.characterSpritePath);
@@ -126,28 +126,32 @@ public class MainPageHandler : MonoBehaviour
         warpBackground1.GetComponent<SpriteRenderer>().color = darkCol;
         warpBackground2.GetComponent<SpriteRenderer>().color = lightCol;
 
-        // set onclick listeners for spellbook button
+        // set onclick listeners for spellbook/inventory button
         spellbookButton.onClick.AddListener(() =>
         {
             SoundManager.instance.PlaySingle(SoundManager.spellbookopen);
             SceneManager.LoadScene("SpellbookScene");
         });
+        inventoryButton.onClick.AddListener(() =>
+        {
+            SoundManager.instance.PlaySingle(SoundManager.inventoryOpen);
+            SceneManager.LoadScene("InventoryScene");
+        });
     }
 
-    // updating the list of active quests
-    private void UpdateActiveQuests()
+    // FOR TESTING ONLY - DELETE LATER
+    public void CollectMana()
     {
-        foreach (Quest q in localPlayer.Spellcaster.activeQuests.ToArray())
-        {
-            // if the player's turns from starting the quest exceeded the turn limit
-            if (localPlayer.Spellcaster.NumOfTurnsSoFar - q.startTurn > q.turnLimit)
-            {
-                // remove the quest from the active quests list and notify player
-                localPlayer.Spellcaster.activeQuests.Remove(q);
-                SoundManager.instance.PlaySingle(SoundManager.questfailed);
-                PanelHolder.instance.displayNotify(q.questName + " Failed...", "You failed to complete the quest in your given time.", "OK");
-            }
-        }
+        localPlayer.Spellcaster.CollectMana(500);
+        manaHasChanged = true;
+    }
+    public void CollectRandomItem()
+    {
+        SoundManager.instance.PlaySingle(SoundManager.itemfound);
+        List<ItemObject> itemList = GameObject.Find("ItemList").GetComponent<ItemList>().listOfItems;
+        ItemObject item = itemList[Random.Range(0, itemList.Count - 1)];
+        PanelHolder.instance.displayNotify("You found an Item!", "You got found a " + item.name + "!", "OK");
+        localPlayer.Spellcaster.AddToInventory(item);
     }
 
     // closing the proclamation panel
@@ -158,14 +162,14 @@ public class MainPageHandler : MonoBehaviour
         PanelHolder.instance.CheckPanelQueue();
     }
 
-    // corouting to show mana earned
+    // coroutine to show mana earned
     IEnumerator ShowManaEarned(int manaCount)
     {
         manaCrystalsAddition.text = "+" + manaCount.ToString();
+        manaHasChanged = true;
 
         yield return new WaitForSeconds(2f);
 
         manaCrystalsAddition.text = "";
-        localPlayer.Spellcaster.turnJustEnded = false;
     }
 }

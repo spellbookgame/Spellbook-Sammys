@@ -6,15 +6,17 @@ public abstract class Quest
 {
     public string questName;
     public string questType;
-    public string questDescription;
+    public string questTask;
+    public string questFlavor;
 
     public int startTurn;
     public int turnLimit;
+    public int consequenceMana;
 
     public bool questCompleted;
 
     // <reward type, reward names (stored in list)>
-    public Dictionary<string, List<string>> rewards;
+    public Dictionary<string, string> rewards;
 
     // tracking variables for mana quests
     public int manaTracker;
@@ -36,7 +38,7 @@ public abstract class Quest
 
     public Quest()
     {
-        rewards = new Dictionary<string, List<string>>();
+        rewards = new Dictionary<string, string>();
     }
 
     public virtual string DisplayReward()

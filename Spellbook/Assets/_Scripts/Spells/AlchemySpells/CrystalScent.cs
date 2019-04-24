@@ -9,18 +9,33 @@ public class CrystalScent : Spell
         iTier = 3;
         iManaCost = 600;
 
+        combatSpell = false;
+
         sSpellName = "Brew - Crystal Scent";
         sSpellClass = "Alchemist";
         sSpellInfo = "Teleport to the Marketplace. Can cast on an ally.";
 
-        requiredGlyphs.Add("Alchemy D Glyph", 1);
+        requiredRunes.Add("Alchemist D Rune", 1);
     }
 
     public override void SpellCast(SpellCaster player)
-    {
-        // subtract mana and glyph costs
-        player.iMana -= iManaCost;
+    {   
+        // cast spell for free if Umbra's Eclipse is active
+        if (SpellTracker.instance.CheckUmbra())
+        {
+            SpellTracker.instance.RemoveFromActiveSpells("Call of the Moon - Umbra's Eclipse");
+            PanelHolder.instance.displayNotify("You cast " + sSpellName, "Move your piece to the Marketplace.", "Shop");
+        }
+        else if (player.iMana < iManaCost)
+        {
+            PanelHolder.instance.displayNotify("Not enough Mana!", "You do not have enough mana to cast this spell.", "OK");
+        }
+        else
+        {
+            // subtract mana and glyph costs
+            player.iMana -= iManaCost;
 
-        PanelHolder.instance.displayNotify("You cast " + sSpellName, "Move your piece to the Marketplace.", "Shop");
+            PanelHolder.instance.displayNotify("You cast " + sSpellName, "Move your piece to the Marketplace.", "Shop");
+        }
     }
 }

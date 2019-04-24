@@ -26,11 +26,13 @@ public abstract class SpellCaster
 
     public int iMana;
     public decimal dManaMultiplier = 1;
-    public bool turnJustEnded = false;    // bool to track if "end of turn" mana should be collected or not
+    public bool endTurnManaCollected;    // bool to track if "end of turn" mana should be collected or not
     
+    // misc attributes
     public string classType;
     public int spellcasterID;
     public bool hasAttacked;
+    public bool hasRolled;
     public bool scannedSpaceThisTurn;
     public Chapter chapter;
 
@@ -127,37 +129,43 @@ public abstract class SpellCaster
 
     public void CollectMana(int manaCount)
     {
-        Debug.Log("mana count initial: " + manaCount);
-        manaCount = SpellTracker.instance.CheckManaSpell(manaCount);
-        Debug.Log("mana count after: " + manaCount);
-        QuestTracker.instance.CheckManaQuest(manaCount);
+        SoundManager.instance.PlaySingle(SoundManager.manaCollect);
         iMana += manaCount;
+        QuestTracker.instance.TrackManaQuest(manaCount);
     }
 
     public int CollectManaEndTurn()
     {
+        SoundManager.instance.PlaySingle(SoundManager.manaCollect);
+
         int manaCount = (int)UnityEngine.Random.Range(30, 100);
-        Debug.Log("initial mana count: " + manaCount);
         manaCount = (int)(manaCount * dManaMultiplier);
-        Debug.Log("mana multiplier: " + dManaMultiplier);
-        Debug.Log("final mana count: " + manaCount);
         iMana += manaCount;
+
+        /// reset mana multiplier
         dManaMultiplier = 1;
+
+        endTurnManaCollected = true;
+        QuestTracker.instance.TrackManaQuest(manaCount);
         return manaCount;
     }
 
     public void LoseMana(int manaCount)
     {
-        this.iMana -= manaCount;
+        iMana -= manaCount;
+        if (iMana <= 0)
+            iMana = 0;
     }
 
     public void CollectGlyph(string glyphName)
     {
-        int glyphCount = SpellTracker.instance.CheckGlyphSpell(glyphName);
-        this.glyphs[glyphName] += glyphCount;
+        Sprite sprite = Resources.Load<Sprite>("GlyphArt/" + glyphName);
+        PanelHolder.instance.displayBoardScan("You found a Glyph!", "You found 1 " + glyphName + ".", sprite);
+        SoundManager.instance.PlaySingle(SoundManager.glyphfound);
+        glyphs[glyphName] += 1;
     }
 
-    // fix this up after removing from eventhandler and enemy drop
+    // find a random glyph
     public string CollectRandomGlyph()
     {
         List<string> glyphList = new List<string>(this.glyphs.Keys);
@@ -165,17 +173,9 @@ public abstract class SpellCaster
 
         string randomKey = glyphList[random];
 
-        // if arcana harvest is active
-        if (this.classType.Equals("Arcanist") && this.activeSpells.Contains(this.chapter.spellsAllowed[1]))
-        {
-            this.glyphs[randomKey] += 2;
-            PanelHolder.instance.displayEvent("Arcana Harvest", "You found 2 " + randomKey + ".");
-        }
-        else
-        {
-            this.glyphs[randomKey] += 1;
-            PanelHolder.instance.displayEvent("You found a Glyph!", "You found a " + randomKey + ".");
-        }
+        glyphs[randomKey] += 1;
+        PanelHolder.instance.displayNotify("You found a Glyph!", "You found a " + randomKey + ".", "OK");
+
         return randomKey;
     }
 
@@ -192,7 +192,7 @@ public abstract class SpellCaster
         return randomKey;
     }
 
-    // method that adds spell to player's chapter
+    // function that adds spell to player's chapter
     public bool CollectSpell(Spell spell)
     {
         bool spellCollected = false;
@@ -216,7 +216,7 @@ public abstract class SpellCaster
 
                 // tell player that the spell is collected
                 //g.GetComponent<SpellCreateHandler>().inventoryText.text = "You unlocked " + spell.sSpellName + "!";
-                PanelHolder.instance.displayEvent(spell.sSpellName, "You unlocked " + spell.sSpellName + "!");
+                PanelHolder.instance.displayNotify(spell.sSpellName, "You unlocked " + spell.sSpellName + "!", "Main");
 
                 Debug.Log("You have " + chapter.spellsCollected.Count + " spells collected.");
 
@@ -241,8 +241,6 @@ public abstract class SpellCaster
         bf.Serialize(file, pd);
         file.Close();
     }
-
-    
 
     public static SpellCaster loadPlayerData()
     {

@@ -24,7 +24,10 @@ public class YourTurnUI : MonoBehaviour
     public void Display()
     {
         gameObject.SetActive(true);
+
+        // reset tracker bools
         GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().Spellcaster.scannedSpaceThisTurn = false;
+        GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().Spellcaster.endTurnManaCollected = false;
 
         // for start of game
         if (GameObject.Find("Proclamation Panel"))
@@ -42,6 +45,7 @@ public class YourTurnUI : MonoBehaviour
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
             gameObject.SetActive(false);
             
+            // bring player to main player scene
             if(!SceneManager.GetActiveScene().name.Equals("MainPlayerScene"))
             {
                 SceneManager.LoadScene("MainPlayerScene");

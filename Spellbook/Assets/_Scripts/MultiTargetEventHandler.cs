@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Vuforia;
 
@@ -117,42 +118,28 @@ public class MultiTargetEventHandler : MonoBehaviour, ITrackableEventHandler
         // if 4 targets were tracked, start scanning
         if (targetsTracked >= 4)
         {
-            Debug.Log("4 items tracked! Dictionary:");
             foreach(KeyValuePair<string, int> kvp in targets)
             {
-                targetName.text = targetName.text + "\n" + kvp.Key;
+                targetName.text = targetName.text + kvp.Key + "\n";
             }
             CompareSpells();
         }
     }
 
-    // compares targets dictionary to spell's required glyphs dictionary
+    // compares targets dictionary to spell's required runes dictionary
     private void CompareSpells()
     {
         bool isEqual = false;
 
         Dictionary<string, int> d1 = targets;
-        for(int i = 0; i <= localPlayer.Spellcaster.chapter.spellsAllowed.Count; i++)
+        for (int i = 0; i < localPlayer.Spellcaster.chapter.spellsAllowed.Count; ++i)
         {
-            Dictionary<string, int> d2 = localPlayer.Spellcaster.chapter.spellsAllowed[i].requiredGlyphs;
+            Dictionary<string, int> d2 = localPlayer.Spellcaster.chapter.spellsAllowed[i].requiredRunes;
 
-            // tier 3 spell: only needs to check if d1 contains the required glyph
-            if(localPlayer.Spellcaster.chapter.spellsAllowed[i].iTier == 3)
-            {
-                if(d2.Keys.All(k => d1.ContainsKey(k)))
-                {
-                    localPlayer.Spellcaster.CollectSpell(localPlayer.Spellcaster.chapter.spellsAllowed[i]);
-                    break;
-                }
-                else
-                {
-                    PanelHolder.instance.displayEvent("No Spell Detected", "You did not create a spell.");
-                }
-            }
             // tier 2 and 1 spells
-            else
+            if (localPlayer.Spellcaster.chapter.spellsAllowed[i].iTier == 2 || localPlayer.Spellcaster.chapter.spellsAllowed[i].iTier == 1)
             {
-                foreach(KeyValuePair<string, int> kvp in d2)
+                foreach (KeyValuePair<string, int> kvp in d2)
                 {
                     if (d1.ContainsKey(kvp.Key))
                     {
@@ -161,14 +148,29 @@ public class MultiTargetEventHandler : MonoBehaviour, ITrackableEventHandler
                     else
                     {
                         isEqual = false;
-                        PanelHolder.instance.displayEvent("No Spell Detected", "You did not create a spell.");
                         break;
                     }
                 }
-                if(isEqual)
+                if (isEqual)
                 {
                     localPlayer.Spellcaster.CollectSpell(localPlayer.Spellcaster.chapter.spellsAllowed[i]);
+                    break;
                 }
+            }
+            // tier 3 spell: only needs to check if d1 contains the required rune
+            else if (localPlayer.Spellcaster.chapter.spellsAllowed[i].iTier == 3)
+            {
+                var first = d2.First();     // can use First() here because tier 3 requiredRune will only have 1 entry
+                if (d1.ContainsKey(first.Key))
+                {
+                    localPlayer.Spellcaster.CollectSpell(localPlayer.Spellcaster.chapter.spellsAllowed[i]);
+                    break;
+                }
+            }
+            // if no spells are found
+            else
+            {
+                PanelHolder.instance.displayNotify("No Spell!", "No spell was found...", "OK");
             }
         }
     }

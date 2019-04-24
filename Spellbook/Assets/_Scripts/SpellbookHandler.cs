@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class SpellbookHandler : MonoBehaviour
 {
     [SerializeField] private Button mainButton;
+    [SerializeField] private Button libraryButton;
     [SerializeField] private Button collectionButton;
     [SerializeField] private Button questLogButton;
     [SerializeField] private Button spellbookProgressButton;
@@ -14,27 +15,25 @@ public class SpellbookHandler : MonoBehaviour
 
     Player localPlayer;
 
-    // TESTING
-    ItemObject item;
-
     // Start is called before the first frame update
     void Start()
     {
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
 
-        // TESTING
-        item = new ItemObject("Glowing Mushroom", Resources.Load<Sprite>("Art Assets/Items and Currency/GlowingMushroom"),
-            1000, 500, "Oooo Glowy", "Heals 25% damage, can probably be sold to someone at a high price.");
-
         mainButton.onClick.AddListener(() =>
         {
-            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+            SoundManager.instance.PlaySingle(SoundManager.spellbookClose);
             SceneManager.LoadScene("MainPlayerScene");
         });
         collectionButton.onClick.AddListener(() =>
         {
             SoundManager.instance.PlaySingle(SoundManager.pageturn);
             SceneManager.LoadScene("SpellCollectionScene");
+        });
+        libraryButton.onClick.AddListener(() =>
+        {
+            SoundManager.instance.PlaySingle(SoundManager.pageturn);
+            SceneManager.LoadScene("LibraryScene");
         });
         questLogButton.onClick.AddListener(() =>
         {
@@ -51,16 +50,6 @@ public class SpellbookHandler : MonoBehaviour
         foreach (Spell entry in localPlayer.Spellcaster.activeSpells)
         {
             activeSpellsText.text = activeSpellsText.text + entry.sSpellName + "\n";
-        }
-    }
-
-    private void Update()
-    {
-        // TESTING
-        if(Input.GetKeyDown(KeyCode.C))
-        {
-            localPlayer.Spellcaster.AddToInventory(item);
-            Debug.Log("item added");
         }
     }
 }

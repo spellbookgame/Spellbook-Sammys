@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PanelHolder : MonoBehaviour
 {
@@ -8,7 +9,9 @@ public class PanelHolder : MonoBehaviour
     public PlayerChooseUI playerChoosePanel;
     public NotifyUI notifyPanel;
     public QuestUI questPanel;
+    public QuestRewardUI questRewardPanel;
     public BoardScanUI boardScanPanel;
+    public CrisisUI crisisPanel;
      
     
     public static PanelHolder instance = null;
@@ -53,12 +56,16 @@ public class PanelHolder : MonoBehaviour
                 notifyPanel.EnablePanel();
             else if (panelQueue.Peek().Equals(questPanel.panelID))
                 questPanel.EnablePanel();
+            else if (panelQueue.Peek().Equals(questRewardPanel.panelID))
+                questRewardPanel.EnablePanel();
             else if (panelQueue.Peek().Equals(yourTurnPanel.panelID))
                 yourTurnPanel.EnablePanel();
             else if (panelQueue.Peek().Equals(boardScanPanel.panelID))
                 boardScanPanel.EnablePanel();
             else if (panelQueue.Peek().Equals(playerChoosePanel.panelID))
                 playerChoosePanel.EnablePanel();
+            else if (panelQueue.Peek().Equals(crisisPanel.panelID))
+                crisisPanel.EnablePanel();
         }
     }
 
@@ -69,22 +76,24 @@ public class PanelHolder : MonoBehaviour
         yourTurnPanel.Display();
     }
 
-    public void displayPlayerChoose()
+    public void displayPlayerChoose(string spellName)
     {
         panelQueue.Enqueue(playerChoosePanel.panelID);
         Debug.Log("Queued: " + playerChoosePanel.panelID);
-        playerChoosePanel.DisplayPlayerChoose();
-    }
-
-    public void displayEvent(string title, string info)
-    {
-        panelQueue.Enqueue(notifyPanel.panelID);
-        Debug.Log("Queued: " + notifyPanel.panelID);
-        notifyPanel.DisplayEvent(title, info);
+        playerChoosePanel.DisplayPlayerChoose(spellName);
     }
 
     public void displayNotify(string title, string info, string buttonClick)
     {
+        // close dice tray if it's open (find a better solution soon; Panels are not showing up above dice tray)
+        if (SceneManager.GetActiveScene().name.Equals("MainPlayerScene") && GameObject.Find("Dice Tray"))
+        {
+            DiceUIHandler diceUIHandler = GameObject.Find("Dice Tray").GetComponent<DiceUIHandler>();
+            if (diceUIHandler.diceTrayOpen)
+            {
+                diceUIHandler.OpenCloseDiceTray();
+            }
+        }
         panelQueue.Enqueue(notifyPanel.panelID);
         Debug.Log("Queued: " + notifyPanel.panelID);
         notifyPanel.DisplayNotify(title, info, buttonClick);
@@ -94,14 +103,37 @@ public class PanelHolder : MonoBehaviour
     {
         panelQueue.Enqueue(questPanel.panelID);
         Debug.Log("Queued: " + questPanel.panelID);
-        questPanel.DisplayQuestGlyphs(quest);
+        questPanel.DisplayQuest(quest);
     }
 
+    public void displayQuestRewards(Quest quest)
+    {
+        // close dice tray if it's open
+        if (SceneManager.GetActiveScene().name.Equals("MainPlayerScene") && GameObject.Find("Dice Tray"))
+        {
+            DiceUIHandler diceUIHandler = GameObject.Find("Dice Tray").GetComponent<DiceUIHandler>();
+            if (diceUIHandler.diceTrayOpen)
+            {
+                diceUIHandler.OpenCloseDiceTray();
+            }
+        }
+        panelQueue.Enqueue(questRewardPanel.panelID);
+        Debug.Log("Queued: " + questRewardPanel.panelID);
+        questRewardPanel.DisplayQuestRewards(quest);
+    }
+
+    public void displayCrisis(string title, string info, int rounds)
+    {
+        panelQueue.Enqueue(crisisPanel.panelID);
+        Debug.Log("Queued: " + crisisPanel.panelID);
+        crisisPanel.DisplayCrisis(title, info, rounds);
+    }
+
+    // delete after scenes for each board scan is created
     public void displayBoardScan(string title, string info, Sprite sprite)
     {
         panelQueue.Enqueue(boardScanPanel.panelID);
         Debug.Log("Queued: " + boardScanPanel.panelID);
         boardScanPanel.DisplayScanEvent(title, info, sprite);
     }
-
 }
