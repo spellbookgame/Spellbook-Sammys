@@ -10,7 +10,8 @@ public class CoSLeon : Spell
     {
         iTier = 3;
         iManaCost = 1800;
-        iCoolDown = 3;
+
+        combatSpell = false;
 
         sSpellName = "Call of the Sun - Leon's Shining";
         sSpellClass = "Summoner";

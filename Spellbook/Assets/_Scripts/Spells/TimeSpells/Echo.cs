@@ -9,6 +9,8 @@ public class Echo : Spell
         iTier = 3;
         iManaCost = 600;
 
+        combatSpell = false;
+
         sSpellName = "Echo";
         sSpellClass = "Chronomancer";
         sSpellInfo = "If you are not satisfied with your first roll, you may roll again. Can cast on an ally.";

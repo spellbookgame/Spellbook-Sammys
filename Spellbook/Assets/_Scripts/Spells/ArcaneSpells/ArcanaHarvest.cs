@@ -10,6 +10,8 @@ public class ArcanaHarvest : Spell
         iTier = 3;
         iManaCost = 300;
 
+        combatSpell = false;
+
         sSpellName = "Arcana Harvest";
         sSpellClass = "Arcanist";
         sSpellInfo = "Sacrifice half your mana crystals and move directly to the Mana Crystal Mines. Can cast on an ally.";

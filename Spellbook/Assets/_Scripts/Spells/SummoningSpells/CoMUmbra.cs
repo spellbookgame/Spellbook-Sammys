@@ -11,6 +11,8 @@ public class CoMUmbra : Spell
         iTier = 2;
         iManaCost = 1000;
 
+        combatSpell = false;
+
         sSpellName = "Call of the Moon - Umbra's Eclipse";
         sSpellClass = "Summoner";
         sSpellInfo = "Your next spell you cast (except this one) will be free. Can cast on an ally.";

@@ -9,6 +9,8 @@ public class Tailwind : Spell
         iTier = 1;
         iManaCost = 2500;
 
+        combatSpell = false;
+
         sSpellName = "Tailwind";
         sSpellClass = "Elementalist";
         sSpellInfo = "Everyone will receive an extra D6 to their movement next turn.";

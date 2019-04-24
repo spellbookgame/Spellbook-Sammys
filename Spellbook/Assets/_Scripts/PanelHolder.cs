@@ -88,7 +88,7 @@ public class PanelHolder : MonoBehaviour
             DiceUIHandler diceUIHandler = GameObject.Find("Dice Tray").GetComponent<DiceUIHandler>();
             if (diceUIHandler.diceTrayOpen)
             {
-                diceUIHandler.OpenDiceTray();
+                diceUIHandler.OpenCloseDiceTray();
             }
         }
         panelQueue.Enqueue(notifyPanel.panelID);
@@ -111,7 +111,7 @@ public class PanelHolder : MonoBehaviour
             DiceUIHandler diceUIHandler = GameObject.Find("Dice Tray").GetComponent<DiceUIHandler>();
             if (diceUIHandler.diceTrayOpen)
             {
-                diceUIHandler.OpenDiceTray();
+                diceUIHandler.OpenCloseDiceTray();
             }
         }
         panelQueue.Enqueue(questRewardPanel.panelID);

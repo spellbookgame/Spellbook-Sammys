@@ -9,6 +9,8 @@ public class Playwright : Spell
         iTier = 1;
         iManaCost = 2000;
 
+        combatSpell = false;
+
         sSpellName = "Playwright";
         sSpellClass = "Trickster";
         sSpellInfo = "Destroy a random item to change two of your runes into any runes of your choice.";

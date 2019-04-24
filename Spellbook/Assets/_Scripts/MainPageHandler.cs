@@ -8,6 +8,7 @@ public class MainPageHandler : MonoBehaviour
 {
     [SerializeField] private GameObject questTracker;
     [SerializeField] private GameObject spellTracker;
+    [SerializeField] private GameObject crisisHandler;
 
     [SerializeField] private Text classType;
     [SerializeField] private Text manaCrystalsValue;
@@ -79,6 +80,14 @@ public class MainPageHandler : MonoBehaviour
         {
             localPlayer.Spellcaster.dice["D6"] += 1;
         }
+        if(Input.GetKeyDown(KeyCode.T))
+        {
+            CrisisHandler.instance.CallTsunami();
+        }
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            localPlayer.Spellcaster.CollectSpell(new Fireball());
+        }
     }
 
     public void setupMainPage()
@@ -102,6 +111,8 @@ public class MainPageHandler : MonoBehaviour
         // create instances of QuestTracker/SpellTracker prefabs
         GameObject q = Instantiate(questTracker);
         GameObject s = Instantiate(spellTracker);
+        // CHANGE CRISISHANDLER TO BE INSTANTIATED IN LOBBY SCENE
+        GameObject c = Instantiate(crisisHandler);
             
         // set character image based on class
         characterImage.sprite = Resources.Load<Sprite>(localPlayer.Spellcaster.characterSpritePath);

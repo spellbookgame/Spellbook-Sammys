@@ -9,6 +9,8 @@ public class Allegro : Spell
         iTier = 3;
         iManaCost = 600;
 
+        combatSpell = false;
+
         sSpellName = "Allegro";
         sSpellClass = "Trickster";
         sSpellInfo = "Add a D6 to your movement next time you roll. Can cast on an ally.";

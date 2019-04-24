@@ -11,6 +11,8 @@ public class RuneConversion : Spell
         iTier = 3;
         iManaCost = 500;
 
+        combatSpell = false;
+
         sSpellName = "Rune Conversion";
         sSpellClass = "Arcanist";
         sSpellInfo = "Discard one of your current runes in to draw one directly from the deck. Can cast on an ally.";

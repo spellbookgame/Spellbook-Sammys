@@ -9,6 +9,8 @@ public class CrystalScent : Spell
         iTier = 3;
         iManaCost = 600;
 
+        combatSpell = false;
+
         sSpellName = "Brew - Crystal Scent";
         sSpellClass = "Alchemist";
         sSpellInfo = "Teleport to the Marketplace. Can cast on an ally.";

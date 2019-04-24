@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class CrisisHandler : MonoBehaviour
@@ -10,7 +11,9 @@ public class CrisisHandler : MonoBehaviour
 
     public string requiredLocation = "";
     public string requiredClass = "";
+
     public int requiredSpellTier = 0;
+    public int roundsUntilCrisis = 0;
 
     // tracking each crisis to see which one is currently active
     public bool tsunamiActive = false;
@@ -44,13 +47,30 @@ public class CrisisHandler : MonoBehaviour
     {
         tsunamiActive = true;
         crisisSolved = false;
-        requiredLocation = "Forest";
+        roundsUntilCrisis = 3;
+        requiredLocation = "capital";   // change to forest eventually
         requiredClass = "Elementalist";
         requiredSpellTier = 3;
 
         PanelHolder.instance.displayNotify("Tsunami Incoming", "A tsunami is about to hit the cities from the South. To prevent it," +
                                             " the Elementalist must create a tier 3 spell and go to the Forest before the tsunami hits. It will" +
                                             " arrive in 3 rounds.", "OK");
+    }
+
+    // call this to check if tsunami requirements are met
+    public void CheckTsunami(Player player, string location)
+    {
+        if(tsunamiActive && !crisisSolved)
+        {
+            if(player.Spellcaster.classType.Equals("Elementalist"))
+            {
+                // if elementalist has a tier 3 spell collected and is in the forest
+                if(player.Spellcaster.chapter.spellsCollected.Any(x => x.iTier == 3) && location.Equals(requiredLocation))
+                {
+                    ResolveTsunami();
+                }
+            }
+        }
     }
 
     // call this when crisis is resolved early

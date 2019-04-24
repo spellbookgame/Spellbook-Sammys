@@ -12,6 +12,7 @@ public class UICanvasHandler : MonoBehaviour
     [SerializeField] private GameObject diceButton;
     [SerializeField] private GameObject inventoryButton;
     [SerializeField] private GameObject endTurnButton;
+    [SerializeField] private DiceUIHandler diceUIHandler;
 
     void Awake()
     {
@@ -36,6 +37,10 @@ public class UICanvasHandler : MonoBehaviour
         // only show buttons on main scene
         if(!SceneManager.GetActiveScene().name.Equals("MainPlayerScene"))
         {
+            // if dice tray is open in another scene other than main player, close it
+            if(diceUIHandler.diceTrayOpen)
+                diceUIHandler.OpenCloseDiceTray();
+
             spellbookButton.SetActive(false);
             diceButton.SetActive(false);
             inventoryButton.SetActive(false);

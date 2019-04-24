@@ -34,7 +34,7 @@ public class DiceUIHandler : MonoBehaviour
     }
 
     // call this function from onclick event on button
-    public void OpenDiceTray()
+    public void OpenCloseDiceTray()
     {
         SoundManager.instance.PlaySingle(SoundManager.dicetrayopen);
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();

@@ -9,6 +9,8 @@ public class PotionofLuck : Spell
         iTier = 1;
         iManaCost = 3000;
 
+        combatSpell = false;
+
         sSpellName = "Brew - Potion of Luck";
         sSpellClass = "Alchemist";
         sSpellInfo = "Give you and an ally an extra D8 next time you roll.";

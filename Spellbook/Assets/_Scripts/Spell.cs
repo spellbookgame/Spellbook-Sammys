@@ -15,6 +15,8 @@ public abstract class Spell
     public string sSpellClass;
     public string sSpellInfo;
 
+    public bool combatSpell;
+
     public Dictionary<string, int> requiredRunes;
 
     // CTOR

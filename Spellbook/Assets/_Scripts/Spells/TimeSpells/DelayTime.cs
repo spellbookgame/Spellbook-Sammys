@@ -8,7 +8,8 @@ public class DelayTime : Spell
     {
         iTier = 1;
         iManaCost = 3000;
-        iCoolDown = 5;
+
+        combatSpell = false;
 
         sSpellName = "Delay Time";
         sSpellClass = "Chronomancer";

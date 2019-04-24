@@ -92,6 +92,9 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
     
     private void scanItem(string trackableName)
     {
+        // TESTING - DELETE LATER
+        CrisisHandler.instance.CheckTsunami(localPlayer, trackableName);
+
         // call function based on target name
         switch (trackableName)
         {

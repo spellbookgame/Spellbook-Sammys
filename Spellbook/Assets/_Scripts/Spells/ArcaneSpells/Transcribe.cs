@@ -10,6 +10,8 @@ public class Transcribe : Spell
         iTier = 1;
         iManaCost = 2800;
 
+        combatSpell = false;
+
         sSpellName = "Transcribe";
         sSpellClass = "Arcanist";
         sSpellInfo = "Discard your rune hand and draw new ones from the top tier deck.";
