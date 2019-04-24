@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Vuforia;
 
@@ -136,7 +137,7 @@ public class MultiTargetEventHandler : MonoBehaviour, ITrackableEventHandler
             Dictionary<string, int> d2 = localPlayer.Spellcaster.chapter.spellsAllowed[i].requiredRunes;
 
             // tier 2 and 1 spells
-            if(localPlayer.Spellcaster.chapter.spellsAllowed[i].iTier == 2 || localPlayer.Spellcaster.chapter.spellsAllowed[i].iTier == 1)
+            if (localPlayer.Spellcaster.chapter.spellsAllowed[i].iTier == 2 || localPlayer.Spellcaster.chapter.spellsAllowed[i].iTier == 1)
             {
                 foreach (KeyValuePair<string, int> kvp in d2)
                 {
@@ -156,12 +157,11 @@ public class MultiTargetEventHandler : MonoBehaviour, ITrackableEventHandler
                     break;
                 }
             }
-
             // tier 3 spell: only needs to check if d1 contains the required rune
-            else if(localPlayer.Spellcaster.chapter.spellsAllowed[i].iTier == 3)
+            else if (localPlayer.Spellcaster.chapter.spellsAllowed[i].iTier == 3)
             {
                 var first = d2.First();     // can use First() here because tier 3 requiredRune will only have 1 entry
-                if(d1.ContainsKey(first.Key))
+                if (d1.ContainsKey(first.Key))
                 {
                     localPlayer.Spellcaster.CollectSpell(localPlayer.Spellcaster.chapter.spellsAllowed[i]);
                     break;
