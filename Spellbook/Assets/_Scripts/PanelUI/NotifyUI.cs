@@ -50,9 +50,6 @@ public class NotifyUI : MonoBehaviour
             case "Main":
                 singleButton.onClick.AddListener((MainClick));
                 break;
-            case "End":
-                singleButton.onClick.AddListener((eventClick));
-                break;
             default:
                 break;
         }
@@ -105,31 +102,6 @@ public class NotifyUI : MonoBehaviour
         gameObject.SetActive(false);
         SceneManager.LoadScene("MainPlayerScene");
 
-        PanelHolder.panelQueue.Dequeue();
-        PanelHolder.instance.CheckPanelQueue();
-    }
-    private void eventClick()
-    {
-        SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
-        gameObject.SetActive(false);
-
-
-        Debug.Log("On click");
-        //GameObject player = GameObject.Find("LocalPlayer(Clone)");
-        GameObject player = GameObject.FindGameObjectWithTag("LocalPlayer");
-
-        bool endSuccessful = player.GetComponent<Player>().onEndTurnClick();
-        if (endSuccessful)
-        {
-            player.GetComponent<Player>().Spellcaster.hasAttacked = false;
-
-            Scene m_Scene = SceneManager.GetActiveScene();
-            if (m_Scene.name != "MainPlayerScene")
-            {
-                SceneManager.LoadScene("MainPlayerScene");
-            }
-
-        }
         PanelHolder.panelQueue.Dequeue();
         PanelHolder.instance.CheckPanelQueue();
     }

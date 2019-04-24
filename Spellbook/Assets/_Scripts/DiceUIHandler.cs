@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -40,8 +39,11 @@ public class DiceUIHandler : MonoBehaviour
         SoundManager.instance.PlaySingle(SoundManager.dicetrayopen);
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
 
-        // if dice are not locked, populate dice normally
-        if (!diceTrayOpen && !diceLocked)
+        // set dice tray position to 0
+        transform.localPosition = new Vector3(0, 0, 0);
+
+        // if dice are not locked, reset dice
+        if (!diceTrayOpen && !localPlayer.Spellcaster.hasRolled)
         {
             gameObject.SetActive(true);
 
@@ -56,52 +58,17 @@ public class DiceUIHandler : MonoBehaviour
                 D6ToMovement();
             }
 
-            // populate dice inventory with player's dice
-            foreach (KeyValuePair<string, int> kvp in localPlayer.Spellcaster.dice)
-            {
-                if (kvp.Value > 0)
-                {
-                    for(int i = 0; i < kvp.Value; ++i)
-                    {
-                        // instantiate a prefab of dice slot and set its parent to the inventory tray
-                        GameObject clone = Instantiate(diceSlot, diceScrollContent.transform);
-                        // disable roll if dice is still in inventory
-                        clone.transform.GetChild(0).GetComponent<DiceRoll>().rollEnabled = false;
-                        // set dice max values
-                        if (kvp.Key.Equals("D4"))
-                        {
-                            clone.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = clone.transform.GetChild(0).GetComponent<DiceRoll>().pipsFour;
-                            clone.transform.GetChild(0).GetComponent<DiceRoll>()._rollMaximum = 4;
-                        }
-                        else if(kvp.Key.Equals("D6"))
-                        {
-                            clone.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = clone.transform.GetChild(0).GetComponent<DiceRoll>().pipsSix;
-                            clone.transform.GetChild(0).GetComponent<DiceRoll>()._rollMaximum = 6;
-                        }
-                        else if(kvp.Key.Equals("D8"))
-                        {
-                            clone.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = clone.transform.GetChild(0).GetComponent<DiceRoll>().pipsEight;
-                            clone.transform.GetChild(0).GetComponent<DiceRoll>()._rollMaximum = 8;
-                        }
-                        // track num of dice to expand scroll rect
-                        ++numDice;
-                    }
-                }
-            }
-            // expand scroll rect for each die that exceeds 4
-            if(numDice > 4)
-            {
-                RectTransform rect = diceScrollContent.GetComponent<RectTransform>();
-                rect.sizeDelta = new Vector2((float)rect.sizeDelta.x + (260 * (numDice - 4)), rect.sizeDelta.y);
-            }
+            // populate the scroll rect with player's dice
+            PopulateScrollRect();
+            
             // disable spellbook/inventory buttons while dice tray is open
             spellBookButton.interactable = false;
             inventoryButton.interactable = false;
 
             diceTrayOpen = true;
         }
-        // if dice tray is closed and dice are locked, open tray the way the dice were originally
-        else if(!diceTrayOpen && diceLocked)
+        // if dice tray is closed and dice are locked, open tray the way the dice were placed
+        else if(!diceTrayOpen && localPlayer.Spellcaster.hasRolled)
         {
             gameObject.SetActive(true);
 
@@ -112,7 +79,7 @@ public class DiceUIHandler : MonoBehaviour
             diceTrayOpen = true;
         }
         // if dice are not locked, reset dice when panel is closed
-        else if(diceTrayOpen && !diceLocked)
+        else if(diceTrayOpen && /*!diceLocked*/ !localPlayer.Spellcaster.hasRolled)
         {
             // destroy all dice in panel
             foreach (Transform child in diceScrollContent.transform)
@@ -135,7 +102,7 @@ public class DiceUIHandler : MonoBehaviour
             diceTrayOpen = false;
         }
         // if dice are locked, keep dice the same when panel is closed
-        else if(diceTrayOpen && diceLocked)
+        else if(diceTrayOpen && localPlayer.Spellcaster.hasRolled)
         {
             gameObject.SetActive(false);
 
@@ -144,6 +111,48 @@ public class DiceUIHandler : MonoBehaviour
             inventoryButton.interactable = true;
 
             diceTrayOpen = false;
+        }
+    }
+
+    private void PopulateScrollRect()
+    {
+        // populate dice inventory with player's dice
+        foreach (KeyValuePair<string, int> kvp in localPlayer.Spellcaster.dice)
+        {
+            if (kvp.Value > 0)
+            {
+                for (int i = 0; i < kvp.Value; ++i)
+                {
+                    // instantiate a prefab of dice slot and set its parent to the inventory tray
+                    GameObject clone = Instantiate(diceSlot, diceScrollContent.transform);
+                    // disable roll if dice is still in inventory
+                    clone.transform.GetChild(0).GetComponent<DiceRoll>().rollEnabled = false;
+                    // set dice max values
+                    if (kvp.Key.Equals("D4"))
+                    {
+                        clone.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = clone.transform.GetChild(0).GetComponent<DiceRoll>().pipsFour;
+                        clone.transform.GetChild(0).GetComponent<DiceRoll>()._rollMaximum = 4;
+                    }
+                    else if (kvp.Key.Equals("D6"))
+                    {
+                        clone.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = clone.transform.GetChild(0).GetComponent<DiceRoll>().pipsSix;
+                        clone.transform.GetChild(0).GetComponent<DiceRoll>()._rollMaximum = 6;
+                    }
+                    else if (kvp.Key.Equals("D8"))
+                    {
+                        clone.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = clone.transform.GetChild(0).GetComponent<DiceRoll>().pipsEight;
+                        clone.transform.GetChild(0).GetComponent<DiceRoll>()._rollMaximum = 8;
+                    }
+                    // track num of dice to expand scroll rect
+                    ++numDice;
+                }
+            }
+        }
+        // expand scroll rect for each die that exceeds 4
+        if (numDice > 4)
+        {
+            RectTransform rect = diceScrollContent.GetComponent<RectTransform>();
+            rect.sizeDelta = new Vector2((float)rect.sizeDelta.x + (260 * (numDice - 4)), rect.sizeDelta.y);
         }
     }
 

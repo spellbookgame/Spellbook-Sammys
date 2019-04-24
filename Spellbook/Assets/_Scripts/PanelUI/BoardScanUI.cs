@@ -42,7 +42,7 @@ public class BoardScanUI : MonoBehaviour
             }
         }
 
-        singleButton.onClick.AddListener((eventClick));
+        singleButton.onClick.AddListener((okClick));
 
         gameObject.SetActive(true);
 
@@ -51,26 +51,11 @@ public class BoardScanUI : MonoBehaviour
             DisablePanel();
         }
     }
-    private void eventClick()
+    private void okClick()
     {
         SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
         gameObject.SetActive(false);
 
-        Debug.Log("On click");
-        //GameObject player = GameObject.Find("LocalPlayer(Clone)");
-        GameObject player = GameObject.FindGameObjectWithTag("LocalPlayer");
-
-        bool endSuccessful = player.GetComponent<Player>().onEndTurnClick();
-        if (endSuccessful)
-        {
-            player.GetComponent<Player>().Spellcaster.hasAttacked = false;
-            Scene m_Scene = SceneManager.GetActiveScene();
-            if (m_Scene.name != "MainPlayerScene")
-            {
-                SceneManager.LoadScene("MainPlayerScene");
-            }
-
-        }
         PanelHolder.panelQueue.Dequeue();
         PanelHolder.instance.CheckPanelQueue();
     }

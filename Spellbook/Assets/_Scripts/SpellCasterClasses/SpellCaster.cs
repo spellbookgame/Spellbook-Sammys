@@ -32,6 +32,7 @@ public abstract class SpellCaster
     public string classType;
     public int spellcasterID;
     public bool hasAttacked;
+    public bool hasRolled;
     public bool scannedSpaceThisTurn;
     public Chapter chapter;
 
@@ -128,12 +129,15 @@ public abstract class SpellCaster
 
     public void CollectMana(int manaCount)
     {
+        SoundManager.instance.PlaySingle(SoundManager.manaCollect);
         iMana += manaCount;
         QuestTracker.instance.TrackManaQuest(manaCount);
     }
 
     public int CollectManaEndTurn()
     {
+        SoundManager.instance.PlaySingle(SoundManager.manaCollect);
+
         int manaCount = (int)UnityEngine.Random.Range(30, 100);
         manaCount = (int)(manaCount * dManaMultiplier);
         iMana += manaCount;

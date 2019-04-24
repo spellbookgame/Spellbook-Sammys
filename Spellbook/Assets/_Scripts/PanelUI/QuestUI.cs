@@ -92,8 +92,6 @@ public class QuestUI : MonoBehaviour
 
     private void buttonClicked(string input, Quest q)
     {
-        gameObject.SetActive(false);
-        
         GameObject player = GameObject.FindGameObjectWithTag("LocalPlayer");
 
         // add quest to player's list of active quests if they accept
@@ -105,18 +103,8 @@ public class QuestUI : MonoBehaviour
         else
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
 
-        // end player's turn and take them back to main page
-        bool endSuccessful = player.GetComponent<Player>().onEndTurnClick();
-        if (endSuccessful)
-        {
-            player.GetComponent<Player>().Spellcaster.hasAttacked = false;
-            Scene m_Scene = SceneManager.GetActiveScene();
-            if (m_Scene.name != "MainPlayerScene")
-            {
-                SceneManager.LoadScene("MainPlayerScene");
-            }
+        gameObject.SetActive(false);
 
-        }
         PanelHolder.panelQueue.Dequeue();
         PanelHolder.instance.CheckPanelQueue();
     }

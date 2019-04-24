@@ -5,25 +5,23 @@ using UnityEngine.SceneManagement;
 
 public class EndTurnClick : MonoBehaviour
 {
-    public SceneScript sceneScript;
     public void OnEndTurnClick()
     {
         SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
 
-        Debug.Log("On click");
-        //GameObject player = GameObject.Find("LocalPlayer(Clone)");
-        GameObject player = GameObject.FindGameObjectWithTag("LocalPlayer");
+        Player localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
 
-        bool endSuccessful = player.GetComponent<Player>().onEndTurnClick();
+        bool endSuccessful = localPlayer.onEndTurnClick();
         if (endSuccessful)
         {
-            //player.GetComponent<Player>().Spellcaster.hasAttacked = false;
+            localPlayer.Spellcaster.hasAttacked = false;
+            localPlayer.Spellcaster.hasRolled = false;
+
             Scene m_Scene = SceneManager.GetActiveScene();
             if(m_Scene.name != "MainPlayerScene")
             {
-                sceneScript.loadMainScene();
+                SceneManager.LoadScene("MainPlayerScene");
             }
-           
         }
         
     }

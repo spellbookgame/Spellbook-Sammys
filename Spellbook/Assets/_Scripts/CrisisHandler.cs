@@ -6,6 +6,8 @@ public class CrisisHandler : MonoBehaviour
 {
     public static CrisisHandler instance = null;
 
+    public bool crisisSolved;
+
     public string requiredLocation = "";
     public string requiredClass = "";
     public int requiredSpellTier = 0;
@@ -41,23 +43,28 @@ public class CrisisHandler : MonoBehaviour
     public void CallTsunami()
     {
         tsunamiActive = true;
+        crisisSolved = false;
         requiredLocation = "Forest";
         requiredClass = "Elementalist";
         requiredSpellTier = 3;
+
+        PanelHolder.instance.displayNotify("Tsunami Incoming", "A tsunami is about to hit the cities from the South. To prevent it," +
+                                            " the Elementalist must create a tier 3 spell and go to the Forest before the tsunami hits. It will" +
+                                            " arrive in 3 rounds.", "OK");
     }
 
     // call this when crisis is resolved early
     public void ResolveTsunami()
     {
         PanelHolder.instance.displayNotify("Tsunami Averted", "Congratulations! Your Elementalist stopped the tsunami from destroying our lands.", "OK");
-        tsunamiActive = false;
+        crisisSolved = true;
     }
 
     // call this when crisis arrives
-    public void FinishTsunami(bool isSolved)
+    public void FinishTsunami()
     {
-        // if(isSolved) give rewards
-        // if(!isSolved) give consequence
+        // if(crisisSolved) give rewards
+        // if(!crisisSolved) give consequence
         tsunamiActive = false;
     }
 }

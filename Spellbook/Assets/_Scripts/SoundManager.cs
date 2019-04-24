@@ -15,14 +15,14 @@ public class SoundManager : MonoBehaviour
     #region static_clips
     public static AudioClip buttonconfirm;
     public static AudioClip characterswipe;
-    public static AudioClip closeinventory;
+    public static AudioClip spellbookClose;
     public static AudioClip diceroll;
     public static AudioClip dicetrayopen;
     public static AudioClip glyphfound;
     public static AudioClip grabspellpiece;
     public static AudioClip itemfound;
-    public static AudioClip manafound;
-    public static AudioClip openinventory;
+    public static AudioClip dicePickUp;
+    public static AudioClip dicePlace;
     public static AudioClip pageturn;
     public static AudioClip placespellpiece;
     public static AudioClip questaccept;
@@ -32,6 +32,11 @@ public class SoundManager : MonoBehaviour
     public static AudioClip spellcast;
     public static AudioClip spellcreate;
     public static AudioClip yourturn;
+    public static AudioClip inventoryClose;
+    public static AudioClip inventoryOpen;
+    public static AudioClip parchmentBurn;
+    public static AudioClip manaCollect;
+    public static AudioClip purchase;
 
     //Music
     public static AudioClip lobby;
@@ -52,14 +57,14 @@ public class SoundManager : MonoBehaviour
         // assigning sounds to static audio clips
         buttonconfirm = soundeffects[0];
         characterswipe = soundeffects[1];
-        closeinventory = soundeffects[2];
+        spellbookClose = soundeffects[2];
         diceroll = soundeffects[3];
         dicetrayopen = soundeffects[4];
         glyphfound = soundeffects[5];
         grabspellpiece = soundeffects[6];
         itemfound = soundeffects[7];
-        manafound = soundeffects[8];
-        openinventory = soundeffects[9];
+        dicePickUp = soundeffects[8];
+        dicePlace = soundeffects[9];
         pageturn = soundeffects[10];
         placespellpiece = soundeffects[11];
         questaccept = soundeffects[12];
@@ -71,6 +76,11 @@ public class SoundManager : MonoBehaviour
         yourturn = soundeffects[18];
         lobby = soundeffects[19];
         gameBCG = soundeffects[20];
+        inventoryClose = soundeffects[21];
+        inventoryOpen = soundeffects[22];
+        parchmentBurn = soundeffects[23];
+        manaCollect = soundeffects[24];
+        purchase = soundeffects[25];
 
         //Set SoundManager to DontDestroyOnLoad so that it won't be destroyed when reloading our scene.
         DontDestroyOnLoad(gameObject);

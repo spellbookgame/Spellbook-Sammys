@@ -78,7 +78,8 @@ public class DiceRoll : MonoBehaviour
 
             // after dice are rolled, disable roll button and lock dice into position
             diceTrayPanel.GetComponent<DiceUIHandler>().rollButton.interactable = false;
-            diceTrayPanel.GetComponent<DiceUIHandler>().diceLocked = true;
+            // diceTrayPanel.GetComponent<DiceUIHandler>().diceLocked = true;
+            localPlayer.Spellcaster.hasRolled = true;
 
             // disable drag on ALL dice once they're rolled
             gameObject.GetComponent<DiceDragHandler>().enabled = false;

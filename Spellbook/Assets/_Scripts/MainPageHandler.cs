@@ -22,6 +22,7 @@ public class MainPageHandler : MonoBehaviour
     
     [SerializeField] private Button diceButton;
     [SerializeField] private Button spellbookButton;
+    [SerializeField] private Button inventoryButton;
     
     [SerializeField] private GameObject proclamationPanel;
 
@@ -70,6 +71,8 @@ public class MainPageHandler : MonoBehaviour
         // disable dice button if it's not player's turn
         if (localPlayer != null && !localPlayer.bIsMyTurn)
             diceButton.interactable = false;
+        else if (localPlayer != null && localPlayer.bIsMyTurn)
+            diceButton.interactable = true;
 
         // TESTING AREA
         if(Input.GetKeyDown(KeyCode.D))
@@ -112,11 +115,16 @@ public class MainPageHandler : MonoBehaviour
         warpBackground1.GetComponent<SpriteRenderer>().color = darkCol;
         warpBackground2.GetComponent<SpriteRenderer>().color = lightCol;
 
-        // set onclick listeners for spellbook button
+        // set onclick listeners for spellbook/inventory button
         spellbookButton.onClick.AddListener(() =>
         {
             SoundManager.instance.PlaySingle(SoundManager.spellbookopen);
             SceneManager.LoadScene("SpellbookScene");
+        });
+        inventoryButton.onClick.AddListener(() =>
+        {
+            SoundManager.instance.PlaySingle(SoundManager.inventoryOpen);
+            SceneManager.LoadScene("InventoryScene");
         });
     }
 

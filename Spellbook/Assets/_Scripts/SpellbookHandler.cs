@@ -22,7 +22,7 @@ public class SpellbookHandler : MonoBehaviour
 
         mainButton.onClick.AddListener(() =>
         {
-            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+            SoundManager.instance.PlaySingle(SoundManager.spellbookClose);
             SceneManager.LoadScene("MainPlayerScene");
         });
         collectionButton.onClick.AddListener(() =>
