@@ -78,7 +78,6 @@ public class DiceRoll : MonoBehaviour
 
             // after dice are rolled, disable roll button and lock dice into position
             diceTrayPanel.GetComponent<DiceUIHandler>().rollButton.interactable = false;
-            // diceTrayPanel.GetComponent<DiceUIHandler>().diceLocked = true;
             localPlayer.Spellcaster.hasRolled = true;
 
             // disable drag on ALL dice once they're rolled
@@ -94,6 +93,7 @@ public class DiceRoll : MonoBehaviour
             // wiggle the dice
             gameObject.GetComponent<WiggleElement>().Wiggle();
 
+            // random number
             LastRoll = Clamp((int)(_rollMult * Random.Range(_rollMinimum, _rollMaximum + 1) + _rollAdd), _rollMinimum, _rollMaximum);
             SetDefaults();
 

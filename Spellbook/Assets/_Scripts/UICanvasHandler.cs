@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Experimental.UIElements;
 using UnityEngine.SceneManagement;
 
 public class UICanvasHandler : MonoBehaviour
@@ -13,6 +12,8 @@ public class UICanvasHandler : MonoBehaviour
     [SerializeField] private GameObject inventoryButton;
     [SerializeField] private GameObject endTurnButton;
     [SerializeField] private DiceUIHandler diceUIHandler;
+
+    private Player localPlayer;
 
     void Awake()
     {
@@ -27,6 +28,18 @@ public class UICanvasHandler : MonoBehaviour
 
         //Set UICanvasHandler to DontDestroyOnLoad so that it won't be destroyed when reloading our scene.
         DontDestroyOnLoad(gameObject);
+    }
+
+    private void Start()
+    {
+        // wait for localPlayer to initialize and THEN look for it
+        StartCoroutine("SetupLocalPlayer");
+    }
+
+    IEnumerator SetupLocalPlayer()
+    {
+        yield return new WaitForSeconds(1.0f);
+        localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
     }
 
     private void OnLevelWasLoaded()
@@ -51,10 +64,37 @@ public class UICanvasHandler : MonoBehaviour
         }
         else
         {
+            // if player has rolled, set EndTurnButton active
+            if (localPlayer != null && localPlayer.Spellcaster.hasRolled)
+                ActivateEndTurnButton();
+            else if(localPlayer != null && !localPlayer.Spellcaster.hasRolled)
+                DeactivateEndTurnButton();
+
             spellbookButton.SetActive(true);
             diceButton.SetActive(true);
             inventoryButton.SetActive(true);
-            endTurnButton.SetActive(true);
         }
+    }
+
+    public void ActivateEndTurnButton()
+    {
+        // move 3 buttons up
+        spellbookButton.transform.localPosition = new Vector3(-470, -800, 0);
+        diceButton.transform.localPosition = new Vector3(0, -800, 0);
+        inventoryButton.transform.localPosition = new Vector3(470, -800, 0);
+
+        // set end turn button active
+        endTurnButton.SetActive(true);
+    }
+
+    public void DeactivateEndTurnButton()
+    {
+        // move buttons back to original place
+        spellbookButton.transform.localPosition = new Vector3(-470, -1000, 0);
+        diceButton.transform.localPosition = new Vector3(0, -1000, 0);
+        inventoryButton.transform.localPosition = new Vector3(470, -1000, 0);
+
+        // set end turn button active
+        endTurnButton.SetActive(false);
     }
 }

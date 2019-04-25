@@ -14,6 +14,7 @@ public class DiceUIHandler : MonoBehaviour
 
     [SerializeField] private Button spellBookButton;
     [SerializeField] private Button inventoryButton;
+    [SerializeField] private Button endTurnButton;
 
     public bool diceTrayOpen;
     private int numDice;
@@ -42,7 +43,7 @@ public class DiceUIHandler : MonoBehaviour
         // set dice tray position to 0
         transform.localPosition = new Vector3(0, 0, 0);
 
-        // if dice are not locked, reset dice
+        // if dice are not locked, reset dice when opening tray
         if (!diceTrayOpen && !localPlayer.Spellcaster.hasRolled)
         {
             gameObject.SetActive(true);
@@ -63,7 +64,9 @@ public class DiceUIHandler : MonoBehaviour
             
             // disable spellbook/inventory buttons while dice tray is open
             spellBookButton.interactable = false;
+            spellBookButton.transform.GetChild(0).gameObject.SetActive(false);
             inventoryButton.interactable = false;
+            inventoryButton.transform.GetChild(0).gameObject.SetActive(false);
 
             diceTrayOpen = true;
         }
@@ -74,13 +77,18 @@ public class DiceUIHandler : MonoBehaviour
 
             // disable spellbook/inventory buttons while dice tray is open
             spellBookButton.interactable = false;
+            spellBookButton.transform.GetChild(0).gameObject.SetActive(false);
             inventoryButton.interactable = false;
+            inventoryButton.transform.GetChild(0).gameObject.SetActive(false);
 
             diceTrayOpen = true;
         }
         // if dice are not locked, reset dice when panel is closed
-        else if(diceTrayOpen && /*!diceLocked*/ !localPlayer.Spellcaster.hasRolled)
+        else if(diceTrayOpen && !localPlayer.Spellcaster.hasRolled)
         {
+            if(localPlayer.Spellcaster.hasRolled)
+                UICanvasHandler.instance.ActivateEndTurnButton();
+
             // destroy all dice in panel
             foreach (Transform child in diceScrollContent.transform)
             {
@@ -95,20 +103,27 @@ public class DiceUIHandler : MonoBehaviour
             }
             gameObject.SetActive(false);
 
-            // enable spellbook/inventory buttons while dice tray is open
+            // enable spellbook/inventory buttons while dice tray is closed
             spellBookButton.interactable = true;
+            spellBookButton.transform.GetChild(0).gameObject.SetActive(true);
             inventoryButton.interactable = true;
+            inventoryButton.transform.GetChild(0).gameObject.SetActive(true);
 
             diceTrayOpen = false;
         }
         // if dice are locked, keep dice the same when panel is closed
         else if(diceTrayOpen && localPlayer.Spellcaster.hasRolled)
         {
+            if (localPlayer.Spellcaster.hasRolled)
+                UICanvasHandler.instance.ActivateEndTurnButton();
+
             gameObject.SetActive(false);
 
-            // enable spellbook/inventory buttons while dice tray is open
+            // enable spellbook/inventory buttons while dice tray is closed
             spellBookButton.interactable = true;
+            spellBookButton.transform.GetChild(0).gameObject.SetActive(true);
             inventoryButton.interactable = true;
+            inventoryButton.transform.GetChild(0).gameObject.SetActive(true);
 
             diceTrayOpen = false;
         }

@@ -51,7 +51,8 @@ public class YourTurnUI : MonoBehaviour
                 SceneManager.LoadScene("MainPlayerScene");
             }
 
-            PanelHolder.panelQueue.Dequeue();
+            if(PanelHolder.panelQueue.Count > 0)
+                PanelHolder.panelQueue.Dequeue();
             PanelHolder.instance.CheckPanelQueue();
         });
     }

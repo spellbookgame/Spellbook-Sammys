@@ -47,6 +47,7 @@ public class CrisisHandler : MonoBehaviour
         localPlayer = GameObject.Find("LocalPlayer").GetComponent<Player>();
     }
 
+    #region tsunami
     // call this to alert players of new crisis
     public void CallTsunami()
     {
@@ -87,11 +88,12 @@ public class CrisisHandler : MonoBehaviour
         crisisSolved = true;
     }
 
-    // call this when crisis arrives
+    // call this when crisis arrives (if roundsUntilCrisis == 0)
     public void FinishTsunami()
     {
         // if(crisisSolved) give rewards
         // if(!crisisSolved) give consequence
         tsunamiActive = false;
     }
+    #endregion
 }
