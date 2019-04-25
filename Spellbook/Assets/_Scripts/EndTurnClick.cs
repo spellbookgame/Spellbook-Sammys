@@ -14,7 +14,9 @@ public class EndTurnClick : MonoBehaviour
         bool endSuccessful = localPlayer.onEndTurnClick();
         if (endSuccessful)
         {
+            // disable buttons
             UICanvasHandler.instance.DeactivateEndTurnButton();
+            UICanvasHandler.instance.EnableDisableDiceButton(false);
 
             localPlayer.Spellcaster.hasAttacked = false;
             localPlayer.Spellcaster.hasRolled = false;

@@ -43,6 +43,10 @@ public class DiceUIHandler : MonoBehaviour
         // set dice tray position to 0
         transform.localPosition = new Vector3(0, 0, 0);
 
+        // if player hasn't rolled yet, enable roll button
+        if (!localPlayer.Spellcaster.hasRolled)
+            rollButton.interactable = true;
+
         // if dice are not locked, reset dice when opening tray
         if (!diceTrayOpen && !localPlayer.Spellcaster.hasRolled)
         {

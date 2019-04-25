@@ -21,7 +21,6 @@ public class MainPageHandler : MonoBehaviour
     [SerializeField] private GameObject warpBackground2;
     [SerializeField] private SpriteRenderer symbolImage;
     
-    [SerializeField] private Button diceButton;
     [SerializeField] private Button spellbookButton;
     [SerializeField] private Button inventoryButton;
     
@@ -68,12 +67,6 @@ public class MainPageHandler : MonoBehaviour
             manaCrystalsValue.text = localPlayer.Spellcaster.iMana.ToString();
             manaHasChanged = false;
         }
-
-        // disable dice button if it's not player's turn
-        if (localPlayer != null && !localPlayer.bIsMyTurn)
-            diceButton.interactable = false;
-        else if (localPlayer != null && localPlayer.bIsMyTurn)
-            diceButton.interactable = true;
 
         // TESTING AREA
         if(Input.GetKeyDown(KeyCode.D))

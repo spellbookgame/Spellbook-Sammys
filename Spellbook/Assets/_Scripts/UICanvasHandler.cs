@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UICanvasHandler : MonoBehaviour
 {
@@ -30,25 +31,17 @@ public class UICanvasHandler : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    private void Start()
-    {
-        // wait for localPlayer to initialize and THEN look for it
-        StartCoroutine("SetupLocalPlayer");
-    }
-
-    IEnumerator SetupLocalPlayer()
-    {
-        yield return new WaitForSeconds(1.0f);
-        localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
-    }
-
     private void OnLevelWasLoaded()
     {
         // set render camera to main camera
         gameObject.GetComponent<Canvas>().worldCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
 
+        // find local player
+        if(GameObject.FindGameObjectWithTag("LocalPlayer"))
+            localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
+
         // only show buttons on main scene
-        if(!SceneManager.GetActiveScene().name.Equals("MainPlayerScene"))
+        if (!SceneManager.GetActiveScene().name.Equals("MainPlayerScene"))
         {
             // if dice tray is open in another scene other than main player, close it
             if(diceUIHandler.diceTrayOpen)
@@ -67,7 +60,7 @@ public class UICanvasHandler : MonoBehaviour
             // if player has rolled, set EndTurnButton active
             if (localPlayer != null && localPlayer.Spellcaster.hasRolled)
                 ActivateEndTurnButton();
-            else if(localPlayer != null && !localPlayer.Spellcaster.hasRolled)
+            else
                 DeactivateEndTurnButton();
 
             spellbookButton.SetActive(true);
@@ -96,5 +89,11 @@ public class UICanvasHandler : MonoBehaviour
 
         // set end turn button active
         endTurnButton.SetActive(false);
+    }
+
+    public void EnableDisableDiceButton(bool enabled)
+    {
+        diceButton.GetComponent<Button>().interactable = enabled;
+        diceButton.transform.GetChild(0).gameObject.SetActive(enabled);
     }
 }
