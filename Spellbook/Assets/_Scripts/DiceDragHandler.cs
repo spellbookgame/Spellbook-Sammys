@@ -17,13 +17,9 @@ public class DiceDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     private Vector3 startPos;
     private Transform startParent;
 
-    Player localPlayer;
-
     void Start()
     {
         originalParent = transform.parent;
-
-        localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -66,6 +62,7 @@ public class DiceDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         if (transform.parent == startParent || !transform.parent.tag.Equals("Slot"))
         {
             transform.position = startPos;
+            transform.SetParent(startParent);
         }
     }
 }
