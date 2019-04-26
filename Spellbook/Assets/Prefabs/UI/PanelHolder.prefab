@@ -51,7 +51,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   yourTurnPanel: {fileID: 2529524534810505819}
-  playerChoosePanel: {fileID: 0}
   notifyPanel: {fileID: 4583626310491268706}
   questPanel: {fileID: 6500628689611051263}
   questRewardPanel: {fileID: 3679650370726026137}
@@ -180,8 +179,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1200, y: 1250}
+  m_AnchoredPosition: {x: 13, y: 0}
+  m_SizeDelta: {x: 1150, y: 1250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1849719852967235551
 CanvasRenderer:
@@ -253,7 +252,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1
-  m_Size: {x: 1200, y: 1250}
+  m_Size: {x: 1150, y: 1250}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -1346,8 +1345,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 400, y: -480}
-  m_SizeDelta: {x: 300, y: 300}
+  m_AnchoredPosition: {x: 374, y: -485}
+  m_SizeDelta: {x: 250, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8913844900413930259
 CanvasRenderer:
@@ -1655,7 +1654,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 185.4}
+  m_AnchoredPosition: {x: 0, y: -40}
   m_SizeDelta: {x: 1100, y: 1200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6005196361069559322
@@ -4279,7 +4278,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 25, y: 0}
   m_SizeDelta: {x: 1100, y: 1300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3911087224285156621

@@ -6,8 +6,6 @@ using UnityEngine.UI;
 
 public class SpellCollectionHandler : MonoBehaviour
 {
-    [SerializeField] private Button exitButton;
-    [SerializeField] private Button backButton;
     [SerializeField] private Button spellButton;
     [SerializeField] private Button castButton;
     [SerializeField] private GameObject spellPanel;
@@ -24,19 +22,7 @@ public class SpellCollectionHandler : MonoBehaviour
         if (localPlayer.Spellcaster.chapter.spellsCollected.Count > 0)
             noSpellsText.text = "";
 
-        // add onclick listeners to buttons
-        exitButton.onClick.AddListener(() =>
-        {
-            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
-            SceneManager.LoadScene("MainPlayerScene");
-        });
-        backButton.onClick.AddListener(() =>
-        {
-            SoundManager.instance.PlaySingle(SoundManager.pageturn);
-            SceneManager.LoadScene("SpellbookScene");
-        });
-
-        int yPos = 600;
+        int yPos = 420;
         // add buttons for each spell the player has collected
         for (int i = 0; i < localPlayer.Spellcaster.chapter.spellsCollected.Count; i++)
         {
@@ -51,7 +37,7 @@ public class SpellCollectionHandler : MonoBehaviour
             newSpellButton.onClick.AddListener(() => OpenSpellPanel(localPlayer.Spellcaster.chapter.spellsCollected[i2]));
 
             // to position new button underneath prev button
-            yPos -= 220;
+            yPos -= 250;
         }
     }
 
