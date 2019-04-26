@@ -81,6 +81,10 @@ public class MainPageHandler : MonoBehaviour
         {
             localPlayer.Spellcaster.CollectSpell(new Fireball());
         }
+        if(Input.GetKeyDown(KeyCode.S))
+        {
+            SceneManager.LoadScene("ShopScene");
+        }
     }
 
     public void setupMainPage()
