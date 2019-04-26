@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Script for causing an object to hover.
+/// 
+/// Written by Malcolm Riley
+/// CMPS 17X, Spring 2019
+/// </summary>
 public class UIAutoHover : MonoBehaviour {
 
 	// Public Fields

@@ -623,7 +623,6 @@ GameObject:
   - component: {fileID: 120093644}
   - component: {fileID: 120093643}
   - component: {fileID: 120093642}
-  - component: {fileID: 120093645}
   m_Layer: 5
   m_Name: button_inventory
   m_TagString: Untagged
@@ -730,28 +729,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 120093640}
   m_CullTransparentMesh: 0
---- !u!114 &120093645
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 120093640}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef7d6b2df42ba462ca867a2521be6b2b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shadow: {fileID: 0}
-  hoverSpeed: 1.3
-  hoverIntensity: 10
-  randomize: 0
 --- !u!212 &132603536 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 7556387889694166149, guid: 69ebaed2ae22f440980f0cf860d2f1f8,
     type: 3}
   m_PrefabInstance: {fileID: 1346275194}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &186594871 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 909107800245786707, guid: b0cc5900deed24b9a93caec7a1aad6ff,
+    type: 3}
+  m_PrefabInstance: {fileID: 1083516535}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b84511e68cdba423ab81022350b7ac4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &272799221
 GameObject:
   m_ObjectHideFlags: 0
@@ -972,7 +967,6 @@ GameObject:
   - component: {fileID: 364770033}
   - component: {fileID: 364770032}
   - component: {fileID: 364770031}
-  - component: {fileID: 364770034}
   m_Layer: 5
   m_Name: button_dice
   m_TagString: Untagged
@@ -1090,22 +1084,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 364770029}
   m_CullTransparentMesh: 0
---- !u!114 &364770034
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 364770029}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef7d6b2df42ba462ca867a2521be6b2b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shadow: {fileID: 0}
-  hoverSpeed: 1.5
-  hoverIntensity: 10
-  randomize: 0
 --- !u!1 &466258135
 GameObject:
   m_ObjectHideFlags: 0
@@ -2292,8 +2270,7 @@ MonoBehaviour:
   healthValue: {fileID: 1990645398}
   enemy: {fileID: 1932045272780747069, guid: 43263ee7fed6dbd4c9a01f29110b1a85, type: 3}
   characterImage: {fileID: 67325195}
-  warpBackground1: {fileID: 1083516537}
-  warpBackground2: {fileID: 1083516536}
+  warpController: {fileID: 186594871}
   symbolImage: {fileID: 132603536}
   spellbookButton: {fileID: 1996619081}
   inventoryButton: {fileID: 120093642}
@@ -2419,36 +2396,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 6860484649969315015, guid: b0cc5900deed24b9a93caec7a1aad6ff,
-        type: 3}
-      propertyPath: m_SortingLayerID
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6860484649969315015, guid: b0cc5900deed24b9a93caec7a1aad6ff,
-        type: 3}
-      propertyPath: m_SortingLayer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7349016492462274356, guid: b0cc5900deed24b9a93caec7a1aad6ff,
-        type: 3}
-      propertyPath: m_SortingLayerID
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7349016492462274356, guid: b0cc5900deed24b9a93caec7a1aad6ff,
-        type: 3}
-      propertyPath: m_SortingLayer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7349016492462274356, guid: b0cc5900deed24b9a93caec7a1aad6ff,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 0.7792941
-      objectReference: {fileID: 0}
-    - target: {fileID: 7349016492462274356, guid: b0cc5900deed24b9a93caec7a1aad6ff,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0.58000004
-      objectReference: {fileID: 0}
     - target: {fileID: 9004194990758757485, guid: b0cc5900deed24b9a93caec7a1aad6ff,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2554,20 +2501,123 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 909107800245786707, guid: b0cc5900deed24b9a93caec7a1aad6ff,
+        type: 3}
+      propertyPath: darken
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5521838213239532986, guid: b0cc5900deed24b9a93caec7a1aad6ff,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 249
+      objectReference: {fileID: 0}
+    - target: {fileID: 5521838213239532986, guid: b0cc5900deed24b9a93caec7a1aad6ff,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 290
+      objectReference: {fileID: 0}
+    - target: {fileID: 5521838213239532986, guid: b0cc5900deed24b9a93caec7a1aad6ff,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5521838213239532986, guid: b0cc5900deed24b9a93caec7a1aad6ff,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5521838213239532986, guid: b0cc5900deed24b9a93caec7a1aad6ff,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 748020899532344273, guid: b0cc5900deed24b9a93caec7a1aad6ff,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 249.00002
+      objectReference: {fileID: 0}
+    - target: {fileID: 748020899532344273, guid: b0cc5900deed24b9a93caec7a1aad6ff,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 290
+      objectReference: {fileID: 0}
+    - target: {fileID: 748020899532344273, guid: b0cc5900deed24b9a93caec7a1aad6ff,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 748020899532344273, guid: b0cc5900deed24b9a93caec7a1aad6ff,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 748020899532344273, guid: b0cc5900deed24b9a93caec7a1aad6ff,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7593419896692273563, guid: b0cc5900deed24b9a93caec7a1aad6ff,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.44477654
+      objectReference: {fileID: 0}
+    - target: {fileID: 7593419896692273563, guid: b0cc5900deed24b9a93caec7a1aad6ff,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7593419896692273563, guid: b0cc5900deed24b9a93caec7a1aad6ff,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6028238297526594152, guid: b0cc5900deed24b9a93caec7a1aad6ff,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.35582122
+      objectReference: {fileID: 0}
+    - target: {fileID: 6028238297526594152, guid: b0cc5900deed24b9a93caec7a1aad6ff,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6028238297526594152, guid: b0cc5900deed24b9a93caec7a1aad6ff,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6860484649969315015, guid: b0cc5900deed24b9a93caec7a1aad6ff,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6860484649969315015, guid: b0cc5900deed24b9a93caec7a1aad6ff,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7349016492462274356, guid: b0cc5900deed24b9a93caec7a1aad6ff,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7349016492462274356, guid: b0cc5900deed24b9a93caec7a1aad6ff,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7349016492462274356, guid: b0cc5900deed24b9a93caec7a1aad6ff,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.7792941
+      objectReference: {fileID: 0}
+    - target: {fileID: 7349016492462274356, guid: b0cc5900deed24b9a93caec7a1aad6ff,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.58000004
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b0cc5900deed24b9a93caec7a1aad6ff, type: 3}
---- !u!1 &1083516536 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4560060713264284521, guid: b0cc5900deed24b9a93caec7a1aad6ff,
-    type: 3}
-  m_PrefabInstance: {fileID: 1083516535}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1083516537 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9004194990758757482, guid: b0cc5900deed24b9a93caec7a1aad6ff,
-    type: 3}
-  m_PrefabInstance: {fileID: 1083516535}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1143432724
 GameObject:
   m_ObjectHideFlags: 0
@@ -4551,7 +4601,6 @@ GameObject:
   - component: {fileID: 1996619083}
   - component: {fileID: 1996619082}
   - component: {fileID: 1996619081}
-  - component: {fileID: 1996619084}
   m_Layer: 5
   m_Name: button_spellbook
   m_TagString: Untagged
@@ -4658,22 +4707,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1996619079}
   m_CullTransparentMesh: 0
---- !u!114 &1996619084
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1996619079}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef7d6b2df42ba462ca867a2521be6b2b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shadow: {fileID: 0}
-  hoverSpeed: 1
-  hoverIntensity: 10
-  randomize: 0
 --- !u!1001 &2017876158
 PrefabInstance:
   m_ObjectHideFlags: 0

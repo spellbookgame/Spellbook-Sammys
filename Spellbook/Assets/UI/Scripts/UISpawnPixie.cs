@@ -3,6 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+/// <summary>
+/// Script the automated spawning of objects that spiral towards a point.
+/// 
+/// Pairs well with a particle emitter!
+/// 
+/// Written by Malcolm Riley
+/// CMPS 17X, Spring 2019
+/// </summary>
 public class UISpawnPixie : MonoBehaviour {
 
 	// Public Fields

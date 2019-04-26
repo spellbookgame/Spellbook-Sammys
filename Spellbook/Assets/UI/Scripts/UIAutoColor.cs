@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// MonoBehavior script automatically modulating the color of a number of SpriteRenderers.
+/// 
+/// Written by Malcolm Riley
+/// CMPS 17X, Spring 2019
+/// </summary>
 public class UIAutoColor : MonoBehaviour {
 
 	// Public Fields

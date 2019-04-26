@@ -25,7 +25,6 @@ public class Elementalist : SpellCaster
         characterSpritePath = "Characters/Elementalist";
         characterIconPath = "Characters/symbol_glow_elementalist";
 
-        hexStringDark = "#500000";
         hexStringLight = "#910000";
     }
 }

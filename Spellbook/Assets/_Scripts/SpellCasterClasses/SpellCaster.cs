@@ -47,7 +47,6 @@ public abstract class SpellCaster
     public string characterSpritePath;
     public string characterIconPath;
     public string hexStringLight;
-    public string hexStringDark;
 
     // TODO:
     //private string backGroundStory; 
