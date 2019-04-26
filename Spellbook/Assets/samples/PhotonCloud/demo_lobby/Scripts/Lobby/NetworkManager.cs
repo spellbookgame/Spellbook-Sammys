@@ -352,11 +352,12 @@ namespace Bolt.Samples.Photon.Lobby
 
         public IEnumerator ServerCountdownCoroutine()
         {
-            float remainingTime = prematchCountdown;
+            float remainingTime = 4f;//prematchCountdown;
             int floorTime = Mathf.FloorToInt(remainingTime);
 
             LobbyCountdown countdown;
 
+            ChangeTo(countdownPanel.GetComponent<RectTransform>()) ;
             while (remainingTime > 0)
             {
                 yield return null;
@@ -396,7 +397,9 @@ namespace Bolt.Samples.Photon.Lobby
                 //lobbyPanel.gameObject.SetActive(false);
             }
             _isCountdown = true;
-            countdownPanel.UIText.text = "Match Starting in " + evnt.Time;
+            Text text = countdownPanel.UIText;
+            text.fontSize = 40;
+            text.text = "Match Starting in " + evnt.Time;
             countdownPanel.gameObject.SetActive(evnt.Time != 0);
         }
 

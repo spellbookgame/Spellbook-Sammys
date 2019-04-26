@@ -13,10 +13,14 @@ namespace Bolt.Samples.Photon.Lobby
         public RectTransform lobbyPanel;
 
         public InputField matchNameInput;
+        public Button CreateButton;
 
         public void OnEnable()
         {
             lobbyManager.topPanel.ToggleVisibility(true);
+
+            matchNameInput.onValueChanged.RemoveAllListeners();
+            matchNameInput.onValueChanged.AddListener(OnValueGameNameChanged);
 
             matchNameInput.onEndEdit.RemoveAllListeners();
             matchNameInput.onEndEdit.AddListener(OnEndEditGameName);
@@ -79,10 +83,16 @@ namespace Bolt.Samples.Photon.Lobby
 
         void OnEndEditGameName(string text)
         {
-            if (Input.GetKeyDown(KeyCode.Return))
+            if (Input.GetKeyDown(KeyCode.Return) && text.Length != 0)
             {
                 OnClickCreateMatchmakingGame();
             }
+        }
+
+
+        void OnValueGameNameChanged(string text)
+        {
+            CreateButton.gameObject.SetActive(text.Length != 0);
         }
 
     }
