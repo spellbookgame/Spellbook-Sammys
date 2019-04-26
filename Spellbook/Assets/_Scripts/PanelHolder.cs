@@ -122,11 +122,11 @@ public class PanelHolder : MonoBehaviour
         questRewardPanel.DisplayQuestRewards(quest);
     }
 
-    public void displayCrisis(string title, string info, int rounds)
+    public void displayCrisis(string info, int rounds)
     {
         panelQueue.Enqueue(crisisPanel.panelID);
         Debug.Log("Queued: " + crisisPanel.panelID);
-        crisisPanel.DisplayCrisis(title, info, rounds);
+        crisisPanel.DisplayCrisis(info, rounds);
     }
 
     // delete after scenes for each board scan is created
