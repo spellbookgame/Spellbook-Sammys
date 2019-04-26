@@ -13,6 +13,10 @@ public class CrisisHandler : MonoBehaviour
     // public variables
     public bool crisisSolved;
 
+    public string crisisName = "";
+    public string crisisDetails = "";
+    public string crisisConsequence = "";
+    public string crisisReward = "";
     public string requiredLocation = "";
     public string requiredClass = "";
 
@@ -53,11 +57,16 @@ public class CrisisHandler : MonoBehaviour
         tsunamiActive = true;
         crisisSolved = false;
         roundsUntilCrisis = 3;
+
+        crisisName = "Tsunami";
         requiredLocation = "capital";   // change to forest eventually
         requiredClass = "Elementalist";
         requiredSpellTier = 3;
 
         crisisInfo = "Crisis alert: Tsunami";
+        crisisDetails = "To prevent the tsunami, the Elementalist must have a tier 3 spell learned and go to the Forest before the tsunami arrives.";
+        crisisConsequence = "All players will lose half their HP and will not be able to scan town spaces for the next round.";
+        crisisReward = "Everyone will receive the highest tier rune from their respective class.";
 
         PanelHolder.instance.displayCrisis(crisisInfo, roundsUntilCrisis);
     }
