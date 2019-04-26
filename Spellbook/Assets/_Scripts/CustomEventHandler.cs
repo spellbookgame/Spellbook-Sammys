@@ -92,7 +92,7 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
     
     private void scanItem(string trackableName)
     {
-        // TESTING - DELETE LATER
+        // check for tsunami crisis
         CrisisHandler.instance.CheckTsunami(localPlayer, trackableName);
 
         // call function based on target name
@@ -109,10 +109,6 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
                 PanelHolder.instance.displayBoardScan("You found an Item!", "You got found a " + item.name + "!", item.sprite);
                 SoundManager.instance.PlaySingle(SoundManager.itemfound);
                 localPlayer.Spellcaster.AddToInventory(item);
-                break;
-
-            case "capital":
-                SceneManager.LoadScene("ShopScene");
                 break;
 
             #region town_spaces
@@ -180,48 +176,13 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
                 break;
             #endregion
 
-            #region glyph_spaces
-            case "glyph_alchemist":
-                int g1 = (int)UnityEngine.Random.Range(0, 2);
-                if (g1 == 0)
-                    localPlayer.Spellcaster.CollectGlyph("Alchemy D Glyph");
-                else
-                    localPlayer.Spellcaster.CollectGlyph("Alchemy C Glyph");
+            #region locations
+            case "location_mines":
                 break;
-            case "glyph_arcanist":
-                int g2 = (int)UnityEngine.Random.Range(0, 2);
-                if (g2 == 0)
-                    localPlayer.Spellcaster.CollectGlyph("Arcane D Glyph");
-                else
-                    localPlayer.Spellcaster.CollectGlyph("Arcane C Glyph");
+            case "location_swamp":
                 break;
-            case "glyph_chronomancer":
-                int g3 = (int)UnityEngine.Random.Range(0, 2);
-                if (g3 == 0)
-                    localPlayer.Spellcaster.CollectGlyph("Time D Glyph");
-                else
-                    localPlayer.Spellcaster.CollectGlyph("Time C Glyph");
-                break;
-            case "glyph_elementalist":
-                int g4 = (int)UnityEngine.Random.Range(0, 2);
-                if (g4 == 0)
-                    localPlayer.Spellcaster.CollectGlyph("Elemental D Glyph");
-                else
-                    localPlayer.Spellcaster.CollectGlyph("Elemental C Glyph");
-                break;
-            case "glyph_illusionist":
-                int g5 = (int)UnityEngine.Random.Range(0, 2);
-                if (g5 == 0)
-                    localPlayer.Spellcaster.CollectGlyph("Illusion D Glyph");
-                else
-                    localPlayer.Spellcaster.CollectGlyph("Illusion C Glyph");
-                break;
-            case "glyph_summoner":
-                int g6 = (int)UnityEngine.Random.Range(0, 2);
-                if (g6 == 0)
-                    localPlayer.Spellcaster.CollectGlyph("Summoning D Glyph");
-                else
-                    localPlayer.Spellcaster.CollectGlyph("Summoning C Glyph");
+            case "location_capital":
+                SceneManager.LoadScene("ShopScene");
                 break;
             #endregion
 

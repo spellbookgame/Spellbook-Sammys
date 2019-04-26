@@ -15,7 +15,7 @@ public class DiceRoll : MonoBehaviour
 
     // Public fields
     public Image dicePips;
-    public Image diceCube;
+    public SpriteRenderer diceCube;
     public Sprite pipsNine;
     public Sprite pipsEight;
     public Sprite pipsSeven;
@@ -139,7 +139,7 @@ public class DiceRoll : MonoBehaviour
     {
         if(transform.parent.name.Equals("slot2"))
         {
-            decimal m = (decimal)0.05 * rollValue;
+            decimal m = (decimal)0.1 * rollValue;
             Debug.Log("Roll: " + rollValue + "\n" + "Multiplier: " + m);
             localPlayer.Spellcaster.dManaMultiplier += m;
         }
