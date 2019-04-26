@@ -93,18 +93,8 @@ public class DiceUIHandler : MonoBehaviour
             if(localPlayer.Spellcaster.hasRolled)
                 UICanvasHandler.instance.ActivateEndTurnButton();
 
-            // destroy all dice in panel
-            foreach (Transform child in diceScrollContent.transform)
-            {
-                Destroy(child.gameObject);
-            }
-            foreach (GameObject g in GameObject.FindGameObjectsWithTag("Slot"))
-            {
-                if (g.transform.childCount > 0)
-                {
-                    Destroy(g.transform.GetChild(0).gameObject);
-                }
-            }
+            RemoveDiceFromSlots();
+
             gameObject.SetActive(false);
 
             // enable spellbook/inventory buttons while dice tray is closed
@@ -135,6 +125,9 @@ public class DiceUIHandler : MonoBehaviour
 
     private void PopulateScrollRect()
     {
+        // just in case there are some dice that didn't get reset
+        RemoveDiceFromSlots();
+
         // populate dice inventory with player's dice
         foreach (KeyValuePair<string, int> kvp in localPlayer.Spellcaster.dice)
         {
@@ -172,6 +165,22 @@ public class DiceUIHandler : MonoBehaviour
         {
             RectTransform rect = diceScrollContent.GetComponent<RectTransform>();
             rect.sizeDelta = new Vector2((float)rect.sizeDelta.x + (260 * (numDice - 4)), rect.sizeDelta.y);
+        }
+    }
+
+    private void RemoveDiceFromSlots()
+    {
+        // destroy all dice in scroll rect and tray slots
+        foreach (Transform child in diceScrollContent.transform)
+        {
+            Destroy(child.gameObject);
+        }
+        foreach (GameObject g in GameObject.FindGameObjectsWithTag("Slot"))
+        {
+            if (g.transform.childCount > 0)
+            {
+                Destroy(g.transform.GetChild(0).gameObject);
+            }
         }
     }
 

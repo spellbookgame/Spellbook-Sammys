@@ -83,9 +83,9 @@ public class UICanvasHandler : MonoBehaviour
     public void DeactivateEndTurnButton()
     {
         // move buttons back to original place
-        spellbookButton.transform.localPosition = new Vector3(-470, -1000, 0);
-        diceButton.transform.localPosition = new Vector3(0, -1000, 0);
-        inventoryButton.transform.localPosition = new Vector3(470, -1000, 0);
+        spellbookButton.transform.localPosition = new Vector3(-470, -950, 0);
+        diceButton.transform.localPosition = new Vector3(0, -950, 0);
+        inventoryButton.transform.localPosition = new Vector3(470, -950, 0);
 
         // set end turn button active
         endTurnButton.SetActive(false);
