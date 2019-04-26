@@ -25,7 +25,6 @@ public class Arcanist : SpellCaster
         characterSpritePath = "Characters/Arcanist";
         characterIconPath = "Characters/symbol_glow_arcanist";
 
-        hexStringDark = "#300049";
         hexStringLight = "#853CBF";
     }
 }

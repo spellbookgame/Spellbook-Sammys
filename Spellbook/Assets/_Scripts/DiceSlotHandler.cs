@@ -37,7 +37,8 @@ public class DiceSlotHandler : MonoBehaviour, IDropHandler
             // set item being dragged's parent to current slot's transform
             DiceDragHandler.itemToDrag.transform.SetParent(transform);
         }
-        // enable dice roll if it's in the tray
+
+        // enable dice roll if it's dropped in the tray
         if(transform.parent.name == "Dice Tray")
         {
             DiceDragHandler.itemToDrag.GetComponent<DiceRoll>().rollEnabled = true;

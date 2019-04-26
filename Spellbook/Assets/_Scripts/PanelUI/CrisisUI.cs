@@ -24,9 +24,8 @@ public class CrisisUI : MonoBehaviour
     }
 
     // used to notify players of various events. input a buttonClick string to change the onClick listener
-    public void DisplayCrisis(string title, string info, int numRounds)
+    public void DisplayCrisis(string info, int numRounds)
     {
-        titleText.text = title;
         infoText.text = info;
         roundsText.text = "Will arrive in " + numRounds.ToString() + " rounds.";
 

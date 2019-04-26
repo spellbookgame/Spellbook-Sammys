@@ -44,14 +44,18 @@ public class YourTurnUI : MonoBehaviour
         {
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
             gameObject.SetActive(false);
-            
+
+            // enable player's dice button
+            UICanvasHandler.instance.EnableDisableDiceButton(true);
+
             // bring player to main player scene
-            if(!SceneManager.GetActiveScene().name.Equals("MainPlayerScene"))
+            if (!SceneManager.GetActiveScene().name.Equals("MainPlayerScene"))
             {
                 SceneManager.LoadScene("MainPlayerScene");
             }
 
-            PanelHolder.panelQueue.Dequeue();
+            if(PanelHolder.panelQueue.Count > 0)
+                PanelHolder.panelQueue.Dequeue();
             PanelHolder.instance.CheckPanelQueue();
         });
     }

@@ -33,7 +33,6 @@ public abstract class UIDissolveElement<T> : MonoBehaviour {
 	/// Call this method to begin the dissolution process.
 	/// </summary>
 	public void Dissolve() {
-        SoundManager.instance.PlaySingle(SoundManager.parchmentBurn);
 		isDestroying = true;
 		material = Instantiate(destructionMaterial);
 		SetMaterial(material);
