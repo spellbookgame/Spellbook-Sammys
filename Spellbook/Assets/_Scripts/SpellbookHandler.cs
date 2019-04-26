@@ -8,10 +8,8 @@ public class SpellbookHandler : MonoBehaviour
 {
     [SerializeField] private Button mainButton;
     [SerializeField] private Button libraryButton;
-    [SerializeField] private Button collectionButton;
     [SerializeField] private Button questLogButton;
     [SerializeField] private Button spellbookProgressButton;
-    [SerializeField] private Text activeSpellsText;
 
     Player localPlayer;
 
@@ -24,11 +22,6 @@ public class SpellbookHandler : MonoBehaviour
         {
             SoundManager.instance.PlaySingle(SoundManager.spellbookClose);
             SceneManager.LoadScene("MainPlayerScene");
-        });
-        collectionButton.onClick.AddListener(() =>
-        {
-            SoundManager.instance.PlaySingle(SoundManager.pageturn);
-            SceneManager.LoadScene("SpellCollectionScene");
         });
         libraryButton.onClick.AddListener(() =>
         {
@@ -45,11 +38,5 @@ public class SpellbookHandler : MonoBehaviour
             SoundManager.instance.PlaySingle(SoundManager.pageturn);
             SceneManager.LoadScene("SpellbookProgress");
         });
-
-        // show player's active spells
-        foreach (Spell entry in localPlayer.Spellcaster.activeSpells)
-        {
-            activeSpellsText.text = activeSpellsText.text + entry.sSpellName + "\n";
-        }
     }
 }

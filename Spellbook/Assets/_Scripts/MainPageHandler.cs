@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using SpellbookExtensions;
 
 public class MainPageHandler : MonoBehaviour
 {
@@ -17,11 +18,9 @@ public class MainPageHandler : MonoBehaviour
     [SerializeField] private Enemy enemy;
 
     [SerializeField] private SpriteRenderer characterImage;
-    [SerializeField] private GameObject warpBackground1;
-    [SerializeField] private GameObject warpBackground2;
+    [SerializeField] private UIWarpController warpController;
     [SerializeField] private SpriteRenderer symbolImage;
     
-    [SerializeField] private Button diceButton;
     [SerializeField] private Button spellbookButton;
     [SerializeField] private Button inventoryButton;
     
@@ -69,12 +68,6 @@ public class MainPageHandler : MonoBehaviour
             manaHasChanged = false;
         }
 
-        // disable dice button if it's not player's turn
-        if (localPlayer != null && !localPlayer.bIsMyTurn)
-            diceButton.interactable = false;
-        else if (localPlayer != null && localPlayer.bIsMyTurn)
-            diceButton.interactable = true;
-
         // TESTING AREA
         if(Input.GetKeyDown(KeyCode.D))
         {
@@ -121,10 +114,8 @@ public class MainPageHandler : MonoBehaviour
         // set background color based on class
         Color lightCol = new Color();
         ColorUtility.TryParseHtmlString(localPlayer.Spellcaster.hexStringLight, out lightCol);
-        Color darkCol = new Color();
-        ColorUtility.TryParseHtmlString(localPlayer.Spellcaster.hexStringDark, out darkCol);
-        warpBackground1.GetComponent<SpriteRenderer>().color = darkCol;
-        warpBackground2.GetComponent<SpriteRenderer>().color = lightCol;
+        lightCol = lightCol.SetSaturation(0.35f);
+        warpController.color = lightCol;
 
         // set onclick listeners for spellbook/inventory button
         spellbookButton.onClick.AddListener(() =>

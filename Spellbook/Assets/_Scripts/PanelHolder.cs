@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class PanelHolder : MonoBehaviour
 {
     public YourTurnUI yourTurnPanel;
-    public PlayerChooseUI playerChoosePanel;
     public NotifyUI notifyPanel;
     public QuestUI questPanel;
     public QuestRewardUI questRewardPanel;
@@ -62,8 +61,6 @@ public class PanelHolder : MonoBehaviour
                 yourTurnPanel.EnablePanel();
             else if (panelQueue.Peek().Equals(boardScanPanel.panelID))
                 boardScanPanel.EnablePanel();
-            else if (panelQueue.Peek().Equals(playerChoosePanel.panelID))
-                playerChoosePanel.EnablePanel();
             else if (panelQueue.Peek().Equals(crisisPanel.panelID))
                 crisisPanel.EnablePanel();
         }
@@ -74,13 +71,6 @@ public class PanelHolder : MonoBehaviour
         panelQueue.Enqueue(yourTurnPanel.panelID);
         Debug.Log("Queued: " + yourTurnPanel.panelID);
         yourTurnPanel.Display();
-    }
-
-    public void displayPlayerChoose(string spellName)
-    {
-        panelQueue.Enqueue(playerChoosePanel.panelID);
-        Debug.Log("Queued: " + playerChoosePanel.panelID);
-        playerChoosePanel.DisplayPlayerChoose(spellName);
     }
 
     public void displayNotify(string title, string info, string buttonClick)
@@ -122,11 +112,11 @@ public class PanelHolder : MonoBehaviour
         questRewardPanel.DisplayQuestRewards(quest);
     }
 
-    public void displayCrisis(string title, string info, int rounds)
+    public void displayCrisis(string info, int rounds)
     {
         panelQueue.Enqueue(crisisPanel.panelID);
         Debug.Log("Queued: " + crisisPanel.panelID);
-        crisisPanel.DisplayCrisis(title, info, rounds);
+        crisisPanel.DisplayCrisis(info, rounds);
     }
 
     // delete after scenes for each board scan is created

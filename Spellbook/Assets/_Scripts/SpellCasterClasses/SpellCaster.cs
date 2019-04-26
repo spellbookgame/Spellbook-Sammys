@@ -47,7 +47,6 @@ public abstract class SpellCaster
     public string characterSpritePath;
     public string characterIconPath;
     public string hexStringLight;
-    public string hexStringDark;
 
     // TODO:
     //private string backGroundStory; 
@@ -138,7 +137,7 @@ public abstract class SpellCaster
     {
         SoundManager.instance.PlaySingle(SoundManager.manaCollect);
 
-        int manaCount = (int)UnityEngine.Random.Range(30, 100);
+        int manaCount = (int)UnityEngine.Random.Range(40, 100);
         manaCount = (int)(manaCount * dManaMultiplier);
         iMana += manaCount;
 

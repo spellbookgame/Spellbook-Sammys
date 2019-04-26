@@ -14,6 +14,7 @@ public class DiceUIHandler : MonoBehaviour
 
     [SerializeField] private Button spellBookButton;
     [SerializeField] private Button inventoryButton;
+    [SerializeField] private Button endTurnButton;
 
     public bool diceTrayOpen;
     private int numDice;
@@ -42,7 +43,11 @@ public class DiceUIHandler : MonoBehaviour
         // set dice tray position to 0
         transform.localPosition = new Vector3(0, 0, 0);
 
-        // if dice are not locked, reset dice
+        // if player hasn't rolled yet, enable roll button
+        if (!localPlayer.Spellcaster.hasRolled)
+            rollButton.interactable = true;
+
+        // if dice are not locked, reset dice when opening tray
         if (!diceTrayOpen && !localPlayer.Spellcaster.hasRolled)
         {
             gameObject.SetActive(true);
@@ -63,7 +68,9 @@ public class DiceUIHandler : MonoBehaviour
             
             // disable spellbook/inventory buttons while dice tray is open
             spellBookButton.interactable = false;
+            spellBookButton.transform.GetChild(0).gameObject.SetActive(false);
             inventoryButton.interactable = false;
+            inventoryButton.transform.GetChild(0).gameObject.SetActive(false);
 
             diceTrayOpen = true;
         }
@@ -74,41 +81,43 @@ public class DiceUIHandler : MonoBehaviour
 
             // disable spellbook/inventory buttons while dice tray is open
             spellBookButton.interactable = false;
+            spellBookButton.transform.GetChild(0).gameObject.SetActive(false);
             inventoryButton.interactable = false;
+            inventoryButton.transform.GetChild(0).gameObject.SetActive(false);
 
             diceTrayOpen = true;
         }
         // if dice are not locked, reset dice when panel is closed
-        else if(diceTrayOpen && /*!diceLocked*/ !localPlayer.Spellcaster.hasRolled)
+        else if(diceTrayOpen && !localPlayer.Spellcaster.hasRolled)
         {
-            // destroy all dice in panel
-            foreach (Transform child in diceScrollContent.transform)
-            {
-                Destroy(child.gameObject);
-            }
-            foreach (GameObject g in GameObject.FindGameObjectsWithTag("Slot"))
-            {
-                if (g.transform.childCount > 0)
-                {
-                    Destroy(g.transform.GetChild(0).gameObject);
-                }
-            }
+            if(localPlayer.Spellcaster.hasRolled)
+                UICanvasHandler.instance.ActivateEndTurnButton();
+
+            RemoveDiceFromSlots();
+
             gameObject.SetActive(false);
 
-            // enable spellbook/inventory buttons while dice tray is open
+            // enable spellbook/inventory buttons while dice tray is closed
             spellBookButton.interactable = true;
+            spellBookButton.transform.GetChild(0).gameObject.SetActive(true);
             inventoryButton.interactable = true;
+            inventoryButton.transform.GetChild(0).gameObject.SetActive(true);
 
             diceTrayOpen = false;
         }
         // if dice are locked, keep dice the same when panel is closed
         else if(diceTrayOpen && localPlayer.Spellcaster.hasRolled)
         {
+            if (localPlayer.Spellcaster.hasRolled)
+                UICanvasHandler.instance.ActivateEndTurnButton();
+
             gameObject.SetActive(false);
 
-            // enable spellbook/inventory buttons while dice tray is open
+            // enable spellbook/inventory buttons while dice tray is closed
             spellBookButton.interactable = true;
+            spellBookButton.transform.GetChild(0).gameObject.SetActive(true);
             inventoryButton.interactable = true;
+            inventoryButton.transform.GetChild(0).gameObject.SetActive(true);
 
             diceTrayOpen = false;
         }
@@ -116,6 +125,9 @@ public class DiceUIHandler : MonoBehaviour
 
     private void PopulateScrollRect()
     {
+        // just in case there are some dice that didn't get reset
+        RemoveDiceFromSlots();
+
         // populate dice inventory with player's dice
         foreach (KeyValuePair<string, int> kvp in localPlayer.Spellcaster.dice)
         {
@@ -153,6 +165,22 @@ public class DiceUIHandler : MonoBehaviour
         {
             RectTransform rect = diceScrollContent.GetComponent<RectTransform>();
             rect.sizeDelta = new Vector2((float)rect.sizeDelta.x + (260 * (numDice - 4)), rect.sizeDelta.y);
+        }
+    }
+
+    private void RemoveDiceFromSlots()
+    {
+        // destroy all dice in scroll rect and tray slots
+        foreach (Transform child in diceScrollContent.transform)
+        {
+            Destroy(child.gameObject);
+        }
+        foreach (GameObject g in GameObject.FindGameObjectsWithTag("Slot"))
+        {
+            if (g.transform.childCount > 0)
+            {
+                Destroy(g.transform.GetChild(0).gameObject);
+            }
         }
     }
 

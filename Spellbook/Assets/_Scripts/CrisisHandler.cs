@@ -8,12 +8,15 @@ public class CrisisHandler : MonoBehaviour
     public static CrisisHandler instance = null;
 
     // private variables
-    private string crisisTitle;
     private string crisisInfo;
 
     // public variables
     public bool crisisSolved;
 
+    public string crisisName = "";
+    public string crisisDetails = "";
+    public string crisisConsequence = "";
+    public string crisisReward = "";
     public string requiredLocation = "";
     public string requiredClass = "";
 
@@ -47,21 +50,25 @@ public class CrisisHandler : MonoBehaviour
         localPlayer = GameObject.Find("LocalPlayer").GetComponent<Player>();
     }
 
+    #region tsunami
     // call this to alert players of new crisis
     public void CallTsunami()
     {
         tsunamiActive = true;
         crisisSolved = false;
         roundsUntilCrisis = 3;
+
+        crisisName = "Tsunami";
         requiredLocation = "capital";   // change to forest eventually
         requiredClass = "Elementalist";
         requiredSpellTier = 3;
 
-        crisisTitle = "Tsunami Incoming";
-        crisisInfo = "A tsunami is about to hit the cities from the South. To prevent it," +
-                        " the Elementalist must create a tier 3 spell and go to the Forest before the tsunami hits.";
+        crisisInfo = "Crisis alert: Tsunami";
+        crisisDetails = "To prevent the tsunami, the Elementalist must have a tier 3 spell learned and go to the Forest before the tsunami arrives.";
+        crisisConsequence = "All players will lose half their HP and will not be able to scan town spaces for the next round.";
+        crisisReward = "Everyone will receive the highest tier rune from their respective class.";
 
-        PanelHolder.instance.displayCrisis(crisisTitle, crisisInfo, roundsUntilCrisis);
+        PanelHolder.instance.displayCrisis(crisisInfo, roundsUntilCrisis);
     }
 
     // call this to check if tsunami requirements are met
@@ -87,11 +94,12 @@ public class CrisisHandler : MonoBehaviour
         crisisSolved = true;
     }
 
-    // call this when crisis arrives
+    // call this when crisis arrives (if roundsUntilCrisis == 0)
     public void FinishTsunami()
     {
         // if(crisisSolved) give rewards
         // if(!crisisSolved) give consequence
         tsunamiActive = false;
     }
+    #endregion
 }

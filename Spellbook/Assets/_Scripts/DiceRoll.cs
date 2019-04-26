@@ -15,7 +15,7 @@ public class DiceRoll : MonoBehaviour
 
     // Public fields
     public Image dicePips;
-    public Image diceCube;
+    public SpriteRenderer diceCube;
     public Sprite pipsNine;
     public Sprite pipsEight;
     public Sprite pipsSeven;
@@ -78,7 +78,6 @@ public class DiceRoll : MonoBehaviour
 
             // after dice are rolled, disable roll button and lock dice into position
             diceTrayPanel.GetComponent<DiceUIHandler>().rollButton.interactable = false;
-            // diceTrayPanel.GetComponent<DiceUIHandler>().diceLocked = true;
             localPlayer.Spellcaster.hasRolled = true;
 
             // disable drag on ALL dice once they're rolled
@@ -94,6 +93,7 @@ public class DiceRoll : MonoBehaviour
             // wiggle the dice
             gameObject.GetComponent<WiggleElement>().Wiggle();
 
+            // random number
             LastRoll = Clamp((int)(_rollMult * Random.Range(_rollMinimum, _rollMaximum + 1) + _rollAdd), _rollMinimum, _rollMaximum);
             SetDefaults();
 
@@ -139,7 +139,7 @@ public class DiceRoll : MonoBehaviour
     {
         if(transform.parent.name.Equals("slot2"))
         {
-            decimal m = (decimal)0.05 * rollValue;
+            decimal m = (decimal)0.13 * rollValue;
             Debug.Log("Roll: " + rollValue + "\n" + "Multiplier: " + m);
             localPlayer.Spellcaster.dManaMultiplier += m;
         }
