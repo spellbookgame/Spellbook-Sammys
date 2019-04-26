@@ -7,9 +7,6 @@ public class CrisisHandler : MonoBehaviour
 {
     public static CrisisHandler instance = null;
 
-    // private variables
-    private string crisisInfo;
-
     // public variables
     public bool crisisSolved;
 
@@ -63,12 +60,11 @@ public class CrisisHandler : MonoBehaviour
         requiredClass = "Elementalist";
         requiredSpellTier = 3;
 
-        crisisInfo = "Crisis alert: Tsunami";
-        crisisDetails = "To prevent the tsunami, the Elementalist must have a tier 3 spell learned and go to the Forest before the tsunami arrives.";
-        crisisConsequence = "All players will lose half their HP and will not be able to scan town spaces for the next round.";
-        crisisReward = "Everyone will receive the highest tier rune from their respective class.";
+        crisisDetails = "Elementalist must go to the Forest with a TIER 3 spell unlocked.";
+        crisisConsequence = "All wizards will lose half their HP. Towns will be closed next round.";
+        crisisReward = "All wizards will receive the highest tier rune from their respective class.";
 
-        PanelHolder.instance.displayCrisis(crisisInfo, roundsUntilCrisis);
+        PanelHolder.instance.displayCrisis("Crisis Alert: Tsunami", roundsUntilCrisis);
     }
 
     // call this to check if tsunami requirements are met
