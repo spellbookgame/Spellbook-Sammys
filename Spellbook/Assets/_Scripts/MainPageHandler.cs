@@ -51,16 +51,6 @@ public class MainPageHandler : MonoBehaviour
 
     private void Update()
     {
-        // earn mana at end of turn (besides first turn of game)
-        if (localPlayer != null && !(localPlayer.Spellcaster.numOfTurnsSoFar <= 1))
-        {
-            if (localPlayer.Spellcaster.endTurnManaCollected == false)
-            {
-                int endOfTurnMana = localPlayer.Spellcaster.CollectManaEndTurn();
-                StartCoroutine(ShowManaEarned(endOfTurnMana));
-            }
-        }
-
         // update player's mana count
         if (localPlayer != null && manaHasChanged)
         {
@@ -95,6 +85,9 @@ public class MainPageHandler : MonoBehaviour
         classType.text = localPlayer.Spellcaster.classType;
         manaCrystalsValue.text = localPlayer.Spellcaster.iMana.ToString();
         healthValue.text = localPlayer.Spellcaster.fCurrentHealth.ToString() + "/ " + localPlayer.Spellcaster.fMaxHealth.ToString();
+
+        // disable dice button if it's not player's turn
+        UICanvasHandler.instance.EnableDiceButton(localPlayer.bIsMyTurn);
 
         // if it's not first turn of game, then destroy proclamation panel each time scene starts
         if (localPlayer.Spellcaster.procPanelShown)
@@ -133,22 +126,7 @@ public class MainPageHandler : MonoBehaviour
             SoundManager.instance.PlaySingle(SoundManager.inventoryOpen);
             SceneManager.LoadScene("InventoryScene");
         });
-    }
-
-    // FOR TESTING ONLY - DELETE LATER
-    public void CollectMana()
-    {
-        localPlayer.Spellcaster.CollectMana(500);
-        manaHasChanged = true;
-    }
-    public void CollectRandomItem()
-    {
-        SoundManager.instance.PlaySingle(SoundManager.itemfound);
-        List<ItemObject> itemList = GameObject.Find("ItemList").GetComponent<ItemList>().listOfItems;
-        ItemObject item = itemList[Random.Range(0, itemList.Count - 1)];
-        PanelHolder.instance.displayNotify("You found an Item!", "You got found a " + item.name + "!", "OK");
-        localPlayer.Spellcaster.AddToInventory(item);
-    }
+    }   
 
     // closing the proclamation panel
     public void CloseProclamationPanel()
@@ -158,13 +136,18 @@ public class MainPageHandler : MonoBehaviour
         PanelHolder.instance.CheckPanelQueue();
     }
 
+    public void DisplayMana(int manaCollected)
+    {
+        StartCoroutine(ShowManaEarned(manaCollected));
+    }
+
     // coroutine to show mana earned
-    IEnumerator ShowManaEarned(int manaCount)
+    private IEnumerator ShowManaEarned(int manaCount)
     {
         manaCrystalsAddition.text = "+" + manaCount.ToString();
         manaHasChanged = true;
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSecondsRealtime(2f);
 
         manaCrystalsAddition.text = "";
     }

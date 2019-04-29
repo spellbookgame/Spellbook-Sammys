@@ -34,6 +34,7 @@ public class UICanvasHandler : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    // called once when UICanvasHandler is instantiated
     private void Start()
     {
         // set onclick listeners once in the game
@@ -54,20 +55,26 @@ public class UICanvasHandler : MonoBehaviour
         });
     }
 
-    private void OnLevelWasLoaded()
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         // set render camera to main camera
         gameObject.GetComponent<Canvas>().worldCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
-
-        // find local player
-        if(GameObject.FindGameObjectWithTag("LocalPlayer"))
-            localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
 
         // only show buttons on main scene
         if (!SceneManager.GetActiveScene().name.Equals("MainPlayerScene"))
         {
             // if dice tray is open in another scene other than main player, close it
-            if(diceUIHandler.diceTrayOpen)
+            if (diceUIHandler.diceTrayOpen)
             {
                 diceUIHandler.OpenCloseDiceTray();
                 diceUIHandler.diceTrayOpen = false;
@@ -100,7 +107,7 @@ public class UICanvasHandler : MonoBehaviour
     }
 
     // enable dice button if it's player's turn
-    public void EnableDisableDiceButton(bool enabled)
+    public void EnableDiceButton(bool enabled)
     {
         diceButton.GetComponent<Button>().interactable = enabled;
         diceButton.transform.GetChild(0).gameObject.SetActive(enabled);

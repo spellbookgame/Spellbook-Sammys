@@ -26,7 +26,6 @@ public abstract class SpellCaster
 
     public int iMana;
     public decimal dManaMultiplier = 1;
-    public bool endTurnManaCollected;    // bool to track if "end of turn" mana should be collected or not
     
     // misc attributes
     public string classType;
@@ -137,14 +136,13 @@ public abstract class SpellCaster
     {
         SoundManager.instance.PlaySingle(SoundManager.manaCollect);
 
-        int manaCount = (int)UnityEngine.Random.Range(40, 100);
+        int manaCount = UnityEngine.Random.Range(40, 100);
         manaCount = (int)(manaCount * dManaMultiplier);
         iMana += manaCount;
 
         /// reset mana multiplier
         dManaMultiplier = 1;
 
-        endTurnManaCollected = true;
         QuestTracker.instance.TrackManaQuest(manaCount);
         return manaCount;
     }

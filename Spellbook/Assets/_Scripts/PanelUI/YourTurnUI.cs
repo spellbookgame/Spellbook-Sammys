@@ -25,10 +25,6 @@ public class YourTurnUI : MonoBehaviour
     {
         gameObject.SetActive(true);
 
-        // reset tracker bools
-        GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().Spellcaster.scannedSpaceThisTurn = false;
-        GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().Spellcaster.endTurnManaCollected = false;
-
         // for start of game
         if (GameObject.Find("Proclamation Panel"))
         {
@@ -46,7 +42,7 @@ public class YourTurnUI : MonoBehaviour
             gameObject.SetActive(false);
 
             // enable player's dice button
-            UICanvasHandler.instance.EnableDisableDiceButton(true);
+            UICanvasHandler.instance.EnableDiceButton(true);
 
             // bring player to main player scene
             if (!SceneManager.GetActiveScene().name.Equals("MainPlayerScene"))
