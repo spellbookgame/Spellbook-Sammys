@@ -89,7 +89,7 @@ public class MainPageHandler : MonoBehaviour
         // disable dice button if it's not player's turn
         UICanvasHandler.instance.EnableDiceButton(localPlayer.bIsMyTurn);
 
-        // if it's not first turn of game, then destroy proclamation panel each time scene starts
+        // if it's not first turn of game, then destroy proclamation panel
         if (localPlayer.Spellcaster.procPanelShown)
         {
             Destroy(proclamationPanel.gameObject);

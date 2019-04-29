@@ -53,6 +53,11 @@ public class UICanvasHandler : MonoBehaviour
             SoundManager.instance.PlaySingle(SoundManager.pageturn);
             SceneManager.LoadScene("SpellbookProgress");
         });
+
+        // initially position the buttons properly on main player scene
+        spellbookButton.transform.localPosition = new Vector3(-475, -1225, 0);
+        diceButton.transform.localPosition = new Vector3(0, -1225, 0);
+        inventoryButton.transform.localPosition = new Vector3(475, -1225, 0);
     }
 
     private void OnEnable()
@@ -104,6 +109,21 @@ public class UICanvasHandler : MonoBehaviour
     public void ActivateEndTurnButton(bool enabled)
     {
         endTurnButton.SetActive(enabled);
+
+        if(enabled)
+        {
+            // move main page buttons up
+            spellbookButton.transform.localPosition = new Vector3(-475, -1015, 0);
+            diceButton.transform.localPosition = new Vector3(0, -1015, 0);
+            inventoryButton.transform.localPosition = new Vector3(475, -1015, 0);
+        }
+        else
+        {
+            // move main page buttons down
+            spellbookButton.transform.localPosition = new Vector3(-475, -1225, 0);
+            diceButton.transform.localPosition = new Vector3(0, -1225, 0);
+            inventoryButton.transform.localPosition = new Vector3(475, -1225, 0);
+        }
     }
 
     // enable dice button if it's player's turn
