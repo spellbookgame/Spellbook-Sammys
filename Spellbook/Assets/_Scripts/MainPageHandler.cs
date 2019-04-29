@@ -75,6 +75,10 @@ public class MainPageHandler : MonoBehaviour
         {
             SceneManager.LoadScene("ShopScene");
         }
+        if(Input.GetKeyDown(KeyCode.M))
+        {
+            SceneManager.LoadScene("MineScene");
+        }
     }
 
     public void setupMainPage()

@@ -178,6 +178,7 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
 
             #region locations
             case "location_mines":
+                SceneManager.LoadScene("MineScene");
                 break;
             case "location_swamp":
                 break;
