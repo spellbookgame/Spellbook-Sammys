@@ -396,6 +396,7 @@ namespace Bolt.Samples.Photon.Lobby
             {
                 //lobbyPanel.gameObject.SetActive(false);
             }
+            ChangeTo(countdownPanel.GetComponent<RectTransform>()) ;
             _isCountdown = true;
             Text text = countdownPanel.UIText;
             text.fontSize = 40;
@@ -458,7 +459,7 @@ namespace Bolt.Samples.Photon.Lobby
         public override void OnEvent(PlayerJoinedEvent evnt)
         {
             numPlayersInfo.text = evnt.numOfPlayers + "";
-            if (gameStateEntity.GetComponent<NetworkGameState>().allPlayersSelected())
+            if (BoltNetwork.IsServer && gameStateEntity.GetComponent<NetworkGameState>().allPlayersSelected())
             {
                 startGameButton.SetActive(true);
             }
