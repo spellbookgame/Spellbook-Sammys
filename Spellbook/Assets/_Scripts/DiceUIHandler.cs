@@ -91,7 +91,7 @@ public class DiceUIHandler : MonoBehaviour
         else if(diceTrayOpen && !localPlayer.Spellcaster.hasRolled)
         {
             if(localPlayer.Spellcaster.hasRolled)
-                UICanvasHandler.instance.ActivateEndTurnButton();
+                UICanvasHandler.instance.ActivateEndTurnButton(true);
 
             RemoveDiceFromSlots();
 
@@ -109,7 +109,7 @@ public class DiceUIHandler : MonoBehaviour
         else if(diceTrayOpen && localPlayer.Spellcaster.hasRolled)
         {
             if (localPlayer.Spellcaster.hasRolled)
-                UICanvasHandler.instance.ActivateEndTurnButton();
+                UICanvasHandler.instance.ActivateEndTurnButton(true);
 
             gameObject.SetActive(false);
 

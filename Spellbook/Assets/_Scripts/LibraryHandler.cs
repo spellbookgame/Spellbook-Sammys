@@ -8,7 +8,6 @@ using UnityEngine.UI;
 public class LibraryHandler : MonoBehaviour
 {
     [SerializeField] private Button mainButton;
-    [SerializeField] private Button backButton;
     [SerializeField] private Button spellButton;
     [SerializeField] private GameObject runeContainer;
     [SerializeField] private GameObject spellInfoPanel;
@@ -25,15 +24,11 @@ public class LibraryHandler : MonoBehaviour
         mainButton.onClick.AddListener(() =>
         {
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+            UICanvasHandler.instance.ActivateSpellbookButtons(false);
             SceneManager.LoadScene("MainPlayerScene");
         });
-        backButton.onClick.AddListener(() =>
-        {
-            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
-            SceneManager.LoadScene("SpellbookScene");
-        });
 
-        int yPos = 720;
+        int yPos = 475;
         // add buttons for each spell the player can collect
         for (int i = 0; i < localPlayer.Spellcaster.chapter.spellsAllowed.Count; i++)
         {

@@ -22,7 +22,7 @@ public class SpellCollectionHandler : MonoBehaviour
         if (localPlayer.Spellcaster.chapter.spellsCollected.Count > 0)
             noSpellsText.text = "";
 
-        int yPos = 420;
+        int yPos = 105;
         // add buttons for each spell the player has collected
         for (int i = 0; i < localPlayer.Spellcaster.chapter.spellsCollected.Count; i++)
         {

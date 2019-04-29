@@ -125,6 +125,7 @@ public class MainPageHandler : MonoBehaviour
         spellbookButton.onClick.AddListener(() =>
         {
             SoundManager.instance.PlaySingle(SoundManager.spellbookopen);
+            UICanvasHandler.instance.ActivateSpellbookButtons(true);
             SceneManager.LoadScene("SpellbookScene");
         });
         inventoryButton.onClick.AddListener(() =>

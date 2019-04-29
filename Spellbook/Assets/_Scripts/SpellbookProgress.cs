@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class SpellbookProgress : MonoBehaviour
 {
-    [SerializeField] private Button backButton;
     [SerializeField] private Button exitButton;
     [SerializeField] private Text progressText;
 
@@ -26,12 +25,8 @@ public class SpellbookProgress : MonoBehaviour
         exitButton.onClick.AddListener(() =>
         {
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+            UICanvasHandler.instance.ActivateSpellbookButtons(false);
             SceneManager.LoadScene("MainPlayerScene");
-        });
-        backButton.onClick.AddListener(() =>
-        {
-            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
-            SceneManager.LoadScene("SpellbookScene");
         });
 
         // set crisis button

@@ -12,6 +12,9 @@ public class UICanvasHandler : MonoBehaviour
     [SerializeField] private GameObject diceButton;
     [SerializeField] private GameObject inventoryButton;
     [SerializeField] private GameObject endTurnButton;
+    [SerializeField] private GameObject libraryButton;
+    [SerializeField] private GameObject questButton;
+    [SerializeField] private GameObject progressButton;
     [SerializeField] private DiceUIHandler diceUIHandler;
 
     private Player localPlayer;
@@ -29,6 +32,26 @@ public class UICanvasHandler : MonoBehaviour
 
         //Set UICanvasHandler to DontDestroyOnLoad so that it won't be destroyed when reloading our scene.
         DontDestroyOnLoad(gameObject);
+    }
+
+    private void Start()
+    {
+        // set onclick listeners once in the game
+        libraryButton.GetComponent<Button>().onClick.AddListener(() =>
+        {
+            SoundManager.instance.PlaySingle(SoundManager.pageturn);
+            SceneManager.LoadScene("LibraryScene");
+        });
+        questButton.GetComponent<Button>().onClick.AddListener(() =>
+        {
+            SoundManager.instance.PlaySingle(SoundManager.pageturn);
+            SceneManager.LoadScene("QuestLogScene");
+        });
+        progressButton.GetComponent<Button>().onClick.AddListener(() =>
+        {
+            SoundManager.instance.PlaySingle(SoundManager.pageturn);
+            SceneManager.LoadScene("SpellbookProgress");
+        });
     }
 
     private void OnLevelWasLoaded()
@@ -55,13 +78,14 @@ public class UICanvasHandler : MonoBehaviour
             inventoryButton.SetActive(false);
             endTurnButton.SetActive(false);
         }
+        // if we're in the main scene
         else
         {
             // if player has rolled, set EndTurnButton active
             if (localPlayer != null && localPlayer.Spellcaster.hasRolled)
-                ActivateEndTurnButton();
+                ActivateEndTurnButton(true);
             else
-                DeactivateEndTurnButton();
+                ActivateEndTurnButton(false);
 
             spellbookButton.SetActive(true);
             diceButton.SetActive(true);
@@ -69,21 +93,24 @@ public class UICanvasHandler : MonoBehaviour
         }
     }
 
-    public void ActivateEndTurnButton()
+    // activate end turn button if player has rolled
+    public void ActivateEndTurnButton(bool enabled)
     {
-        // set end turn button active
-        endTurnButton.SetActive(true);
+        endTurnButton.SetActive(enabled);
     }
 
-    public void DeactivateEndTurnButton()
-    {
-        // set end turn button active
-        endTurnButton.SetActive(false);
-    }
-
+    // enable dice button if it's player's turn
     public void EnableDisableDiceButton(bool enabled)
     {
         diceButton.GetComponent<Button>().interactable = enabled;
         diceButton.transform.GetChild(0).gameObject.SetActive(enabled);
+    }
+
+    // set the spellbook buttons active if in spellbook scene
+    public void ActivateSpellbookButtons(bool enabled)
+    {
+        libraryButton.SetActive(enabled);
+        questButton.SetActive(enabled);
+        progressButton.SetActive(enabled);
     }
 }
