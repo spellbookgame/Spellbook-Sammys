@@ -2106,7 +2106,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 8.799988, y: 448}
+  m_AnchoredPosition: {x: 8.800049, y: 448}
   m_SizeDelta: {x: -157.9, y: -674.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &662716566
@@ -2236,7 +2236,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -483.99997, y: -1493}
+  m_AnchoredPosition: {x: -484, y: -1493}
   m_SizeDelta: {x: 528.4, y: 156.1}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &708953116
@@ -4373,6 +4373,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1632722761 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 140634, guid: c0978251ff7b10d4fb954a4b56acd9f0,
+    type: 3}
+  m_PrefabInstance: {fileID: 1924345975}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1734610656
 GameObject:
   m_ObjectHideFlags: 0
@@ -5138,6 +5144,10 @@ PrefabInstance:
       propertyPath: countdownPanel
       value: 
       objectReference: {fileID: 318094068}
+    - target: {fileID: 11475086, guid: c0978251ff7b10d4fb954a4b56acd9f0, type: 3}
+      propertyPath: serverListPanel
+      value: 
+      objectReference: {fileID: 1632722761}
     - target: {fileID: 11407368, guid: c0978251ff7b10d4fb954a4b56acd9f0, type: 3}
       propertyPath: m_Type
       value: 0
@@ -6580,7 +6590,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 117.79999, y: 5.9998474}
+  m_AnchoredPosition: {x: 117.80005, y: 5.9998474}
   m_SizeDelta: {x: 331.99997, y: 430.40002}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2102529080

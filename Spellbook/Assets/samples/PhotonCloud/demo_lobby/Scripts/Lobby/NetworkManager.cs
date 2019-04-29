@@ -37,6 +37,7 @@ namespace Bolt.Samples.Photon.Lobby
 
         public RectTransform mainMenuPanel;
         public RectTransform lobbyPanel;
+        public GameObject serverListPanel;
 
         public LobbyInfoPanel infoPanel;
         public LobbyCountdownPanel countdownPanel;
@@ -185,6 +186,7 @@ namespace Bolt.Samples.Photon.Lobby
             //infoPanel.Display("Connecting...", "Cancel", () => { _this.backDelegate(); });
             infoPanel.Display();
             //PanelHolder.instance.displayConnectingToGame();
+            serverListPanel.SetActive(false);
         }
 
         public void SetServerInfo(string status, string host)
