@@ -37,6 +37,7 @@ namespace Bolt.Samples.Photon.Lobby
 
         public RectTransform mainMenuPanel;
         public RectTransform lobbyPanel;
+        public GameObject serverListPanel;
 
         public LobbyInfoPanel infoPanel;
         public LobbyCountdownPanel countdownPanel;
@@ -185,6 +186,7 @@ namespace Bolt.Samples.Photon.Lobby
             //infoPanel.Display("Connecting...", "Cancel", () => { _this.backDelegate(); });
             infoPanel.Display();
             //PanelHolder.instance.displayConnectingToGame();
+            serverListPanel.SetActive(false);
         }
 
         public void SetServerInfo(string status, string host)
@@ -352,11 +354,12 @@ namespace Bolt.Samples.Photon.Lobby
 
         public IEnumerator ServerCountdownCoroutine()
         {
-            float remainingTime = prematchCountdown;
+            float remainingTime = 4f;//prematchCountdown;
             int floorTime = Mathf.FloorToInt(remainingTime);
 
             LobbyCountdown countdown;
 
+            ChangeTo(countdownPanel.GetComponent<RectTransform>()) ;
             while (remainingTime > 0)
             {
                 yield return null;
@@ -395,8 +398,11 @@ namespace Bolt.Samples.Photon.Lobby
             {
                 //lobbyPanel.gameObject.SetActive(false);
             }
+            ChangeTo(countdownPanel.GetComponent<RectTransform>()) ;
             _isCountdown = true;
-            countdownPanel.UIText.text = "Match Starting in " + evnt.Time;
+            Text text = countdownPanel.UIText;
+            text.fontSize = 40;
+            text.text = "Match Starting in " + evnt.Time;
             countdownPanel.gameObject.SetActive(evnt.Time != 0);
         }
 
@@ -455,7 +461,7 @@ namespace Bolt.Samples.Photon.Lobby
         public override void OnEvent(PlayerJoinedEvent evnt)
         {
             numPlayersInfo.text = evnt.numOfPlayers + "";
-            if (gameStateEntity.GetComponent<NetworkGameState>().allPlayersSelected())
+            if (BoltNetwork.IsServer && gameStateEntity.GetComponent<NetworkGameState>().allPlayersSelected())
             {
                 startGameButton.SetActive(true);
             }
