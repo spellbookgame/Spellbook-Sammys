@@ -9,6 +9,7 @@ public class NotifyUI : MonoBehaviour
     [SerializeField] private Text titleText;
     [SerializeField] private Text infoText;
     [SerializeField] private Button singleButton;
+    [SerializeField] private GameObject ribbon;
 
     public bool panelActive = false;
     public string panelID = "notify";
@@ -28,15 +29,14 @@ public class NotifyUI : MonoBehaviour
         titleText.text = title;
         infoText.text = info;
 
-        // if current scene is Vuforia, change everything to image
-        /*if (SceneManager.GetActiveScene().name.Equals("VuforiaScene"))
+        // if current scene is vuforia, remove ribbon from panel
+        if (SceneManager.GetActiveScene().name.Equals("VuforiaScene"))
         {
-            gameObject.GetComponent<SpriteRenderer>().enabled = false;
-            gameObject.GetComponent<Image>().enabled = true;
-        }*/
+            ribbon.SetActive(false);
+        }
 
         // different onclick listeners for different button inputs
-        switch(buttonClick)
+        switch (buttonClick)
         {
             case "OK":
                 singleButton.onClick.AddListener((OkClick));

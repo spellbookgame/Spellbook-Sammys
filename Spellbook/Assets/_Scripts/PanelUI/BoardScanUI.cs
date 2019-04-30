@@ -29,6 +29,12 @@ public class BoardScanUI : MonoBehaviour
         infoText.text = info;
         gameObject.transform.Find("Image").GetComponent<Image>().sprite = sprite;
 
+        // if current scene is vuforia, remove ribbon from panel
+        if (SceneManager.GetActiveScene().name.Equals("VuforiaScene"))
+        {
+            ribbon.SetActive(false);
+        }
+
         singleButton.onClick.AddListener((okClick));
 
         gameObject.SetActive(true);

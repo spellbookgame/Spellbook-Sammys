@@ -34,6 +34,12 @@ public class QuestUI : MonoBehaviour
         titleText.text = quest.questName;
         infoText.text = quest.questTask + "\nTurn Limit: " + quest.turnLimit;
 
+        // if current scene is vuforia, remove ribbon from panel
+        if (SceneManager.GetActiveScene().name.Equals("VuforiaScene"))
+        {
+            ribbon.SetActive(false);
+        }
+
         // set the images for quest rewards
         rewardImages[0] = rewardImage1;
         rewardImages[1] = rewardImage2;
