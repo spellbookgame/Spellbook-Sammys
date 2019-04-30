@@ -95,6 +95,9 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
         // check for tsunami crisis
         CrisisHandler.instance.CheckTsunami(localPlayer, trackableName);
 
+        // check for quests
+        QuestTracker.instance.TrackErrandQuest(trackableName);
+
         // call function based on target name
         switch (trackableName)
         {
@@ -125,6 +128,15 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
                 break;
 
             case "town_arcanist":
+                Quest arcaneErrandQuest = new ArcaneErrandQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
+                if (QuestTracker.instance.HasQuest(arcaneErrandQuest))
+                {
+                    PanelHolder.instance.displayNotify("Arcane Town", "You're already on a quest for this town.", "OK");
+                }
+                else
+                {
+                    PanelHolder.instance.displayQuest(arcaneErrandQuest);
+                }
                 break;
 
             case "town_chronomancer":

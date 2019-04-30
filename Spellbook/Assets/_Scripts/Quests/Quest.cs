@@ -15,7 +15,7 @@ public abstract class Quest
 
     public bool questCompleted;
 
-    // <reward type, reward names (stored in list)>
+    // <reward type, reward names>
     public Dictionary<string, string> rewards;
 
     // tracking variables for mana quests

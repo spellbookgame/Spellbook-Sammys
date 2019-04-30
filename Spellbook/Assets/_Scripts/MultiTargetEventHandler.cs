@@ -12,10 +12,6 @@ public class MultiTargetEventHandler : MonoBehaviour, ITrackableEventHandler
     protected TrackableBehaviour.Status m_PreviousStatus;
     protected TrackableBehaviour.Status m_NewStatus;
 
-    private Text targetName;
-    private Text targetName1;
-    private Text targetNumber;
-
     private bool isTracked = false;
     private Dictionary<string, int> targets;
     private int targetsTracked;
@@ -27,10 +23,6 @@ public class MultiTargetEventHandler : MonoBehaviour, ITrackableEventHandler
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
 
         targets = new Dictionary<string, int>();
-
-        targetName = GameObject.Find("text_targetNameValue").GetComponent<Text>();
-        targetName1 = GameObject.Find("text_targetNameValue (1)").GetComponent<Text>();
-        targetNumber = GameObject.Find("text_targetNumberValue").GetComponent<Text>();
 
         mTrackableBehaviour = GetComponent<TrackableBehaviour>();
         if (mTrackableBehaviour)
@@ -82,9 +74,6 @@ public class MultiTargetEventHandler : MonoBehaviour, ITrackableEventHandler
         // when track is lost, reset bool and remove from dictionary
         isTracked = false;
         targets.Clear();
-        targetName.text = "";
-        targetName1.text = "";
-        targetNumber.text = "";
     }
 
     // if 4 targets are detected, scan item
@@ -110,18 +99,11 @@ public class MultiTargetEventHandler : MonoBehaviour, ITrackableEventHandler
                     targets.Add(m.name, 1);
 
                 ++targetsTracked;
-                // set text on canvas to debug
-                targetName1.text = m.name;
-                targetNumber.text = targetsTracked.ToString();
             }
         }
         // if 4 targets were tracked, start scanning
         if (targetsTracked >= 4)
         {
-            foreach(KeyValuePair<string, int> kvp in targets)
-            {
-                targetName.text = targetName.text + kvp.Key + "\n";
-            }
             CompareSpells();
         }
     }
