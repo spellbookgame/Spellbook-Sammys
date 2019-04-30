@@ -64,11 +64,7 @@ public class MainPageHandler : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.E))
         {
-            localPlayer.Spellcaster.CollectSpell(new CrystalScent());
-        }
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            localPlayer.Spellcaster.CollectSpell(new PotionofLuck());
+            localPlayer.Spellcaster.CollectSpell(new Allegro());
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
