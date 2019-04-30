@@ -132,6 +132,16 @@ public class MainPageHandler : MonoBehaviour
         });
     }   
 
+    // TESTING ONLY - DELETE LATER
+    public void CollectRandomItem()
+    {
+        SoundManager.instance.PlaySingle(SoundManager.itemfound);
+        List<ItemObject> itemList = GameObject.Find("ItemList").GetComponent<ItemList>().listOfItems;
+        ItemObject item = itemList[Random.Range(0, itemList.Count)];
+        PanelHolder.instance.displayNotify("You found an Item!", "You found a " + item.name + "!", "OK");
+        localPlayer.Spellcaster.AddToInventory(item);
+    }
+
     // closing the proclamation panel
     public void CloseProclamationPanel()
     {

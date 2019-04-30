@@ -182,6 +182,8 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
                 break;
             case "location_swamp":
                 break;
+            case "location_forest":
+                break;
             case "location_capital":
                 SceneManager.LoadScene("ShopScene");
                 break;

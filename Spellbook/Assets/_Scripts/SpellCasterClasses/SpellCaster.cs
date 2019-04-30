@@ -101,7 +101,10 @@ public abstract class SpellCaster
 
     public void AddToInventory(ItemObject newItem)
     {
-        inventory.Add(newItem);
+        if (inventory.Count >= 16)
+            PanelHolder.instance.displayNotify("Too many items!", "Your inventory is full, you cannot hold any more items.", "OK");
+        else
+            inventory.Add(newItem);
     }
     public void RemoveFromInventory(ItemObject newItem)
     {
