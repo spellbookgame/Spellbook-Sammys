@@ -123,6 +123,21 @@ public class QuestTracker : MonoBehaviour
         }
     }
 
+    public void TrackErrandQuest(string location)
+    {
+        foreach (Quest q in localPlayer.Spellcaster.activeQuests.ToArray())
+        {
+            if (q.questType.Equals("Errand"))
+            {
+                // if player is at the space and has the item requested
+                if (q.spaceName.Equals(location) && localPlayer.Spellcaster.inventory.Contains(q.item))
+                {
+                    QuestCompleted(q);
+                }
+            }
+        }
+    }
+
     // give player rewards when quest is completed
     public void GiveRewards(Quest q)
     {

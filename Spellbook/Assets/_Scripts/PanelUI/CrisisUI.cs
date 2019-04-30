@@ -10,6 +10,7 @@ public class CrisisUI : MonoBehaviour
     [SerializeField] private Text infoText;
     [SerializeField] private Text roundsText;
     [SerializeField] private Button singleButton;
+    [SerializeField] private GameObject ribbon;
 
     public bool panelActive = false;
     public string panelID = "crisis";
@@ -29,13 +30,11 @@ public class CrisisUI : MonoBehaviour
         infoText.text = info;
         roundsText.text = "Will arrive in " + numRounds.ToString() + " rounds.";
 
-        // if current scene is Vuforia, change everything to image
+        // if current scene is vuforia, remove ribbon from panel
         if (SceneManager.GetActiveScene().name.Equals("VuforiaScene"))
         {
-            gameObject.GetComponent<SpriteRenderer>().enabled = false;
-            gameObject.GetComponent<Image>().enabled = true;
+            ribbon.SetActive(false);
         }
-
 
         singleButton.onClick.AddListener((OkClick));
 

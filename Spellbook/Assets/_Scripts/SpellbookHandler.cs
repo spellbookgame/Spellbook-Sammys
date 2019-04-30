@@ -6,37 +6,16 @@ using UnityEngine.UI;
 
 public class SpellbookHandler : MonoBehaviour
 {
-    [SerializeField] private Button mainButton;
-    [SerializeField] private Button libraryButton;
-    [SerializeField] private Button questLogButton;
-    [SerializeField] private Button spellbookProgressButton;
-
-    Player localPlayer;
+    [SerializeField] private Button exitButton;
 
     // Start is called before the first frame update
     void Start()
     {
-        localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
-
-        mainButton.onClick.AddListener(() =>
+        exitButton.onClick.AddListener(() =>
         {
             SoundManager.instance.PlaySingle(SoundManager.spellbookClose);
+            UICanvasHandler.instance.ActivateSpellbookButtons(false);
             SceneManager.LoadScene("MainPlayerScene");
-        });
-        libraryButton.onClick.AddListener(() =>
-        {
-            SoundManager.instance.PlaySingle(SoundManager.pageturn);
-            SceneManager.LoadScene("LibraryScene");
-        });
-        questLogButton.onClick.AddListener(() =>
-        {
-            SoundManager.instance.PlaySingle(SoundManager.pageturn);
-            SceneManager.LoadScene("QuestLogScene");
-        });
-        spellbookProgressButton.onClick.AddListener(() =>
-        {
-            SoundManager.instance.PlaySingle(SoundManager.pageturn);
-            SceneManager.LoadScene("SpellbookProgress");
         });
     }
 }

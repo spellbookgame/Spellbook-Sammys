@@ -51,16 +51,6 @@ public class MainPageHandler : MonoBehaviour
 
     private void Update()
     {
-        // earn mana at end of turn (besides first turn of game)
-        if (localPlayer != null && !(localPlayer.Spellcaster.numOfTurnsSoFar <= 1))
-        {
-            if (localPlayer.Spellcaster.endTurnManaCollected == false)
-            {
-                int endOfTurnMana = localPlayer.Spellcaster.CollectManaEndTurn();
-                StartCoroutine(ShowManaEarned(endOfTurnMana));
-            }
-        }
-
         // update player's mana count
         if (localPlayer != null && manaHasChanged)
         {
@@ -68,18 +58,29 @@ public class MainPageHandler : MonoBehaviour
             manaHasChanged = false;
         }
 
-        // TESTING AREA
-        if(Input.GetKeyDown(KeyCode.D))
-        {
-            localPlayer.Spellcaster.dice["D6"] += 1;
-        }
         if(Input.GetKeyDown(KeyCode.T))
         {
             CrisisHandler.instance.CallTsunami();
         }
         if(Input.GetKeyDown(KeyCode.E))
         {
-            localPlayer.Spellcaster.CollectSpell(new Fireball());
+            localPlayer.Spellcaster.CollectSpell(new Allegro());
+        }
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            localPlayer.Spellcaster.CollectSpell(new Playwright());
+        }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            SceneManager.LoadScene("ShopScene");
+        }
+        if(Input.GetKeyDown(KeyCode.M))
+        {
+            SceneManager.LoadScene("MineScene");
+        }
+        if(Input.GetKeyDown(KeyCode.F))
+        {
+            SceneManager.LoadScene("ForestScene");
         }
     }
 
@@ -92,7 +93,10 @@ public class MainPageHandler : MonoBehaviour
         manaCrystalsValue.text = localPlayer.Spellcaster.iMana.ToString();
         healthValue.text = localPlayer.Spellcaster.fCurrentHealth.ToString() + "/ " + localPlayer.Spellcaster.fMaxHealth.ToString();
 
-        // if it's not first turn of game, then destroy proclamation panel each time scene starts
+        // disable dice button if it's not player's turn
+        UICanvasHandler.instance.EnableDiceButton(localPlayer.bIsMyTurn);
+
+        // if it's not first turn of game, then destroy proclamation panel
         if (localPlayer.Spellcaster.procPanelShown)
         {
             Destroy(proclamationPanel.gameObject);
@@ -121,6 +125,7 @@ public class MainPageHandler : MonoBehaviour
         spellbookButton.onClick.AddListener(() =>
         {
             SoundManager.instance.PlaySingle(SoundManager.spellbookopen);
+            UICanvasHandler.instance.ActivateSpellbookButtons(true);
             SceneManager.LoadScene("SpellbookScene");
         });
         inventoryButton.onClick.AddListener(() =>
@@ -128,21 +133,6 @@ public class MainPageHandler : MonoBehaviour
             SoundManager.instance.PlaySingle(SoundManager.inventoryOpen);
             SceneManager.LoadScene("InventoryScene");
         });
-    }
-
-    // FOR TESTING ONLY - DELETE LATER
-    public void CollectMana()
-    {
-        localPlayer.Spellcaster.CollectMana(500);
-        manaHasChanged = true;
-    }
-    public void CollectRandomItem()
-    {
-        SoundManager.instance.PlaySingle(SoundManager.itemfound);
-        List<ItemObject> itemList = GameObject.Find("ItemList").GetComponent<ItemList>().listOfItems;
-        ItemObject item = itemList[Random.Range(0, itemList.Count - 1)];
-        PanelHolder.instance.displayNotify("You found an Item!", "You got found a " + item.name + "!", "OK");
-        localPlayer.Spellcaster.AddToInventory(item);
     }
 
     // closing the proclamation panel
@@ -153,13 +143,18 @@ public class MainPageHandler : MonoBehaviour
         PanelHolder.instance.CheckPanelQueue();
     }
 
+    public void DisplayMana(int manaCollected)
+    {
+        StartCoroutine(ShowManaEarned(manaCollected));
+    }
+
     // coroutine to show mana earned
-    IEnumerator ShowManaEarned(int manaCount)
+    private IEnumerator ShowManaEarned(int manaCount)
     {
         manaCrystalsAddition.text = "+" + manaCount.ToString();
         manaHasChanged = true;
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSecondsRealtime(2f);
 
         manaCrystalsAddition.text = "";
     }

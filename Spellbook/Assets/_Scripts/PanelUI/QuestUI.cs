@@ -29,11 +29,16 @@ public class QuestUI : MonoBehaviour
         gameObject.SetActive(true);
     }
 
-    // use this if quest rewards are glyphs
     public void DisplayQuest(Quest quest)
     {
         titleText.text = quest.questName;
         infoText.text = quest.questTask + "\nTurn Limit: " + quest.turnLimit;
+
+        // if current scene is vuforia, remove ribbon from panel
+        if (SceneManager.GetActiveScene().name.Equals("VuforiaScene"))
+        {
+            ribbon.SetActive(false);
+        }
 
         // set the images for quest rewards
         rewardImages[0] = rewardImage1;
@@ -69,19 +74,6 @@ public class QuestUI : MonoBehaviour
         singleButton.onClick.AddListener(() => buttonClicked("accept", quest));
         singleButton1.onClick.AddListener(() => buttonClicked("deny", quest));
 
-        // if current scene is Vuforia, change everything to image
-        if (SceneManager.GetActiveScene().name.Equals("VuforiaScene"))
-        {
-            gameObject.GetComponent<SpriteRenderer>().enabled = false;
-            gameObject.GetComponent<Image>().enabled = true;
-
-            foreach(Transform t in ribbon.transform)
-            {
-                t.gameObject.GetComponent<SpriteRenderer>().enabled = false;
-                t.gameObject.GetComponent<Image>().enabled = true;
-            }
-        }
-
         gameObject.SetActive(true);
 
         if (!PanelHolder.panelQueue.Peek().Equals(panelID))
@@ -105,7 +97,8 @@ public class QuestUI : MonoBehaviour
 
         gameObject.SetActive(false);
 
-        PanelHolder.panelQueue.Dequeue();
+        if (PanelHolder.panelQueue.Count > 0)
+            PanelHolder.panelQueue.Dequeue();
         PanelHolder.instance.CheckPanelQueue();
     }
 }

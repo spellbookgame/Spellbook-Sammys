@@ -12,6 +12,10 @@ public class UICanvasHandler : MonoBehaviour
     [SerializeField] private GameObject diceButton;
     [SerializeField] private GameObject inventoryButton;
     [SerializeField] private GameObject endTurnButton;
+    [SerializeField] private GameObject spellbookMainButton;
+    [SerializeField] private GameObject libraryButton;
+    [SerializeField] private GameObject questButton;
+    [SerializeField] private GameObject progressButton;
     [SerializeField] private DiceUIHandler diceUIHandler;
 
     private Player localPlayer;
@@ -31,37 +35,75 @@ public class UICanvasHandler : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    private void OnLevelWasLoaded()
+    // called once when UICanvasHandler is instantiated
+    private void Start()
     {
+        // set onclick listeners once in the game
+        spellbookMainButton.GetComponent<Button>().onClick.AddListener(() =>
+        {
+            SoundManager.instance.PlaySingle(SoundManager.pageturn);
+            SceneManager.LoadScene("SpellbookScene");
+        });
+        libraryButton.GetComponent<Button>().onClick.AddListener(() =>
+        {
+            SoundManager.instance.PlaySingle(SoundManager.pageturn);
+            SceneManager.LoadScene("LibraryScene");
+        });
+        questButton.GetComponent<Button>().onClick.AddListener(() =>
+        {
+            SoundManager.instance.PlaySingle(SoundManager.pageturn);
+            SceneManager.LoadScene("QuestLogScene");
+        });
+        progressButton.GetComponent<Button>().onClick.AddListener(() =>
+        {
+            SoundManager.instance.PlaySingle(SoundManager.pageturn);
+            SceneManager.LoadScene("SpellbookProgress");
+        });
+
+        // initially position the buttons properly on main player scene
+        spellbookButton.transform.localPosition = new Vector3(-475, -1225, 0);
+        diceButton.transform.localPosition = new Vector3(0, -1225, 0);
+        inventoryButton.transform.localPosition = new Vector3(475, -1225, 0);
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // find local player
+        localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
+
         // set render camera to main camera
         gameObject.GetComponent<Canvas>().worldCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
-
-        // find local player
-        if(GameObject.FindGameObjectWithTag("LocalPlayer"))
-            localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
 
         // only show buttons on main scene
         if (!SceneManager.GetActiveScene().name.Equals("MainPlayerScene"))
         {
             // if dice tray is open in another scene other than main player, close it
-            if(diceUIHandler.diceTrayOpen)
+            /*if (diceUIHandler.diceTrayOpen)
             {
                 diceUIHandler.OpenCloseDiceTray();
                 diceUIHandler.diceTrayOpen = false;
-            }
+            }*/
 
             spellbookButton.SetActive(false);
             diceButton.SetActive(false);
             inventoryButton.SetActive(false);
             endTurnButton.SetActive(false);
         }
+        // if we're in the main scene
         else
         {
-            // if player has rolled, set EndTurnButton active
-            if (localPlayer != null && localPlayer.Spellcaster.hasRolled)
-                ActivateEndTurnButton();
-            else
-                DeactivateEndTurnButton();
+            if(localPlayer != null)
+                ActivateEndTurnButton(localPlayer.Spellcaster.hasRolled);
 
             spellbookButton.SetActive(true);
             diceButton.SetActive(true);
@@ -69,31 +111,41 @@ public class UICanvasHandler : MonoBehaviour
         }
     }
 
-    public void ActivateEndTurnButton()
+    // activate end turn button if player has rolled
+    public void ActivateEndTurnButton(bool enabled)
     {
-        // move 3 buttons up
-        spellbookButton.transform.localPosition = new Vector3(-470, -880, 0);
-        diceButton.transform.localPosition = new Vector3(0, -880, 0);
-        inventoryButton.transform.localPosition = new Vector3(470, -880, 0);
+        endTurnButton.SetActive(enabled);
+        Debug.Log("end turn button: " + enabled);
 
-        // set end turn button active
-        endTurnButton.SetActive(true);
+        if(enabled)
+        {
+            // move main page buttons up
+            spellbookButton.transform.localPosition = new Vector3(-475, -1015, 0);
+            diceButton.transform.localPosition = new Vector3(0, -1015, 0);
+            inventoryButton.transform.localPosition = new Vector3(475, -1015, 0);
+        }
+        else
+        {
+            // move main page buttons down
+            spellbookButton.transform.localPosition = new Vector3(-475, -1225, 0);
+            diceButton.transform.localPosition = new Vector3(0, -1225, 0);
+            inventoryButton.transform.localPosition = new Vector3(475, -1225, 0);
+        }
     }
 
-    public void DeactivateEndTurnButton()
-    {
-        // move buttons back to original place
-        spellbookButton.transform.localPosition = new Vector3(-470, -1030, 0);
-        diceButton.transform.localPosition = new Vector3(0, -1030, 0);
-        inventoryButton.transform.localPosition = new Vector3(470, -1030, 0);
-
-        // set end turn button active
-        endTurnButton.SetActive(false);
-    }
-
-    public void EnableDisableDiceButton(bool enabled)
+    // enable dice button if it's player's turn
+    public void EnableDiceButton(bool enabled)
     {
         diceButton.GetComponent<Button>().interactable = enabled;
         diceButton.transform.GetChild(0).gameObject.SetActive(enabled);
+    }
+
+    // set the spellbook buttons active if in spellbook scene
+    public void ActivateSpellbookButtons(bool enabled)
+    {
+        spellbookMainButton.SetActive(enabled);
+        libraryButton.SetActive(enabled);
+        questButton.SetActive(enabled);
+        progressButton.SetActive(enabled);
     }
 }

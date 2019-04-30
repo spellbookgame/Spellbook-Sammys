@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class QuestLogHandler : MonoBehaviour
 {
     [SerializeField] private Button exitButton;
-    [SerializeField] private Button backButton;
 
     [SerializeField] private Text activeQuestText;
     [SerializeField] private Text turnsText;
@@ -23,18 +22,14 @@ public class QuestLogHandler : MonoBehaviour
         exitButton.onClick.AddListener(() =>
         {
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+            UICanvasHandler.instance.ActivateSpellbookButtons(false);
             SceneManager.LoadScene("MainPlayerScene");
-        });
-        backButton.onClick.AddListener(() =>
-        {
-            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
-            SceneManager.LoadScene("SpellbookScene");
         });
 
         foreach(Quest q in localPlayer.Spellcaster.activeQuests)
         {
             activeQuestText.text = activeQuestText.text + q.questName + "\n\n\n";
-            turnsText.text = turnsText.text + (q.turnLimit - (localPlayer.Spellcaster.NumOfTurnsSoFar - q.startTurn) + 1).ToString() + "\n\n\n\n";
+            turnsText.text = turnsText.text + (q.turnLimit - (localPlayer.Spellcaster.NumOfTurnsSoFar - q.startTurn)).ToString() + "\n\n\n\n";
             rewardsText.text = rewardsText.text + q.DisplayReward();
         }
     }

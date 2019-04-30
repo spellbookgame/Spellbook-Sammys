@@ -38,6 +38,7 @@ public class ArcanaHarvest : Spell
             player.iMana /= 2;
 
             PanelHolder.instance.displayNotify(sSpellName, "Move your piece to the Crystal Mines.", "Vuforia");
+            UICanvasHandler.instance.ActivateSpellbookButtons(false);
         }
     }
 }

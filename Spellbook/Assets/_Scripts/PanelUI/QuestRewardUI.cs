@@ -14,6 +14,7 @@ public class QuestRewardUI : MonoBehaviour
     [SerializeField] private Image rewardImage1;
     [SerializeField] private Image rewardImage2;
     [SerializeField] private Button singleButton;
+    [SerializeField] private GameObject ribbon;
 
     Image[] rewardImages = new Image[2];
     Text[] rewardText = new Text[2];
@@ -34,11 +35,10 @@ public class QuestRewardUI : MonoBehaviour
     {
         titleText.text = "Quest Rewards";
 
-        // if current scene is Vuforia, change everything to image
+        // if current scene is vuforia, remove ribbon from panel
         if (SceneManager.GetActiveScene().name.Equals("VuforiaScene"))
         {
-            gameObject.GetComponent<SpriteRenderer>().enabled = false;
-            gameObject.GetComponent<Image>().enabled = true;
+            ribbon.SetActive(false);
         }
 
         // set the images and text for quest rewards

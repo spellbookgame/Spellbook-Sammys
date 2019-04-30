@@ -11,6 +11,6 @@ using UnityEngine.UI;
 public class UIDissolveImage : UIDissolveElement<Image> {
 
 	protected override void SetMaterial(Material passedMaterial) {
-		GetComponent<SpriteRenderer>().material = passedMaterial;
+		GetComponent<Image>().material = passedMaterial;
 	}
 }

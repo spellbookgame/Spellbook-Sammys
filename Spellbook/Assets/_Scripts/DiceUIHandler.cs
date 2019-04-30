@@ -30,6 +30,7 @@ public class DiceUIHandler : MonoBehaviour
         scanButton.onClick.AddListener(() =>
         {
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+            OpenCloseDiceTray();
             SceneManager.LoadScene("VuforiaScene");
         });
     }
@@ -52,8 +53,11 @@ public class DiceUIHandler : MonoBehaviour
         {
             gameObject.SetActive(true);
 
+            // populate the scroll rect with player's dice
+            PopulateScrollRect();
+
             // if player has Tailwind active, add a D6 to movement slot
-            if(localPlayer.Spellcaster.activeSpells.Any(x => x.sSpellName.Equals("Tailwind")))
+            if (localPlayer.Spellcaster.activeSpells.Any(x => x.sSpellName.Equals("Tailwind")))
             {
                 D6ToMovement();
             }
@@ -62,9 +66,6 @@ public class DiceUIHandler : MonoBehaviour
             {
                 D6ToMovement();
             }
-
-            // populate the scroll rect with player's dice
-            PopulateScrollRect();
             
             // disable spellbook/inventory buttons while dice tray is open
             spellBookButton.interactable = false;
@@ -90,8 +91,7 @@ public class DiceUIHandler : MonoBehaviour
         // if dice are not locked, reset dice when panel is closed
         else if(diceTrayOpen && !localPlayer.Spellcaster.hasRolled)
         {
-            if(localPlayer.Spellcaster.hasRolled)
-                UICanvasHandler.instance.ActivateEndTurnButton();
+            UICanvasHandler.instance.ActivateEndTurnButton(localPlayer.Spellcaster.hasRolled);
 
             RemoveDiceFromSlots();
 
@@ -108,8 +108,7 @@ public class DiceUIHandler : MonoBehaviour
         // if dice are locked, keep dice the same when panel is closed
         else if(diceTrayOpen && localPlayer.Spellcaster.hasRolled)
         {
-            if (localPlayer.Spellcaster.hasRolled)
-                UICanvasHandler.instance.ActivateEndTurnButton();
+            UICanvasHandler.instance.ActivateEndTurnButton(localPlayer.Spellcaster.hasRolled);
 
             gameObject.SetActive(false);
 
@@ -187,10 +186,12 @@ public class DiceUIHandler : MonoBehaviour
     // add a D6 into a movement slot if given a temporary dice
     private void D6ToMovement()
     {
+        Debug.Log("Adding D6 to movement...");
         foreach (GameObject slot in GameObject.FindGameObjectsWithTag("Slot"))
         {
             if (slot.name.Equals("slot1") && slot.transform.childCount == 0)
             {
+                Debug.Log("slot found!");
                 GameObject newDice = Instantiate(dice, slot.transform);
                 newDice.transform.GetChild(0).GetComponent<Image>().sprite = newDice.GetComponent<DiceRoll>().pipsSix;
                 newDice.GetComponent<DiceRoll>()._rollMaximum = 6;

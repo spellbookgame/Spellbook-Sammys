@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 
 public class EndTurnClick : MonoBehaviour
 {
@@ -14,19 +11,22 @@ public class EndTurnClick : MonoBehaviour
         bool endSuccessful = localPlayer.onEndTurnClick();
         if (endSuccessful)
         {
-            // disable buttons
-            UICanvasHandler.instance.DeactivateEndTurnButton();
-            UICanvasHandler.instance.EnableDisableDiceButton(false);
-
+            // reset player attribute values
             localPlayer.Spellcaster.hasAttacked = false;
             localPlayer.Spellcaster.hasRolled = false;
+            localPlayer.Spellcaster.scannedSpaceThisTurn = false;
 
-            Scene m_Scene = SceneManager.GetActiveScene();
-            if(m_Scene.name != "MainPlayerScene")
-            {
-                SceneManager.LoadScene("MainPlayerScene");
-            }
+            // collect end of turn mana
+            int manaCollected = localPlayer.Spellcaster.CollectManaEndTurn();
+            GameObject.Find("ScriptContainer").GetComponent<MainPageHandler>().DisplayMana(manaCollected);
+
+            // close Dice tray if it's open
+            if(GameObject.Find("Dice Tray"))
+                GameObject.Find("Dice Tray").GetComponent<DiceUIHandler>().OpenCloseDiceTray();
+
+            // disable buttons
+            UICanvasHandler.instance.ActivateEndTurnButton(false);
+            UICanvasHandler.instance.EnableDiceButton(false);
         }
-        
     }
 }
