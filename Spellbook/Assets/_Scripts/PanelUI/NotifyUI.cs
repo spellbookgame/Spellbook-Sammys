@@ -29,11 +29,11 @@ public class NotifyUI : MonoBehaviour
         infoText.text = info;
 
         // if current scene is Vuforia, change everything to image
-        if (SceneManager.GetActiveScene().name.Equals("VuforiaScene"))
+        /*if (SceneManager.GetActiveScene().name.Equals("VuforiaScene"))
         {
             gameObject.GetComponent<SpriteRenderer>().enabled = false;
             gameObject.GetComponent<Image>().enabled = true;
-        }
+        }*/
 
         // different onclick listeners for different button inputs
         switch(buttonClick)

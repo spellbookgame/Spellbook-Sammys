@@ -34,13 +34,6 @@ public class QuestRewardUI : MonoBehaviour
     {
         titleText.text = "Quest Rewards";
 
-        // if current scene is Vuforia, change everything to image
-        if (SceneManager.GetActiveScene().name.Equals("VuforiaScene"))
-        {
-            gameObject.GetComponent<SpriteRenderer>().enabled = false;
-            gameObject.GetComponent<Image>().enabled = true;
-        }
-
         // set the images and text for quest rewards
         rewardImages[0] = rewardImage1;
         rewardImages[1] = rewardImage2;

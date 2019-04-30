@@ -29,14 +29,6 @@ public class CrisisUI : MonoBehaviour
         infoText.text = info;
         roundsText.text = "Will arrive in " + numRounds.ToString() + " rounds.";
 
-        // if current scene is Vuforia, change everything to image
-        if (SceneManager.GetActiveScene().name.Equals("VuforiaScene"))
-        {
-            gameObject.GetComponent<SpriteRenderer>().enabled = false;
-            gameObject.GetComponent<Image>().enabled = true;
-        }
-
-
         singleButton.onClick.AddListener((OkClick));
 
         gameObject.SetActive(true);

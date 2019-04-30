@@ -29,7 +29,7 @@ public class QuestLogHandler : MonoBehaviour
         foreach(Quest q in localPlayer.Spellcaster.activeQuests)
         {
             activeQuestText.text = activeQuestText.text + q.questName + "\n\n\n";
-            turnsText.text = turnsText.text + (q.turnLimit - (localPlayer.Spellcaster.NumOfTurnsSoFar - q.startTurn) + 1).ToString() + "\n\n\n\n";
+            turnsText.text = turnsText.text + (q.turnLimit - (localPlayer.Spellcaster.NumOfTurnsSoFar - q.startTurn)).ToString() + "\n\n\n\n";
             rewardsText.text = rewardsText.text + q.DisplayReward();
         }
     }

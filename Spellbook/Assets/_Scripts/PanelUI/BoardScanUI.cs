@@ -29,19 +29,6 @@ public class BoardScanUI : MonoBehaviour
         infoText.text = info;
         gameObject.transform.Find("Image").GetComponent<Image>().sprite = sprite;
 
-        // if current scene is Vuforia, change everything to image
-        if(SceneManager.GetActiveScene().name.Equals("VuforiaScene"))
-        {
-            gameObject.GetComponent<SpriteRenderer>().enabled = false;
-            gameObject.GetComponent<Image>().enabled = true;
-
-            foreach (Transform t in ribbon.transform)
-            {
-                t.gameObject.GetComponent<SpriteRenderer>().enabled = false;
-                t.gameObject.GetComponent<Image>().enabled = true;
-            }
-        }
-
         singleButton.onClick.AddListener((okClick));
 
         gameObject.SetActive(true);
