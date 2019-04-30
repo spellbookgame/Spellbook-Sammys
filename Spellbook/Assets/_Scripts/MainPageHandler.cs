@@ -66,6 +66,10 @@ public class MainPageHandler : MonoBehaviour
         {
             localPlayer.Spellcaster.CollectSpell(new Allegro());
         }
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            localPlayer.Spellcaster.CollectSpell(new Playwright());
+        }
         if (Input.GetKeyDown(KeyCode.S))
         {
             SceneManager.LoadScene("ShopScene");

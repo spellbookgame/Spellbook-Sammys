@@ -29,7 +29,6 @@ public class SpellCollectionHandler : MonoBehaviour
             Button newSpellButton = Instantiate(spellButton, GameObject.Find("Canvas").transform);
             newSpellButton.GetComponentInChildren<Text>().text = localPlayer.Spellcaster.chapter.spellsCollected[i].sSpellName;
             newSpellButton.transform.localPosition = new Vector3(0, yPos, 0);
-            newSpellButton.transform.SetAsFirstSibling();
 
             // new int to pass into button onClick listener so loop will not throw index out of bounds error
             int i2 = i;
@@ -37,8 +36,11 @@ public class SpellCollectionHandler : MonoBehaviour
             newSpellButton.onClick.AddListener(() => OpenSpellPanel(localPlayer.Spellcaster.chapter.spellsCollected[i2]));
 
             // to position new button underneath prev button
-            yPos -= 250;
+            yPos -= 200;
         }
+
+        // make spell panel last in hierarchy so it will appear over buttons
+        spellPanel.transform.SetAsLastSibling();
     }
 
     private void Update()

@@ -42,7 +42,7 @@ public class LibraryHandler : MonoBehaviour
             newSpellButton.onClick.AddListener(() => ShowSpellInfo(localPlayer.Spellcaster.chapter.spellsAllowed[i2]));
 
             // to position new button underneath prev button
-            yPos -= 250;
+            yPos -= 200;
         }
     }
 
