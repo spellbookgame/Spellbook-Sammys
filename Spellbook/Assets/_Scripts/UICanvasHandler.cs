@@ -72,6 +72,9 @@ public class UICanvasHandler : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        // find local player
+        localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
+
         // set render camera to main camera
         gameObject.GetComponent<Canvas>().worldCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
 
@@ -79,11 +82,11 @@ public class UICanvasHandler : MonoBehaviour
         if (!SceneManager.GetActiveScene().name.Equals("MainPlayerScene"))
         {
             // if dice tray is open in another scene other than main player, close it
-            if (diceUIHandler.diceTrayOpen)
+            /*if (diceUIHandler.diceTrayOpen)
             {
                 diceUIHandler.OpenCloseDiceTray();
                 diceUIHandler.diceTrayOpen = false;
-            }
+            }*/
 
             spellbookButton.SetActive(false);
             diceButton.SetActive(false);
@@ -93,11 +96,8 @@ public class UICanvasHandler : MonoBehaviour
         // if we're in the main scene
         else
         {
-            // if player has rolled, set EndTurnButton active
-            if (localPlayer != null && localPlayer.Spellcaster.hasRolled)
-                ActivateEndTurnButton(true);
-            else
-                ActivateEndTurnButton(false);
+            if(localPlayer != null)
+                ActivateEndTurnButton(localPlayer.Spellcaster.hasRolled);
 
             spellbookButton.SetActive(true);
             diceButton.SetActive(true);

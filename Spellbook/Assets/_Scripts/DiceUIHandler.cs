@@ -30,6 +30,7 @@ public class DiceUIHandler : MonoBehaviour
         scanButton.onClick.AddListener(() =>
         {
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+            OpenCloseDiceTray();
             SceneManager.LoadScene("VuforiaScene");
         });
     }
@@ -90,8 +91,7 @@ public class DiceUIHandler : MonoBehaviour
         // if dice are not locked, reset dice when panel is closed
         else if(diceTrayOpen && !localPlayer.Spellcaster.hasRolled)
         {
-            if(localPlayer.Spellcaster.hasRolled)
-                UICanvasHandler.instance.ActivateEndTurnButton(true);
+            UICanvasHandler.instance.ActivateEndTurnButton(localPlayer.Spellcaster.hasRolled);
 
             RemoveDiceFromSlots();
 
@@ -108,8 +108,7 @@ public class DiceUIHandler : MonoBehaviour
         // if dice are locked, keep dice the same when panel is closed
         else if(diceTrayOpen && localPlayer.Spellcaster.hasRolled)
         {
-            if (localPlayer.Spellcaster.hasRolled)
-                UICanvasHandler.instance.ActivateEndTurnButton(true);
+            UICanvasHandler.instance.ActivateEndTurnButton(localPlayer.Spellcaster.hasRolled);
 
             gameObject.SetActive(false);
 
