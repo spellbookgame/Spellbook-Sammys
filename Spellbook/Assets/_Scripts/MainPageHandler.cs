@@ -79,6 +79,10 @@ public class MainPageHandler : MonoBehaviour
         {
             SceneManager.LoadScene("MineScene");
         }
+        if(Input.GetKeyDown(KeyCode.F))
+        {
+            SceneManager.LoadScene("ForestScene");
+        }
     }
 
     public void setupMainPage()

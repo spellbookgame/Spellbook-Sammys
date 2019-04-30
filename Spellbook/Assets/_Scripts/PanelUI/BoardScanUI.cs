@@ -49,7 +49,8 @@ public class BoardScanUI : MonoBehaviour
         SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
         gameObject.SetActive(false);
 
-        PanelHolder.panelQueue.Dequeue();
+        if(PanelHolder.panelQueue.Count > 0)
+            PanelHolder.panelQueue.Dequeue();
         PanelHolder.instance.CheckPanelQueue();
     }
 }
