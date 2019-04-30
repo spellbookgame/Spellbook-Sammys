@@ -145,15 +145,15 @@ public class MultiTargetEventHandler : MonoBehaviour, ITrackableEventHandler
                 var first = d2.First();     // can use First() here because tier 3 requiredRune will only have 1 entry
                 if (d1.ContainsKey(first.Key))
                 {
+                    isEqual = true;
                     localPlayer.Spellcaster.CollectSpell(localPlayer.Spellcaster.chapter.spellsAllowed[i]);
                     break;
                 }
-            }
-            // if no spells are found
-            else
-            {
-                PanelHolder.instance.displayNotify("No Spell!", "No spell was found...", "OK");
+                else
+                    isEqual = false;
             }
         }
+        if(!isEqual)
+            PanelHolder.instance.displayNotify("No Spell!", "No spell was found...", "OK");
     }
 }
