@@ -24,7 +24,7 @@ public class ForestSceneHandler : MonoBehaviour
         leaveButton.onClick.AddListener(() =>
         {
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
-            SceneManager.LoadScene("MainScene");
+            SceneManager.LoadScene("MainPlayerScene");
         });
     }
 

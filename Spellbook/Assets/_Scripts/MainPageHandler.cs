@@ -58,20 +58,19 @@ public class MainPageHandler : MonoBehaviour
             manaHasChanged = false;
         }
 
-        // TESTING AREA
-        if(Input.GetKeyDown(KeyCode.D))
-        {
-            localPlayer.Spellcaster.dice["D6"] += 1;
-        }
         if(Input.GetKeyDown(KeyCode.T))
         {
             CrisisHandler.instance.CallTsunami();
         }
         if(Input.GetKeyDown(KeyCode.E))
         {
-            localPlayer.Spellcaster.CollectSpell(new Fireball());
+            localPlayer.Spellcaster.CollectSpell(new CrystalScent());
         }
-        if(Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            localPlayer.Spellcaster.CollectSpell(new PotionofLuck());
+        }
+        if (Input.GetKeyDown(KeyCode.S))
         {
             SceneManager.LoadScene("ShopScene");
         }

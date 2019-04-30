@@ -12,6 +12,7 @@ public class UICanvasHandler : MonoBehaviour
     [SerializeField] private GameObject diceButton;
     [SerializeField] private GameObject inventoryButton;
     [SerializeField] private GameObject endTurnButton;
+    [SerializeField] private GameObject spellbookMainButton;
     [SerializeField] private GameObject libraryButton;
     [SerializeField] private GameObject questButton;
     [SerializeField] private GameObject progressButton;
@@ -38,6 +39,11 @@ public class UICanvasHandler : MonoBehaviour
     private void Start()
     {
         // set onclick listeners once in the game
+        spellbookMainButton.GetComponent<Button>().onClick.AddListener(() =>
+        {
+            SoundManager.instance.PlaySingle(SoundManager.pageturn);
+            SceneManager.LoadScene("SpellbookScene");
+        });
         libraryButton.GetComponent<Button>().onClick.AddListener(() =>
         {
             SoundManager.instance.PlaySingle(SoundManager.pageturn);
@@ -109,6 +115,7 @@ public class UICanvasHandler : MonoBehaviour
     public void ActivateEndTurnButton(bool enabled)
     {
         endTurnButton.SetActive(enabled);
+        Debug.Log("end turn button: " + enabled);
 
         if(enabled)
         {
@@ -136,6 +143,7 @@ public class UICanvasHandler : MonoBehaviour
     // set the spellbook buttons active if in spellbook scene
     public void ActivateSpellbookButtons(bool enabled)
     {
+        spellbookMainButton.SetActive(enabled);
         libraryButton.SetActive(enabled);
         questButton.SetActive(enabled);
         progressButton.SetActive(enabled);

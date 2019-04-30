@@ -21,7 +21,8 @@ public class EndTurnClick : MonoBehaviour
             GameObject.Find("ScriptContainer").GetComponent<MainPageHandler>().DisplayMana(manaCollected);
 
             // close Dice tray if it's open
-            GameObject.Find("Dice Tray").GetComponent<DiceUIHandler>().OpenCloseDiceTray();
+            if(GameObject.Find("Dice Tray"))
+                GameObject.Find("Dice Tray").GetComponent<DiceUIHandler>().OpenCloseDiceTray();
 
             // disable buttons
             UICanvasHandler.instance.ActivateEndTurnButton(false);
