@@ -118,6 +118,7 @@ public class DiceRoll : MonoBehaviour
             // if Allegro was cast, remove it after rolling dice
             SpellTracker.instance.RemoveFromActiveSpells("Allegro");
 
+            // check roll values AFTER all spells are accounted for
             CheckMoveRoll(LastRoll);
             CheckManaRoll(LastRoll);
 
@@ -131,7 +132,10 @@ public class DiceRoll : MonoBehaviour
         if(transform.parent.name.Equals("slot1"))
         {
             localPlayer.Spellcaster.spacesTraveled += rollValue;
+            UICanvasHandler.instance.spacesMoved += rollValue;
         }
+
+        UICanvasHandler.instance.ShowMovePanel();
     }
 
     // add a percentage to mana multiplier for earning mana at the end of turn

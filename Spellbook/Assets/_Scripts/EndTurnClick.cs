@@ -15,6 +15,7 @@ public class EndTurnClick : MonoBehaviour
             localPlayer.Spellcaster.hasAttacked = false;
             localPlayer.Spellcaster.hasRolled = false;
             localPlayer.Spellcaster.scannedSpaceThisTurn = false;
+            UICanvasHandler.instance.spacesMoved = 0;
 
             // collect end of turn mana
             int manaCollected = localPlayer.Spellcaster.CollectManaEndTurn();
