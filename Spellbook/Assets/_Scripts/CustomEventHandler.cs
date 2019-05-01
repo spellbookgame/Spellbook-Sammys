@@ -68,11 +68,15 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
 
         // in board_space_handling region
         // only scan item if player hasn't scanned a space this turn
-        if(!localPlayer.Spellcaster.scannedSpaceThisTurn)
+        if(!localPlayer.Spellcaster.scannedSpaceThisTurn && UICanvasHandler.instance.spacesMoved > 0)
             scanItem(mTrackableBehaviour.TrackableName);
-        else
+        else if(localPlayer.Spellcaster.scannedSpaceThisTurn)
         {
             PanelHolder.instance.displayNotify("Oops!","You already scanned a location this turn.", "Main");
+        }
+        else if(UICanvasHandler.instance.spacesMoved <= 0)
+        {
+            PanelHolder.instance.displayNotify("Oops!", "You can't scan a location if you haven't moved.", "Main");
         }
     }
 

@@ -63,33 +63,8 @@ public abstract class SpellCaster
         activeQuests = new List<Quest>();
         inventory = new List<ItemObject>();
 
-        glyphs = new Dictionary<string, int>()
-        {
-            { "Alchemy A Glyph", 3 },
-            { "Alchemy B Glyph", 3 },
-            { "Alchemy C Glyph", 3 },
-            { "Alchemy D Glyph", 3 },
-            { "Arcane A Glyph", 3 },
-            { "Arcane B Glyph", 3 },
-            { "Arcane C Glyph", 3 },
-            { "Arcane D Glyph", 3 },
-            { "Elemental A Glyph", 3 },
-            { "Elemental B Glyph", 3 },
-            { "Elemental C Glyph", 3 },
-            { "Elemental D Glyph", 3 },
-            { "Illusion A Glyph", 3 },
-            { "Illusion B Glyph", 3 },
-            { "Illusion C Glyph", 3 },
-            { "Illusion D Glyph", 3 },
-            { "Summoning A Glyph", 3 },
-            { "Summoning B Glyph", 3 },
-            { "Summoning C Glyph", 3 },
-            { "Summoning D Glyph", 3 },
-            { "Time A Glyph", 3 },
-            { "Time B Glyph", 3 },
-            { "Time C Glyph", 3 },
-            { "Time D Glyph", 3 },
-        };
+        // remove glyphs entirely eventually
+        glyphs = new Dictionary<string, int>();
 
         dice = new Dictionary<string, int>()
         {
