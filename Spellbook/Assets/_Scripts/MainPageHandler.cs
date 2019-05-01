@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -62,23 +61,11 @@ public class MainPageHandler : MonoBehaviour
         {
             CrisisHandler.instance.CallTsunami();
         }
-        if(Input.GetKeyDown(KeyCode.E))
-        {
-            localPlayer.Spellcaster.CollectSpell(new Allegro());
-        }
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            localPlayer.Spellcaster.CollectSpell(new Playwright());
-        }
         if (Input.GetKeyDown(KeyCode.S))
         {
-            SceneManager.LoadScene("ShopScene");
+            SceneManager.LoadScene("SwampScene");
         }
-        if(Input.GetKeyDown(KeyCode.M))
-        {
-            SceneManager.LoadScene("MineScene");
-        }
-        if(Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F))
         {
             SceneManager.LoadScene("ForestScene");
         }

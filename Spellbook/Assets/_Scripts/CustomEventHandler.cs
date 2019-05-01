@@ -193,6 +193,7 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
                 SceneManager.LoadScene("MineScene");
                 break;
             case "location_swamp":
+                SceneManager.LoadScene("SwampScene");
                 break;
             case "location_forest":
                 SceneManager.LoadScene("ForestScene");
