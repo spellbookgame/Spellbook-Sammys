@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -155,10 +154,11 @@ public class UICanvasHandler : MonoBehaviour
 
     private IEnumerator StartMovePanel()
     {
+        yield return new WaitForSeconds(2f);
         movePanel.transform.GetChild(0).GetComponent<Text>().text = "Move " + spacesMoved.ToString();
         movePanel.SetActive(true);
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
         movePanel.SetActive(false);
     }
 }

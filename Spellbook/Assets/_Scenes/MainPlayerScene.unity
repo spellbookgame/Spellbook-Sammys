@@ -3077,7 +3077,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 800, y: 300}
+  m_SizeDelta: {x: 800, y: 441.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1076858233
 MonoBehaviour:
@@ -3101,7 +3101,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: ca387620f78a548d996dd7f383ba71ed, type: 3}
-    m_FontSize: 150
+    m_FontSize: 120
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -6423,6 +6423,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6b0821f0c5a64d48a0fd339dfd786b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spacesMoved: 0
   spellbookButton: {fileID: 1996619079}
   diceButton: {fileID: 364770029}
   inventoryButton: {fileID: 120093640}

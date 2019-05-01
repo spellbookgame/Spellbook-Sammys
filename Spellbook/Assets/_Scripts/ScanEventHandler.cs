@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using Vuforia;
 
 /// <summary>
@@ -9,10 +10,12 @@ using Vuforia;
 public class ScanEventHandler : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     [SerializeField] private GameObject instructionImage;
+    [SerializeField] private Text moveInfo;
     [SerializeField] private UnityEngine.UI.Image backgroundImage;
     private void Start()
     {
         VuforiaBehaviour.Instance.enabled = false;
+        moveInfo.text = "You move " + UICanvasHandler.instance.spacesMoved.ToString() + " spaces this turn.";
     }
 
     public void OnPointerDown(PointerEventData eventData)
