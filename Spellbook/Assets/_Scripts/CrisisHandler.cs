@@ -10,21 +10,19 @@ public class CrisisHandler : MonoBehaviour
     // public variables
     public bool crisisSolved;
 
-    public string crisisName = "";
+    public string crisisName = "";              // these are for the Crisis panel information
     public string crisisDetails = "";
     public string crisisConsequence = "";
     public string crisisReward = "";
-    public string requiredLocation = "";
-    public string requiredClass = "";
 
+    public string requiredLocation = "";        // these are to track the progress/completion
+    public string requiredClass = "";
     public int requiredSpellTier = 0;
     public int roundsUntilCrisis = 0;
 
     // tracking each crisis to see which one is currently active
     public bool tsunamiActive = false;
     public bool cometActive = false;
-
-    Player localPlayer;
 
     #region singleton
     void Awake()
@@ -43,10 +41,6 @@ public class CrisisHandler : MonoBehaviour
     }
     #endregion
 
-    private void Start()
-    {
-        localPlayer = GameObject.Find("LocalPlayer").GetComponent<Player>();
-    }
 
     #region tsunami
     // call this to alert players of new crisis

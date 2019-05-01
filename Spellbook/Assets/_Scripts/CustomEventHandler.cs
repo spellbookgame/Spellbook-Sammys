@@ -124,15 +124,7 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
 
             #region town_spaces
             case "town_alchemist":
-                Quest alchemyManaQuest = new AlchemyManaQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
-                if (QuestTracker.instance.HasQuest(alchemyManaQuest))
-                {
-                    PanelHolder.instance.displayNotify("Alchemist Town", "You're already on a quest for this town.", "OK");
-                }
-                else
-                {
-                    PanelHolder.instance.displayQuest(alchemyManaQuest);
-                }
+                SceneManager.LoadScene("AlchemyTownScene");
                 break;
 
             case "town_arcanist":
