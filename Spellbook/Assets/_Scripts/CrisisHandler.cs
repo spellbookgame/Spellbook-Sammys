@@ -18,7 +18,7 @@ public class CrisisHandler : MonoBehaviour
     public int requiredSpellTier = 0;
     public int roundsUntilCrisis = 0;
 
-    // tracking each crisis to see which one is currently active
+    // tracking to see which crisis is currently active
     public string currentCrisis = "";
 
     #region singleton
@@ -47,7 +47,7 @@ public class CrisisHandler : MonoBehaviour
         roundsUntilCrisis = 3;
 
         crisisName = "Tsunami";
-        requiredLocation = "capital";   // change to forest eventually
+        requiredLocation = "location_forest";
         requiredClass = "Elementalist";
         requiredSpellTier = 3;
 
@@ -102,7 +102,7 @@ public class CrisisHandler : MonoBehaviour
         roundsUntilCrisis = 3;
 
         crisisName = "Stonelung Plague";
-        requiredLocation = "Capital";
+        requiredLocation = "location_capital";
         requiredClass = "Alchemist";
         requiredSpellTier = 2;
 
@@ -121,6 +121,32 @@ public class CrisisHandler : MonoBehaviour
         currentCrisis = "";
     }
     #endregion
+
+    public void CallIntervention()
+    {
+        currentCrisis = "Intervention";
+        crisisSolved = false;
+        roundsUntilCrisis = 3;
+
+        crisisName = "Divine Intervention";
+        requiredLocation = "town_summoner";
+        requiredClass = "Summoner";
+        requiredSpellTier = 2;
+
+        crisisDetails = "Summoner must go to the Summoner Town and cast a TIER 2 spell.";
+        crisisConsequence = "All wizards will receive 5-10 damage and must discard their bottom 2 runes.";
+        crisisReward = "Another rune slot will be available in the Summoner Town!";
+
+        PanelHolder.instance.displayCrisis("Crisis Alert: Divine Intervention", roundsUntilCrisis);
+    }
+
+    // call this when crisis arrives (if roundsUntilCrisis == 0)
+    public void FinishIntervention()
+    {
+        // if(crisisSolved) give rewards
+        // if(!crisisSolved) give consequence
+        currentCrisis = "";
+    }
 
     #region checkCrisis
     // call this to check if crisis is resolved
@@ -166,6 +192,11 @@ public class CrisisHandler : MonoBehaviour
                             crisisSolved = true;
                         }
                     }
+                    break;
+                // this is checked in SummonerTownHandler.cs
+                case "Intervention":
+                    PanelHolder.instance.displayNotify("Intervention Averted", "Congratulations! Your Summoner maintained peace between the two realms.", "OK");
+                    crisisSolved = true;
                     break;
                 default:
                     break;

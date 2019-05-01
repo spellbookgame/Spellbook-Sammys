@@ -59,19 +59,15 @@ public class MainPageHandler : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.T))
         {
-            CrisisHandler.instance.CallTsunami();
+            CrisisHandler.instance.CallIntervention();
         }
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.U))
         {
-            SceneManager.LoadScene("SwampScene");
-        }
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            SceneManager.LoadScene("ForestScene");
+            localPlayer.Spellcaster.CollectSpell(new CoMUmbra());
         }
         if (Input.GetKeyDown(KeyCode.A))
         {
-            SceneManager.LoadScene("AlchemyTownScene");
+            SceneManager.LoadScene("SummonerTownScene");
         }
     }
 

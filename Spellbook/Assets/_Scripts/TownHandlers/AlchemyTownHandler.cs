@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class AlchemyTownHandler : MonoBehaviour
@@ -8,6 +9,7 @@ public class AlchemyTownHandler : MonoBehaviour
     [SerializeField] private Button findQuestButton;
     [SerializeField] private Button dropItemButton;
     [SerializeField] private Button pickupItemButton;
+    [SerializeField] private Button leaveButton;
 
     private Player localPlayer;
     private void Start()
@@ -16,6 +18,12 @@ public class AlchemyTownHandler : MonoBehaviour
 
         findQuestButton.onClick.AddListener(FindQuest);
         dropItemButton.onClick.AddListener(DropItem);
+
+        leaveButton.onClick.AddListener(() =>
+        {
+            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+            SceneManager.LoadScene("MainPlayerScene");
+        });
     }
 
     private void FindQuest()
