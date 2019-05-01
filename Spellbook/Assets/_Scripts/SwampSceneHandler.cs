@@ -50,7 +50,7 @@ public class SwampSceneHandler : MonoBehaviour
                     int randIndex = Random.Range(0, localPlayer.Spellcaster.inventory.Count - 1);
                     string itemName = localPlayer.Spellcaster.inventory[randIndex].name;
                     localPlayer.Spellcaster.RemoveFromInventory(localPlayer.Spellcaster.inventory[randIndex]);
-                    dialogueText.text = "Thank you for your " + itemName + ". You will receive double mana from the land next round.";
+                    dialogueText.text = "I'll take your " + itemName + ". You will receive double mana from the land next round.";
                     requestCompleted = true;
                 }
                 else

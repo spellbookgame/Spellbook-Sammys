@@ -70,6 +70,10 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
         // only scan item if player hasn't scanned a space this turn
         if(!localPlayer.Spellcaster.scannedSpaceThisTurn)
             scanItem(mTrackableBehaviour.TrackableName);
+        else
+        {
+            PanelHolder.instance.displayNotify("Oops!","You already scanned a location this turn.", "Main");
+        }
     }
 
     protected virtual void OnTrackingLost()
