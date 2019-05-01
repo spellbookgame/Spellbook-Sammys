@@ -44,7 +44,7 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
             newStatus == TrackableBehaviour.Status.EXTENDED_TRACKED)
         {
             Debug.Log("Trackable " + mTrackableBehaviour.TrackableName + " found");
-            // basically, wait 3 seconds before it'll start scanning the target
+            // basically, wait x seconds before it'll start scanning the target
             coroutineReference = StartCoroutine(ScanTime());
         }
         else if (previousStatus == TrackableBehaviour.Status.TRACKED &&
@@ -63,8 +63,6 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
     }
     protected virtual void OnTrackingFound()
     {
-
-        // in board_space_handling region
         // only scan item if player hasn't scanned a space this turn
         if(!localPlayer.Spellcaster.scannedSpaceThisTurn && UICanvasHandler.instance.spacesMoved > 0)
             scanItem(mTrackableBehaviour.TrackableName);
@@ -98,8 +96,8 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
     
     private void scanItem(string trackableName)
     {
-        // check for tsunami crisis
-        CrisisHandler.instance.CheckTsunami(localPlayer, trackableName);
+        // check for crises
+        CrisisHandler.instance.CheckCrisis(localPlayer, CrisisHandler.instance.currentCrisis, trackableName);
 
         // check for quests
         QuestTracker.instance.TrackErrandQuest(trackableName);

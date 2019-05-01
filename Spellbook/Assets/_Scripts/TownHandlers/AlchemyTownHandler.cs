@@ -15,6 +15,7 @@ public class AlchemyTownHandler : MonoBehaviour
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
 
         findQuestButton.onClick.AddListener(FindQuest);
+        dropItemButton.onClick.AddListener(DropItem);
     }
 
     private void FindQuest()
@@ -29,6 +30,18 @@ public class AlchemyTownHandler : MonoBehaviour
         else
         {
             PanelHolder.instance.displayQuest(alchemyManaQuest);
+        }
+    }
+
+    private void DropItem()
+    {
+        if(localPlayer.Spellcaster.inventory.Count <= 0)
+        {
+            PanelHolder.instance.displayNotify("No Items", "You don't have any items to drop off!", "OK");
+        }
+        else
+        {
+            // implement dropoff
         }
     }
 }
