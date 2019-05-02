@@ -19,6 +19,7 @@ public class MainPageHandler : MonoBehaviour
     [SerializeField] private SpriteRenderer characterImage;
     [SerializeField] private UIWarpController warpController;
     [SerializeField] private SpriteRenderer symbolImage;
+    [SerializeField] private GameObject informationPanel;
     
     [SerializeField] private Button spellbookButton;
     [SerializeField] private Button inventoryButton;
@@ -107,6 +108,10 @@ public class MainPageHandler : MonoBehaviour
         ColorUtility.TryParseHtmlString(localPlayer.Spellcaster.hexStringLight, out lightCol);
         lightCol = lightCol.SetSaturation(0.35f);
         warpController.color = lightCol;
+        // set info panel color based on class
+        Color panelCol = new Color();
+        ColorUtility.TryParseHtmlString(localPlayer.Spellcaster.hexStringPanel, out panelCol);
+        informationPanel.GetComponent<Image>().color = panelCol;
 
         // set onclick listeners for spellbook/inventory button
         spellbookButton.onClick.AddListener(() =>

@@ -26,5 +26,6 @@ public class Elementalist : SpellCaster
         characterIconPath = "Characters/symbol_glow_elementalist";
 
         hexStringLight = "#910000";
+        hexStringPanel = "#FFBDB2";
     }
 }
