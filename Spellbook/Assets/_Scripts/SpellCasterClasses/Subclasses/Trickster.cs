@@ -14,7 +14,7 @@ public class Trickster : SpellCaster
     public Trickster()
     {
         //You can override variables in here.
-        classType = "Trickster";
+        classType = "Illusionist";
         spellcasterID = 4;
         fMaxHealth = 20.0f;
         fCurrentHealth = fMaxHealth;

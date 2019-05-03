@@ -58,6 +58,7 @@ public class MainPageHandler : MonoBehaviour
             manaHasChanged = false;
         }
 
+        // TEST AREA - DELETE LATER
         if(Input.GetKeyDown(KeyCode.T))
         {
             CrisisHandler.instance.CallIntervention();
@@ -66,9 +67,17 @@ public class MainPageHandler : MonoBehaviour
         {
             localPlayer.Spellcaster.CollectSpell(new CoMUmbra());
         }
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.S))
         {
             SceneManager.LoadScene("SummonerTownScene");
+        }
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            SceneManager.LoadScene("SwampScene");
+        }
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            SceneManager.LoadScene("ForestScene");
         }
     }
 
