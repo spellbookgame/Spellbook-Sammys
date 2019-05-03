@@ -45,7 +45,7 @@ public class Chapter : MonoBehaviour
                 spellsAllowed.Add(new CoSLeon());
                 spellsAllowed.Add(new CoMUmbra());
                 break;
-            case "Trickster":
+            case "Illusionist":
                 spellsAllowed.Add(new Playwright());
                 spellsAllowed.Add(new Allegro());
                 break;

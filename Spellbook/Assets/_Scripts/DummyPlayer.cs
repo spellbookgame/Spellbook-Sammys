@@ -83,9 +83,9 @@ public class DummyPlayer : MonoBehaviour
 
     }
 
-    public void onClickTrickster()
+    public void onClickIllusionist()
     {
-        spellcaster = new Trickster();
+        spellcaster = new Illusionist();
         Debug.Log("Local Player chose " + spellcaster.classType);
 
     }

@@ -247,7 +247,7 @@ public abstract class SpellCaster
                     spellcaster = new Chronomancer();
                     break;
                 case 4:
-                    spellcaster = new Trickster();
+                    spellcaster = new Illusionist();
                     break;
                 default:
                     spellcaster = new Summoner();

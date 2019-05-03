@@ -93,7 +93,7 @@ public class EventSpaceManager : MonoBehaviour
                 //Chronomancer
                 break;
             case 4:
-                //Trickster
+                //Illusionist
                 break;
             case 5:
                 //Summoner

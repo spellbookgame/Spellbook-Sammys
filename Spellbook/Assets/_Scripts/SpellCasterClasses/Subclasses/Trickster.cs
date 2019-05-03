@@ -4,14 +4,14 @@ using UnityEngine;
 
 /*
   This class inherits from SpellCaster,
-  "because a Trickster is a type of spellcaster
+  "because a Illusionist is a type of spellcaster
   it should have spellcaster characteristics".
 
-  Trickster also has it's own unique features.
+  Illusionist also has it's own unique features.
      */
-public class Trickster : SpellCaster
+public class Illusionist : SpellCaster
 {
-    public Trickster()
+    public Illusionist()
     {
         //You can override variables in here.
         classType = "Illusionist";
@@ -22,7 +22,7 @@ public class Trickster : SpellCaster
         // creating the class-specific chapter
         chapter = new Chapter(classType);
 
-        characterSpritePath = "Characters/Trickster";
+        characterSpritePath = "Characters/Illusionist";
         characterIconPath = "Characters/symbol_glow_illusion";
 
         hexStringLight = "#4A7C75";

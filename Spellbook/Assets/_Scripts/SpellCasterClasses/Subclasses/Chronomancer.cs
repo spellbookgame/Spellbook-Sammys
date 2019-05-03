@@ -26,7 +26,7 @@ public class Chronomancer : SpellCaster
         characterSpritePath = "Characters/Chronomancer";
         characterIconPath = "Characters/symbol_glow_chronomancer";
 
-        hexStringLight = "#6D4021";
+        hexStringLight = "#6D3813";
         hexStringPanel = "#FFFFFF";
     }
 }

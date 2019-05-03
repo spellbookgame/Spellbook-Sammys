@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-// spell for Trickster class
+// spell for Illusionist class
 public class Playwright : Spell
 {
     public Playwright()
@@ -12,11 +12,11 @@ public class Playwright : Spell
         combatSpell = false;
 
         sSpellName = "Playwright";
-        sSpellClass = "Trickster";
+        sSpellClass = "Illusionist";
         sSpellInfo = "Destroy a random item to change two of your runes into any runes of your choice.";
 
-        requiredRunes.Add("Trickster A Rune", 1);
-        requiredRunes.Add("Trickster B Rune", 1);
+        requiredRunes.Add("Illusionist A Rune", 1);
+        requiredRunes.Add("Illusionist B Rune", 1);
         requiredRunes.Add("Arcanist A Rune", 1);
     }
 

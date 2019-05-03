@@ -32,7 +32,7 @@ namespace Photon.Lobby
         public Button arcanistButton;
         public Button elementalistButton;
         public Button chronomancerButton;
-        public Button illusionistButton;  //aka tricksterButton
+        public Button illusionistButton;  //aka IllusionistButton
         public Button summonerButton;
 
         public GameObject alchemistSelection;
@@ -78,7 +78,7 @@ namespace Photon.Lobby
                 arcanistButton = GameObject.Find("button_arcanist").GetComponent<Button>();
                 elementalistButton = GameObject.Find("button_elementalist").GetComponent<Button>();
                 chronomancerButton = GameObject.Find("button_chronomancer").GetComponent<Button>();
-                illusionistButton = GameObject.Find("button_trickster").GetComponent<Button>();
+                illusionistButton = GameObject.Find("button_Illusionist").GetComponent<Button>();
                 summonerButton = GameObject.Find("button_summoner").GetComponent<Button>();
 
                 text = GameObject.Find("ChooseClass").GetComponent<Text>();

@@ -12,10 +12,10 @@ public class Allegro : Spell
         combatSpell = false;
 
         sSpellName = "Allegro";
-        sSpellClass = "Trickster";
+        sSpellClass = "Illusionist";
         sSpellInfo = "Add a D6 to your movement next time you roll. Can cast on an ally.";
 
-        requiredRunes.Add("Trickster D Rune", 1);
+        requiredRunes.Add("Illusionist D Rune", 1);
     }
 
     public override void SpellCast(SpellCaster player)

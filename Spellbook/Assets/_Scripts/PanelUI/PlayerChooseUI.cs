@@ -12,7 +12,7 @@ public class PlayerChooseUI : MonoBehaviour
     [SerializeField] private Button bChronomancer;
     [SerializeField] private Button bElementalist;
     [SerializeField] private Button bSummoner;
-    [SerializeField] private Button bTrickster;
+    [SerializeField] private Button bIllusionist;
 
     public bool panelActive = false;
     public string panelID = "playerchoose";
