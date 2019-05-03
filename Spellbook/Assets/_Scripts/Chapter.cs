@@ -43,6 +43,7 @@ public class Chapter : MonoBehaviour
                 break;
             case "Elementalist":
                 spellsAllowed.Add(new Tailwind());
+                spellsAllowed.Add(new TerraformingEarthquake());
                 spellsAllowed.Add(new FrozenTerrain());
                 spellsAllowed.Add(new Growth());
                 break;
