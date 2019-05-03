@@ -7,7 +7,7 @@ public class CollectorsDrink : Spell
     public CollectorsDrink()
     {
         iTier = 2;
-        iManaCost = 200;
+        iManaCost = 1200;
 
         combatSpell = false;
 

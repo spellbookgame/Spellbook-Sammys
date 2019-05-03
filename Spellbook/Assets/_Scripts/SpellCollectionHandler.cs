@@ -41,6 +41,9 @@ public class SpellCollectionHandler : MonoBehaviour
 
         // make spell panel last in hierarchy so it will appear over buttons
         spellPanel.transform.SetAsLastSibling();
+
+        // set panel holder as last sibling
+        PanelHolder.instance.SetPanelHolderLast();
     }
 
     private void Update()

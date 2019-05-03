@@ -44,6 +44,9 @@ public class LibraryHandler : MonoBehaviour
             // to position new button underneath prev button
             yPos -= 200;
         }
+
+        // set panel holder as last sibling
+        PanelHolder.instance.SetPanelHolderLast();
     }
 
     private void ShowSpellInfo(Spell spell)

@@ -45,22 +45,10 @@ public class PanelHolder : MonoBehaviour
         }
     }
 
-    private void OnEnable()
+    // keep panelholder as topmost image
+    public void SetPanelHolderLast()
     {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-
-    private void OnDisable()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        // if proclamation panel was shown already
-        if(GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().Spellcaster.procPanelShown)
-            // keep panelholder as topmost image
-            transform.SetAsLastSibling();
+        transform.SetAsLastSibling();
     }
 
     // enables panel if it's next in queue
