@@ -21,6 +21,16 @@ public class ScanEventHandler : MonoBehaviour, IPointerDownHandler, IPointerUpHa
     public void OnPointerDown(PointerEventData eventData)
     {
         VuforiaBehaviour.Instance.enabled = true;
+        
+        // setting camera focus mode to auto
+        bool focusModeSet = CameraDevice.Instance.SetFocusMode(
+                            CameraDevice.FocusMode.FOCUS_MODE_CONTINUOUSAUTO);
+
+        if (!focusModeSet)
+        {
+            Debug.Log("Failed to set focus mode (unsupported mode).");
+        }
+
         instructionImage.SetActive(false);
         backgroundImage.enabled = false;
     }
