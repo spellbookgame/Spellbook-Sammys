@@ -117,6 +117,8 @@ public class DiceRoll : MonoBehaviour
             SpellTracker.instance.RemoveFromActiveSpells("Tailwind");
             // if Allegro was cast, remove it after rolling dice
             SpellTracker.instance.RemoveFromActiveSpells("Allegro");
+            // if Growth was cast, remove it after rolling dice
+            SpellTracker.instance.RemoveFromActiveSpells("Growth");
 
             // check roll values AFTER all spells are accounted for
             CheckMoveRoll(LastRoll);

@@ -43,6 +43,8 @@ public class Chapter : MonoBehaviour
                 break;
             case "Elementalist":
                 spellsAllowed.Add(new Tailwind());
+                spellsAllowed.Add(new FrozenTerrain());
+                spellsAllowed.Add(new Growth());
                 break;
             case "Summoner":
                 spellsAllowed.Add(new CoSLeon());

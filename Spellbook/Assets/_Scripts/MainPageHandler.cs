@@ -65,7 +65,7 @@ public class MainPageHandler : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.U))
         {
-            localPlayer.Spellcaster.CollectSpell(new CombinedKnowledge());
+            localPlayer.Spellcaster.CollectSpell(new Growth());
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
