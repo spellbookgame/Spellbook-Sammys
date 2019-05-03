@@ -65,11 +65,11 @@ public class MainPageHandler : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.U))
         {
-            localPlayer.Spellcaster.CollectSpell(new CollectorsDrink());
+            localPlayer.Spellcaster.CollectSpell(new CharmingNegotiator());
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
-            SceneManager.LoadScene("SummonerTownScene");
+            SceneManager.LoadScene("ShopScene");
         }
         if (Input.GetKeyDown(KeyCode.W))
         {

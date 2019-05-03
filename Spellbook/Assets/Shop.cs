@@ -19,7 +19,7 @@ public class Shop : MonoBehaviour
     public Button button_item3;
     public Image image_item3;
 
-    public Button button_backButton;
+    public Button button_exitButton;
     public Button button_buyButton;
 
     public Text text_myMana;
@@ -44,7 +44,17 @@ public class Shop : MonoBehaviour
     {
         allItems = GetComponent<ItemList>().listOfItems;
         spellcaster = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().spellcaster;
-        
+
+        button_exitButton.onClick.AddListener(() =>
+        {
+            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+
+            // remove Charming Negotiator from active spells if it's active
+            SpellTracker.instance.RemoveFromActiveSpells("Brew - Charming Negotiator");
+
+            SceneManager.LoadScene("MainPlayerScene");
+        });
+
         float size = allItems.Count;
 
         //Choose 4 random items from item pool to put for sale.
@@ -81,17 +91,6 @@ public class Shop : MonoBehaviour
         image_item3.sprite = item3.sprite;
 
         text_myMana.text = spellcaster.iMana + "";
-        
-
-
-        /*
-        button_backButton.onClick.AddListener(() =>
-        {
-            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
-
-            //TODO: Change scene later.
-            SceneManager.LoadScene("MainPlayerScene");
-        });*/
 
         button_buyButton.onClick.AddListener(() =>
         {
@@ -141,6 +140,12 @@ public class Shop : MonoBehaviour
 
     private void PopulateSaleUI(ItemObject item)
     {
+        // if Charming Negotiator is active, discount sale price by 30%
+        if (SpellTracker.instance.SpellIsActive("Brew - Charming Negotiator"))
+        {
+            item.buyPrice = (int) (item.buyPrice * 0.7);
+        }
+
         currentSelected = item;
         text_itemName.text = item.name;
         text_itemPrice.text = item.buyPrice + "";
