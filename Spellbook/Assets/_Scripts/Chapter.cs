@@ -33,6 +33,7 @@ public class Chapter : MonoBehaviour
                 break;
             case "Arcanist":
                 spellsAllowed.Add(new Transcribe());
+                spellsAllowed.Add(new CombinedKnowledge());
                 spellsAllowed.Add(new RuneConversion());
                 spellsAllowed.Add(new ArcanaHarvest());
                 break;
