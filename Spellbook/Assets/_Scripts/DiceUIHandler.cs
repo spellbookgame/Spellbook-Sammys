@@ -57,12 +57,12 @@ public class DiceUIHandler : MonoBehaviour
             PopulateScrollRect();
 
             // if player has Tailwind active, add a D6 to movement slot
-            if (localPlayer.Spellcaster.activeSpells.Any(x => x.sSpellName.Equals("Tailwind")))
+            if (SpellTracker.instance.SpellIsActive("Tailwind"))
             {
                 D6ToMovement();
             }
             // if player has Allegro active, add a D6 to movement slot
-            if (localPlayer.Spellcaster.activeSpells.Any(x => x.sSpellName.Equals("Allegro")))
+            if (SpellTracker.instance.SpellIsActive("Allegro"))
             {
                 D6ToMovement();
             }

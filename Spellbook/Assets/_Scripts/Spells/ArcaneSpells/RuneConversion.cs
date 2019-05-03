@@ -25,7 +25,6 @@ public class RuneConversion : Spell
         // cast spell for free if Umbra's Eclipse is active
         if (SpellTracker.instance.CheckUmbra())
         {
-            SpellTracker.instance.RemoveFromActiveSpells("Call of the Moon - Umbra's Eclipse");
             PanelHolder.instance.displayNotify(sSpellName, "Discard one of your current runes. Draw a new one from the deck.", "OK");
         }
         else if (player.iMana < iManaCost)

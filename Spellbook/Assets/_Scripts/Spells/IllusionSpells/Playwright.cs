@@ -29,8 +29,6 @@ public class Playwright : Spell
         // cast spell for free if Umbra's Eclipse is active
         else if (SpellTracker.instance.CheckUmbra())
         {
-            SpellTracker.instance.RemoveFromActiveSpells("Call of the Moon - Umbra's Eclipse");
-
             string itemName;
             // take a random index from the inventory of items and remove it 
             List<ItemObject> playerInventory = new List<ItemObject>(player.inventory);

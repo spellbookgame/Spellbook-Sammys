@@ -81,6 +81,13 @@ public abstract class SpellCaster
             PanelHolder.instance.displayNotify("Too many items!", "Your inventory is full, you cannot hold any more items.", "OK");
         else
             inventory.Add(newItem);
+
+        // if Collector's Drink is active, add another copy of the item
+        if (SpellTracker.instance.SpellIsActive("Brew - Collector's Drink"))
+        {
+            inventory.Add(newItem);
+            SpellTracker.instance.RemoveFromActiveSpells("Brew - Collector's Drink");
+        }
     }
     public void RemoveFromInventory(ItemObject newItem)
     {

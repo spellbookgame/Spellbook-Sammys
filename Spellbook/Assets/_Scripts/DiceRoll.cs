@@ -98,7 +98,7 @@ public class DiceRoll : MonoBehaviour
             SetDefaults();
 
             // if Echo is active, player may reroll one more time
-            if (localPlayer.Spellcaster.activeSpells.Any(x => x.sSpellName.Equals("Echo")))
+            if (SpellTracker.instance.SpellIsActive("Echo"))
             {
                 if (pressedNum <= 1)
                 {

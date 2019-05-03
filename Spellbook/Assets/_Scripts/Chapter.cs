@@ -27,6 +27,7 @@ public class Chapter : MonoBehaviour
         {
             case "Alchemist":
                 spellsAllowed.Add(new PotionofLuck());
+                spellsAllowed.Add(new CollectorsDrink());
                 spellsAllowed.Add(new CrystalScent());
                 break;
             case "Arcanist":
