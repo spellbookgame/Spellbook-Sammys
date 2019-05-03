@@ -52,6 +52,8 @@ public class Chapter : MonoBehaviour
                 break;
             case "Illusionist":
                 spellsAllowed.Add(new Playwright());
+                spellsAllowed.Add(new CheatOut());
+                spellsAllowed.Add(new Playback());
                 spellsAllowed.Add(new Allegro());
                 break;
             default:
