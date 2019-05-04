@@ -15,8 +15,9 @@ public class MimeticVellum : ItemObject
         mechanicsDescription = "Duplicates a rune of the user's choice. User must have the rune in possession.";
     }
 
-    public override void UseItem()
+    public override void UseItem(SpellCaster player)
     {
-        PanelHolder.instance.displayNotify("Mimetic Vellum", "Choose a rune from your hand and duplicate it. Discard a rune to keep the duplicate.", "OK");
+        player.RemoveFromInventory(this);
+        PanelHolder.instance.displayNotify("Mimetic Vellum", "Choose a rune from your hand and duplicate it. Discard a rune to keep the duplicate.", "Inventory");
     }
 }

@@ -21,7 +21,7 @@ public class ItemObject : IComparable<ItemObject>
         return 0;
     }
 
-    public virtual void UseItem()
+    public virtual void UseItem(SpellCaster player)
     {
         // do something
     }

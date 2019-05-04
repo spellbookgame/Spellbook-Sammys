@@ -15,8 +15,9 @@ public class AbyssalOre : ItemObject
         mechanicsDescription = "When used, this transforms into a random die from D4 to D8. One time use only.";
     }
 
-    public override void UseItem()
+    public override void UseItem(SpellCaster player)
     {
+        player.RemoveFromInventory(this);
         // give player a random dice
     }
 }

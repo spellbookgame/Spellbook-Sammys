@@ -47,6 +47,9 @@ public class NotifyUI : MonoBehaviour
             case "Shop":
                 singleButton.onClick.AddListener((ShopClick));
                 break;
+            case "Inventory":
+                singleButton.onClick.AddListener((InventoryClick));
+                break;
             case "Main":
                 singleButton.onClick.AddListener((MainClick));
                 break;
@@ -93,6 +96,16 @@ public class NotifyUI : MonoBehaviour
         SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
         gameObject.SetActive(false);
         SceneManager.LoadScene("ShopScene");
+
+        if (PanelHolder.panelQueue.Count > 0)
+            PanelHolder.panelQueue.Dequeue();
+        PanelHolder.instance.CheckPanelQueue();
+    }
+    private void InventoryClick()
+    {
+        SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+        gameObject.SetActive(false);
+        SceneManager.LoadScene("InventoryScene");
 
         if (PanelHolder.panelQueue.Count > 0)
             PanelHolder.panelQueue.Dequeue();

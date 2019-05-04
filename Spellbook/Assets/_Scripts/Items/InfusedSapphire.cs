@@ -15,8 +15,9 @@ public class InfusedSapphire : ItemObject
         mechanicsDescription = "When shattered, teleports the user to a random location.";
     }
 
-    public override void UseItem()
+    public override void UseItem(SpellCaster player)
     {
-        PanelHolder.instance.displayNotify("Infused Sapphire", "The Infused Sapphire teleported you to the Forest!", "OK");
+        player.RemoveFromInventory(this);
+        PanelHolder.instance.displayNotify("Infused Sapphire", "The Infused Sapphire teleported you to the Forest!", "Inventory");
     }
 }

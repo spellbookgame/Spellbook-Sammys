@@ -1,11 +1,14 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour
 {
     public Transform itemsParent;
     [SerializeField] private GameObject inventoryPanel;
+    [SerializeField] private Button buttonClose;
+    [SerializeField] private Button buttonUse;
     [SerializeField] private GameObject infoPanel;
 
     //Inventory inventory;
@@ -16,7 +19,6 @@ public class InventoryUI : MonoBehaviour
 
     private bool infoPanelOpen;
 
-    // Start is called before the first frame update
     void Start()
     {
         //inventory = Inventory.instance;
@@ -29,6 +31,7 @@ public class InventoryUI : MonoBehaviour
         UpdateUI();
     }
 
+    // populate panel with items from player's inventory
     void UpdateUI() 
     {
         int i = 0;
@@ -40,7 +43,6 @@ public class InventoryUI : MonoBehaviour
 
             ++i;
         }
-        Debug.Log("UPDATING UI");
     }
 
     // panel that shows item information
@@ -49,18 +51,30 @@ public class InventoryUI : MonoBehaviour
         if (!infoPanelOpen)
         {
             infoPanel.SetActive(true);
+
             // setting panel text
             infoPanel.transform.GetChild(0).GetComponent<Text>().text = item.name;
             infoPanel.transform.GetChild(1).GetComponent<Text>().text = item.flavorDescription + "\n\n" + item.mechanicsDescription;
+
+            // add onclick to use item
+            buttonUse.onClick.AddListener(() => 
+            {
+                item.UseItem(localPlayer.Spellcaster);
+            });
+
             infoPanelOpen = true;
         }
         else
         {
+            // remove onclick from use button
+            buttonUse.onClick.RemoveAllListeners();
+
             infoPanel.SetActive(false);
             infoPanelOpen = false;
         }
+
         // adding onclick listener to close button
-        infoPanel.transform.Find("button_close").GetComponent<Button>().onClick.AddListener(() =>
+        buttonClose.onClick.AddListener(() =>
         {
             if (infoPanelOpen)
             {

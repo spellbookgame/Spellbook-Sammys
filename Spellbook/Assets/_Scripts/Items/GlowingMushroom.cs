@@ -15,7 +15,7 @@ public class GlowingMushroom : ItemObject
         mechanicsDescription = "Can be sold at a high price to shops.";
     }
 
-    public override void UseItem()
+    public override void UseItem(SpellCaster player)
     {
         PanelHolder.instance.displayNotify("Glowing Mushroom", "This item cannot be used.", "OK");
     }
