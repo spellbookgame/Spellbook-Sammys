@@ -17,7 +17,7 @@ public class ArcaneErrandQuest : Quest
 
         spaceName = "town_illusionist";
 
-        item = new ItemObject("Abyssal Ore", Resources.Load<Sprite>("Art Assets/Items and Currency/AbyssalOre"), 0, 0, 
+        item = new ItemObject("Abyssal Ore", Resources.Load<Sprite>("Art Assets/Items and Currency/AbyssalOre"), 0, 0, 0, 
                             "A rare metal given to you by the local Arcanist to give to the Illusion town.", "Does nothing.");
 
         GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().Spellcaster.AddToInventory(item);

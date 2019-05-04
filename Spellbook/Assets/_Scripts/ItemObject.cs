@@ -8,13 +8,14 @@ public class ItemObject : IComparable<ItemObject>
     public string name = "New Item";
     // public Sprite icon;
     public Sprite sprite;
+    public int tier;
     public int buyPrice;
     public int sellPrice;
     public string flavorDescription;
     public string mechanicsDescription;
     // public bool isDefaultItem = false;
 
-    public ItemObject(string newName, Sprite newSprite, int newBuyPrice, int newSellPrice,
+    public ItemObject(string newName, Sprite newSprite, int tier, int newBuyPrice, int newSellPrice,
         string newFlavorDescription, string newMechanicsDescription)
     {
         name = newName;
