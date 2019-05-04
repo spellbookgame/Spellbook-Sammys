@@ -16,12 +16,10 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
     private bool CR_running;
 
     Player localPlayer;
-    List<ItemObject> itemList;
     
     void Start()
     {
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
-        itemList = GameObject.Find("ItemList").GetComponent<ItemList>().listOfItems;
 
         mTrackableBehaviour = GetComponent<TrackableBehaviour>();
         if (mTrackableBehaviour)
@@ -46,7 +44,7 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
             newStatus == TrackableBehaviour.Status.EXTENDED_TRACKED)
         {
             Debug.Log("Trackable " + mTrackableBehaviour.TrackableName + " found");
-            // basically, wait 3 seconds before it'll start scanning the target
+            // basically, wait x seconds before it'll start scanning the target
             coroutineReference = StartCoroutine(ScanTime());
         }
         else if (previousStatus == TrackableBehaviour.Status.TRACKED &&
@@ -65,11 +63,17 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
     }
     protected virtual void OnTrackingFound()
     {
-
-        // in board_space_handling region
         // only scan item if player hasn't scanned a space this turn
-        if(!localPlayer.Spellcaster.scannedSpaceThisTurn)
+        if(!localPlayer.Spellcaster.scannedSpaceThisTurn && UICanvasHandler.instance.spacesMoved > 0)
             scanItem(mTrackableBehaviour.TrackableName);
+        else if(localPlayer.Spellcaster.scannedSpaceThisTurn)
+        {
+            PanelHolder.instance.displayNotify("Oops!","You already scanned a location this turn.", "Main");
+        }
+        else if(UICanvasHandler.instance.spacesMoved <= 0)
+        {
+            PanelHolder.instance.displayNotify("Oops!", "You can't scan a location if you haven't moved.", "Main");
+        }
     }
 
     protected virtual void OnTrackingLost()
@@ -92,8 +96,8 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
     
     private void scanItem(string trackableName)
     {
-        // check for tsunami crisis
-        CrisisHandler.instance.CheckTsunami(localPlayer, trackableName);
+        // check for crises
+        CrisisHandler.instance.CheckCrisis(localPlayer, CrisisHandler.instance.currentCrisis, trackableName);
 
         // check for quests
         QuestTracker.instance.TrackErrandQuest(trackableName);
@@ -101,90 +105,29 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
         // call function based on target name
         switch (trackableName)
         {
-            case "mana":
-                int m = (int)UnityEngine.Random.Range(100, 700);
-                localPlayer.Spellcaster.CollectMana(m);
-                break;
-
-            case "item":
-                // choose a random item to give to player from list
-                ItemObject item = itemList[UnityEngine.Random.Range(0, itemList.Count - 1)];
-                PanelHolder.instance.displayBoardScan("You found an Item!", "You got found a " + item.name + "!", item.sprite);
-                SoundManager.instance.PlaySingle(SoundManager.itemfound);
-                localPlayer.Spellcaster.AddToInventory(item);
-                break;
-
             #region town_spaces
             case "town_alchemist":
-                Quest alchemyManaQuest = new AlchemyManaQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
-                if (QuestTracker.instance.HasQuest(alchemyManaQuest))
-                {
-                    PanelHolder.instance.displayNotify("Alchemist Town", "You're already on a quest for this town.", "OK");
-                }
-                else
-                {
-                    PanelHolder.instance.displayQuest(alchemyManaQuest);
-                }
+                SceneManager.LoadScene("AlchemyTownScene");
                 break;
 
             case "town_arcanist":
-                Quest arcaneErrandQuest = new ArcaneErrandQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
-                if (QuestTracker.instance.HasQuest(arcaneErrandQuest))
-                {
-                    PanelHolder.instance.displayNotify("Arcane Town", "You're already on a quest for this town.", "OK");
-                }
-                else
-                {
-                    PanelHolder.instance.displayQuest(arcaneErrandQuest);
-                }
+                SceneManager.LoadScene("ArcaneTownScene");
                 break;
 
             case "town_chronomancer":
-                Quest timeMoveQuest = new TimeMoveQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
-                if (QuestTracker.instance.HasQuest(timeMoveQuest))
-                {
-                    PanelHolder.instance.displayNotify("Chronomancer Town", "You're already on a quest for this town.", "OK");
-                }
-                else
-                {
-                    PanelHolder.instance.displayQuest(timeMoveQuest);
-                }
+                SceneManager.LoadScene("ChronomancyTownScene");
                 break;
 
             case "town_elementalist":
-                Quest elementalMoveQuest = new ElementalMoveQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
-                if (QuestTracker.instance.HasQuest(elementalMoveQuest))
-                {
-                    PanelHolder.instance.displayNotify("Elemental Town", "You're already on a quest for this town.", "OK");
-                }
-                else
-                {
-                    PanelHolder.instance.displayQuest(elementalMoveQuest);
-                }
+                SceneManager.LoadScene("ElementalTownScene");
                 break;
 
             case "town_illusionist":
-                Quest illusionSpaceQuest = new IllusionManaQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
-                if (QuestTracker.instance.HasQuest(illusionSpaceQuest))
-                {
-                    PanelHolder.instance.displayNotify("Illusion Town", "You're already on a quest for this town.", "OK");
-                }
-                else
-                {
-                    PanelHolder.instance.displayQuest(illusionSpaceQuest);
-                }
+                SceneManager.LoadScene("IllusionTownScene");
                 break;
 
             case "town_summoner":
-                Quest summonManaQuest = new SummoningManaQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
-                if (QuestTracker.instance.HasQuest(summonManaQuest))
-                {
-                    PanelHolder.instance.displayNotify("Summoner Town", "You're already on a quest for this town.", "OK");
-                }
-                else
-                {
-                    PanelHolder.instance.displayQuest(summonManaQuest);
-                }
+                SceneManager.LoadScene("SummonerTownScene");
                 break;
             #endregion
 
@@ -193,6 +136,7 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
                 SceneManager.LoadScene("MineScene");
                 break;
             case "location_swamp":
+                SceneManager.LoadScene("SwampScene");
                 break;
             case "location_forest":
                 SceneManager.LoadScene("ForestScene");

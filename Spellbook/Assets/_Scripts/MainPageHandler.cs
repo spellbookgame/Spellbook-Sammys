@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -20,6 +19,7 @@ public class MainPageHandler : MonoBehaviour
     [SerializeField] private SpriteRenderer characterImage;
     [SerializeField] private UIWarpController warpController;
     [SerializeField] private SpriteRenderer symbolImage;
+    [SerializeField] private GameObject informationPanel;
     
     [SerializeField] private Button spellbookButton;
     [SerializeField] private Button inventoryButton;
@@ -58,27 +58,24 @@ public class MainPageHandler : MonoBehaviour
             manaHasChanged = false;
         }
 
+        // TEST AREA - DELETE LATER
         if(Input.GetKeyDown(KeyCode.T))
         {
-            CrisisHandler.instance.CallTsunami();
+            CrisisHandler.instance.CallIntervention();
         }
-        if(Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.U))
         {
-            localPlayer.Spellcaster.CollectSpell(new Allegro());
-        }
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            localPlayer.Spellcaster.CollectSpell(new Playwright());
+            localPlayer.Spellcaster.CollectSpell(new Growth());
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
             SceneManager.LoadScene("ShopScene");
         }
-        if(Input.GetKeyDown(KeyCode.M))
+        if (Input.GetKeyDown(KeyCode.W))
         {
-            SceneManager.LoadScene("MineScene");
+            SceneManager.LoadScene("SwampScene");
         }
-        if(Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F))
         {
             SceneManager.LoadScene("ForestScene");
         }
@@ -120,6 +117,10 @@ public class MainPageHandler : MonoBehaviour
         ColorUtility.TryParseHtmlString(localPlayer.Spellcaster.hexStringLight, out lightCol);
         lightCol = lightCol.SetSaturation(0.35f);
         warpController.color = lightCol;
+        // set info panel color based on class
+        Color panelCol = new Color();
+        ColorUtility.TryParseHtmlString(localPlayer.Spellcaster.hexStringPanel, out panelCol);
+        informationPanel.GetComponent<Image>().color = panelCol;
 
         // set onclick listeners for spellbook/inventory button
         spellbookButton.onClick.AddListener(() =>

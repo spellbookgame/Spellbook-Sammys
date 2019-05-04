@@ -25,7 +25,6 @@ public class DelayTime : Spell
         // cast spell for free if Umbra's Eclipse is active
         if (SpellTracker.instance.CheckUmbra())
         {
-            SpellTracker.instance.RemoveFromActiveSpells("Call of the Moon - Umbra's Eclipse");
             PanelHolder.instance.displayNotify("You cast " + sSpellName, "The next event will come 1 turn later.", "OK");
         }
         else if(player.iMana < iManaCost)

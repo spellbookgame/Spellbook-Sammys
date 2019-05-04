@@ -46,6 +46,7 @@ public abstract class SpellCaster
     public string characterSpritePath;
     public string characterIconPath;
     public string hexStringLight;
+    public string hexStringPanel;
 
     // TODO:
     //private string backGroundStory; 
@@ -63,33 +64,8 @@ public abstract class SpellCaster
         activeQuests = new List<Quest>();
         inventory = new List<ItemObject>();
 
-        glyphs = new Dictionary<string, int>()
-        {
-            { "Alchemy A Glyph", 3 },
-            { "Alchemy B Glyph", 3 },
-            { "Alchemy C Glyph", 3 },
-            { "Alchemy D Glyph", 3 },
-            { "Arcane A Glyph", 3 },
-            { "Arcane B Glyph", 3 },
-            { "Arcane C Glyph", 3 },
-            { "Arcane D Glyph", 3 },
-            { "Elemental A Glyph", 3 },
-            { "Elemental B Glyph", 3 },
-            { "Elemental C Glyph", 3 },
-            { "Elemental D Glyph", 3 },
-            { "Illusion A Glyph", 3 },
-            { "Illusion B Glyph", 3 },
-            { "Illusion C Glyph", 3 },
-            { "Illusion D Glyph", 3 },
-            { "Summoning A Glyph", 3 },
-            { "Summoning B Glyph", 3 },
-            { "Summoning C Glyph", 3 },
-            { "Summoning D Glyph", 3 },
-            { "Time A Glyph", 3 },
-            { "Time B Glyph", 3 },
-            { "Time C Glyph", 3 },
-            { "Time D Glyph", 3 },
-        };
+        // remove glyphs entirely eventually
+        glyphs = new Dictionary<string, int>();
 
         dice = new Dictionary<string, int>()
         {
@@ -105,6 +81,13 @@ public abstract class SpellCaster
             PanelHolder.instance.displayNotify("Too many items!", "Your inventory is full, you cannot hold any more items.", "OK");
         else
             inventory.Add(newItem);
+
+        // if Collector's Drink is active, add another copy of the item
+        if (SpellTracker.instance.SpellIsActive("Brew - Collector's Drink"))
+        {
+            inventory.Add(newItem);
+            SpellTracker.instance.RemoveFromActiveSpells("Brew - Collector's Drink");
+        }
     }
     public void RemoveFromInventory(ItemObject newItem)
     {
@@ -271,7 +254,7 @@ public abstract class SpellCaster
                     spellcaster = new Chronomancer();
                     break;
                 case 4:
-                    spellcaster = new Trickster();
+                    spellcaster = new Illusionist();
                     break;
                 default:
                     spellcaster = new Summoner();

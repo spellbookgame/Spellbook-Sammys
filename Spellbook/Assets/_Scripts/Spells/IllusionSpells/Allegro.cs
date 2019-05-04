@@ -12,10 +12,10 @@ public class Allegro : Spell
         combatSpell = false;
 
         sSpellName = "Allegro";
-        sSpellClass = "Trickster";
+        sSpellClass = "Illusionist";
         sSpellInfo = "Add a D6 to your movement next time you roll. Can cast on an ally.";
 
-        requiredRunes.Add("Trickster D Rune", 1);
+        requiredRunes.Add("Illusionist D Rune", 1);
     }
 
     public override void SpellCast(SpellCaster player)
@@ -23,7 +23,6 @@ public class Allegro : Spell
         // cast spell for free if Umbra's Eclipse is active
         if (SpellTracker.instance.CheckUmbra())
         {
-            SpellTracker.instance.RemoveFromActiveSpells("Call of the Moon - Umbra's Eclipse");
             PanelHolder.instance.displayNotify(sSpellName, "You and your ally will have an additional D6 to your movement next time you roll.", "OK");
             player.activeSpells.Add(this);
         }

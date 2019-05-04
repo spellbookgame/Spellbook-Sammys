@@ -27,5 +27,6 @@ public class Alchemist : SpellCaster
         characterIconPath = "Characters/symbol_glow_alchemist";
 
         hexStringLight = "#218221";
+        hexStringPanel = "#ABFFB4";
     }
 }

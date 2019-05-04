@@ -53,7 +53,7 @@ public class GlobalEvents : MonoBehaviour
     int arcanistID = 1;
     int elementalistID = 2;
     int chronomancerID = 3;
-    int tricksterID = 4;
+    int IllusionistID = 4;
     int summonerID = 5;
 
     int counterSpellcasterID;

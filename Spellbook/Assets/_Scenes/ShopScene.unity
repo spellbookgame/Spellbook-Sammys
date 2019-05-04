@@ -591,7 +591,7 @@ MonoBehaviour:
   image_item2: {fileID: 330265700}
   button_item3: {fileID: 1020442299}
   image_item3: {fileID: 1020442300}
-  button_backButton: {fileID: 2121581162}
+  button_exitButton: {fileID: 2121581162}
   button_buyButton: {fileID: 936145236}
   text_myMana: {fileID: 83181589}
   text_itemName: {fileID: 276444555}
@@ -1448,7 +1448,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 992, y: -1510}
-  m_SizeDelta: {x: 184.4, y: 184.4}
+  m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1401435416
 MonoBehaviour:
@@ -2512,7 +2512,7 @@ PrefabInstance:
     - target: {fileID: 8415552393259991120, guid: 187f050a693bf6944ac6cf2f16659445,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8415552393259991120, guid: 187f050a693bf6944ac6cf2f16659445,
         type: 3}

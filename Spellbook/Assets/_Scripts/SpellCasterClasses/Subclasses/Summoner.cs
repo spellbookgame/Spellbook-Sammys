@@ -27,5 +27,6 @@ public class Summoner : SpellCaster
         characterIconPath = "Characters/symbol_glow_summoner";
 
         hexStringLight = "#000091";
+        hexStringPanel = "#B6BDFF";
     }
 }

@@ -32,7 +32,7 @@ namespace Photon.Lobby
         public Button arcanistButton;
         public Button elementalistButton;
         public Button chronomancerButton;
-        public Button illusionistButton;  //aka tricksterButton
+        public Button illusionistButton;  //aka IllusionistButton
         public Button summonerButton;
 
         public GameObject alchemistSelection;
@@ -299,7 +299,7 @@ namespace Photon.Lobby
             currentSelected = 0;
             currentSelectedUI = alchemistSelection;
             alchemistChosen = true;
-            text.text = "Alchemist";
+            //text.text = "Alchemist";
             alchemistSelection.GetComponent<RectTransform>().localScale = new Vector3(1.17f, 1.17f, 1); //Why 1.17? Because it looks good.
         }
 
@@ -318,7 +318,7 @@ namespace Photon.Lobby
             currentSelected = 1;
             currentSelectedUI = arcanistSelection;
             arcanistChosen = true;
-            text.text = "Arcanist";
+            //text.text = "Arcanist";
             arcanistSelection.GetComponent<RectTransform>().localScale = new Vector3(1.17f, 1.17f, 1);
         }
 
@@ -336,7 +336,7 @@ namespace Photon.Lobby
             currentSelected = 2;
             currentSelectedUI = elementalSelection;
             elementalistChosen = true;
-            text.text = "Elementalist";
+            //text.text = "Elementalist";
             elementalSelection.GetComponent<RectTransform>().localScale = new Vector3(1.17f, 1.17f, 1);
         }
 
@@ -354,7 +354,7 @@ namespace Photon.Lobby
             currentSelected = 3;
             currentSelectedUI = chronomancerSelection;
             chronomancerChosen = true;
-            text.text = "Chronomancer";
+            //text.text = "Chronomancer";
             chronomancerSelection.GetComponent<RectTransform>().localScale = new Vector3(1.17f, 1.17f, 1);
         }
 
@@ -372,7 +372,7 @@ namespace Photon.Lobby
             currentSelected = 4;
             currentSelectedUI = illusionistSelection;
             illusionistChosen = true;
-            text.text = "Illusionist";
+            //text.text = "Illusionist";
             illusionistSelection.GetComponent<RectTransform>().localScale = new Vector3(1.17f, 1.17f, 1);
         }
 
@@ -390,7 +390,7 @@ namespace Photon.Lobby
             currentSelected = 5;
             currentSelectedUI = summonerSelection;
             summonerChosen = true;
-            text.text = "Summoner";
+            //text.text = "Summoner";
             summonerSelection.GetComponent<RectTransform>().localScale = new Vector3(1.17f, 1.17f, 1);
         }
 

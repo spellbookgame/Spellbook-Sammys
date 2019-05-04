@@ -96,6 +96,7 @@ public class QuestUI : MonoBehaviour
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
 
         gameObject.SetActive(false);
+        SceneManager.LoadScene("MainPlayerScene");
 
         if (PanelHolder.panelQueue.Count > 0)
             PanelHolder.panelQueue.Dequeue();

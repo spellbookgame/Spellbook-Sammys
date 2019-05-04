@@ -25,8 +25,6 @@ public class PotionofLuck : Spell
         // cast spell for free if Umbra's Eclipse is active
         if (SpellTracker.instance.CheckUmbra())
         {
-            SpellTracker.instance.RemoveFromActiveSpells("Call of the Moon - Umbra's Eclipse");
-
             PanelHolder.instance.displayNotify(sSpellName, "You and your ally will have an extra D8 next time you roll.", "OK");
             player.dice["D8"] += 1;
             player.activeSpells.Add(this);

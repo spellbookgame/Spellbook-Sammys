@@ -57,16 +57,15 @@ public class DiceUIHandler : MonoBehaviour
             PopulateScrollRect();
 
             // if player has Tailwind active, add a D6 to movement slot
-            if (localPlayer.Spellcaster.activeSpells.Any(x => x.sSpellName.Equals("Tailwind")))
-            {
+            if (SpellTracker.instance.SpellIsActive("Tailwind"))
                 D6ToMovement();
-            }
             // if player has Allegro active, add a D6 to movement slot
-            if (localPlayer.Spellcaster.activeSpells.Any(x => x.sSpellName.Equals("Allegro")))
-            {
+            if (SpellTracker.instance.SpellIsActive("Allegro"))
                 D6ToMovement();
-            }
-            
+            // if player has Growth active, add a D7 to mana slot
+            if (SpellTracker.instance.SpellIsActive("Growth"))
+                D7ToMana();
+
             // disable spellbook/inventory buttons while dice tray is open
             spellBookButton.interactable = false;
             spellBookButton.transform.GetChild(0).gameObject.SetActive(false);
@@ -186,15 +185,31 @@ public class DiceUIHandler : MonoBehaviour
     // add a D6 into a movement slot if given a temporary dice
     private void D6ToMovement()
     {
-        Debug.Log("Adding D6 to movement...");
         foreach (GameObject slot in GameObject.FindGameObjectsWithTag("Slot"))
         {
             if (slot.name.Equals("slot1") && slot.transform.childCount == 0)
             {
-                Debug.Log("slot found!");
                 GameObject newDice = Instantiate(dice, slot.transform);
                 newDice.transform.GetChild(0).GetComponent<Image>().sprite = newDice.GetComponent<DiceRoll>().pipsSix;
                 newDice.GetComponent<DiceRoll>()._rollMaximum = 6;
+                // disable drag on dice
+                newDice.GetComponent<DiceDragHandler>().enabled = false;
+                // enable roll
+                newDice.GetComponent<DiceRoll>().rollEnabled = true;
+                break;
+            }
+        }
+    }
+
+    private void D7ToMana()
+    {
+        foreach (GameObject slot in GameObject.FindGameObjectsWithTag("Slot"))
+        {
+            if (slot.name.Equals("slot2") && slot.transform.childCount == 0)
+            {
+                GameObject newDice = Instantiate(dice, slot.transform);
+                newDice.transform.GetChild(0).GetComponent<Image>().sprite = newDice.GetComponent<DiceRoll>().pipsSeven;
+                newDice.GetComponent<DiceRoll>()._rollMaximum = 7;
                 // disable drag on dice
                 newDice.GetComponent<DiceDragHandler>().enabled = false;
                 // enable roll

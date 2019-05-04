@@ -45,6 +45,12 @@ public class PanelHolder : MonoBehaviour
         }
     }
 
+    // keep panelholder as topmost image
+    public void SetPanelHolderLast()
+    {
+        transform.SetAsLastSibling();
+    }
+
     // enables panel if it's next in queue
     public void CheckPanelQueue()
     {

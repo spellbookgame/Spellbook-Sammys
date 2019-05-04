@@ -146,7 +146,7 @@ public class Player : Bolt.EntityEventListener<ISpellcasterState>
                 spellcasterID = 3;
                 break;
             case 4:
-                spellcaster = new Trickster();
+                spellcaster = new Illusionist();
                 spellcasterID = 4;
                 break;
             case 5:

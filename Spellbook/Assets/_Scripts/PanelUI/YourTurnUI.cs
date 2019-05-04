@@ -48,6 +48,7 @@ public class YourTurnUI : MonoBehaviour
             if (!SceneManager.GetActiveScene().name.Equals("MainPlayerScene"))
             {
                 SceneManager.LoadScene("MainPlayerScene");
+                UICanvasHandler.instance.ActivateSpellbookButtons(false);
             }
 
             if(PanelHolder.panelQueue.Count > 0)

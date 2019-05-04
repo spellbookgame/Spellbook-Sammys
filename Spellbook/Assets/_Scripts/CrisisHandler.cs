@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using UnityEngine;
 
 public class CrisisHandler : MonoBehaviour
@@ -10,21 +8,19 @@ public class CrisisHandler : MonoBehaviour
     // public variables
     public bool crisisSolved;
 
-    public string crisisName = "";
+    public string crisisName = "";              // these are for the Crisis panel information
     public string crisisDetails = "";
     public string crisisConsequence = "";
     public string crisisReward = "";
-    public string requiredLocation = "";
-    public string requiredClass = "";
 
+    public string requiredLocation = "";        // these are to track the progress/completion
+    public string requiredSpellName = "";     
+    public string requiredClass = "";
     public int requiredSpellTier = 0;
     public int roundsUntilCrisis = 0;
 
-    // tracking each crisis to see which one is currently active
-    public bool tsunamiActive = false;
-    public bool cometActive = false;
-
-    Player localPlayer;
+    // tracking to see which crisis is currently active
+    public string currentCrisis = "";
 
     #region singleton
     void Awake()
@@ -43,21 +39,16 @@ public class CrisisHandler : MonoBehaviour
     }
     #endregion
 
-    private void Start()
-    {
-        localPlayer = GameObject.Find("LocalPlayer").GetComponent<Player>();
-    }
-
     #region tsunami
     // call this to alert players of new crisis
     public void CallTsunami()
     {
-        tsunamiActive = true;
+        currentCrisis = "Tsunami";
         crisisSolved = false;
         roundsUntilCrisis = 3;
 
         crisisName = "Tsunami";
-        requiredLocation = "capital";   // change to forest eventually
+        requiredLocation = "location_forest";
         requiredClass = "Elementalist";
         requiredSpellTier = 3;
 
@@ -68,42 +59,19 @@ public class CrisisHandler : MonoBehaviour
         PanelHolder.instance.displayCrisis("Crisis Alert: Tsunami", roundsUntilCrisis);
     }
 
-    // call this to check if crisis requirements are met
-    public void CheckTsunami(Player player, string location)
-    {
-        if(tsunamiActive && !crisisSolved)
-        {
-            if(player.Spellcaster.classType.Equals("Elementalist"))
-            {
-                // if elementalist has a tier 3 spell collected and is in the forest
-                if(player.Spellcaster.chapter.spellsCollected.Any(x => x.iTier == 3) && location.Equals(requiredLocation))
-                {
-                    ResolveTsunami();
-                }
-            }
-        }
-    }
-
-    // call this when crisis is resolved early
-    public void ResolveTsunami()
-    {
-        PanelHolder.instance.displayNotify("Tsunami Averted", "Congratulations! Your Elementalist stopped the tsunami from destroying our lands.", "OK");
-        crisisSolved = true;
-    }
-
     // call this when crisis arrives (if roundsUntilCrisis == 0)
     public void FinishTsunami()
     {
         // if(crisisSolved) give rewards
         // if(!crisisSolved) give consequence
-        tsunamiActive = false;
+        currentCrisis = "";
     }
     #endregion
 
     #region comet
     public void CallComet()
     {
-        cometActive = true;
+        currentCrisis = "Comet";
         crisisSolved = false;
         roundsUntilCrisis = 3;
 
@@ -118,36 +86,238 @@ public class CrisisHandler : MonoBehaviour
 
         PanelHolder.instance.displayCrisis("Crisis Alert: Gilron's Comet", roundsUntilCrisis);
     }
-    // call this to check if crisis requirements are met
-    public void CheckComet(Player player, string location)
-    {
-        if (cometActive && !crisisSolved)
-        {
-            if (player.Spellcaster.classType.Equals("Arcanist"))
-            {
-                // if arcanist has a tier 2 spell collected and is in a town
-                if (player.Spellcaster.chapter.spellsCollected.Any(x => x.iTier == 3))
-                {
-                    if(location.Equals("town_alchemist") || location.Equals("town_arcanist") || location.Equals("town_chronomancer")
-                        || location.Equals("town_elementalist") || location.Equals("town_illusionist") || location.Equals("town_summoner"))
-                        ResolveComet();
-                }
-            }
-        }
-    }
-
-    // call this when crisis is resolved early
-    public void ResolveComet()
-    {
-        PanelHolder.instance.displayNotify("Comet Averted", "Congratulations! Your Arcanist stopped the comet just in time.", "OK");
-        crisisSolved = true;
-    }
     // call this when crisis arrives (if roundsUntilCrisis == 0)
     public void FinishComet()
     {
         // if(crisisSolved) give rewards
         // if(!crisisSolved) give consequence
-        cometActive = false;
+        currentCrisis = "";
+    }
+    #endregion
+
+    #region plague
+    public void CallPlague()
+    {
+        currentCrisis = "Plague";
+        crisisSolved = false;
+        roundsUntilCrisis = 3;
+
+        crisisName = "Stonelung Plague";
+        requiredLocation = "location_capital";
+        requiredClass = "Alchemist";
+        requiredSpellName = "Brew - Distilled Potion";
+
+        crisisDetails = "Alchemist must go to the capital with Brew - Distilled Potion spell unlocked.";
+        crisisConsequence = "All wizards will not be able to cast spells next round. Swamp will be closed for the next 2 rounds.";
+        crisisReward = "All wizards will earn a D6.";
+
+        PanelHolder.instance.displayCrisis("Crisis Alert: Stonelung Plague", roundsUntilCrisis);
+    }
+
+    // call this when crisis arrives (if roundsUntilCrisis == 0)
+    public void FinishPlague()
+    {
+        // if(crisisSolved) give rewards
+        // if(!crisisSolved) give consequence
+        currentCrisis = "";
+    }
+    #endregion
+
+    #region divine_intervention
+    public void CallIntervention()
+    {
+        currentCrisis = "Intervention";
+        crisisSolved = false;
+        roundsUntilCrisis = 3;
+
+        crisisName = "Divine Intervention";
+        requiredLocation = "town_summoner";
+        requiredClass = "Summoner";
+        requiredSpellName = "Call of the Moon - Umbra's Eclipse";
+
+        crisisDetails = "Summoner must go to the Summoner Town with Call of the Moon - Umbra's Eclipse unlocked.";
+        crisisConsequence = "All wizards will receive 5-10 damage and must discard their bottom 2 runes.";
+        crisisReward = "Another rune slot will be available in the Summoner Town!";
+
+        PanelHolder.instance.displayCrisis("Crisis Alert: Divine Intervention", roundsUntilCrisis);
+    }
+
+    // call this when crisis arrives (if roundsUntilCrisis == 0)
+    public void FinishIntervention()
+    {
+        // if(crisisSolved) give rewards
+        // if(!crisisSolved) give consequence
+        currentCrisis = "";
+    }
+    #endregion
+
+    #region realm
+    public void CallRealm()
+    {
+        currentCrisis = "Realm";
+        crisisSolved = false;
+        roundsUntilCrisis = 3;
+
+        crisisName = "War of the Realms";
+        requiredLocation = "location_forest";
+        requiredClass = "Illusionist";
+        requiredSpellName = "Catharsis";
+
+        crisisDetails = "Illusionist must go to the Forest with Catharsis unlocked.";
+        crisisConsequence = "All wizards will 1-10 damage. Marketplace will be closed and cities will not give quests next round.";
+        crisisReward = "Each wizard will receive a high tier item.";
+
+        PanelHolder.instance.displayCrisis("Crisis Alert: War of the Realms", roundsUntilCrisis);
+    }
+
+    // call this when crisis arrives (if roundsUntilCrisis == 0)
+    public void FinishRealm()
+    {
+        // if(crisisSolved) give rewards
+        // if(!crisisSolved) give consequence
+        currentCrisis = "";
+    }
+    #endregion
+
+    #region famine
+    public void CallFamine()
+    {
+        currentCrisis = "Famine";
+        crisisSolved = false;
+        roundsUntilCrisis = 3;
+
+        crisisName = "Famine";
+        requiredLocation = "town_chronomancer";
+        requiredClass = "Chronomancer";
+        requiredSpellName = "Manipulate";
+
+        crisisDetails = "Chronomancer must go to the Time Town with Manipulate unlocked.";
+        crisisConsequence = "Marketplace and all towns will be closed next round. Wizards may travel through them but may not scan spaces.";
+        crisisReward = "Another rune slot in the Time town, and all wizards will receive a random item.";
+
+        PanelHolder.instance.displayCrisis("Crisis Alert: Famine", roundsUntilCrisis);
+    }
+
+    // call this when crisis arrives (if roundsUntilCrisis == 0)
+    public void FinishFamine()
+    {
+        // if(crisisSolved) give rewards
+        // if(!crisisSolved) give consequence
+        currentCrisis = "";
+    }
+    #endregion
+
+    #region preparation
+    public void CallPreparation()
+    {
+        currentCrisis = "Preparation";
+        crisisSolved = false;
+        roundsUntilCrisis = 3;
+
+        crisisName = "Preparation";
+        requiredLocation = "";
+        requiredClass = "";
+        requiredSpellName = "";
+
+        crisisDetails = "Each wizard must have a TIER 1 spell unlocked and visit their respective towns.";
+        crisisConsequence = "All wizards lose half their health and mana.";
+        crisisReward = "All wizards gain 5000 mana and a charge on a random spell.";
+
+        PanelHolder.instance.displayCrisis("Crisis Alert: Preparation", roundsUntilCrisis);
+    }
+
+    // call this when crisis arrives (if roundsUntilCrisis == 0)
+    public void FinishPreparation()
+    {
+        // if(crisisSolved) give rewards
+        // if(!crisisSolved) give consequence
+        currentCrisis = "";
+    }
+    #endregion
+
+    #region checkCrisis
+    // call this to check if crisis is resolved
+    public void CheckCrisis(Player player, string currentCrisis, string location)
+    {
+        if (!crisisSolved)
+        {
+            switch (currentCrisis)
+            {
+                case "Tsunami":
+                    if (player.Spellcaster.classType.Equals("Elementalist"))
+                    {
+                        // if elementalist has a tier 3 spell collected and is in the forest
+                        if (player.Spellcaster.chapter.spellsCollected.Any(x => x.iTier == 3) && location.Equals(requiredLocation))
+                        {
+                            PanelHolder.instance.displayNotify("Tsunami Averted", "Congratulations! Your Elementalist stopped the tsunami from destroying our lands.", "OK");
+                            crisisSolved = true;
+                        }
+                    }
+                    break;
+                case "Comet":
+                    if (player.Spellcaster.classType.Equals("Arcanist"))
+                    {
+                        // if arcanist has a tier 2 spell collected and is in a town
+                        if (player.Spellcaster.chapter.spellsCollected.Any(x => x.iTier == 2))
+                        {
+                            if (location.Equals("town_alchemist") || location.Equals("town_arcanist") || location.Equals("town_chronomancer")
+                                || location.Equals("town_elementalist") || location.Equals("town_illusionist") || location.Equals("town_summoner"))
+                            {
+                                PanelHolder.instance.displayNotify("Comet Averted", "Congratulations! Your Arcanist stopped the comet just in time.", "OK");
+                                crisisSolved = true;
+                            }
+                        }
+                    }
+                    break;
+                case "Plague":
+                    if (player.Spellcaster.classType.Equals("Alchemist"))
+                    {
+                        // if alchemist has required spell collected and is in the capital
+                        if (player.Spellcaster.chapter.spellsCollected.Any(x => x.sSpellName.Equals(requiredSpellName)) && location.Equals(requiredLocation))
+                        {
+                            PanelHolder.instance.displayNotify("Plague Averted", "Congratulations! Your Alchemist stopped the plague from spreading.", "OK");
+                            crisisSolved = true;
+                        }
+                    }
+                    break;
+                case "Intervention":
+                    if (player.Spellcaster.classType.Equals("Summoner"))
+                    {
+                        // if summoner has required spell collected and is in the summoner town
+                        if (player.Spellcaster.chapter.spellsCollected.Any(x => x.sSpellName.Equals(requiredSpellName)) && location.Equals(requiredLocation))
+                        {
+                            PanelHolder.instance.displayNotify("Intervention Averted", "Congratulations! Your Summoner maintained peace between the two realms.", "OK");
+                            crisisSolved = true;
+                        }
+                    }
+                    break;
+                case "Realm":
+                    if (player.Spellcaster.classType.Equals("Illusionist"))
+                    {
+                        // if illusionist has required spell collected and is in the forest
+                        if (player.Spellcaster.chapter.spellsCollected.Any(x => x.sSpellName.Equals(requiredSpellName)) && location.Equals(requiredLocation))
+                        {
+                            PanelHolder.instance.displayNotify("War of the Realms Averted", "Congratulations! Your Illusionist maintained peace in the war in the Forest.", "OK");
+                            crisisSolved = true;
+                        }
+                    }
+                    break;
+                case "Famine":
+                    if (player.Spellcaster.classType.Equals("Chronomancer"))
+                    {
+                        // if illusionist has required spell collected and is in the forest
+                        if (player.Spellcaster.chapter.spellsCollected.Any(x => x.sSpellName.Equals(requiredSpellName)) && location.Equals(requiredLocation))
+                        {
+                            PanelHolder.instance.displayNotify("Famine Averted", "Congratulations! Your Chronomancer manipulated time to allow crops to grow faster.", "OK");
+                            crisisSolved = true;
+                        }
+                    }
+                    break;
+                // TODO - check for preparation (networking)
+                default:
+                    break;
+            }
+        }
     }
     #endregion
 }

@@ -22,7 +22,7 @@ public class ArcaneErrandQuest : Quest
 
         GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().Spellcaster.AddToInventory(item);
 
-        rewards.Add("Rune", "Trickster A Rune");
+        rewards.Add("Rune", "Illusionist A Rune");
         rewards.Add("Class Rune", "B Rune");
 
         consequenceMana = 500;

@@ -344,7 +344,7 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
 
         if (state.SpellcasterList[4] != 0)
         {
-            result += "\n\n Illusionist Progress:\n";
+            result += "\n\n Trickster Progress:\n";
             int sCount = 0;
             for (int i = 0; i < state.TricksterProgress.Length; i++)
             {

@@ -17,8 +17,8 @@ public class Transcribe : Spell
         sSpellInfo = "Discard your rune hand and draw new ones from the top tier deck.";
 
         requiredRunes.Add("Arcanist A Rune", 1);
-        requiredRunes.Add("Trickster A Rune", 1);
-        requiredRunes.Add("Trickster B Rune", 1);
+        requiredRunes.Add("Illusionist A Rune", 1);
+        requiredRunes.Add("Illusionist B Rune", 1);
     }
 
     public override void SpellCast(SpellCaster player)
@@ -26,7 +26,6 @@ public class Transcribe : Spell
         // cast spell for free if Umbra's Eclipse is active
         if (SpellTracker.instance.CheckUmbra())
         {
-            SpellTracker.instance.RemoveFromActiveSpells("Call of the Moon - Umbra's Eclipse");
             PanelHolder.instance.displayNotify(sSpellName, "Discard your rune hand and draw new ones from the top tier deck.", "OK");
         }
         else if (player.iMana < iManaCost)

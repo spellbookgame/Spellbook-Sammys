@@ -98,7 +98,7 @@ public class DiceRoll : MonoBehaviour
             SetDefaults();
 
             // if Echo is active, player may reroll one more time
-            if (localPlayer.Spellcaster.activeSpells.Any(x => x.sSpellName.Equals("Echo")))
+            if (SpellTracker.instance.SpellIsActive("Echo"))
             {
                 if (pressedNum <= 1)
                 {
@@ -117,7 +117,10 @@ public class DiceRoll : MonoBehaviour
             SpellTracker.instance.RemoveFromActiveSpells("Tailwind");
             // if Allegro was cast, remove it after rolling dice
             SpellTracker.instance.RemoveFromActiveSpells("Allegro");
+            // if Growth was cast, remove it after rolling dice
+            SpellTracker.instance.RemoveFromActiveSpells("Growth");
 
+            // check roll values AFTER all spells are accounted for
             CheckMoveRoll(LastRoll);
             CheckManaRoll(LastRoll);
 
@@ -131,7 +134,10 @@ public class DiceRoll : MonoBehaviour
         if(transform.parent.name.Equals("slot1"))
         {
             localPlayer.Spellcaster.spacesTraveled += rollValue;
+            UICanvasHandler.instance.spacesMoved += rollValue;
         }
+
+        UICanvasHandler.instance.ShowMovePanel();
     }
 
     // add a percentage to mana multiplier for earning mana at the end of turn

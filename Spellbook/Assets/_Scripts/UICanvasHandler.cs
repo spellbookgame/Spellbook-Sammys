@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -8,6 +7,10 @@ public class UICanvasHandler : MonoBehaviour
 {
     public static UICanvasHandler instance = null;
 
+    // public variables
+    public int spacesMoved = 0; // reset on EndTurn click
+
+    #region private_fields
     [SerializeField] private GameObject spellbookButton;
     [SerializeField] private GameObject diceButton;
     [SerializeField] private GameObject inventoryButton;
@@ -16,7 +19,9 @@ public class UICanvasHandler : MonoBehaviour
     [SerializeField] private GameObject libraryButton;
     [SerializeField] private GameObject questButton;
     [SerializeField] private GameObject progressButton;
+    [SerializeField] private GameObject movePanel;
     [SerializeField] private DiceUIHandler diceUIHandler;
+    #endregion
 
     private Player localPlayer;
 
@@ -87,13 +92,6 @@ public class UICanvasHandler : MonoBehaviour
         // only show buttons on main scene
         if (!SceneManager.GetActiveScene().name.Equals("MainPlayerScene"))
         {
-            // if dice tray is open in another scene other than main player, close it
-            /*if (diceUIHandler.diceTrayOpen)
-            {
-                diceUIHandler.OpenCloseDiceTray();
-                diceUIHandler.diceTrayOpen = false;
-            }*/
-
             spellbookButton.SetActive(false);
             diceButton.SetActive(false);
             inventoryButton.SetActive(false);
@@ -147,5 +145,20 @@ public class UICanvasHandler : MonoBehaviour
         libraryButton.SetActive(enabled);
         questButton.SetActive(enabled);
         progressButton.SetActive(enabled);
+    }
+
+    public void ShowMovePanel()
+    {
+        StartCoroutine(StartMovePanel());
+    }
+
+    private IEnumerator StartMovePanel()
+    {
+        yield return new WaitForSeconds(1.5f);
+        movePanel.transform.GetChild(0).GetComponent<Text>().text = "Move " + spacesMoved.ToString();
+        movePanel.SetActive(true);
+
+        yield return new WaitForSeconds(1.5f);
+        movePanel.SetActive(false);
     }
 }

@@ -27,10 +27,13 @@ public class Chapter : MonoBehaviour
         {
             case "Alchemist":
                 spellsAllowed.Add(new PotionofLuck());
+                spellsAllowed.Add(new CharmingNegotiator());
+                spellsAllowed.Add(new CollectorsDrink());
                 spellsAllowed.Add(new CrystalScent());
                 break;
             case "Arcanist":
                 spellsAllowed.Add(new Transcribe());
+                spellsAllowed.Add(new CombinedKnowledge());
                 spellsAllowed.Add(new RuneConversion());
                 spellsAllowed.Add(new ArcanaHarvest());
                 break;
@@ -40,13 +43,18 @@ public class Chapter : MonoBehaviour
                 break;
             case "Elementalist":
                 spellsAllowed.Add(new Tailwind());
+                spellsAllowed.Add(new TerraformingEarthquake());
+                spellsAllowed.Add(new FrozenTerrain());
+                spellsAllowed.Add(new Growth());
                 break;
             case "Summoner":
                 spellsAllowed.Add(new CoSLeon());
                 spellsAllowed.Add(new CoMUmbra());
                 break;
-            case "Trickster":
+            case "Illusionist":
                 spellsAllowed.Add(new Playwright());
+                spellsAllowed.Add(new CheatOut());
+                spellsAllowed.Add(new Playback());
                 spellsAllowed.Add(new Allegro());
                 break;
             default:
