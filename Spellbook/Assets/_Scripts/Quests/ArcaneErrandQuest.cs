@@ -17,15 +17,18 @@ public class ArcaneErrandQuest : Quest
 
         spaceName = "town_illusionist";
 
-        item = new ItemObject("Abyssal Ore", Resources.Load<Sprite>("Art Assets/Items and Currency/AbyssalOre"), 0, 0, 0, 
-                            "A rare metal given to you by the local Arcanist to give to the Illusion town.", "Does nothing.");
+        item = new AbyssalOre
+        {
+            sellPrice = 0,
+            buyPrice = 0
+        };
 
         GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().Spellcaster.AddToInventory(item);
 
         rewards.Add("Rune", "Illusionist A Rune");
         rewards.Add("Class Rune", "B Rune");
 
-        consequenceMana = 500;
+        consequenceMana = 1700;
 
         questCompleted = false;
     }
