@@ -9,6 +9,7 @@ public class LibraryHandler : MonoBehaviour
 {
     [SerializeField] private Button mainButton;
     [SerializeField] private Button spellButton;
+    [SerializeField] private GameObject buttonScrollRect;
     [SerializeField] private GameObject runeContainer;
     [SerializeField] private GameObject spellInfoPanel;
     [SerializeField] private GameObject runePanel;
@@ -28,21 +29,23 @@ public class LibraryHandler : MonoBehaviour
             SceneManager.LoadScene("MainPlayerScene");
         });
 
-        int yPos = 475;
-        // add buttons for each spell the player can collect
+        // add buttons to scroll rect for each spell the player can collect
         for (int i = 0; i < localPlayer.Spellcaster.chapter.spellsAllowed.Count; i++)
         {
-            Button newSpellButton = Instantiate(spellButton, GameObject.Find("Canvas").transform);
+            Button newSpellButton = Instantiate(spellButton, buttonScrollRect.transform);
             newSpellButton.GetComponentInChildren<Text>().text = localPlayer.Spellcaster.chapter.spellsAllowed[i].sSpellName;
-            newSpellButton.transform.localPosition = new Vector3(0, yPos, 0);
 
             // new int to pass into button onClick listener so loop will not throw index out of bounds error
             int i2 = i;
             // add listener to button
             newSpellButton.onClick.AddListener(() => ShowSpellInfo(localPlayer.Spellcaster.chapter.spellsAllowed[i2]));
+        }
 
-            // to position new button underneath prev button
-            yPos -= 200;
+        // if there are more than 4 buttons in the scroll rect, expand the scroll rect panel
+        if(buttonScrollRect.transform.childCount > 4)
+        {
+            RectTransform rect = buttonScrollRect.GetComponent<RectTransform>();
+            rect.sizeDelta = new Vector2(rect.sizeDelta.x, (float)rect.sizeDelta.y + (160 * (buttonScrollRect.transform.childCount - 4)));
         }
 
         // set panel holder as last sibling
