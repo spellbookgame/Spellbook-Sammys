@@ -16,7 +16,7 @@ public class AlchemyManaQuest : Quest
         turnLimit = 4;
 
         rewards.Add("Rune", "Alchemist A Rune");
-        rewards.Add("Item", "item name");
+        rewards.Add("Item", "Crystal Mirror");
 
         consequenceMana = 1000;
 

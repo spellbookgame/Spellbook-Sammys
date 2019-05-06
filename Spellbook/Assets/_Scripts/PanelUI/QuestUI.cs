@@ -64,6 +64,10 @@ public class QuestUI : MonoBehaviour
                         rewardImages[i].sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/ManaCrystal");
                         ++i;
                         continue;
+                    case "Item":
+                        rewardImages[i].sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/" + kvp.Value);
+                        ++i;
+                        continue;
                     default:
                         ++i;
                         continue;

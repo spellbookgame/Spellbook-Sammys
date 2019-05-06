@@ -8,7 +8,6 @@ public class ForestSceneHandler : MonoBehaviour
 {
     [SerializeField] private Button lookButton;
     [SerializeField] private Button leaveButton;
-    [SerializeField] private GameObject itemListHolder;
 
     private bool collectedItem;
 
@@ -18,7 +17,7 @@ public class ForestSceneHandler : MonoBehaviour
     private void Start()
     {
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
-        itemList = itemListHolder.GetComponent<ItemList>().listOfItems;
+        itemList = GameObject.Find("ItemList").GetComponent<ItemList>().listOfItems;
 
         lookButton.onClick.AddListener(LookForItem);
         leaveButton.onClick.AddListener(() =>

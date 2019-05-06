@@ -7,7 +7,7 @@ public class GlowingMushroom : ItemObject
     public GlowingMushroom()
     {
         name = "Glowing Mushroom";
-        sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/GlowingMushroom");
+        sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/Glowing Mushroom");
         tier = 3;
         buyPrice = 300;
         sellPrice = 1800;

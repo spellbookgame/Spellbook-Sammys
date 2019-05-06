@@ -5,7 +5,7 @@ public class WaxCandle : ItemObject
     public WaxCandle()
     {
         name = "Wax Candle";
-        sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/WaxCandle");
+        sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/Wax Candle");
         tier = 3;
         buyPrice = 1200;
         sellPrice = 360;

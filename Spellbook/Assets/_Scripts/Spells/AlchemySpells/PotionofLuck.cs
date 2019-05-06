@@ -7,7 +7,7 @@ public class PotionofLuck : Spell
     public PotionofLuck()
     {
         iTier = 1;
-        iManaCost = 300;
+        iManaCost = 3000;
 
         combatSpell = false;
 

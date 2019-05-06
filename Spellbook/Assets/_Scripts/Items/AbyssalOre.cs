@@ -7,7 +7,7 @@ public class AbyssalOre : ItemObject
     public AbyssalOre()
     {
         name = "Abyssal Ore";
-        sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/AbyssalOre");
+        sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/Abyssal Ore");
         tier = 2;
         buyPrice = 1700;
         sellPrice = 510;

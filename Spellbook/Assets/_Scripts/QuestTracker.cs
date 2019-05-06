@@ -84,8 +84,6 @@ public class QuestTracker : MonoBehaviour
     private void QuestCompleted(Quest q)
     {
         SoundManager.instance.PlaySingle(SoundManager.questsuccess);
-        PanelHolder.instance.displayNotify(q.questName + " Completed!",
-                                            "Congratulations, you completed the quest! Prepare to accept your rewards.", "OK");
         localPlayer.Spellcaster.activeQuests.Remove(q);
         PanelHolder.instance.displayQuestRewards(q);
         GiveRewards(q);
@@ -157,7 +155,8 @@ public class QuestTracker : MonoBehaviour
                 localPlayer.Spellcaster.CollectMana(Int32.Parse(value));
                 return value;
             case "Item":
-                // localPlayer.Spellcaster.AddtoInventory(item);
+                ItemObject item = GameObject.Find("ItemList").GetComponent<ItemList>().GetItemFromName(value);
+                localPlayer.Spellcaster.AddToInventory(item);
                 return value;
             default:
                 return value;

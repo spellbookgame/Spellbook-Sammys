@@ -20,4 +20,40 @@ public class ItemList : MonoBehaviour
             new WaxCandle()
         };
     }
+
+    public ItemObject GetItemFromName(string itemName)
+    {
+        ItemObject item = new ItemObject();
+        switch(itemName)
+        {
+            case "Infused Sapphire":
+                item = new InfusedSapphire();
+                break;
+            case "Abyssal Ore":
+                item = new AbyssalOre();
+                break;
+            case "Glowing Mushroom":
+                item = new GlowingMushroom();
+                break;
+            case "Mimetic Vellum":
+                item = new MimeticVellum();
+                break;
+            case "Crystal Mirror":
+                item = new CrystalMirror();
+                break;
+            case "Mystic Translocator":
+                item = new MysticTranslocator();
+                break;
+            case "Aromatic Tea Leaves":
+                item = new AromaticTeaLeaves();
+                break;
+            case "Opal Ammonite":
+                item = new OpalAmmonite();
+                break;
+            case "Wax Candle":
+                item = new WaxCandle();
+                break;
+        }
+        return item;
+    }
 }

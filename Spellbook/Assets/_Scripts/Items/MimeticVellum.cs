@@ -7,7 +7,7 @@ public class MimeticVellum : ItemObject
     public MimeticVellum()
     {
         name = "Mimetic Vellum";
-        sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/MimeticVellum");
+        sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/Mimetic Vellum");
         tier = 1;
         buyPrice = 2800;
         sellPrice = 840;

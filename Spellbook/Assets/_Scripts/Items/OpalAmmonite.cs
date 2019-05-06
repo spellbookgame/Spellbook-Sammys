@@ -5,7 +5,7 @@ public class OpalAmmonite : ItemObject
     public OpalAmmonite()
     {
         name = "Opal Ammonite";
-        sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/OpalAmmonite");
+        sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/Opal Ammonite");
         tier = 3;
         buyPrice = 600;
         sellPrice = 180;

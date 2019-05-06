@@ -7,7 +7,7 @@ public class CrystalMirror : ItemObject
     public CrystalMirror()
     {
         name = "Crystal Mirror";
-        sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/MimeticVellum");
+        sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/Mimetic Vellum");
         tier = 1;
         buyPrice = 3400;
         sellPrice = 1020;

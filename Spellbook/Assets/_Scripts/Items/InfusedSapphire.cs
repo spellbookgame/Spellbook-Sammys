@@ -5,7 +5,7 @@ public class InfusedSapphire : ItemObject
     public InfusedSapphire()
     {
         name = "Infused Sapphire";
-        sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/InfusedSapphire");
+        sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/Infused Sapphire");
         tier = 2;
         buyPrice = 1400;
         sellPrice = 420;
