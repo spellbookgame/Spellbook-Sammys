@@ -47,56 +47,6 @@ public class CombatHandler : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.C))
             enemy.HitEnemy(6);
 
-        // collect spell pieces
-        if (Input.GetKeyDown(KeyCode.Alpha1) && enemy.fCurrentHealth > 0)
-            localPlayer.Spellcaster.CollectGlyph("Alchemy A Glyph");
-        if (Input.GetKeyDown(KeyCode.Alpha2) && enemy.fCurrentHealth > 0)
-            localPlayer.Spellcaster.CollectGlyph("Alchemy B Glyph");
-        if (Input.GetKeyDown(KeyCode.Alpha3) && enemy.fCurrentHealth > 0)
-            localPlayer.Spellcaster.CollectGlyph("Alchemy C Glyph");
-        if (Input.GetKeyDown(KeyCode.Alpha4) && enemy.fCurrentHealth > 0)
-            localPlayer.Spellcaster.CollectGlyph("Alchemy D Glyph");
-        if (Input.GetKeyDown(KeyCode.Alpha5) && enemy.fCurrentHealth > 0)
-            localPlayer.Spellcaster.CollectGlyph("Arcane A Glyph");
-        if (Input.GetKeyDown(KeyCode.Alpha6) && enemy.fCurrentHealth > 0)
-            localPlayer.Spellcaster.CollectGlyph("Arcane B Glyph");
-        if (Input.GetKeyDown(KeyCode.Alpha7) && enemy.fCurrentHealth > 0)
-            localPlayer.Spellcaster.CollectGlyph("Arcane C Glyph");
-        if (Input.GetKeyDown(KeyCode.Alpha8) && enemy.fCurrentHealth > 0)
-            localPlayer.Spellcaster.CollectGlyph("Arcane D Glyph");
-        if (Input.GetKeyDown(KeyCode.Alpha9) && enemy.fCurrentHealth > 0)
-            localPlayer.Spellcaster.CollectGlyph("Elemental A Glyph");
-        if (Input.GetKeyDown(KeyCode.Alpha0) && enemy.fCurrentHealth > 0)
-            localPlayer.Spellcaster.CollectGlyph("Elemental B Glyph");
-        if (Input.GetKeyDown(KeyCode.Q) && enemy.fCurrentHealth > 0)
-            localPlayer.Spellcaster.CollectGlyph("Elemental C Glyph");
-        if (Input.GetKeyDown(KeyCode.W) && enemy.fCurrentHealth > 0)
-            localPlayer.Spellcaster.CollectGlyph("Elemental D Glyph");
-        if (Input.GetKeyDown(KeyCode.E) && enemy.fCurrentHealth > 0)
-            localPlayer.Spellcaster.CollectGlyph("Illusion A Glyph");
-        if (Input.GetKeyDown(KeyCode.R) && enemy.fCurrentHealth > 0)
-            localPlayer.Spellcaster.CollectGlyph("Illusion B Glyph");
-        if (Input.GetKeyDown(KeyCode.T) && enemy.fCurrentHealth > 0)
-            localPlayer.Spellcaster.CollectGlyph("Illusion C Glyph");
-        if (Input.GetKeyDown(KeyCode.Y) && enemy.fCurrentHealth > 0)
-            localPlayer.Spellcaster.CollectGlyph("Illusion D Glyph");
-        if (Input.GetKeyDown(KeyCode.U) && enemy.fCurrentHealth > 0)
-            localPlayer.Spellcaster.CollectGlyph("Summoning A Glyph");
-        if (Input.GetKeyDown(KeyCode.I) && enemy.fCurrentHealth > 0)
-            localPlayer.Spellcaster.CollectGlyph("Summoning B Glyph");
-        if (Input.GetKeyDown(KeyCode.O) && enemy.fCurrentHealth > 0)
-            localPlayer.Spellcaster.CollectGlyph("Summoning C Glyph");
-        if (Input.GetKeyDown(KeyCode.P) && enemy.fCurrentHealth > 0)
-            localPlayer.Spellcaster.CollectGlyph("Summoning D Glyph");
-        if (Input.GetKeyDown(KeyCode.A) && enemy.fCurrentHealth > 0)
-            localPlayer.Spellcaster.CollectGlyph("Time A Glyph");
-        if (Input.GetKeyDown(KeyCode.S) && enemy.fCurrentHealth > 0)
-            localPlayer.Spellcaster.CollectGlyph("Time B Glyph");
-        if (Input.GetKeyDown(KeyCode.D) && enemy.fCurrentHealth > 0)
-            localPlayer.Spellcaster.CollectGlyph("Time C Glyph");
-        if (Input.GetKeyDown(KeyCode.F) && enemy.fCurrentHealth > 0)
-            localPlayer.Spellcaster.CollectGlyph("Time D Glyph");
-
         UpdatePlayerStats();
         UpdateEnemyStats();
     }

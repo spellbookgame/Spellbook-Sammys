@@ -16,7 +16,8 @@ public class ItemList : MonoBehaviour
             new CrystalMirror(),
             new MysticTranslocator(),
             new AromaticTeaLeaves(),
-            new OpalAmmonite()
+            new OpalAmmonite(),
+            new WaxCandle()
         };
     }
 }

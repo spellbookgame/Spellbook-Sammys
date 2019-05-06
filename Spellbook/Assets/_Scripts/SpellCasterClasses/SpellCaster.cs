@@ -6,6 +6,7 @@ using System.IO;
 using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /*
  A base class that all SpellCaster types/classes will inherit from.
@@ -35,7 +36,10 @@ public abstract class SpellCaster
     public bool scannedSpaceThisTurn;
     public Chapter chapter;
 
-    // player's collection of spell pieces, glyphs, items, and active spells stored as strings
+    // tracking items
+    public bool waxCandleUsed;      // AddToInventory()
+
+    // player's collection of glyphs, dice, items, and active spells/quests stored as strings
     public Dictionary<string, int> glyphs;
     public Dictionary<string, int> dice;
     public Dictionary<string, int> tempDice;
@@ -93,6 +97,12 @@ public abstract class SpellCaster
             inventory.Add(newItem);
             SpellTracker.instance.RemoveFromActiveSpells("Brew - Collector's Drink");
         }
+        // if player used wax candle and is in forest, add another copy of item
+        if(waxCandleUsed && SceneManager.GetActiveScene().name.Equals("ForestScene"))
+        {
+            inventory.Add(newItem);
+            waxCandleUsed = false;
+        }
     }
     public void RemoveFromInventory(ItemObject newItem)
     {
@@ -143,41 +153,6 @@ public abstract class SpellCaster
         iMana -= manaCount;
         if (iMana <= 0)
             iMana = 0;
-    }
-
-    public void CollectGlyph(string glyphName)
-    {
-        Sprite sprite = Resources.Load<Sprite>("GlyphArt/" + glyphName);
-        PanelHolder.instance.displayBoardScan("You found a Glyph!", "You found 1 " + glyphName + ".", sprite, "MainPlayerScene");
-        SoundManager.instance.PlaySingle(SoundManager.glyphfound);
-        glyphs[glyphName] += 1;
-    }
-
-    // find a random glyph
-    public string CollectRandomGlyph()
-    {
-        List<string> glyphList = new List<string>(this.glyphs.Keys);
-        int random = (int)UnityEngine.Random.Range(0, glyphList.Count + 1);
-
-        string randomKey = glyphList[random];
-
-        glyphs[randomKey] += 1;
-        PanelHolder.instance.displayNotify("You found a Glyph!", "You found a " + randomKey + ".", "OK");
-
-        return randomKey;
-    }
-
-    public string LoseRandomGlyph()
-    {
-        List<string> glyphList = new List<string>(this.glyphs.Keys);
-        int random = (int)UnityEngine.Random.Range(0, glyphList.Count);
-
-        string randomKey = glyphList[random];
-
-        if(this.glyphs[randomKey] > 0)
-            this.glyphs[randomKey] -= 1;
-
-        return randomKey;
     }
 
     // function that adds spell to player's chapter

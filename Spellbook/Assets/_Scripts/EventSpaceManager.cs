@@ -157,15 +157,13 @@ public class EventSpaceManager : MonoBehaviour
     private void eventLoseGlyphs()
     {
         Debug.Log("LoseGlyphs");
-        string glyphLost = spellCaster.LoseRandomGlyph();
-        PanelHolder.instance.displayNotify("Darned Eagle...", "An eagle swooped by and stole your " + glyphLost + "!", "OK");
+        PanelHolder.instance.displayNotify("Darned Eagle...", "An eagle swooped by and stole your !", "OK");
     }
 
     private void eventGainGlyph()
     {
         Debug.Log("GainGlyphs");
-        string glyph = spellCaster.CollectRandomGlyph();
-        PanelHolder.instance.displayNotify("Kind Stranger", "A mysterious figure came and gave you a " + glyph + ".", "OK");
+        PanelHolder.instance.displayNotify("Kind Stranger", "A mysterious figure came and gave you a .", "OK");
     }
     #endregion
     /// 
