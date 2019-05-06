@@ -15,7 +15,8 @@ public class ItemList : MonoBehaviour
             new MimeticVellum(),
             new CrystalMirror(),
             new MysticTranslocator(),
-            new AromaticTeaLeaves()
+            new AromaticTeaLeaves(),
+            new OpalAmmonite()
         };
     }
 }
