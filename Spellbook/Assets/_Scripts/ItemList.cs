@@ -12,7 +12,8 @@ public class ItemList : MonoBehaviour
             new InfusedSapphire(),
             new AbyssalOre(),
             new GlowingMushroom(),
-            new MimeticVellum()
+            new MimeticVellum(),
+            new CrystalMirror()
         };
     }
 }
