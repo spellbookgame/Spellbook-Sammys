@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class ItemList : MonoBehaviour
 {
-
     public List<ItemObject> listOfItems;
+    
     void Awake()
     {
         listOfItems = new List<ItemObject>
@@ -13,7 +13,8 @@ public class ItemList : MonoBehaviour
             new AbyssalOre(),
             new GlowingMushroom(),
             new MimeticVellum(),
-            new CrystalMirror()
+            new CrystalMirror(),
+            new MysticTranslocator()
         };
     }
 }
