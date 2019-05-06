@@ -14,7 +14,8 @@ public class ItemList : MonoBehaviour
             new GlowingMushroom(),
             new MimeticVellum(),
             new CrystalMirror(),
-            new MysticTranslocator()
+            new MysticTranslocator(),
+            new AromaticTeaLeaves()
         };
     }
 }
