@@ -31,7 +31,7 @@ public class InfusedSapphire : ItemObject
                 PanelHolder.instance.displayBoardScan("Infused Sapphire", "The Infused Sapphire teleported you to the " + randLocation + "!", locationSprite);
                 break;
             case "Crystal Mines":
-                locationSprite = Resources.Load<Sprite>("Art Assets/Backgrounds/Mines");
+                locationSprite = Resources.Load<Sprite>("Art Assets/Backgrounds/Mine");
                 PanelHolder.instance.displayBoardScan("Infused Sapphire", "The Infused Sapphire teleported you to the " + randLocation + "!", locationSprite);
                 break;
             case "Alchemist Town":

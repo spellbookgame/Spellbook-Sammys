@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour
@@ -78,6 +77,9 @@ public class InventoryUI : MonoBehaviour
         {
             if (infoPanelOpen)
             {
+                // remove onclick from use button
+                buttonUse.onClick.RemoveAllListeners();
+
                 infoPanel.SetActive(false);
                 infoPanelOpen = false;
             }
