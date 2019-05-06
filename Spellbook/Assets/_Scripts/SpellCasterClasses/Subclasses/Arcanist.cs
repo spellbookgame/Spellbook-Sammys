@@ -27,5 +27,6 @@ public class Arcanist : SpellCaster
 
         hexStringLight = "#853CBF";
         hexStringPanel = "#FFC7FF";
+        hexString3rdColor = "6D2F5F";
     }
 }

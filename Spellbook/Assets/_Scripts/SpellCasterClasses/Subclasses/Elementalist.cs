@@ -27,5 +27,6 @@ public class Elementalist : SpellCaster
 
         hexStringLight = "#910000";
         hexStringPanel = "#FFBDB2";
+        hexString3rdColor = "7D59CC";
     }
 }

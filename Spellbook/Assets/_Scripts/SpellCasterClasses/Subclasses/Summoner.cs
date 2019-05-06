@@ -28,5 +28,6 @@ public class Summoner : SpellCaster
 
         hexStringLight = "#000091";
         hexStringPanel = "#B6BDFF";
+        hexString3rdColor = "FFEE93";
     }
 }

@@ -27,5 +27,6 @@ public class Illusionist : SpellCaster
 
         hexStringLight = "#4A7C75";
         hexStringPanel = "#8BD3FF";
+        hexString3rdColor = "B3BA55";
     }
 }

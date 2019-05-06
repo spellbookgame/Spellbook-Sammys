@@ -19,6 +19,11 @@ public abstract class Spell
 
     public Dictionary<string, int> requiredRunes;
 
+    public Color colorPrimary;
+    public Color colorSecondary;
+
+
+
     // CTOR
     public Spell()
     {

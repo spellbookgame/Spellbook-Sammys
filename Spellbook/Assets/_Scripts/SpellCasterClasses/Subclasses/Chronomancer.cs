@@ -28,5 +28,6 @@ public class Chronomancer : SpellCaster
 
         hexStringLight = "#6D3813";
         hexStringPanel = "#FFFFFF";
+        hexString3rdColor = "9B1D20";
     }
 }
