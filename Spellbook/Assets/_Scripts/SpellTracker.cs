@@ -40,11 +40,6 @@ public class SpellTracker : MonoBehaviour
         // if spell is active
         if (spellCaster.activeSpells.Any(x => x.sSpellName.Equals(spellName)))
         {
-            // removing D8 after it is used
-            if (spellName.Equals("Brew - Potion of Luck"))
-            {
-                spellCaster.dice["D8"] -= 1;
-            }
             // remove spell from active spells list once it wears off
             foreach (Spell entry in spellCaster.chapter.spellsCollected)
             {

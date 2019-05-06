@@ -18,6 +18,15 @@ public class AbyssalOre : ItemObject
     public override void UseItem(SpellCaster player)
     {
         player.RemoveFromInventory(this);
+
         // give player a random dice
+        int randSides = Random.Range(4, 8);
+
+        if (player.tempDice.ContainsKey("D" + randSides.ToString()))
+            player.tempDice["D" + randSides.ToString()] += 1;
+        else
+            player.tempDice.Add("D" + randSides.ToString(), 1);
+
+        PanelHolder.instance.displayNotify("Abyssal Ore", "The Abyssal Ore gave you a D" + randSides.ToString() + "!", "InventoryScene");
     }
 }

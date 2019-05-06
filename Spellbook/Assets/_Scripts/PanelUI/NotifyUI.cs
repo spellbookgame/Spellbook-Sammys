@@ -35,27 +35,10 @@ public class NotifyUI : MonoBehaviour
             ribbon.SetActive(false);
         }
 
-        // different onclick listeners for different button inputs
-        switch (buttonClick)
-        {
-            case "OK":
-                singleButton.onClick.AddListener((OkClick));
-                break;
-            case "Vuforia":
-                singleButton.onClick.AddListener((VuforiaClick));
-                break;
-            case "Shop":
-                singleButton.onClick.AddListener((ShopClick));
-                break;
-            case "Inventory":
-                singleButton.onClick.AddListener((InventoryClick));
-                break;
-            case "Main":
-                singleButton.onClick.AddListener((MainClick));
-                break;
-            default:
-                break;
-        }
+        if (buttonClick.Equals("OK"))
+            singleButton.onClick.AddListener((OkClick));
+        else
+            singleButton.onClick.AddListener(() => SceneClick(buttonClick));
 
         gameObject.SetActive(true);
 
@@ -81,43 +64,13 @@ public class NotifyUI : MonoBehaviour
             PanelHolder.panelQueue.Dequeue();
         PanelHolder.instance.CheckPanelQueue();
     }
-    private void VuforiaClick()
+    private void SceneClick(string scene)
     {
         SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
         gameObject.SetActive(false);
-        SceneManager.LoadScene("VuforiaScene");
+        SceneManager.LoadScene(scene);
 
         if (PanelHolder.panelQueue.Count > 0)
-            PanelHolder.panelQueue.Dequeue();
-        PanelHolder.instance.CheckPanelQueue();
-    }
-    private void ShopClick()
-    {
-        SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
-        gameObject.SetActive(false);
-        SceneManager.LoadScene("ShopScene");
-
-        if (PanelHolder.panelQueue.Count > 0)
-            PanelHolder.panelQueue.Dequeue();
-        PanelHolder.instance.CheckPanelQueue();
-    }
-    private void InventoryClick()
-    {
-        SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
-        gameObject.SetActive(false);
-        SceneManager.LoadScene("InventoryScene");
-
-        if (PanelHolder.panelQueue.Count > 0)
-            PanelHolder.panelQueue.Dequeue();
-        PanelHolder.instance.CheckPanelQueue();
-    }
-    private void MainClick()
-    {
-        SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
-        gameObject.SetActive(false);
-        SceneManager.LoadScene("MainPlayerScene");
-
-        if(PanelHolder.panelQueue.Count > 0)
             PanelHolder.panelQueue.Dequeue();
         PanelHolder.instance.CheckPanelQueue();
     }

@@ -7,7 +7,7 @@ public class PotionofLuck : Spell
     public PotionofLuck()
     {
         iTier = 1;
-        iManaCost = 3000;
+        iManaCost = 300;
 
         combatSpell = false;
 
@@ -26,8 +26,7 @@ public class PotionofLuck : Spell
         if (SpellTracker.instance.CheckUmbra())
         {
             PanelHolder.instance.displayNotify(sSpellName, "You and your ally will have an extra D8 next time you roll.", "OK");
-            player.dice["D8"] += 1;
-            player.activeSpells.Add(this);
+            player.tempDice.Add("D8", 1);
         }
         else if (player.iMana < iManaCost)
         {
@@ -39,8 +38,7 @@ public class PotionofLuck : Spell
             player.iMana -= iManaCost;
 
             PanelHolder.instance.displayNotify(sSpellName, "You and your ally will have an extra D8 next time you roll.", "OK");
-            player.dice["D8"] += 1;
-            player.activeSpells.Add(this);
+            player.tempDice.Add("D8", 1);
         }
     }
 }

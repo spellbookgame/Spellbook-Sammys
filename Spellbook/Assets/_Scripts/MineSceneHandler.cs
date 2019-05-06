@@ -37,7 +37,7 @@ public class MineSceneHandler : MonoBehaviour
         }
         else
         {
-            PanelHolder.instance.displayNotify("Don't be greedy!", "You can only take once per visit. Now leave!", "Main");
+            PanelHolder.instance.displayNotify("Don't be greedy!", "You can only take once per visit. Now leave!", "MainPlayerScene");
         }
     }
 }

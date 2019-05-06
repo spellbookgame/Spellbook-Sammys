@@ -24,35 +24,35 @@ public class InfusedSapphire : ItemObject
         {
             case "Forest":
                 locationSprite = Resources.Load<Sprite>("Art Assets/Backgrounds/Forest");
-                PanelHolder.instance.displayBoardScan("Infused Sapphire", "The Infused Sapphire teleported you to the " + randLocation + "!", locationSprite);
+                PanelHolder.instance.displayBoardScan("Infused Sapphire", "The Infused Sapphire teleported you to the " + randLocation + "!", locationSprite, "MainPlayerScene");
                 break;
             case "Swamp":
                 locationSprite = Resources.Load<Sprite>("Art Assets/Backgrounds/Swamp");
-                PanelHolder.instance.displayBoardScan("Infused Sapphire", "The Infused Sapphire teleported you to the " + randLocation + "!", locationSprite);
+                PanelHolder.instance.displayBoardScan("Infused Sapphire", "The Infused Sapphire teleported you to the " + randLocation + "!", locationSprite, "MainPlayerScene");
                 break;
             case "Crystal Mines":
                 locationSprite = Resources.Load<Sprite>("Art Assets/Backgrounds/Mine");
-                PanelHolder.instance.displayBoardScan("Infused Sapphire", "The Infused Sapphire teleported you to the " + randLocation + "!", locationSprite);
+                PanelHolder.instance.displayBoardScan("Infused Sapphire", "The Infused Sapphire teleported you to the " + randLocation + "!", locationSprite, "MainPlayerScene");
                 break;
             case "Alchemist Town":
                 locationSprite = Resources.Load<Sprite>("Art Assets/Backgrounds/town_alchemist");
-                PanelHolder.instance.displayBoardScan("Infused Sapphire", "The Infused Sapphire teleported you to the " + randLocation + "!", locationSprite);
+                PanelHolder.instance.displayBoardScan("Infused Sapphire", "The Infused Sapphire teleported you to the " + randLocation + "!", locationSprite, "MainPlayerScene");
                 break;
             case "Arcanist Town":
                 locationSprite = Resources.Load<Sprite>("Art Assets/Backgrounds/town_arcanist");
-                PanelHolder.instance.displayBoardScan("Infused Sapphire", "The Infused Sapphire teleported you to the " + randLocation + "!", locationSprite);
+                PanelHolder.instance.displayBoardScan("Infused Sapphire", "The Infused Sapphire teleported you to the " + randLocation + "!", locationSprite, "MainPlayerScene");
                 break;
             case "Chronomancer Town":
                 locationSprite = Resources.Load<Sprite>("Art Assets/Backgrounds/town_chronomancer");
-                PanelHolder.instance.displayBoardScan("Infused Sapphire", "The Infused Sapphire teleported you to the " + randLocation + "!", locationSprite);
+                PanelHolder.instance.displayBoardScan("Infused Sapphire", "The Infused Sapphire teleported you to the " + randLocation + "!", locationSprite, "MainPlayerScene");
                 break;
             case "Elementalist Town":
                 locationSprite = Resources.Load<Sprite>("Art Assets/Backgrounds/town_elementalist");
-                PanelHolder.instance.displayBoardScan("Infused Sapphire", "The Infused Sapphire teleported you to the " + randLocation + "!", locationSprite);
+                PanelHolder.instance.displayBoardScan("Infused Sapphire", "The Infused Sapphire teleported you to the " + randLocation + "!", locationSprite, "MainPlayerScene");
                 break;
             case "Illusionist Town":
                 locationSprite = Resources.Load<Sprite>("Art Assets/Backgrounds/town_summoner");
-                PanelHolder.instance.displayBoardScan("Infused Sapphire", "The Infused Sapphire teleported you to the " + randLocation + "!", locationSprite);
+                PanelHolder.instance.displayBoardScan("Infused Sapphire", "The Infused Sapphire teleported you to the " + randLocation + "!", locationSprite, "MainPlayerScene");
                 break;
             default:
                 break;

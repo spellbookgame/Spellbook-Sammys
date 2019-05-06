@@ -38,6 +38,7 @@ public abstract class SpellCaster
     // player's collection of spell pieces, glyphs, items, and active spells stored as strings
     public Dictionary<string, int> glyphs;
     public Dictionary<string, int> dice;
+    public Dictionary<string, int> tempDice;
     public List<Spell> activeSpells;
     public List<Quest> activeQuests;
     public List<ItemObject> inventory;
@@ -70,9 +71,13 @@ public abstract class SpellCaster
         dice = new Dictionary<string, int>()
         {
             { "D4", 0 },
+            { "D5", 0 },
             { "D6", 2 },
+            { "D7", 0 },
             { "D8", 0 }
         };
+
+        tempDice = new Dictionary<string, int>();
     }
 
     public void AddToInventory(ItemObject newItem)
@@ -143,7 +148,7 @@ public abstract class SpellCaster
     public void CollectGlyph(string glyphName)
     {
         Sprite sprite = Resources.Load<Sprite>("GlyphArt/" + glyphName);
-        PanelHolder.instance.displayBoardScan("You found a Glyph!", "You found 1 " + glyphName + ".", sprite);
+        PanelHolder.instance.displayBoardScan("You found a Glyph!", "You found 1 " + glyphName + ".", sprite, "MainPlayerScene");
         SoundManager.instance.PlaySingle(SoundManager.glyphfound);
         glyphs[glyphName] += 1;
     }
@@ -199,7 +204,7 @@ public abstract class SpellCaster
 
                 // tell player that the spell is collected
                 //g.GetComponent<SpellCreateHandler>().inventoryText.text = "You unlocked " + spell.sSpellName + "!";
-                PanelHolder.instance.displayNotify(spell.sSpellName, "You unlocked " + spell.sSpellName + "!", "Main");
+                PanelHolder.instance.displayNotify(spell.sSpellName, "You unlocked " + spell.sSpellName + "!", "MainPlayerScene");
 
                 Debug.Log("You have " + chapter.spellsCollected.Count + " spells collected.");
 

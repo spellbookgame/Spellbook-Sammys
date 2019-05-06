@@ -92,6 +92,12 @@ public class UICanvasHandler : MonoBehaviour
         // only show buttons on main scene
         if (!SceneManager.GetActiveScene().name.Equals("MainPlayerScene"))
         {
+            // if dice tray is open but moved scenes, close dice tray
+            if(diceUIHandler.diceTrayOpen)
+            {
+                diceUIHandler.OpenCloseDiceTray();
+            }
+
             spellbookButton.SetActive(false);
             diceButton.SetActive(false);
             inventoryButton.SetActive(false);

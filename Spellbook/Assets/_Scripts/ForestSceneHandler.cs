@@ -35,13 +35,13 @@ public class ForestSceneHandler : MonoBehaviour
         if(!collectedItem)
         {
             ItemObject item = itemList[Random.Range(0, itemList.Count)];
-            PanelHolder.instance.displayBoardScan("You found an Item!", "You found a " + item.name + "!", item.sprite);
+            PanelHolder.instance.displayBoardScan("You found an Item!", "You found a " + item.name + "!", item.sprite, "OK");
             localPlayer.Spellcaster.AddToInventory(item);
             collectedItem = true;
         }
         else
         {
-            PanelHolder.instance.displayNotify("Don't be greedy!", "You can only take once per visit. Now leave!", "Main");
+            PanelHolder.instance.displayNotify("Don't be greedy!", "You can only take once per visit. Now leave!", "MainPlayerScene");
         }
     }
 }

@@ -23,7 +23,7 @@ public class BoardScanUI : MonoBehaviour
         gameObject.SetActive(true);
     }
 
-    public void DisplayScanEvent(string title, string info, Sprite sprite)
+    public void DisplayScanEvent(string title, string info, Sprite sprite, string scene)
     {
         titleText.text = title;
         infoText.text = info;
@@ -35,7 +35,10 @@ public class BoardScanUI : MonoBehaviour
             ribbon.SetActive(false);
         }
 
-        singleButton.onClick.AddListener((okClick));
+        if (scene.Equals("OK"))
+            singleButton.onClick.AddListener((okClick));
+        else
+            singleButton.onClick.AddListener(() => sceneClick(scene));
 
         gameObject.SetActive(true);
 
@@ -48,9 +51,18 @@ public class BoardScanUI : MonoBehaviour
     {
         SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
         gameObject.SetActive(false);
-        SceneManager.LoadScene("MainPlayerScene");
 
         if(PanelHolder.panelQueue.Count > 0)
+            PanelHolder.panelQueue.Dequeue();
+        PanelHolder.instance.CheckPanelQueue();
+    }
+    private void sceneClick(string scene)
+    {
+        SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+        gameObject.SetActive(false);
+        SceneManager.LoadScene(scene);
+
+        if (PanelHolder.panelQueue.Count > 0)
             PanelHolder.panelQueue.Dequeue();
         PanelHolder.instance.CheckPanelQueue();
     }
