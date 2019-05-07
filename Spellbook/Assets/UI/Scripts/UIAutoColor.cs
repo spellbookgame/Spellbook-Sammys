@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// MonoBehavior script automatically modulating the color of a number of SpriteRenderers.
@@ -14,12 +15,14 @@ public class UIAutoColor : MonoBehaviour {
 	public List<SpriteRenderer> managedSprites;
 	public Gradient colorGrade;
 
-     Gradient gradient;
+    Image gemImage;
+    Gradient gradient;
     GradientColorKey[] colorKey;
     GradientAlphaKey[] alphaKey;
 
     void Start()
     {
+        gemImage = GetComponent<Image>();
 /*        gradient = new Gradient();
 
         // Populate the color keys at the relative time 0 and 1 (0 and 100%)
@@ -52,16 +55,17 @@ public class UIAutoColor : MonoBehaviour {
 		}
 	}
 
-    public void DecorateSpellButton(Color c1, Color c2)
+    public void DecorateSpellButton(Color c1, Color c2, Color c3)
     {
+        gemImage.color = c3;
         
         // Populate the color keys at the relative time 0 and 1 (0 and 100%)
         colorKey = new GradientColorKey[2];
         colorKey[0].color = c1;
-        colorKey[0].time = 0.0f;
+        //colorKey[0].time = 0.0f;
         colorKey[1].color = c2;
         
-        colorKey[1].time = 1.0f;
+        //colorKey[1].time = 1.0f;
 
         // Populate the alpha  keys at relative time 0 and 1  (0 and 100%)
         alphaKey = new GradientAlphaKey[2];

@@ -9,10 +9,12 @@ public class SpellSelectionPanel : MonoBehaviour
     public Button SpellButton2;
     public Button SpellButton3;
     public Button ReadyButton;
+    public GameObject SelectedSpellButton;
 
     Spell spell1;
     Spell spell2;
     Spell spell3;
+    Spell selectedSpell;
 
     Spell[] spells;
     Button[] spellButtons;
@@ -21,6 +23,7 @@ public class SpellSelectionPanel : MonoBehaviour
     Color colorGemstone2;
     Color colorGemstone3;
     public Text SpellDescription;
+    public Text SpellName;
 
     public GameObject ChargePanel;
     public Button EquipedSpellButton;
@@ -31,6 +34,7 @@ public class SpellSelectionPanel : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        ReadyButton.interactable = false;
         //Todo get the spellcasters spells.
         GameObject p =  GameObject.FindGameObjectWithTag("LocalPlayer");
         spells = new Spell[] { spell1, spell2, spell3 };
@@ -54,14 +58,9 @@ public class SpellSelectionPanel : MonoBehaviour
             spells[i] = entry.Value;
             Color c1 = entry.Value.colorPrimary;
             Color c2 = entry.Value.colorSecondary;
-            spellButtons[i++].GetComponent<UIAutoColor>().DecorateSpellButton(c1, c2);
+            Color c3 = entry.Value.colorTertiary;
+            spellButtons[i++].GetComponent<UIAutoColor>().DecorateSpellButton(c1, c2, c3);
         }
-        ColorUtility.TryParseHtmlString(localSpellcaster.hexStringPanel, out colorGemstone1);;
-        SpellButton1.image.color = colorGemstone1;        
-        ColorUtility.TryParseHtmlString(localSpellcaster.hexStringLight, out colorGemstone2);;
-        SpellButton2.image.color = colorGemstone2;        
-        ColorUtility.TryParseHtmlString(localSpellcaster.hexString3rdColor, out colorGemstone3);;
-        SpellButton3.image.color = colorGemstone3;        
         SpellButton1.onClick.AddListener(clickedSpellButton1);
         SpellButton2.onClick.AddListener(clickedSpellButton2);
         SpellButton3.onClick.AddListener(clickedSpellButton3);
@@ -71,7 +70,17 @@ public class SpellSelectionPanel : MonoBehaviour
 
     private void clickedSpellButton1()
     {
-        SpellDescription.text = spells[0].sSpellInfo;
+        if(SelectedSpellButton != null)
+        {
+            SelectedSpellButton.GetComponent<RectTransform>().localScale = new Vector3(0.65024f, 0.65024f, 1f);
+        }
+        SpellButton1.GetComponent<RectTransform>().localScale = new Vector3(0.8f, 0.8f, 1f);
+        ReadyButton.interactable = true;
+        ReadyButton.GetComponentInChildren<Text>().text = "Ready";
+        selectedSpell = spells[0];
+        SelectedSpellButton = SpellButton1.gameObject;
+        SpellName.text = selectedSpell.sSpellName;
+        SpellDescription.text = selectedSpell.sSpellInfo;
         swipeGuide1.gameObject.SetActive(true);
         var tColor = SpellButton1.image.color;
         tColor.a = 0.5f;
@@ -80,7 +89,15 @@ public class SpellSelectionPanel : MonoBehaviour
 
     private void clickedSpellButton2()
     {
-        SpellDescription.text = spells[1].sSpellInfo;
+        if(SelectedSpellButton != null)
+        {
+            SelectedSpellButton.GetComponent<RectTransform>().localScale = new Vector3(0.65024f, 0.65024f, 1f);
+        }
+        SpellButton2.GetComponent<RectTransform>().localScale = new Vector3(0.8f, 0.8f, 1f);
+        selectedSpell = spells[1];
+        SelectedSpellButton = SpellButton2.gameObject;
+        SpellName.text = selectedSpell.sSpellName;
+        SpellDescription.text = selectedSpell.sSpellInfo;
         swipeGuide2.gameObject.SetActive(true);
         var tColor = SpellButton2.image.color;
         tColor.a = 0.5f;
@@ -89,7 +106,15 @@ public class SpellSelectionPanel : MonoBehaviour
 
     private void clickedSpellButton3()
     {
-        SpellDescription.text = spells[2].sSpellInfo;
+        if(SelectedSpellButton != null)
+        {
+            SelectedSpellButton.GetComponent<RectTransform>().localScale = new Vector3(0.65024f, 0.65024f, 1f);
+        }
+        SpellButton3.GetComponent<RectTransform>().localScale = new Vector3(0.8f, 0.8f, 1f);
+        selectedSpell = spells[2];
+        SelectedSpellButton = SpellButton3.gameObject;
+        SpellName.text = selectedSpell.sSpellName;
+        SpellDescription.text = selectedSpell.sSpellInfo;
         swipeGuide3.gameObject.SetActive(true);
         var tColor = SpellButton3.image.color;
         tColor.a = 0.5f;
@@ -99,6 +124,7 @@ public class SpellSelectionPanel : MonoBehaviour
     private void clickedReady()
     {
         ChargePanel.SetActive(true);
+        ChargePanel.GetComponent<ChargeSpell>().SetCombatSpell(selectedSpell, SelectedSpellButton);
         this.gameObject.SetActive(false);
     }
 

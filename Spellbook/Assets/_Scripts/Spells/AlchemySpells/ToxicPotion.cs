@@ -16,9 +16,9 @@ public class ToxicPotion : Spell, ICombatSpell
 
         requiredRunes.Add("Alchemist C Rune", 1);
 
-        bool c = ColorUtility.TryParseHtmlString("#AF47D8", out colorPrimary);
-        bool d = ColorUtility.TryParseHtmlString("#880044", out colorSecondary);
-        Debug.Log(c + ", " + d);
+        ColorUtility.TryParseHtmlString("#AF47D8", out colorPrimary);
+        ColorUtility.TryParseHtmlString("#521945", out colorSecondary);
+        ColorUtility.TryParseHtmlString("#880044", out colorTertiary);
     }
 
     public void CombatCast()

@@ -21,6 +21,7 @@ public abstract class Spell
 
     public Color colorPrimary;
     public Color colorSecondary;
+    public Color colorTertiary;
 
 
 

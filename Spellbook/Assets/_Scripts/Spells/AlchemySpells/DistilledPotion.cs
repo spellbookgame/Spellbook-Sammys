@@ -18,6 +18,7 @@ public class DistilledPotion : Spell, ICombatSpell
         requiredRunes.Add("Alchemist D Rune", 1);
         ColorUtility.TryParseHtmlString("#CCD5FF", out colorPrimary);
         ColorUtility.TryParseHtmlString("#7FE7FF", out colorSecondary);
+        ColorUtility.TryParseHtmlString("#D3F8E2", out colorTertiary);
     }
 
     public void CombatCast()
