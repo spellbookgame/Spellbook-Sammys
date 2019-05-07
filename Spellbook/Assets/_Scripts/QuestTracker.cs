@@ -173,6 +173,12 @@ public class QuestTracker : MonoBehaviour
                 ItemObject item = GameObject.Find("ItemList").GetComponent<ItemList>().GetItemFromName(value);
                 localPlayer.Spellcaster.AddToInventory(item);
                 return value;
+            case "Dice":
+                if (localPlayer.Spellcaster.tempDice.ContainsKey(value))
+                    localPlayer.Spellcaster.tempDice[value] += 1;
+                else
+                    localPlayer.Spellcaster.tempDice.Add(value, 1);
+                return value;
             default:
                 return value;
         }
