@@ -21,6 +21,8 @@ public class UICanvasHandler : MonoBehaviour
     [SerializeField] private GameObject progressButton;
     [SerializeField] private GameObject movePanel;
     [SerializeField] private DiceUIHandler diceUIHandler;
+    [SerializeField] private GameObject combatButton;
+    
     #endregion
 
     private Player localPlayer;
@@ -43,6 +45,8 @@ public class UICanvasHandler : MonoBehaviour
     // called once when UICanvasHandler is instantiated
     private void Start()
     {
+        
+
         // set onclick listeners once in the game
         spellbookMainButton.GetComponent<Button>().onClick.AddListener(() =>
         {
@@ -107,7 +111,10 @@ public class UICanvasHandler : MonoBehaviour
         // if we're in the main scene
         else
         {
-            if(localPlayer != null)
+            //Temporary
+            combatButton.SetActive(true);
+
+            if (localPlayer != null)
                 ActivateEndTurnButton(localPlayer.Spellcaster.hasRolled);
 
             spellbookButton.SetActive(true);
@@ -167,5 +174,12 @@ public class UICanvasHandler : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
         movePanel.SetActive(false);
+    }
+
+    //Temporary
+    public void Combat()
+    {
+        combatButton.SetActive(false);
+        SceneManager.LoadScene("CombatSceneV2");
     }
 }
