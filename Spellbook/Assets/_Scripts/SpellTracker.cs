@@ -12,6 +12,8 @@ public class SpellTracker : MonoBehaviour
 {
     public static SpellTracker instance = null;
 
+    public ItemObject forecastItem;
+
     private SpellCaster spellCaster;
 
     void Awake()
@@ -70,5 +72,18 @@ public class SpellTracker : MonoBehaviour
         }
         else
             return false;
+    }
+
+    // called from ForestSceneHandler.cs
+    public void DoForecast()
+    {
+        // add 2 of the items into inventory
+        spellCaster.AddToInventory(forecastItem);
+        spellCaster.AddToInventory(forecastItem);
+        PanelHolder.instance.displayBoardScan("Forecast Active", "Because of Forecast, you found 2 " + forecastItem.name + "s!", forecastItem.sprite, "OK");
+
+        // reset forecast item and remove forecast from active spells list
+        forecastItem = null;
+        RemoveFromActiveSpells("Forecast");
     }
 }

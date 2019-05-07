@@ -36,10 +36,18 @@ public class ForestSceneHandler : MonoBehaviour
         
         if(!collectedItem)
         {
-            ItemObject item = itemList[Random.Range(0, itemList.Count)];
-            PanelHolder.instance.displayBoardScan("You found an Item!", "You found a " + item.name + "!", item.sprite, "OK");
-            localPlayer.Spellcaster.AddToInventory(item);
-            collectedItem = true;
+            if (SpellTracker.instance.SpellIsActive("Forecast"))
+            {
+                SpellTracker.instance.DoForecast();
+                collectedItem = true;
+            }
+            else
+            {
+                ItemObject item = itemList[Random.Range(0, itemList.Count)];
+                PanelHolder.instance.displayBoardScan("You found an Item!", "You found a " + item.name + "!", item.sprite, "OK");
+                localPlayer.Spellcaster.AddToInventory(item);
+                collectedItem = true;
+            }
         }
         else
         {
