@@ -7,6 +7,7 @@ public class ChargeSpell : MonoBehaviour
 {
     public Image OuterBackgroundBar;
     public GameObject OrbButton;
+    public GameObject Arrows;
     public Button ChargeButton;
     public Image ChargeButtonBar;
     public ParticleSystem MatchParticleSystem;
@@ -35,11 +36,20 @@ public class ChargeSpell : MonoBehaviour
         maxY = vertExtent / 2;
 
 
+        OrbButton.GetComponent<Button>().onClick.AddListener(OnFirstTap);
         //shufflerCount = (int) Random.Range(3f, 10f);
+    }
+
+    void OnFirstTap()
+    {
+        Arrows.SetActive(false);
+        CountdownText.gameObject.SetActive(true);
+        OrbButton.GetComponent<Button>().onClick.RemoveAllListeners();
         OrbButton.GetComponent<Button>().onClick.AddListener(OnTap);
-        MatchParticleSystem.transform.position = Vector3.zero;
+        //MatchParticleSystem.transform.position = Vector3.zero;
         InvokeRepeating("Countdown", 0f, 1f);
         InvokeRepeating("MoveButtonTransform", 1.2f, 0.3f);
+
     }
 
     void OnTap()
@@ -62,9 +72,9 @@ public class ChargeSpell : MonoBehaviour
 
     public void SetCombatSpell(Spell selectedSpell, GameObject SpellButton)
     {
-        OrbButton.GetComponent<Image>().sprite = SpellButton.GetComponent<Image>().sprite;
+        //OrbButton.GetComponent<Image>().sprite = SpellButton.GetComponent<Image>().sprite;
         CombatSpell = selectedSpell;
-        ChargeButton = SpellButton.GetComponent<Button>();
+        //ChargeButton = SpellButton.GetComponent<Button>();
     }
 
     public void MoveButtonTransform()
