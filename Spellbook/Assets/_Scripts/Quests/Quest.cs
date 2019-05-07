@@ -29,6 +29,7 @@ public abstract class Quest
 
     // tracking variables for errand quests (uses spaceName as well)
     public ItemObject item;
+    public string itemName;
 
     // tracking variables for movement quests
     public int spacesTraveled;

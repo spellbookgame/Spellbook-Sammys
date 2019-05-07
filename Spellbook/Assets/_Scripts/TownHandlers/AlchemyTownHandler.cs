@@ -11,13 +11,20 @@ public class AlchemyTownHandler : MonoBehaviour
     [SerializeField] private Button pickupItemButton;
     [SerializeField] private Button leaveButton;
 
+    private Quest[] quests;
+
     private Player localPlayer;
     private void Start()
     {
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
 
+        quests = new Quest[]
+        {
+            new AlchemyManaQuest(localPlayer.Spellcaster.NumOfTurnsSoFar),
+            new AlchemyErrandQuest(localPlayer.Spellcaster.NumOfTurnsSoFar)
+        };
+
         findQuestButton.onClick.AddListener(FindQuest);
-        dropItemButton.onClick.AddListener(DropItem);
 
         leaveButton.onClick.AddListener(() =>
         {
@@ -30,26 +37,15 @@ public class AlchemyTownHandler : MonoBehaviour
     {
         SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
 
-        Quest alchemyManaQuest = new AlchemyManaQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
-        if (QuestTracker.instance.HasQuest(alchemyManaQuest))
+        // if player doesn't have a quest from this town yet, give random quest
+        if (QuestTracker.instance.HasQuest(quests[0]) || QuestTracker.instance.HasQuest(quests[1]))
         {
             PanelHolder.instance.displayNotify("Alchemist Town", "You're already on a quest for this town.", "OK");
         }
         else
         {
-            PanelHolder.instance.displayQuest(alchemyManaQuest);
-        }
-    }
-
-    private void DropItem()
-    {
-        if(localPlayer.Spellcaster.inventory.Count <= 0)
-        {
-            PanelHolder.instance.displayNotify("No Items", "You don't have any items to drop off!", "OK");
-        }
-        else
-        {
-            // implement dropoff
+            int r = Random.Range(0, 2);
+            PanelHolder.instance.displayQuest(quests[r]);
         }
     }
 }
