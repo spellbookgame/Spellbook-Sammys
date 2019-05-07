@@ -137,7 +137,7 @@ public abstract class SpellCaster
     {
         SoundManager.instance.PlaySingle(SoundManager.manaCollect);
 
-        int manaCount = UnityEngine.Random.Range(40, 100);
+        int manaCount = UnityEngine.Random.Range(80, 200);
         manaCount = (int)(manaCount * dManaMultiplier);
         iMana += manaCount;
 
