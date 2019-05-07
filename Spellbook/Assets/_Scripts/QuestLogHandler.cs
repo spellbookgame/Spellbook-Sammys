@@ -30,7 +30,7 @@ public class QuestLogHandler : MonoBehaviour
 
         closeButton.onClick.AddListener((ClosePanel));
 
-        int yPos = 105;
+        int yPos = 130;
         foreach (Quest q in localPlayer.Spellcaster.activeQuests)
         {
             Button newButton = Instantiate(questButton, GameObject.Find("Canvas").transform);
