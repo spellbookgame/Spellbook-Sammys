@@ -94,6 +94,8 @@ public class SpellSelectionPanel : MonoBehaviour
             SelectedSpellButton.GetComponent<RectTransform>().localScale = new Vector3(0.65024f, 0.65024f, 1f);
         }
         SpellButton2.GetComponent<RectTransform>().localScale = new Vector3(0.8f, 0.8f, 1f);
+        ReadyButton.interactable = true;
+        ReadyButton.GetComponentInChildren<Text>().text = "Ready";
         selectedSpell = spells[1];
         SelectedSpellButton = SpellButton2.gameObject;
         SpellName.text = selectedSpell.sSpellName;
@@ -111,6 +113,8 @@ public class SpellSelectionPanel : MonoBehaviour
             SelectedSpellButton.GetComponent<RectTransform>().localScale = new Vector3(0.65024f, 0.65024f, 1f);
         }
         SpellButton3.GetComponent<RectTransform>().localScale = new Vector3(0.8f, 0.8f, 1f);
+        ReadyButton.interactable = true;
+        ReadyButton.GetComponentInChildren<Text>().text = "Ready";
         selectedSpell = spells[2];
         SelectedSpellButton = SpellButton3.gameObject;
         SpellName.text = selectedSpell.sSpellName;
