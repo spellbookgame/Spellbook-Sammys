@@ -23,6 +23,10 @@ public abstract class Spell
     public Color colorSecondary;
     public Color colorTertiary;
 
+    // A sprite used to guide the player's finger swipe to cast this spell.
+    // Currently only being used in combat.
+    public Sprite guideLine;
+
 
 
     // CTOR

@@ -8,7 +8,8 @@ public class ChargeSpell : MonoBehaviour
     public Image OuterBackgroundBar;
     public GameObject OrbButton;
     public GameObject Arrows;
-    public Button ChargeButton;
+//    public Button ChargeButton;
+    public GameObject CastSpellButton;
     public Image ChargeButtonBar;
     public ParticleSystem MatchParticleSystem;
     public GameObject BossPanekGameObject;
@@ -36,8 +37,8 @@ public class ChargeSpell : MonoBehaviour
         maxY = vertExtent / 2;
 
 
+        CastSpellButton.GetComponent<Button>().onClick.AddListener(OnClickCastSpell);
         OrbButton.GetComponent<Button>().onClick.AddListener(OnFirstTap);
-        //shufflerCount = (int) Random.Range(3f, 10f);
     }
 
     void OnFirstTap()
@@ -46,7 +47,6 @@ public class ChargeSpell : MonoBehaviour
         CountdownText.gameObject.SetActive(true);
         OrbButton.GetComponent<Button>().onClick.RemoveAllListeners();
         OrbButton.GetComponent<Button>().onClick.AddListener(OnTap);
-        //MatchParticleSystem.transform.position = Vector3.zero;
         InvokeRepeating("Countdown", 0f, 1f);
         InvokeRepeating("MoveButtonTransform", 1.2f, 0.3f);
 
@@ -56,7 +56,6 @@ public class ChargeSpell : MonoBehaviour
     {
         OuterBackgroundBar.fillAmount += 0.02f;
         ChargeButtonBar.fillAmount += 0.02f;
-        //:MatchParticleSystem.Play();
     }
 
     void Countdown()
@@ -64,8 +63,8 @@ public class ChargeSpell : MonoBehaviour
         if(count <= stopTime)
         {
             CancelInvoke();
-            BossPanekGameObject.SetActive(true);
-            this.gameObject.SetActive(false);
+            OrbButton.SetActive(false);
+            CastSpellButton.SetActive(true);
         }
         CountdownText.text = "" + count--;
     }
@@ -90,4 +89,10 @@ public class ChargeSpell : MonoBehaviour
             timeSinceLastMove = Time.time;
         }
     } 
+
+    private void OnClickCastSpell()
+    {
+        BossPanekGameObject.SetActive(true);
+        this.gameObject.SetActive(false);
+    }
 }
