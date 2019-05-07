@@ -39,6 +39,7 @@ public abstract class SpellCaster
 
     // tracking items
     public bool waxCandleUsed;      // AddToInventory()
+    public bool locationItemUsed;   // CustomEventHandler()
 
     // player's collection of glyphs, dice, items, and active spells/quests stored as strings
     public Dictionary<string, int> glyphs;

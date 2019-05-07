@@ -63,8 +63,8 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
     }
     protected virtual void OnTrackingFound()
     {
-        // only scan item if player hasn't scanned a space this turn
-        if(!localPlayer.Spellcaster.scannedSpaceThisTurn && UICanvasHandler.instance.spacesMoved > 0)
+        // only scan item if player hasn't scanned a space this turn, if they've moved, OR if they used a location item that teleported them
+        if ((!localPlayer.Spellcaster.scannedSpaceThisTurn && UICanvasHandler.instance.spacesMoved > 0) || localPlayer.Spellcaster.locationItemUsed)
             scanItem(mTrackableBehaviour.TrackableName);
         else if(localPlayer.Spellcaster.scannedSpaceThisTurn)
         {
@@ -99,9 +99,8 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
         // check for crises
         CrisisHandler.instance.CheckCrisis(localPlayer, CrisisHandler.instance.currentCrisis, trackableName);
 
-        // check for quests
-        QuestTracker.instance.TrackErrandQuest(trackableName);
-        QuestTracker.instance.TrackLocationQuest(trackableName);
+        // reset location item used bool
+        localPlayer.Spellcaster.locationItemUsed = false;
 
         // call function based on target name
         switch (trackableName)
