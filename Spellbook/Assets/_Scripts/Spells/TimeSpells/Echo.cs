@@ -23,7 +23,7 @@ public class Echo : Spell
         // cast spell for free if Umbra's Eclipse is active
         if (SpellTracker.instance.CheckUmbra())
         {
-            PanelHolder.instance.displayNotify(sSpellName, "Next time you roll, you may roll again.", "OK");
+            PanelHolder.instance.displayNotify(sSpellName, "Next time you roll, you may roll again.", "MainPlayerScene");
             player.activeSpells.Add(this);
         }
         else if (player.iMana < iManaCost)
@@ -35,7 +35,7 @@ public class Echo : Spell
             // subtract mana and glyph costs
             player.iMana -= iManaCost;
 
-            PanelHolder.instance.displayNotify(sSpellName, "Next time you roll, you may roll again.", "OK");
+            PanelHolder.instance.displayNotify(sSpellName, "Next time you roll, you may roll again.", "MainPlayerScene");
             player.activeSpells.Add(this);
         }
     }

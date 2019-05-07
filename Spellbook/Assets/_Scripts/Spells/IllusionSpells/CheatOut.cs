@@ -25,7 +25,7 @@ public class CheatOut : Spell
         // cast spell for free if Umbra's Eclipse is active
         if (SpellTracker.instance.CheckUmbra())
         {
-            PanelHolder.instance.displayNotify(sSpellName, "Discard two of your runes. Draw 2 from the high tier rune deck.", "OK");
+            PanelHolder.instance.displayNotify(sSpellName, "Discard two of your runes. Draw 2 from the high tier rune deck.", "MainPlayerScene");
         }
         else if (player.iMana < iManaCost)
         {
@@ -36,7 +36,7 @@ public class CheatOut : Spell
             // subtract mana
             player.iMana -= iManaCost;
 
-            PanelHolder.instance.displayNotify(sSpellName, "Discard two of your runes. Draw 2 from the high tier rune deck.", "OK");
+            PanelHolder.instance.displayNotify(sSpellName, "Discard two of your runes. Draw 2 from the high tier rune deck.", "MainPlayerScene");
         }
     }
 }

@@ -25,7 +25,6 @@ public class FrozenTerrain : Spell
         if (SpellTracker.instance.CheckUmbra())
         {
             PanelHolder.instance.displayNotify(sSpellName, "Everyone move their piece to the Forest.", "ForestScene");
-            UICanvasHandler.instance.ActivateSpellbookButtons(false);
         }
         else if (player.iMana < iManaCost)
         {
@@ -37,7 +36,6 @@ public class FrozenTerrain : Spell
             player.iMana -= iManaCost;
 
             PanelHolder.instance.displayNotify(sSpellName, "Everyone move their piece to the Forest.", "ForestScene");
-            UICanvasHandler.instance.ActivateSpellbookButtons(false);
         }
     }
 }

@@ -27,7 +27,7 @@ public class Forecast : Spell
             List<ItemObject> itemList = GameObject.Find("ItemList").GetComponent<ItemList>().listOfItems;
             ItemObject item = itemList[Random.Range(0, itemList.Count)];
             SpellTracker.instance.forecastItem = item;
-            PanelHolder.instance.displayBoardScan("Forecast", "The next time you enter the Forest, you will gain 2 " + item.name + "s.", item.sprite, "OK");
+            PanelHolder.instance.displayBoardScan("Forecast", "The next time you enter the Forest, you will gain 2 " + item.name + "s.", item.sprite, "MainPlayerScene");
             player.activeSpells.Add(this);
             SpellTracker.instance.forecastItem = item;
         }
@@ -43,7 +43,7 @@ public class Forecast : Spell
             List<ItemObject> itemList = GameObject.Find("ItemList").GetComponent<ItemList>().listOfItems;
             ItemObject item = itemList[Random.Range(0, itemList.Count)];
             SpellTracker.instance.forecastItem = item;
-            PanelHolder.instance.displayBoardScan("Forecast", "The next time you enter the Forest, you will gain 2 " + item.name + "s.", item.sprite, "OK");
+            PanelHolder.instance.displayBoardScan("Forecast", "The next time you enter the Forest, you will gain 2 " + item.name + "s.", item.sprite, "MainPlayerScene");
             player.activeSpells.Add(this);
         }
     }

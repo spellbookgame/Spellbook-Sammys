@@ -35,7 +35,6 @@ public class CrystalScent : Spell
             player.iMana -= iManaCost;
 
             PanelHolder.instance.displayNotify("You cast " + sSpellName, "Move your piece to the Marketplace.", "ShopScene");
-            UICanvasHandler.instance.ActivateSpellbookButtons(false);
         }
     }
 }

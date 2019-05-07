@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
@@ -159,13 +160,12 @@ public abstract class SpellCaster
     public bool CollectSpell(Spell spell)
     {
         bool spellCollected = false;
-        GameObject g = GameObject.FindGameObjectWithTag("SpellManager");
 
         // only add the spell if the player is the spell's class
-        if (spell.sSpellClass == this.classType)
+        if (spell.sSpellClass == classType)
         {
             // if chapter.spellsCollected already contains spell, give error notice
-            if (chapter.spellsCollected.Contains(spell))
+            if (chapter.spellsCollected.Any(x => x.sSpellName.Equals(spell.sSpellName)))
             {
                 PanelHolder.instance.displayNotify(spell.sSpellName, "You already have " + spell.sSpellName + ".", "OK");
             }
@@ -178,7 +178,6 @@ public abstract class SpellCaster
                 savePlayerData(this);
 
                 // tell player that the spell is collected
-                //g.GetComponent<SpellCreateHandler>().inventoryText.text = "You unlocked " + spell.sSpellName + "!";
                 PanelHolder.instance.displayNotify(spell.sSpellName, "You unlocked " + spell.sSpellName + "!", "MainPlayerScene");
 
                 Debug.Log("You have " + chapter.spellsCollected.Count + " spells collected.");

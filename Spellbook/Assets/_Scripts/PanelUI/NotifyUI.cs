@@ -69,6 +69,7 @@ public class NotifyUI : MonoBehaviour
         SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
         gameObject.SetActive(false);
         SceneManager.LoadScene(scene);
+        UICanvasHandler.instance.ActivateSpellbookButtons(false);
 
         if (PanelHolder.panelQueue.Count > 0)
             PanelHolder.panelQueue.Dequeue();

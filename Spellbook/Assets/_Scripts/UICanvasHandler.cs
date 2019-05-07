@@ -89,7 +89,7 @@ public class UICanvasHandler : MonoBehaviour
         // set render camera to main camera
         gameObject.GetComponent<Canvas>().worldCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
 
-        // only show buttons on main scene
+        // if we're not in main scene main scene
         if (!SceneManager.GetActiveScene().name.Equals("MainPlayerScene"))
         {
             // if dice tray is open but moved scenes, close dice tray
@@ -98,6 +98,7 @@ public class UICanvasHandler : MonoBehaviour
                 diceUIHandler.OpenCloseDiceTray();
             }
 
+            // deactive main buttons
             spellbookButton.SetActive(false);
             diceButton.SetActive(false);
             inventoryButton.SetActive(false);

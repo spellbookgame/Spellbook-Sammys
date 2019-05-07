@@ -26,7 +26,7 @@ public class DelayTime : Spell
         if (SpellTracker.instance.CheckUmbra())
         {
             CrisisHandler.instance.roundsUntilCrisis++;
-            PanelHolder.instance.displayNotify(sSpellName, "The next crisis will come 1 turn later.", "OK");
+            PanelHolder.instance.displayNotify(sSpellName, "The next crisis will come 1 turn later.", "MainPlayerScene");
         }
         else if(player.iMana < iManaCost)
         {
@@ -38,7 +38,7 @@ public class DelayTime : Spell
             player.iMana -= iManaCost;
 
             CrisisHandler.instance.roundsUntilCrisis++;
-            PanelHolder.instance.displayNotify(sSpellName, "The next crisis will come 1 turn later.", "OK");
+            PanelHolder.instance.displayNotify(sSpellName, "The next crisis will come 1 turn later.", "MainPlayerScene");
         }
     }
 }

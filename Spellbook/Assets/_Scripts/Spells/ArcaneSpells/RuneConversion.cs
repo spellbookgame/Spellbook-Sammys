@@ -25,7 +25,7 @@ public class RuneConversion : Spell
         // cast spell for free if Umbra's Eclipse is active
         if (SpellTracker.instance.CheckUmbra())
         {
-            PanelHolder.instance.displayNotify(sSpellName, "Discard one of your current runes. Draw a new one from the deck.", "OK");
+            PanelHolder.instance.displayNotify(sSpellName, "Discard one of your current runes. Draw a new one from the deck.", "MainPlayerScene");
         }
         else if (player.iMana < iManaCost)
         {
@@ -36,7 +36,7 @@ public class RuneConversion : Spell
             // subtract mana and glyph costs
             player.iMana -= iManaCost;
 
-            PanelHolder.instance.displayNotify(sSpellName, "Discard one of your current runes. Draw a new one from the deck.", "OK");
+            PanelHolder.instance.displayNotify(sSpellName, "Discard one of your current runes. Draw a new one from the deck.", "MainPlayerScene");
         }
     }
 }
