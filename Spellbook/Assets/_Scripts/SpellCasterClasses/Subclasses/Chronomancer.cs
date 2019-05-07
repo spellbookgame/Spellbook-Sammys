@@ -28,5 +28,13 @@ public class Chronomancer : SpellCaster
 
         hexStringLight = "#6D3813";
         hexStringPanel = "#FFFFFF";
+        hexString3rdColor = "9B1D20";
+
+        combatSpells = new Dictionary<string, Spell>()
+        {
+            { "Manipulate", new Manipulate()},
+            { "Reverse Wounds", new ReverseWounds()},
+            { "Chronoblast", new Chronoblast()}
+        };
     }
 }

@@ -27,5 +27,13 @@ public class Arcanist : SpellCaster
 
         hexStringLight = "#853CBF";
         hexStringPanel = "#FFC7FF";
+        hexString3rdColor = "6D2F5F";
+
+        combatSpells = new Dictionary<string, Spell>()
+        {
+            { "Marcella's Blessing", new MarcellasBlessing()},
+            { "Archive", new Archive()},
+            { "Runic Darts", new RunicDarts()}
+        };
     }
 }

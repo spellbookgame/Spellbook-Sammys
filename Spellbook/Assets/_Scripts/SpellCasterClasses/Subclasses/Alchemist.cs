@@ -28,5 +28,14 @@ public class Alchemist : SpellCaster
 
         hexStringLight = "#218221";
         hexStringPanel = "#ABFFB4";
+        hexString3rdColor = "#295135";
+
+        combatSpells = new Dictionary<string, Spell>()
+        {
+            { "Brew - Potion of Blessing", new PotionofBlessing()},
+            { "Brew - Toxic Potion", new ToxicPotion()},
+            { "Brew - Distilled Potion", new DistilledPotion()}
+        };
+
     }
 }

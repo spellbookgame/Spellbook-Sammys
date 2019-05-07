@@ -44,6 +44,7 @@ public abstract class SpellCaster
     // player's collection of glyphs, dice, items, and active spells/quests stored as strings
     public Dictionary<string, int> glyphs;
     public Dictionary<string, int> dice;
+    public Dictionary<string, Spell> combatSpells;
     public Dictionary<string, int> tempDice;
     public List<Spell> activeSpells;
     public List<Quest> activeQuests;
@@ -54,6 +55,7 @@ public abstract class SpellCaster
     public string characterIconPath;
     public string hexStringLight;
     public string hexStringPanel;
+    public string hexString3rdColor;
 
     // TODO:
     //private string backGroundStory; 

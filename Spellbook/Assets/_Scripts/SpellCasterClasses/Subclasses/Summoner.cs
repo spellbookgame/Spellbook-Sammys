@@ -28,5 +28,12 @@ public class Summoner : SpellCaster
 
         hexStringLight = "#000091";
         hexStringPanel = "#B6BDFF";
+        hexString3rdColor = "FFEE93";
+        combatSpells = new Dictionary<string, Spell>()
+        {
+            { "Call of the Wild - Raven's Song", new Ravenssong()},
+            { "Call of the Wild - Bear's Fury", new Bearsfury()},
+            { "Call of the Dead - Skeletons", new Skeletons()}
+        };
     }
 }

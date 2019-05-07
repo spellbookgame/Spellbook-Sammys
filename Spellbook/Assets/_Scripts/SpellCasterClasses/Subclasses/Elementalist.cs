@@ -27,5 +27,13 @@ public class Elementalist : SpellCaster
 
         hexStringLight = "#910000";
         hexStringPanel = "#FFBDB2";
+        hexString3rdColor = "7D59CC";
+
+        combatSpells = new Dictionary<string, Spell>()
+        {
+            { "Natural Disaster", new NaturalDisaster()},
+            { "Eye of the Storm", new EyeOfTheStorm()},
+            { "Fireball", new Fireball()}
+        };
     }
 }
