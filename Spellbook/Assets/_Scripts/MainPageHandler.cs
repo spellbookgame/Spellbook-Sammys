@@ -73,11 +73,11 @@ public class MainPageHandler : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.W))
         {
-            SceneManager.LoadScene("ChronomancyTownScene");
+            SceneManager.LoadScene("IllusionTownScene");
         }
         if (Input.GetKeyDown(KeyCode.E))
         {
-            SceneManager.LoadScene("MineScene");
+            SceneManager.LoadScene("SwampScene");
         }
         if (Input.GetKeyDown(KeyCode.F))
         {

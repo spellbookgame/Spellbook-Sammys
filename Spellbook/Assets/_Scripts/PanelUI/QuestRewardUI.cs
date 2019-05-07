@@ -78,6 +78,7 @@ public class QuestRewardUI : MonoBehaviour
                         continue;
                     case "Dice":
                         rewardImages[i].sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/Blank Dice");
+                        rewardText[i].text = "You earned a temporary " + kvp.Value + "!";
                         ++i;
                         continue;
                     default:
