@@ -124,6 +124,9 @@ public class DiceRoll : MonoBehaviour
             CheckMoveRoll(LastRoll);
             CheckManaRoll(LastRoll);
 
+            // remove all temporary dice from player's inventory
+            localPlayer.Spellcaster.tempDice.Clear();
+
             QuestTracker.instance.TrackMoveQuest(LastRoll);
         }
     }

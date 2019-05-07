@@ -24,7 +24,7 @@ public class CharmingNegotiator : Spell
         // cast spell for free if Umbra's Eclipse is active
         if (SpellTracker.instance.CheckUmbra())
         {
-            PanelHolder.instance.displayNotify("You cast " + sSpellName, "Next time you visit the shop, you will receive 30% discount.", "OK");
+            PanelHolder.instance.displayNotify("You cast " + sSpellName, "Next time you visit the shop, you will receive 30% discount.", "MainPlayerScene");
         }
         else if (player.iMana < iManaCost)
         {
@@ -35,7 +35,7 @@ public class CharmingNegotiator : Spell
             // subtract mana and glyph costs
             player.iMana -= iManaCost;
 
-            PanelHolder.instance.displayNotify("You cast " + sSpellName, "Next time you visit the shop, you will receive 30% discount.", "OK");
+            PanelHolder.instance.displayNotify("You cast " + sSpellName, "Next time you visit the shop, you will receive 30% discount.", "MainPlayerScene");
             player.activeSpells.Add(this);
         }
     }

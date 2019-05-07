@@ -32,7 +32,7 @@ public class QuestUI : MonoBehaviour
     public void DisplayQuest(Quest quest)
     {
         titleText.text = quest.questName;
-        infoText.text = quest.questTask + "\nTurn Limit: " + quest.turnLimit;
+        infoText.text = quest.questFlavor + "\n\nTurn Limit: " + quest.turnLimit;
 
         // if current scene is vuforia, remove ribbon from panel
         if (SceneManager.GetActiveScene().name.Equals("VuforiaScene"))
@@ -62,6 +62,14 @@ public class QuestUI : MonoBehaviour
                         continue;
                     case "Mana":
                         rewardImages[i].sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/ManaCrystal");
+                        ++i;
+                        continue;
+                    case "Item":
+                        rewardImages[i].sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/" + kvp.Value);
+                        ++i;
+                        continue;
+                    case "Dice":
+                        rewardImages[i].sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/Blank Dice");
                         ++i;
                         continue;
                     default:

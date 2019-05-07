@@ -27,7 +27,7 @@ public class CoSLeon : Spell
         // subtract mana
         player.iMana -= iManaCost;
 
-        PanelHolder.instance.displayNotify("You cast " + sSpellName, "", "OK");
+        PanelHolder.instance.displayNotify("You cast " + sSpellName, "", "MainPlayerScene");
         player.activeSpells.Add(this);
     }
 }

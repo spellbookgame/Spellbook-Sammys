@@ -3,9 +3,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /*
  A base class that all SpellCaster types/classes will inherit from.
@@ -35,10 +37,18 @@ public abstract class SpellCaster
     public bool scannedSpaceThisTurn;
     public Chapter chapter;
 
-    // player's collection of spell pieces, glyphs, items, and active spells stored as strings
+    // tracking items
+    public bool waxCandleUsed;      // AddToInventory()
+    public bool locationItemUsed;   // CustomEventHandler()
+
+    // player's collection of glyphs, dice, items, and active spells/quests stored as strings
     public Dictionary<string, int> glyphs;
     public Dictionary<string, int> dice;
+<<<<<<< HEAD
     public Dictionary<string, Spell> combatSpells;
+=======
+    public Dictionary<string, int> tempDice;
+>>>>>>> 5f67aa1db7db292ac8f5ff103fc43ee9bc3613a8
     public List<Spell> activeSpells;
     public List<Quest> activeQuests;
     public List<ItemObject> inventory;
@@ -72,9 +82,13 @@ public abstract class SpellCaster
         dice = new Dictionary<string, int>()
         {
             { "D4", 0 },
+            { "D5", 0 },
             { "D6", 2 },
+            { "D7", 0 },
             { "D8", 0 }
         };
+
+        tempDice = new Dictionary<string, int>();
     }
 
     public void AddToInventory(ItemObject newItem)
@@ -89,6 +103,12 @@ public abstract class SpellCaster
         {
             inventory.Add(newItem);
             SpellTracker.instance.RemoveFromActiveSpells("Brew - Collector's Drink");
+        }
+        // if player used wax candle and is in forest, add another copy of item
+        if(waxCandleUsed && SceneManager.GetActiveScene().name.Equals("ForestScene"))
+        {
+            inventory.Add(newItem);
+            waxCandleUsed = false;
         }
     }
     public void RemoveFromInventory(ItemObject newItem)
@@ -124,7 +144,7 @@ public abstract class SpellCaster
     {
         SoundManager.instance.PlaySingle(SoundManager.manaCollect);
 
-        int manaCount = UnityEngine.Random.Range(40, 100);
+        int manaCount = UnityEngine.Random.Range(80, 200);
         manaCount = (int)(manaCount * dManaMultiplier);
         iMana += manaCount;
 
@@ -142,52 +162,16 @@ public abstract class SpellCaster
             iMana = 0;
     }
 
-    public void CollectGlyph(string glyphName)
-    {
-        Sprite sprite = Resources.Load<Sprite>("GlyphArt/" + glyphName);
-        PanelHolder.instance.displayBoardScan("You found a Glyph!", "You found 1 " + glyphName + ".", sprite);
-        SoundManager.instance.PlaySingle(SoundManager.glyphfound);
-        glyphs[glyphName] += 1;
-    }
-
-    // find a random glyph
-    public string CollectRandomGlyph()
-    {
-        List<string> glyphList = new List<string>(this.glyphs.Keys);
-        int random = (int)UnityEngine.Random.Range(0, glyphList.Count + 1);
-
-        string randomKey = glyphList[random];
-
-        glyphs[randomKey] += 1;
-        PanelHolder.instance.displayNotify("You found a Glyph!", "You found a " + randomKey + ".", "OK");
-
-        return randomKey;
-    }
-
-    public string LoseRandomGlyph()
-    {
-        List<string> glyphList = new List<string>(this.glyphs.Keys);
-        int random = (int)UnityEngine.Random.Range(0, glyphList.Count);
-
-        string randomKey = glyphList[random];
-
-        if(this.glyphs[randomKey] > 0)
-            this.glyphs[randomKey] -= 1;
-
-        return randomKey;
-    }
-
     // function that adds spell to player's chapter
     public bool CollectSpell(Spell spell)
     {
         bool spellCollected = false;
-        GameObject g = GameObject.FindGameObjectWithTag("SpellManager");
 
         // only add the spell if the player is the spell's class
-        if (spell.sSpellClass == this.classType)
+        if (spell.sSpellClass == classType)
         {
             // if chapter.spellsCollected already contains spell, give error notice
-            if (chapter.spellsCollected.Contains(spell))
+            if (chapter.spellsCollected.Any(x => x.sSpellName.Equals(spell.sSpellName)))
             {
                 PanelHolder.instance.displayNotify(spell.sSpellName, "You already have " + spell.sSpellName + ".", "OK");
             }
@@ -200,8 +184,7 @@ public abstract class SpellCaster
                 savePlayerData(this);
 
                 // tell player that the spell is collected
-                //g.GetComponent<SpellCreateHandler>().inventoryText.text = "You unlocked " + spell.sSpellName + "!";
-                PanelHolder.instance.displayNotify(spell.sSpellName, "You unlocked " + spell.sSpellName + "!", "Main");
+                PanelHolder.instance.displayNotify(spell.sSpellName, "You unlocked " + spell.sSpellName + "!", "MainPlayerScene");
 
                 Debug.Log("You have " + chapter.spellsCollected.Count + " spells collected.");
 

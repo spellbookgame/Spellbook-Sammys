@@ -12,6 +12,8 @@ public class SpellTracker : MonoBehaviour
 {
     public static SpellTracker instance = null;
 
+    public ItemObject forecastItem;
+
     private SpellCaster spellCaster;
 
     void Awake()
@@ -40,11 +42,6 @@ public class SpellTracker : MonoBehaviour
         // if spell is active
         if (spellCaster.activeSpells.Any(x => x.sSpellName.Equals(spellName)))
         {
-            // removing D8 after it is used
-            if (spellName.Equals("Brew - Potion of Luck"))
-            {
-                spellCaster.dice["D8"] -= 1;
-            }
             // remove spell from active spells list once it wears off
             foreach (Spell entry in spellCaster.chapter.spellsCollected)
             {
@@ -75,5 +72,18 @@ public class SpellTracker : MonoBehaviour
         }
         else
             return false;
+    }
+
+    // called from ForestSceneHandler.cs
+    public void DoForecast()
+    {
+        // add 2 of the items into inventory
+        spellCaster.AddToInventory(forecastItem);
+        spellCaster.AddToInventory(forecastItem);
+        PanelHolder.instance.displayBoardScan("Forecast Active", "Because of Forecast, you found 2 " + forecastItem.name + "s!", forecastItem.sprite, "OK");
+
+        // reset forecast item and remove forecast from active spells list
+        forecastItem = null;
+        RemoveFromActiveSpells("Forecast");
     }
 }

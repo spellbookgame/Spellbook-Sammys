@@ -25,6 +25,9 @@ public class SwampSceneHandler : MonoBehaviour
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
             SceneManager.LoadScene("MainPlayerScene");
         });
+
+        QuestTracker.instance.TrackLocationQuest("location_swamp");
+        QuestTracker.instance.TrackErrandQuest("location_swamp");
     }
 
     private void BuffLand()

@@ -9,7 +9,7 @@ public class IllusionManaQuest : Quest
     {
         questName = "Illusion Retrieval Quest";
         questType = "Collect Mana";
-        questFlavor = "Every spellcaster needs some money to travel.";
+        questFlavor = "Every spellcaster needs some money to travel. Collect some mana for me.";
         questTask = "Collect 1200 mana.";
 
         startTurn = turnStarted;

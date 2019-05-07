@@ -19,8 +19,9 @@ public class CrisisHandler : MonoBehaviour
     public int requiredSpellTier = 0;
     public int roundsUntilCrisis = 0;
 
-    // tracking to see which crisis is currently active
+    // tracking to see which crisis is currently active/next crisis
     public string currentCrisis = "";
+    public string nextCrisis = "";
 
     #region singleton
     void Awake()
@@ -44,6 +45,7 @@ public class CrisisHandler : MonoBehaviour
     public void CallTsunami()
     {
         currentCrisis = "Tsunami";
+        nextCrisis = "Gilron's Comet";
         crisisSolved = false;
         roundsUntilCrisis = 3;
 
@@ -72,6 +74,7 @@ public class CrisisHandler : MonoBehaviour
     public void CallComet()
     {
         currentCrisis = "Comet";
+        nextCrisis = "Stonelung Plague";
         crisisSolved = false;
         roundsUntilCrisis = 3;
 
@@ -99,6 +102,7 @@ public class CrisisHandler : MonoBehaviour
     public void CallPlague()
     {
         currentCrisis = "Plague";
+        nextCrisis = "Divine Intervention";
         crisisSolved = false;
         roundsUntilCrisis = 3;
 
@@ -127,6 +131,7 @@ public class CrisisHandler : MonoBehaviour
     public void CallIntervention()
     {
         currentCrisis = "Intervention";
+        nextCrisis = "War of the Realms";
         crisisSolved = false;
         roundsUntilCrisis = 3;
 
@@ -155,6 +160,7 @@ public class CrisisHandler : MonoBehaviour
     public void CallRealm()
     {
         currentCrisis = "Realm";
+        nextCrisis = "Famine";
         crisisSolved = false;
         roundsUntilCrisis = 3;
 
@@ -183,6 +189,7 @@ public class CrisisHandler : MonoBehaviour
     public void CallFamine()
     {
         currentCrisis = "Famine";
+        nextCrisis = "Preparation";
         crisisSolved = false;
         roundsUntilCrisis = 3;
 
@@ -211,6 +218,7 @@ public class CrisisHandler : MonoBehaviour
     public void CallPreparation()
     {
         currentCrisis = "Preparation";
+        nextCrisis = "Final Battle";
         crisisSolved = false;
         roundsUntilCrisis = 3;
 

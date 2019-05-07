@@ -23,7 +23,7 @@ public class Growth : Spell
         // cast spell for free if Umbra's Eclipse is active
         if (SpellTracker.instance.CheckUmbra())
         {
-            PanelHolder.instance.displayNotify(sSpellName, "Everyone will receive a D7 to their mana next time they roll.", "OK");
+            PanelHolder.instance.displayNotify(sSpellName, "Everyone will receive a D7 to their mana next time they roll.", "MainPlayerScene");
             player.activeSpells.Add(this);
         }
         else if (player.iMana < iManaCost)
@@ -35,7 +35,7 @@ public class Growth : Spell
             // subtract mana
             player.iMana -= iManaCost;
 
-            PanelHolder.instance.displayNotify(sSpellName, "Everyone will receive a D7 to their mana next time they roll.", "OK");
+            PanelHolder.instance.displayNotify(sSpellName, "Everyone will receive a D7 to their mana next time they roll.", "MainPlayerScene");
             player.activeSpells.Add(this);
         }
     }

@@ -8,7 +8,6 @@ public class ForestSceneHandler : MonoBehaviour
 {
     [SerializeField] private Button lookButton;
     [SerializeField] private Button leaveButton;
-    [SerializeField] private GameObject itemListHolder;
 
     private bool collectedItem;
 
@@ -18,7 +17,7 @@ public class ForestSceneHandler : MonoBehaviour
     private void Start()
     {
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
-        itemList = itemListHolder.GetComponent<ItemList>().listOfItems;
+        itemList = GameObject.Find("ItemList").GetComponent<ItemList>().listOfItems;
 
         lookButton.onClick.AddListener(LookForItem);
         leaveButton.onClick.AddListener(() =>
@@ -26,6 +25,9 @@ public class ForestSceneHandler : MonoBehaviour
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
             SceneManager.LoadScene("MainPlayerScene");
         });
+
+        QuestTracker.instance.TrackLocationQuest("location_forest");
+        QuestTracker.instance.TrackErrandQuest("location_forest");
     }
 
     private void LookForItem()
@@ -34,14 +36,22 @@ public class ForestSceneHandler : MonoBehaviour
         
         if(!collectedItem)
         {
-            ItemObject item = itemList[Random.Range(0, itemList.Count)];
-            PanelHolder.instance.displayBoardScan("You found an Item!", "You found a " + item.name + "!", item.sprite);
-            localPlayer.Spellcaster.AddToInventory(item);
-            collectedItem = true;
+            if (SpellTracker.instance.SpellIsActive("Forecast"))
+            {
+                SpellTracker.instance.DoForecast();
+                collectedItem = true;
+            }
+            else
+            {
+                ItemObject item = itemList[Random.Range(0, itemList.Count)];
+                PanelHolder.instance.displayBoardScan("You found an Item!", "You found a " + item.name + "!", item.sprite, "OK");
+                localPlayer.Spellcaster.AddToInventory(item);
+                collectedItem = true;
+            }
         }
         else
         {
-            PanelHolder.instance.displayNotify("Don't be greedy!", "You can only take once per visit. Now leave!", "Main");
+            PanelHolder.instance.displayNotify("Don't be greedy!", "You can only take once per visit. Now leave!", "MainPlayerScene");
         }
     }
 }

@@ -11,6 +11,7 @@ public class ScanEventHandler : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 {
     [SerializeField] private GameObject instructionImage;
     [SerializeField] private Text moveInfo;
+    [SerializeField] private GameObject cameraInstructions;
     [SerializeField] private UnityEngine.UI.Image backgroundImage;
     private void Start()
     {
@@ -31,6 +32,7 @@ public class ScanEventHandler : MonoBehaviour, IPointerDownHandler, IPointerUpHa
             Debug.Log("Failed to set focus mode (unsupported mode).");
         }
 
+        cameraInstructions.SetActive(true);
         instructionImage.SetActive(false);
         backgroundImage.enabled = false;
     }
@@ -38,6 +40,7 @@ public class ScanEventHandler : MonoBehaviour, IPointerDownHandler, IPointerUpHa
     public void OnPointerUp(PointerEventData eventData)
     {
         VuforiaBehaviour.Instance.enabled = false;
+        cameraInstructions.SetActive(false);
         instructionImage.SetActive(true);
         backgroundImage.enabled = true;
     }

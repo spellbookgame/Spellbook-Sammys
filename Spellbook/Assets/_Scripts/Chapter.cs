@@ -39,6 +39,7 @@ public class Chapter : MonoBehaviour
                 break;
             case "Chronomancer":
                 spellsAllowed.Add(new DelayTime());
+                spellsAllowed.Add(new Forecast());
                 spellsAllowed.Add(new Echo());
                 break;
             case "Elementalist":

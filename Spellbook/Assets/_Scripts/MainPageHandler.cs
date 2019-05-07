@@ -65,13 +65,17 @@ public class MainPageHandler : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.U))
         {
-            localPlayer.Spellcaster.CollectSpell(new Growth());
+            localPlayer.Spellcaster.CollectSpell(new Forecast());
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
-            SceneManager.LoadScene("ShopScene");
+            SceneManager.LoadScene("MineScene");
         }
         if (Input.GetKeyDown(KeyCode.W))
+        {
+            SceneManager.LoadScene("AlchemyTownScene");
+        }
+        if (Input.GetKeyDown(KeyCode.E))
         {
             SceneManager.LoadScene("SwampScene");
         }
