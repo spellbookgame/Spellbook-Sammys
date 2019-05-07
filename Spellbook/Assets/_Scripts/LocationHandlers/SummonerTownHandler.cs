@@ -1,15 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class ArcaneTownHandler : MonoBehaviour
+public class SummonerTownHandler : MonoBehaviour
 {
     [SerializeField] private Button findQuestButton;
     [SerializeField] private Button dropItemButton;
     [SerializeField] private Button pickupItemButton;
     [SerializeField] private Button leaveButton;
+    [SerializeField] private Text dialogueText;
 
     private Player localPlayer;
     private void Start()
@@ -23,20 +26,23 @@ public class ArcaneTownHandler : MonoBehaviour
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
             SceneManager.LoadScene("MainPlayerScene");
         });
+
+        QuestTracker.instance.TrackLocationQuest("town_summoner");
+        QuestTracker.instance.TrackErrandQuest("town_summoner");
     }
 
     private void FindQuest()
     {
         SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
 
-        Quest arcaneErrandQuest = new ArcaneErrandQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
-        if (QuestTracker.instance.HasQuest(arcaneErrandQuest))
+        Quest summonManaQuest = new SummoningManaQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
+        if (QuestTracker.instance.HasQuest(summonManaQuest))
         {
-            PanelHolder.instance.displayNotify("Arcane Town", "You're already on a quest for this town.", "OK");
+            PanelHolder.instance.displayNotify("Summoner Town", "You're already on a quest for this town.", "OK");
         }
         else
         {
-            PanelHolder.instance.displayQuest(arcaneErrandQuest);
+            PanelHolder.instance.displayQuest(summonManaQuest);
         }
     }
 }

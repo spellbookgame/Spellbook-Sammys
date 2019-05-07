@@ -23,6 +23,9 @@ public class ElementalTownHandler : MonoBehaviour
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
             SceneManager.LoadScene("MainPlayerScene");
         });
+
+        QuestTracker.instance.TrackLocationQuest("town_elementalist");
+        QuestTracker.instance.TrackErrandQuest("town_elementalist");
     }
 
     private void FindQuest()

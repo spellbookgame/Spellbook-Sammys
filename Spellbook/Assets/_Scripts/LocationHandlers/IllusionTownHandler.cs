@@ -1,18 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class SummonerTownHandler : MonoBehaviour
+public class IllusionTownHandler : MonoBehaviour
 {
     [SerializeField] private Button findQuestButton;
     [SerializeField] private Button dropItemButton;
     [SerializeField] private Button pickupItemButton;
     [SerializeField] private Button leaveButton;
-    [SerializeField] private Text dialogueText;
 
     private Player localPlayer;
     private void Start()
@@ -26,20 +23,23 @@ public class SummonerTownHandler : MonoBehaviour
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
             SceneManager.LoadScene("MainPlayerScene");
         });
+
+        QuestTracker.instance.TrackLocationQuest("town_illusionist");
+        QuestTracker.instance.TrackErrandQuest("town_illusionist");
     }
 
     private void FindQuest()
     {
         SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
 
-        Quest summonManaQuest = new SummoningManaQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
-        if (QuestTracker.instance.HasQuest(summonManaQuest))
+        Quest illusionSpaceQuest = new IllusionManaQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
+        if (QuestTracker.instance.HasQuest(illusionSpaceQuest))
         {
-            PanelHolder.instance.displayNotify("Summoner Town", "You're already on a quest for this town.", "OK");
+            PanelHolder.instance.displayNotify("Illusion Town", "You're already on a quest for this town.", "OK");
         }
         else
         {
-            PanelHolder.instance.displayQuest(summonManaQuest);
+            PanelHolder.instance.displayQuest(illusionSpaceQuest);
         }
     }
 }

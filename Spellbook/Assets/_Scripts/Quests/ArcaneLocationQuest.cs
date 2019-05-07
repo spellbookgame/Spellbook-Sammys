@@ -3,25 +3,24 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-public class ArcaneErrandQuest : Quest
+public class ArcaneLocationQuest : Quest
 {
-    public ArcaneErrandQuest(int turnStarted)
+    public ArcaneLocationQuest(int turnStarted)
     {
-        questName = "Arcane Errand Quest";
-        questType = "Errand";
-        questFlavor = "The Illusion Town is in need of an Abyssal Ore. Find one and bring it to them.";
-        questTask = "Bring an Abyssal Ore to the Illusion Town.";
+        questName = "Arcane Location Quest";
+        questType = "Specific Location";
+        questFlavor = "The Forest is an enormous source of energy for the Arcane Town. If you want to uncover the secrets of the Arcane arts, visit the Forest.";
+        questTask = "Visit the Forest.";
 
         startTurn = turnStarted;
         turnLimit = 4;
 
-        spaceName = "town_illusionist";
-        itemName = "Abyssal Ore";
+        spaceName = "location_forest";
 
-        rewards.Add("Rune", "Illusionist A Rune");
-        rewards.Add("Class Rune", "B Rune");
+        rewards.Add("Rune", "Arcanist A Rune");
+        rewards.Add("Class Rune", "A Rune");
 
-        consequenceMana = 700;
+        consequenceMana = 800;
 
         questCompleted = false;
     }

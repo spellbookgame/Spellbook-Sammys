@@ -73,7 +73,7 @@ public class MainPageHandler : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.W))
         {
-            SceneManager.LoadScene("AlchemyTownScene");
+            SceneManager.LoadScene("ArcaneTownScene");
         }
         if (Input.GetKeyDown(KeyCode.F))
         {

@@ -128,7 +128,22 @@ public class QuestTracker : MonoBehaviour
             if (q.questType.Equals("Errand"))
             {
                 // if player is at the space and has the item requested
-                if (q.spaceName.Equals(location) && (localPlayer.Spellcaster.inventory.Contains(q.item) || localPlayer.Spellcaster.inventory.Any(x => x.name.Equals(q.itemName))))
+                if (q.spaceName.Equals(location) && localPlayer.Spellcaster.inventory.Any(x => x.name.Equals(q.itemName)))
+                {
+                    QuestCompleted(q);
+                }
+            }
+        }
+    }
+
+    public void TrackLocationQuest(string location)
+    {
+        foreach (Quest q in localPlayer.Spellcaster.activeQuests.ToArray())
+        {
+            if (q.questType.Equals("Specific Location"))
+            {
+                // if player is at the space
+                if (q.spaceName.Equals(location))
                 {
                     QuestCompleted(q);
                 }

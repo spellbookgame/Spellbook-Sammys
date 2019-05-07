@@ -25,6 +25,9 @@ public class ForestSceneHandler : MonoBehaviour
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
             SceneManager.LoadScene("MainPlayerScene");
         });
+
+        QuestTracker.instance.TrackLocationQuest("location_forest");
+        QuestTracker.instance.TrackErrandQuest("location_forest");
     }
 
     private void LookForItem()

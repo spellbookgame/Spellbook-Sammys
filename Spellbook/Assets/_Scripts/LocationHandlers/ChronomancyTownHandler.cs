@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class IllusionTownHandler : MonoBehaviour
+public class ChronomancyTownHandler : MonoBehaviour
 {
     [SerializeField] private Button findQuestButton;
     [SerializeField] private Button dropItemButton;
@@ -23,20 +23,23 @@ public class IllusionTownHandler : MonoBehaviour
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
             SceneManager.LoadScene("MainPlayerScene");
         });
+
+        QuestTracker.instance.TrackLocationQuest("town_chronomancer");
+        QuestTracker.instance.TrackErrandQuest("town_chronomancer");
     }
 
     private void FindQuest()
     {
         SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
 
-        Quest illusionSpaceQuest = new IllusionManaQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
-        if (QuestTracker.instance.HasQuest(illusionSpaceQuest))
+        Quest timeMoveQuest = new TimeMoveQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
+        if (QuestTracker.instance.HasQuest(timeMoveQuest))
         {
-            PanelHolder.instance.displayNotify("Illusion Town", "You're already on a quest for this town.", "OK");
+            PanelHolder.instance.displayNotify("Chronomancer Town", "You're already on a quest for this town.", "OK");
         }
         else
         {
-            PanelHolder.instance.displayQuest(illusionSpaceQuest);
+            PanelHolder.instance.displayQuest(timeMoveQuest);
         }
     }
 }

@@ -31,6 +31,9 @@ public class AlchemyTownHandler : MonoBehaviour
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
             SceneManager.LoadScene("MainPlayerScene");
         });
+
+        QuestTracker.instance.TrackLocationQuest("town_alchemist");
+        QuestTracker.instance.TrackErrandQuest("town_alchemist");
     }
 
     private void FindQuest()

@@ -101,6 +101,7 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
 
         // check for quests
         QuestTracker.instance.TrackErrandQuest(trackableName);
+        QuestTracker.instance.TrackLocationQuest(trackableName);
 
         // call function based on target name
         switch (trackableName)
