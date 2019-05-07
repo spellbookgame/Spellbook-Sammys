@@ -100,7 +100,7 @@ namespace DigitalRubyShared
 
         private void ResetSwipe()
         {
-            SceneManager.LoadScene("CombatSceneV2");
+            SceneManager.LoadScene("MainPlayerScene");
             Debug.Log("Reset Swipe");
             firstTime = true;
             hasDrawned = false;

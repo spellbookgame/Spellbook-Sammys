@@ -19,6 +19,7 @@ public class DistilledPotion : Spell, ICombatSpell
         ColorUtility.TryParseHtmlString("#CCD5FF", out colorPrimary);
         ColorUtility.TryParseHtmlString("#7FE7FF", out colorSecondary);
         ColorUtility.TryParseHtmlString("#D3F8E2", out colorTertiary);
+        guideLine = Resources.Load<Sprite>("CombatSwipes/DistilledPotion");
     }
 
     public void CombatCast()

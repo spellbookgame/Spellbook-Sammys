@@ -2,7 +2,7 @@
 using UnityEngine;
 
 // spell for Elemental class
-public class Fireball : Spell
+public class Fireball : Spell, ICombatSpell
 {
     public Fireball()
     {
@@ -16,6 +16,17 @@ public class Fireball : Spell
         sSpellInfo = "Cast 2 fireballs that deal 1-6 damage each.";
 
         requiredRunes.Add("Elementalist D Rune", 1);
+
+        ColorUtility.TryParseHtmlString("#F74A4A", out colorPrimary);
+        ColorUtility.TryParseHtmlString("#FC923C", out colorSecondary);
+        ColorUtility.TryParseHtmlString("#FFE43A", out colorTertiary);
+
+        guideLine = Resources.Load<Sprite>("CombatSwipes/Fireball");
+    }
+
+    public void CombatCast()
+    {
+        throw new System.NotImplementedException();
     }
 
     public override void SpellCast(SpellCaster player)

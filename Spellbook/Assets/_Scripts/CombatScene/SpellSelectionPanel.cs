@@ -27,9 +27,7 @@ public class SpellSelectionPanel : MonoBehaviour
 
     public GameObject ChargePanel;
     public Button EquipedSpellButton;
-    public SpriteRenderer swipeGuide1;
-    public SpriteRenderer swipeGuide2;
-    public SpriteRenderer swipeGuide3;
+    public SpriteRenderer swipeGuide;
     SpellCaster localSpellcaster;
     // Start is called before the first frame update
     void Start()
@@ -48,7 +46,7 @@ public class SpellSelectionPanel : MonoBehaviour
         }
         else
         {
-            localSpellcaster = new Alchemist();
+            localSpellcaster = new Summoner();
             //localSpellcaster.CollectSpell(new ToxicPotion());
         }
 
@@ -81,7 +79,7 @@ public class SpellSelectionPanel : MonoBehaviour
         SelectedSpellButton = SpellButton1.gameObject;
         SpellName.text = selectedSpell.sSpellName;
         SpellDescription.text = selectedSpell.sSpellInfo;
-        swipeGuide1.gameObject.SetActive(true);
+        swipeGuide.sprite = selectedSpell.guideLine;
         var tColor = SpellButton1.image.color;
         tColor.a = 0.5f;
         SpellButton1.image.color = tColor;
@@ -100,7 +98,7 @@ public class SpellSelectionPanel : MonoBehaviour
         SelectedSpellButton = SpellButton2.gameObject;
         SpellName.text = selectedSpell.sSpellName;
         SpellDescription.text = selectedSpell.sSpellInfo;
-        swipeGuide2.gameObject.SetActive(true);
+        swipeGuide.sprite = selectedSpell.guideLine;
         var tColor = SpellButton2.image.color;
         tColor.a = 0.5f;
         SpellButton2.image.color = tColor;
@@ -119,7 +117,7 @@ public class SpellSelectionPanel : MonoBehaviour
         SelectedSpellButton = SpellButton3.gameObject;
         SpellName.text = selectedSpell.sSpellName;
         SpellDescription.text = selectedSpell.sSpellInfo;
-        swipeGuide3.gameObject.SetActive(true);
+        swipeGuide.sprite = selectedSpell.guideLine;
         var tColor = SpellButton3.image.color;
         tColor.a = 0.5f;
         SpellButton3.image.color = tColor;
@@ -131,5 +129,6 @@ public class SpellSelectionPanel : MonoBehaviour
         ChargePanel.GetComponent<ChargeSpell>().SetCombatSpell(selectedSpell, SelectedSpellButton);
         this.gameObject.SetActive(false);
     }
+
 
 }

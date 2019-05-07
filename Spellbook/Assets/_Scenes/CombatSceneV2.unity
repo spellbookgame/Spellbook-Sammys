@@ -814,7 +814,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &342582454
 RectTransform:
   m_ObjectHideFlags: 0
@@ -870,9 +870,7 @@ MonoBehaviour:
   SpellName: {fileID: 1858296456}
   ChargePanel: {fileID: 2045957347}
   EquipedSpellButton: {fileID: 1999446287}
-  swipeGuide1: {fileID: 532951081}
-  swipeGuide2: {fileID: 0}
-  swipeGuide3: {fileID: 0}
+  swipeGuide: {fileID: 532951081}
 --- !u!1 &342632570
 GameObject:
   m_ObjectHideFlags: 0
@@ -16773,7 +16771,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1079085913
 RectTransform:
   m_ObjectHideFlags: 0
@@ -22926,7 +22924,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Reset (test purposes only)
+  m_Text: Back To Main Scene
 --- !u!222 &1726438894
 CanvasRenderer:
   m_ObjectHideFlags: 0
