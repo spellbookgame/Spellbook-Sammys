@@ -7,7 +7,7 @@ public class Forecast : Spell
     public Forecast()
     {
         iTier = 2;
-        iManaCost = 200;
+        iManaCost = 2200;
 
         combatSpell = false;
 

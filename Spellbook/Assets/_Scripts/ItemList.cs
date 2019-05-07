@@ -17,7 +17,8 @@ public class ItemList : MonoBehaviour
             new MysticTranslocator(),
             new AromaticTeaLeaves(),
             new OpalAmmonite(),
-            new WaxCandle()
+            new WaxCandle(),
+            new HollowCabochon()
         };
     }
 
@@ -52,6 +53,9 @@ public class ItemList : MonoBehaviour
                 break;
             case "Wax Candle":
                 item = new WaxCandle();
+                break;
+            case "Hollow Cabochon":
+                item = new HollowCabochon();
                 break;
         }
         return item;
