@@ -32,7 +32,7 @@ public class QuestUI : MonoBehaviour
     public void DisplayQuest(Quest quest)
     {
         titleText.text = quest.questName;
-        infoText.text = quest.questTask + "\nTurn Limit: " + quest.turnLimit;
+        infoText.text = quest.questFlavor + "\n\nTurn Limit: " + quest.turnLimit;
 
         // if current scene is vuforia, remove ribbon from panel
         if (SceneManager.GetActiveScene().name.Equals("VuforiaScene"))

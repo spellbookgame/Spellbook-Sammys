@@ -9,7 +9,7 @@ public class ElementalMoveQuest : Quest
     {
         questName = "Elemental Move Quest";
         questType = "Move";
-        questFlavor = "Being a fighter means being quick on your feet.";
+        questFlavor = "Being a fighter means being quick on your feet. Show me how far you can move.";
         questTask = "Travel 15 spaces.";
 
         startTurn = turnStarted;

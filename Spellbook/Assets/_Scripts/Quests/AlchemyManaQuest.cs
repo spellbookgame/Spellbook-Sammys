@@ -9,7 +9,7 @@ public class AlchemyManaQuest : Quest
     {
         questName = "Alchemy Mana Quest";
         questType = "Collect Mana";
-        questFlavor = "Mana is an important source of energy for us Spellcasters, and you need to know it very well.";
+        questFlavor = "Mana is an important source of energy for us Spellcasters, and you need to study it very well.";
         questTask = "Collect 1500 mana crystals.";
 
         startTurn = turnStarted;
