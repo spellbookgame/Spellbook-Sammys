@@ -81,15 +81,6 @@ public class PanelHolder : MonoBehaviour
 
     public void displayNotify(string title, string info, string buttonClick)
     {
-        // close dice tray if it's open (find a better solution soon; Panels are not showing up above dice tray)
-        if (SceneManager.GetActiveScene().name.Equals("MainPlayerScene") && GameObject.Find("Dice Tray"))
-        {
-            DiceUIHandler diceUIHandler = GameObject.Find("Dice Tray").GetComponent<DiceUIHandler>();
-            if (diceUIHandler.diceTrayOpen)
-            {
-                diceUIHandler.OpenCloseDiceTray();
-            }
-        }
         panelQueue.Enqueue(notifyPanel.panelID);
         Debug.Log("Queued: " + notifyPanel.panelID);
         notifyPanel.DisplayNotify(title, info, buttonClick);
@@ -126,10 +117,10 @@ public class PanelHolder : MonoBehaviour
     }
 
     // delete after scenes for each board scan is created
-    public void displayBoardScan(string title, string info, Sprite sprite)
+    public void displayBoardScan(string title, string info, Sprite sprite, string scene)
     {
         panelQueue.Enqueue(boardScanPanel.panelID);
         Debug.Log("Queued: " + boardScanPanel.panelID);
-        boardScanPanel.DisplayScanEvent(title, info, sprite);
+        boardScanPanel.DisplayScanEvent(title, info, sprite, scene);
     }
 }

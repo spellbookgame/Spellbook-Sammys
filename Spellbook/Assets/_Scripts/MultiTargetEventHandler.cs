@@ -5,7 +5,11 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Vuforia;
 
-// for scanning multiple (4) images
+/// <summary>
+/// Grace Ko
+/// Scans multiple target images
+/// Put this script on an image target 
+/// </summary>
 public class MultiTargetEventHandler : MonoBehaviour, ITrackableEventHandler
 {
     protected TrackableBehaviour mTrackableBehaviour;

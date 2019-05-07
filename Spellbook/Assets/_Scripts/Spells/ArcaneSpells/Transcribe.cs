@@ -26,7 +26,7 @@ public class Transcribe : Spell
         // cast spell for free if Umbra's Eclipse is active
         if (SpellTracker.instance.CheckUmbra())
         {
-            PanelHolder.instance.displayNotify(sSpellName, "Discard your rune hand and draw new ones from the top tier deck.", "OK");
+            PanelHolder.instance.displayNotify(sSpellName, "Discard your rune hand and draw new ones from the top tier deck.", "MainPlayerScene");
         }
         else if (player.iMana < iManaCost)
         {
@@ -37,7 +37,7 @@ public class Transcribe : Spell
             // subtract mana 
             player.iMana -= iManaCost;
 
-            PanelHolder.instance.displayNotify(sSpellName, "Discard your rune hand and draw new ones from the top tier deck.", "OK");
+            PanelHolder.instance.displayNotify(sSpellName, "Discard your rune hand and draw new ones from the top tier deck.", "MainPlayerScene");
         }
     }
 }

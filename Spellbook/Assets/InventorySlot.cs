@@ -3,7 +3,6 @@ using UnityEngine.UI;
 
 public class InventorySlot : MonoBehaviour
 {
-    public Button removeButton;
     public Button button;
     public Image icon;
 
@@ -15,7 +14,6 @@ public class InventorySlot : MonoBehaviour
 
         icon.sprite = item.sprite;
         icon.enabled = true;
-        removeButton.interactable = true;
     }
 
     public void ClearSlot() 
@@ -24,12 +22,5 @@ public class InventorySlot : MonoBehaviour
 
         icon.sprite = null;
         icon.enabled = false;
-        removeButton.interactable = false;
     }
-
-    public void OnRemoveButton() 
-    {
-        GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().Spellcaster.RemoveFromInventory(item);
-        this.ClearSlot();
-    }    
 }

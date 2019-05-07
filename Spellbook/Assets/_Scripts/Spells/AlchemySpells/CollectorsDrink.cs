@@ -24,7 +24,7 @@ public class CollectorsDrink : Spell
         // cast spell for free if Umbra's Eclipse is active
         if (SpellTracker.instance.CheckUmbra())
         {
-            PanelHolder.instance.displayNotify("You cast " + sSpellName, "Next time you receive an item, you will gain another copy of it.", "OK");
+            PanelHolder.instance.displayNotify("You cast " + sSpellName, "Next time you receive an item, you will gain another copy of it.", "MainPlayerScene");
         }
         else if (player.iMana < iManaCost)
         {
@@ -35,7 +35,7 @@ public class CollectorsDrink : Spell
             // subtract mana and glyph costs
             player.iMana -= iManaCost;
 
-            PanelHolder.instance.displayNotify("You cast " + sSpellName, "Next time you receive an item, you will gain another copy of it.", "OK");
+            PanelHolder.instance.displayNotify("You cast " + sSpellName, "Next time you receive an item, you will gain another copy of it.", "MainPlayerScene");
             player.activeSpells.Add(this);
         }
     }

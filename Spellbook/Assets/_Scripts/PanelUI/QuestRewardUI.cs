@@ -33,7 +33,7 @@ public class QuestRewardUI : MonoBehaviour
 
     public void DisplayQuestRewards(Quest quest)
     {
-        titleText.text = "Quest Rewards";
+        titleText.text = quest.questName + " Completed!";
 
         // if current scene is vuforia, remove ribbon from panel
         if (SceneManager.GetActiveScene().name.Equals("VuforiaScene"))
@@ -69,6 +69,16 @@ public class QuestRewardUI : MonoBehaviour
                     case "Mana":
                         rewardImages[i].sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/ManaCrystal");
                         rewardText[i].text = "You earned " + Int32.Parse(kvp.Value) + " mana!";
+                        ++i;
+                        continue;
+                    case "Item":
+                        rewardImages[i].sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/" + kvp.Value);
+                        rewardText[i].text = "You earned a " + kvp.Value + "!";
+                        ++i;
+                        continue;
+                    case "Dice":
+                        rewardImages[i].sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/Blank Dice");
+                        rewardText[i].text = "You earned a temporary " + kvp.Value + "!";
                         ++i;
                         continue;
                     default:

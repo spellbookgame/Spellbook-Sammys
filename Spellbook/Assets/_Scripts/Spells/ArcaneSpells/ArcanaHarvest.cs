@@ -24,7 +24,7 @@ public class ArcanaHarvest : Spell
         // cast spell for free if Umbra's Eclipse is active
         if (SpellTracker.instance.CheckUmbra())
         {
-            PanelHolder.instance.displayNotify(sSpellName, "Move your piece to the Crystal Mines.", "Vuforia");
+            PanelHolder.instance.displayNotify(sSpellName, "Move your piece to the Crystal Mines.", "VuforiaScene");
         }
         else if (player.iMana < iManaCost)
         {
@@ -36,8 +36,7 @@ public class ArcanaHarvest : Spell
             player.iMana -= iManaCost;
             player.iMana /= 2;
 
-            PanelHolder.instance.displayNotify(sSpellName, "Move your piece to the Crystal Mines.", "Vuforia");
-            UICanvasHandler.instance.ActivateSpellbookButtons(false);
+            PanelHolder.instance.displayNotify(sSpellName, "Move your piece to the Crystal Mines.", "VuforiaScene");
         }
     }
 }

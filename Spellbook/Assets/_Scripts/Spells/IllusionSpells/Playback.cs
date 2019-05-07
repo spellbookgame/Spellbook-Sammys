@@ -24,7 +24,7 @@ public class Playback : Spell
         // cast spell for free if Umbra's Eclipse is active
         if (SpellTracker.instance.CheckUmbra())
         {
-            PanelHolder.instance.displayNotify(sSpellName, "Swap a rune from your hand with one from any city.", "OK");
+            PanelHolder.instance.displayNotify(sSpellName, "Swap a rune from your hand with one from any city.", "MainPlayerScene");
         }
         else if (player.iMana < iManaCost)
         {
@@ -35,7 +35,7 @@ public class Playback : Spell
             // subtract mana
             player.iMana -= iManaCost;
 
-            PanelHolder.instance.displayNotify(sSpellName, "Swap a rune from your hand with one from any city.", "OK");
+            PanelHolder.instance.displayNotify(sSpellName, "Swap a rune from your hand with one from any city.", "MainPlayerScene");
         }
     }
 }

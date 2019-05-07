@@ -25,9 +25,8 @@ public class PotionofLuck : Spell
         // cast spell for free if Umbra's Eclipse is active
         if (SpellTracker.instance.CheckUmbra())
         {
-            PanelHolder.instance.displayNotify(sSpellName, "You and your ally will have an extra D8 next time you roll.", "OK");
-            player.dice["D8"] += 1;
-            player.activeSpells.Add(this);
+            PanelHolder.instance.displayNotify(sSpellName, "You and your ally will have an extra D8 next time you roll.", "MainPlayerScene");
+            player.tempDice.Add("D8", 1);
         }
         else if (player.iMana < iManaCost)
         {
@@ -38,9 +37,8 @@ public class PotionofLuck : Spell
             // subtract mana
             player.iMana -= iManaCost;
 
-            PanelHolder.instance.displayNotify(sSpellName, "You and your ally will have an extra D8 next time you roll.", "OK");
-            player.dice["D8"] += 1;
-            player.activeSpells.Add(this);
+            PanelHolder.instance.displayNotify(sSpellName, "You and your ally will have an extra D8 next time you roll.", "MainPlayerScene");
+            player.tempDice.Add("D8", 1);
         }
     }
 }

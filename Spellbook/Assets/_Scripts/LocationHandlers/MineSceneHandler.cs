@@ -22,6 +22,9 @@ public class MineSceneHandler : MonoBehaviour
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
             SceneManager.LoadScene("MainPlayerScene");
         });
+
+        QuestTracker.instance.TrackLocationQuest("location_mines");
+        QuestTracker.instance.TrackErrandQuest("location_mines");
     }
 
     private void GrabMana()
@@ -37,7 +40,7 @@ public class MineSceneHandler : MonoBehaviour
         }
         else
         {
-            PanelHolder.instance.displayNotify("Don't be greedy!", "You can only take once per visit. Now leave!", "Main");
+            PanelHolder.instance.displayNotify("Don't be greedy!", "You can only take once per visit. Now leave!", "MainPlayerScene");
         }
     }
 }

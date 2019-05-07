@@ -23,7 +23,7 @@ public class CrystalScent : Spell
         // cast spell for free if Umbra's Eclipse is active
         if (SpellTracker.instance.CheckUmbra())
         {
-            PanelHolder.instance.displayNotify("You cast " + sSpellName, "Move your piece to the Marketplace.", "Shop");
+            PanelHolder.instance.displayNotify("You cast " + sSpellName, "Move your piece to the Marketplace.", "ShopScene");
         }
         else if (player.iMana < iManaCost)
         {
@@ -34,8 +34,7 @@ public class CrystalScent : Spell
             // subtract mana and glyph costs
             player.iMana -= iManaCost;
 
-            PanelHolder.instance.displayNotify("You cast " + sSpellName, "Move your piece to the Marketplace.", "Shop");
-            UICanvasHandler.instance.ActivateSpellbookButtons(false);
+            PanelHolder.instance.displayNotify("You cast " + sSpellName, "Move your piece to the Marketplace.", "ShopScene");
         }
     }
 }

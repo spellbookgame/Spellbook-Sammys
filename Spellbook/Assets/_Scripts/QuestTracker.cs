@@ -84,8 +84,6 @@ public class QuestTracker : MonoBehaviour
     private void QuestCompleted(Quest q)
     {
         SoundManager.instance.PlaySingle(SoundManager.questsuccess);
-        PanelHolder.instance.displayNotify(q.questName + " Completed!",
-                                            "Congratulations, you completed the quest! Prepare to accept your rewards.", "OK");
         localPlayer.Spellcaster.activeQuests.Remove(q);
         PanelHolder.instance.displayQuestRewards(q);
         GiveRewards(q);
@@ -130,7 +128,22 @@ public class QuestTracker : MonoBehaviour
             if (q.questType.Equals("Errand"))
             {
                 // if player is at the space and has the item requested
-                if (q.spaceName.Equals(location) && localPlayer.Spellcaster.inventory.Contains(q.item))
+                if (q.spaceName.Equals(location) && localPlayer.Spellcaster.inventory.Any(x => x.name.Equals(q.itemName)))
+                {
+                    QuestCompleted(q);
+                }
+            }
+        }
+    }
+
+    public void TrackLocationQuest(string location)
+    {
+        foreach (Quest q in localPlayer.Spellcaster.activeQuests.ToArray())
+        {
+            if (q.questType.Equals("Specific Location"))
+            {
+                // if player is at the space
+                if (q.spaceName.Equals(location))
                 {
                     QuestCompleted(q);
                 }
@@ -157,7 +170,14 @@ public class QuestTracker : MonoBehaviour
                 localPlayer.Spellcaster.CollectMana(Int32.Parse(value));
                 return value;
             case "Item":
-                // localPlayer.Spellcaster.AddtoInventory(item);
+                ItemObject item = GameObject.Find("ItemList").GetComponent<ItemList>().GetItemFromName(value);
+                localPlayer.Spellcaster.AddToInventory(item);
+                return value;
+            case "Dice":
+                if (localPlayer.Spellcaster.tempDice.ContainsKey(value))
+                    localPlayer.Spellcaster.tempDice[value] += 1;
+                else
+                    localPlayer.Spellcaster.tempDice.Add(value, 1);
                 return value;
             default:
                 return value;

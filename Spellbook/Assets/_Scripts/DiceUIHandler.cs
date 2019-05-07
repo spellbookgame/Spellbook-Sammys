@@ -143,10 +143,20 @@ public class DiceUIHandler : MonoBehaviour
                         clone.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = clone.transform.GetChild(0).GetComponent<DiceRoll>().pipsFour;
                         clone.transform.GetChild(0).GetComponent<DiceRoll>()._rollMaximum = 4;
                     }
+                    else if (kvp.Key.Equals("D5"))
+                    {
+                        clone.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = clone.transform.GetChild(0).GetComponent<DiceRoll>().pipsFive;
+                        clone.transform.GetChild(0).GetComponent<DiceRoll>()._rollMaximum = 5;
+                    }
                     else if (kvp.Key.Equals("D6"))
                     {
                         clone.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = clone.transform.GetChild(0).GetComponent<DiceRoll>().pipsSix;
                         clone.transform.GetChild(0).GetComponent<DiceRoll>()._rollMaximum = 6;
+                    }
+                    else if (kvp.Key.Equals("D7"))
+                    {
+                        clone.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = clone.transform.GetChild(0).GetComponent<DiceRoll>().pipsSeven;
+                        clone.transform.GetChild(0).GetComponent<DiceRoll>()._rollMaximum = 7;
                     }
                     else if (kvp.Key.Equals("D8"))
                     {
@@ -158,6 +168,50 @@ public class DiceUIHandler : MonoBehaviour
                 }
             }
         }
+
+        // for temp dice
+        foreach (KeyValuePair<string, int> kvp in localPlayer.Spellcaster.tempDice)
+        {
+            if (kvp.Value > 0)
+            {
+                for (int i = 0; i < kvp.Value; ++i)
+                {
+                    // instantiate a prefab of dice slot and set its parent to the inventory tray
+                    GameObject clone = Instantiate(diceSlot, diceScrollContent.transform);
+                    // disable roll if dice is still in inventory
+                    clone.transform.GetChild(0).GetComponent<DiceRoll>().rollEnabled = false;
+                    // set dice max values
+                    if (kvp.Key.Equals("D4"))
+                    {
+                        clone.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = clone.transform.GetChild(0).GetComponent<DiceRoll>().pipsFour;
+                        clone.transform.GetChild(0).GetComponent<DiceRoll>()._rollMaximum = 4;
+                    }
+                    else if (kvp.Key.Equals("D5"))
+                    {
+                        clone.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = clone.transform.GetChild(0).GetComponent<DiceRoll>().pipsFive;
+                        clone.transform.GetChild(0).GetComponent<DiceRoll>()._rollMaximum = 5;
+                    }
+                    else if (kvp.Key.Equals("D6"))
+                    {
+                        clone.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = clone.transform.GetChild(0).GetComponent<DiceRoll>().pipsSix;
+                        clone.transform.GetChild(0).GetComponent<DiceRoll>()._rollMaximum = 6;
+                    }
+                    else if (kvp.Key.Equals("D7"))
+                    {
+                        clone.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = clone.transform.GetChild(0).GetComponent<DiceRoll>().pipsSeven;
+                        clone.transform.GetChild(0).GetComponent<DiceRoll>()._rollMaximum = 7;
+                    }
+                    else if (kvp.Key.Equals("D8"))
+                    {
+                        clone.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = clone.transform.GetChild(0).GetComponent<DiceRoll>().pipsEight;
+                        clone.transform.GetChild(0).GetComponent<DiceRoll>()._rollMaximum = 8;
+                    }
+                    // track num of dice to expand scroll rect
+                    ++numDice;
+                }
+            }
+        }
+
         // expand scroll rect for each die that exceeds 4
         if (numDice > 4)
         {

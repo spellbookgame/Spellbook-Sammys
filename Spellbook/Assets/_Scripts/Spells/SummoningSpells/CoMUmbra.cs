@@ -32,7 +32,7 @@ public class CoMUmbra : Spell
             // subtract mana
             player.iMana -= iManaCost;
 
-            PanelHolder.instance.displayNotify(sSpellName, "Your next spell you cast will be free.", "OK");
+            PanelHolder.instance.displayNotify(sSpellName, "Your next spell you cast will be free.", "MainPlayerScene");
             player.activeSpells.Add(this);
         }
     }

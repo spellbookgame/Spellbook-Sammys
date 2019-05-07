@@ -7,13 +7,13 @@ public class DelayTime : Spell
     public DelayTime()
     {
         iTier = 1;
-        iManaCost = 3000;
+        iManaCost = 3200;
 
         combatSpell = false;
 
         sSpellName = "Delay Time";
         sSpellClass = "Chronomancer";
-        sSpellInfo = "Delay the amount of time before the next global event by one turn.";
+        sSpellInfo = "The next crisis will be delayed for 1 round.";
 
         requiredRunes.Add("Chronomancer A Rune", 1);
         requiredRunes.Add("Chronomancer B Rune", 1);
@@ -25,7 +25,8 @@ public class DelayTime : Spell
         // cast spell for free if Umbra's Eclipse is active
         if (SpellTracker.instance.CheckUmbra())
         {
-            PanelHolder.instance.displayNotify("You cast " + sSpellName, "The next event will come 1 turn later.", "OK");
+            CrisisHandler.instance.roundsUntilCrisis++;
+            PanelHolder.instance.displayNotify(sSpellName, "The next crisis will come 1 turn later.", "MainPlayerScene");
         }
         else if(player.iMana < iManaCost)
         {
@@ -36,7 +37,8 @@ public class DelayTime : Spell
             // subtract mana
             player.iMana -= iManaCost;
 
-            PanelHolder.instance.displayNotify(sSpellName, "The next event will come 1 turn later.", "OK");
+            CrisisHandler.instance.roundsUntilCrisis++;
+            PanelHolder.instance.displayNotify(sSpellName, "The next crisis will come 1 turn later.", "MainPlayerScene");
         }
     }
 }
