@@ -90,8 +90,6 @@ public class DiceUIHandler : MonoBehaviour
         // if dice are not locked, reset dice when panel is closed
         else if(diceTrayOpen && !localPlayer.Spellcaster.hasRolled)
         {
-            UICanvasHandler.instance.ActivateEndTurnButton(localPlayer.Spellcaster.hasRolled);
-
             RemoveDiceFromSlots();
 
             gameObject.SetActive(false);
@@ -107,8 +105,6 @@ public class DiceUIHandler : MonoBehaviour
         // if dice are locked, keep dice the same when panel is closed
         else if(diceTrayOpen && localPlayer.Spellcaster.hasRolled)
         {
-            UICanvasHandler.instance.ActivateEndTurnButton(localPlayer.Spellcaster.hasRolled);
-
             gameObject.SetActive(false);
 
             // enable spellbook/inventory buttons while dice tray is closed

@@ -114,13 +114,10 @@ public class DiceRoll : MonoBehaviour
                 }
             }
 
-            // if Potion of Luck was cast, remove it after rolling dice
+            // Remove active spells after rolling dice
             SpellTracker.instance.RemoveFromActiveSpells("Brew - Potion of Luck");
-            // if Tailwind was cast, remove it after rolling dice
             SpellTracker.instance.RemoveFromActiveSpells("Tailwind");
-            // if Allegro was cast, remove it after rolling dice
             SpellTracker.instance.RemoveFromActiveSpells("Allegro");
-            // if Growth was cast, remove it after rolling dice
             SpellTracker.instance.RemoveFromActiveSpells("Growth");
 
             // check roll values AFTER all spells are accounted for
@@ -129,6 +126,8 @@ public class DiceRoll : MonoBehaviour
 
             // remove all temporary dice from player's inventory
             localPlayer.Spellcaster.tempDice.Clear();
+            // activate end turn button
+            UICanvasHandler.instance.ActivateEndTurnButton(localPlayer.Spellcaster.hasRolled);
 
             QuestTracker.instance.TrackMoveQuest(LastRoll);
         }
