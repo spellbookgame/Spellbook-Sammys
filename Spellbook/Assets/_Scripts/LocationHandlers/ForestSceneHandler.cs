@@ -10,12 +10,12 @@ public class ForestSceneHandler : MonoBehaviour
     [SerializeField] private Button leaveButton;
 
     private Player localPlayer;
-    private List<ItemObject> itemList;
+    private ItemList itemList;
 
     private void Start()
     {
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
-        itemList = GameObject.Find("ItemList").GetComponent<ItemList>().listOfItems;
+        itemList = GameObject.Find("ItemList").GetComponent<ItemList>();
 
         lookButton.onClick.AddListener(LookForItem);
         leaveButton.onClick.AddListener(() =>
@@ -38,9 +38,28 @@ public class ForestSceneHandler : MonoBehaviour
         }
         else
         {
-            ItemObject item = itemList[Random.Range(0, itemList.Count)];
-            PanelHolder.instance.displayBoardScan("You found an Item!", "You found a " + item.name + "!", item.sprite, "MainPlayerScene");
-            localPlayer.Spellcaster.AddToInventory(item);
+            int r = Random.Range(0, 11);
+            if(r <= 1)
+            {
+                string[] items = new string[] { "Mimetic Vellum", "Rift Talisman", "Crystal Mirror" };
+                ItemObject item = itemList.GetItemFromName(items[Random.Range(0, 2)]);
+                PanelHolder.instance.displayBoardScan("You found an Item!", "You found a " + item.name + "!", item.sprite, "MainPlayerScene");
+                localPlayer.Spellcaster.AddToInventory(item);
+            }
+            else if(r >= 2 && r < 5)
+            {
+                string[] items = new string[] { "Infused Sapphire", "Abyssal Ore", "Hollow Cabochon", "Mystic Translocator" };
+                ItemObject item = itemList.GetItemFromName(items[Random.Range(0, 3)]);
+                PanelHolder.instance.displayBoardScan("You found an Item!", "You found a " + item.name + "!", item.sprite, "MainPlayerScene");
+                localPlayer.Spellcaster.AddToInventory(item);
+            }
+            else
+            {
+                string[] items = new string[] { "Glowing Mushroom", "Wax Candle", "Aromatic Tea Leaves", "Opal Ammonite" };
+                ItemObject item = itemList.GetItemFromName(items[Random.Range(0, 3)]);
+                PanelHolder.instance.displayBoardScan("You found an Item!", "You found a " + item.name + "!", item.sprite, "MainPlayerScene");
+                localPlayer.Spellcaster.AddToInventory(item);
+            }
         }
     }
 }
