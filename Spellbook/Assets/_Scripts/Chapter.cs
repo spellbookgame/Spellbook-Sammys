@@ -27,38 +27,56 @@ public class Chapter : MonoBehaviour
         {
             case "Alchemist":
                 spellsAllowed.Add(new PotionofLuck());
+                spellsAllowed.Add(new PotionofBlessing());
+                spellsAllowed.Add(new DistilledPotion());
                 spellsAllowed.Add(new CharmingNegotiator());
                 spellsAllowed.Add(new CollectorsDrink());
+                spellsAllowed.Add(new ToxicPotion());
                 spellsAllowed.Add(new CrystalScent());
                 break;
             case "Arcanist":
                 spellsAllowed.Add(new Transcribe());
+                spellsAllowed.Add(new MarcellasBlessing());
+                spellsAllowed.Add(new Archive());
                 spellsAllowed.Add(new CombinedKnowledge());
+                spellsAllowed.Add(new RunicDarts());
                 spellsAllowed.Add(new RuneConversion());
                 spellsAllowed.Add(new ArcanaHarvest());
                 break;
             case "Chronomancer":
                 spellsAllowed.Add(new DelayTime());
                 spellsAllowed.Add(new DejaVu());
+                spellsAllowed.Add(new Manipulate());
                 spellsAllowed.Add(new Forecast());
+                spellsAllowed.Add(new ReverseWounds());
                 spellsAllowed.Add(new Echo());
+                spellsAllowed.Add(new Chronoblast());
                 break;
             case "Elementalist":
+                spellsAllowed.Add(new NaturalDisaster());
                 spellsAllowed.Add(new Tailwind());
+                spellsAllowed.Add(new EyeOfTheStorm());
                 spellsAllowed.Add(new TerraformingEarthquake());
                 spellsAllowed.Add(new FrozenTerrain());
+                spellsAllowed.Add(new Fireball());
                 spellsAllowed.Add(new Growth());
                 break;
             case "Summoner":
                 spellsAllowed.Add(new CoSLeon());
+                spellsAllowed.Add(new Ravenssong());
+                spellsAllowed.Add(new Bearsfury());
                 spellsAllowed.Add(new CoMUmbra());
                 spellsAllowed.Add(new CoDCorpse());
+                spellsAllowed.Add(new Skeletons());
                 spellsAllowed.Add(new CoSRigel());
                 break;
             case "Illusionist":
                 spellsAllowed.Add(new Playwright());
                 spellsAllowed.Add(new CheatOut());
                 spellsAllowed.Add(new Playback());
+                spellsAllowed.Add(new Catastrophe());
+                spellsAllowed.Add(new Catharsis());
+                spellsAllowed.Add(new Tragedy());
                 spellsAllowed.Add(new Allegro());
                 break;
             default:
