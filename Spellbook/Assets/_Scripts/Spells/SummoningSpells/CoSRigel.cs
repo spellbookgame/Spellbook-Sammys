@@ -40,7 +40,7 @@ public class CoSRigel : Spell
             ItemObject newItem = GameObject.Find("ItemList").GetComponent<ItemList>().GetItemFromName(items[Random.Range(0, 2)]);
 
             player.AddToInventory(newItem);
-            PanelHolder.instance.displayBoardScan("Rigel's Ascension", "You destroyed " + item1.name + " and " + item2.name + " and gained " + newItem.name + "!", newItem.sprite, "OK");
+            PanelHolder.instance.displayBoardScan("Rigel's Ascension", "You destroyed " + item1.name + " and " + item2.name + " and gained " + newItem.name + "!", newItem.sprite, "MainPlayerScene");
         }
         else if (player.iMana < iManaCost)
         {
@@ -62,7 +62,7 @@ public class CoSRigel : Spell
             ItemObject newItem = GameObject.Find("ItemList").GetComponent<ItemList>().GetItemFromName(items[Random.Range(0, 2)]);
 
             player.AddToInventory(newItem);
-            PanelHolder.instance.displayBoardScan("Rigel's Ascension", "You destroyed " + item1.name + " and " + item2.name + " and gained " + newItem.name + "!", newItem.sprite, "OK");
+            PanelHolder.instance.displayBoardScan("Rigel's Ascension", "You destroyed " + item1.name + " and " + item2.name + " and gained " + newItem.name + "!", newItem.sprite, "MainPlayerScene");
         }
     }
 }

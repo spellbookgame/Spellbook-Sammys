@@ -51,6 +51,7 @@ public class Chapter : MonoBehaviour
             case "Summoner":
                 spellsAllowed.Add(new CoSLeon());
                 spellsAllowed.Add(new CoMUmbra());
+                spellsAllowed.Add(new CoDCorpse());
                 spellsAllowed.Add(new CoSRigel());
                 break;
             case "Illusionist":
