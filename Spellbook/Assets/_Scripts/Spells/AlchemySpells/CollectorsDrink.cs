@@ -25,6 +25,9 @@ public class CollectorsDrink : Spell
         if (SpellTracker.instance.CheckUmbra())
         {
             PanelHolder.instance.displayNotify("You cast " + sSpellName, "Next time you receive an item, you will gain another copy of it.", "MainPlayerScene");
+            player.activeSpells.Add(this);
+
+            SpellTracker.instance.lastSpellCasted = this;
         }
         else if (player.iMana < iManaCost)
         {
@@ -37,6 +40,8 @@ public class CollectorsDrink : Spell
 
             PanelHolder.instance.displayNotify("You cast " + sSpellName, "Next time you receive an item, you will gain another copy of it.", "MainPlayerScene");
             player.activeSpells.Add(this);
+
+            SpellTracker.instance.lastSpellCasted = this;
         }
     }
 }

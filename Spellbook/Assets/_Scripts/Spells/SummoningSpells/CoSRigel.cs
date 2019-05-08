@@ -41,6 +41,8 @@ public class CoSRigel : Spell
 
             player.AddToInventory(newItem);
             PanelHolder.instance.displayBoardScan("Rigel's Ascension", "You destroyed " + item1.name + " and " + item2.name + " and gained " + newItem.name + "!", newItem.sprite, "MainPlayerScene");
+
+            SpellTracker.instance.lastSpellCasted = this;
         }
         else if (player.iMana < iManaCost)
         {
@@ -63,6 +65,8 @@ public class CoSRigel : Spell
 
             player.AddToInventory(newItem);
             PanelHolder.instance.displayBoardScan("Rigel's Ascension", "You destroyed " + item1.name + " and " + item2.name + " and gained " + newItem.name + "!", newItem.sprite, "MainPlayerScene");
+
+            SpellTracker.instance.lastSpellCasted = this;
         }
     }
 }

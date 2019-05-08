@@ -25,6 +25,9 @@ public class CharmingNegotiator : Spell
         if (SpellTracker.instance.CheckUmbra())
         {
             PanelHolder.instance.displayNotify("You cast " + sSpellName, "Next time you visit the shop, you will receive 30% discount.", "MainPlayerScene");
+            player.activeSpells.Add(this);
+
+            SpellTracker.instance.lastSpellCasted = this;
         }
         else if (player.iMana < iManaCost)
         {
@@ -37,6 +40,8 @@ public class CharmingNegotiator : Spell
 
             PanelHolder.instance.displayNotify("You cast " + sSpellName, "Next time you visit the shop, you will receive 30% discount.", "MainPlayerScene");
             player.activeSpells.Add(this);
+
+            SpellTracker.instance.lastSpellCasted = this;
         }
     }
 }

@@ -25,6 +25,8 @@ public class TerraformingEarthquake : Spell
         if (SpellTracker.instance.CheckUmbra())
         {
             PanelHolder.instance.displayNotify(sSpellName, "Move to the closest location to you. If you are already on a location, choose an adjacent one to move to.", "MainPlayerScene");
+
+            SpellTracker.instance.lastSpellCasted = this;
         }
         else if (player.iMana < iManaCost)
         {
@@ -36,6 +38,8 @@ public class TerraformingEarthquake : Spell
             player.iMana -= iManaCost;
 
             PanelHolder.instance.displayNotify(sSpellName, "Move to the closest location to you. If you are already on a location, choose an adjacent one to move to.", "MainPlayerScene");
+
+            SpellTracker.instance.lastSpellCasted = this;
         }
     }
 }

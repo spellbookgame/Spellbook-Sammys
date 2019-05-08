@@ -25,6 +25,8 @@ public class FrozenTerrain : Spell
         if (SpellTracker.instance.CheckUmbra())
         {
             PanelHolder.instance.displayNotify(sSpellName, "Everyone move their piece to the Forest.", "ForestScene");
+
+            SpellTracker.instance.lastSpellCasted = this;
         }
         else if (player.iMana < iManaCost)
         {
@@ -36,6 +38,8 @@ public class FrozenTerrain : Spell
             player.iMana -= iManaCost;
 
             PanelHolder.instance.displayNotify(sSpellName, "Everyone move their piece to the Forest.", "ForestScene");
+
+            SpellTracker.instance.lastSpellCasted = this;
         }
     }
 }

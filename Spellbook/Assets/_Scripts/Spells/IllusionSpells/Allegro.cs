@@ -25,6 +25,8 @@ public class Allegro : Spell
         {
             PanelHolder.instance.displayNotify(sSpellName, "You and your ally will have an additional D6 to your movement next time you roll.", "MainPlayerScene");
             player.activeSpells.Add(this);
+
+            SpellTracker.instance.lastSpellCasted = this;
         }
         else if (player.iMana < iManaCost)
         {
@@ -37,6 +39,8 @@ public class Allegro : Spell
 
             PanelHolder.instance.displayNotify(sSpellName, "You and your ally will have an additional D6 to your movement next time you roll.", "MainPlayerScene");
             player.activeSpells.Add(this);
+
+            SpellTracker.instance.lastSpellCasted = this;
         }
     }
 }

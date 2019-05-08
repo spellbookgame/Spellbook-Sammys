@@ -13,6 +13,7 @@ public class SpellTracker : MonoBehaviour
     public static SpellTracker instance = null;
 
     public ItemObject forecastItem;
+    public Spell lastSpellCasted;
 
     private SpellCaster spellCaster;
 

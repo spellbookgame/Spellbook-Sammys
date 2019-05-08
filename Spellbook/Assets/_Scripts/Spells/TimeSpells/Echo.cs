@@ -25,6 +25,8 @@ public class Echo : Spell
         {
             PanelHolder.instance.displayNotify(sSpellName, "Next time you roll, you may roll again.", "MainPlayerScene");
             player.activeSpells.Add(this);
+
+            SpellTracker.instance.lastSpellCasted = this;
         }
         else if (player.iMana < iManaCost)
         {
@@ -37,6 +39,8 @@ public class Echo : Spell
 
             PanelHolder.instance.displayNotify(sSpellName, "Next time you roll, you may roll again.", "MainPlayerScene");
             player.activeSpells.Add(this);
+
+            SpellTracker.instance.lastSpellCasted = this;
         }
     }
 }

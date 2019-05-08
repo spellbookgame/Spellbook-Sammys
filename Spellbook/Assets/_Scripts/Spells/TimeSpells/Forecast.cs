@@ -30,6 +30,8 @@ public class Forecast : Spell
             PanelHolder.instance.displayBoardScan("Forecast", "The next time you enter the Forest, you will gain 2 " + item.name + "s.", item.sprite, "MainPlayerScene");
             player.activeSpells.Add(this);
             SpellTracker.instance.forecastItem = item;
+
+            SpellTracker.instance.lastSpellCasted = this;
         }
         else if (player.iMana < iManaCost)
         {
@@ -45,6 +47,8 @@ public class Forecast : Spell
             SpellTracker.instance.forecastItem = item;
             PanelHolder.instance.displayBoardScan("Forecast", "The next time you enter the Forest, you will gain 2 " + item.name + "s.", item.sprite, "MainPlayerScene");
             player.activeSpells.Add(this);
+
+            SpellTracker.instance.lastSpellCasted = this;
         }
     }
 }
