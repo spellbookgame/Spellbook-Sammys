@@ -125,7 +125,7 @@ public class MainPageHandler : MonoBehaviour
         // set info panel color based on class
         Color panelCol = new Color();
         ColorUtility.TryParseHtmlString(localPlayer.Spellcaster.hexStringPanel, out panelCol);
-        informationPanel.GetComponent<Image>().color = panelCol;
+        informationPanel.GetComponent<SpriteRenderer>().color = panelCol;
 
         // set onclick listeners for spellbook/inventory button
         spellbookButton.onClick.AddListener(() =>

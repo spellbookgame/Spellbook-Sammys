@@ -27,7 +27,7 @@ public class Summoner : SpellCaster
         characterIconPath = "Characters/symbol_glow_summoner";
 
         hexStringLight = "#000091";
-        hexStringPanel = "#B6BDFF";
+        hexStringPanel = "#3A3E61";
         hexString3rdColor = "FFEE93";
         combatSpells = new Dictionary<string, Spell>()
         {
