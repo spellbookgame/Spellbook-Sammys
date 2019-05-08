@@ -6,6 +6,8 @@ public class RunicDarts : Spell, ICombatSpell
     public RunicDarts()
     {
         iTier = 2;
+        iCharges = 0;
+        iManaCost = 1200;
 
         combatSpell = true;
 

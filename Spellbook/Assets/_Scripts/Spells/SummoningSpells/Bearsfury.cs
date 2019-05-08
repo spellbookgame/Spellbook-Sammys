@@ -6,6 +6,8 @@ public class Bearsfury : Spell, ICombatSpell
     public Bearsfury()
     {
         iTier = 2;
+        iCharges = 0;
+        iManaCost = 1800;
 
         combatSpell = true;
 

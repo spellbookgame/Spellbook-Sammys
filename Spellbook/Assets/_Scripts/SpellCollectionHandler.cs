@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -10,6 +8,8 @@ public class SpellCollectionHandler : MonoBehaviour
     [SerializeField] private Button castButton;
     [SerializeField] private GameObject spellPanel;
     [SerializeField] private Text noSpellsText;
+    [SerializeField] private Text spellPanelTitle;
+    [SerializeField] private Text spellPanelInfo;
 
     private bool spellPanelOpen;
     private Color combatColor;
@@ -70,34 +70,24 @@ public class SpellCollectionHandler : MonoBehaviour
     {
         SoundManager.instance.PlaySingle(SoundManager.spellbookopen);
 
+        string combat = "Non-Combat";
+        if (spell.combatSpell)
+        {
+            combat = "Combat";
+            castButton.transform.GetChild(0).GetComponent<Text>().text = "Charge!";
+        }
+        else
+            castButton.transform.GetChild(0).GetComponent<Text>().text = "Cast!";
+
         // set spell name and info
-        spellPanel.transform.Find("text_spellname").GetComponent<Text>().text = spell.sSpellName;
-        spellPanel.transform.Find("text_spellinfo").GetComponent<Text>().text = "Cost: " + spell.iManaCost + "\n\n" + spell.sSpellInfo;
+        spellPanelTitle.text = spell.sSpellName;
+        spellPanelInfo.text = "Cost: " + spell.iManaCost  + "  |  " + combat + "\n\n" + spell.sSpellInfo;
 
         // add onclick listener to close button
         spellPanel.transform.Find("button_exit").GetComponent<Button>().onClick.AddListener(CloseSpellPanel);
 
         // add onclick listener to cast button
-        spellPanel.transform.Find("button_cast").GetComponent<Button>().onClick.AddListener(() =>
-        {
-            // don't let player cast more than 2 spells per turn
-            if (localPlayer.Spellcaster.numSpellsCastThisTurn >= 2)
-            {
-                PanelHolder.instance.displayNotify("Too Many Spells", "You already cast 2 spells this turn.", "OK");
-                CloseSpellPanel();
-            }
-            // don't let player cast repeat spells
-            else if(SpellTracker.instance.SpellIsActive(spell.sSpellName))
-            {
-                PanelHolder.instance.displayNotify("Already Active", spell.sSpellName + " is already active.", "OK");
-                CloseSpellPanel();
-            }
-            else
-            {
-                spell.SpellCast(localPlayer.Spellcaster);
-                CloseSpellPanel();
-            }
-        });
+        castButton.onClick.AddListener(() => OnCastClick(spell));
 
         spellPanel.SetActive(true);
         spellPanelOpen = true;
@@ -108,8 +98,36 @@ public class SpellCollectionHandler : MonoBehaviour
         if(spellPanelOpen == true)
         {
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+            castButton.onClick.RemoveAllListeners();
             spellPanel.SetActive(false);
             spellPanelOpen = false;
+        }
+    }
+
+    private void OnCastClick(Spell spell)
+    {
+        // don't let player cast more than 2 spells per turn
+        if (localPlayer.Spellcaster.numSpellsCastThisTurn >= 2)
+        {
+            PanelHolder.instance.displayNotify("Too Many Spells", "You already cast 2 spells this turn.", "OK");
+            CloseSpellPanel();
+        }
+        // don't let player cast repeat spells
+        else if (SpellTracker.instance.SpellIsActive(spell.sSpellName))
+        {
+            PanelHolder.instance.displayNotify("Already Active", spell.sSpellName + " is already active.", "OK");
+            CloseSpellPanel();
+        }
+        // if it's a combat spell, add a charge
+        else if (spell.combatSpell)
+        {
+            spell.Charge(localPlayer.Spellcaster);
+            spellPanelInfo.text = "You now have " + spell.iCharges + " charges to this spell.";
+        }
+        else
+        {
+            spell.SpellCast(localPlayer.Spellcaster);
+            CloseSpellPanel();
         }
     }
 }

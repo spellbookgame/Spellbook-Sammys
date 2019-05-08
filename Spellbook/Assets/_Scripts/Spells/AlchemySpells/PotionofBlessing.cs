@@ -7,6 +7,8 @@ public class PotionofBlessing : Spell, ICombatSpell
     public PotionofBlessing()
     {
         iTier = 1;
+        iCharges = 0;
+        iManaCost = 2500;
 
         combatSpell = true;
 

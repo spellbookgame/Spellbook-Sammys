@@ -6,6 +6,8 @@ public class Tragedy : Spell, ICombatSpell
     public Tragedy()
     {
         iTier = 3;
+        iCharges = 0;
+        iManaCost = 800;
 
         combatSpell = true;
 

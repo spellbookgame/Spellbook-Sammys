@@ -10,6 +10,7 @@ public abstract class Spell
     public int iCoolDown;
     public int iTurnsActive;
     public int iCastedTurn;
+    public int iCharges;
 
     public string sSpellName;
     public string sSpellClass;
@@ -37,4 +38,15 @@ public abstract class Spell
 
     // Abstract functions
     public abstract void SpellCast(SpellCaster player);
+
+    public virtual void Charge(SpellCaster player)
+    {
+        if (player.iMana < iManaCost)
+            PanelHolder.instance.displayNotify("Not enough Mana!", "You do not have enough mana to charge this spell.", "OK");
+        else
+        {
+            player.LoseMana(iManaCost);
+            ++iCharges;
+        }
+    }
 }

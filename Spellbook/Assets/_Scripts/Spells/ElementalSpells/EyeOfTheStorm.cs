@@ -6,6 +6,8 @@ public class EyeOfTheStorm : Spell, ICombatSpell
     public EyeOfTheStorm()
     {
         iTier = 2;
+        iCharges = 0;
+        iManaCost = 1900;
 
         combatSpell = true;
 

@@ -6,6 +6,8 @@ public class Manipulate : Spell, ICombatSpell
     public Manipulate()
     {
         iTier = 2;
+        iCharges = 0;
+        iManaCost = 2400;
 
         combatSpell = true;
 
