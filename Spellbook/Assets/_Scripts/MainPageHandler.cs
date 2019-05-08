@@ -68,6 +68,10 @@ public class MainPageHandler : MonoBehaviour
         {
             localPlayer.Spellcaster.CollectSpell(new RunicDarts());
         }
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            localPlayer.Spellcaster.CollectSpell(new ArcanaHarvest());
+        }
         if (Input.GetKeyDown(KeyCode.S))
         {
             SceneManager.LoadScene("MineScene");
