@@ -208,12 +208,15 @@ public class DiceUIHandler : MonoBehaviour
             }
         }
 
+        // force its position to be correct cause idk
+        diceScrollContent.transform.localPosition = new Vector3(-665, -175, 0);
+
         // expand scroll rect for each die that exceeds 4
-        if (numDice > 4)
+        /*if (numDice > 4)
         {
             RectTransform rect = diceScrollContent.GetComponent<RectTransform>();
             rect.sizeDelta = new Vector2((float)rect.sizeDelta.x + (260 * (numDice - 4)), rect.sizeDelta.y);
-        }
+        }*/
     }
 
     private void RemoveDiceFromSlots()
