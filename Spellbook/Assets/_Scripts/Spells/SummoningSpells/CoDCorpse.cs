@@ -9,7 +9,7 @@ public class CoDCorpse : Spell
     public CoDCorpse()
     {
         iTier = 2;
-        iManaCost = 100;
+        iManaCost = 2100;
 
         combatSpell = false;
 

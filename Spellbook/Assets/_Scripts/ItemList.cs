@@ -18,7 +18,8 @@ public class ItemList : MonoBehaviour
             new AromaticTeaLeaves(),
             new OpalAmmonite(),
             new WaxCandle(),
-            new HollowCabochon()
+            new HollowCabochon(),
+            new RiftTalisman()
         };
     }
 
@@ -56,6 +57,9 @@ public class ItemList : MonoBehaviour
                 break;
             case "Hollow Cabochon":
                 item = new HollowCabochon();
+                break;
+            case "Rift Talisman":
+                item = new RiftTalisman();
                 break;
         }
         return item;

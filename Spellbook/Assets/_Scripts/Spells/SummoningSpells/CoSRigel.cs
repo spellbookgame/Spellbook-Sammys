@@ -36,8 +36,8 @@ public class CoSRigel : Spell
             player.RemoveFromInventory(item2);
 
             // get a random item
-            string[] items = new string[] { "Mimetic Vellum", "Crystal Mirror" };
-            ItemObject newItem = GameObject.Find("ItemList").GetComponent<ItemList>().GetItemFromName(items[Random.Range(0, 2)]);
+            string[] items = new string[] { "Mimetic Vellum", "Crystal Mirror", "Rift Talisman" };
+            ItemObject newItem = GameObject.Find("ItemList").GetComponent<ItemList>().GetItemFromName(items[Random.Range(0, 3)]);
 
             player.AddToInventory(newItem);
             PanelHolder.instance.displayBoardScan("Rigel's Ascension", "You destroyed " + item1.name + " and " + item2.name + " and gained " + newItem.name + "!", newItem.sprite, "MainPlayerScene");
@@ -60,8 +60,8 @@ public class CoSRigel : Spell
             player.RemoveFromInventory(item2);
 
             // get a random item
-            string[] items = new string[] { "Mimetic Vellum", "Crystal Mirror" };
-            ItemObject newItem = GameObject.Find("ItemList").GetComponent<ItemList>().GetItemFromName(items[Random.Range(0, 2)]);
+            string[] items = new string[] { "Mimetic Vellum", "Crystal Mirror", "Rift Talisman" };
+            ItemObject newItem = GameObject.Find("ItemList").GetComponent<ItemList>().GetItemFromName(items[Random.Range(0, 3)]);
 
             player.AddToInventory(newItem);
             PanelHolder.instance.displayBoardScan("Rigel's Ascension", "You destroyed " + item1.name + " and " + item2.name + " and gained " + newItem.name + "!", newItem.sprite, "MainPlayerScene");
