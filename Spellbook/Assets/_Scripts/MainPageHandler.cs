@@ -62,11 +62,11 @@ public class MainPageHandler : MonoBehaviour
         // TEST AREA - DELETE LATER
         if(Input.GetKeyDown(KeyCode.T))
         {
-            CrisisHandler.instance.CallTsunami();
+            localPlayer.Spellcaster.CollectSpell(new Transcribe());
         }
         if (Input.GetKeyDown(KeyCode.U))
         {
-            localPlayer.Spellcaster.CollectSpell(new Forecast());
+            localPlayer.Spellcaster.CollectSpell(new RunicDarts());
         }
         if (Input.GetKeyDown(KeyCode.S))
         {

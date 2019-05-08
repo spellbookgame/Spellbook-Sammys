@@ -12,6 +12,7 @@ public class SpellCollectionHandler : MonoBehaviour
     [SerializeField] private Text noSpellsText;
 
     private bool spellPanelOpen;
+    private Color combatColor;
 
     Player localPlayer;
 
@@ -22,6 +23,9 @@ public class SpellCollectionHandler : MonoBehaviour
         if (localPlayer.Spellcaster.chapter.spellsCollected.Count > 0)
             noSpellsText.text = "";
 
+        combatColor = new Color();
+        ColorUtility.TryParseHtmlString("#253390", out combatColor);
+
         int yPos = 105;
         // add buttons for each spell the player has collected
         for (int i = 0; i < localPlayer.Spellcaster.chapter.spellsCollected.Count; i++)
@@ -29,6 +33,13 @@ public class SpellCollectionHandler : MonoBehaviour
             Button newSpellButton = Instantiate(spellButton, GameObject.Find("Canvas").transform);
             newSpellButton.GetComponentInChildren<Text>().text = localPlayer.Spellcaster.chapter.spellsCollected[i].sSpellName;
             newSpellButton.transform.localPosition = new Vector3(0, yPos, 0);
+
+            // if it's a combat spell, change button/text color
+            if (localPlayer.Spellcaster.chapter.spellsCollected[i].combatSpell)
+            {
+                newSpellButton.GetComponent<Image>().color = combatColor;
+                newSpellButton.transform.GetChild(0).GetComponent<Text>().color = combatColor;
+            }
 
             // new int to pass into button onClick listener so loop will not throw index out of bounds error
             int i2 = i;
