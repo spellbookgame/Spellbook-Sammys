@@ -13,15 +13,13 @@ public class AlchemyErrandQuest : Quest
         questTask = "Bring 1 Aromatic Tea Leaves to the Alchemy Town.";
 
         startTurn = turnStarted;
-        turnLimit = 4;
+        expiration = 20;
 
         spaceName = "town_alchemist";
         itemName = "Aromatic Tea Leaves";
 
         rewards.Add("Rune", "Alchemist A Rune");
         rewards.Add("Class Rune", "B Rune");
-
-        consequenceMana = 800;
 
         questCompleted = false;
     }

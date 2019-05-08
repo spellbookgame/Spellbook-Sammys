@@ -25,6 +25,8 @@ public class YourTurnUI : MonoBehaviour
     {
         gameObject.SetActive(true);
 
+        Debug.Log("num of turns so far: " + GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().Spellcaster.NumOfTurnsSoFar);
+
         // for start of game
         if (GameObject.Find("Proclamation Panel"))
         {
@@ -40,6 +42,9 @@ public class YourTurnUI : MonoBehaviour
         {
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
             gameObject.SetActive(false);
+
+            // for start of game: give players a spell quest to start
+            QuestTracker.instance.GiveSpellQuest();
 
             // enable player's dice button
             UICanvasHandler.instance.EnableDiceButton(true);

@@ -13,14 +13,12 @@ public class TimeLocationQuest : Quest
         questTask = "Visit the Mines.";
 
         startTurn = turnStarted;
-        turnLimit = 2;
+        expiration = 20;
 
         spaceName = "location_mines";
 
         rewards.Add("Item", "Abyssal Ore");
         rewards.Add("Rune", "Chronomancer A Rune");
-
-        consequenceMana = 600;
 
         questCompleted = false;
     }

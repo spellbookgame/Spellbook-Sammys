@@ -3,23 +3,22 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-public class TimeMoveQuest : Quest
+public class SpellQuest : Quest
 {
-    public TimeMoveQuest(int turnStarted)
+    public SpellQuest(int turnStarted)
     {
-        questName = "Time Move Quest";
-        questType = "Move";
-        questFlavor = "Movement is a subset of time, and something that we Chronomancers take seriously. Show me what you can do.";
-        questTask = "Travel 20 spaces.";
+        questName = "Spell Quest";
+        questType = "Spell";
+        questFlavor = "Let's learn the basics! Create a tier 3 spell.";
+        questTask = "Create a tier 3 spell.";
 
         startTurn = turnStarted;
         expiration = 20;
 
-        spacesTraveled = 0;
-        spacesRequired = 20;
+        spellTier = 3;
 
-        rewards.Add("Rune", "Chronomancer A Rune");
-        rewards.Add("Class Rune", "A Rune");
+        rewards.Add("Class Rune", "B Rune");
+        rewards.Add("Item", "Hollow Cabochon");
 
         questCompleted = false;
     }

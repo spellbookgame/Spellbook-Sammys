@@ -13,15 +13,13 @@ public class ArcaneErrandQuest : Quest
         questTask = "Bring an Abyssal Ore to the Illusion Town.";
 
         startTurn = turnStarted;
-        turnLimit = 4;
+        expiration = 20;
 
         spaceName = "town_illusionist";
         itemName = "Abyssal Ore";
 
         rewards.Add("Rune", "Illusionist A Rune");
         rewards.Add("Class Rune", "B Rune");
-
-        consequenceMana = 700;
 
         questCompleted = false;
     }

@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using SpellbookExtensions;
+using System.Linq;
 
 public class MainPageHandler : MonoBehaviour
 {
@@ -65,7 +66,7 @@ public class MainPageHandler : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.U))
         {
-            localPlayer.Spellcaster.CollectSpell(new Forecast());
+            localPlayer.Spellcaster.CollectSpell(new Echo());
         }
         if (Input.GetKeyDown(KeyCode.S))
         {

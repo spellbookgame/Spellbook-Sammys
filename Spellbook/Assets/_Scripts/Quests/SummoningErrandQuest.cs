@@ -13,15 +13,13 @@ public class SummoningErrandQuest : Quest
         questTask = "Bring a Mystic Translocator to the Summoner Town.";
 
         startTurn = turnStarted;
-        turnLimit = 5;
+        expiration = 20;
 
         spaceName = "town_summoner";
         itemName = "Mystic Translocator";
 
         rewards.Add("Rune", "Summoner A Rune");
         rewards.Add("Class Rune", "A Rune");
-
-        consequenceMana = 1000;
 
         questCompleted = false;
     }

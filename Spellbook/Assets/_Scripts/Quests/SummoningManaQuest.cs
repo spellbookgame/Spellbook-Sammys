@@ -13,15 +13,13 @@ public class SummoningManaQuest : Quest
         questTask = "Collect 1300 mana crystals.";
 
         startTurn = turnStarted;
-        turnLimit = 4;
+        expiration = 20;
 
         manaTracker = 0;
         manaRequired = 1300;
 
         rewards.Add("Rune", "Summoner A Rune");
         rewards.Add("Class Rune", "B Rune");
-
-        consequenceMana = 700;
 
         questCompleted = false;
     }

@@ -181,9 +181,9 @@ public abstract class SpellCaster
                 savePlayerData(this);
 
                 // tell player that the spell is collected
-                PanelHolder.instance.displayNotify(spell.sSpellName, "You unlocked " + spell.sSpellName + "!", "MainPlayerScene");
+                PanelHolder.instance.displayNotify(spell.sSpellName, "You unlocked " + spell.sSpellName + "!", "OK");
 
-                Debug.Log("You have " + chapter.spellsCollected.Count + " spells collected.");
+                QuestTracker.instance.TrackSpellQuest(spell);
 
                 spellCollected = true;
             }

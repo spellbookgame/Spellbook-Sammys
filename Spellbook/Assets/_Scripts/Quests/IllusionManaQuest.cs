@@ -13,15 +13,13 @@ public class IllusionManaQuest : Quest
         questTask = "Collect 1200 mana.";
 
         startTurn = turnStarted;
-        turnLimit = 3;
+        expiration = 20;
 
         manaTracker = 0;
         manaRequired = 1200;
 
         rewards.Add("Class Rune", "A Rune");
-        rewards.Add("Mana", "400");
-
-        consequenceMana = 600;
+        rewards.Add("Item", "Mystic Translocator");
 
         questCompleted = false;
     }

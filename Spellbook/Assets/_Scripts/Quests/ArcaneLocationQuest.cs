@@ -13,14 +13,12 @@ public class ArcaneLocationQuest : Quest
         questTask = "Visit the Forest.";
 
         startTurn = turnStarted;
-        turnLimit = 4;
+        expiration = 20;
 
         spaceName = "location_forest";
 
         rewards.Add("Rune", "Arcanist A Rune");
         rewards.Add("Class Rune", "A Rune");
-
-        consequenceMana = 800;
 
         questCompleted = false;
     }

@@ -13,15 +13,13 @@ public class ElementalErrandQuest : Quest
         questTask = "Bring a Glowing Mushroom to the Alchemy Town.";
 
         startTurn = turnStarted;
-        turnLimit = 4;
+        expiration = 20;
 
         spaceName = "town_alchemist";
         itemName = "Glowing Mushroom";
 
         rewards.Add("Rune", "Alchemist B Rune");
         rewards.Add("Item", "Mimetic Vellum");
-
-        consequenceMana = 500;
 
         questCompleted = false;
     }

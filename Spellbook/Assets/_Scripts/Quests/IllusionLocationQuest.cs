@@ -13,14 +13,12 @@ public class IllusionLocationQuest : Quest
         questTask = "Visit the Swamp.";
 
         startTurn = turnStarted;
-        turnLimit = 4;
+        expiration = 20;
 
         spaceName = "location_swamp";
 
         rewards.Add("Item", "Infused Sapphire");
         rewards.Add("Dice", "D5");
-
-        consequenceMana = 900;
 
         questCompleted = false;
     }

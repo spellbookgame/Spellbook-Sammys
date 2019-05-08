@@ -12,14 +12,18 @@ public class QuestLogHandler : MonoBehaviour
     [SerializeField] private GameObject questInfoPanel;
     [SerializeField] private Text questName;
     [SerializeField] private Text questTask;
-    [SerializeField] private Text turnsLeft;
+    [SerializeField] private Image rewardImage0;
+    [SerializeField] private Image rewardImage1;
 
     private Player localPlayer;
+    private Image[] rewardImages;
 
     // Start is called before the first frame update
     void Start()
     {
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
+
+        rewardImages = new Image[2];
 
         exitButton.onClick.AddListener(() =>
         {
@@ -53,7 +57,42 @@ public class QuestLogHandler : MonoBehaviour
 
         questName.text = quest.questName;
         questTask.text = quest.questTask;
-        turnsLeft.text = "Turns left: " + (quest.turnLimit - (localPlayer.Spellcaster.NumOfTurnsSoFar - quest.startTurn)).ToString();
+
+        // set reward images
+        rewardImages[0] = rewardImage0;
+        rewardImages[1] = rewardImage1;
+
+        int i = 0;
+        foreach (KeyValuePair<string, string> kvp in quest.rewards)
+        {
+            switch (kvp.Key)
+            {
+                case "Rune":
+                    rewardImages[i].sprite = Resources.Load<Sprite>("RuneArt/" + kvp.Value);
+                    ++i;
+                    continue;
+                case "Class Rune":
+                    rewardImages[i].sprite = Resources.Load<Sprite>("RuneArt/" +
+                        GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().Spellcaster.classType + " " + kvp.Value);
+                    ++i;
+                    continue;
+                case "Mana":
+                    rewardImages[i].sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/ManaCrystal");
+                    ++i;
+                    continue;
+                case "Item":
+                    rewardImages[i].sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/" + kvp.Value);
+                    ++i;
+                    continue;
+                case "Dice":
+                    rewardImages[i].sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/Blank Dice");
+                    ++i;
+                    continue;
+                default:
+                    ++i;
+                    continue;
+            }
+        }
 
         questInfoPanel.SetActive(true);
     }

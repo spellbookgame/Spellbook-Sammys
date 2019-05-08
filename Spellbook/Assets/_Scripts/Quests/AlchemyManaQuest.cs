@@ -13,12 +13,10 @@ public class AlchemyManaQuest : Quest
         questTask = "Collect 1500 mana crystals.";
 
         startTurn = turnStarted;
-        turnLimit = 4;
+        expiration = 20;
 
         rewards.Add("Rune", "Alchemist A Rune");
         rewards.Add("Item", "Crystal Mirror");
-
-        consequenceMana = 1000;
 
         questCompleted = false;
 
