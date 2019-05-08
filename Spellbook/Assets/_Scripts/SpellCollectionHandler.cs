@@ -69,9 +69,16 @@ public class SpellCollectionHandler : MonoBehaviour
         // add onclick listener to cast button
         spellPanel.transform.Find("button_cast").GetComponent<Button>().onClick.AddListener(() =>
         {
+            // don't let player cast more than 2 spells per turn
             if (localPlayer.Spellcaster.numSpellsCastThisTurn >= 2)
             {
                 PanelHolder.instance.displayNotify("Too Many Spells", "You already cast 2 spells this turn.", "OK");
+                CloseSpellPanel();
+            }
+            // don't let player cast repeat spells
+            else if(SpellTracker.instance.SpellIsActive(spell.sSpellName))
+            {
+                PanelHolder.instance.displayNotify("Already Active", spell.sSpellName + " is already active.", "OK");
                 CloseSpellPanel();
             }
             else
