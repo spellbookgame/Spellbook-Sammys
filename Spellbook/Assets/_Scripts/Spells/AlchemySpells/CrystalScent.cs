@@ -25,6 +25,7 @@ public class CrystalScent : Spell
         {
             PanelHolder.instance.displayNotify("You cast " + sSpellName, "Move your piece to the Marketplace.", "ShopScene");
 
+            player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
         }
         else if (player.iMana < iManaCost)
@@ -38,6 +39,7 @@ public class CrystalScent : Spell
 
             PanelHolder.instance.displayNotify("You cast " + sSpellName, "Move your piece to the Marketplace.", "ShopScene");
 
+            player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
         }
     }

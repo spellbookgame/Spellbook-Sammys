@@ -26,6 +26,7 @@ public class Growth : Spell
             PanelHolder.instance.displayNotify(sSpellName, "Everyone will receive a D7 to their mana next time they roll.", "MainPlayerScene");
             player.activeSpells.Add(this);
 
+            player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
         }
         else if (player.iMana < iManaCost)
@@ -40,6 +41,7 @@ public class Growth : Spell
             PanelHolder.instance.displayNotify(sSpellName, "Everyone will receive a D7 to their mana next time they roll.", "MainPlayerScene");
             player.activeSpells.Add(this);
 
+            player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
         }
     }

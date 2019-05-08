@@ -19,6 +19,8 @@ public class GlimmeringCabochon : ItemObject
     public override void UseItem(SpellCaster player)
     {
         player.RemoveFromInventory(this);
+        player.itemsUsedThisTurn++;
+
         Spell spell = player.chapter.spellsCollected[Random.Range(0, player.chapter.spellsCollected.Count)];
 
         // give player mana to cast that spell

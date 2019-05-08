@@ -16,8 +16,9 @@ public class RiftTalisman : ItemObject
     public override void UseItem(SpellCaster player)
     {
         player.RemoveFromInventory(this);
-        CrisisHandler.instance.roundsUntilCrisis++;
+        player.itemsUsedThisTurn++;
 
+        CrisisHandler.instance.roundsUntilCrisis++;
         PanelHolder.instance.displayNotify("Rift Talisman", "The " + CrisisHandler.instance.currentCrisis + " will be delayed by 1 round.", "InventoryScene");
     }
 }

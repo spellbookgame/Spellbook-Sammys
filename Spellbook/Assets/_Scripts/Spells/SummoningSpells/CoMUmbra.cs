@@ -35,6 +35,7 @@ public class CoMUmbra : Spell
             PanelHolder.instance.displayNotify(sSpellName, "Your next spell you cast will be free.", "MainPlayerScene");
             player.activeSpells.Add(this);
 
+            player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
         }
     }

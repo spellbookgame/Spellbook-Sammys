@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 // spell for Chronomancy class
@@ -26,6 +27,7 @@ public class Echo : Spell
             PanelHolder.instance.displayNotify(sSpellName, "Next time you roll, you may roll again.", "MainPlayerScene");
             player.activeSpells.Add(this);
 
+            player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
         }
         else if (player.iMana < iManaCost)
@@ -40,6 +42,7 @@ public class Echo : Spell
             PanelHolder.instance.displayNotify(sSpellName, "Next time you roll, you may roll again.", "MainPlayerScene");
             player.activeSpells.Add(this);
 
+            player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
         }
     }

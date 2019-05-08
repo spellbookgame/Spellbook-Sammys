@@ -143,7 +143,7 @@ public class Shop : MonoBehaviour
         // if Charming Negotiator is active, discount sale price by 30%
         if (SpellTracker.instance.SpellIsActive("Brew - Charming Negotiator"))
         {
-            item.buyPrice = (int) (item.buyPrice * 0.7);
+            item.buyPrice = (int) (item.buyPrice * 0.5);
         }
 
         currentSelected = item;

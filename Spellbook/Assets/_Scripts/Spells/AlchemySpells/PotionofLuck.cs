@@ -28,6 +28,7 @@ public class PotionofLuck : Spell
             PanelHolder.instance.displayNotify(sSpellName, "You and your ally will have an extra D8 next time you roll.", "MainPlayerScene");
             player.tempDice.Add("D8", 1);
 
+            player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
         }
         else if (player.iMana < iManaCost)
@@ -42,6 +43,7 @@ public class PotionofLuck : Spell
             PanelHolder.instance.displayNotify(sSpellName, "You and your ally will have an extra D8 next time you roll.", "MainPlayerScene");
             player.tempDice.Add("D8", 1);
 
+            player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
         }
     }

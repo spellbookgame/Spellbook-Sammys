@@ -30,6 +30,7 @@ public class CoSLeon : Spell
         PanelHolder.instance.displayNotify("You cast " + sSpellName, "", "MainPlayerScene");
         player.activeSpells.Add(this);
 
+        player.numSpellsCastThisTurn++;
         SpellTracker.instance.lastSpellCasted = this;
     }
 }

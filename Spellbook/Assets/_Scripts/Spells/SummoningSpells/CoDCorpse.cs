@@ -36,6 +36,7 @@ public class CoDCorpse : Spell
 
             PanelHolder.instance.displayNotify("Corpse Taker", "You found " + item1.name + " and " + item2.name + "!", "MainPlayerScene");
 
+            player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
         }
         else if (player.iMana < iManaCost)
@@ -57,6 +58,7 @@ public class CoDCorpse : Spell
 
             PanelHolder.instance.displayNotify("Corpse Taker", "You found " + item1.name + " and " + item2.name + "!", "MainPlayerScene");
 
+            player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
         }
     }

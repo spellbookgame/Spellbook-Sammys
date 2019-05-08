@@ -26,6 +26,7 @@ public class Playback : Spell
         {
             PanelHolder.instance.displayNotify(sSpellName, "Swap a rune from your hand with one from any city.", "MainPlayerScene");
 
+            player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
         }
         else if (player.iMana < iManaCost)
@@ -39,6 +40,7 @@ public class Playback : Spell
 
             PanelHolder.instance.displayNotify(sSpellName, "Swap a rune from your hand with one from any city.", "MainPlayerScene");
 
+            player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
         }
     }

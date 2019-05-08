@@ -28,6 +28,7 @@ public class Tailwind : Spell
             PanelHolder.instance.displayNotify(sSpellName, "Everyone will receive a D6 to their movement next time they roll.", "MainPlayerScene");
             player.activeSpells.Add(this);
 
+            player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
         }
         else if (player.iMana < iManaCost)
@@ -42,6 +43,7 @@ public class Tailwind : Spell
             PanelHolder.instance.displayNotify(sSpellName, "Everyone will receive a D6 to their movement next time they roll.", "MainPlayerScene");
             player.activeSpells.Add(this);
 
+            player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
         }
     }

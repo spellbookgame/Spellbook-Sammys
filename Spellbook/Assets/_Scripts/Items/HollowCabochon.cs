@@ -24,6 +24,8 @@ public class HollowCabochon : ItemObject
         else
         {
             player.RemoveFromInventory(this);
+            player.itemsUsedThisTurn++;
+
             player.AddToInventory(new GlimmeringCabochon());
             PanelHolder.instance.displayNotify("Hollow Cabochon", "Your Hollow Cabochon has turned into a Glimmering Cabochon!", "InventoryScene");
         }

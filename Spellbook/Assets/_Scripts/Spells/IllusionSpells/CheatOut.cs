@@ -27,6 +27,7 @@ public class CheatOut : Spell
         {
             PanelHolder.instance.displayNotify(sSpellName, "Discard two of your runes. Draw 2 from the high tier rune deck.", "MainPlayerScene");
 
+            player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
         }
         else if (player.iMana < iManaCost)
@@ -40,6 +41,7 @@ public class CheatOut : Spell
 
             PanelHolder.instance.displayNotify(sSpellName, "Discard two of your runes. Draw 2 from the high tier rune deck.", "MainPlayerScene");
 
+            player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
         }
     }

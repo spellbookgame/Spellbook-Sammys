@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 // spell for Chronomancy class
@@ -31,6 +32,7 @@ public class Forecast : Spell
             player.activeSpells.Add(this);
             SpellTracker.instance.forecastItem = item;
 
+            player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
         }
         else if (player.iMana < iManaCost)
@@ -46,8 +48,12 @@ public class Forecast : Spell
             ItemObject item = itemList[Random.Range(0, itemList.Count)];
             SpellTracker.instance.forecastItem = item;
             PanelHolder.instance.displayBoardScan("Forecast", "The next time you enter the Forest, you will gain 2 " + item.name + "s.", item.sprite, "MainPlayerScene");
-            player.activeSpells.Add(this);
 
+            // only add this to active spells list if it's not already in there
+            if (!player.activeSpells.Any(x => x.sSpellName.Equals(sSpellName)))
+                player.activeSpells.Add(this);
+
+            player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
         }
     }

@@ -28,6 +28,8 @@ public class DejaVu : Spell
             Spell newSpell = SpellTracker.instance.lastSpellCasted;
             player.CollectMana(newSpell.iManaCost);
             newSpell.SpellCast(player);
+
+            player.numSpellsCastThisTurn++;
         }
         else if (player.iMana < iManaCost)
         {
@@ -41,6 +43,8 @@ public class DejaVu : Spell
             Spell newSpell = SpellTracker.instance.lastSpellCasted;
             player.CollectMana(newSpell.iManaCost);
             newSpell.SpellCast(player);
+
+            player.numSpellsCastThisTurn++;
         }
     }
 }
