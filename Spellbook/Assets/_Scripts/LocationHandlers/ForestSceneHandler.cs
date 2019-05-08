@@ -9,8 +9,6 @@ public class ForestSceneHandler : MonoBehaviour
     [SerializeField] private Button lookButton;
     [SerializeField] private Button leaveButton;
 
-    private bool collectedItem;
-
     private Player localPlayer;
     private List<ItemObject> itemList;
 
@@ -33,25 +31,16 @@ public class ForestSceneHandler : MonoBehaviour
     private void LookForItem()
     {
         SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
-        
-        if(!collectedItem)
+
+        if (SpellTracker.instance.SpellIsActive("Forecast"))
         {
-            if (SpellTracker.instance.SpellIsActive("Forecast"))
-            {
-                SpellTracker.instance.DoForecast();
-                collectedItem = true;
-            }
-            else
-            {
-                ItemObject item = itemList[Random.Range(0, itemList.Count)];
-                PanelHolder.instance.displayBoardScan("You found an Item!", "You found a " + item.name + "!", item.sprite, "OK");
-                localPlayer.Spellcaster.AddToInventory(item);
-                collectedItem = true;
-            }
+            SpellTracker.instance.DoForecast();
         }
         else
         {
-            PanelHolder.instance.displayNotify("Don't be greedy!", "You can only take once per visit. Now leave!", "MainPlayerScene");
+            ItemObject item = itemList[Random.Range(0, itemList.Count)];
+            PanelHolder.instance.displayBoardScan("You found an Item!", "You found a " + item.name + "!", item.sprite, "MainPlayerScene");
+            localPlayer.Spellcaster.AddToInventory(item);
         }
     }
 }

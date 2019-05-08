@@ -38,8 +38,8 @@ public abstract class SpellCaster
     public Chapter chapter;
 
     // tracking items
-    public bool waxCandleUsed;      // AddToInventory()
-    public bool locationItemUsed;   // CustomEventHandler()
+    public bool waxCandleUsed;      // set in AddToInventory()
+    public bool locationItemUsed;   // set in CustomEventHandler()
 
     // player's collection of glyphs, dice, items, and active spells/quests stored as strings
     public Dictionary<string, int> glyphs;
@@ -132,7 +132,6 @@ public abstract class SpellCaster
 
     public void CollectMana(int manaCount)
     {
-        SoundManager.instance.PlaySingle(SoundManager.manaCollect);
         iMana += manaCount;
         QuestTracker.instance.TrackManaQuest(manaCount);
     }
