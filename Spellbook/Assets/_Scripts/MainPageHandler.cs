@@ -62,15 +62,15 @@ public class MainPageHandler : MonoBehaviour
         // TEST AREA - DELETE LATER
         if(Input.GetKeyDown(KeyCode.T))
         {
-            localPlayer.Spellcaster.CollectSpell(new Transcribe());
+            localPlayer.Spellcaster.CollectSpell(new CoSLeon());
         }
         if (Input.GetKeyDown(KeyCode.U))
         {
-            localPlayer.Spellcaster.CollectSpell(new RunicDarts());
+            localPlayer.Spellcaster.CollectSpell(new Bearsfury());
         }
         if (Input.GetKeyDown(KeyCode.Y))
         {
-            localPlayer.Spellcaster.CollectSpell(new ArcanaHarvest());
+            localPlayer.Spellcaster.CollectSpell(new Ravenssong());
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
