@@ -11,6 +11,7 @@ public class TimeMoveQuest : Quest
         questType = "Move";
         questFlavor = "Movement is a subset of time, and something that we Chronomancers take seriously. Show me what you can do.";
         questTask = "Travel 20 spaces.";
+        questHint = "Utilize your magic dice!";
 
         startTurn = turnStarted;
         expiration = 20;

@@ -11,6 +11,7 @@ public class SpellQuest : Quest
         questType = "Spell";
         questFlavor = "Let's learn the basics! Create a tier 3 spell.";
         questTask = "Create a tier 3 spell.";
+        questHint = "Your Recipes list should tell you how to create one!";
 
         startTurn = turnStarted;
         expiration = 20;

@@ -11,6 +11,7 @@ public class ElementalMoveQuest : Quest
         questType = "Move";
         questFlavor = "Being a fighter means being quick on your feet. Show me how far you can move.";
         questTask = "Travel 15 spaces.";
+        questHint = "Movement slot in the dice tray isn't there for no reason.";
 
         startTurn = turnStarted;
         expiration = 20;

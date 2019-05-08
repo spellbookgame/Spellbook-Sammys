@@ -11,6 +11,7 @@ public class IllusionLocationQuest : Quest
         questType = "Specific Location";
         questFlavor = "There's a disturbance in the Swamp. Go there and find out what's going on.";
         questTask = "Visit the Swamp.";
+        questHint = "Utilize those magic dice!";
 
         startTurn = turnStarted;
         expiration = 20;

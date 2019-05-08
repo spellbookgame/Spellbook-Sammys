@@ -6,6 +6,7 @@ public abstract class Quest
     public string questType;
     public string questTask;
     public string questFlavor;
+    public string questHint;
 
     public int startTurn;
     public int expiration;

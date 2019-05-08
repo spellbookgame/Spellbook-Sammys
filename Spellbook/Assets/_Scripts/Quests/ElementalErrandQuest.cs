@@ -11,6 +11,7 @@ public class ElementalErrandQuest : Quest
         questType = "Errand";
         questFlavor = "The apothecary needs a Glowing Mushroom. Can you bring one to them?";
         questTask = "Bring a Glowing Mushroom to the Alchemy Town.";
+        questHint = "If the Capital and Forest don't have it, maybe a friend does.";
 
         startTurn = turnStarted;
         expiration = 20;

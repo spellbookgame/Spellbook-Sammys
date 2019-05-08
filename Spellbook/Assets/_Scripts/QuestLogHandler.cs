@@ -56,7 +56,7 @@ public class QuestLogHandler : MonoBehaviour
         questInfoPanel.transform.SetAsLastSibling();
 
         questName.text = quest.questName;
-        questTask.text = quest.questTask;
+        questTask.text = "Task: " + quest.questTask + "\n\n Hint: " + quest.questHint;
 
         // set reward images
         rewardImages[0] = rewardImage0;

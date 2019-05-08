@@ -11,6 +11,7 @@ public class IllusionManaQuest : Quest
         questType = "Collect Mana";
         questFlavor = "Every spellcaster needs some money to travel. Collect some mana for me.";
         questTask = "Collect 1200 mana.";
+        questHint = "The Crystal Mines give lots of mana.";
 
         startTurn = turnStarted;
         expiration = 20;

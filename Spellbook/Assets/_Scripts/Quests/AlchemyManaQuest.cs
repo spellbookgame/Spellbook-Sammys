@@ -11,6 +11,7 @@ public class AlchemyManaQuest : Quest
         questType = "Collect Mana";
         questFlavor = "Mana is an important source of energy for us Spellcasters, and you need to study it very well.";
         questTask = "Collect 1500 mana crystals.";
+        questHint = "I heard the Opal Ammonite gives a ton of mana...";
 
         startTurn = turnStarted;
         expiration = 20;

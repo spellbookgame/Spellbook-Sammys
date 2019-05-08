@@ -11,6 +11,7 @@ public class TimeLocationQuest : Quest
         questType = "Specific Location";
         questFlavor = "I heard the mines are having trouble but I'm busy with my project. Can you visit the Mines for me?";
         questTask = "Visit the Mines.";
+        questHint = "Perhaps a friend has a spell to help you get there faster.";
 
         startTurn = turnStarted;
         expiration = 20;

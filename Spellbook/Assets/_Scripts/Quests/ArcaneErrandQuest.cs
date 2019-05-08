@@ -11,6 +11,7 @@ public class ArcaneErrandQuest : Quest
         questType = "Errand";
         questFlavor = "The Illusion Town is in need of an Abyssal Ore. Find one and bring it to them.";
         questTask = "Bring an Abyssal Ore to the Illusion Town.";
+        questHint = "If the Capital and Forest don't have it, maybe a friend does.";
 
         startTurn = turnStarted;
         expiration = 20;
