@@ -13,6 +13,8 @@ public class QuestTracker : MonoBehaviour
 {
     public static QuestTracker instance = null;
 
+    public bool spellQuestGiven = false;
+
     Player localPlayer;
 
     void Awake()
@@ -64,21 +66,19 @@ public class QuestTracker : MonoBehaviour
         foreach (Quest q in localPlayer.Spellcaster.activeQuests.ToArray())
         {
             // if the player's turns from starting the quest exceeded the turn limit
-            if (localPlayer.Spellcaster.NumOfTurnsSoFar - q.startTurn > q.turnLimit)
+            if (localPlayer.Spellcaster.NumOfTurnsSoFar - q.startTurn > q.expiration)
             {
-                QuestFailed(q);
+                QuestExpired(q);
             }
         }
     }
 
     // notify player of quest failed, remove from their list of active quests, subtract mana
-    private void QuestFailed(Quest q)
+    private void QuestExpired(Quest q)
     {
         SoundManager.instance.PlaySingle(SoundManager.questfailed);
         localPlayer.Spellcaster.activeQuests.Remove(q);
-        PanelHolder.instance.displayNotify(q.questName + " Failed...", "You failed to complete the quest in time. You paid " + 
-                                            q.consequenceMana + " mana for the trouble.", "OK");
-        localPlayer.Spellcaster.LoseMana(q.consequenceMana);
+        PanelHolder.instance.displayNotify(q.questName + " Has Expired", "You took too long with it, I found someone else to do it for me.", "OK");
     }
 
     private void QuestCompleted(Quest q)
@@ -87,6 +87,23 @@ public class QuestTracker : MonoBehaviour
         localPlayer.Spellcaster.activeQuests.Remove(q);
         PanelHolder.instance.displayQuestRewards(q);
         GiveRewards(q);
+    }
+
+    // give players a spell quest at the start of game
+    public void GiveSpellQuest()
+    {
+        // if it's their first turn and they haven't been given spell quest yet
+        if(localPlayer.Spellcaster.NumOfTurnsSoFar <= 1 && !spellQuestGiven)
+        {
+            Quest quest = new SpellQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
+
+            // if they don't have the quest in their list
+            if(!HasQuest(quest))
+            {
+                PanelHolder.instance.displayQuest(quest);
+                spellQuestGiven = true;
+            }
+        }
     }
 
     public void TrackManaQuest(int mana)
@@ -144,6 +161,20 @@ public class QuestTracker : MonoBehaviour
             {
                 // if player is at the space
                 if (q.spaceName.Equals(location))
+                {
+                    QuestCompleted(q);
+                }
+            }
+        }
+    }
+
+    public void TrackSpellQuest(Spell spell)
+    {
+        foreach(Quest q in localPlayer.Spellcaster.activeQuests.ToArray())
+        {
+            if(q.questType.Equals("Spell"))
+            {
+                if(spell.iTier == q.spellTier)
                 {
                     QuestCompleted(q);
                 }

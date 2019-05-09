@@ -8,14 +8,14 @@ public class CoSLeon : Spell
 {
     public CoSLeon()
     {
-        iTier = 3;
-        iManaCost = 1800;
+        iTier = 1;
+        iManaCost = 2200;
 
         combatSpell = false;
 
         sSpellName = "Call of the Sun - Leon's Shining";
         sSpellClass = "Summoner";
-        sSpellInfo = "You and your allies in the same town as you will be able to cast your next spell for free.";
+        sSpellInfo = "All allies gain a charge on each of their combat spells.";
 
         requiredRunes.Add("Elementalist A Rune", 1);
         requiredRunes.Add("Summoner A Rune", 1);
@@ -24,10 +24,38 @@ public class CoSLeon : Spell
 
     public override void SpellCast(SpellCaster player)
     {
-        // subtract mana
-        player.iMana -= iManaCost;
+        if (SpellTracker.instance.CheckUmbra())
+        {
+            foreach(Spell s in player.chapter.spellsCollected)
+            {
+                if (s.combatSpell)
+                    ++s.iCharges;
+            }
 
-        PanelHolder.instance.displayNotify("You cast " + sSpellName, "", "MainPlayerScene");
-        player.activeSpells.Add(this);
+            PanelHolder.instance.displayNotify("Leon's Shining", "You gained a charge in all your combat spells!", "MainPlayerScene");
+
+            player.numSpellsCastThisTurn++;
+            SpellTracker.instance.lastSpellCasted = this;
+        }
+        else if (player.iMana < iManaCost)
+        {
+            PanelHolder.instance.displayNotify("Not enough Mana!", "You do not have enough mana to cast this spell.", "OK");
+        }
+        else
+        {
+            // subtract mana
+            player.iMana -= iManaCost;
+
+            foreach (Spell s in player.chapter.spellsCollected)
+            {
+                if (s.combatSpell)
+                    ++s.iCharges;
+            }
+
+            PanelHolder.instance.displayNotify("Leon's Shining", "You gained a charge in all your combat spells!", "MainPlayerScene");
+
+            player.numSpellsCastThisTurn++;
+            SpellTracker.instance.lastSpellCasted = this;
+        }
     }
 }

@@ -27,6 +27,9 @@ public class Transcribe : Spell
         if (SpellTracker.instance.CheckUmbra())
         {
             PanelHolder.instance.displayNotify(sSpellName, "Discard your rune hand and draw new ones from the top tier deck.", "MainPlayerScene");
+
+            player.numSpellsCastThisTurn++;
+            SpellTracker.instance.lastSpellCasted = this;
         }
         else if (player.iMana < iManaCost)
         {
@@ -38,6 +41,9 @@ public class Transcribe : Spell
             player.iMana -= iManaCost;
 
             PanelHolder.instance.displayNotify(sSpellName, "Discard your rune hand and draw new ones from the top tier deck.", "MainPlayerScene");
+
+            player.numSpellsCastThisTurn++;
+            SpellTracker.instance.lastSpellCasted = this;
         }
     }
 }

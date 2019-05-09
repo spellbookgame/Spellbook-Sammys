@@ -18,6 +18,8 @@ public class CrystalMirror : ItemObject
     public override void UseItem(SpellCaster player)
     {
         player.RemoveFromInventory(this);
+        player.itemsUsedThisTurn++;
+
         PanelHolder.instance.displayNotify("Crystal Mirror", "Discard all runes on the board and replace them with runes from the high tier deck.", "InventoryScene");
     }
 }

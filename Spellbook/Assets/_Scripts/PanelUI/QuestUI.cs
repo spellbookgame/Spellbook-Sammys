@@ -32,7 +32,7 @@ public class QuestUI : MonoBehaviour
     public void DisplayQuest(Quest quest)
     {
         titleText.text = quest.questName;
-        infoText.text = quest.questFlavor + "\n\nTurn Limit: " + quest.turnLimit;
+        infoText.text = quest.questFlavor;
 
         // if current scene is vuforia, remove ribbon from panel
         if (SceneManager.GetActiveScene().name.Equals("VuforiaScene"))
@@ -44,38 +44,35 @@ public class QuestUI : MonoBehaviour
         rewardImages[0] = rewardImage1;
         rewardImages[1] = rewardImage2;
 
-        if(quest.rewards.Count > 1)
+        int i = 0;
+        foreach(KeyValuePair<string, string> kvp in quest.rewards)
         {
-            int i = 0;
-            foreach(KeyValuePair<string, string> kvp in quest.rewards)
+            switch(kvp.Key)
             {
-                switch(kvp.Key)
-                {
-                    case "Rune":
-                        rewardImages[i].sprite = Resources.Load<Sprite>("RuneArt/" + kvp.Value);
-                        ++i;
-                        continue;
-                    case "Class Rune":
-                        rewardImages[i].sprite = Resources.Load<Sprite>("RuneArt/" +
-                            GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().Spellcaster.classType + " " + kvp.Value);
-                        ++i;
-                        continue;
-                    case "Mana":
-                        rewardImages[i].sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/ManaCrystal");
-                        ++i;
-                        continue;
-                    case "Item":
-                        rewardImages[i].sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/" + kvp.Value);
-                        ++i;
-                        continue;
-                    case "Dice":
-                        rewardImages[i].sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/Blank Dice");
-                        ++i;
-                        continue;
-                    default:
-                        ++i;
-                        continue;
-                }
+                case "Rune":
+                    rewardImages[i].sprite = Resources.Load<Sprite>("RuneArt/" + kvp.Value);
+                    ++i;
+                    continue;
+                case "Class Rune":
+                    rewardImages[i].sprite = Resources.Load<Sprite>("RuneArt/" +
+                        GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().Spellcaster.classType + " " + kvp.Value);
+                    ++i;
+                    continue;
+                case "Mana":
+                    rewardImages[i].sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/ManaCrystal");
+                    ++i;
+                    continue;
+                case "Item":
+                    rewardImages[i].sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/" + kvp.Value);
+                    ++i;
+                    continue;
+                case "Dice":
+                    rewardImages[i].sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/Blank Dice");
+                    ++i;
+                    continue;
+                default:
+                    ++i;
+                    continue;
             }
         }
 
@@ -97,14 +94,14 @@ public class QuestUI : MonoBehaviour
         // add quest to player's list of active quests if they accept
         if (input.Equals("accept"))
         {
-            player.GetComponent<Player>().Spellcaster.activeQuests.Add(q);
             SoundManager.instance.PlaySingle(SoundManager.questaccept);
+            player.GetComponent<Player>().Spellcaster.activeQuests.Add(q);
+            SceneManager.LoadScene("MainPlayerScene");
         }
         else
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
 
         gameObject.SetActive(false);
-        SceneManager.LoadScene("MainPlayerScene");
 
         if (PanelHolder.panelQueue.Count > 0)
             PanelHolder.panelQueue.Dequeue();

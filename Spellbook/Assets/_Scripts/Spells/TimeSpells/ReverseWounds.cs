@@ -6,6 +6,8 @@ public class ReverseWounds : Spell, ICombatSpell
     public ReverseWounds()
     {
         iTier = 2;
+        iCharges = 0;
+        iManaCost = 1250;
 
         combatSpell = true;
 

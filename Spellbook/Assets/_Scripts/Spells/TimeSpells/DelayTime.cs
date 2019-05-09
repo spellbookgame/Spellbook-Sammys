@@ -7,7 +7,7 @@ public class DelayTime : Spell
     public DelayTime()
     {
         iTier = 1;
-        iManaCost = 3200;
+        iManaCost = 3800;
 
         combatSpell = false;
 
@@ -27,6 +27,9 @@ public class DelayTime : Spell
         {
             CrisisHandler.instance.roundsUntilCrisis++;
             PanelHolder.instance.displayNotify(sSpellName, "The next crisis will come 1 turn later.", "MainPlayerScene");
+
+            player.numSpellsCastThisTurn++;
+            SpellTracker.instance.lastSpellCasted = this;
         }
         else if(player.iMana < iManaCost)
         {
@@ -39,6 +42,9 @@ public class DelayTime : Spell
 
             CrisisHandler.instance.roundsUntilCrisis++;
             PanelHolder.instance.displayNotify(sSpellName, "The next crisis will come 1 turn later.", "MainPlayerScene");
+
+            player.numSpellsCastThisTurn++;
+            SpellTracker.instance.lastSpellCasted = this;
         }
     }
 }

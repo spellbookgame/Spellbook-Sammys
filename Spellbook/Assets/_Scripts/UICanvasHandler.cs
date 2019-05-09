@@ -22,6 +22,7 @@ public class UICanvasHandler : MonoBehaviour
     [SerializeField] private GameObject movePanel;
     [SerializeField] private DiceUIHandler diceUIHandler;
     [SerializeField] private GameObject combatButton;
+    [SerializeField] private GameObject scanButton;
     
     #endregion
 
@@ -68,11 +69,17 @@ public class UICanvasHandler : MonoBehaviour
             SoundManager.instance.PlaySingle(SoundManager.pageturn);
             SceneManager.LoadScene("SpellbookProgress");
         });
+        scanButton.GetComponent<Button>().onClick.AddListener(() =>
+        {
+            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+            SceneManager.LoadScene("VuforiaScene");
+        });
 
         // initially position the buttons properly on main player scene
         spellbookButton.transform.localPosition = new Vector3(-475, -1225, 0);
         diceButton.transform.localPosition = new Vector3(0, -1225, 0);
         inventoryButton.transform.localPosition = new Vector3(475, -1225, 0);
+        scanButton.transform.localPosition = new Vector3(0, -800, 0);
     }
 
     private void OnEnable()
@@ -107,6 +114,7 @@ public class UICanvasHandler : MonoBehaviour
             diceButton.SetActive(false);
             inventoryButton.SetActive(false);
             endTurnButton.SetActive(false);
+            scanButton.SetActive(false);
         }
         // if we're in the main scene
         else
@@ -120,6 +128,7 @@ public class UICanvasHandler : MonoBehaviour
             spellbookButton.SetActive(true);
             diceButton.SetActive(true);
             inventoryButton.SetActive(true);
+            scanButton.SetActive(true);
         }
     }
 
@@ -135,6 +144,7 @@ public class UICanvasHandler : MonoBehaviour
             spellbookButton.transform.localPosition = new Vector3(-475, -1015, 0);
             diceButton.transform.localPosition = new Vector3(0, -1015, 0);
             inventoryButton.transform.localPosition = new Vector3(475, -1015, 0);
+            scanButton.transform.localPosition = new Vector3(0, -600, 0);
         }
         else
         {
@@ -142,6 +152,7 @@ public class UICanvasHandler : MonoBehaviour
             spellbookButton.transform.localPosition = new Vector3(-475, -1225, 0);
             diceButton.transform.localPosition = new Vector3(0, -1225, 0);
             inventoryButton.transform.localPosition = new Vector3(475, -1225, 0);
+            scanButton.transform.localPosition = new Vector3(0, -800, 0);
         }
     }
 
@@ -169,10 +180,14 @@ public class UICanvasHandler : MonoBehaviour
     private IEnumerator StartMovePanel()
     {
         yield return new WaitForSeconds(1f);
+        // close dice tray
+        if(diceUIHandler.diceTrayOpen)
+            diceUIHandler.OpenCloseDiceTray();
+        // set move text
         movePanel.transform.GetChild(0).GetComponent<Text>().text = "Move " + spacesMoved.ToString();
         movePanel.SetActive(true);
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.5f);
         movePanel.SetActive(false);
     }
 

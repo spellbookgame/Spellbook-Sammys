@@ -25,6 +25,9 @@ public class ArcanaHarvest : Spell
         if (SpellTracker.instance.CheckUmbra())
         {
             PanelHolder.instance.displayNotify(sSpellName, "Move your piece to the Crystal Mines.", "VuforiaScene");
+
+            player.numSpellsCastThisTurn++;
+            SpellTracker.instance.lastSpellCasted = this;
         }
         else if (player.iMana < iManaCost)
         {
@@ -37,6 +40,9 @@ public class ArcanaHarvest : Spell
             player.iMana /= 2;
 
             PanelHolder.instance.displayNotify(sSpellName, "Move your piece to the Crystal Mines.", "VuforiaScene");
+
+            player.numSpellsCastThisTurn++;
+            SpellTracker.instance.lastSpellCasted = this;
         }
     }
 }

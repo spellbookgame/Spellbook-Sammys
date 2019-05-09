@@ -11,17 +11,16 @@ public class AlchemyErrandQuest : Quest
         questType = "Errand";
         questFlavor = "I need Aromatic Tea Leaves to finish this last potion.";
         questTask = "Bring 1 Aromatic Tea Leaves to the Alchemy Town.";
+        questHint = "If the Capital and Forest don't have it, maybe a friend does.";
 
         startTurn = turnStarted;
-        turnLimit = 4;
+        expiration = 20;
 
         spaceName = "town_alchemist";
         itemName = "Aromatic Tea Leaves";
 
         rewards.Add("Rune", "Alchemist A Rune");
         rewards.Add("Class Rune", "B Rune");
-
-        consequenceMana = 800;
 
         questCompleted = false;
     }

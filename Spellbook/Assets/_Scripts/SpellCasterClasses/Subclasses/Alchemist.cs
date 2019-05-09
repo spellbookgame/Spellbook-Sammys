@@ -27,7 +27,7 @@ public class Alchemist : SpellCaster
         characterIconPath = "Characters/symbol_glow_alchemist";
 
         hexStringLight = "#218221";
-        hexStringPanel = "#ABFFB4";
+        hexStringPanel = "#4C614E";
         hexString3rdColor = "#295135";
 
         combatSpells = new Dictionary<string, Spell>()

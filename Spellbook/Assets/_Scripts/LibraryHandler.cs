@@ -30,22 +30,19 @@ public class LibraryHandler : MonoBehaviour
         });
 
         // add buttons to scroll rect for each spell the player can collect
-        for (int i = 0; i < localPlayer.Spellcaster.chapter.spellsAllowed.Count; i++)
+        foreach(Spell s in localPlayer.Spellcaster.chapter.spellsAllowed)
         {
             Button newSpellButton = Instantiate(spellButton, buttonScrollRect.transform);
-            newSpellButton.GetComponentInChildren<Text>().text = localPlayer.Spellcaster.chapter.spellsAllowed[i].sSpellName;
+            newSpellButton.GetComponentInChildren<Text>().text = s.sSpellName;
 
-            // new int to pass into button onClick listener so loop will not throw index out of bounds error
-            int i2 = i;
             // add listener to button
-            newSpellButton.onClick.AddListener(() => ShowSpellInfo(localPlayer.Spellcaster.chapter.spellsAllowed[i2]));
+            newSpellButton.onClick.AddListener(() => ShowSpellInfo(s));
         }
-
         // if there are more than 4 buttons in the scroll rect, expand the scroll rect panel
         if(buttonScrollRect.transform.childCount > 4)
         {
             RectTransform rect = buttonScrollRect.GetComponent<RectTransform>();
-            rect.sizeDelta = new Vector2(rect.sizeDelta.x, (float)rect.sizeDelta.y + (160 * (buttonScrollRect.transform.childCount - 4)));
+            rect.sizeDelta = new Vector2(rect.sizeDelta.x, (float)rect.sizeDelta.y + (210 * (buttonScrollRect.transform.childCount - 4)));
         }
 
         // set panel holder as last sibling
@@ -63,7 +60,13 @@ public class LibraryHandler : MonoBehaviour
         }
 
         spellInfoPanel.transform.GetChild(0).GetComponent<Text>().text = spell.sSpellName;
-        spellInfoPanel.transform.GetChild(1).GetComponent<Text>().text = "Tier: " + spell.iTier.ToString() + "  |  Cost: " + spell.iManaCost.ToString();
+        string combat;
+        if (spell.combatSpell)
+            combat = "Combat";
+        else
+            combat = "Non-Combat";
+        spellInfoPanel.transform.GetChild(1).GetComponent<Text>().text = "Tier: " + spell.iTier.ToString() + "  |  Cost: " + spell.iManaCost.ToString()
+                                                                            + "   |   " + combat;
         spellInfoPanel.transform.GetChild(2).GetComponent<Text>().text = spell.sSpellInfo;
         
         // add glyph images to the panel to show player required glyphs

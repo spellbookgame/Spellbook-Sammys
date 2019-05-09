@@ -45,6 +45,9 @@ public class Playwright : Spell
             }
 
             PanelHolder.instance.displayNotify(sSpellName, "You destroyed " + itemName + ". Discard 2 of your runes and choose 2 runes of your choice from the deck.", "MainPlayerScene");
+
+            player.numSpellsCastThisTurn++;
+            SpellTracker.instance.lastSpellCasted = this;
         }
         else if (player.iMana < iManaCost)
         {
@@ -71,6 +74,9 @@ public class Playwright : Spell
             }
 
             PanelHolder.instance.displayNotify(sSpellName, "You destroyed " +  itemName + ". Discard 2 of your runes and choose 2 runes of your choice from the deck.", "MainPlayerScene");
+
+            player.numSpellsCastThisTurn++;
+            SpellTracker.instance.lastSpellCasted = this;
         }
     }
 }

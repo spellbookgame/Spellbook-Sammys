@@ -32,14 +32,16 @@ public abstract class SpellCaster
     // misc attributes
     public string classType;
     public int spellcasterID;
+    public int itemsUsedThisTurn;
+    public int numSpellsCastThisTurn;
     public bool hasAttacked;
     public bool hasRolled;
     public bool scannedSpaceThisTurn;
     public Chapter chapter;
 
     // tracking items
-    public bool waxCandleUsed;      // AddToInventory()
-    public bool locationItemUsed;   // CustomEventHandler()
+    public bool waxCandleUsed;      // set in AddToInventory()
+    public bool locationItemUsed;   // set in CustomEventHandler()
 
     // player's collection of glyphs, dice, items, and active spells/quests stored as strings
     public Dictionary<string, int> glyphs;
@@ -82,7 +84,8 @@ public abstract class SpellCaster
             { "D5", 0 },
             { "D6", 2 },
             { "D7", 0 },
-            { "D8", 0 }
+            { "D8", 0 },
+            { "D9", 0 },
         };
 
         tempDice = new Dictionary<string, int>();
@@ -132,7 +135,6 @@ public abstract class SpellCaster
 
     public void CollectMana(int manaCount)
     {
-        SoundManager.instance.PlaySingle(SoundManager.manaCollect);
         iMana += manaCount;
         QuestTracker.instance.TrackManaQuest(manaCount);
     }
@@ -181,9 +183,9 @@ public abstract class SpellCaster
                 savePlayerData(this);
 
                 // tell player that the spell is collected
-                PanelHolder.instance.displayNotify(spell.sSpellName, "You unlocked " + spell.sSpellName + "!", "MainPlayerScene");
+                PanelHolder.instance.displayNotify(spell.sSpellName, "You unlocked " + spell.sSpellName + "!", "OK");
 
-                Debug.Log("You have " + chapter.spellsCollected.Count + " spells collected.");
+                QuestTracker.instance.TrackSpellQuest(spell);
 
                 spellCollected = true;
             }

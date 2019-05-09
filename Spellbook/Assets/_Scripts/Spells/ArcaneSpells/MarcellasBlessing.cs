@@ -6,6 +6,8 @@ public class MarcellasBlessing : Spell, ICombatSpell
     public MarcellasBlessing()
     {
         iTier = 1;
+        iCharges = 0;
+        iManaCost = 2400;
 
         combatSpell = true;
 

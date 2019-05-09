@@ -12,11 +12,15 @@ public class GlowingMushroom : ItemObject
         buyPrice = 300;
         sellPrice = 1800;
         flavorDescription = "Ooo, glowy.";
-        mechanicsDescription = "Can be sold at a high price to shops.";
+        mechanicsDescription = "Heals you for 2 points. Can be sold at a high price to shops.";
     }
 
     public override void UseItem(SpellCaster player)
     {
-        PanelHolder.instance.displayNotify("Glowing Mushroom", "This item cannot be used.", "OK");
+        player.RemoveFromInventory(this);
+        player.itemsUsedThisTurn++;
+
+        player.HealDamage(2);
+        PanelHolder.instance.displayNotify("Glowing Mushroom", "You ate the mushroom and healed 2 health. You feel a little funny, though...", "InventoryScene");
     }
 }

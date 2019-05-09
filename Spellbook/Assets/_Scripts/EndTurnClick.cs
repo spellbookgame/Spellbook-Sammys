@@ -15,7 +15,10 @@ public class EndTurnClick : MonoBehaviour
             localPlayer.Spellcaster.hasAttacked = false;
             localPlayer.Spellcaster.hasRolled = false;
             localPlayer.Spellcaster.scannedSpaceThisTurn = false;
+            localPlayer.Spellcaster.itemsUsedThisTurn = 0;
+            localPlayer.Spellcaster.numSpellsCastThisTurn = 0;
             UICanvasHandler.instance.spacesMoved = 0;
+            SpellTracker.instance.agendaActive = false;
 
             // collect end of turn mana
             int manaCollected = localPlayer.Spellcaster.CollectManaEndTurn();

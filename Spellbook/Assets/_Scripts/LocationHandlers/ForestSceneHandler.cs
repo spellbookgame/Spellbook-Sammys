@@ -9,15 +9,13 @@ public class ForestSceneHandler : MonoBehaviour
     [SerializeField] private Button lookButton;
     [SerializeField] private Button leaveButton;
 
-    private bool collectedItem;
-
     private Player localPlayer;
-    private List<ItemObject> itemList;
+    private ItemList itemList;
 
     private void Start()
     {
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
-        itemList = GameObject.Find("ItemList").GetComponent<ItemList>().listOfItems;
+        itemList = GameObject.Find("ItemList").GetComponent<ItemList>();
 
         lookButton.onClick.AddListener(LookForItem);
         leaveButton.onClick.AddListener(() =>
@@ -33,25 +31,36 @@ public class ForestSceneHandler : MonoBehaviour
     private void LookForItem()
     {
         SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
-        
-        if(!collectedItem)
+
+        if (SpellTracker.instance.SpellIsActive("Forecast"))
         {
-            if (SpellTracker.instance.SpellIsActive("Forecast"))
-            {
-                SpellTracker.instance.DoForecast();
-                collectedItem = true;
-            }
-            else
-            {
-                ItemObject item = itemList[Random.Range(0, itemList.Count)];
-                PanelHolder.instance.displayBoardScan("You found an Item!", "You found a " + item.name + "!", item.sprite, "OK");
-                localPlayer.Spellcaster.AddToInventory(item);
-                collectedItem = true;
-            }
+            SpellTracker.instance.DoForecast();
         }
         else
         {
-            PanelHolder.instance.displayNotify("Don't be greedy!", "You can only take once per visit. Now leave!", "MainPlayerScene");
+            int r = Random.Range(0, 100);
+            Debug.Log("random number: " + r);
+            if(r <= 7)
+            {
+                string[] items = new string[] { "Mimetic Vellum", "Rift Talisman", "Crystal Mirror" };
+                ItemObject item = itemList.GetItemFromName(items[Random.Range(0, 3)]);
+                PanelHolder.instance.displayBoardScan("You found an Item!", "You found a " + item.name + "!", item.sprite, "MainPlayerScene");
+                localPlayer.Spellcaster.AddToInventory(item);
+            }
+            else if(r > 7 && r < 40)
+            {
+                string[] items = new string[] { "Infused Sapphire", "Abyssal Ore", "Hollow Cabochon", "Mystic Translocator" };
+                ItemObject item = itemList.GetItemFromName(items[Random.Range(0, 4)]);
+                PanelHolder.instance.displayBoardScan("You found an Item!", "You found a " + item.name + "!", item.sprite, "MainPlayerScene");
+                localPlayer.Spellcaster.AddToInventory(item);
+            }
+            else
+            {
+                string[] items = new string[] { "Glowing Mushroom", "Wax Candle", "Aromatic Tea Leaves", "Opal Ammonite" };
+                ItemObject item = itemList.GetItemFromName(items[Random.Range(0, 4)]);
+                PanelHolder.instance.displayBoardScan("You found an Item!", "You found a " + item.name + "!", item.sprite, "MainPlayerScene");
+                localPlayer.Spellcaster.AddToInventory(item);
+            }
         }
     }
 }

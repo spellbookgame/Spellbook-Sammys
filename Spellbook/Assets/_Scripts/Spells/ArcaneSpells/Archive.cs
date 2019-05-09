@@ -7,6 +7,8 @@ public class Archive : Spell, ICombatSpell
     public Archive()
     {
         iTier = 2;
+        iCharges = 0;
+        iManaCost = 2000; 
 
         combatSpell = true;
 

@@ -7,6 +7,8 @@ public class DistilledPotion : Spell, ICombatSpell
     public DistilledPotion ()
     {
         iTier = 2;
+        iCharges = 0;
+        iManaCost = 1500;
 
         combatSpell = true;
 

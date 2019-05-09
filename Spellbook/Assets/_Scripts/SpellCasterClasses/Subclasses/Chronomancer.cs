@@ -27,7 +27,7 @@ public class Chronomancer : SpellCaster
         characterIconPath = "Characters/symbol_glow_chronomancer";
 
         hexStringLight = "#6D3813";
-        hexStringPanel = "#FFFFFF";
+        hexStringPanel = "#5E5340";
         hexString3rdColor = "9B1D20";
 
         combatSpells = new Dictionary<string, Spell>()

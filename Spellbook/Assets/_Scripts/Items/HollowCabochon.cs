@@ -23,9 +23,23 @@ public class HollowCabochon : ItemObject
         }
         else
         {
-            player.RemoveFromInventory(this);
-            player.AddToInventory(new GlimmeringCabochon());
-            PanelHolder.instance.displayNotify("Hollow Cabochon", "Your Hollow Cabochon has turned into a Glimmering Cabochon!", "InventoryScene");
+            bool hasNonCombatSpell = false;
+            foreach (Spell spell in player.chapter.spellsCollected)
+            {
+                if (!spell.combatSpell)
+                    hasNonCombatSpell = true;
+            }
+
+            if (!hasNonCombatSpell)
+                PanelHolder.instance.displayNotify("No Spells Collected", "You do not have any spells that can be stored in the cabochon.", "OK");
+            else
+            {
+                player.RemoveFromInventory(this);
+                player.itemsUsedThisTurn++;
+
+                player.AddToInventory(new GlimmeringCabochon());
+                PanelHolder.instance.displayNotify("Hollow Cabochon", "Your Hollow Cabochon has turned into a Glimmering Cabochon!", "InventoryScene");
+            }
         }
     }
 }

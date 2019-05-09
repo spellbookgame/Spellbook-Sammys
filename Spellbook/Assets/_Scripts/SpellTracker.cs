@@ -13,6 +13,8 @@ public class SpellTracker : MonoBehaviour
     public static SpellTracker instance = null;
 
     public ItemObject forecastItem;
+    public Spell lastSpellCasted;
+    public bool agendaActive;
 
     private SpellCaster spellCaster;
 
@@ -80,7 +82,7 @@ public class SpellTracker : MonoBehaviour
         // add 2 of the items into inventory
         spellCaster.AddToInventory(forecastItem);
         spellCaster.AddToInventory(forecastItem);
-        PanelHolder.instance.displayBoardScan("Forecast Active", "Because of Forecast, you found 2 " + forecastItem.name + "s!", forecastItem.sprite, "OK");
+        PanelHolder.instance.displayBoardScan("Forecast Active", "Because of Forecast, you found 2 " + forecastItem.name + "!", forecastItem.sprite, "MainPlayerScene");
 
         // reset forecast item and remove forecast from active spells list
         forecastItem = null;

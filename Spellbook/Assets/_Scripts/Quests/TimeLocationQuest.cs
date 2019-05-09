@@ -11,16 +11,15 @@ public class TimeLocationQuest : Quest
         questType = "Specific Location";
         questFlavor = "I heard the mines are having trouble but I'm busy with my project. Can you visit the Mines for me?";
         questTask = "Visit the Mines.";
+        questHint = "Perhaps a friend has a spell to help you get there faster.";
 
         startTurn = turnStarted;
-        turnLimit = 2;
+        expiration = 20;
 
         spaceName = "location_mines";
 
         rewards.Add("Item", "Abyssal Ore");
         rewards.Add("Rune", "Chronomancer A Rune");
-
-        consequenceMana = 600;
 
         questCompleted = false;
     }

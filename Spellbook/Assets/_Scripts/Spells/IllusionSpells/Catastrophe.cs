@@ -6,6 +6,8 @@ public class Catastrophe : Spell, ICombatSpell
     public Catastrophe()
     {
         iTier = 2;
+        iCharges = 0;
+        iManaCost = 1500;
 
         combatSpell = true;
 

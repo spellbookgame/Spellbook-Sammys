@@ -7,6 +7,7 @@ public class Fireball : Spell, ICombatSpell
     public Fireball()
     {
         iTier = 3;
+        iCharges = 0;
         iManaCost = 600;
 
         combatSpell = true;
