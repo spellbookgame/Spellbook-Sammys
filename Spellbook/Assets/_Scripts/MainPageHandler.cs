@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using SpellbookExtensions;
+using System.Linq;
 
 public class MainPageHandler : MonoBehaviour
 {
@@ -59,14 +60,6 @@ public class MainPageHandler : MonoBehaviour
         }
 
         // TEST AREA - DELETE LATER
-        if(Input.GetKeyDown(KeyCode.T))
-        {
-            CrisisHandler.instance.CallIntervention();
-        }
-        if (Input.GetKeyDown(KeyCode.U))
-        {
-            localPlayer.Spellcaster.CollectSpell(new Forecast());
-        }
         if (Input.GetKeyDown(KeyCode.S))
         {
             SceneManager.LoadScene("MineScene");
@@ -124,7 +117,7 @@ public class MainPageHandler : MonoBehaviour
         // set info panel color based on class
         Color panelCol = new Color();
         ColorUtility.TryParseHtmlString(localPlayer.Spellcaster.hexStringPanel, out panelCol);
-        informationPanel.GetComponent<Image>().color = panelCol;
+        informationPanel.GetComponent<SpriteRenderer>().color = panelCol;
 
         // set onclick listeners for spellbook/inventory button
         spellbookButton.onClick.AddListener(() =>

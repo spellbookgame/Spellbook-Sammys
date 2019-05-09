@@ -26,6 +26,9 @@ public class CombinedKnowledge : Spell
         if (SpellTracker.instance.CheckUmbra())
         {
             PanelHolder.instance.displayNotify(sSpellName, "Everyone take the rune from their respective towns. Swap or discard a rune from hand if needed.", "MainPlayerScene");
+
+            player.numSpellsCastThisTurn++;
+            SpellTracker.instance.lastSpellCasted = this;
         }
         else if (player.iMana < iManaCost)
         {
@@ -37,6 +40,9 @@ public class CombinedKnowledge : Spell
             player.iMana -= iManaCost;
 
             PanelHolder.instance.displayNotify(sSpellName, "Everyone take the rune from their respective towns. Swap or discard a rune from hand if needed.", "MainPlayerScene");
+
+            player.numSpellsCastThisTurn++;
+            SpellTracker.instance.lastSpellCasted = this;
         }
     }
 }

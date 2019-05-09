@@ -11,16 +11,15 @@ public class IllusionLocationQuest : Quest
         questType = "Specific Location";
         questFlavor = "There's a disturbance in the Swamp. Go there and find out what's going on.";
         questTask = "Visit the Swamp.";
+        questHint = "Utilize those magic dice!";
 
         startTurn = turnStarted;
-        turnLimit = 4;
+        expiration = 20;
 
         spaceName = "location_swamp";
 
         rewards.Add("Item", "Infused Sapphire");
         rewards.Add("Dice", "D5");
-
-        consequenceMana = 900;
 
         questCompleted = false;
     }

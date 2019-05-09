@@ -71,6 +71,7 @@ public class DiceUIHandler : MonoBehaviour
             spellBookButton.transform.GetChild(0).gameObject.SetActive(false);
             inventoryButton.interactable = false;
             inventoryButton.transform.GetChild(0).gameObject.SetActive(false);
+            scanButton.gameObject.SetActive(false);
 
             diceTrayOpen = true;
         }
@@ -84,14 +85,13 @@ public class DiceUIHandler : MonoBehaviour
             spellBookButton.transform.GetChild(0).gameObject.SetActive(false);
             inventoryButton.interactable = false;
             inventoryButton.transform.GetChild(0).gameObject.SetActive(false);
+            scanButton.gameObject.SetActive(false);
 
             diceTrayOpen = true;
         }
         // if dice are not locked, reset dice when panel is closed
         else if(diceTrayOpen && !localPlayer.Spellcaster.hasRolled)
         {
-            UICanvasHandler.instance.ActivateEndTurnButton(localPlayer.Spellcaster.hasRolled);
-
             RemoveDiceFromSlots();
 
             gameObject.SetActive(false);
@@ -101,14 +101,13 @@ public class DiceUIHandler : MonoBehaviour
             spellBookButton.transform.GetChild(0).gameObject.SetActive(true);
             inventoryButton.interactable = true;
             inventoryButton.transform.GetChild(0).gameObject.SetActive(true);
+            scanButton.gameObject.SetActive(true);
 
             diceTrayOpen = false;
         }
         // if dice are locked, keep dice the same when panel is closed
         else if(diceTrayOpen && localPlayer.Spellcaster.hasRolled)
         {
-            UICanvasHandler.instance.ActivateEndTurnButton(localPlayer.Spellcaster.hasRolled);
-
             gameObject.SetActive(false);
 
             // enable spellbook/inventory buttons while dice tray is closed
@@ -116,6 +115,7 @@ public class DiceUIHandler : MonoBehaviour
             spellBookButton.transform.GetChild(0).gameObject.SetActive(true);
             inventoryButton.interactable = true;
             inventoryButton.transform.GetChild(0).gameObject.SetActive(true);
+            scanButton.gameObject.SetActive(true);
 
             diceTrayOpen = false;
         }
@@ -163,6 +163,11 @@ public class DiceUIHandler : MonoBehaviour
                         clone.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = clone.transform.GetChild(0).GetComponent<DiceRoll>().pipsEight;
                         clone.transform.GetChild(0).GetComponent<DiceRoll>()._rollMaximum = 8;
                     }
+                    else if (kvp.Key.Equals("D9"))
+                    {
+                        clone.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = clone.transform.GetChild(0).GetComponent<DiceRoll>().pipsNine;
+                        clone.transform.GetChild(0).GetComponent<DiceRoll>()._rollMaximum = 9;
+                    }
                     // track num of dice to expand scroll rect
                     ++numDice;
                 }
@@ -206,18 +211,26 @@ public class DiceUIHandler : MonoBehaviour
                         clone.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = clone.transform.GetChild(0).GetComponent<DiceRoll>().pipsEight;
                         clone.transform.GetChild(0).GetComponent<DiceRoll>()._rollMaximum = 8;
                     }
+                    else if (kvp.Key.Equals("D9"))
+                    {
+                        clone.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = clone.transform.GetChild(0).GetComponent<DiceRoll>().pipsNine;
+                        clone.transform.GetChild(0).GetComponent<DiceRoll>()._rollMaximum = 9;
+                    }
                     // track num of dice to expand scroll rect
                     ++numDice;
                 }
             }
         }
 
+        // force its position to be correct cause idk
+        diceScrollContent.transform.localPosition = new Vector3(-665, -175, 0);
+
         // expand scroll rect for each die that exceeds 4
-        if (numDice > 4)
+        /*if (numDice > 4)
         {
             RectTransform rect = diceScrollContent.GetComponent<RectTransform>();
             rect.sizeDelta = new Vector2((float)rect.sizeDelta.x + (260 * (numDice - 4)), rect.sizeDelta.y);
-        }
+        }*/
     }
 
     private void RemoveDiceFromSlots()

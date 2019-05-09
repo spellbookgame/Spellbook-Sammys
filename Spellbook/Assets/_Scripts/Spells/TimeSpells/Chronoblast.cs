@@ -6,6 +6,8 @@ public class Chronoblast : Spell, ICombatSpell
     public Chronoblast()
     {
         iTier = 3;
+        iCharges = 0;
+        iManaCost = 700;
 
         combatSpell = true;
 

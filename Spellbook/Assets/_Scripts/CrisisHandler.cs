@@ -64,8 +64,16 @@ public class CrisisHandler : MonoBehaviour
     // call this when crisis arrives (if roundsUntilCrisis == 0)
     public void FinishTsunami()
     {
-        // if(crisisSolved) give rewards
-        // if(!crisisSolved) give consequence
+        if(crisisSolved)
+        {
+            // PanelHolder.instance.displayBoardScan("Tsunami Averted", "Out of gratitude for saving the Empire, the Capital is rewarding each wizard with an A tier rune from their class.", 
+                                                    // Resources.Load<Sprite>("RuneArt/" + localPlayer.Spellcaster.classType + " A Rune", "OK");
+        }
+        else
+        {
+            // localPlayer.Spellcaster.TakeDamage(localPlayer.Spellcaster.fmaxHealth / 2);
+            // PanelHolder.instance.displayNotify("Tsunami Disaster", "You weren't able to stop the tsunami in time. All wizards lost half HP. Place tiles over the town spaces to close them off until next round.", "OK");
+        }
         currentCrisis = "";
     }
     #endregion

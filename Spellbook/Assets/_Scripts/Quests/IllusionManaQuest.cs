@@ -11,17 +11,16 @@ public class IllusionManaQuest : Quest
         questType = "Collect Mana";
         questFlavor = "Every spellcaster needs some money to travel. Collect some mana for me.";
         questTask = "Collect 1200 mana.";
+        questHint = "The Crystal Mines give lots of mana.";
 
         startTurn = turnStarted;
-        turnLimit = 3;
+        expiration = 20;
 
         manaTracker = 0;
         manaRequired = 1200;
 
-        rewards.Add("Class Rune", "A Rune");
-        rewards.Add("Mana", "400");
-
-        consequenceMana = 600;
+        rewards.Add("Rune", "Illusionist A Rune");
+        rewards.Add("Item", "Mystic Translocator");
 
         questCompleted = false;
     }

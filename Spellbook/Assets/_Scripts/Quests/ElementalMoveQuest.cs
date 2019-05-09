@@ -11,17 +11,16 @@ public class ElementalMoveQuest : Quest
         questType = "Move";
         questFlavor = "Being a fighter means being quick on your feet. Show me how far you can move.";
         questTask = "Travel 15 spaces.";
+        questHint = "Movement slot in the dice tray isn't there for no reason.";
 
         startTurn = turnStarted;
-        turnLimit = 3;
+        expiration = 20;
 
         spacesTraveled = 0;
         spacesRequired = 15;
 
         rewards.Add("Rune", "Elementalist B Rune");
         rewards.Add("Class Rune", "B Rune");
-
-        consequenceMana = 500;
 
         questCompleted = false;
     }

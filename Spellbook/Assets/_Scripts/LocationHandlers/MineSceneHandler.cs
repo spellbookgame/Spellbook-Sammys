@@ -7,14 +7,11 @@ public class MineSceneHandler : MonoBehaviour
     [SerializeField] private Button grabManaButton;
     [SerializeField] private Button leaveButton;
 
-    private bool collectedMana;
-
     private Player localPlayer;
     private void Start()
     {
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
 
-        collectedMana = false;
         grabManaButton.onClick.AddListener(GrabMana);
 
         leaveButton.onClick.AddListener(() =>
@@ -29,18 +26,9 @@ public class MineSceneHandler : MonoBehaviour
 
     private void GrabMana()
     {
-        SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
-
-        if (!collectedMana)
-        {
-            int manaCollected = Random.Range(600, 2500);
-            localPlayer.Spellcaster.CollectMana(manaCollected);
-            PanelHolder.instance.displayNotify("You found mana!", "You grabbed some crystals and collected " + manaCollected + " mana!", "OK");
-            collectedMana = true;
-        }
-        else
-        {
-            PanelHolder.instance.displayNotify("Don't be greedy!", "You can only take once per visit. Now leave!", "MainPlayerScene");
-        }
+        SoundManager.instance.PlaySingle(SoundManager.manaCollect);
+        int manaCollected = Random.Range(600, 2500);
+        localPlayer.Spellcaster.CollectMana(manaCollected);
+        PanelHolder.instance.displayNotify("You found mana!", "You grabbed some crystals and collected " + manaCollected + " mana!", "MainPlayerScene");
     }
 }

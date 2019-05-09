@@ -6,6 +6,8 @@ public class Catharsis : Spell, ICombatSpell
     public Catharsis()
     {
         iTier = 2;
+        iCharges = 0;
+        iManaCost = 1300;
 
         combatSpell = true;
 

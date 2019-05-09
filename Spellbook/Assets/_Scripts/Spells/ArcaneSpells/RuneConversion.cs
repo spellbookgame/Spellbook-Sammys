@@ -26,6 +26,9 @@ public class RuneConversion : Spell
         if (SpellTracker.instance.CheckUmbra())
         {
             PanelHolder.instance.displayNotify(sSpellName, "Discard one of your current runes. Draw a new one from the deck.", "MainPlayerScene");
+
+            player.numSpellsCastThisTurn++;
+            SpellTracker.instance.lastSpellCasted = this;
         }
         else if (player.iMana < iManaCost)
         {
@@ -37,6 +40,9 @@ public class RuneConversion : Spell
             player.iMana -= iManaCost;
 
             PanelHolder.instance.displayNotify(sSpellName, "Discard one of your current runes. Draw a new one from the deck.", "MainPlayerScene");
+
+            player.numSpellsCastThisTurn++;
+            SpellTracker.instance.lastSpellCasted = this;
         }
     }
 }

@@ -11,17 +11,16 @@ public class SummoningErrandQuest : Quest
         questType = "Errand";
         questFlavor = "I need to summon somebody... I need a Mystic Translocator.";
         questTask = "Bring a Mystic Translocator to the Summoner Town.";
+        questHint = "If the Capital and Forest don't have it, maybe a friend does.";
 
         startTurn = turnStarted;
-        turnLimit = 5;
+        expiration = 20;
 
         spaceName = "town_summoner";
         itemName = "Mystic Translocator";
 
         rewards.Add("Rune", "Summoner A Rune");
         rewards.Add("Class Rune", "A Rune");
-
-        consequenceMana = 1000;
 
         questCompleted = false;
     }

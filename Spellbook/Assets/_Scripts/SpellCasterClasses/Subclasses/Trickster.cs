@@ -26,7 +26,7 @@ public class Illusionist : SpellCaster
         characterIconPath = "Characters/symbol_glow_illusion";
 
         hexStringLight = "#4A7C75";
-        hexStringPanel = "#8BD3FF";
+        hexStringPanel = "#3F524B";
         hexString3rdColor = "B3BA55";
 
         combatSpells = new Dictionary<string, Spell>()

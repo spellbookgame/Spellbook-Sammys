@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 // spell for Alchemy class
@@ -13,7 +14,7 @@ public class CharmingNegotiator : Spell
 
         sSpellName = "Brew - Charming Negotiator";
         sSpellClass = "Alchemist";
-        sSpellInfo = "The shopkeeper will give a 30% discount to everyone next time they visit.";
+        sSpellInfo = "The shopkeeper will give a 50% discount to everyone next time they visit.";
 
         requiredRunes.Add("Alchemist D Rune", 1);
         requiredRunes.Add("Summoner B Rune", 1);
@@ -24,7 +25,11 @@ public class CharmingNegotiator : Spell
         // cast spell for free if Umbra's Eclipse is active
         if (SpellTracker.instance.CheckUmbra())
         {
-            PanelHolder.instance.displayNotify("You cast " + sSpellName, "Next time you visit the shop, you will receive 30% discount.", "MainPlayerScene");
+            PanelHolder.instance.displayNotify("You cast " + sSpellName, "Next time you visit the shop, you will receive 50% discount.", "MainPlayerScene");
+            player.activeSpells.Add(this);
+
+            player.numSpellsCastThisTurn++;
+            SpellTracker.instance.lastSpellCasted = this;
         }
         else if (player.iMana < iManaCost)
         {
@@ -35,8 +40,11 @@ public class CharmingNegotiator : Spell
             // subtract mana and glyph costs
             player.iMana -= iManaCost;
 
-            PanelHolder.instance.displayNotify("You cast " + sSpellName, "Next time you visit the shop, you will receive 30% discount.", "MainPlayerScene");
+            PanelHolder.instance.displayNotify("You cast " + sSpellName, "Next time you visit the shop, you will receive 50% discount.", "MainPlayerScene");
             player.activeSpells.Add(this);
+
+            player.numSpellsCastThisTurn++;
+            SpellTracker.instance.lastSpellCasted = this;
         }
     }
 }

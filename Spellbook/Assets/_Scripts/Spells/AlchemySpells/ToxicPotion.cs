@@ -7,6 +7,8 @@ public class ToxicPotion : Spell, ICombatSpell
     public ToxicPotion()
     {
         iTier = 3;
+        iCharges = 0;
+        iManaCost = 900;
 
         combatSpell = true;
 

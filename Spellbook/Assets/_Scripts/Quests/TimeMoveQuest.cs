@@ -11,17 +11,16 @@ public class TimeMoveQuest : Quest
         questType = "Move";
         questFlavor = "Movement is a subset of time, and something that we Chronomancers take seriously. Show me what you can do.";
         questTask = "Travel 20 spaces.";
+        questHint = "Utilize your magic dice!";
 
         startTurn = turnStarted;
-        turnLimit = 4;
+        expiration = 20;
 
         spacesTraveled = 0;
         spacesRequired = 20;
 
-        rewards.Add("Rune", "Chronomancer A Rune");
+        rewards.Add("Rune", "Chronomancer B Rune");
         rewards.Add("Class Rune", "A Rune");
-
-        consequenceMana = 900;
 
         questCompleted = false;
     }

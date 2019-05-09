@@ -11,17 +11,16 @@ public class SummoningManaQuest : Quest
         questType = "Collect Mana";
         questFlavor = "If you can show me that you can collect 1300 mana, I'll give you some runes.";
         questTask = "Collect 1300 mana crystals.";
+        questHint = "The Crystal Mines are a great source of mana.";
 
         startTurn = turnStarted;
-        turnLimit = 4;
+        expiration = 20;
 
         manaTracker = 0;
         manaRequired = 1300;
 
         rewards.Add("Rune", "Summoner A Rune");
         rewards.Add("Class Rune", "B Rune");
-
-        consequenceMana = 700;
 
         questCompleted = false;
     }

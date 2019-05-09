@@ -26,6 +26,9 @@ public class CheatOut : Spell
         if (SpellTracker.instance.CheckUmbra())
         {
             PanelHolder.instance.displayNotify(sSpellName, "Discard two of your runes. Draw 2 from the high tier rune deck.", "MainPlayerScene");
+
+            player.numSpellsCastThisTurn++;
+            SpellTracker.instance.lastSpellCasted = this;
         }
         else if (player.iMana < iManaCost)
         {
@@ -37,6 +40,9 @@ public class CheatOut : Spell
             player.iMana -= iManaCost;
 
             PanelHolder.instance.displayNotify(sSpellName, "Discard two of your runes. Draw 2 from the high tier rune deck.", "MainPlayerScene");
+
+            player.numSpellsCastThisTurn++;
+            SpellTracker.instance.lastSpellCasted = this;
         }
     }
 }

@@ -26,7 +26,7 @@ public class Arcanist : SpellCaster
         characterIconPath = "Characters/symbol_glow_arcanist";
 
         hexStringLight = "#853CBF";
-        hexStringPanel = "#FFC7FF";
+        hexStringPanel = "#6F3E6F";
         hexString3rdColor = "6D2F5F";
 
         combatSpells = new Dictionary<string, Spell>()

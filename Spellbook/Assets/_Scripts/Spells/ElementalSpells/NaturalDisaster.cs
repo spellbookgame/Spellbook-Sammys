@@ -6,6 +6,8 @@ public class NaturalDisaster : Spell, ICombatSpell
     public NaturalDisaster()
     {
         iTier = 1;
+        iCharges = 0;
+        iManaCost = 3300;
 
         combatSpell = true;
 

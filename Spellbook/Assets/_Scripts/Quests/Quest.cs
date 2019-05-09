@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 
 public abstract class Quest
 {
@@ -8,10 +6,10 @@ public abstract class Quest
     public string questType;
     public string questTask;
     public string questFlavor;
+    public string questHint;
 
     public int startTurn;
-    public int turnLimit;
-    public int consequenceMana;
+    public int expiration;
 
     public bool questCompleted;
 
@@ -35,7 +33,7 @@ public abstract class Quest
     public int spacesTraveled;
 
     // tracking variables for spell quests
-    public List<Spell> spellsCast;
+    public int spellTier;
 
     public Quest()
     {

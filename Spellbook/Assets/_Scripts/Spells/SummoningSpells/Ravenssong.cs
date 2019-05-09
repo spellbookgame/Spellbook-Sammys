@@ -6,6 +6,8 @@ public class Ravenssong : Spell, ICombatSpell
     public Ravenssong()
     {
         iTier = 1;
+        iCharges = 0;
+        iManaCost = 2750;
 
         combatSpell = true;
 
