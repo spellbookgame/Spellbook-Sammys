@@ -106,8 +106,8 @@ public class SpellCollectionHandler : MonoBehaviour
 
     private void OnCastClick(Spell spell)
     {
-        // don't let player cast more than 2 spells per turn
-        if (localPlayer.Spellcaster.numSpellsCastThisTurn >= 2)
+        // if player has already cast 2 spells this turn and Agenda is not active
+        if (localPlayer.Spellcaster.numSpellsCastThisTurn >= 2 && !SpellTracker.instance.agendaActive)
         {
             PanelHolder.instance.displayNotify("Too Many Spells", "You already cast 2 spells this turn.", "OK");
             CloseSpellPanel();

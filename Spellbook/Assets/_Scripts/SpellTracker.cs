@@ -14,6 +14,7 @@ public class SpellTracker : MonoBehaviour
 
     public ItemObject forecastItem;
     public Spell lastSpellCasted;
+    public bool agendaActive;
 
     private SpellCaster spellCaster;
 

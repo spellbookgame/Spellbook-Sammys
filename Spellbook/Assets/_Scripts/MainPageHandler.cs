@@ -62,11 +62,11 @@ public class MainPageHandler : MonoBehaviour
         // TEST AREA - DELETE LATER
         if(Input.GetKeyDown(KeyCode.T))
         {
-            localPlayer.Spellcaster.chapter.spellsCollected.Add(new Fortune());
+            localPlayer.Spellcaster.chapter.spellsCollected.Add(new Agenda());
         }
         if (Input.GetKeyDown(KeyCode.U))
         {
-            localPlayer.Spellcaster.CollectSpell(new PotionofBlessing());
+            localPlayer.Spellcaster.CollectSpell(new CrystalScent());
         }
         if (Input.GetKeyDown(KeyCode.Y))
         {
