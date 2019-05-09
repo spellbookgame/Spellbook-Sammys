@@ -11,6 +11,7 @@ public class DarkRevelation : Spell
         iManaCost = 3400;
 
         combatSpell = false;
+        blackMagicSpell = true;
 
         sSpellName = "Dark Revelation";
         sSpellClass = "";
@@ -39,8 +40,13 @@ public class DarkRevelation : Spell
                 }
             }
 
-            player.CollectSpell(spells[Random.Range(0, spells.Count)]);
+            Spell newSpell = spells[Random.Range(0, spells.Count)];
+            player.CollectSpell(newSpell);
+            PanelHolder.instance.displayNotify("Dark Revelation", "You unlocked " + newSpell.sSpellName + 
+                                                "! Dark Revelation disappeared from your memory without a trace...", "MainPlayerScene");
 
+            // remove this spell from castable spells once it's cast
+            player.chapter.spellsCollected.Remove(this);
             player.numSpellsCastThisTurn++;
         }
     }

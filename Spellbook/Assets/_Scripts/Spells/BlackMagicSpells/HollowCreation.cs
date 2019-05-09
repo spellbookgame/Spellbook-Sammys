@@ -11,6 +11,7 @@ public class HollowCreation : Spell
         iManaCost = 2500;
 
         combatSpell = false;
+        blackMagicSpell = true;
 
         sSpellName = "Hollow Creation";
         sSpellClass = "";
@@ -41,8 +42,11 @@ public class HollowCreation : Spell
             player.AddToInventory(item2);
             player.AddToInventory(item3);
 
-            PanelHolder.instance.displayNotify("Hollow Creation", "You created " + item1.name + ", " + item2.name + ", and " + item3.name + ".", "MainPlayerScene");
+            PanelHolder.instance.displayNotify("Hollow Creation", "You created " + item1.name + ", " + item2.name + ", and " + item3.name +
+                                                ". Hollow Creation disappeared from your memory without a trace...", "MainPlayerScene");
 
+            // remove this spell from castable spells once it's cast
+            player.chapter.spellsCollected.Remove(this);
             player.numSpellsCastThisTurn++;
         }
     }
