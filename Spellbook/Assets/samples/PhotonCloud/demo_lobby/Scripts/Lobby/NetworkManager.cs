@@ -10,6 +10,7 @@ using Bolt.Samples.Photon.Simple;
 using Photon.Lobby;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Collections.Generic;
 
 namespace Bolt.Samples.Photon.Lobby
 {
@@ -55,6 +56,11 @@ namespace Bolt.Samples.Photon.Lobby
         public Text numPlayersInfo;
         protected bool _isCountdown = false;
         protected string _matchName;
+
+        //For server.
+        //Key is connection.ToString()
+        //Value is SpellcasterId (0-5)
+        private Dictionary<string, int> connection_spellcaster;
 
 
         //For returning client only, does not support a returning host (yet).
@@ -130,7 +136,12 @@ namespace Bolt.Samples.Photon.Lobby
                 }
                 else if (gameScene.SimpleSceneName == scene)
                 {
-                    ChangeTo(null);
+                    if (BoltNetwork.IsServer)
+                    {
+                        //SpellCasterLobbyChoose sl = GameObject.find
+                       //BoltNetwork.Detach(characterSelection);
+                    }
+                    //ChangeTo(null);
 
                     backDelegate = Stop;
                     topPanel.isInGame = true;
@@ -208,6 +219,8 @@ namespace Bolt.Samples.Photon.Lobby
         private void StartServer()
         {
             BoltLauncher.StartServer();
+            BoltConsole.Write("StartServer breh");
+            Debug.Log("StartServer breh");
         }
 
         public void StartClient()
@@ -235,6 +248,7 @@ namespace Bolt.Samples.Photon.Lobby
 
         public override void BoltStartBegin()
         {
+            BoltConsole.Write("BoltStartBegin breh");
             BoltNetwork.RegisterTokenClass<RoomProtocolToken>();
             BoltNetwork.RegisterTokenClass<ServerAcceptToken>();
             BoltNetwork.RegisterTokenClass<ServerConnectToken>();
@@ -242,6 +256,7 @@ namespace Bolt.Samples.Photon.Lobby
 
         public override void BoltStartDone()
         {
+            BoltConsole.Write("BoltStartDone breh");
             if (!BoltNetwork.IsRunning) { return; }
 
             if (BoltNetwork.IsServer)
@@ -254,7 +269,7 @@ namespace Bolt.Samples.Photon.Lobby
                 BoltLog.Info("Starting Server");
                 // Start Photon Room
                 BoltNetwork.SetServerInfo(_matchName, token);
-                BoltNetwork.EnableLanBroadcast();
+                //BoltNetwork.EnableLanBroadcast();
                 // Setup Host
                 infoPanel.gameObject.SetActive(false);
                 //PanelHolder.instance.hideConnectingPanel();
@@ -262,12 +277,13 @@ namespace Bolt.Samples.Photon.Lobby
 
                 backDelegate = Stop;
                 SetServerInfo("Host", "");
-
+                connection_spellcaster = new Dictionary<string, int>();
                 //SoundManager.instance.musicSource.Play();
 
                 // Build Server Entity
-                BoltEntity entity = BoltNetwork.Instantiate(BoltPrefabs.CharacterSelectionEntity);
-                entity.TakeControl();
+                
+                characterSelection = BoltNetwork.Instantiate(BoltPrefabs.CharacterSelectionEntity);
+                characterSelection.TakeControl();
 
                 gameStateEntity = BoltNetwork.Instantiate(BoltPrefabs.GameState);
                 gameStateEntity.TakeControl();
@@ -285,6 +301,7 @@ namespace Bolt.Samples.Photon.Lobby
 
         public override void BoltShutdownBegin(AddCallback registerDoneCallback)
         {
+            BoltConsole.Write("BoltShutdownBegin");
             _matchName = "";
 
             if (BoltNetwork.IsServer)
@@ -387,8 +404,7 @@ namespace Bolt.Samples.Photon.Lobby
         // ----------------- Client callbacks ------------------
         public override void OnEvent(NextPlayerTurnEvent evnt)
         {
-            Debug.Log("Recieved Event!!!!!!!!!!!!!!!!!");
-            BoltConsole.Write("Recieved Event!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            BoltConsole.Write("Recieved NextPlayerTurnEvent!");
             playerEntity.GetComponent<Player>().nextTurnEvent(evnt.NextSpellcaster);
         }
 
@@ -509,7 +525,37 @@ namespace Bolt.Samples.Photon.Lobby
         public override void OnEvent(SelectSpellcaster evnt)
         {
             BoltConsole.Write("SERVER: Recieved a new character selection event");
-            Debug.Log("New selection event");
+            if(evnt.RaisedBy != null)
+            {
+                BoltConsole.Write("Sent by: "+evnt.RaisedBy.ToString());
+                string con = evnt.RaisedBy.ToString();
+                if (connection_spellcaster.ContainsKey(con))
+                {
+                    connection_spellcaster[evnt.RaisedBy.ToString()] = evnt.spellcasterID;
+                    ;
+
+                }
+                else
+                {
+                    connection_spellcaster.Add(con, evnt.spellcasterID);
+                }
+            }
+            
+            //LobbyPhotonPlayer player = (LobbyPhotonPlayer) evnt.RaisedBy.UserData;
+            //player.spellcasterID = evnt.spellcasterID;
+            /*
+            if(player != null)
+            {
+                player.spellcasterID = evnt.spellcasterID;
+            }
+            else
+            {
+                Debug.Log("BoltConnection is null");
+
+            }
+            */
+
+
             gameStateEntity.GetComponent<NetworkGameState>()
                 .onSpellcasterSelected(evnt.spellcasterID, evnt.previousID);
             if (gameStateEntity.GetComponent<NetworkGameState>().allPlayersSelected())
@@ -551,7 +597,20 @@ namespace Bolt.Samples.Photon.Lobby
             var nextTurnEvnt = NextPlayerTurnEvent.Create(Bolt.GlobalTargets.Everyone);
             nextTurnEvnt.NextSpellcaster = nextSpellcaster;
             nextTurnEvnt.Send();
-
+        }
+        
+        /*Only the server recieves this event.
+         Similar to NextTurnEvent, but doesn't update the turn.
+         Used for network disconnection.
+         Sends the current spellcasterId. 
+             */
+        public override void OnEvent(NotifyTurnEvent evnt)
+        {
+            BoltConsole.Write("SERVER: Recieved a Notify turn event");
+            int currentSpellcaster = gameStateEntity.GetComponent<NetworkGameState>().getCurrentTurn();
+            var nextTurnEvnt = NextPlayerTurnEvent.Create(Bolt.GlobalTargets.Everyone);
+            nextTurnEvnt.NextSpellcaster = currentSpellcaster;
+            nextTurnEvnt.Send();
         }
 
         /*Only the server recieves this event.*/
@@ -640,13 +699,18 @@ namespace Bolt.Samples.Photon.Lobby
 
         public override void Disconnected(BoltConnection connection)
         {
-            LobbyPhotonPlayer player = connection.GetLobbyPlayer();
-            if (player != null)
-            {
-                BoltLog.Info("Disconnected");
 
-                player.RemovePlayer();
-            }
+                BoltLog.Info("Disconnected checkpoint 1");
+            //LobbyPhotonPlayer player = connection.GetLobbyPlayer();
+            //if (player != null)
+            //{
+                BoltLog.Info("Disconnected checkpoint 2");
+                int id = connection_spellcaster[connection.ToString()];
+                gameStateEntity.GetComponent<NetworkGameState>()
+                .onRemovePlayer(id);
+            // player.RemovePlayer();
+            //BoltNetwork.Destroy(entity);///////////////////////
+            //}
         }
 
         public override void ConnectFailed(UdpEndPoint endpoint, IProtocolToken token)
@@ -662,6 +726,9 @@ namespace Bolt.Samples.Photon.Lobby
             PanelHolder.instance.displayNotify("Global Event Coming Soon", NetworkGameState.instance.getEventInfo(), "OK");
         }
 
+        /**
+         Events, any script can call these.
+             */
         public void notifySelectSpellcaster(int spellcasterID, int previous)
         {
             localPlayerSpellcasterID = spellcasterID;

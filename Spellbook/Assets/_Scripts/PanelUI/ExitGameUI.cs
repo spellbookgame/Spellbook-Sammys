@@ -8,6 +8,7 @@ public class ExitGameUI : MonoBehaviour
     bool exitPanelOn;
     bool isInFirstScreen = true;  //Flag for being in the very first screen in the game.
     public GameObject ExitPanel;
+    public GameObject NetworkPanel;
     public Button ExitGameButton;
     public Button ContinueButton;
     // Start is called before the first frame update
@@ -64,4 +65,10 @@ public class ExitGameUI : MonoBehaviour
     {
         isInFirstScreen = false;
     }
+
+    public void ShowNetworkStatusPanel(bool showPanel)
+    {
+        NetworkPanel.SetActive(showPanel);
+    }
+
 }

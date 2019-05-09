@@ -239,11 +239,11 @@ namespace Photon.Lobby
             BoltConsole.Write("SetupPlayer", Color.green);
             Debug.Log("SetupPlayer");
 
-            this.transform.SetParent(GameObject.Find("LobbyPanel").transform);
+            //this.transform.SetParent(GameObject.Find("LobbyPanel").transform);
 
             //Hardcoded for prototyping and testing
-            this.transform.localPosition = new Vector3(200f, -800f, 0f);
-            this.transform.localScale = new Vector3(.6f, .6f, 1f);
+            //this.transform.localPosition = new Vector3(200f, -800f, 0f);
+            //this.transform.localScale = new Vector3(.6f, .6f, 1f);
 
             alchemistButton.onClick.RemoveAllListeners();
             alchemistButton.onClick.AddListener(OnAlchemistClicked);

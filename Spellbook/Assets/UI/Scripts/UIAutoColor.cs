@@ -57,6 +57,10 @@ public class UIAutoColor : MonoBehaviour {
 
     public void DecorateSpellButton(Color c1, Color c2, Color c3)
     {
+        BoltConsole.Write(c1.ToString());
+        BoltConsole.Write(c2.ToString());
+        BoltConsole.Write(c3.ToString());
+        BoltConsole.Write(c3.r +"");
         gemImage.color = c3;
         
         // Populate the color keys at the relative time 0 and 1 (0 and 100%)

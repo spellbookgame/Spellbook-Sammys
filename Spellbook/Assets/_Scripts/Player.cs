@@ -66,48 +66,6 @@ public class Player : Bolt.EntityEventListener<ISpellcasterState>
         }
     }
 
-    /*Waits for everyone to join the local scene, then 
-     calculates turns.
-     Turns go in ascending order based on spellcaster IDs.
-     TODO:  Maybe switch up the turn order later. */
-    IEnumerator determineTurnOrder()
-    {
-        //BoltConsole.print("Time start: " +Time.time);
-        yield return new WaitForSeconds(2);
-        int count = 0;
-        BoltConsole.Write("Entities: ");
-        foreach (var e in BoltNetwork.Entities)
-        {
-
-            BoltConsole.Write("count =" + count++);
-            int eClass;
-            if (e.StateIs(typeof(ISpellcasterState)))
-            {
-                eClass = e.GetState<ISpellcasterState>().SpellcasterClass;
-                BoltConsole.Write(", " + eClass);
-                spellcasterTurnOrder.Add(eClass);
-            }
-        }
-        spellcasterTurnOrder.Sort();
-        string listIds = "";
-        for (int i = 0; i < spellcasterTurnOrder.Count; i++)
-        {
-            listIds = listIds + ", " + spellcasterTurnOrder[i];
-        }
-        BoltConsole.Write("All SpellcasterIds: " + listIds);
-        if (spellcasterID == (int)spellcasterTurnOrder[0])
-        {
-            BoltConsole.Write("My Turn");
-            numTurnsIHad++;
-            spellcaster.NumOfTurnsSoFar = numTurnsIHad;
-            bIsMyTurn = true;
-            PanelHolder panelHolder = GameObject.Find("PanelHolder").GetComponent<PanelHolder>();
-            panelHolder.displayYourTurn();
-        }
-        //saveData();
-        //BoltConsole.print("Time done: " + Time.time);
-
-    }
 
     private void chooseSpellcaster(int num)
     {
@@ -190,6 +148,7 @@ public class Player : Bolt.EntityEventListener<ISpellcasterState>
      The if-statement does nothing if its not this player's turn.*/
     public void nextTurnEvent(int sID)
     {
+        BoltConsole.Write("Player.nextTurnEvent");
         if (sID == spellcasterID)
         {
             BoltConsole.Write("Its my turn.");
