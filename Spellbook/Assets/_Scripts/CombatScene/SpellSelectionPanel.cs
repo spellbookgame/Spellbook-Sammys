@@ -35,6 +35,7 @@ public class SpellSelectionPanel : MonoBehaviour
         ReadyButton.interactable = false;
         //Todo get the spellcasters spells.
         GameObject p =  GameObject.FindGameObjectWithTag("LocalPlayer");
+        //BoltConsole.print("player = " + p);
         spells = new Spell[] { spell1, spell2, spell3 };
         spellButtons = new Button[]{SpellButton1, SpellButton2, SpellButton3};
         if (p != null)
@@ -50,9 +51,14 @@ public class SpellSelectionPanel : MonoBehaviour
             //localSpellcaster.CollectSpell(new ToxicPotion());
         }
 
+        BoltConsole.Write("player = " + p.name);
+        BoltConsole.Write("spellcaster = " + p.GetComponent<Player>().Spellcaster);
         int i = 0;
         foreach(KeyValuePair<string, Spell> entry in localSpellcaster.combatSpells)
         {
+            BoltConsole.Write("entry = " + entry.Key);
+            BoltConsole.Write("spell = " + entry.Value.sSpellName);
+
             spells[i] = entry.Value;
             Color c1 = entry.Value.colorPrimary;
             Color c2 = entry.Value.colorSecondary;

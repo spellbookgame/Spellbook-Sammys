@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+ Written by Moises Martinez
+    A class that keeps track of player's, and the gamestate such as turns and turnorder, global
+    events (crisis).
+     */
 public class NetworkGameState : Bolt.EntityEventListener<IGameState>
 {
     public static NetworkGameState instance = null;
@@ -115,6 +120,47 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
         return state.NumOfPlayers;
     }
 
+    //input: the >>permanently<< disconnected spellcaster ID
+    public void onRemovePlayer(int sID)
+    {
+        BoltConsole.Write("Removing spellcasterID " + sID);
+        numOfPlayers--;
+        state.NumOfPlayers--;
+        combatOrder[sID] = 0;
+        spellcasterList[sID] = 0;
+        bool currentDisconnected = false;
+        int curSpellcasterID = state.CurrentSpellcasterTurn;
+        if(curSpellcasterID == sID)
+        {
+            currentDisconnected = true;
+            curSpellcasterID = getNextTurn();
+        }
+
+        //Refresh the turn order list
+        determineTurnOrder(curSpellcasterID);
+
+        //Update the pointer
+        for (int i = 0; i < turnOrder.Count; i++)
+        {
+            if (turnOrder[i] == curSpellcasterID)
+            {
+                turn_i = i;
+            }
+        }
+        state.CurrentSpellcasterTurn = turnOrder[turn_i];
+        BoltConsole.Write(state.CurrentSpellcasterTurn + "==" + curSpellcasterID);
+        if (currentDisconnected)
+        {
+
+
+           BoltConsole.Write("The turn was the spellcaster that logged out");
+           var nextTurnEvnt = NotifyTurnEvent.Create(Bolt.GlobalTargets.OnlyServer);
+           nextTurnEvnt.Send();   
+
+        }
+        //If the current turn spellcaster is the one that disconnected, notify the next spellcaster
+    }
+
     public void onSpellcasterSelected(int spellcasterID, int previous)
     {
         /*if (previous > -1)
@@ -130,7 +176,7 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
         //}
         spellcasterList[spellcasterID] = 1;
         state.SpellcasterList[spellcasterID] = 1;
-        determineTurnOrder();
+        determineTurnOrder(-1);
         //globalEvents.determineGlobalEvents();
     }
 
@@ -140,7 +186,7 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
         state.SpellcasterList[spellcasterID] = 0;
         numOfSpellcasters--;
         state.NumOfSpellcasters--;
-        determineTurnOrder();
+        determineTurnOrder(-1);
     }
 
     public void onCollectedSpell(int spellcasterId, string spellName)
@@ -184,8 +230,8 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
         }
     }
 
-
-    public void determineTurnOrder()
+    //Input is -1 if we want the first spellcaster in the list to go first.
+    public void determineTurnOrder(int sID)
     {
         turnOrder.Clear();
         for (int i = 0; i < spellcasterList.Length; i++)
@@ -195,11 +241,11 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
                 turnOrder.Add(i);
             }
         }
-        if(turnOrder.Count > 0)
+        if(sID == -1  && turnOrder.Count > 0)
         {
-        state.CurrentSpellcasterTurn = turnOrder[0];
+            state.CurrentSpellcasterTurn = turnOrder[0];
         }
-        else
+        else if(turnOrder.Count <= 0)
         {
             state.CurrentSpellcasterTurn = -1;
         }
@@ -235,6 +281,19 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
         return turnOrder[turn_i];
     }
 
+    //Returns what the next turn spellcaster ID would be, and doesn't update anything.
+    //Think of it as stack.peek()
+    public int getNextTurn()
+    {
+        int nextTurn = turn_i + 1;
+        //Return the beginning of the turnorder if the current spellcaster is the last one to go in the round.
+        if (nextTurn >= turnOrder.Count)
+        {
+            return 0;
+        }
+        return spellcasterList[nextTurn];
+    }
+
     public void DisplayNextEvent()
     {
         globalEvents.notifyAboutNewUpcomingEvent();
@@ -260,8 +319,10 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
                 return "Chronomancer";
             case 4:
                 return "Illusionist";
-            default:
+            case 5:
                 return "Summoner";
+            default:
+                return "Error";
         }
     }
 
