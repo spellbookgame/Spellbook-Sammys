@@ -7,7 +7,7 @@ public class DelayTime : Spell
     public DelayTime()
     {
         iTier = 1;
-        iManaCost = 3200;
+        iManaCost = 3800;
 
         combatSpell = false;
 

@@ -13,7 +13,7 @@ public class PotionofLuck : Spell
 
         sSpellName = "Brew - Potion of Luck";
         sSpellClass = "Alchemist";
-        sSpellInfo = "Give you and an ally an extra D8 next time you roll.";
+        sSpellInfo = "Give you and an ally an extra D9 next time you roll.";
 
         requiredRunes.Add("Alchemist A Rune", 1);
         requiredRunes.Add("Alchemist B Rune", 1);
@@ -25,8 +25,8 @@ public class PotionofLuck : Spell
         // cast spell for free if Umbra's Eclipse is active
         if (SpellTracker.instance.CheckUmbra())
         {
-            PanelHolder.instance.displayNotify(sSpellName, "You and your ally will have an extra D8 next time you roll.", "MainPlayerScene");
-            player.tempDice.Add("D8", 1);
+            PanelHolder.instance.displayNotify(sSpellName, "You and your ally will have an extra D9 next time you roll.", "MainPlayerScene");
+            player.tempDice.Add("D9", 1);
 
             player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
@@ -40,8 +40,8 @@ public class PotionofLuck : Spell
             // subtract mana
             player.iMana -= iManaCost;
 
-            PanelHolder.instance.displayNotify(sSpellName, "You and your ally will have an extra D8 next time you roll.", "MainPlayerScene");
-            player.tempDice.Add("D8", 1);
+            PanelHolder.instance.displayNotify(sSpellName, "You and your ally will have an extra D9 next time you roll.", "MainPlayerScene");
+            player.tempDice.Add("D9", 1);
 
             player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;

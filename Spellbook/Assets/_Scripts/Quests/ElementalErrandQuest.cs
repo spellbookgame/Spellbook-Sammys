@@ -19,7 +19,7 @@ public class ElementalErrandQuest : Quest
         spaceName = "town_alchemist";
         itemName = "Glowing Mushroom";
 
-        rewards.Add("Rune", "Alchemist B Rune");
+        rewards.Add("Rune", "Elementalist A Rune");
         rewards.Add("Item", "Mimetic Vellum");
 
         questCompleted = false;

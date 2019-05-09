@@ -4,7 +4,11 @@ using UnityEngine;
 public class ItemList : MonoBehaviour
 {
     public List<ItemObject> listOfItems;
-    
+
+    public List<ItemObject> tier1Items;
+    public List<ItemObject> tier2Items;
+    public List<ItemObject> tier3Items;
+
     void Awake()
     {
         listOfItems = new List<ItemObject>
@@ -20,6 +24,29 @@ public class ItemList : MonoBehaviour
             new WaxCandle(),
             new HollowCabochon(),
             new RiftTalisman()
+        };
+
+        tier1Items = new List<ItemObject>()
+        {
+            new CrystalMirror(),
+            new RiftTalisman(),
+            new MimeticVellum()
+        };
+
+        tier2Items = new List<ItemObject>()
+        {
+            new InfusedSapphire(),
+            new AbyssalOre(),
+            new HollowCabochon(),
+            new MysticTranslocator()
+        };
+
+        tier3Items = new List<ItemObject>()
+        {
+            new GlowingMushroom(),
+            new WaxCandle(),
+            new AromaticTeaLeaves(),
+            new OpalAmmonite()
         };
     }
 

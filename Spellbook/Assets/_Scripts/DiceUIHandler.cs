@@ -163,6 +163,11 @@ public class DiceUIHandler : MonoBehaviour
                         clone.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = clone.transform.GetChild(0).GetComponent<DiceRoll>().pipsEight;
                         clone.transform.GetChild(0).GetComponent<DiceRoll>()._rollMaximum = 8;
                     }
+                    else if (kvp.Key.Equals("D9"))
+                    {
+                        clone.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = clone.transform.GetChild(0).GetComponent<DiceRoll>().pipsNine;
+                        clone.transform.GetChild(0).GetComponent<DiceRoll>()._rollMaximum = 9;
+                    }
                     // track num of dice to expand scroll rect
                     ++numDice;
                 }
@@ -205,6 +210,11 @@ public class DiceUIHandler : MonoBehaviour
                     {
                         clone.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = clone.transform.GetChild(0).GetComponent<DiceRoll>().pipsEight;
                         clone.transform.GetChild(0).GetComponent<DiceRoll>()._rollMaximum = 8;
+                    }
+                    else if (kvp.Key.Equals("D9"))
+                    {
+                        clone.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = clone.transform.GetChild(0).GetComponent<DiceRoll>().pipsNine;
+                        clone.transform.GetChild(0).GetComponent<DiceRoll>()._rollMaximum = 9;
                     }
                     // track num of dice to expand scroll rect
                     ++numDice;
