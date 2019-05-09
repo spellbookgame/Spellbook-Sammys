@@ -62,7 +62,7 @@ public class MainPageHandler : MonoBehaviour
         // TEST AREA - DELETE LATER
         if(Input.GetKeyDown(KeyCode.T))
         {
-            localPlayer.Spellcaster.chapter.spellsCollected.Add(new SpacialWarp());
+            localPlayer.Spellcaster.chapter.spellsCollected.Add(new Fortune());
         }
         if (Input.GetKeyDown(KeyCode.U))
         {

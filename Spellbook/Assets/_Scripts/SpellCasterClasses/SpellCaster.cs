@@ -84,7 +84,8 @@ public abstract class SpellCaster
             { "D5", 0 },
             { "D6", 2 },
             { "D7", 0 },
-            { "D8", 0 }
+            { "D8", 0 },
+            { "D9", 0 },
         };
 
         tempDice = new Dictionary<string, int>();
