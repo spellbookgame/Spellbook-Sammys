@@ -124,7 +124,8 @@ public class SwampSceneHandler : MonoBehaviour
                     Spell randomSpell = blackMagicSpells[Random.Range(0, blackMagicSpells.Count)];
 
                     localPlayer.Spellcaster.chapter.spellsCollected.Add(randomSpell);
-                    PanelHolder.instance.displayNotify(randomSpell.sSpellName, "The Witch took your " + requiredItem.name + " and granted you the " + randomSpell.sSpellName + " spell!", "MainPlayerScene");
+                    PanelHolder.instance.displayNotify(randomSpell.sSpellName, "The Witch took your " + requiredItem.name + " and granted you the " 
+                                                        + randomSpell.sSpellName + " spell!", "MainPlayerScene");
 
                     requestCompleted = true;
                 }

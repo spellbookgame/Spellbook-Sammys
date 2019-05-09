@@ -28,23 +28,21 @@ public class SpellCollectionHandler : MonoBehaviour
 
         int yPos = 105;
         // add buttons for each spell the player has collected
-        for (int i = 0; i < localPlayer.Spellcaster.chapter.spellsCollected.Count; i++)
+        foreach(Spell s in localPlayer.Spellcaster.chapter.spellsCollected)
         {
             Button newSpellButton = Instantiate(spellButton, GameObject.Find("Canvas").transform);
-            newSpellButton.GetComponentInChildren<Text>().text = localPlayer.Spellcaster.chapter.spellsCollected[i].sSpellName;
+            newSpellButton.GetComponentInChildren<Text>().text = s.sSpellName;
             newSpellButton.transform.localPosition = new Vector3(0, yPos, 0);
 
             // if it's a combat spell, change button/text color
-            if (localPlayer.Spellcaster.chapter.spellsCollected[i].combatSpell)
+            if (s.combatSpell)
             {
                 newSpellButton.GetComponent<Image>().color = combatColor;
                 newSpellButton.transform.GetChild(0).GetComponent<Text>().color = combatColor;
             }
 
-            // new int to pass into button onClick listener so loop will not throw index out of bounds error
-            int i2 = i;
             // add listener to button
-            newSpellButton.onClick.AddListener(() => OpenSpellPanel(localPlayer.Spellcaster.chapter.spellsCollected[i2]));
+            newSpellButton.onClick.AddListener(() => OpenSpellPanel(s));
 
             // to position new button underneath prev button
             yPos -= 200;
