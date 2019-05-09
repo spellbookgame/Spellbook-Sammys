@@ -15,6 +15,7 @@ public class OpalAmmonite : ItemObject
 
     public override void UseItem(SpellCaster player)
     {
+        SoundManager.instance.PlaySingle(SoundManager.manaCollect);
         player.RemoveFromInventory(this);
         player.itemsUsedThisTurn++;
 
