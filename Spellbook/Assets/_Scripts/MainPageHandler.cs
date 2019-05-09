@@ -62,15 +62,15 @@ public class MainPageHandler : MonoBehaviour
         // TEST AREA - DELETE LATER
         if(Input.GetKeyDown(KeyCode.T))
         {
-            localPlayer.Spellcaster.chapter.spellsCollected.Add(new HollowCreation());
+            localPlayer.Spellcaster.chapter.spellsCollected.Add(new DarkRevelation());
         }
         if (Input.GetKeyDown(KeyCode.U))
         {
-            localPlayer.Spellcaster.CollectSpell(new Bearsfury());
+            localPlayer.Spellcaster.CollectSpell(new PotionofBlessing());
         }
         if (Input.GetKeyDown(KeyCode.Y))
         {
-            localPlayer.Spellcaster.CollectSpell(new Ravenssong());
+            localPlayer.Spellcaster.CollectSpell(new PotionofLuck());
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
