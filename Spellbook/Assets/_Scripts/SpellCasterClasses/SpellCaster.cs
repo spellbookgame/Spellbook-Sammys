@@ -32,7 +32,6 @@ public abstract class SpellCaster
     // misc attributes
     public string classType;
     public int spellcasterID;
-    public int itemsUsedThisTurn;
     public int numSpellsCastThisTurn;
     public bool hasAttacked;
     public bool hasRolled;

@@ -17,7 +17,6 @@ public class OpalAmmonite : ItemObject
     {
         SoundManager.instance.PlaySingle(SoundManager.manaCollect);
         player.RemoveFromInventory(this);
-        player.itemsUsedThisTurn++;
 
         int randMana = Random.Range(800, 2600);
         player.CollectMana(randMana);

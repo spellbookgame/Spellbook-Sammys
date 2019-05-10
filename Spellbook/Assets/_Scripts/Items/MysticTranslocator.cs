@@ -16,7 +16,6 @@ public class MysticTranslocator : ItemObject
     public override void UseItem(SpellCaster player)
     {
         player.RemoveFromInventory(this);
-        player.itemsUsedThisTurn++;
 
         player.locationItemUsed = true;
         PanelHolder.instance.displayNotify("Mystic Translocator", "Swap locations with another wizard (both wizards must be on a location space).", "VuforiaScene");

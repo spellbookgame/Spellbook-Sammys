@@ -19,7 +19,6 @@ public class GlimmeringCabochon : ItemObject
     public override void UseItem(SpellCaster player)
     {
         player.RemoveFromInventory(this);
-        player.itemsUsedThisTurn++;
 
         List<Spell> spells = new List<Spell>();
         // only include spell if it's non-combat

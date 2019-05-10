@@ -16,7 +16,6 @@ public class InfusedSapphire : ItemObject
     public override void UseItem(SpellCaster player)
     {
         player.RemoveFromInventory(this);
-        player.itemsUsedThisTurn++;
 
         player.locationItemUsed = true;
         string[] locations = new string[9] { "Forest", "Swamp", "Crystal Mines", "Alchemist Town", "Arcanist Town", "Chronomancer Town", "Elementalist Town", "Illusionist Town", "Summoner Town" };

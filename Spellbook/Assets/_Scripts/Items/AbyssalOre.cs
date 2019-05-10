@@ -18,7 +18,6 @@ public class AbyssalOre : ItemObject
     public override void UseItem(SpellCaster player)
     {
         player.RemoveFromInventory(this);
-        player.itemsUsedThisTurn++;
 
         // give player a random dice
         int randSides = Random.Range(4, 8);

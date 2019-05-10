@@ -18,7 +18,6 @@ public class GlowingMushroom : ItemObject
     public override void UseItem(SpellCaster player)
     {
         player.RemoveFromInventory(this);
-        player.itemsUsedThisTurn++;
 
         player.HealDamage(2);
         PanelHolder.instance.displayNotify("Glowing Mushroom", "You ate the mushroom and healed 2 health. You feel a little funny, though...", "InventoryScene");

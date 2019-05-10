@@ -16,7 +16,6 @@ public class WaxCandle : ItemObject
     public override void UseItem(SpellCaster player)
     {
         player.RemoveFromInventory(this);
-        player.itemsUsedThisTurn++;
 
         player.waxCandleUsed = true;
         PanelHolder.instance.displayNotify("Wax Candle", "The candle is lit. Next time you're in the forest, you will find duplicate items.", "InventoryScene");

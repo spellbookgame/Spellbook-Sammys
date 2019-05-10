@@ -58,12 +58,7 @@ public class InventoryUI : MonoBehaviour
             // add onclick to use item
             buttonUse.onClick.AddListener(() => 
             {
-                if (localPlayer.Spellcaster.itemsUsedThisTurn >= 2)
-                {
-                    PanelHolder.instance.displayNotify("Too Many Items", "You've already used 2 items this turn.", "OK");
-                }
-                else
-                    item.UseItem(localPlayer.Spellcaster);
+                item.UseItem(localPlayer.Spellcaster);
             });
 
             infoPanelOpen = true;
