@@ -141,32 +141,32 @@ public class DiceUIHandler : MonoBehaviour
                     if (kvp.Key.Equals("D4"))
                     {
                         clone.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = clone.transform.GetChild(0).GetComponent<DiceRoll>().pipsFour;
-                        clone.transform.GetChild(0).GetComponent<DiceRoll>()._rollMaximum = 4;
+                        clone.transform.GetChild(0).GetComponent<DiceRoll>().maxRoll = 4;
                     }
                     else if (kvp.Key.Equals("D5"))
                     {
                         clone.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = clone.transform.GetChild(0).GetComponent<DiceRoll>().pipsFive;
-                        clone.transform.GetChild(0).GetComponent<DiceRoll>()._rollMaximum = 5;
+                        clone.transform.GetChild(0).GetComponent<DiceRoll>().maxRoll = 5;
                     }
                     else if (kvp.Key.Equals("D6"))
                     {
                         clone.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = clone.transform.GetChild(0).GetComponent<DiceRoll>().pipsSix;
-                        clone.transform.GetChild(0).GetComponent<DiceRoll>()._rollMaximum = 6;
+                        clone.transform.GetChild(0).GetComponent<DiceRoll>().maxRoll = 6;
                     }
                     else if (kvp.Key.Equals("D7"))
                     {
                         clone.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = clone.transform.GetChild(0).GetComponent<DiceRoll>().pipsSeven;
-                        clone.transform.GetChild(0).GetComponent<DiceRoll>()._rollMaximum = 7;
+                        clone.transform.GetChild(0).GetComponent<DiceRoll>().maxRoll = 7;
                     }
                     else if (kvp.Key.Equals("D8"))
                     {
                         clone.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = clone.transform.GetChild(0).GetComponent<DiceRoll>().pipsEight;
-                        clone.transform.GetChild(0).GetComponent<DiceRoll>()._rollMaximum = 8;
+                        clone.transform.GetChild(0).GetComponent<DiceRoll>().maxRoll = 8;
                     }
                     else if (kvp.Key.Equals("D9"))
                     {
                         clone.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = clone.transform.GetChild(0).GetComponent<DiceRoll>().pipsNine;
-                        clone.transform.GetChild(0).GetComponent<DiceRoll>()._rollMaximum = 9;
+                        clone.transform.GetChild(0).GetComponent<DiceRoll>().maxRoll = 9;
                     }
                     // track num of dice to expand scroll rect
                     ++numDice;
@@ -189,32 +189,32 @@ public class DiceUIHandler : MonoBehaviour
                     if (kvp.Key.Equals("D4"))
                     {
                         clone.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = clone.transform.GetChild(0).GetComponent<DiceRoll>().pipsFour;
-                        clone.transform.GetChild(0).GetComponent<DiceRoll>()._rollMaximum = 4;
+                        clone.transform.GetChild(0).GetComponent<DiceRoll>().maxRoll = 4;
                     }
                     else if (kvp.Key.Equals("D5"))
                     {
                         clone.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = clone.transform.GetChild(0).GetComponent<DiceRoll>().pipsFive;
-                        clone.transform.GetChild(0).GetComponent<DiceRoll>()._rollMaximum = 5;
+                        clone.transform.GetChild(0).GetComponent<DiceRoll>().maxRoll = 5;
                     }
                     else if (kvp.Key.Equals("D6"))
                     {
                         clone.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = clone.transform.GetChild(0).GetComponent<DiceRoll>().pipsSix;
-                        clone.transform.GetChild(0).GetComponent<DiceRoll>()._rollMaximum = 6;
+                        clone.transform.GetChild(0).GetComponent<DiceRoll>().maxRoll = 6;
                     }
                     else if (kvp.Key.Equals("D7"))
                     {
                         clone.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = clone.transform.GetChild(0).GetComponent<DiceRoll>().pipsSeven;
-                        clone.transform.GetChild(0).GetComponent<DiceRoll>()._rollMaximum = 7;
+                        clone.transform.GetChild(0).GetComponent<DiceRoll>().maxRoll = 7;
                     }
                     else if (kvp.Key.Equals("D8"))
                     {
                         clone.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = clone.transform.GetChild(0).GetComponent<DiceRoll>().pipsEight;
-                        clone.transform.GetChild(0).GetComponent<DiceRoll>()._rollMaximum = 8;
+                        clone.transform.GetChild(0).GetComponent<DiceRoll>().maxRoll = 8;
                     }
                     else if (kvp.Key.Equals("D9"))
                     {
                         clone.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = clone.transform.GetChild(0).GetComponent<DiceRoll>().pipsNine;
-                        clone.transform.GetChild(0).GetComponent<DiceRoll>()._rollMaximum = 9;
+                        clone.transform.GetChild(0).GetComponent<DiceRoll>().maxRoll = 9;
                     }
                     // track num of dice to expand scroll rect
                     ++numDice;
@@ -224,13 +224,6 @@ public class DiceUIHandler : MonoBehaviour
 
         // force its position to be correct cause idk
         diceScrollContent.transform.localPosition = new Vector3(-665, -175, 0);
-
-        // expand scroll rect for each die that exceeds 4
-        /*if (numDice > 4)
-        {
-            RectTransform rect = diceScrollContent.GetComponent<RectTransform>();
-            rect.sizeDelta = new Vector2((float)rect.sizeDelta.x + (260 * (numDice - 4)), rect.sizeDelta.y);
-        }*/
     }
 
     private void RemoveDiceFromSlots()
@@ -258,7 +251,7 @@ public class DiceUIHandler : MonoBehaviour
             {
                 GameObject newDice = Instantiate(dice, slot.transform);
                 newDice.transform.GetChild(0).GetComponent<Image>().sprite = newDice.GetComponent<DiceRoll>().pipsSix;
-                newDice.GetComponent<DiceRoll>()._rollMaximum = 6;
+                newDice.GetComponent<DiceRoll>().maxRoll = 6;
                 // disable drag on dice
                 newDice.GetComponent<DiceDragHandler>().enabled = false;
                 // enable roll
@@ -276,7 +269,7 @@ public class DiceUIHandler : MonoBehaviour
             {
                 GameObject newDice = Instantiate(dice, slot.transform);
                 newDice.transform.GetChild(0).GetComponent<Image>().sprite = newDice.GetComponent<DiceRoll>().pipsSeven;
-                newDice.GetComponent<DiceRoll>()._rollMaximum = 7;
+                newDice.GetComponent<DiceRoll>().maxRoll = 7;
                 // disable drag on dice
                 newDice.GetComponent<DiceDragHandler>().enabled = false;
                 // enable roll

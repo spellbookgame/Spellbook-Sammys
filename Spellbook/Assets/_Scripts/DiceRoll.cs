@@ -40,9 +40,8 @@ public class DiceRoll : MonoBehaviour
     private Sprite[] _pipsArray;
     private int _rollAdd;
     private float _rollMult;
-
-    public int _rollMinimum;
-    public int _rollMaximum;
+    private int _rollMinimum;
+    private int _rollMaximum;
 
     // Grace Ko's additions: implementing spell/quest tracking
     private Button rollButton;

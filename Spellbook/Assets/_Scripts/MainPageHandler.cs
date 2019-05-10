@@ -60,6 +60,10 @@ public class MainPageHandler : MonoBehaviour
         }
 
         // TEST AREA - DELETE LATER
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            localPlayer.Spellcaster.CollectSpell(new Growth());
+        }
         if (Input.GetKeyDown(KeyCode.S))
         {
             SceneManager.LoadScene("MineScene");
