@@ -76,10 +76,10 @@ public class UICanvasHandler : MonoBehaviour
         });
 
         // initially position the buttons properly on main player scene
-        spellbookButton.transform.localPosition = new Vector3(-475, -1225, 0);
-        diceButton.transform.localPosition = new Vector3(0, -1225, 0);
-        inventoryButton.transform.localPosition = new Vector3(475, -1225, 0);
-        scanButton.transform.localPosition = new Vector3(0, -800, 0);
+        spellbookButton.transform.localPosition = new Vector3(-530, -1225, 0);
+        diceButton.transform.localPosition = new Vector3(-180, -1225, 0);
+        scanButton.transform.localPosition = new Vector3(180, -1225, 0);
+        inventoryButton.transform.localPosition = new Vector3(530, -1225, 0);
     }
 
     private void OnEnable()
@@ -141,18 +141,18 @@ public class UICanvasHandler : MonoBehaviour
         if(enabled)
         {
             // move main page buttons up
-            spellbookButton.transform.localPosition = new Vector3(-475, -1015, 0);
-            diceButton.transform.localPosition = new Vector3(0, -1015, 0);
-            inventoryButton.transform.localPosition = new Vector3(475, -1015, 0);
-            scanButton.transform.localPosition = new Vector3(0, -600, 0);
+            spellbookButton.transform.localPosition = new Vector3(-530, -1015, 0);
+            diceButton.transform.localPosition = new Vector3(-180, -1015, 0);
+            scanButton.transform.localPosition = new Vector3(180, -1015, 0);
+            inventoryButton.transform.localPosition = new Vector3(530, -1015, 0);
         }
         else
         {
             // move main page buttons down
-            spellbookButton.transform.localPosition = new Vector3(-475, -1225, 0);
-            diceButton.transform.localPosition = new Vector3(0, -1225, 0);
-            inventoryButton.transform.localPosition = new Vector3(475, -1225, 0);
-            scanButton.transform.localPosition = new Vector3(0, -800, 0);
+            spellbookButton.transform.localPosition = new Vector3(-530, -1225, 0);
+            diceButton.transform.localPosition = new Vector3(-180, -1225, 0);
+            scanButton.transform.localPosition = new Vector3(180, -1225, 0);
+            inventoryButton.transform.localPosition = new Vector3(530, -1225, 0);
         }
     }
 

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -30,7 +29,8 @@ public class DiceUIHandler : MonoBehaviour
         scanButton.onClick.AddListener(() =>
         {
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
-            OpenCloseDiceTray();
+            if(diceTrayOpen)
+                OpenCloseDiceTray();
             SceneManager.LoadScene("VuforiaScene");
         });
     }
@@ -71,7 +71,7 @@ public class DiceUIHandler : MonoBehaviour
             spellBookButton.transform.GetChild(0).gameObject.SetActive(false);
             inventoryButton.interactable = false;
             inventoryButton.transform.GetChild(0).gameObject.SetActive(false);
-            scanButton.gameObject.SetActive(false);
+            scanButton.GetComponent<Button>().interactable = false;
 
             diceTrayOpen = true;
         }
@@ -85,7 +85,7 @@ public class DiceUIHandler : MonoBehaviour
             spellBookButton.transform.GetChild(0).gameObject.SetActive(false);
             inventoryButton.interactable = false;
             inventoryButton.transform.GetChild(0).gameObject.SetActive(false);
-            scanButton.gameObject.SetActive(false);
+            scanButton.GetComponent<Button>().interactable = false;
 
             diceTrayOpen = true;
         }
@@ -101,7 +101,7 @@ public class DiceUIHandler : MonoBehaviour
             spellBookButton.transform.GetChild(0).gameObject.SetActive(true);
             inventoryButton.interactable = true;
             inventoryButton.transform.GetChild(0).gameObject.SetActive(true);
-            scanButton.gameObject.SetActive(true);
+            scanButton.GetComponent<Button>().interactable = true;
 
             diceTrayOpen = false;
         }
@@ -115,7 +115,7 @@ public class DiceUIHandler : MonoBehaviour
             spellBookButton.transform.GetChild(0).gameObject.SetActive(true);
             inventoryButton.interactable = true;
             inventoryButton.transform.GetChild(0).gameObject.SetActive(true);
-            scanButton.gameObject.SetActive(true);
+            scanButton.GetComponent<Button>().interactable = true;
 
             diceTrayOpen = false;
         }

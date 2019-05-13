@@ -5,7 +5,7 @@ public class MysticTranslocator : ItemObject
     public MysticTranslocator()
     {
         name = "Mystic Translocator";
-        sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/Infused Sapphire");
+        sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/Mystic Translocator");
         tier = 2;
         buyPrice = 2400;
         sellPrice = 720;
