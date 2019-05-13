@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 // spell for Arcanist class
-public class RuneConversion : Spell
+public class RuneConversion : Spell, IAllyCastable
 {
     public RuneConversion()
     {
@@ -44,5 +44,12 @@ public class RuneConversion : Spell
             player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
         }
+    }
+
+    
+
+    public void RecieveCastFromAlly(SpellCaster player)
+    {
+         PanelHolder.instance.displayNotify(sSpellName, "Discard one of your current runes. Draw a new one from the deck.", "MainPlayerScene");
     }
 }
