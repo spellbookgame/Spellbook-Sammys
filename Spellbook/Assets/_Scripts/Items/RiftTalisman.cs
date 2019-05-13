@@ -5,7 +5,7 @@ public class RiftTalisman : ItemObject
     public RiftTalisman()
     {
         name = "Rift Talisman";
-        sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/Infused Sapphire");
+        sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/Rift Talisman");
         tier = 1;
         buyPrice = 3500;
         sellPrice = 1050;
