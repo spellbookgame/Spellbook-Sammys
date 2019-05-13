@@ -2,7 +2,7 @@
 using UnityEngine;
 
 // spell for Elemental class
-public class FrozenTerrain : Spell
+public class FrozenTerrain : Spell, IAllyCastable
 {
     public FrozenTerrain()
     {
@@ -43,5 +43,10 @@ public class FrozenTerrain : Spell
             player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
         }
+    }
+
+    public void RecieveCastFromAlly(SpellCaster player)
+    {
+        PanelHolder.instance.displayNotify(sSpellName, "Everyone move their piece to the Forest.", "ForestScene");
     }
 }

@@ -2,7 +2,7 @@
 using UnityEngine;
 
 // spell for Elemental class
-public class TerraformingEarthquake : Spell
+public class TerraformingEarthquake : Spell, IAllyCastable
 {
     public TerraformingEarthquake()
     {
@@ -43,5 +43,10 @@ public class TerraformingEarthquake : Spell
             player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
         }
+    }
+
+    public void RecieveCastFromAlly(SpellCaster player)
+    {
+        PanelHolder.instance.displayNotify(sSpellName, "Move to the closest location to you. If you are already on a location, choose an adjacent one to move to.", "MainPlayerScene");
     }
 }

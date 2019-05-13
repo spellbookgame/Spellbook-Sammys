@@ -2,7 +2,7 @@
 using UnityEngine;
 
 // spell for Chronomancy class
-public class DejaVu : Spell
+public class DejaVu : Spell, IAllyCastable
 {
     public DejaVu()
     {
@@ -46,5 +46,13 @@ public class DejaVu : Spell
 
             player.numSpellsCastThisTurn++;
         }
+    }
+
+    public void RecieveCastFromAlly(SpellCaster player)
+    {
+        Spell newSpell = SpellTracker.instance.lastSpellCasted;
+        player.CollectMana(newSpell.iManaCost);
+        newSpell.SpellCast(player);
+        player.numSpellsCastThisTurn++;
     }
 }

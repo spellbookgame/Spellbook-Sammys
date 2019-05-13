@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class ReverseWounds : Spell, ICombatSpell
+public class ReverseWounds : Spell, ICombatSpell, IAllyCastable
 {
     public ReverseWounds()
     {
@@ -26,6 +26,11 @@ public class ReverseWounds : Spell, ICombatSpell
     }
 
     public void CombatCast()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void RecieveCastFromAlly(SpellCaster player)
     {
         throw new System.NotImplementedException();
     }

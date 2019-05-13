@@ -2,7 +2,7 @@
 using UnityEngine;
 
 // spell for Illusion class
-public class CheatOut : Spell
+public class CheatOut : Spell, IAllyCastable
 {
     public CheatOut()
     {
@@ -44,5 +44,10 @@ public class CheatOut : Spell
             player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
         }
+    }
+
+    public void RecieveCastFromAlly(SpellCaster player)
+    {
+        PanelHolder.instance.displayNotify(sSpellName, "Discard two of your runes. Draw 2 from the high tier rune deck.", "MainPlayerScene");
     }
 }

@@ -2,7 +2,7 @@
 using UnityEngine;
 
 // spell for Elemental class
-public class Growth : Spell
+public class Growth : Spell, IAllyCastable
 {
     public Growth()
     {
@@ -23,8 +23,8 @@ public class Growth : Spell
         // cast spell for free if Umbra's Eclipse is active
         if (SpellTracker.instance.CheckUmbra())
         {
-            PanelHolder.instance.displayNotify(sSpellName, "Everyone will receive a D7 to their mana next time they roll.", "MainPlayerScene");
-            player.activeSpells.Add(this);
+            //PanelHolder.instance.displayNotify(sSpellName, "Everyone will receive a D7 to their mana next time they roll.", "MainPlayerScene");
+            //player.activeSpells.Add(this);
 
             player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
@@ -38,11 +38,17 @@ public class Growth : Spell
             // subtract mana
             player.iMana -= iManaCost;
 
-            PanelHolder.instance.displayNotify(sSpellName, "Everyone will receive a D7 to their mana next time they roll.", "MainPlayerScene");
-            player.activeSpells.Add(this);
+            //PanelHolder.instance.displayNotify(sSpellName, "Everyone will receive a D7 to their mana next time they roll.", "MainPlayerScene");
+            //player.activeSpells.Add(this);
 
             player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
         }
+    }
+
+    public void RecieveCastFromAlly(SpellCaster player)
+    {
+        PanelHolder.instance.displayNotify(sSpellName, "Everyone will receive a D7 to their mana next time they roll.", "MainPlayerScene");
+        player.activeSpells.Add(this);
     }
 }

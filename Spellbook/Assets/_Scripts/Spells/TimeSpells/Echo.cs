@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 
 // spell for Chronomancy class
-public class Echo : Spell
+public class Echo : Spell, IAllyCastable
 {
     public Echo()
     {
@@ -45,5 +45,11 @@ public class Echo : Spell
             player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
         }
+    }
+
+    public void RecieveCastFromAlly(SpellCaster player)
+    {
+        PanelHolder.instance.displayNotify(sSpellName, "Next time you roll, you may roll again.", "MainPlayerScene");
+        player.activeSpells.Add(this);
     }
 }

@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 
 // spell for Chronomancy class
-public class Forecast : Spell
+public class Forecast : Spell, IAllyCastable
 {
     public Forecast()
     {
@@ -52,5 +52,14 @@ public class Forecast : Spell
             player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
         }
+    }
+
+    public void RecieveCastFromAlly(SpellCaster player)
+    {
+        List<ItemObject> itemList = GameObject.Find("ItemList").GetComponent<ItemList>().listOfItems;
+        ItemObject item = itemList[Random.Range(0, itemList.Count)];
+        SpellTracker.instance.forecastItem = item;
+        PanelHolder.instance.displayBoardScan("Forecast", "The next time you enter the Forest, you will gain 2 " + item.name + "s.", item.sprite, "MainPlayerScene");
+        player.activeSpells.Add(this);
     }
 }

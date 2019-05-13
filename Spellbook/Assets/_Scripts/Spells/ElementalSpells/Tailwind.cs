@@ -2,7 +2,7 @@
 using UnityEngine;
 
 // spell for Elemental class
-public class Tailwind : Spell
+public class Tailwind : Spell, IAllyCastable
 {
     public Tailwind()
     {
@@ -20,13 +20,16 @@ public class Tailwind : Spell
         requiredRunes.Add("Elementalist C Rune", 1);
     }
 
+    //Edit 5-13-2019: Commented out the displayNotify and activeSpells.Add lines
+    //Moved them to RecieveCastFromAlly() so the spellcaster who casted it doesn't add the spell twice
+    //TODO: Delete old code after testing.
     public override void SpellCast(SpellCaster player)
     {
         // cast spell for free if Umbra's Eclipse is active
         if (SpellTracker.instance.CheckUmbra())
         {
-            PanelHolder.instance.displayNotify(sSpellName, "Everyone will receive a D6 to their movement next time they roll.", "MainPlayerScene");
-            player.activeSpells.Add(this);
+            //PanelHolder.instance.displayNotify(sSpellName, "Everyone will receive a D6 to their movement next time they roll.", "MainPlayerScene");
+            //player.activeSpells.Add(this);
 
             player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
@@ -40,11 +43,17 @@ public class Tailwind : Spell
             // subtract mana
             player.iMana -= iManaCost;
 
-            PanelHolder.instance.displayNotify(sSpellName, "Everyone will receive a D6 to their movement next time they roll.", "MainPlayerScene");
-            player.activeSpells.Add(this);
+            //PanelHolder.instance.displayNotify(sSpellName, "Everyone will receive a D6 to their movement next time they roll.", "MainPlayerScene");
+            //player.activeSpells.Add(this);
 
             player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
         }
+    }
+
+    public void RecieveCastFromAlly(SpellCaster player)
+    {
+        PanelHolder.instance.displayNotify(sSpellName, "Everyone will receive a D6 to their movement next time they roll.", "MainPlayerScene");
+        player.activeSpells.Add(this);
     }
 }

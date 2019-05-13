@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // example spell for Arcanist class
-public class ArcanaHarvest : Spell
+public class ArcanaHarvest : Spell, IAllyCastable
 {
     public ArcanaHarvest()
     {
@@ -44,5 +44,9 @@ public class ArcanaHarvest : Spell
             player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
         }
+    }
+
+    public void RecieveCastFromAlly(SpellCaster player) {
+        PanelHolder.instance.displayNotify(sSpellName, "Move your piece to the Crystal Mines.", "VuforiaScene");
     }
 }

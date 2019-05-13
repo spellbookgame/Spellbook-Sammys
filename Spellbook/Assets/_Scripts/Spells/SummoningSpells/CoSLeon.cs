@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 // spell for Summoner class
-public class CoSLeon : Spell
+public class CoSLeon : Spell, IAllyCastable
 {
     public CoSLeon()
     {
@@ -57,5 +57,16 @@ public class CoSLeon : Spell
             player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
         }
+    }
+
+    public void RecieveCastFromAlly(SpellCaster player)
+    {
+        foreach (Spell s in player.chapter.spellsCollected)
+        {
+            if (s.combatSpell)
+                ++s.iCharges;
+        }
+
+        PanelHolder.instance.displayNotify("Leon's Shining", "You gained a charge in all your combat spells!", "MainPlayerScene");
     }
 }

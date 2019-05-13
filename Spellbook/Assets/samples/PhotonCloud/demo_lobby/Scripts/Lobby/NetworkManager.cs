@@ -586,7 +586,8 @@ namespace Bolt.Samples.Photon.Lobby
         public override void OnEvent(CastOnAllyEvent evnt)
         {
             playerSpellcaster = playerEntity.GetComponent<Player>().spellcaster;
-            if (playerSpellcaster.spellcasterID == evnt.ToSpellcaster)
+            // 8 stands for all spellcasters, the spell is targeting everyone
+            if (playerSpellcaster.spellcasterID == evnt.ToSpellcaster || evnt.ToSpellcaster == 8)
             {
                 //PanelHolder.instance.displayNotify(evnt.EventName, "Lose " + ((int)(evnt.PercentDmgDecimal * 100)) + "% health", "OK");
                 IAllyCastable spell = (IAllyCastable) AllSpellsDict.AllSpells[evnt.Spellname];

@@ -2,7 +2,7 @@
 using UnityEngine;
 
 // spell for Illusion class
-public class Playback : Spell
+public class Playback : Spell, IAllyCastable
 {
     public Playback()
     {
@@ -43,5 +43,10 @@ public class Playback : Spell
             player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
         }
+    }
+
+    public void RecieveCastFromAlly(SpellCaster player)
+    {
+        PanelHolder.instance.displayNotify(sSpellName, "Swap a rune from your hand with one from any city.", "MainPlayerScene");
     }
 }

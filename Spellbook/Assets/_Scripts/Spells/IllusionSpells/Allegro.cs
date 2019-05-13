@@ -2,7 +2,7 @@
 using UnityEngine;
 
 // spell for Illusion class
-public class Allegro : Spell
+public class Allegro : Spell, IAllyCastable
 {
     public Allegro()
     {
@@ -44,5 +44,11 @@ public class Allegro : Spell
             player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
         }
+    }
+
+    public void RecieveCastFromAlly(SpellCaster player)
+    {
+        PanelHolder.instance.displayNotify(sSpellName, "You and your ally will have an additional D6 to your movement next time you roll.", "MainPlayerScene");
+        player.activeSpells.Add(this);
     }
 }

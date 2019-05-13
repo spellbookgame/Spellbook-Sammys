@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 
 // example spell for Summoning class
-public class CoMUmbra : Spell
+public class CoMUmbra : Spell, IAllyCastable
 {
     public CoMUmbra()
     {
@@ -38,5 +38,11 @@ public class CoMUmbra : Spell
             player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
         }
+    }
+
+    public void RecieveCastFromAlly(SpellCaster player)
+    {
+        PanelHolder.instance.displayNotify(sSpellName, "Your next spell you cast will be free.", "MainPlayerScene");
+        player.activeSpells.Add(this);
     }
 }
