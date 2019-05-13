@@ -71,7 +71,8 @@ public class DiceUIHandler : MonoBehaviour
             spellBookButton.transform.GetChild(0).gameObject.SetActive(false);
             inventoryButton.interactable = false;
             inventoryButton.transform.GetChild(0).gameObject.SetActive(false);
-            scanButton.GetComponent<Button>().interactable = false;
+            scanButton.interactable = false;
+            scanButton.transform.GetChild(0).gameObject.SetActive(false);
 
             diceTrayOpen = true;
         }
@@ -85,7 +86,8 @@ public class DiceUIHandler : MonoBehaviour
             spellBookButton.transform.GetChild(0).gameObject.SetActive(false);
             inventoryButton.interactable = false;
             inventoryButton.transform.GetChild(0).gameObject.SetActive(false);
-            scanButton.GetComponent<Button>().interactable = false;
+            scanButton.interactable = false;
+            scanButton.transform.GetChild(0).gameObject.SetActive(false);
 
             diceTrayOpen = true;
         }
@@ -101,7 +103,8 @@ public class DiceUIHandler : MonoBehaviour
             spellBookButton.transform.GetChild(0).gameObject.SetActive(true);
             inventoryButton.interactable = true;
             inventoryButton.transform.GetChild(0).gameObject.SetActive(true);
-            scanButton.GetComponent<Button>().interactable = true;
+            scanButton.interactable = true;
+            scanButton.transform.GetChild(0).gameObject.SetActive(true);
 
             diceTrayOpen = false;
         }
@@ -115,7 +118,8 @@ public class DiceUIHandler : MonoBehaviour
             spellBookButton.transform.GetChild(0).gameObject.SetActive(true);
             inventoryButton.interactable = true;
             inventoryButton.transform.GetChild(0).gameObject.SetActive(true);
-            scanButton.GetComponent<Button>().interactable = true;
+            scanButton.interactable = true;
+            scanButton.transform.GetChild(0).gameObject.SetActive(true);
 
             diceTrayOpen = false;
         }
