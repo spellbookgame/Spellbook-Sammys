@@ -16,7 +16,6 @@ public class DiceUIHandler : MonoBehaviour
     [SerializeField] private Button endTurnButton;
 
     public bool diceTrayOpen;
-    private int numDice;
 
     public Button rollButton;
     public Button scanButton;
@@ -172,8 +171,6 @@ public class DiceUIHandler : MonoBehaviour
                         clone.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = clone.transform.GetChild(0).GetComponent<DiceRoll>().pipsNine;
                         clone.transform.GetChild(0).GetComponent<DiceRoll>().maxRoll = 9;
                     }
-                    // track num of dice to expand scroll rect
-                    ++numDice;
                 }
             }
         }
@@ -220,8 +217,6 @@ public class DiceUIHandler : MonoBehaviour
                         clone.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = clone.transform.GetChild(0).GetComponent<DiceRoll>().pipsNine;
                         clone.transform.GetChild(0).GetComponent<DiceRoll>().maxRoll = 9;
                     }
-                    // track num of dice to expand scroll rect
-                    ++numDice;
                 }
             }
         }
