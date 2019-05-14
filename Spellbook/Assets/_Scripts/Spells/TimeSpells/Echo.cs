@@ -47,7 +47,6 @@ public class Echo : Spell, IAllyCastable
                 PanelHolder.instance.displayNotify(sSpellName, "Next time you roll, you may roll again.", "MainPlayerScene");
                 player.activeSpells.Add(this);
             }
-            
 
             player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;

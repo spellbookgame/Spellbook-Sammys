@@ -47,7 +47,6 @@ public class CheatOut : Spell, IAllyCastable
                 PanelHolder.instance.displayNotify(sSpellName, "Discard two of your runes. Draw 2 from the high tier rune deck.", "MainPlayerScene");
             }
 
-
             player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
         }
