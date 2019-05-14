@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -12,6 +10,7 @@ public class SpellTracker : MonoBehaviour
 {
     public static SpellTracker instance = null;
 
+    // public bools to track specific spell attributes
     public ItemObject forecastItem;
     public Spell lastSpellCasted;
     public bool agendaActive;

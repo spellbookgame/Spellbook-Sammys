@@ -66,7 +66,7 @@ public class MainPageHandler : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
-            SceneManager.LoadScene("MineScene");
+            SceneManager.LoadScene("ShopScene");
         }
         if (Input.GetKeyDown(KeyCode.W))
         {
