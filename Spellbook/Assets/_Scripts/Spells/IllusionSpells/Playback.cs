@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using Bolt.Samples.Photon.Lobby;
+using System.Collections.Generic;
 using UnityEngine;
 
 // spell for Illusion class
 public class Playback : Spell, IAllyCastable
 {
+    SpellCaster player;
     public Playback()
     {
         iTier = 2;
@@ -21,10 +23,28 @@ public class Playback : Spell, IAllyCastable
 
     public override void SpellCast(SpellCaster player)
     {
+        this.player = player;
+        PanelHolder.instance.displayChooseSpellcaster(this);
+    }
+
+    public void RecieveCastFromAlly(SpellCaster player)
+    {
+        PanelHolder.instance.displayNotify(sSpellName, "Swap a rune from your hand with one from any city.", "MainPlayerScene");
+    }
+
+    public void SpellcastPhase2(int sID)
+    {
         // cast spell for free if Umbra's Eclipse is active
         if (SpellTracker.instance.CheckUmbra())
         {
-            PanelHolder.instance.displayNotify(sSpellName, "Swap a rune from your hand with one from any city.", "MainPlayerScene");
+            if (sID != player.spellcasterID)
+            {
+                NetworkManager.s_Singleton.CastOnAlly(player.spellcasterID, sID, sSpellName);
+            }
+            else
+            {
+                PanelHolder.instance.displayNotify(sSpellName, "Swap a rune from your hand with one from any city.", "MainPlayerScene");
+            }
 
             player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
@@ -38,15 +58,17 @@ public class Playback : Spell, IAllyCastable
             // subtract mana
             player.iMana -= iManaCost;
 
-            PanelHolder.instance.displayNotify(sSpellName, "Swap a rune from your hand with one from any city.", "MainPlayerScene");
+            if (sID != player.spellcasterID)
+            {
+                NetworkManager.s_Singleton.CastOnAlly(player.spellcasterID, sID, sSpellName);
+            }
+            else
+            {
+                PanelHolder.instance.displayNotify(sSpellName, "Swap a rune from your hand with one from any city.", "MainPlayerScene");
+            }
 
             player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
         }
-    }
-
-    public void RecieveCastFromAlly(SpellCaster player)
-    {
-        PanelHolder.instance.displayNotify(sSpellName, "Swap a rune from your hand with one from any city.", "MainPlayerScene");
     }
 }

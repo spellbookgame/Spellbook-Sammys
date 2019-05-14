@@ -189,6 +189,11 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
         determineTurnOrder(-1);
     }
 
+    public Bolt.NetworkArray_Integer GetSpellcasterList()
+    {
+        return state.SpellcasterList;
+    }
+
     public void onCollectedSpell(int spellcasterId, string spellName)
     {
         switch (spellcasterId)

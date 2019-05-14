@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using Bolt.Samples.Photon.Lobby;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 // spell for Alchemy class
-public class CharmingNegotiator : Spell
+public class CharmingNegotiator : Spell, IAllyCastable
 {
     public CharmingNegotiator()
     {
@@ -20,14 +21,20 @@ public class CharmingNegotiator : Spell
         requiredRunes.Add("Summoner B Rune", 1);
     }
 
+    public void RecieveCastFromAlly(SpellCaster player)
+    {
+        PanelHolder.instance.displayNotify("You cast " + sSpellName, "Next time you visit the shop, you will receive 50% discount.", "MainPlayerScene");
+        player.activeSpells.Add(this);
+    }
+
     public override void SpellCast(SpellCaster player)
     {
         // cast spell for free if Umbra's Eclipse is active
         if (SpellTracker.instance.CheckUmbra())
         {
-            PanelHolder.instance.displayNotify("You cast " + sSpellName, "Next time you visit the shop, you will receive 50% discount.", "MainPlayerScene");
-            player.activeSpells.Add(this);
-
+            //PanelHolder.instance.displayNotify("You cast " + sSpellName, "Next time you visit the shop, you will receive 50% discount.", "MainPlayerScene");
+            //player.activeSpells.Add(this);
+            NetworkManager.s_Singleton.CastOnAlly(player.spellcasterID, 8, sSpellName);
             player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
         }
@@ -40,11 +47,17 @@ public class CharmingNegotiator : Spell
             // subtract mana and glyph costs
             player.iMana -= iManaCost;
 
-            PanelHolder.instance.displayNotify("You cast " + sSpellName, "Next time you visit the shop, you will receive 50% discount.", "MainPlayerScene");
-            player.activeSpells.Add(this);
+            //PanelHolder.instance.displayNotify("You cast " + sSpellName, "Next time you visit the shop, you will receive 50% discount.", "MainPlayerScene");
+            //player.activeSpells.Add(this);
+            NetworkManager.s_Singleton.CastOnAlly(player.spellcasterID, 8, sSpellName);
 
             player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
         }
+    }
+
+    public void SpellcastPhase2(int sID)
+    {
+        //Will not implement.
     }
 }

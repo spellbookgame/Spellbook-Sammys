@@ -13,9 +13,66 @@ public class PlayerChooseUI : MonoBehaviour
     [SerializeField] private Button bElementalist;
     [SerializeField] private Button bSummoner;
     [SerializeField] private Button bIllusionist;
+    private Button[] buttons;
 
     public bool panelActive = false;
     public string panelID = "playerchoose";
+
+    private void Start()
+    {
+        //Ordered by ID num
+        buttons = new Button[] { bAlchemist, bArcanist, bElementalist, bChronomancer, bIllusionist, bSummoner };
+        Bolt.NetworkArray_Integer activeSpellcasters = NetworkGameState.instance.GetSpellcasterList();
+
+        //Spawn only buttons corresponding to the spellcasters in this game.
+        float yPos = 2975;
+        float dy = 1360;
+        for (int i = 0; i < activeSpellcasters.Length; i++)
+        {
+            if (activeSpellcasters[i] == 1)
+            {
+                Vector3 pos = buttons[i].gameObject.transform.localPosition;
+                pos.y = yPos;
+                buttons[i].gameObject.transform.localPosition = pos;
+                buttons[i].gameObject.SetActive(true);
+                yPos -= dy;
+            }
+        }
+    }
+
+    public void OnAlchemistClicked()
+    {
+        PanelHolder.instance.ChooseAlly(0);
+        DisablePanel();
+    }
+    public void OnArcanistClicked()
+    {
+        PanelHolder.instance.ChooseAlly(1);
+        DisablePanel();
+    }
+    public void OnElementalistClicked()
+    {
+        PanelHolder.instance.ChooseAlly(2);
+        DisablePanel();
+    }
+    public void OnChronomancerClicked()
+    {
+        PanelHolder.instance.ChooseAlly(3);
+        DisablePanel();
+    }
+    public void OnIllusionistClicked()
+    {
+        PanelHolder.instance.ChooseAlly(4);
+        DisablePanel();
+    }
+    public void OnSummonerClicked()
+    {
+        PanelHolder.instance.ChooseAlly(5);
+        DisablePanel();
+    }
+
+
+
 
     private void DisablePanel()
     {
@@ -49,7 +106,7 @@ public class PlayerChooseUI : MonoBehaviour
             DisablePanel();
         }
     }
-    
+
     private void OkClick()
     {
         SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);

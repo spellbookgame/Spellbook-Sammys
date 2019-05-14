@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Bolt.Samples.Photon.Lobby;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -22,18 +23,19 @@ public class CoSLeon : Spell, IAllyCastable
         requiredRunes.Add("Chronomancer A Rune", 1);
     }
 
+    //Cast on everyone, even yourself.
     public override void SpellCast(SpellCaster player)
     {
         if (SpellTracker.instance.CheckUmbra())
         {
-            foreach(Spell s in player.chapter.spellsCollected)
-            {
-                if (s.combatSpell)
-                    ++s.iCharges;
-            }
+            //foreach(Spell s in player.chapter.spellsCollected)
+            //{
+            //    if (s.combatSpell)
+            //        ++s.iCharges;
+            //}
 
-            PanelHolder.instance.displayNotify("Leon's Shining", "You gained a charge in all your combat spells!", "MainPlayerScene");
-
+            //PanelHolder.instance.displayNotify("Leon's Shining", "You gained a charge in all your combat spells!", "MainPlayerScene");
+            NetworkManager.s_Singleton.CastOnAlly(player.spellcasterID, 8, sSpellName);
             player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
         }
@@ -46,14 +48,14 @@ public class CoSLeon : Spell, IAllyCastable
             // subtract mana
             player.iMana -= iManaCost;
 
-            foreach (Spell s in player.chapter.spellsCollected)
-            {
-                if (s.combatSpell)
-                    ++s.iCharges;
-            }
+            //foreach (Spell s in player.chapter.spellsCollected)
+            //{
+            //    if (s.combatSpell)
+            //        ++s.iCharges;
+            //}
 
-            PanelHolder.instance.displayNotify("Leon's Shining", "You gained a charge in all your combat spells!", "MainPlayerScene");
-
+            //PanelHolder.instance.displayNotify("Leon's Shining", "You gained a charge in all your combat spells!", "MainPlayerScene");
+            NetworkManager.s_Singleton.CastOnAlly(player.spellcasterID, 8, sSpellName);
             player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
         }
@@ -68,5 +70,10 @@ public class CoSLeon : Spell, IAllyCastable
         }
 
         PanelHolder.instance.displayNotify("Leon's Shining", "You gained a charge in all your combat spells!", "MainPlayerScene");
+    }
+
+    public void SpellcastPhase2(int sID)
+    {
+        throw new System.NotImplementedException();
     }
 }

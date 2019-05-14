@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Bolt.Samples.Photon.Lobby;
+using System.Collections.Generic;
 using UnityEngine;
 
 // spell for Elemental class
@@ -25,7 +26,7 @@ public class Growth : Spell, IAllyCastable
         {
             //PanelHolder.instance.displayNotify(sSpellName, "Everyone will receive a D7 to their mana next time they roll.", "MainPlayerScene");
             //player.activeSpells.Add(this);
-
+            NetworkManager.s_Singleton.CastOnAlly(player.spellcasterID, 8, sSpellName);
             player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
         }
@@ -40,7 +41,7 @@ public class Growth : Spell, IAllyCastable
 
             //PanelHolder.instance.displayNotify(sSpellName, "Everyone will receive a D7 to their mana next time they roll.", "MainPlayerScene");
             //player.activeSpells.Add(this);
-
+            NetworkManager.s_Singleton.CastOnAlly(player.spellcasterID, 8, sSpellName);
             player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
         }
@@ -50,5 +51,10 @@ public class Growth : Spell, IAllyCastable
     {
         PanelHolder.instance.displayNotify(sSpellName, "Everyone will receive a D7 to their mana next time they roll.", "MainPlayerScene");
         player.activeSpells.Add(this);
+    }
+
+    public void SpellcastPhase2(int sID)
+    {
+        //Will not implement.
     }
 }

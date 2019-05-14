@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using Bolt.Samples.Photon.Lobby;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 // spell for Chronomancy class
 public class Forecast : Spell, IAllyCastable
 {
+    SpellCaster player;
     public Forecast()
     {
         iTier = 2;
@@ -22,14 +24,36 @@ public class Forecast : Spell, IAllyCastable
 
     public override void SpellCast(SpellCaster player)
     {
+        this.player = player;
+        PanelHolder.instance.displayChooseSpellcaster(this);
+    }
+
+    public void RecieveCastFromAlly(SpellCaster player)
+    {
+        List<ItemObject> itemList = GameObject.Find("ItemList").GetComponent<ItemList>().listOfItems;
+        ItemObject item = itemList[Random.Range(0, itemList.Count)];
+        SpellTracker.instance.forecastItem = item;
+        PanelHolder.instance.displayBoardScan("Forecast", "The next time you enter the Forest, you will gain 2 " + item.name + "s.", item.sprite, "MainPlayerScene");
+        player.activeSpells.Add(this);
+    }
+
+    public void SpellcastPhase2(int sID)
+    {
         // cast spell for free if Umbra's Eclipse is active
         if (SpellTracker.instance.CheckUmbra())
         {
-            List<ItemObject> itemList = GameObject.Find("ItemList").GetComponent<ItemList>().listOfItems;
-            ItemObject item = itemList[Random.Range(0, itemList.Count)];
-            SpellTracker.instance.forecastItem = item;
-            PanelHolder.instance.displayBoardScan("Forecast", "The next time you enter the Forest, you will gain 2 " + item.name + "s.", item.sprite, "MainPlayerScene");
-            player.activeSpells.Add(this);
+            if (sID != player.spellcasterID)
+            {
+                NetworkManager.s_Singleton.CastOnAlly(player.spellcasterID, sID, sSpellName);
+            }
+            else
+            {
+                List<ItemObject> itemList = GameObject.Find("ItemList").GetComponent<ItemList>().listOfItems;
+                ItemObject item = itemList[Random.Range(0, itemList.Count)];
+                SpellTracker.instance.forecastItem = item;
+                PanelHolder.instance.displayBoardScan("Forecast", "The next time you enter the Forest, you will gain 2 " + item.name + "s.", item.sprite, "MainPlayerScene");
+                player.activeSpells.Add(this);
+            }
 
             player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
@@ -43,23 +67,21 @@ public class Forecast : Spell, IAllyCastable
             // subtract mana
             player.iMana -= iManaCost;
 
-            List<ItemObject> itemList = GameObject.Find("ItemList").GetComponent<ItemList>().listOfItems;
-            ItemObject item = itemList[Random.Range(0, itemList.Count)];
-            SpellTracker.instance.forecastItem = item;
-            PanelHolder.instance.displayBoardScan("Forecast", "The next time you enter the Forest, you will gain 2 " + item.name + "s.", item.sprite, "MainPlayerScene");
-            player.activeSpells.Add(this);
+            if (sID != player.spellcasterID)
+            {
+                NetworkManager.s_Singleton.CastOnAlly(player.spellcasterID, sID, sSpellName);
+            }
+            else
+            {
+                List<ItemObject> itemList = GameObject.Find("ItemList").GetComponent<ItemList>().listOfItems;
+                ItemObject item = itemList[Random.Range(0, itemList.Count)];
+                SpellTracker.instance.forecastItem = item;
+                PanelHolder.instance.displayBoardScan("Forecast", "The next time you enter the Forest, you will gain 2 " + item.name + "s.", item.sprite, "MainPlayerScene");
+                player.activeSpells.Add(this);
+            }
 
             player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
         }
-    }
-
-    public void RecieveCastFromAlly(SpellCaster player)
-    {
-        List<ItemObject> itemList = GameObject.Find("ItemList").GetComponent<ItemList>().listOfItems;
-        ItemObject item = itemList[Random.Range(0, itemList.Count)];
-        SpellTracker.instance.forecastItem = item;
-        PanelHolder.instance.displayBoardScan("Forecast", "The next time you enter the Forest, you will gain 2 " + item.name + "s.", item.sprite, "MainPlayerScene");
-        player.activeSpells.Add(this);
     }
 }

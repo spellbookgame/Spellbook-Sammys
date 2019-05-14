@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
+﻿//using Bolt.Samples.Photon.Lobby;
+using Bolt.Samples.Photon.Lobby;
+using System.Collections.Generic;
 using UnityEngine;
 
 // spell for Elemental class
 public class Tailwind : Spell, IAllyCastable
 {
+    SpellCaster player;
     public Tailwind()
     {
         iTier = 1;
@@ -30,7 +33,7 @@ public class Tailwind : Spell, IAllyCastable
         {
             //PanelHolder.instance.displayNotify(sSpellName, "Everyone will receive a D6 to their movement next time they roll.", "MainPlayerScene");
             //player.activeSpells.Add(this);
-
+            NetworkManager.s_Singleton.CastOnAlly(player.spellcasterID, 8, sSpellName);
             player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
         }
@@ -45,15 +48,21 @@ public class Tailwind : Spell, IAllyCastable
 
             //PanelHolder.instance.displayNotify(sSpellName, "Everyone will receive a D6 to their movement next time they roll.", "MainPlayerScene");
             //player.activeSpells.Add(this);
-
+            NetworkManager.s_Singleton.CastOnAlly(player.spellcasterID, 8, sSpellName);
             player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
         }
+        
     }
 
     public void RecieveCastFromAlly(SpellCaster player)
     {
         PanelHolder.instance.displayNotify(sSpellName, "Everyone will receive a D6 to their movement next time they roll.", "MainPlayerScene");
         player.activeSpells.Add(this);
+    }
+
+    public void SpellcastPhase2(int sID)
+    {
+       //Will not implemented cause this spell targets everyone.
     }
 }
