@@ -11,6 +11,7 @@ public class PanelHolder : MonoBehaviour
     public QuestRewardUI questRewardPanel;
     public BoardScanUI boardScanPanel;
     public CrisisUI crisisPanel;
+    public PlayerChooseUI chooseSpellcasterPanel;
      
     
     public static PanelHolder instance = null;
@@ -91,6 +92,14 @@ public class PanelHolder : MonoBehaviour
         panelQueue.Enqueue(questPanel.panelID);
         Debug.Log("Queued: " + questPanel.panelID);
         questPanel.DisplayQuest(quest);
+    }
+
+    //Input: spell reference that allows player to cast spell on another player
+    public void displayChooseSpellcaster(IAllyCastable spell)
+    {
+        panelQueue.Enqueue(chooseSpellcasterPanel.panelID);
+        Debug.Log("Queued: " + chooseSpellcasterPanel.panelID);
+        //chooseSpellcasterPanel.DisplayQuest(quest);
     }
 
     public void displayQuestRewards(Quest quest)
