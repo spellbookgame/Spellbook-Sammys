@@ -5,13 +5,16 @@ using UnityEngine.SceneManagement;
 
 public class PanelHolder : MonoBehaviour
 {
+    //Used for casting a spell on ally.
+    private IAllyCastable currentSpell;
+
     public YourTurnUI yourTurnPanel;
     public NotifyUI notifyPanel;
     public QuestUI questPanel;
     public QuestRewardUI questRewardPanel;
     public BoardScanUI boardScanPanel;
     public CrisisUI crisisPanel;
-     
+    public PlayerChooseUI chooseSpellcasterPanel; 
     
     public static PanelHolder instance = null;
 
@@ -123,4 +126,21 @@ public class PanelHolder : MonoBehaviour
         Debug.Log("Queued: " + boardScanPanel.panelID);
         boardScanPanel.DisplayScanEvent(title, info, sprite, scene);
     }
+
+    //Input: spell reference that allows player to cast spell on another player
+    public void displayChooseSpellcaster(IAllyCastable spell)
+    {
+        currentSpell = spell;
+        panelQueue.Enqueue(chooseSpellcasterPanel.panelID);
+        Debug.Log("Queued: " + chooseSpellcasterPanel.panelID);
+        //chooseSpellcasterPanel.DisplayQuest(quest);
+    }
+
+    //Called from PlayerChooseUI when player chooses a spellcaster ally
+    //Input: the ally's spellcaster ID
+    public void ChooseAlly(int sID)
+    {
+        currentSpell.SpellcastPhase2(sID);
+    }
+
 }

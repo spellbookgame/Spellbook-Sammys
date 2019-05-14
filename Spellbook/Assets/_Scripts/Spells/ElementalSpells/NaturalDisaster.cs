@@ -11,7 +11,7 @@ public class NaturalDisaster : Spell, ICombatSpell
 
         combatSpell = true;
 
-        sSpellName = "NaturalDisaster";
+        sSpellName = "Natural Disaster";
         sSpellClass = "Elementalist";
         sSpellInfo = "If the enemy has less than half health left, instantly kill it. However, no loot will be earned from this battle.";
 

@@ -11,7 +11,7 @@ public class EyeOfTheStorm : Spell, ICombatSpell
 
         combatSpell = true;
 
-        sSpellName = "EyeOfTheStorm";
+        sSpellName = "Eye of the Storm";
         sSpellClass = "Elementalist";
         sSpellInfo = "Deal 6-18 damage and heal all allies by half the damage dealt.";
 

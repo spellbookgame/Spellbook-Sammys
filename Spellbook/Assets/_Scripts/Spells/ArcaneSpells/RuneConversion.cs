@@ -1,11 +1,13 @@
-﻿using System.Collections;
+﻿using Bolt.Samples.Photon.Lobby;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 // spell for Arcanist class
-public class RuneConversion : Spell
+public class RuneConversion : Spell, IAllyCastable
 {
+    SpellCaster player;
     public RuneConversion()
     {
         iTier = 3;
@@ -22,11 +24,28 @@ public class RuneConversion : Spell
 
     public override void SpellCast(SpellCaster player)
     {
+        this.player = player;
+        PanelHolder.instance.displayChooseSpellcaster(this);
+    }
+    
+    public void RecieveCastFromAlly(SpellCaster player)
+    {
+         PanelHolder.instance.displayNotify(sSpellName, "Discard one of your current runes. Draw a new one from the deck.", "MainPlayerScene");
+    }
+
+    public void SpellcastPhase2(int sID)
+    {
+       
         // cast spell for free if Umbra's Eclipse is active
         if (SpellTracker.instance.CheckUmbra())
         {
-            PanelHolder.instance.displayNotify(sSpellName, "Discard one of your current runes. Draw a new one from the deck.", "MainPlayerScene");
-
+            if(sID != player.spellcasterID)
+            {
+                NetworkManager.s_Singleton.CastOnAlly(player.spellcasterID, sID, sSpellName);
+            }
+            else { 
+                PanelHolder.instance.displayNotify(sSpellName, "Discard one of your current runes. Draw a new one from the deck.", "MainPlayerScene");
+            }
             player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
         }
@@ -39,8 +58,13 @@ public class RuneConversion : Spell
             // subtract mana and glyph costs
             player.iMana -= iManaCost;
 
-            PanelHolder.instance.displayNotify(sSpellName, "Discard one of your current runes. Draw a new one from the deck.", "MainPlayerScene");
-
+            if(sID != player.spellcasterID)
+            {
+                NetworkManager.s_Singleton.CastOnAlly(player.spellcasterID, sID, sSpellName);
+            }
+            else { 
+                PanelHolder.instance.displayNotify(sSpellName, "Discard one of your current runes. Draw a new one from the deck.", "MainPlayerScene");
+            }
             player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
         }

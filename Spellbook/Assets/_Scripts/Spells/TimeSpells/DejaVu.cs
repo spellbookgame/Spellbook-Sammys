@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using Bolt.Samples.Photon.Lobby;
+using System.Collections.Generic;
 using UnityEngine;
 
 // spell for Chronomancy class
-public class DejaVu : Spell
+public class DejaVu : Spell, IAllyCastable
 {
+    SpellCaster player;
     public DejaVu()
     {
         iTier = 1;
@@ -22,12 +24,33 @@ public class DejaVu : Spell
 
     public override void SpellCast(SpellCaster player)
     {
+        this.player = player;
+        PanelHolder.instance.displayChooseSpellcaster(this);
+    }
+
+    public void RecieveCastFromAlly(SpellCaster player)
+    {
+        Spell newSpell = SpellTracker.instance.lastSpellCasted;
+        player.CollectMana(newSpell.iManaCost);
+        newSpell.SpellCast(player);
+        player.numSpellsCastThisTurn++;
+    }
+
+    public void SpellcastPhase2(int sID)
+    {
         // cast spell for free if Umbra's Eclipse is active
         if (SpellTracker.instance.CheckUmbra())
         {
-            Spell newSpell = SpellTracker.instance.lastSpellCasted;
-            player.CollectMana(newSpell.iManaCost);
-            newSpell.SpellCast(player);
+            if (sID != player.spellcasterID)
+            {
+                NetworkManager.s_Singleton.CastOnAlly(player.spellcasterID, sID, sSpellName);
+            }
+            else
+            {
+                Spell newSpell = SpellTracker.instance.lastSpellCasted;
+                player.CollectMana(newSpell.iManaCost);
+                newSpell.SpellCast(player);
+            }
 
             player.numSpellsCastThisTurn++;
         }
@@ -39,10 +62,16 @@ public class DejaVu : Spell
         {
             // subtract mana
             player.iMana -= iManaCost;
-
-            Spell newSpell = SpellTracker.instance.lastSpellCasted;
-            player.CollectMana(newSpell.iManaCost);
-            newSpell.SpellCast(player);
+            if (sID != player.spellcasterID)
+            {
+                NetworkManager.s_Singleton.CastOnAlly(player.spellcasterID, sID, sSpellName);
+            }
+            else
+            {
+                Spell newSpell = SpellTracker.instance.lastSpellCasted;
+                player.CollectMana(newSpell.iManaCost);
+                newSpell.SpellCast(player);
+            }
 
             player.numSpellsCastThisTurn++;
         }

@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using Bolt.Samples.Photon.Lobby;
+using System.Collections.Generic;
 using UnityEngine;
 
 // spell for Elemental class
-public class Growth : Spell
+public class Growth : Spell, IAllyCastable
 {
     public Growth()
     {
@@ -23,9 +24,9 @@ public class Growth : Spell
         // cast spell for free if Umbra's Eclipse is active
         if (SpellTracker.instance.CheckUmbra())
         {
-            PanelHolder.instance.displayNotify(sSpellName, "Everyone will receive a D7 to their mana next time they roll.", "MainPlayerScene");
-            player.activeSpells.Add(this);
-
+            //PanelHolder.instance.displayNotify(sSpellName, "Everyone will receive a D7 to their mana next time they roll.", "MainPlayerScene");
+            //player.activeSpells.Add(this);
+            NetworkManager.s_Singleton.CastOnAlly(player.spellcasterID, 8, sSpellName);
             player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
         }
@@ -38,11 +39,22 @@ public class Growth : Spell
             // subtract mana
             player.iMana -= iManaCost;
 
-            PanelHolder.instance.displayNotify(sSpellName, "Everyone will receive a D7 to their mana next time they roll.", "MainPlayerScene");
-            player.activeSpells.Add(this);
-
+            //PanelHolder.instance.displayNotify(sSpellName, "Everyone will receive a D7 to their mana next time they roll.", "MainPlayerScene");
+            //player.activeSpells.Add(this);
+            NetworkManager.s_Singleton.CastOnAlly(player.spellcasterID, 8, sSpellName);
             player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
         }
+    }
+
+    public void RecieveCastFromAlly(SpellCaster player)
+    {
+        PanelHolder.instance.displayNotify(sSpellName, "Everyone will receive a D7 to their mana next time they roll.", "MainPlayerScene");
+        player.activeSpells.Add(this);
+    }
+
+    public void SpellcastPhase2(int sID)
+    {
+        //Will not implement.
     }
 }

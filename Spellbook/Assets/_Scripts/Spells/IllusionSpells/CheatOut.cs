@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using Bolt.Samples.Photon.Lobby;
+using System.Collections.Generic;
 using UnityEngine;
 
 // spell for Illusion class
-public class CheatOut : Spell
+public class CheatOut : Spell, IAllyCastable
 {
+    SpellCaster player;
     public CheatOut()
     {
         iTier = 1;
@@ -22,10 +24,28 @@ public class CheatOut : Spell
 
     public override void SpellCast(SpellCaster player)
     {
+        this.player = player;
+        PanelHolder.instance.displayChooseSpellcaster(this);
+    }
+
+    public void RecieveCastFromAlly(SpellCaster player)
+    {
+        PanelHolder.instance.displayNotify(sSpellName, "Discard two of your runes. Draw 2 from the high tier rune deck.", "MainPlayerScene");
+    }
+
+    public void SpellcastPhase2(int sID)
+    {
         // cast spell for free if Umbra's Eclipse is active
         if (SpellTracker.instance.CheckUmbra())
         {
-            PanelHolder.instance.displayNotify(sSpellName, "Discard two of your runes. Draw 2 from the high tier rune deck.", "MainPlayerScene");
+            if (sID != player.spellcasterID)
+            {
+                NetworkManager.s_Singleton.CastOnAlly(player.spellcasterID, sID, sSpellName);
+            }
+            else
+            {
+                PanelHolder.instance.displayNotify(sSpellName, "Discard two of your runes. Draw 2 from the high tier rune deck.", "MainPlayerScene");
+            }
 
             player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
@@ -39,7 +59,14 @@ public class CheatOut : Spell
             // subtract mana
             player.iMana -= iManaCost;
 
-            PanelHolder.instance.displayNotify(sSpellName, "Discard two of your runes. Draw 2 from the high tier rune deck.", "MainPlayerScene");
+            if (sID != player.spellcasterID)
+            {
+                NetworkManager.s_Singleton.CastOnAlly(player.spellcasterID, sID, sSpellName);
+            }
+            else
+            {
+                PanelHolder.instance.displayNotify(sSpellName, "Discard two of your runes. Draw 2 from the high tier rune deck.", "MainPlayerScene");
+            }
 
             player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
