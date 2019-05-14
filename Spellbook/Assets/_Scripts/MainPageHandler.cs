@@ -60,9 +60,13 @@ public class MainPageHandler : MonoBehaviour
         }
 
         // TEST AREA - DELETE LATER
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            localPlayer.Spellcaster.CollectSpell(new CrystalScent());
+        }
         if (Input.GetKeyDown(KeyCode.S))
         {
-            SceneManager.LoadScene("MineScene");
+            SceneManager.LoadScene("ShopScene");
         }
         if (Input.GetKeyDown(KeyCode.W))
         {

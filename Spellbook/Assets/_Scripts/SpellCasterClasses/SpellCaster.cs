@@ -32,7 +32,6 @@ public abstract class SpellCaster
     // misc attributes
     public string classType;
     public int spellcasterID;
-    public int itemsUsedThisTurn;
     public int numSpellsCastThisTurn;
     public bool hasAttacked;
     public bool hasRolled;
@@ -93,7 +92,7 @@ public abstract class SpellCaster
 
     public void AddToInventory(ItemObject newItem)
     {
-        if (inventory.Count >= 16)
+        if (inventory.Count >= 12)
             PanelHolder.instance.displayNotify("Too many items!", "Your inventory is full, you cannot hold any more items.", "OK");
         else
             inventory.Add(newItem);

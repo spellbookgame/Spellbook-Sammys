@@ -23,11 +23,15 @@ public class HollowCabochon : ItemObject
         }
         else
         {
+            // check to see if they have at least 1 non combat spell to put in
             bool hasNonCombatSpell = false;
             foreach (Spell spell in player.chapter.spellsCollected)
             {
                 if (!spell.combatSpell)
+                {
                     hasNonCombatSpell = true;
+                    break;
+                }
             }
 
             if (!hasNonCombatSpell)
@@ -35,7 +39,6 @@ public class HollowCabochon : ItemObject
             else
             {
                 player.RemoveFromInventory(this);
-                player.itemsUsedThisTurn++;
 
                 player.AddToInventory(new GlimmeringCabochon());
                 PanelHolder.instance.displayNotify("Hollow Cabochon", "Your Hollow Cabochon has turned into a Glimmering Cabochon!", "InventoryScene");

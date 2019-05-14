@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -17,7 +16,6 @@ public class DiceUIHandler : MonoBehaviour
     [SerializeField] private Button endTurnButton;
 
     public bool diceTrayOpen;
-    private int numDice;
 
     public Button rollButton;
     public Button scanButton;
@@ -30,7 +28,8 @@ public class DiceUIHandler : MonoBehaviour
         scanButton.onClick.AddListener(() =>
         {
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
-            OpenCloseDiceTray();
+            if(diceTrayOpen)
+                OpenCloseDiceTray();
             SceneManager.LoadScene("VuforiaScene");
         });
     }
@@ -71,7 +70,8 @@ public class DiceUIHandler : MonoBehaviour
             spellBookButton.transform.GetChild(0).gameObject.SetActive(false);
             inventoryButton.interactable = false;
             inventoryButton.transform.GetChild(0).gameObject.SetActive(false);
-            scanButton.gameObject.SetActive(false);
+            scanButton.interactable = false;
+            scanButton.transform.GetChild(0).gameObject.SetActive(false);
 
             diceTrayOpen = true;
         }
@@ -85,7 +85,8 @@ public class DiceUIHandler : MonoBehaviour
             spellBookButton.transform.GetChild(0).gameObject.SetActive(false);
             inventoryButton.interactable = false;
             inventoryButton.transform.GetChild(0).gameObject.SetActive(false);
-            scanButton.gameObject.SetActive(false);
+            scanButton.interactable = false;
+            scanButton.transform.GetChild(0).gameObject.SetActive(false);
 
             diceTrayOpen = true;
         }
@@ -101,7 +102,8 @@ public class DiceUIHandler : MonoBehaviour
             spellBookButton.transform.GetChild(0).gameObject.SetActive(true);
             inventoryButton.interactable = true;
             inventoryButton.transform.GetChild(0).gameObject.SetActive(true);
-            scanButton.gameObject.SetActive(true);
+            scanButton.interactable = true;
+            scanButton.transform.GetChild(0).gameObject.SetActive(true);
 
             diceTrayOpen = false;
         }
@@ -115,7 +117,8 @@ public class DiceUIHandler : MonoBehaviour
             spellBookButton.transform.GetChild(0).gameObject.SetActive(true);
             inventoryButton.interactable = true;
             inventoryButton.transform.GetChild(0).gameObject.SetActive(true);
-            scanButton.gameObject.SetActive(true);
+            scanButton.interactable = true;
+            scanButton.transform.GetChild(0).gameObject.SetActive(true);
 
             diceTrayOpen = false;
         }
@@ -141,35 +144,33 @@ public class DiceUIHandler : MonoBehaviour
                     if (kvp.Key.Equals("D4"))
                     {
                         clone.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = clone.transform.GetChild(0).GetComponent<DiceRoll>().pipsFour;
-                        clone.transform.GetChild(0).GetComponent<DiceRoll>()._rollMaximum = 4;
+                        clone.transform.GetChild(0).GetComponent<DiceRoll>().maxRoll = 4;
                     }
                     else if (kvp.Key.Equals("D5"))
                     {
                         clone.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = clone.transform.GetChild(0).GetComponent<DiceRoll>().pipsFive;
-                        clone.transform.GetChild(0).GetComponent<DiceRoll>()._rollMaximum = 5;
+                        clone.transform.GetChild(0).GetComponent<DiceRoll>().maxRoll = 5;
                     }
                     else if (kvp.Key.Equals("D6"))
                     {
                         clone.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = clone.transform.GetChild(0).GetComponent<DiceRoll>().pipsSix;
-                        clone.transform.GetChild(0).GetComponent<DiceRoll>()._rollMaximum = 6;
+                        clone.transform.GetChild(0).GetComponent<DiceRoll>().maxRoll = 6;
                     }
                     else if (kvp.Key.Equals("D7"))
                     {
                         clone.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = clone.transform.GetChild(0).GetComponent<DiceRoll>().pipsSeven;
-                        clone.transform.GetChild(0).GetComponent<DiceRoll>()._rollMaximum = 7;
+                        clone.transform.GetChild(0).GetComponent<DiceRoll>().maxRoll = 7;
                     }
                     else if (kvp.Key.Equals("D8"))
                     {
                         clone.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = clone.transform.GetChild(0).GetComponent<DiceRoll>().pipsEight;
-                        clone.transform.GetChild(0).GetComponent<DiceRoll>()._rollMaximum = 8;
+                        clone.transform.GetChild(0).GetComponent<DiceRoll>().maxRoll = 8;
                     }
                     else if (kvp.Key.Equals("D9"))
                     {
                         clone.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = clone.transform.GetChild(0).GetComponent<DiceRoll>().pipsNine;
-                        clone.transform.GetChild(0).GetComponent<DiceRoll>()._rollMaximum = 9;
+                        clone.transform.GetChild(0).GetComponent<DiceRoll>().maxRoll = 9;
                     }
-                    // track num of dice to expand scroll rect
-                    ++numDice;
                 }
             }
         }
@@ -189,48 +190,39 @@ public class DiceUIHandler : MonoBehaviour
                     if (kvp.Key.Equals("D4"))
                     {
                         clone.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = clone.transform.GetChild(0).GetComponent<DiceRoll>().pipsFour;
-                        clone.transform.GetChild(0).GetComponent<DiceRoll>()._rollMaximum = 4;
+                        clone.transform.GetChild(0).GetComponent<DiceRoll>().maxRoll = 4;
                     }
                     else if (kvp.Key.Equals("D5"))
                     {
                         clone.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = clone.transform.GetChild(0).GetComponent<DiceRoll>().pipsFive;
-                        clone.transform.GetChild(0).GetComponent<DiceRoll>()._rollMaximum = 5;
+                        clone.transform.GetChild(0).GetComponent<DiceRoll>().maxRoll = 5;
                     }
                     else if (kvp.Key.Equals("D6"))
                     {
                         clone.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = clone.transform.GetChild(0).GetComponent<DiceRoll>().pipsSix;
-                        clone.transform.GetChild(0).GetComponent<DiceRoll>()._rollMaximum = 6;
+                        clone.transform.GetChild(0).GetComponent<DiceRoll>().maxRoll = 6;
                     }
                     else if (kvp.Key.Equals("D7"))
                     {
                         clone.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = clone.transform.GetChild(0).GetComponent<DiceRoll>().pipsSeven;
-                        clone.transform.GetChild(0).GetComponent<DiceRoll>()._rollMaximum = 7;
+                        clone.transform.GetChild(0).GetComponent<DiceRoll>().maxRoll = 7;
                     }
                     else if (kvp.Key.Equals("D8"))
                     {
                         clone.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = clone.transform.GetChild(0).GetComponent<DiceRoll>().pipsEight;
-                        clone.transform.GetChild(0).GetComponent<DiceRoll>()._rollMaximum = 8;
+                        clone.transform.GetChild(0).GetComponent<DiceRoll>().maxRoll = 8;
                     }
                     else if (kvp.Key.Equals("D9"))
                     {
                         clone.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = clone.transform.GetChild(0).GetComponent<DiceRoll>().pipsNine;
-                        clone.transform.GetChild(0).GetComponent<DiceRoll>()._rollMaximum = 9;
+                        clone.transform.GetChild(0).GetComponent<DiceRoll>().maxRoll = 9;
                     }
-                    // track num of dice to expand scroll rect
-                    ++numDice;
                 }
             }
         }
 
         // force its position to be correct cause idk
         diceScrollContent.transform.localPosition = new Vector3(-665, -175, 0);
-
-        // expand scroll rect for each die that exceeds 4
-        /*if (numDice > 4)
-        {
-            RectTransform rect = diceScrollContent.GetComponent<RectTransform>();
-            rect.sizeDelta = new Vector2((float)rect.sizeDelta.x + (260 * (numDice - 4)), rect.sizeDelta.y);
-        }*/
     }
 
     private void RemoveDiceFromSlots()
@@ -258,7 +250,7 @@ public class DiceUIHandler : MonoBehaviour
             {
                 GameObject newDice = Instantiate(dice, slot.transform);
                 newDice.transform.GetChild(0).GetComponent<Image>().sprite = newDice.GetComponent<DiceRoll>().pipsSix;
-                newDice.GetComponent<DiceRoll>()._rollMaximum = 6;
+                newDice.GetComponent<DiceRoll>().maxRoll = 6;
                 // disable drag on dice
                 newDice.GetComponent<DiceDragHandler>().enabled = false;
                 // enable roll
@@ -276,7 +268,7 @@ public class DiceUIHandler : MonoBehaviour
             {
                 GameObject newDice = Instantiate(dice, slot.transform);
                 newDice.transform.GetChild(0).GetComponent<Image>().sprite = newDice.GetComponent<DiceRoll>().pipsSeven;
-                newDice.GetComponent<DiceRoll>()._rollMaximum = 7;
+                newDice.GetComponent<DiceRoll>().maxRoll = 7;
                 // disable drag on dice
                 newDice.GetComponent<DiceDragHandler>().enabled = false;
                 // enable roll

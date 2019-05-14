@@ -44,31 +44,43 @@ public class PlayerChooseUI : MonoBehaviour
     {
         PanelHolder.instance.ChooseAlly(0);
         DisablePanel();
+        PanelHolder.panelQueue.Dequeue();
+        PanelHolder.instance.CheckPanelQueue();
     }
     public void OnArcanistClicked()
     {
         PanelHolder.instance.ChooseAlly(1);
         DisablePanel();
+        PanelHolder.panelQueue.Dequeue();
+        PanelHolder.instance.CheckPanelQueue();
     }
     public void OnElementalistClicked()
     {
         PanelHolder.instance.ChooseAlly(2);
         DisablePanel();
+        PanelHolder.panelQueue.Dequeue();
+        PanelHolder.instance.CheckPanelQueue();
     }
     public void OnChronomancerClicked()
     {
         PanelHolder.instance.ChooseAlly(3);
         DisablePanel();
+        PanelHolder.panelQueue.Dequeue();
+        PanelHolder.instance.CheckPanelQueue();
     }
     public void OnIllusionistClicked()
     {
         PanelHolder.instance.ChooseAlly(4);
         DisablePanel();
+        PanelHolder.panelQueue.Dequeue();
+        PanelHolder.instance.CheckPanelQueue();
     }
     public void OnSummonerClicked()
     {
         PanelHolder.instance.ChooseAlly(5);
         DisablePanel();
+        PanelHolder.panelQueue.Dequeue();
+        PanelHolder.instance.CheckPanelQueue();
     }
 
 
@@ -84,7 +96,7 @@ public class PlayerChooseUI : MonoBehaviour
     }
 
     // used to notify players of various events. input a buttonClick string to change the onClick listener
-    public void DisplayPlayerChoose(string spellName)
+    public void DisplayPlayerChoose(/*string spellName*/)
     {
         // if current scene is Vuforia, change everything to image
         if (SceneManager.GetActiveScene().name.Equals("VuforiaScene"))

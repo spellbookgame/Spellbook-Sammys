@@ -40,9 +40,8 @@ public class DiceRoll : MonoBehaviour
     private Sprite[] _pipsArray;
     private int _rollAdd;
     private float _rollMult;
-
-    public int _rollMinimum;
-    public int _rollMaximum;
+    private int _rollMinimum;
+    private int _rollMaximum;
 
     // Grace Ko's additions: implementing spell/quest tracking
     private Button rollButton;
@@ -123,6 +122,7 @@ public class DiceRoll : MonoBehaviour
             // check roll values AFTER all spells are accounted for
             CheckMoveRoll(LastRoll);
             CheckManaRoll(LastRoll);
+            CheckHealRoll(LastRoll);
 
             // remove all temporary dice from player's inventory
             localPlayer.Spellcaster.tempDice.Clear();
@@ -156,9 +156,16 @@ public class DiceRoll : MonoBehaviour
         }
     }
 
-    private void CheckHealRoll()
+    private void CheckHealRoll(int rollValue)
     {
-        // do something
+        if(transform.parent.name.Equals("slot3"))
+        {
+            // heal by 4 if player rolls 4 or higher
+            if(rollValue >= 4)
+            {
+                localPlayer.Spellcaster.HealDamage(4);
+            }
+        }
     }
 
     // Internal Methods

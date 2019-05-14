@@ -7,13 +7,11 @@ using UnityEngine.UI;
 
 public class SwampSceneHandler : MonoBehaviour
 {
-    [SerializeField] private Button buffLandButton;
     [SerializeField] private Button blackMagicSpellButton;
     [SerializeField] private Button leaveButton;
     [SerializeField] private Text dialogueText;
 
     private bool requested;
-    private bool requestCompleted;
 
     private Player localPlayer;
     private ItemList itemList;
@@ -31,7 +29,6 @@ public class SwampSceneHandler : MonoBehaviour
         requiredItem = highTiers[Random.Range(0, highTiers.Count)];
 
         // add onclick listeners
-        buffLandButton.onClick.AddListener(BuffLand);
         blackMagicSpellButton.onClick.AddListener(BlackMagicSpell);
         leaveButton.onClick.AddListener(() =>
         {
@@ -41,40 +38,6 @@ public class SwampSceneHandler : MonoBehaviour
 
         QuestTracker.instance.TrackLocationQuest("location_swamp");
         QuestTracker.instance.TrackErrandQuest("location_swamp");
-    }
-
-    private void BuffLand()
-    {
-        SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
-
-        if (!requested)
-        {
-            dialogueText.text = "I require an item...";
-            buffLandButton.transform.GetChild(0).GetComponent<Text>().text = "Give an item!";
-            requested = true;
-        }
-        else if(requested)
-        {
-            if(localPlayer.Spellcaster.inventory.Count <= 0)
-            {
-                dialogueText.text = "Fool! You have no items to give. Leave my swamp!";
-            }
-            else
-            {
-                if(!requestCompleted)
-                {
-                    int randIndex = Random.Range(0, localPlayer.Spellcaster.inventory.Count - 1);
-                    string itemName = localPlayer.Spellcaster.inventory[randIndex].name;
-                    localPlayer.Spellcaster.RemoveFromInventory(localPlayer.Spellcaster.inventory[randIndex]);
-                    dialogueText.text = "I'll take your " + itemName + ". You will receive double mana from the land next round.";
-                    requestCompleted = true;
-                }
-                else
-                {
-                    dialogueText.text = "I only accept one request per visit.";
-                }
-            }
-        }
     }
 
     private void BlackMagicSpell()
@@ -99,40 +62,30 @@ public class SwampSceneHandler : MonoBehaviour
             }
             else
             {
-                // if player hasn't had a request completed yet
-                if(!requestCompleted)
+                // remove item from player's inventory
+                foreach(ItemObject i in localPlayer.Spellcaster.inventory)
                 {
-                    // remove item from player's inventory
-                    foreach(ItemObject i in localPlayer.Spellcaster.inventory)
+                    if(i.name.Equals(requiredItem.name))
                     {
-                        if(i.name.Equals(requiredItem.name))
-                        {
-                            localPlayer.Spellcaster.RemoveFromInventory(i);
-                            break;
-                        }
+                        localPlayer.Spellcaster.RemoveFromInventory(i);
+                        break;
                     }
-
-                    List<Spell> blackMagicSpells = new List<Spell>()
-                    {
-                        new HollowCreation(),
-                        new DarkRevelation(),
-                        new SpacialWarp(),
-                        new Fortune(),
-                        new Agenda()
-                    };
-
-                    Spell randomSpell = blackMagicSpells[Random.Range(0, blackMagicSpells.Count)];
-
-                    localPlayer.Spellcaster.chapter.spellsCollected.Add(randomSpell);
-                    PanelHolder.instance.displayNotify(randomSpell.sSpellName, "The Witch took your " + requiredItem.name + " and granted you the " 
-                                                        + randomSpell.sSpellName + " spell!", "MainPlayerScene");
-
-                    requestCompleted = true;
                 }
-                else
+
+                List<Spell> blackMagicSpells = new List<Spell>()
                 {
-                    dialogueText.text = "I only accept one request per visit.";
-                }
+                    new HollowCreation(),
+                    new DarkRevelation(),
+                    new SpacialWarp(),
+                    new Fortune(),
+                    new Agenda()
+                };
+
+                Spell randomSpell = blackMagicSpells[Random.Range(0, blackMagicSpells.Count)];
+
+                localPlayer.Spellcaster.chapter.spellsCollected.Add(randomSpell);
+                PanelHolder.instance.displayNotify(randomSpell.sSpellName, "The Witch took your " + requiredItem.name + " and granted you the " 
+                                                    + randomSpell.sSpellName + " spell!", "MainPlayerScene");
             }
         }
     }
