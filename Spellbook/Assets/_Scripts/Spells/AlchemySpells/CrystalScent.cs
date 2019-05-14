@@ -45,7 +45,6 @@ public class CrystalScent : Spell, IAllyCastable
                 PanelHolder.instance.displayNotify("You cast " + sSpellName, "Move your piece to the Marketplace.", "ShopScene");
             }
 
-
             player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
         }

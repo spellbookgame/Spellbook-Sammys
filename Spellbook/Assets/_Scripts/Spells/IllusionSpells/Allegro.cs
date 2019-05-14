@@ -37,8 +37,6 @@ public class Allegro : Spell, IAllyCastable
         // cast spell for free if Umbra's Eclipse is active
         if (SpellTracker.instance.CheckUmbra())
         {
-
-
             if (player.spellcasterID != sID)
             {
                 //Make sure to add it only once to this player's activespells
@@ -58,7 +56,6 @@ public class Allegro : Spell, IAllyCastable
         {
             // subtract mana
             player.iMana -= iManaCost;
-
 
             if (player.spellcasterID != sID)
             {

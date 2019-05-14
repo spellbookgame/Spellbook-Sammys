@@ -1,4 +1,4 @@
-﻿using Bolt.Samples.Photon.Lobby;
+using Bolt.Samples.Photon.Lobby;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
