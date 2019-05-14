@@ -96,22 +96,6 @@ public class PanelHolder : MonoBehaviour
         questPanel.DisplayQuest(quest);
     }
 
-    //Input: spell reference that allows player to cast spell on another player
-    public void displayChooseSpellcaster(IAllyCastable spell)
-    {
-        currentSpell = spell;
-        panelQueue.Enqueue(chooseSpellcasterPanel.panelID);
-        Debug.Log("Queued: " + chooseSpellcasterPanel.panelID);
-        //chooseSpellcasterPanel.DisplayQuest(quest);
-    }
-
-    //Called from PlayerChooseUI when player chooses a spellcaster ally
-    //Input: the ally's spellcaster ID
-    public void ChooseAlly(int sID)
-    {
-        currentSpell.SpellcastPhase2(sID);
-    }
-
     public void displayQuestRewards(Quest quest)
     {
         // close dice tray if it's open
@@ -142,4 +126,21 @@ public class PanelHolder : MonoBehaviour
         Debug.Log("Queued: " + boardScanPanel.panelID);
         boardScanPanel.DisplayScanEvent(title, info, sprite, scene);
     }
+
+    //Input: spell reference that allows player to cast spell on another player
+    public void displayChooseSpellcaster(IAllyCastable spell)
+    {
+        currentSpell = spell;
+        panelQueue.Enqueue(chooseSpellcasterPanel.panelID);
+        Debug.Log("Queued: " + chooseSpellcasterPanel.panelID);
+        //chooseSpellcasterPanel.DisplayQuest(quest);
+    }
+
+    //Called from PlayerChooseUI when player chooses a spellcaster ally
+    //Input: the ally's spellcaster ID
+    public void ChooseAlly(int sID)
+    {
+        currentSpell.SpellcastPhase2(sID);
+    }
+
 }
