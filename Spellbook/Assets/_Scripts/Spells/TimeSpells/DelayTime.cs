@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using Bolt.Samples.Photon.Lobby;
+using System.Collections.Generic;
 using UnityEngine;
 
 // spell for Chronomancy class
-public class DelayTime : Spell
+public class DelayTime : Spell, IAllyCastable
 {
     public DelayTime()
     {
@@ -25,9 +26,9 @@ public class DelayTime : Spell
         // cast spell for free if Umbra's Eclipse is active
         if (SpellTracker.instance.CheckUmbra())
         {
-            CrisisHandler.instance.roundsUntilCrisis++;
-            PanelHolder.instance.displayNotify(sSpellName, "The next crisis will come 1 turn later.", "MainPlayerScene");
-
+            //CrisisHandler.instance.roundsUntilCrisis++;
+            //PanelHolder.instance.displayNotify(sSpellName, "The next crisis will come 1 turn later.", "MainPlayerScene");
+            NetworkManager.s_Singleton.CastOnAlly(player.spellcasterID, 8, sSpellName);
             player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
         }
@@ -40,11 +41,22 @@ public class DelayTime : Spell
             // subtract mana
             player.iMana -= iManaCost;
 
-            CrisisHandler.instance.roundsUntilCrisis++;
-            PanelHolder.instance.displayNotify(sSpellName, "The next crisis will come 1 turn later.", "MainPlayerScene");
-
+            //CrisisHandler.instance.roundsUntilCrisis++;
+            //PanelHolder.instance.displayNotify(sSpellName, "The next crisis will come 1 turn later.", "MainPlayerScene");
+            NetworkManager.s_Singleton.CastOnAlly(player.spellcasterID, 8, sSpellName);
             player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
         }
+    }
+
+    public void RecieveCastFromAlly(SpellCaster player)
+    {
+        CrisisHandler.instance.roundsUntilCrisis++;
+        PanelHolder.instance.displayNotify(sSpellName, "The next crisis will come 1 turn later.", "MainPlayerScene");
+    }
+
+    public void SpellcastPhase2(int sID)
+    {
+        throw new System.NotImplementedException();
     }
 }

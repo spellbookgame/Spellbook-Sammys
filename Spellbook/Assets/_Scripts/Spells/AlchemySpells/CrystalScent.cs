@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using Bolt.Samples.Photon.Lobby;
+using System.Collections.Generic;
 using UnityEngine;
 
 // spell for Alchemy class
-public class CrystalScent : Spell
+public class CrystalScent : Spell, IAllyCastable
 {
+    SpellCaster player;
     public CrystalScent()
     {
         iTier = 3;
@@ -18,12 +20,30 @@ public class CrystalScent : Spell
         requiredRunes.Add("Alchemist D Rune", 1);
     }
 
+    public void RecieveCastFromAlly(SpellCaster player)
+    {
+        PanelHolder.instance.displayNotify("You cast " + sSpellName, "Move your piece to the Marketplace.", "ShopScene");
+    }
+
     public override void SpellCast(SpellCaster player)
-    {   
+    {
+        this.player = player;
+        PanelHolder.instance.displayChooseSpellcaster(this);
+    }
+
+    public void SpellcastPhase2(int sID)
+    {
         // cast spell for free if Umbra's Eclipse is active
         if (SpellTracker.instance.CheckUmbra())
         {
-            PanelHolder.instance.displayNotify("You cast " + sSpellName, "Move your piece to the Marketplace.", "ShopScene");
+            if (sID != player.spellcasterID)
+            {
+                NetworkManager.s_Singleton.CastOnAlly(player.spellcasterID, sID, sSpellName);
+            }
+            else
+            {
+                PanelHolder.instance.displayNotify("You cast " + sSpellName, "Move your piece to the Marketplace.", "ShopScene");
+            }
 
             player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
@@ -37,7 +57,14 @@ public class CrystalScent : Spell
             // subtract mana and glyph costs
             player.iMana -= iManaCost;
 
-            PanelHolder.instance.displayNotify("You cast " + sSpellName, "Move your piece to the Marketplace.", "ShopScene");
+            if (sID != player.spellcasterID)
+            {
+                NetworkManager.s_Singleton.CastOnAlly(player.spellcasterID, sID, sSpellName);
+            }
+            else
+            {
+                PanelHolder.instance.displayNotify("You cast " + sSpellName, "Move your piece to the Marketplace.", "ShopScene");
+            }
 
             player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
