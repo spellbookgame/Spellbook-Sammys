@@ -37,6 +37,7 @@ public class PanelHolder : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    // TODO: move CheckPanelQueue() to be called after a panel is added to queue
     private void Update()
     {
         if(GameObject.FindGameObjectWithTag("LocalPlayer"))
@@ -72,6 +73,8 @@ public class PanelHolder : MonoBehaviour
                 boardScanPanel.EnablePanel();
             else if (panelQueue.Peek().Equals(crisisPanel.panelID))
                 crisisPanel.EnablePanel();
+            else if (panelQueue.Peek().Equals(chooseSpellcasterPanel.panelID))
+                chooseSpellcasterPanel.EnablePanel();
         }
     }
 
@@ -133,7 +136,7 @@ public class PanelHolder : MonoBehaviour
         currentSpell = spell;
         panelQueue.Enqueue(chooseSpellcasterPanel.panelID);
         Debug.Log("Queued: " + chooseSpellcasterPanel.panelID);
-        //chooseSpellcasterPanel.DisplayQuest(quest);
+        chooseSpellcasterPanel.DisplayPlayerChoose();
     }
 
     //Called from PlayerChooseUI when player chooses a spellcaster ally
