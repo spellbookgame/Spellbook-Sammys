@@ -58,7 +58,10 @@ public class InventoryUI : MonoBehaviour
             // add onclick to use item
             buttonUse.onClick.AddListener(() => 
             {
-                item.UseItem(localPlayer.Spellcaster);
+                if (!localPlayer.bIsMyTurn)
+                    PanelHolder.instance.displayNotify("Not Your Turn", "You cannot use items when it is not your turn.", "OK");
+                else
+                    item.UseItem(localPlayer.Spellcaster);
             });
 
             infoPanelOpen = true;
