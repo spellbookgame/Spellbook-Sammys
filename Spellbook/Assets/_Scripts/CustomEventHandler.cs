@@ -144,6 +144,20 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
             case "location_capital":
                 SceneManager.LoadScene("ShopScene");
                 break;
+            case "location_shrine":
+                List<ItemObject> il = GameObject.Find("ItemList").GetComponent<ItemList>().listOfItems;
+                ItemObject item = il[UnityEngine.Random.Range(0, il.Count + 1)];
+                localPlayer.Spellcaster.AddToInventory(item);
+                PanelHolder.instance.displayBoardScan("Shrine", "The shrine has given you a " + item.name + "!", item.sprite, "MainPlayerScene");
+                break;
+            case "location_springs":
+                int healAmount = UnityEngine.Random.Range(2, 11);
+                localPlayer.Spellcaster.HealDamage(healAmount);
+                int manaAmount = UnityEngine.Random.Range(100, 1000);
+                localPlayer.Spellcaster.CollectMana(manaAmount);
+                PanelHolder.instance.displayNotify("Springs", "You rested in the springs and recovered " + healAmount.ToString() + 
+                                                    " health! You also found " + manaAmount.ToString() + " mana.", "MainPlayerScene");
+                break;
             #endregion
 
             default:

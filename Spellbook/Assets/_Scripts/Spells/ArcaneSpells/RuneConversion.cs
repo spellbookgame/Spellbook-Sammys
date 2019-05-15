@@ -33,9 +33,10 @@ public class RuneConversion : Spell, IAllyCastable
          PanelHolder.instance.displayNotify(sSpellName, "Discard one of your current runes. Draw a new one from the deck.", "MainPlayerScene");
     }
 
-    public void SpellcastPhase2(int sID)
+    public void SpellcastPhase2(int sID, SpellCaster player)
     {
-       
+        this.player = player;
+
         // cast spell for free if Umbra's Eclipse is active
         if (SpellTracker.instance.CheckUmbra())
         {

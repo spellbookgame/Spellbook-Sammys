@@ -44,12 +44,13 @@ public class SpellTracker : MonoBehaviour
         if (spellCaster.activeSpells.Any(x => x.sSpellName.Equals(spellName)))
         {
             // remove spell from active spells list once it wears off
-            foreach (Spell entry in spellCaster.chapter.spellsCollected)
+            foreach (Spell entry in spellCaster.activeSpells)
             {
                 if (entry.sSpellName.Equals(spellName))
                 {
                     spellCaster.activeSpells.Remove(entry);
                     Debug.Log(entry.sSpellName + " was removed from active spells list");
+                    break;
                 }
             }
         }
@@ -59,7 +60,9 @@ public class SpellTracker : MonoBehaviour
     public bool SpellIsActive(string spellName)
     {
         if (spellCaster.activeSpells.Any(x => x.sSpellName.Equals(spellName)))
+        {
             return true;
+        }
         else
             return false;
     }

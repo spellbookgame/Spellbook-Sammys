@@ -51,7 +51,7 @@ public class FrozenTerrain : Spell, IAllyCastable
         PanelHolder.instance.displayNotify(sSpellName, "Everyone move their piece to the Forest.", "ForestScene");
     }
 
-    public void SpellcastPhase2(int sID)
+    public void SpellcastPhase2(int sID, SpellCaster player)
     {
         throw new System.NotImplementedException();
     }

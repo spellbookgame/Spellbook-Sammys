@@ -18,11 +18,15 @@ public class PlayerChooseUI : MonoBehaviour
     public bool panelActive = false;
     public string panelID = "playerchoose";
 
+    SpellCaster player;
+
     private void Start()
     {
         //Ordered by ID num
         buttons = new Button[] { bAlchemist, bArcanist, bElementalist, bChronomancer, bIllusionist, bSummoner };
         Bolt.NetworkArray_Integer activeSpellcasters = NetworkGameState.instance.GetSpellcasterList();
+
+        player = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().Spellcaster;
 
         //Spawn only buttons corresponding to the spellcasters in this game.
         float yPos = 2975;
@@ -42,49 +46,46 @@ public class PlayerChooseUI : MonoBehaviour
 
     public void OnAlchemistClicked()
     {
-        PanelHolder.instance.ChooseAlly(0);
+        PanelHolder.instance.ChooseAlly(0, player);
         DisablePanel();
         PanelHolder.panelQueue.Dequeue();
         PanelHolder.instance.CheckPanelQueue();
     }
     public void OnArcanistClicked()
     {
-        PanelHolder.instance.ChooseAlly(1);
+        PanelHolder.instance.ChooseAlly(1, player);
         DisablePanel();
         PanelHolder.panelQueue.Dequeue();
         PanelHolder.instance.CheckPanelQueue();
     }
     public void OnElementalistClicked()
     {
-        PanelHolder.instance.ChooseAlly(2);
+        PanelHolder.instance.ChooseAlly(2, player);
         DisablePanel();
         PanelHolder.panelQueue.Dequeue();
         PanelHolder.instance.CheckPanelQueue();
     }
     public void OnChronomancerClicked()
     {
-        PanelHolder.instance.ChooseAlly(3);
+        PanelHolder.instance.ChooseAlly(3, player);
         DisablePanel();
         PanelHolder.panelQueue.Dequeue();
         PanelHolder.instance.CheckPanelQueue();
     }
     public void OnIllusionistClicked()
     {
-        PanelHolder.instance.ChooseAlly(4);
+        PanelHolder.instance.ChooseAlly(4, player);
         DisablePanel();
         PanelHolder.panelQueue.Dequeue();
         PanelHolder.instance.CheckPanelQueue();
     }
     public void OnSummonerClicked()
     {
-        PanelHolder.instance.ChooseAlly(5);
+        PanelHolder.instance.ChooseAlly(5, player);
         DisablePanel();
         PanelHolder.panelQueue.Dequeue();
         PanelHolder.instance.CheckPanelQueue();
     }
-
-
-
 
     private void DisablePanel()
     {
@@ -106,12 +107,6 @@ public class PlayerChooseUI : MonoBehaviour
         }
 
         gameObject.SetActive(true);
-
-        // for start of game
-        if (GameObject.Find("Proclamation Panel"))
-        {
-            DisablePanel();
-        }
 
         if (!PanelHolder.panelQueue.Peek().Equals(panelID))
         {

@@ -34,8 +34,10 @@ public class PotionofLuck : Spell, IAllyCastable
         PanelHolder.instance.displayChooseSpellcaster(this);
     }
 
-    public void SpellcastPhase2(int sID)
+    public void SpellcastPhase2(int sID, SpellCaster player)
     {
+        this.player = player;
+
         // cast spell for free if Umbra's Eclipse is active
         if (SpellTracker.instance.CheckUmbra())
         {

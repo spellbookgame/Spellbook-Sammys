@@ -55,7 +55,7 @@ public class DelayTime : Spell, IAllyCastable
         PanelHolder.instance.displayNotify(sSpellName, "The next crisis will come 1 turn later.", "MainPlayerScene");
     }
 
-    public void SpellcastPhase2(int sID)
+    public void SpellcastPhase2(int sID, SpellCaster player)
     {
         throw new System.NotImplementedException();
     }

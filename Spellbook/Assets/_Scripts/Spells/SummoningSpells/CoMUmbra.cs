@@ -35,8 +35,10 @@ public class CoMUmbra : Spell, IAllyCastable
         player.activeSpells.Add(this);
     }
 
-    public void SpellcastPhase2(int sID)
+    public void SpellcastPhase2(int sID, SpellCaster player)
     {
+        this.player = player;
+
         if (player.iMana < iManaCost)
         {
             PanelHolder.instance.displayNotify("Not enough Mana!", "You do not have enough mana to cast this spell.", "OK");

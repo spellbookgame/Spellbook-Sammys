@@ -24,8 +24,6 @@ public class MainPageHandler : MonoBehaviour
     
     [SerializeField] private Button spellbookButton;
     [SerializeField] private Button inventoryButton;
-    
-    [SerializeField] private GameObject proclamationPanel;
 
     private bool diceTrayOpen;
     private bool manaHasChanged;
@@ -62,7 +60,11 @@ public class MainPageHandler : MonoBehaviour
         // TEST AREA - DELETE LATER
         if (Input.GetKeyDown(KeyCode.G))
         {
-            localPlayer.Spellcaster.CollectSpell(new CrystalScent());
+            localPlayer.Spellcaster.CollectSpell(new Forecast());
+        }
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            localPlayer.Spellcaster.CollectSpell(new CollectorsDrink());
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
@@ -94,14 +96,8 @@ public class MainPageHandler : MonoBehaviour
         // disable dice button if it's not player's turn
         UICanvasHandler.instance.EnableDiceButton(localPlayer.bIsMyTurn);
 
-        // if it's not first turn of game, then destroy proclamation panel
-        if (localPlayer.Spellcaster.procPanelShown)
-        {
-            Destroy(proclamationPanel.gameObject);
-
-            // in case a panel didn't display during scan scene, display them in main scene
-            PanelHolder.instance.CheckPanelQueue();
-        }
+        // in case a panel didn't display during scan scene, display them in main scene
+        PanelHolder.instance.CheckPanelQueue();
 
         // create instances of QuestTracker/SpellTracker prefabs
         GameObject q = Instantiate(questTracker);
@@ -135,14 +131,6 @@ public class MainPageHandler : MonoBehaviour
             SoundManager.instance.PlaySingle(SoundManager.inventoryOpen);
             SceneManager.LoadScene("InventoryScene");
         });
-    }
-
-    // closing the proclamation panel
-    public void CloseProclamationPanel()
-    {
-        SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
-        localPlayer.Spellcaster.procPanelShown = true;
-        PanelHolder.instance.CheckPanelQueue();
     }
 
     public void DisplayMana(int manaCollected)

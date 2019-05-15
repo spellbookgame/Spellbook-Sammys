@@ -61,8 +61,8 @@ public class Tailwind : Spell, IAllyCastable
         player.activeSpells.Add(this);
     }
 
-    public void SpellcastPhase2(int sID)
+    public void SpellcastPhase2(int sID, SpellCaster player)
     {
-       //Will not implemented cause this spell targets everyone.
+        //Will not implemented cause this spell targets everyone.
     }
 }
