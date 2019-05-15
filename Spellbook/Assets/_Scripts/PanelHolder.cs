@@ -37,18 +37,6 @@ public class PanelHolder : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    // TODO: move CheckPanelQueue() to be called after a panel is added to queue
-    private void Update()
-    {
-        if(GameObject.FindGameObjectWithTag("LocalPlayer"))
-        {
-            // repeatedly checks panelqueue in case a new event comes up
-            if (GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().Spellcaster.procPanelShown)
-                if (panelQueue.Count > 0)
-                    CheckPanelQueue();
-        }
-    }
-
     // keep panelholder as topmost image
     public void SetPanelHolderLast()
     {
@@ -83,6 +71,7 @@ public class PanelHolder : MonoBehaviour
         panelQueue.Enqueue(yourTurnPanel.panelID);
         Debug.Log("Queued: " + yourTurnPanel.panelID);
         yourTurnPanel.Display();
+        CheckPanelQueue();
     }
 
     public void displayNotify(string title, string info, string buttonClick)
@@ -90,6 +79,7 @@ public class PanelHolder : MonoBehaviour
         panelQueue.Enqueue(notifyPanel.panelID);
         Debug.Log("Queued: " + notifyPanel.panelID);
         notifyPanel.DisplayNotify(title, info, buttonClick);
+        CheckPanelQueue();
     }
 
     public void displayQuest(Quest quest)
@@ -97,6 +87,7 @@ public class PanelHolder : MonoBehaviour
         panelQueue.Enqueue(questPanel.panelID);
         Debug.Log("Queued: " + questPanel.panelID);
         questPanel.DisplayQuest(quest);
+        CheckPanelQueue();
     }
 
     public void displayQuestRewards(Quest quest)
@@ -113,6 +104,7 @@ public class PanelHolder : MonoBehaviour
         panelQueue.Enqueue(questRewardPanel.panelID);
         Debug.Log("Queued: " + questRewardPanel.panelID);
         questRewardPanel.DisplayQuestRewards(quest);
+        CheckPanelQueue();
     }
 
     public void displayCrisis(string info, int rounds)
@@ -120,6 +112,7 @@ public class PanelHolder : MonoBehaviour
         panelQueue.Enqueue(crisisPanel.panelID);
         Debug.Log("Queued: " + crisisPanel.panelID);
         crisisPanel.DisplayCrisis(info, rounds);
+        CheckPanelQueue();
     }
 
     // delete after scenes for each board scan is created
@@ -128,6 +121,7 @@ public class PanelHolder : MonoBehaviour
         panelQueue.Enqueue(boardScanPanel.panelID);
         Debug.Log("Queued: " + boardScanPanel.panelID);
         boardScanPanel.DisplayScanEvent(title, info, sprite, scene);
+        CheckPanelQueue();
     }
 
     //Input: spell reference that allows player to cast spell on another player
@@ -137,13 +131,14 @@ public class PanelHolder : MonoBehaviour
         panelQueue.Enqueue(chooseSpellcasterPanel.panelID);
         Debug.Log("Queued: " + chooseSpellcasterPanel.panelID);
         chooseSpellcasterPanel.DisplayPlayerChoose();
+        CheckPanelQueue();
     }
 
     //Called from PlayerChooseUI when player chooses a spellcaster ally
     //Input: the ally's spellcaster ID
-    public void ChooseAlly(int sID)
+    public void ChooseAlly(int sID, SpellCaster player)
     {
-        currentSpell.SpellcastPhase2(sID);
+        currentSpell.SpellcastPhase2(sID, player);
     }
 
 }

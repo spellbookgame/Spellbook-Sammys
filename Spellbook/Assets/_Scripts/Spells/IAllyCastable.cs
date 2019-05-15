@@ -11,5 +11,5 @@ public interface IAllyCastable
 
     //There is a second part to calling Spellcast() for these types of spells.
     //Input: target ally spllcasterID to cast on
-    void SpellcastPhase2(int sID);
+    void SpellcastPhase2(int sID, SpellCaster player);
 }

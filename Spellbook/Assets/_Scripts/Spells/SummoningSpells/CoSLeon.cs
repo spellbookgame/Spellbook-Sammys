@@ -72,7 +72,7 @@ public class CoSLeon : Spell, IAllyCastable
         PanelHolder.instance.displayNotify("Leon's Shining", "You gained a charge in all your combat spells!", "MainPlayerScene");
     }
 
-    public void SpellcastPhase2(int sID)
+    public void SpellcastPhase2(int sID, SpellCaster player)
     {
         throw new System.NotImplementedException();
     }

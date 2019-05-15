@@ -29,11 +29,12 @@ public class GlimmeringCabochon : ItemObject
         }
 
         Spell spell = spells[Random.Range(0, spells.Count)];
+        IAllyCastable spellToCast = (IAllyCastable) spell;
 
         // give player mana to cast that spell
         player.CollectMana(spell.iManaCost);
 
         // cast the spell
-        spell.SpellCast(player);
+        spellToCast.SpellcastPhase2(player.spellcasterID, player);
     }
 }

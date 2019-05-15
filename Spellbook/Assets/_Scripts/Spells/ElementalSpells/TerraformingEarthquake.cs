@@ -32,8 +32,9 @@ public class TerraformingEarthquake : Spell, IAllyCastable
         PanelHolder.instance.displayNotify(sSpellName, "Move to the closest location to you. If you are already on a location, choose an adjacent one to move to.", "MainPlayerScene");
     }
 
-    public void SpellcastPhase2(int sID)
+    public void SpellcastPhase2(int sID, SpellCaster player)
     {
+        this.player = player;
         // cast spell for free if Umbra's Eclipse is active
         if (SpellTracker.instance.CheckUmbra())
         {

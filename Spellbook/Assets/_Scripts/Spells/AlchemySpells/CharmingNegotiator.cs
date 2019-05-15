@@ -56,7 +56,7 @@ public class CharmingNegotiator : Spell, IAllyCastable
         }
     }
 
-    public void SpellcastPhase2(int sID)
+    public void SpellcastPhase2(int sID, SpellCaster player)
     {
         //Will not implement.
     }

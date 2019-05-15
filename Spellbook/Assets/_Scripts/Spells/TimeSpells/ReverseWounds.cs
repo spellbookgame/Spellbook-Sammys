@@ -40,7 +40,7 @@ public class ReverseWounds : Spell, ICombatSpell, IAllyCastable
         //Nothing.
     }
 
-    public void SpellcastPhase2(int sID)
+    public void SpellcastPhase2(int sID, SpellCaster player)
     {
         throw new System.NotImplementedException();
     }

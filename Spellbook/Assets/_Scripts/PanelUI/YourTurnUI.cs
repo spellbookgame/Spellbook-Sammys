@@ -43,9 +43,6 @@ public class YourTurnUI : MonoBehaviour
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
             gameObject.SetActive(false);
 
-            // for start of game: give players a spell quest to start
-            QuestTracker.instance.GiveSpellQuest();
-
             // enable player's dice button
             UICanvasHandler.instance.EnableDiceButton(true);
 
@@ -56,7 +53,10 @@ public class YourTurnUI : MonoBehaviour
                 UICanvasHandler.instance.ActivateSpellbookButtons(false);
             }
 
-            if(PanelHolder.panelQueue.Count > 0)
+            // for start of game: give players a spell quest to start
+            QuestTracker.instance.GiveSpellQuest();
+
+            if (PanelHolder.panelQueue.Count > 0)
                 PanelHolder.panelQueue.Dequeue();
             PanelHolder.instance.CheckPanelQueue();
         });
