@@ -38,28 +38,16 @@ public class ForestSceneHandler : MonoBehaviour
         }
         else
         {
-            int r = Random.Range(0, 100);
-            Debug.Log("random number: " + r);
-            if(r <= 7)
+            List<ItemObject> items = itemList.listOfItems;
+            ItemObject randItem = items[Random.Range(0, items.Count)];
+            localPlayer.Spellcaster.AddToInventory(randItem);
+            PanelHolder.instance.displayBoardScan("You found an Item!", "You found a " + randItem.name + "!", randItem.sprite, "MainPlayerScene");
+
+            // if player used wax candle, add another copy of item
+            if (localPlayer.Spellcaster.waxCandleUsed)
             {
-                string[] items = new string[] { "Mimetic Vellum", "Rift Talisman", "Crystal Mirror" };
-                ItemObject item = itemList.GetItemFromName(items[Random.Range(0, 3)]);
-                PanelHolder.instance.displayBoardScan("You found an Item!", "You found a " + item.name + "!", item.sprite, "MainPlayerScene");
-                localPlayer.Spellcaster.AddToInventory(item);
-            }
-            else if(r > 7 && r < 40)
-            {
-                string[] items = new string[] { "Infused Sapphire", "Abyssal Ore", "Hollow Cabochon", "Mystic Translocator" };
-                ItemObject item = itemList.GetItemFromName(items[Random.Range(0, 4)]);
-                PanelHolder.instance.displayBoardScan("You found an Item!", "You found a " + item.name + "!", item.sprite, "MainPlayerScene");
-                localPlayer.Spellcaster.AddToInventory(item);
-            }
-            else
-            {
-                string[] items = new string[] { "Glowing Mushroom", "Wax Candle", "Aromatic Tea Leaves", "Opal Ammonite" };
-                ItemObject item = itemList.GetItemFromName(items[Random.Range(0, 4)]);
-                PanelHolder.instance.displayBoardScan("You found an Item!", "You found a " + item.name + "!", item.sprite, "MainPlayerScene");
-                localPlayer.Spellcaster.AddToInventory(item);
+                localPlayer.Spellcaster.AddToInventory(randItem);
+                localPlayer.Spellcaster.waxCandleUsed = false;
             }
         }
     }

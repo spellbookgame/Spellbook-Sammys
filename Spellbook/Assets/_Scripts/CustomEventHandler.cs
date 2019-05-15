@@ -145,10 +145,23 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
                 SceneManager.LoadScene("ShopScene");
                 break;
             case "location_shrine":
-                List<ItemObject> il = GameObject.Find("ItemList").GetComponent<ItemList>().listOfItems;
-                ItemObject item = il[UnityEngine.Random.Range(0, il.Count + 1)];
-                localPlayer.Spellcaster.AddToInventory(item);
-                PanelHolder.instance.displayBoardScan("Shrine", "The shrine has given you a " + item.name + "!", item.sprite, "MainPlayerScene");
+                ItemList itemList = GameObject.Find("ItemList").GetComponent<ItemList>();
+                List<ItemObject> il1 = itemList.tier1Items;
+                List<ItemObject> il2 = itemList.tier2Items;
+                List<ItemObject> il3 = itemList.tier3Items;
+
+                // give a random item based on percentage
+                int r = UnityEngine.Random.Range(0, 101);
+                ItemObject randItem;
+                if (r < 10)
+                    randItem = il1[UnityEngine.Random.Range(0, il1.Count)];
+                else if (r >= 10 && r < 40)
+                    randItem = il2[UnityEngine.Random.Range(0, il2.Count)];
+                else
+                    randItem = il3[UnityEngine.Random.Range(0, il3.Count)];
+
+                localPlayer.Spellcaster.AddToInventory(randItem);
+                PanelHolder.instance.displayBoardScan("Shrine", "The shrine has given you a " + randItem.name + "!", randItem.sprite, "MainPlayerScene");
                 break;
             case "location_springs":
                 int healAmount = UnityEngine.Random.Range(2, 11);

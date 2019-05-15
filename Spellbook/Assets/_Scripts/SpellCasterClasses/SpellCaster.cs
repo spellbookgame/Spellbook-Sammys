@@ -100,12 +100,6 @@ public abstract class SpellCaster
             inventory.Add(newItem);
             SpellTracker.instance.RemoveFromActiveSpells("Brew - Collector's Drink");
         }
-        // if player used wax candle and is in forest, add another copy of item
-        if(waxCandleUsed && SceneManager.GetActiveScene().name.Equals("ForestScene"))
-        {
-            inventory.Add(newItem);
-            waxCandleUsed = false;
-        }
     }
     public void RemoveFromInventory(ItemObject newItem)
     {
