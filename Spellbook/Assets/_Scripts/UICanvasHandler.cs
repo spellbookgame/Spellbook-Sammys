@@ -46,28 +46,30 @@ public class UICanvasHandler : MonoBehaviour
     // called once when UICanvasHandler is instantiated
     private void Start()
     {
-        
-
         // set onclick listeners once in the game
         spellbookMainButton.GetComponent<Button>().onClick.AddListener(() =>
         {
             SoundManager.instance.PlaySingle(SoundManager.pageturn);
             SceneManager.LoadScene("SpellbookScene");
+            ScaleSpellbookButtons("spellbook");
         });
         libraryButton.GetComponent<Button>().onClick.AddListener(() =>
         {
             SoundManager.instance.PlaySingle(SoundManager.pageturn);
             SceneManager.LoadScene("LibraryScene");
+            ScaleSpellbookButtons("library");
         });
         questButton.GetComponent<Button>().onClick.AddListener(() =>
         {
             SoundManager.instance.PlaySingle(SoundManager.pageturn);
             SceneManager.LoadScene("QuestLogScene");
+            ScaleSpellbookButtons("quest");
         });
         progressButton.GetComponent<Button>().onClick.AddListener(() =>
         {
             SoundManager.instance.PlaySingle(SoundManager.pageturn);
             SceneManager.LoadScene("SpellbookProgress");
+            ScaleSpellbookButtons("progress");
         });
         scanButton.GetComponent<Button>().onClick.AddListener(() =>
         {
@@ -170,6 +172,7 @@ public class UICanvasHandler : MonoBehaviour
     public void ActivateSpellbookButtons(bool enabled)
     {
         spellbookMainButton.SetActive(enabled);
+        ScaleSpellbookButtons("spellbook");     // to show you're in the spellbook page
         libraryButton.SetActive(enabled);
         questButton.SetActive(enabled);
         progressButton.SetActive(enabled);
@@ -199,5 +202,39 @@ public class UICanvasHandler : MonoBehaviour
     {
         combatButton.SetActive(false);
         SceneManager.LoadScene("CombatSceneV2");
+    }
+
+    // resize buttons based on which one is pressed
+    private void ScaleSpellbookButtons(string buttonName)
+    {
+        switch(buttonName)
+        {
+            case "spellbook":
+                spellbookMainButton.transform.localScale = new Vector3(1.2f, 1.2f, 0);
+                libraryButton.transform.localScale = new Vector3(1f, 1f, 0);
+                questButton.transform.localScale = new Vector3(1f, 1f, 0);
+                progressButton.transform.localScale = new Vector3(1f, 1f, 0);
+                break;
+            case "library":
+                spellbookMainButton.transform.localScale = new Vector3(1f, 1f, 0);
+                libraryButton.transform.localScale = new Vector3(1.2f, 1.2f, 0);
+                questButton.transform.localScale = new Vector3(1f, 1f, 0);
+                progressButton.transform.localScale = new Vector3(1f, 1f, 0);
+                break;
+            case "quest":
+                spellbookMainButton.transform.localScale = new Vector3(1f, 1f, 0);
+                libraryButton.transform.localScale = new Vector3(1f, 1f, 0);
+                questButton.transform.localScale = new Vector3(1.2f, 1.2f, 0);
+                progressButton.transform.localScale = new Vector3(1f, 1f, 0);
+                break;
+            case "progress":
+                spellbookMainButton.transform.localScale = new Vector3(1f, 1f, 0);
+                libraryButton.transform.localScale = new Vector3(1f, 1f, 0);
+                questButton.transform.localScale = new Vector3(1f, 1f, 0);
+                progressButton.transform.localScale = new Vector3(1.2f, 1.2f, 0);
+                break;
+            default:
+                break;
+        }
     }
 }

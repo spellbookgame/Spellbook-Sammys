@@ -25,8 +25,6 @@ public class YourTurnUI : MonoBehaviour
     {
         gameObject.SetActive(true);
 
-        Debug.Log("num of turns so far: " + GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().Spellcaster.NumOfTurnsSoFar);
-
         if (!PanelHolder.panelQueue.Peek().Equals(panelID))
         {
             DisablePanel();
