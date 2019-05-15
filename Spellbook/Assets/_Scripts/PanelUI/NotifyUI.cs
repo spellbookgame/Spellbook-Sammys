@@ -42,12 +42,6 @@ public class NotifyUI : MonoBehaviour
 
         gameObject.SetActive(true);
 
-        // if proclamation panel is found in the scene, disable this panel 
-        if (GameObject.Find("Proclamation Panel"))
-        {
-            DisablePanel();
-        }
-
         // if next panel in queue is NOT a notify panel, disable this panel
         if (!PanelHolder.panelQueue.Peek().Equals(panelID))
         {

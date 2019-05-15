@@ -87,9 +87,6 @@ public class PlayerChooseUI : MonoBehaviour
         PanelHolder.instance.CheckPanelQueue();
     }
 
-
-
-
     private void DisablePanel()
     {
         gameObject.SetActive(false);
@@ -110,12 +107,6 @@ public class PlayerChooseUI : MonoBehaviour
         }
 
         gameObject.SetActive(true);
-
-        // for start of game
-        if (GameObject.Find("Proclamation Panel"))
-        {
-            DisablePanel();
-        }
 
         if (!PanelHolder.panelQueue.Peek().Equals(panelID))
         {

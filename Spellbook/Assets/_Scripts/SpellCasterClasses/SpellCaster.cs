@@ -15,9 +15,6 @@ using UnityEngine.SceneManagement;
 
 public abstract class SpellCaster 
 {
-    // to track panel being open only once at start of game
-    public bool procPanelShown;
-
     public string matchname;
     public int numOfTurnsSoFar = 0;
     public int spacesTraveled = 0;
