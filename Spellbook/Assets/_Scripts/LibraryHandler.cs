@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -51,7 +49,8 @@ public class LibraryHandler : MonoBehaviour
 
     private void ShowSpellInfo(Spell spell)
     {
-        // if the panel still has glyphs in it, return them to the glyph container
+        SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+        // if the panel still has runes in it, return them to the rune container
         while(runePanel.transform.childCount > 0)
         {
             Transform child = runePanel.transform.GetChild(0);

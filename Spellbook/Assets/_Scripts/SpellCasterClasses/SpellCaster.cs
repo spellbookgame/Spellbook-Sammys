@@ -15,6 +15,8 @@ using UnityEngine.SceneManagement;
 
 public abstract class SpellCaster 
 {
+    public bool tutorialShown;
+
     public string matchname;
     public int numOfTurnsSoFar = 0;
     public int spacesTraveled = 0;
@@ -100,12 +102,6 @@ public abstract class SpellCaster
             inventory.Add(newItem);
             SpellTracker.instance.RemoveFromActiveSpells("Brew - Collector's Drink");
         }
-        // if player used wax candle and is in forest, add another copy of item
-        if(waxCandleUsed && SceneManager.GetActiveScene().name.Equals("ForestScene"))
-        {
-            inventory.Add(newItem);
-            waxCandleUsed = false;
-        }
     }
     public void RemoveFromInventory(ItemObject newItem)
     {
@@ -168,7 +164,7 @@ public abstract class SpellCaster
             // if chapter.spellsCollected already contains spell, give error notice
             if (chapter.spellsCollected.Any(x => x.sSpellName.Equals(spell.sSpellName)))
             {
-                PanelHolder.instance.displayNotify(spell.sSpellName, "You already have " + spell.sSpellName + ".", "OK");
+                PanelHolder.instance.displayNotify("Duplicate", "You already have " + spell.sSpellName + ".", "OK");
             }
             else
             {
@@ -179,7 +175,7 @@ public abstract class SpellCaster
                 savePlayerData(this);
 
                 // tell player that the spell is collected
-                PanelHolder.instance.displayNotify(spell.sSpellName, "You unlocked " + spell.sSpellName + "!", "OK");
+                PanelHolder.instance.displayNotify("Spell Collected!", "You unlocked " + spell.sSpellName + "!", "OK");
 
                 QuestTracker.instance.TrackSpellQuest(spell);
 

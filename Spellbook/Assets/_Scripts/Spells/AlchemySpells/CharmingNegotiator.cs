@@ -23,7 +23,7 @@ public class CharmingNegotiator : Spell, IAllyCastable
 
     public void RecieveCastFromAlly(SpellCaster player)
     {
-        PanelHolder.instance.displayNotify("You cast " + sSpellName, "Next time you visit the shop, you will receive 50% discount.", "MainPlayerScene");
+        PanelHolder.instance.displayNotify(sSpellName, "Next time you visit the shop, you will receive 50% discount.", "MainPlayerScene");
         player.activeSpells.Add(this);
     }
 

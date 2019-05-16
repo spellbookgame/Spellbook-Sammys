@@ -60,23 +60,15 @@ public class MainPageHandler : MonoBehaviour
         // TEST AREA - DELETE LATER
         if (Input.GetKeyDown(KeyCode.G))
         {
-            localPlayer.Spellcaster.CollectSpell(new Forecast());
+            localPlayer.Spellcaster.CollectSpell(new CrystalScent());
         }
-        if (Input.GetKeyDown(KeyCode.H))
+        if (Input.GetKeyDown(KeyCode.M))
         {
-            localPlayer.Spellcaster.CollectSpell(new CollectorsDrink());
+            SceneManager.LoadScene("MineScene");
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
             SceneManager.LoadScene("ShopScene");
-        }
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            SceneManager.LoadScene("AlchemyTownScene");
-        }
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            SceneManager.LoadScene("SwampScene");
         }
         if (Input.GetKeyDown(KeyCode.F))
         {

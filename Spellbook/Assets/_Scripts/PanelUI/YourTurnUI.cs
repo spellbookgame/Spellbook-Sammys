@@ -25,8 +25,6 @@ public class YourTurnUI : MonoBehaviour
     {
         gameObject.SetActive(true);
 
-        Debug.Log("num of turns so far: " + GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().Spellcaster.NumOfTurnsSoFar);
-
         if (!PanelHolder.panelQueue.Peek().Equals(panelID))
         {
             DisablePanel();
@@ -36,6 +34,10 @@ public class YourTurnUI : MonoBehaviour
         {
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
             gameObject.SetActive(false);
+
+            if (PanelHolder.panelQueue.Count > 0)
+                PanelHolder.panelQueue.Dequeue();
+            PanelHolder.instance.CheckPanelQueue();
 
             // enable player's dice button
             UICanvasHandler.instance.EnableDiceButton(true);
@@ -49,10 +51,6 @@ public class YourTurnUI : MonoBehaviour
 
             // for start of game: give players a spell quest to start
             QuestTracker.instance.GiveSpellQuest();
-
-            if (PanelHolder.panelQueue.Count > 0)
-                PanelHolder.panelQueue.Dequeue();
-            PanelHolder.instance.CheckPanelQueue();
         });
     }
 }
