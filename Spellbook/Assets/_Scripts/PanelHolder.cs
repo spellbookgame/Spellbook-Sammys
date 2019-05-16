@@ -48,6 +48,7 @@ public class PanelHolder : MonoBehaviour
     {
         if(panelQueue.Count > 0)
         {
+            Debug.Log("next in queue is: " + panelQueue.Peek());
             if (panelQueue.Peek().Equals(notifyPanel.panelID))
                 notifyPanel.EnablePanel();
             else if (panelQueue.Peek().Equals(questPanel.panelID))
