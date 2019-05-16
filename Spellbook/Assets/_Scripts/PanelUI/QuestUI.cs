@@ -96,6 +96,10 @@ public class QuestUI : MonoBehaviour
 
         gameObject.SetActive(false);
 
+        // for start of game: show tutorial prompt if player hasn't seen tutorial yet
+        if (!player.GetComponent<Player>().Spellcaster.tutorialShown)
+            UICanvasHandler.instance.ShowTutorialPrompt();
+
         if (PanelHolder.panelQueue.Count > 0)
             PanelHolder.panelQueue.Dequeue();
         PanelHolder.instance.CheckPanelQueue();

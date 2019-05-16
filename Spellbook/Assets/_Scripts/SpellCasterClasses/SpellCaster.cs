@@ -15,6 +15,8 @@ using UnityEngine.SceneManagement;
 
 public abstract class SpellCaster 
 {
+    public bool tutorialShown;
+
     public string matchname;
     public int numOfTurnsSoFar = 0;
     public int spacesTraveled = 0;

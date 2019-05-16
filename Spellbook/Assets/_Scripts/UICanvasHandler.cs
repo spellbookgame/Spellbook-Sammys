@@ -23,6 +23,7 @@ public class UICanvasHandler : MonoBehaviour
     [SerializeField] private DiceUIHandler diceUIHandler;
     [SerializeField] private GameObject combatButton;
     [SerializeField] private GameObject scanButton;
+    [SerializeField] private GameObject tutorialPromptPanel;
     
     #endregion
 
@@ -236,5 +237,10 @@ public class UICanvasHandler : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    public void ShowTutorialPrompt()
+    {
+        tutorialPromptPanel.SetActive(true);
     }
 }
