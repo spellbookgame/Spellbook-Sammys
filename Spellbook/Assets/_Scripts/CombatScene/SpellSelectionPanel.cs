@@ -63,7 +63,7 @@ public class SpellSelectionPanel : MonoBehaviour
             Color c1 = entry.Value.colorPrimary;
             Color c2 = entry.Value.colorSecondary;
             Color c3 = entry.Value.colorTertiary;
-            spellButtons[i++].GetComponent<UIAutoColor>().DecorateSpellButton(c1, c2, c3);
+            //spellButtons[i++].GetComponent<UIAutoColor>().DecorateSpellButton(c1, c2, c3);
         }
         SpellButton1.onClick.AddListener(clickedSpellButton1);
         SpellButton2.onClick.AddListener(clickedSpellButton2);

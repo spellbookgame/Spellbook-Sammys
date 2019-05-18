@@ -4,48 +4,42 @@ using UnityEngine.UI;
 
 public class SpellCollectionHandler : MonoBehaviour
 {
-    [SerializeField] private Button spellButton;
-    [SerializeField] private Button castButton;
+    [SerializeField] private GameObject spellButtonPrefab;
     [SerializeField] private GameObject spellPanel;
+    [SerializeField] private GameObject UIScrollable;
+    [SerializeField] private Sprite combatIcon;
+    [SerializeField] private Sprite nonCombatIcon;
+    [SerializeField] private Button castButton;
     [SerializeField] private Text noSpellsText;
     [SerializeField] private Text spellPanelTitle;
     [SerializeField] private Text spellPanelInfo;
 
     private bool spellPanelOpen;
-    private Color combatColor;
+    private UIScrollableController scrollController;
 
     Player localPlayer;
 
     private void Start()
     {
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
+        scrollController = UIScrollable.GetComponent<UIScrollableController>();
 
         if (localPlayer.Spellcaster.chapter.spellsCollected.Count > 0)
             noSpellsText.text = "";
 
-        combatColor = new Color();
-        ColorUtility.TryParseHtmlString("#253390", out combatColor);
-
-        int yPos = 105;
-        // add buttons for each spell the player has collected
         foreach(Spell s in localPlayer.Spellcaster.chapter.spellsCollected)
         {
-            Button newSpellButton = Instantiate(spellButton, GameObject.Find("Canvas").transform);
-            newSpellButton.GetComponentInChildren<Text>().text = s.sSpellName;
-            newSpellButton.transform.localPosition = new Vector3(0, yPos, 0);
-
-            // if it's a combat spell, change button/text color
+            GameObject spellButton = Instantiate(spellButtonPrefab);
+            UISpellButtonController buttonController = spellButton.GetComponent<UISpellButtonController>();
+            buttonController.SetTitle(s.sSpellName);
+            buttonController.SetText(s.sSpellInfo);
             if (s.combatSpell)
-            {
-                newSpellButton.GetComponent<Image>().color = combatColor;
-                newSpellButton.transform.GetChild(0).GetComponent<Text>().color = combatColor;
-            }
+                buttonController.SetIcon(combatIcon);
+            else
+                buttonController.SetIcon(nonCombatIcon);
 
-            // add listener to button
-            newSpellButton.onClick.AddListener(() => OpenSpellPanel(s));
-
-            // to position new button underneath prev button
-            yPos -= 200;
+            scrollController.AddElement(spellButton);
+            spellButton.GetComponent<Button>().onClick.AddListener(() => OpenSpellPanel(s));
         }
 
         // make spell panel last in hierarchy so it will appear over buttons

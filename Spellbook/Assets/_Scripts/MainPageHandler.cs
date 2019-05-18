@@ -61,6 +61,8 @@ public class MainPageHandler : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.G))
         {
             localPlayer.Spellcaster.CollectSpell(new CrystalScent());
+            localPlayer.Spellcaster.CollectSpell(new PotionofBlessing());
+            localPlayer.Spellcaster.CollectSpell(new DistilledPotion());
         }
         if (Input.GetKeyDown(KeyCode.M))
         {

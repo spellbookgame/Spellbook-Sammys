@@ -10,7 +10,6 @@ using UnityEngine;
 /// Written by Malcolm Riley
 /// CMPS 17X, Spring 2019
 /// </summary>
-[RequireComponent(typeof(SpriteRenderer))]
 public abstract class UIDissolveElement<T> : MonoBehaviour {
 
 	// Public Fields

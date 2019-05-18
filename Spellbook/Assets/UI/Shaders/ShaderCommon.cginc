@@ -3,6 +3,11 @@
  * Written by Malcolm Riley
  * UCSC CMPM 172, Spring 2019
  */
+ 
+// Luminance value of the passed color
+float Luma(fixed4 color) {
+	return color.a * ((color.r + color.g + color.b) / 3);
+}
 
 // Overlay blend function. Uses alpha of "first".
 fixed4 BlendOverlay(fixed4 first, fixed4 second) {
@@ -41,8 +46,7 @@ fixed4 BlendMultiply(fixed4 first, fixed4 second) {
 
 // Emulation of Photoshop "Colorize" function. Uses alpha of "first".
 fixed4 BlendColorize(fixed4 first, fixed4 second) {
-	float luma = first.a * ((first.r + first.g + first.b) / 3);
-	fixed4 result = luma * second;
+	fixed4 result = Luma(first) * second;
 	result.a = first.a;
 	return result;
 }
