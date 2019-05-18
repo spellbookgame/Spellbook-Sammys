@@ -13,7 +13,7 @@ public class CoSRigel : Spell
 
         combatSpell = false;
 
-        sSpellName = "Call of the Stars - Rigel's Ascension";
+        sSpellName = "Rigel's Ascension";
         sSpellClass = "Summoner";
         sSpellInfo = "Destroy 2 random items to summon a tier 1 item.";
 

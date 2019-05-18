@@ -12,7 +12,7 @@ public class CollectorsDrink : Spell
 
         combatSpell = false;
 
-        sSpellName = "Brew - Collector's Drink";
+        sSpellName = "Collector's Drink";
         sSpellClass = "Alchemist";
         sSpellInfo = "The next time you receive an item, receive an additional copy of it.";
 

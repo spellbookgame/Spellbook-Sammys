@@ -13,7 +13,7 @@ public class PotionofLuck : Spell, IAllyCastable
 
         combatSpell = false;
 
-        sSpellName = "Brew - Potion of Luck";
+        sSpellName = "Potion of Luck";
         sSpellClass = "Alchemist";
         sSpellInfo = "Give you and an ally an extra D9 next time you roll.";
 

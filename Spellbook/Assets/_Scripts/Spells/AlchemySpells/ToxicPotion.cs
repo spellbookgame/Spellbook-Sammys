@@ -12,7 +12,7 @@ public class ToxicPotion : Spell, ICombatSpell
 
         combatSpell = true;
 
-        sSpellName = "Brew - Toxic Potion";
+        sSpellName = "Toxic Potion";
         sSpellClass = "Alchemist";
         sSpellInfo = "Brew a toxic potion that will grant an additional 3 damage to your attacks for the duration of the fight.";
 
