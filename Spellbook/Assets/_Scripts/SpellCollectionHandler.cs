@@ -13,8 +13,8 @@ public class SpellCollectionHandler : MonoBehaviour
     [SerializeField] private Text noSpellsText;
     [SerializeField] private Text spellPanelTitle;
     [SerializeField] private Text spellPanelInfo;
+    [SerializeField] private Text spellDescription;
 
-    private bool spellPanelOpen;
     private UIScrollableController scrollController;
 
     Player localPlayer;
@@ -27,7 +27,13 @@ public class SpellCollectionHandler : MonoBehaviour
         if (localPlayer.Spellcaster.chapter.spellsCollected.Count > 0)
             noSpellsText.text = "";
 
-        foreach(Spell s in localPlayer.Spellcaster.chapter.spellsCollected)
+        // disable spell cast/charge if not player's turn
+        if (!localPlayer.bIsMyTurn)
+        {
+            castButton.interactable = false;
+        }
+
+        foreach (Spell s in localPlayer.Spellcaster.chapter.spellsCollected)
         {
             GameObject spellButton = Instantiate(spellButtonPrefab);
             UISpellButtonController buttonController = spellButton.GetComponent<UISpellButtonController>();
@@ -42,25 +48,16 @@ public class SpellCollectionHandler : MonoBehaviour
             spellButton.GetComponent<Button>().onClick.AddListener(() => OpenSpellPanel(s));
         }
 
-        // make spell panel last in hierarchy so it will appear over buttons
-        spellPanel.transform.SetAsLastSibling();
-
         // set panel holder as last sibling
         PanelHolder.instance.SetPanelHolderLast();
     }
 
-    private void Update()
-    {
-        // disable spell casting if it's not player's turn
-        if(!localPlayer.bIsMyTurn)
-        {
-            castButton.interactable = false;
-        }
-    }
-
     private void OpenSpellPanel(Spell spell)
     {
-        SoundManager.instance.PlaySingle(SoundManager.spellbookopen);
+        SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+
+        // reset cast button
+        castButton.onClick.RemoveAllListeners();
 
         string combat = "Non-Combat";
         if (spell.combatSpell)
@@ -73,42 +70,27 @@ public class SpellCollectionHandler : MonoBehaviour
 
         // set spell name and info
         spellPanelTitle.text = spell.sSpellName;
-        spellPanelInfo.text = "Cost: " + spell.iManaCost  + "  |  " + combat + "\n\n" + spell.sSpellInfo;
-
-        // add onclick listener to close button
-        spellPanel.transform.Find("button_exit").GetComponent<Button>().onClick.AddListener(CloseSpellPanel);
+        spellPanelInfo.text = "Cost: " + spell.iManaCost + "  |  " + combat;
+        if (spell.combatSpell)
+            spellPanelInfo.text = spellPanelInfo.text + "  |  Charges: " + spell.iCharges.ToString();
+        spellDescription.text = spell.sSpellInfo;
 
         // add onclick listener to cast button
         castButton.onClick.AddListener(() => OnCastClick(spell));
 
         spellPanel.SetActive(true);
-        spellPanelOpen = true;
     }
-    
-    private void CloseSpellPanel()
-    {
-        if(spellPanelOpen == true)
-        {
-            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
-            castButton.onClick.RemoveAllListeners();
-            spellPanel.SetActive(false);
-            spellPanelOpen = false;
-        }
-    }
-
     private void OnCastClick(Spell spell)
     {
         // if player has already cast 2 spells this turn and Agenda is not active
         if (localPlayer.Spellcaster.numSpellsCastThisTurn >= 2 && !SpellTracker.instance.agendaActive)
         {
             PanelHolder.instance.displayNotify("Too Many Spells", "You already cast 2 spells this turn.", "OK");
-            CloseSpellPanel();
         }
         // don't let player cast repeat spells
         else if (SpellTracker.instance.SpellIsActive(spell.sSpellName))
         {
             PanelHolder.instance.displayNotify("Already Active", spell.sSpellName + " is already active.", "OK");
-            CloseSpellPanel();
         }
         // if it's a combat spell, add a charge
         else if (spell.combatSpell)
@@ -119,7 +101,6 @@ public class SpellCollectionHandler : MonoBehaviour
         else
         {
             spell.SpellCast(localPlayer.Spellcaster);
-            CloseSpellPanel();
         }
     }
 }
