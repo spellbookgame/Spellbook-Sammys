@@ -8,6 +8,7 @@ public class QuestLogHandler : MonoBehaviour
 {
     [SerializeField] private Button exitButton;
     [SerializeField] private Button questButton;
+    [SerializeField] private Button previousQuestButton;
     [SerializeField] private Button closeButton;
     [SerializeField] private GameObject questInfoPanel;
     [SerializeField] private Text questName;
@@ -34,7 +35,7 @@ public class QuestLogHandler : MonoBehaviour
 
         closeButton.onClick.AddListener((ClosePanel));
 
-        int yPos = 130;
+        int yPos = 295;
         foreach (Quest q in localPlayer.Spellcaster.activeQuests)
         {
             Button newButton = Instantiate(questButton, GameObject.Find("Canvas").transform);
@@ -44,6 +45,12 @@ public class QuestLogHandler : MonoBehaviour
             newButton.onClick.AddListener(() => DisplayQuest(q));
 
             yPos -= 235;
+        }
+
+        if(QuestTracker.instance.previousQuest != null)
+        {
+            previousQuestButton.onClick.AddListener(() => DisplayQuest(QuestTracker.instance.previousQuest));
+            previousQuestButton.transform.GetChild(0).GetComponent<Text>().text = QuestTracker.instance.previousQuest.questName;
         }
 
         PanelHolder.instance.SetPanelHolderLast();
