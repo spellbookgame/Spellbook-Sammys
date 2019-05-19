@@ -17,7 +17,7 @@ public class RuneConversion : Spell, IAllyCastable
 
         sSpellName = "Rune Conversion";
         sSpellClass = "Arcanist";
-        sSpellInfo = "Discard one of your current runes in to draw one directly from the deck. Can cast on an ally.";
+        sSpellInfo = "Discard one of your current runes in to draw one directly from the low-tier deck. Can cast on an ally.";
 
         requiredRunes.Add("Arcanist A Rune", 1);
     }

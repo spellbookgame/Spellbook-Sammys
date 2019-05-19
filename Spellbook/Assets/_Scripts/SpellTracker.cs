@@ -69,7 +69,7 @@ public class SpellTracker : MonoBehaviour
 
     public bool CheckUmbra()
     {
-        if (spellCaster.activeSpells.Any(x => x.sSpellName.Equals("Call of the Moon - Umbra's Eclipse")))
+        if (spellCaster.activeSpells.Any(x => x.sSpellName.Equals("Umbra's Eclipse")))
         {
             RemoveFromActiveSpells("Umbra's Eclipse");
             return true;
@@ -81,13 +81,16 @@ public class SpellTracker : MonoBehaviour
     // called from ForestSceneHandler.cs
     public void DoForecast()
     {
-        // add 2 of the items into inventory
-        spellCaster.AddToInventory(forecastItem);
-        spellCaster.AddToInventory(forecastItem);
-        PanelHolder.instance.displayBoardScan("Forecast Active", "Because of Forecast, you found 2 " + forecastItem.name + "!", forecastItem.sprite, "MainPlayerScene");
+        if(forecastItem != null)
+        {
+            // add 2 of the items into inventory
+            spellCaster.AddToInventory(forecastItem);
+            spellCaster.AddToInventory(forecastItem);
+            PanelHolder.instance.displayBoardScan("Forecast Active", "Because of Forecast, you found 2 " + forecastItem.name + "!", forecastItem.sprite, "MainPlayerScene");
 
-        // reset forecast item and remove forecast from active spells list
-        forecastItem = null;
+            // reset forecast item and remove forecast from active spells list
+            forecastItem = null;
+        }
         RemoveFromActiveSpells("Forecast");
     }
 }

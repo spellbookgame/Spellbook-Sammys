@@ -25,7 +25,8 @@ public class GlimmeringCabochon : ItemObject
         foreach(Spell s in player.chapter.spellsCollected)
         {
             if (!s.combatSpell)
-                spells.Add(s);
+                if(!s.sSpellName.Equals("Deja Vu"))     // don't allow cabochon to cast Deja vu (too complicated)
+                    spells.Add(s);
         }
 
         Spell spell = spells[Random.Range(0, spells.Count)];
