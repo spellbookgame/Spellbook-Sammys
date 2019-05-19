@@ -60,9 +60,8 @@ public class MainPageHandler : MonoBehaviour
         // TEST AREA - DELETE LATER
         if (Input.GetKeyDown(KeyCode.G))
         {
+            localPlayer.Spellcaster.CollectSpell(new CharmingNegotiator());
             localPlayer.Spellcaster.CollectSpell(new CrystalScent());
-            localPlayer.Spellcaster.CollectSpell(new PotionofBlessing());
-            localPlayer.Spellcaster.CollectSpell(new DistilledPotion());
         }
         if (Input.GetKeyDown(KeyCode.M))
         {

@@ -56,13 +56,13 @@ public class DiceUIHandler : MonoBehaviour
             PopulateScrollRect();
 
             // if player has Tailwind active, add a D6 to movement slot
-            if (SpellTracker.instance.SpellIsActive("Tailwind"))
+            if (SpellTracker.instance.SpellIsActive(new Tailwind()))
                 D6ToMovement();
             // if player has Allegro active, add a D6 to movement slot
-            if (SpellTracker.instance.SpellIsActive("Allegro"))
+            if (SpellTracker.instance.SpellIsActive(new Allegro()))
                 D6ToMovement();
             // if player has Growth active, add a D7 to mana slot
-            if (SpellTracker.instance.SpellIsActive("Growth"))
+            if (SpellTracker.instance.SpellIsActive(new Growth()))
                 D7ToMana();
 
             // disable spellbook/inventory buttons while dice tray is open

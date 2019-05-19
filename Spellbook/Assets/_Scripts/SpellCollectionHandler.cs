@@ -88,7 +88,7 @@ public class SpellCollectionHandler : MonoBehaviour
             PanelHolder.instance.displayNotify("Too Many Spells", "You already cast 2 spells this turn.", "OK");
         }
         // don't let player cast repeat spells
-        else if (SpellTracker.instance.SpellIsActive(spell.sSpellName))
+        else if (SpellTracker.instance.SpellIsActive(spell))
         {
             PanelHolder.instance.displayNotify("Already Active", spell.sSpellName + " is already active.", "OK");
         }

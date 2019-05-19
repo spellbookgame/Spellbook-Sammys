@@ -57,9 +57,9 @@ public class SpellTracker : MonoBehaviour
     }
 
     // checks to see if spell is in player's list of active spells
-    public bool SpellIsActive(string spellName)
+    public bool SpellIsActive(Spell s)
     {
-        if (spellCaster.activeSpells.Any(x => x.sSpellName.Equals(spellName)))
+        if (spellCaster.activeSpells.Any(x => x.sSpellName.Equals(s.sSpellName)))
         {
             return true;
         }
@@ -71,7 +71,7 @@ public class SpellTracker : MonoBehaviour
     {
         if (spellCaster.activeSpells.Any(x => x.sSpellName.Equals("Call of the Moon - Umbra's Eclipse")))
         {
-            RemoveFromActiveSpells("Call of the Moon - Umbra's Eclipse");
+            RemoveFromActiveSpells("Umbra's Eclipse");
             return true;
         }
         else

@@ -13,7 +13,7 @@ public class GlimmeringCabochon : ItemObject
         buyPrice = 0;
         sellPrice = 0;
         flavorDescription = "Magical fire burns just beneath the surface of this peculiar jewel.";
-        mechanicsDescription = "Casts the spell infused into the cabochon for free.";
+        mechanicsDescription = "Casts the spell infused into the cabochon for free (excluding allies).";
     }
 
     public override void UseItem(SpellCaster player)
@@ -33,12 +33,9 @@ public class GlimmeringCabochon : ItemObject
         if(spell is IAllyCastable)
         {
             IAllyCastable spellToCast = (IAllyCastable)spell;
-            
-            // give player mana to cast that spell
-            player.CollectMana(spell.iManaCost);
 
             // cast the spell
-            spellToCast.SpellcastPhase2(player.spellcasterID, player);
+            spellToCast.RecieveCastFromAlly(player);
         }
         else
         {

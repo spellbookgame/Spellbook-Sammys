@@ -97,7 +97,7 @@ public class DiceRoll : MonoBehaviour
             SetDefaults();
 
             // if Echo is active, player may reroll one more time
-            if (SpellTracker.instance.SpellIsActive("Echo"))
+            if (SpellTracker.instance.SpellIsActive(new Echo()))
             {
                 if (pressedNum <= 1)
                 {
@@ -114,7 +114,7 @@ public class DiceRoll : MonoBehaviour
             }
 
             // Remove active spells after rolling dice
-            SpellTracker.instance.RemoveFromActiveSpells("Brew - Potion of Luck");
+            SpellTracker.instance.RemoveFromActiveSpells("Potion of Luck");
             SpellTracker.instance.RemoveFromActiveSpells("Tailwind");
             SpellTracker.instance.RemoveFromActiveSpells("Allegro");
             SpellTracker.instance.RemoveFromActiveSpells("Growth");

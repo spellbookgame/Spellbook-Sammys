@@ -50,7 +50,7 @@ public class Shop : MonoBehaviour
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
 
             // remove Charming Negotiator from active spells if it's active
-            SpellTracker.instance.RemoveFromActiveSpells("Brew - Charming Negotiator");
+            SpellTracker.instance.RemoveFromActiveSpells("Potion of Charm");
 
             SceneManager.LoadScene("MainPlayerScene");
         });
@@ -136,16 +136,23 @@ public class Shop : MonoBehaviour
             PopulateSaleUI(item3);
             BuyButton.gameObject.SetActive(true);
         });
+
+        // if Charming Negotiator is active, discount sale price by 50%
+        if (SpellTracker.instance.SpellIsActive(new CharmingNegotiator()))
+        {
+            List<ItemObject> itemsList = new List<ItemObject>()
+            {
+                item0, item1, item2, item3
+            };
+            foreach(ItemObject i in itemsList)
+            {
+                i.buyPrice = (int)(i.buyPrice * 0.5);
+            }
+        }
     }
 
     private void PopulateSaleUI(ItemObject item)
     {
-        // if Charming Negotiator is active, discount sale price by 30%
-        if (SpellTracker.instance.SpellIsActive("Brew - Charming Negotiator"))
-        {
-            item.buyPrice = (int) (item.buyPrice * 0.5);
-        }
-
         currentSelected = item;
         text_itemName.text = item.name;
         text_itemPrice.text = item.buyPrice + "";
