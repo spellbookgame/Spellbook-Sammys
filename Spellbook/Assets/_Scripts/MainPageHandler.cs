@@ -57,7 +57,7 @@ public class MainPageHandler : MonoBehaviour
             manaHasChanged = false;
         }
 
-        // TEST AREA - DELETE LATER
+        // ------------ TEST AREA - DELETE LATER ----------
         if (Input.GetKeyDown(KeyCode.G))
         {
             localPlayer.Spellcaster.CollectSpell(new Allegro());
@@ -78,6 +78,7 @@ public class MainPageHandler : MonoBehaviour
         {
             SceneManager.LoadScene("IllusionTownScene");
         }
+        // -------------------------------------------------
     }
 
     public void setupMainPage()
