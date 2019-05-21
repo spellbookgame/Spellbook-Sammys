@@ -13,6 +13,7 @@ public class UICanvasHandler : MonoBehaviour
     #region private_fields
     [SerializeField] private GameObject spellbookButton;
     [SerializeField] private GameObject diceButton;
+    [SerializeField] private GameObject scanButton;
     [SerializeField] private GameObject inventoryButton;
     [SerializeField] private GameObject endTurnButton;
     [SerializeField] private GameObject spellbookMainButton;
@@ -22,7 +23,6 @@ public class UICanvasHandler : MonoBehaviour
     [SerializeField] private GameObject movePanel;
     [SerializeField] private DiceUIHandler diceUIHandler;
     [SerializeField] private GameObject combatButton;
-    [SerializeField] private GameObject scanButton;
     [SerializeField] private GameObject tutorialPromptPanel;
     
     #endregion
@@ -177,6 +177,20 @@ public class UICanvasHandler : MonoBehaviour
         libraryButton.SetActive(enabled);
         questButton.SetActive(enabled);
         progressButton.SetActive(enabled);
+    }
+
+    public void EnableMainSceneButtons(bool enabled)
+    {
+        spellbookButton.GetComponent<Button>().interactable = enabled;
+        diceButton.GetComponent<Button>().interactable = enabled;
+        scanButton.GetComponent<Button>().interactable = enabled;
+        inventoryButton.GetComponent<Button>().interactable = enabled;
+
+        // for the glow backgrounds
+        spellbookButton.transform.GetChild(0).gameObject.SetActive(enabled);
+        diceButton.transform.GetChild(0).gameObject.SetActive(enabled);
+        scanButton.transform.GetChild(0).gameObject.SetActive(enabled);
+        inventoryButton.transform.GetChild(0).gameObject.SetActive(enabled);
     }
 
     public void ShowMovePanel()

@@ -38,6 +38,8 @@ public class TutorialHandler : MonoBehaviour
         tutorialPanel.SetActive(true);
         tutorialArrow.SetActive(true);
 
+        UICanvasHandler.instance.EnableMainSceneButtons(false);
+
         GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().Spellcaster.tutorialShown = true;
     }
 
@@ -70,6 +72,7 @@ public class TutorialHandler : MonoBehaviour
                 break;
             case 4:
                 tutorialPanel.SetActive(false);
+                UICanvasHandler.instance.EnableMainSceneButtons(true);
                 break;
         }
     }
