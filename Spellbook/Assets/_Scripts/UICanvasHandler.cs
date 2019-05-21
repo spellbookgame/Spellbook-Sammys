@@ -123,7 +123,7 @@ public class UICanvasHandler : MonoBehaviour
         else
         {
             //Temporary
-            combatButton.SetActive(true);
+            //combatButton.SetActive(true);
 
             if (localPlayer != null)
                 ActivateEndTurnButton(localPlayer.Spellcaster.hasRolled);

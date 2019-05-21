@@ -14,7 +14,7 @@ public class InventoryUI : MonoBehaviour
 
     InventorySlot[] slots;
     Player localPlayer;
-    List<ItemObject> sInventory;
+    public List<ItemObject> sInventory;
 
     private bool infoPanelOpen;
 
@@ -87,5 +87,11 @@ public class InventoryUI : MonoBehaviour
                 infoPanelOpen = false;
             }
         });
+    }
+
+    public void ShowThirdPartyItemInfo(ItemObject item)
+    {
+        Debug.Log("ThirdPartyClick");
+        OpenItemPanel(item);
     }
 }
