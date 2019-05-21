@@ -3,14 +3,24 @@ using UnityEngine;
 
 public class ItemList : MonoBehaviour
 {
-    public List<ItemObject> listOfItems;
+    public static ItemList instance = null;
 
+    public List<ItemObject> listOfItems;
     public List<ItemObject> tier1Items;
     public List<ItemObject> tier2Items;
     public List<ItemObject> tier3Items;
 
     void Awake()
     {
+        //Check if there is already an instance of SoundManager
+        if (instance == null)
+            //if not, set it to this.
+            instance = this;
+        //If instance already exists:
+        else if (instance != this)
+            //Destroy this, this enforces our singleton pattern so there can only be one instance of SoundManager.
+            Destroy(gameObject);
+
         listOfItems = new List<ItemObject>
         {
             new InfusedSapphire(),

@@ -322,6 +322,11 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
     {
         state.ItemForGrab = item;
     }
+    
+    public string ItemForGrabs()
+    {
+        return state.ItemForGrab;
+    }
 
     public string getTurnSpellcasterName()
     {
