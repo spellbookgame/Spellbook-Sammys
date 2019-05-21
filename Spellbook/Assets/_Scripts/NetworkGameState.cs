@@ -309,6 +309,25 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
         return state.CurrentSpellcasterTurn;
     }
 
+    //Called when player picks up an item from the Item-Scan location
+    public string ItemPickUp()
+    {
+        string item = state.ItemForGrab;
+        state.ItemForGrab = "";
+        return item;
+    }
+
+    //Called when player drops an item in the Item-Scan location
+    public void ItemDropOff(string item)
+    {
+        state.ItemForGrab = item;
+    }
+    
+    public string ItemForGrabs()
+    {
+        return state.ItemForGrab;
+    }
+
     public string getTurnSpellcasterName()
     {
 

@@ -688,7 +688,19 @@ namespace Bolt.Samples.Photon.Lobby
                 .GlobalEventCounter(evnt.EventID, evnt.IsCountered);
         }
 
-        
+        /*Only the server recieves this event.*/
+        public override void OnEvent(ItemPickUp evnt)
+        {
+            gameStateEntity.GetComponent<NetworkGameState>().ItemPickUp();
+        }
+
+        /*Only the server recieves this event.*/
+        public override void OnEvent(ItemDropOff evnt)
+        {
+            gameStateEntity.GetComponent<NetworkGameState>().ItemDropOff(evnt.ItemName);
+        }
+
+
         #endregion
         #region EVENT_CALLS
         /**
@@ -766,6 +778,21 @@ namespace Bolt.Samples.Photon.Lobby
             evnt.FromSpellcaster = from;
             evnt.ToSpellcaster = to;
             evnt.Spellname = spellName;
+            evnt.Send();
+        }
+
+        //For the Item-Scan space
+        public void PickUpItem()
+        {
+            var evnt = ItemPickUp.Create(Bolt.GlobalTargets.OnlyServer);
+            evnt.Send();
+        }
+
+        //For the Item-Scan space
+        public void DropItem(string itemName)
+        {
+            var evnt = ItemDropOff.Create(Bolt.GlobalTargets.OnlyServer);
+            evnt.ItemName = itemName;
             evnt.Send();
         }
         #endregion
