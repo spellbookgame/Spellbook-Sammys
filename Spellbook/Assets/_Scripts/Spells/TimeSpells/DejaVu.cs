@@ -30,10 +30,14 @@ public class DejaVu : Spell, IAllyCastable
 
     public void RecieveCastFromAlly(SpellCaster player)
     {
-        Spell newSpell = SpellTracker.instance.lastSpellCasted;
-        player.CollectMana(newSpell.iManaCost);
-        newSpell.SpellCast(player);
-        player.numSpellsCastThisTurn++;
+        if (SpellTracker.instance.lastSpellCasted == null)
+            PanelHolder.instance.displayNotify("No Spell was Cast", "Player has not cast any spells yet!", "OK");
+        else
+        {
+            Spell newSpell = SpellTracker.instance.lastSpellCasted;
+            player.CollectMana(newSpell.iManaCost);
+            newSpell.SpellCast(player);
+        }
     }
 
     public void SpellcastPhase2(int sID, SpellCaster player)
@@ -48,9 +52,14 @@ public class DejaVu : Spell, IAllyCastable
             }
             else
             {
-                Spell newSpell = SpellTracker.instance.lastSpellCasted;
-                player.CollectMana(newSpell.iManaCost);
-                newSpell.SpellCast(player);
+                if (SpellTracker.instance.lastSpellCasted == null)
+                    PanelHolder.instance.displayNotify("No Spell was Cast", "Player has not cast any spells yet!", "OK");
+                else
+                {
+                    Spell newSpell = SpellTracker.instance.lastSpellCasted;
+                    player.CollectMana(newSpell.iManaCost);
+                    newSpell.SpellCast(player);
+                }
             }
 
             player.numSpellsCastThisTurn++;
@@ -69,9 +78,14 @@ public class DejaVu : Spell, IAllyCastable
             }
             else
             {
-                Spell newSpell = SpellTracker.instance.lastSpellCasted;
-                player.CollectMana(newSpell.iManaCost);
-                newSpell.SpellCast(player);
+                if (SpellTracker.instance.lastSpellCasted == null)
+                    PanelHolder.instance.displayNotify("No Spell was Cast", "Player has not cast any spells yet!", "OK");
+                else
+                {
+                    Spell newSpell = SpellTracker.instance.lastSpellCasted;
+                    player.CollectMana(newSpell.iManaCost);
+                    newSpell.SpellCast(player);
+                }
             }
 
             player.numSpellsCastThisTurn++;

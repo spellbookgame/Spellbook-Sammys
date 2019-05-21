@@ -10,10 +10,10 @@ public class AllSpellsDict
         { "Potion of Luck", new PotionofLuck() },
         { "Potion of Blessing", new PotionofBlessing() },
         { "Distilled Potion", new DistilledPotion() },
-        { "Charming Negotiator", new CharmingNegotiator() },
+        { "Potion of Charm", new CharmingNegotiator() },
         { "Collector's Drink", new CollectorsDrink() },
         { "Toxic Potion", new ToxicPotion() },
-        { "Crystal Scent", new CrystalScent() },
+        { "Crystal Scent Potion", new CrystalScent() },
 
         //Arcanist
         { "Transcribe", new Transcribe() },

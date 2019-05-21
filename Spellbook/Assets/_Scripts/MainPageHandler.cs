@@ -142,4 +142,18 @@ public class MainPageHandler : MonoBehaviour
 
         manaCrystalsAddition.text = "";
     }
+
+    // TESTING ONLY DELETE LATER
+    public void CollectSpells()
+    {
+        foreach(Spell s in localPlayer.Spellcaster.chapter.spellsAllowed)
+        {
+            localPlayer.Spellcaster.CollectSpell(s);
+        }
+    }
+
+    public void CollectMana()
+    {
+        localPlayer.Spellcaster.CollectMana(5000);
+    }
 }
