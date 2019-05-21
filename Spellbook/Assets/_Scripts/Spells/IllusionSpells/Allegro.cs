@@ -28,7 +28,7 @@ public class Allegro : Spell, IAllyCastable
 
     public void RecieveCastFromAlly(SpellCaster player)
     {
-        PanelHolder.instance.displayNotify(sSpellName, "You and your ally will have an additional D6 to your movement next time you roll.", "MainPlayerScene");
+        PanelHolder.instance.displayNotify(sSpellName, "You will receive an additional D6 to your movement next time you roll.", "MainPlayerScene");
         player.activeSpells.Add(this);
     }
 
@@ -38,12 +38,6 @@ public class Allegro : Spell, IAllyCastable
         // cast spell for free if Umbra's Eclipse is active
         if (SpellTracker.instance.CheckUmbra())
         {
-            if (player.spellcasterID != sID)
-            {
-                //Make sure to add it only once to this player's activespells
-                PanelHolder.instance.displayNotify(sSpellName, "You and your ally will have an additional D6 to your movement next time you roll.", "MainPlayerScene");
-                player.activeSpells.Add(this);
-            }
             NetworkManager.s_Singleton.CastOnAlly(player.spellcasterID, sID, sSpellName);
 
             player.numSpellsCastThisTurn++;
@@ -58,12 +52,6 @@ public class Allegro : Spell, IAllyCastable
             // subtract mana
             player.iMana -= iManaCost;
 
-            if (player.spellcasterID != sID)
-            {
-                //Make sure to add it only once to this player's activespells
-                PanelHolder.instance.displayNotify(sSpellName, "You and your ally will have an additional D6 to your movement next time you roll.", "MainPlayerScene");
-                player.activeSpells.Add(this);
-            }
             NetworkManager.s_Singleton.CastOnAlly(player.spellcasterID, sID, sSpellName);
 
             player.numSpellsCastThisTurn++;

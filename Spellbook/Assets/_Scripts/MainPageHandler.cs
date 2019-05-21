@@ -60,9 +60,7 @@ public class MainPageHandler : MonoBehaviour
         // TEST AREA - DELETE LATER
         if (Input.GetKeyDown(KeyCode.G))
         {
-            localPlayer.Spellcaster.CollectSpell(new Forecast());
-            localPlayer.Spellcaster.CollectSpell(new DejaVu());
-            localPlayer.Spellcaster.CollectSpell(new Echo());
+            localPlayer.Spellcaster.CollectSpell(new Allegro());
         }
         if (Input.GetKeyDown(KeyCode.M))
         {
@@ -75,6 +73,10 @@ public class MainPageHandler : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F))
         {
             SceneManager.LoadScene("ForestScene");
+        }
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            SceneManager.LoadScene("IllusionTownScene");
         }
     }
 
@@ -141,19 +143,5 @@ public class MainPageHandler : MonoBehaviour
         yield return new WaitForSecondsRealtime(2f);
 
         manaCrystalsAddition.text = "";
-    }
-
-    // TESTING ONLY DELETE LATER
-    public void CollectSpells()
-    {
-        foreach(Spell s in localPlayer.Spellcaster.chapter.spellsAllowed)
-        {
-            localPlayer.Spellcaster.CollectSpell(s);
-        }
-    }
-
-    public void CollectMana()
-    {
-        localPlayer.Spellcaster.CollectMana(5000);
     }
 }

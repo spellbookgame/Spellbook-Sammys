@@ -57,10 +57,10 @@ public class DiceUIHandler : MonoBehaviour
 
             // if player has Tailwind active, add a D6 to movement slot
             if (SpellTracker.instance.SpellIsActive(new Tailwind()))
-                D6ToMovement();
+                DiceToMovement(8);
             // if player has Allegro active, add a D6 to movement slot
             if (SpellTracker.instance.SpellIsActive(new Allegro()))
-                D6ToMovement();
+                DiceToMovement(6);
             // if player has Growth active, add a D7 to mana slot
             if (SpellTracker.instance.SpellIsActive(new Growth()))
                 D7ToMana();
@@ -242,15 +242,47 @@ public class DiceUIHandler : MonoBehaviour
     }
 
     // add a D6 into a movement slot if given a temporary dice
-    private void D6ToMovement()
+    private void DiceToMovement(int pips)
     {
         foreach (GameObject slot in GameObject.FindGameObjectsWithTag("Slot"))
         {
             if (slot.name.Equals("slot1") && slot.transform.childCount == 0)
             {
-                GameObject newDice = Instantiate(dice, slot.transform);
-                newDice.transform.GetChild(0).GetComponent<Image>().sprite = newDice.GetComponent<DiceRoll>().pipsSix;
-                newDice.GetComponent<DiceRoll>().maxRoll = 6;
+                GameObject newDice = null;
+                switch(pips)
+                {
+                    case 4:
+                        newDice = Instantiate(dice, slot.transform);
+                        newDice.transform.GetChild(0).GetComponent<Image>().sprite = newDice.GetComponent<DiceRoll>().pipsFour;
+                        newDice.GetComponent<DiceRoll>().maxRoll = 4;
+                        break;
+                    case 5:
+                        newDice = Instantiate(dice, slot.transform);
+                        newDice.transform.GetChild(0).GetComponent<Image>().sprite = newDice.GetComponent<DiceRoll>().pipsFive;
+                        newDice.GetComponent<DiceRoll>().maxRoll = 5;
+                        break;
+                    case 6:
+                        newDice = Instantiate(dice, slot.transform);
+                        newDice.transform.GetChild(0).GetComponent<Image>().sprite = newDice.GetComponent<DiceRoll>().pipsSix;
+                        newDice.GetComponent<DiceRoll>().maxRoll = 6;
+                        break;
+                    case 7:
+                        newDice = Instantiate(dice, slot.transform);
+                        newDice.transform.GetChild(0).GetComponent<Image>().sprite = newDice.GetComponent<DiceRoll>().pipsSeven;
+                        newDice.GetComponent<DiceRoll>().maxRoll = 7;
+                        break;
+                    case 8:
+                        newDice = Instantiate(dice, slot.transform);
+                        newDice.transform.GetChild(0).GetComponent<Image>().sprite = newDice.GetComponent<DiceRoll>().pipsEight;
+                        newDice.GetComponent<DiceRoll>().maxRoll = 8;
+                        break;
+                    case 9:
+                        newDice = Instantiate(dice, slot.transform);
+                        newDice.transform.GetChild(0).GetComponent<Image>().sprite = newDice.GetComponent<DiceRoll>().pipsNine;
+                        newDice.GetComponent<DiceRoll>().maxRoll = 9;
+                        break;
+                }
+                
                 // disable drag on dice
                 newDice.GetComponent<DiceDragHandler>().enabled = false;
                 // enable roll
