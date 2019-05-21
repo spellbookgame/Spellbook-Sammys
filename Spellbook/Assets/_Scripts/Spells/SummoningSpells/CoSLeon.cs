@@ -14,7 +14,7 @@ public class CoSLeon : Spell, IAllyCastable
 
         combatSpell = false;
 
-        sSpellName = "Call of the Sun - Leon's Shining";
+        sSpellName = "Leon's Shining";
         sSpellClass = "Summoner";
         sSpellInfo = "All allies gain a charge on each of their combat spells.";
 

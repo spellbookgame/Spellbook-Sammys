@@ -39,7 +39,7 @@ public class UIAutoHover : MonoBehaviour {
 		float sine = Mathf.Sin(_randomOffset + Time.realtimeSinceStartup * hoverSpeed);
 		float hoverOffset = hoverIntensity * (1 + sine);
 		transform.localPosition = new Vector3(transform.localPosition.x, _startPosition + hoverOffset, transform.localPosition.z);
-		if (!(shadow is null)) {
+		if (shadow != null) {
 			shadow.transform.localScale = new Vector3(ShadowScaleFactor(_shadowScale.x, sine), ShadowScaleFactor(_shadowScale.y, sine), ShadowScaleFactor(_shadowScale.z, sine));
 		}
 	}

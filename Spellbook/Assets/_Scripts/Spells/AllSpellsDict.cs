@@ -7,13 +7,13 @@ public class AllSpellsDict
     public static readonly Dictionary<string, Spell> AllSpells = new Dictionary<string, Spell> {
 
         //Alchemist
-        { "Brew - Potion of Luck", new PotionofLuck() },
-        { "Brew - Potion of Blessing", new PotionofBlessing() },
-        { "Brew - Distilled Potion", new DistilledPotion() },
-        { "Brew - Charming Negotiator", new CharmingNegotiator() },
-        { "Brew - Collector's Drink", new CollectorsDrink() },
-        { "Brew - Toxic Potion", new ToxicPotion() },
-        { "Brew - Crystal Scent", new CrystalScent() },
+        { "Potion of Luck", new PotionofLuck() },
+        { "Potion of Blessing", new PotionofBlessing() },
+        { "Distilled Potion", new DistilledPotion() },
+        { "Potion of Charm", new CharmingNegotiator() },
+        { "Collector's Drink", new CollectorsDrink() },
+        { "Toxic Potion", new ToxicPotion() },
+        { "Crystal Scent Potion", new CrystalScent() },
 
         //Arcanist
         { "Transcribe", new Transcribe() },
@@ -52,13 +52,13 @@ public class AllSpellsDict
         { "Allegro", new Allegro() },
 
         //Summoner
-        { "Call of the Sun - Leon's Shining", new CoSLeon() },
-        { "Call of the Wild - Raven's Song", new Ravenssong() },
-        { "Call of the Wild - Bear's Fury", new Bearsfury() },
-        { "Call of the Moon - Umbra's Eclipse", new CoMUmbra() },
-        { "Call of the Dead - Corpse Taker", new CoDCorpse() },
-        { "Call of the Wild - Skeletons", new Skeletons() },
-        { "Call of the Stars - Rigel's Ascension", new CoSRigel() },
+        { "Leon's Shining", new CoSLeon() },
+        { "Raven's Song", new Ravenssong() },
+        { "Bear's Fury", new Bearsfury() },
+        { "Umbra's Eclipse", new CoMUmbra() },
+        { "Corpse Taker", new CoDCorpse() },
+        { "Skeletons", new Skeletons() },
+        { "Rigel's Ascension", new CoSRigel() },
 
         //Black Magic
         { "Agenda", new Agenda() },

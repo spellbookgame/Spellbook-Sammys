@@ -15,7 +15,7 @@ public class CoMUmbra : Spell, IAllyCastable
 
         combatSpell = false;
 
-        sSpellName = "Call of the Moon - Umbra's Eclipse";
+        sSpellName = "Umbra's Eclipse";
         sSpellClass = "Summoner";
         sSpellInfo = "Your next spell you cast (except this one) will be free. Can cast on an ally.";
 

@@ -13,7 +13,7 @@ public class CharmingNegotiator : Spell, IAllyCastable
 
         combatSpell = false;
 
-        sSpellName = "Brew - Charming Negotiator";
+        sSpellName = "Potion of Charm";
         sSpellClass = "Alchemist";
         sSpellInfo = "The shopkeeper will give a 50% discount to everyone next time they visit.";
 

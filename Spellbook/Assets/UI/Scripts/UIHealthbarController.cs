@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Controller script for healthbar UI element.
+/// 
+/// Written by Malcolm Riley
+/// CMPS 17X, Spring 2019
+/// </summary>
 [ExecuteInEditMode]
 [RequireComponent(typeof(RectTransform))]
 public class UIHealthbarController : MonoBehaviour {

@@ -14,6 +14,7 @@ public class QuestTracker : MonoBehaviour
     public static QuestTracker instance = null;
 
     public bool spellQuestGiven = false;
+    public Quest previousQuest;
 
     Player localPlayer;
 
@@ -87,6 +88,9 @@ public class QuestTracker : MonoBehaviour
         localPlayer.Spellcaster.activeQuests.Remove(q);
         PanelHolder.instance.displayQuestRewards(q);
         GiveRewards(q);
+
+        // update this quest to be the most recent previous quest
+        previousQuest = q;
     }
 
     // give players a spell quest at the start of game

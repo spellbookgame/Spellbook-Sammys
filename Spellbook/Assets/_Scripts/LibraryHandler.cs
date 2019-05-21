@@ -6,18 +6,22 @@ using UnityEngine.UI;
 public class LibraryHandler : MonoBehaviour
 {
     [SerializeField] private Button mainButton;
-    [SerializeField] private Button spellButton;
-    [SerializeField] private GameObject buttonScrollRect;
+    [SerializeField] private Sprite combatIcon;
+    [SerializeField] private Sprite nonCombatIcon;
+    [SerializeField] private GameObject spellButtonPrefab;
+    [SerializeField] private GameObject UIScrollable;
     [SerializeField] private GameObject runeContainer;
     [SerializeField] private GameObject spellInfoPanel;
     [SerializeField] private GameObject runePanel;
 
     Player localPlayer;
+    private UIScrollableController scrollController;
 
     // Start is called before the first frame update
     void Start()
     {
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
+        scrollController = UIScrollable.GetComponent<UIScrollableController>();
 
         // adding onClick listener for UI buttons
         mainButton.onClick.AddListener(() =>
@@ -27,20 +31,19 @@ public class LibraryHandler : MonoBehaviour
             SceneManager.LoadScene("MainPlayerScene");
         });
 
-        // add buttons to scroll rect for each spell the player can collect
-        foreach(Spell s in localPlayer.Spellcaster.chapter.spellsAllowed)
+        foreach (Spell s in localPlayer.Spellcaster.chapter.spellsAllowed)
         {
-            Button newSpellButton = Instantiate(spellButton, buttonScrollRect.transform);
-            newSpellButton.GetComponentInChildren<Text>().text = s.sSpellName;
+            GameObject spellButton = Instantiate(spellButtonPrefab);
+            UISpellButtonController buttonController = spellButton.GetComponent<UISpellButtonController>();
+            buttonController.SetTitle(s.sSpellName);
+            buttonController.SetText(s.sSpellInfo);
+            if (s.combatSpell)
+                buttonController.SetIcon(combatIcon);
+            else
+                buttonController.SetIcon(nonCombatIcon);
 
-            // add listener to button
-            newSpellButton.onClick.AddListener(() => ShowSpellInfo(s));
-        }
-        // if there are more than 4 buttons in the scroll rect, expand the scroll rect panel
-        if(buttonScrollRect.transform.childCount > 4)
-        {
-            RectTransform rect = buttonScrollRect.GetComponent<RectTransform>();
-            rect.sizeDelta = new Vector2(rect.sizeDelta.x, (float)rect.sizeDelta.y + (210 * (buttonScrollRect.transform.childCount - 4)));
+            scrollController.AddElement(spellButton);
+            spellButton.GetComponent<Button>().onClick.AddListener(() => ShowSpellInfo(s));
         }
 
         // set panel holder as last sibling
@@ -68,11 +71,13 @@ public class LibraryHandler : MonoBehaviour
                                                                             + "   |   " + combat;
         spellInfoPanel.transform.GetChild(2).GetComponent<Text>().text = spell.sSpellInfo;
         
-        // add glyph images to the panel to show player required glyphs
+        // add rune images to the panel to show player required runes
         foreach (KeyValuePair<string, int> kvp in spell.requiredRunes)
         {
             GameObject runeImage = runeContainer.transform.Find(kvp.Key).gameObject;
             runeImage.transform.SetParent(runePanel.transform, false);  // false means object won't scale with Parent
         }
+
+        spellInfoPanel.SetActive(true);
     }
 }

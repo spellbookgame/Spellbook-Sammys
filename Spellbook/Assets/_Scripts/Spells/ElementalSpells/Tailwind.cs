@@ -16,7 +16,7 @@ public class Tailwind : Spell, IAllyCastable
 
         sSpellName = "Tailwind";
         sSpellClass = "Elementalist";
-        sSpellInfo = "Everyone will receive an extra D6 to their movement next turn.";
+        sSpellInfo = "Everyone will receive an extra D8 to their movement next turn.";
 
         requiredRunes.Add("Elementalist A Rune", 1);
         requiredRunes.Add("Elementalist B Rune", 1);
@@ -57,7 +57,7 @@ public class Tailwind : Spell, IAllyCastable
 
     public void RecieveCastFromAlly(SpellCaster player)
     {
-        PanelHolder.instance.displayNotify(sSpellName, "Everyone will receive a D6 to their movement next time they roll.", "MainPlayerScene");
+        PanelHolder.instance.displayNotify(sSpellName, "Everyone will receive a D8 to their movement next time they roll.", "MainPlayerScene");
         player.activeSpells.Add(this);
     }
 

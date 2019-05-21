@@ -17,7 +17,7 @@ public class RuneConversion : Spell, IAllyCastable
 
         sSpellName = "Rune Conversion";
         sSpellClass = "Arcanist";
-        sSpellInfo = "Discard one of your current runes in to draw one directly from the deck. Can cast on an ally.";
+        sSpellInfo = "Discard one of your current runes to draw one directly from the low-tier deck. Can cast on an ally.";
 
         requiredRunes.Add("Arcanist A Rune", 1);
     }
@@ -30,7 +30,7 @@ public class RuneConversion : Spell, IAllyCastable
     
     public void RecieveCastFromAlly(SpellCaster player)
     {
-         PanelHolder.instance.displayNotify(sSpellName, "Discard one of your current runes. Draw a new one from the deck.", "MainPlayerScene");
+         PanelHolder.instance.displayNotify(sSpellName, "Discard one of your current runes. Draw a new one from the low-tier deck.", "MainPlayerScene");
     }
 
     public void SpellcastPhase2(int sID, SpellCaster player)
@@ -45,7 +45,7 @@ public class RuneConversion : Spell, IAllyCastable
                 NetworkManager.s_Singleton.CastOnAlly(player.spellcasterID, sID, sSpellName);
             }
             else { 
-                PanelHolder.instance.displayNotify(sSpellName, "Discard one of your current runes. Draw a new one from the deck.", "MainPlayerScene");
+                PanelHolder.instance.displayNotify(sSpellName, "Discard one of your current runes. Draw a new one from the low-tier deck.", "MainPlayerScene");
             }
             player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
@@ -64,7 +64,7 @@ public class RuneConversion : Spell, IAllyCastable
                 NetworkManager.s_Singleton.CastOnAlly(player.spellcasterID, sID, sSpellName);
             }
             else { 
-                PanelHolder.instance.displayNotify(sSpellName, "Discard one of your current runes. Draw a new one from the deck.", "MainPlayerScene");
+                PanelHolder.instance.displayNotify(sSpellName, "Discard one of your current runes. Draw a new one from the low-tier deck.", "MainPlayerScene");
             }
             player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;

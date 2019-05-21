@@ -97,10 +97,10 @@ public abstract class SpellCaster
             inventory.Add(newItem);
 
         // if Collector's Drink is active, add another copy of the item
-        if (SpellTracker.instance.SpellIsActive("Brew - Collector's Drink"))
+        if (SpellTracker.instance.SpellIsActive(new CollectorsDrink()))
         {
             inventory.Add(newItem);
-            SpellTracker.instance.RemoveFromActiveSpells("Brew - Collector's Drink");
+            SpellTracker.instance.RemoveFromActiveSpells("Collector's Drink");
         }
     }
     public void RemoveFromInventory(ItemObject newItem)

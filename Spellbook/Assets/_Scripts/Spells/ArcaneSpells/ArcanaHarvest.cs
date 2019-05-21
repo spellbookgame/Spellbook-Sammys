@@ -29,7 +29,7 @@ public class ArcanaHarvest : Spell, IAllyCastable
 
     public void RecieveCastFromAlly(SpellCaster player)
     {
-        PanelHolder.instance.displayNotify(sSpellName, "Move your piece to the Crystal Mines.", "VuforiaScene");
+        PanelHolder.instance.displayNotify(sSpellName, "Move your piece to the Crystal Mines.", "MineScene");
     }
 
     public void SpellcastPhase2(int sID, SpellCaster player)
@@ -44,7 +44,7 @@ public class ArcanaHarvest : Spell, IAllyCastable
             }
             else
             {
-                PanelHolder.instance.displayNotify(sSpellName, "Move your piece to the Crystal Mines.", "VuforiaScene");
+                PanelHolder.instance.displayNotify(sSpellName, "Move your piece to the Crystal Mines.", "MineScene");
             }
 
             player.numSpellsCastThisTurn++;
@@ -66,7 +66,7 @@ public class ArcanaHarvest : Spell, IAllyCastable
             }
             else
             {
-                PanelHolder.instance.displayNotify(sSpellName, "Move your piece to the Crystal Mines.", "VuforiaScene");
+                PanelHolder.instance.displayNotify(sSpellName, "Move your piece to the Crystal Mines.", "MineScene");
             }
 
             player.numSpellsCastThisTurn++;

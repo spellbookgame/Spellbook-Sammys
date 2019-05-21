@@ -12,7 +12,7 @@ public class PotionofBlessing : Spell, ICombatSpell
 
         combatSpell = true;
 
-        sSpellName = "Brew - Potion of Blessing";
+        sSpellName = "Potion of Blessing";
         sSpellClass = "Alchemist";
         sSpellInfo = "Heal all allies by half of their max health.";
 

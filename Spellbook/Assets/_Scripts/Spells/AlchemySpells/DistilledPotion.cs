@@ -12,7 +12,7 @@ public class DistilledPotion : Spell, ICombatSpell
 
         combatSpell = true;
 
-        sSpellName = "Brew - Distilled Potion";
+        sSpellName = "Distilled Potion";
         sSpellClass = "Alchemist";
         sSpellInfo = "Brew a potion that will heal your health equal to half of health missing. Can cast on an ally.";
 

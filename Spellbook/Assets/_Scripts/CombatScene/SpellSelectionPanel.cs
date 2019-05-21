@@ -29,6 +29,11 @@ public class SpellSelectionPanel : MonoBehaviour
     public Button EquipedSpellButton;
     public SpriteRenderer swipeGuide;
     SpellCaster localSpellcaster;
+
+    Image gemImage;
+    public Gradient colorGrade;
+    GradientColorKey[] colorKey;
+    GradientAlphaKey[] alphaKey;
     // Start is called before the first frame update
     void Start()
     {
@@ -63,7 +68,7 @@ public class SpellSelectionPanel : MonoBehaviour
             Color c1 = entry.Value.colorPrimary;
             Color c2 = entry.Value.colorSecondary;
             Color c3 = entry.Value.colorTertiary;
-            spellButtons[i++].GetComponent<UIAutoColor>().DecorateSpellButton(c1, c2, c3);
+           // spellButtons[i++].GetComponent<UIAutoColorSprite>().DecorateSpellButton(c1, c2, c3);
         }
         SpellButton1.onClick.AddListener(clickedSpellButton1);
         SpellButton2.onClick.AddListener(clickedSpellButton2);
@@ -134,6 +139,36 @@ public class SpellSelectionPanel : MonoBehaviour
         ChargePanel.SetActive(true);
         ChargePanel.GetComponent<ChargeSpell>().SetCombatSpell(selectedSpell, SelectedSpellButton);
         this.gameObject.SetActive(false);
+    }
+
+
+    public void DecorateSpellButton(Color c1, Color c2, Color c3)
+    {
+        BoltConsole.Write(c1.ToString());
+        BoltConsole.Write(c2.ToString());
+        BoltConsole.Write(c3.ToString());
+        BoltConsole.Write(c3.r + "");
+        gemImage.color = c3;
+
+        // Populate the color keys at the relative time 0 and 1 (0 and 100%)
+        colorKey = new GradientColorKey[2];
+        colorKey[0].color = c1;
+        //colorKey[0].time = 0.0f;
+        colorKey[1].color = c2;
+
+        //colorKey[1].time = 1.0f;
+
+        // Populate the alpha  keys at relative time 0 and 1  (0 and 100%)
+        alphaKey = new GradientAlphaKey[2];
+        alphaKey[0].alpha = 1.0f;
+        alphaKey[0].time = 0.0f;
+        alphaKey[1].alpha = 0.7f;
+        alphaKey[1].time = 1.0f;
+
+        colorGrade.SetKeys(colorKey, alphaKey);
+
+        // What's the color at the relative time 0.25 (25 %) ?
+        //Debug.Log(gradient.Evaluate(0.25f));
     }
 
 

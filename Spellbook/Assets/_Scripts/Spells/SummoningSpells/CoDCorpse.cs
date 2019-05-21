@@ -13,7 +13,7 @@ public class CoDCorpse : Spell
 
         combatSpell = false;
 
-        sSpellName = "Call of the Dead - Corpse Taker";
+        sSpellName = "Corpse Taker";
         sSpellClass = "Summoner";
         sSpellInfo = "Find 2 random items.";
 

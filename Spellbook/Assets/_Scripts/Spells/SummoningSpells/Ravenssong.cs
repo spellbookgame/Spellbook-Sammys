@@ -11,7 +11,7 @@ public class Ravenssong : Spell, ICombatSpell
 
         combatSpell = true;
 
-        sSpellName = "Call of the Wild - Raven's Song";
+        sSpellName = "Raven's Song";
         sSpellClass = "Summoner";
         sSpellInfo = "Destroy half of the enemy's current HP. This attack cannot be buffed.";
 

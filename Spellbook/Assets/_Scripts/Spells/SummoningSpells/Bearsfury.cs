@@ -11,7 +11,7 @@ public class Bearsfury : Spell, ICombatSpell
 
         combatSpell = true;
 
-        sSpellName = "Call of the Wild - Bear's Fury";
+        sSpellName = "Bear's Fury";
         sSpellClass = "Summoner";
         sSpellInfo = "Summon a bear that unleashes a flurry of swipes dealing 7-18 damage.";
 

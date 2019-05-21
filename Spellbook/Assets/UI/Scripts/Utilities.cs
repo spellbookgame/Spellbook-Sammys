@@ -2,8 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 namespace SpellbookExtensions {
 
+	/// <summary>
+	/// Collection of extension methods for Color manipulation.
+	/// 
+	/// Written by Malcolm Riley
+	/// CMPS 17X, Spring 2019
+	/// </summary>
 	public static class ColorUtilities {
 
 		public const float COLOR_EPSILON = 0.001F;
@@ -51,6 +58,12 @@ namespace SpellbookExtensions {
 		}
 	}
 
+	/// <summary>
+	/// Collection of Math-related extension methods.
+	/// 
+	/// Written by Malcolm Riley
+	/// CMPS 17X, Spring 2019
+	/// </summary>
 	public static class MathUtilities {
 		public static bool CheckEpsilon(this float value, float other, float epsilon) {
 			return Mathf.Abs(value - other) > epsilon;

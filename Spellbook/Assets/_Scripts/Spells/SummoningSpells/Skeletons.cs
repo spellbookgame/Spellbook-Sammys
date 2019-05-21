@@ -11,7 +11,7 @@ public class Skeletons : Spell, ICombatSpell
 
         combatSpell = true;
 
-        sSpellName = "Call of the Wild - Skeletons";
+        sSpellName = "Skeletons";
         sSpellClass = "Summoner";
         sSpellInfo = "Summon a skeleton that attacks the enemy for 5-10 damage.";
 

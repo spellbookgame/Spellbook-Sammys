@@ -57,10 +57,10 @@ public class MainPageHandler : MonoBehaviour
             manaHasChanged = false;
         }
 
-        // TEST AREA - DELETE LATER
+        // ------------ TEST AREA - DELETE LATER ----------
         if (Input.GetKeyDown(KeyCode.G))
         {
-            localPlayer.Spellcaster.CollectSpell(new CrystalScent());
+            localPlayer.Spellcaster.CollectSpell(new Allegro());
         }
         if (Input.GetKeyDown(KeyCode.M))
         {
@@ -74,6 +74,11 @@ public class MainPageHandler : MonoBehaviour
         {
             SceneManager.LoadScene("ForestScene");
         }
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            SceneManager.LoadScene("IllusionTownScene");
+        }
+        // -------------------------------------------------
     }
 
     public void setupMainPage()

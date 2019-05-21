@@ -13,7 +13,7 @@ public class CrystalScent : Spell, IAllyCastable
 
         combatSpell = false;
 
-        sSpellName = "Brew - Crystal Scent";
+        sSpellName = "Crystal Scent Potion";
         sSpellClass = "Alchemist";
         sSpellInfo = "Teleport to the Marketplace. Can cast on an ally.";
 
