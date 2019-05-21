@@ -63,7 +63,11 @@ public class PanelHolder : MonoBehaviour
                 crisisPanel.EnablePanel();
             else if (panelQueue.Peek().Equals(chooseSpellcasterPanel.panelID))
                 chooseSpellcasterPanel.EnablePanel();
+
+            UICanvasHandler.instance.EnableMainSceneButtons(false);
         }
+        else
+            UICanvasHandler.instance.EnableMainSceneButtons(true);
     }
 
     public void displayYourTurn()
