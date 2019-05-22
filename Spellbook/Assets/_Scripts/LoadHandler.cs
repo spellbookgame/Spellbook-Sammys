@@ -7,7 +7,8 @@ public class LoadHandler : MonoBehaviour
     public static LoadHandler instance = null;
 
     public int sceneBuildIndex;
-    public int loadSceneIndex = 20;
+    public int loadSceneIndex;
+    public int mainSceneIndex;
 
     public bool setupComplete;
 
