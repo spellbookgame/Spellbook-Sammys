@@ -12,22 +12,33 @@ public class LoadSceneHandler : MonoBehaviour
         StartCoroutine(AsyncLoad());   
     }
 
-    IEnumerator AsyncLoad()
+    /*IEnumerator AsyncLoad()
     {
-        asyncLoad = SceneManager.LoadSceneAsync(LoadHandler.instance.sceneBuildIndex, LoadSceneMode.Additive);
+        yield return null;
 
-        while(!asyncLoad.isDone)
+        asyncLoad = SceneManager.LoadSceneAsync(LoadHandler.instance.sceneBuildIndex, LoadSceneMode.Additive);
+        asyncLoad.allowSceneActivation = false;
+
+        Debug.Log("Setup complete: " + LoadHandler.instance.setupComplete);
+
+        while(asyncLoad.progress < 0.9f)
         {
+            if (LoadHandler.instance.setupComplete)
+            {
+                asyncLoad.allowSceneActivation = true;
+                LoadHandler.instance.setupComplete = false;
+            }
+
             yield return null;
         }
 
-        SceneManager.UnloadSceneAsync(LoadHandler.instance.loadSceneIndex);
-    }
+        // SceneManager.UnloadSceneAsync(LoadHandler.instance.loadSceneIndex);
+    }*/
 
-    /*IEnumerator AsyncLoad()
+    IEnumerator AsyncLoad()
     {
         float timer = 0f;
-        float minTime = 1.5f;
+        float minTime = 1f;
 
         asyncLoad = SceneManager.LoadSceneAsync(LoadHandler.instance.sceneBuildIndex);
         asyncLoad.allowSceneActivation = false;
@@ -45,5 +56,5 @@ public class LoadSceneHandler : MonoBehaviour
         }
 
         yield return null;
-    }*/
+    }
 }

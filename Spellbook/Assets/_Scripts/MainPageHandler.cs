@@ -162,6 +162,9 @@ public class MainPageHandler : MonoBehaviour
         Color panelCol = new Color();
         ColorUtility.TryParseHtmlString(localPlayer.Spellcaster.hexStringPanel, out panelCol);
         informationPanel.GetComponent<SpriteRenderer>().color = panelCol;
+
+        LoadHandler.instance.setupComplete = true;
+        Debug.Log("setup complete set to true");
     }
 
     public void DisplayMana(int manaCollected)

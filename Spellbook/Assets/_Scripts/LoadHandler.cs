@@ -9,6 +9,8 @@ public class LoadHandler : MonoBehaviour
     public int sceneBuildIndex;
     public int loadSceneIndex = 20;
 
+    public bool setupComplete;
+
     #region singleton
     private void Awake()
     {
