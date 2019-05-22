@@ -5,14 +5,14 @@ using UnityEngine.UI;
 
 /// <summary>
 /// Grace Ko
-/// script used to manage tutorials
+/// script used to manage tutorial handler prefab
 /// </summary>
 public class TutorialHandler : MonoBehaviour
 {
-    [SerializeField] private GameObject tutorialPanel;
     [SerializeField] private GameObject promptPanel;
     [SerializeField] private Button promptYesButton;
     [SerializeField] private Button promptNoButton;
+    [SerializeField] private GameObject tutorialPanel;
     [SerializeField] private Text tutorialText;
     [SerializeField] private Button okButton;
     [SerializeField] private GameObject tutorialArrow;
@@ -21,6 +21,7 @@ public class TutorialHandler : MonoBehaviour
 
     public GameObject[] tutorialObjects;
     public string[] tutorialTexts;
+    public int yOffset;
 
     public void PromptTutorial()
     {
@@ -31,8 +32,6 @@ public class TutorialHandler : MonoBehaviour
         {
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
             promptPanel.SetActive(false);
-
-            GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().Spellcaster.tutorialShown = true;
         });
     }
 
@@ -45,14 +44,12 @@ public class TutorialHandler : MonoBehaviour
 
         buttonClicks = 0;
 
-        PositionTutorialArrow(buttonClicks, 400);
+        PositionTutorialArrow(buttonClicks, yOffset);
         tutorialText.text = tutorialTexts[buttonClicks];
         DisableAllExcept(tutorialObjects[buttonClicks].name);
 
         okButton.onClick.AddListener(() => ClickTutorial());
         ++buttonClicks;
-
-        GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().Spellcaster.tutorialShown = true;
     }
 
     private void ClickTutorial()
@@ -64,7 +61,7 @@ public class TutorialHandler : MonoBehaviour
             if(buttonClicks < tutorialObjects.Length)
             {
                 tutorialText.text = tutorialTexts[buttonClicks];
-                PositionTutorialArrow(buttonClicks, 400);
+                PositionTutorialArrow(buttonClicks, yOffset);
                 DisableAllExcept(tutorialObjects[buttonClicks].name);
                 ++buttonClicks;
             }
@@ -93,7 +90,8 @@ public class TutorialHandler : MonoBehaviour
         }
         else
         {
-            tutorialArrow.transform.Rotate(0, 0, -180, Space.Self);
+            if(tutorialArrow.transform.rotation.eulerAngles.z == 90)
+                tutorialArrow.transform.Rotate(0, 0, -180, Space.Self);
             tutorialArrow.GetComponent<UIAutoHover>()._startPosition = tutorialObjects[objectIndex].transform.localPosition.y - yOffset - 200;
             tutorialArrow.transform.localPosition = tutorialObjects[objectIndex].transform.localPosition - new Vector3(0, yOffset - 200, 0);
         }

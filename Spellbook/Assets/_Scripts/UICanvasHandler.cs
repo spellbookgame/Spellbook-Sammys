@@ -271,5 +271,6 @@ public class UICanvasHandler : MonoBehaviour
     public void ShowTutorialPrompt()
     {
         tutorialHandler.GetComponent<TutorialHandler>().PromptTutorial();
+        GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().Spellcaster.mainTutorialShown = true;
     }
 }
