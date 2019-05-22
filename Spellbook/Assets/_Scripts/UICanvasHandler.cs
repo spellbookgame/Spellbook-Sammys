@@ -201,6 +201,11 @@ public class UICanvasHandler : MonoBehaviour
         scanButton.GetComponent<Button>().interactable = enabled;
         inventoryButton.GetComponent<Button>().interactable = enabled;
 
+        spellbookButton.GetComponent<Button>().enabled = enabled;
+        diceButton.GetComponent<Button>().enabled = enabled;
+        scanButton.GetComponent<Button>().enabled = enabled;
+        inventoryButton.GetComponent<Button>().enabled = enabled;
+
         // for the glow backgrounds
         spellbookButton.transform.GetChild(0).gameObject.SetActive(enabled);
         diceButton.transform.GetChild(0).gameObject.SetActive(enabled);

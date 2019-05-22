@@ -18,6 +18,8 @@ public class TutorialHandler : MonoBehaviour
 
     private int buttonClicks = 0;
 
+    public GameObject[] tutorialObjects;
+
     private void Start()
     {
         promptYesButton.onClick.AddListener(() => BeginTutorial());
@@ -28,7 +30,6 @@ public class TutorialHandler : MonoBehaviour
 
             GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().Spellcaster.tutorialShown = true;
         });
-        okButton.onClick.AddListener(() => ClickTutorial());
     }
 
     private void BeginTutorial()
@@ -38,7 +39,10 @@ public class TutorialHandler : MonoBehaviour
         tutorialPanel.SetActive(true);
         tutorialArrow.SetActive(true);
 
-        UICanvasHandler.instance.EnableMainSceneButtons(false);
+        okButton.onClick.AddListener(() => ClickTutorial());
+
+        PositionTutorialArrow(0, 375);
+        DisableAllExcept(tutorialObjects[0].name);
 
         GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().Spellcaster.tutorialShown = true;
     }
@@ -52,17 +56,20 @@ public class TutorialHandler : MonoBehaviour
         {
             case 0:
                 tutorialText.text = "Open the Dice Tray to roll and move!";
-                tutorialArrow.transform.localPosition += new Vector3(350, 0, 0);
+                PositionTutorialArrow(1, 375);
+                DisableAllExcept(tutorialObjects[1].name);
                 ++buttonClicks;
                 break;
             case 1:
                 tutorialText.text = "Use the scanner if you've arrived at a location, or if you want to create a spell.";
-                tutorialArrow.transform.localPosition += new Vector3(350, 0, 0);
+                PositionTutorialArrow(2, 375);
+                DisableAllExcept(tutorialObjects[2].name);
                 ++buttonClicks;
                 break;
             case 2:
                 tutorialText.text = "Open up your Inventory to view items you've collected.";
-                tutorialArrow.transform.localPosition += new Vector3(350, 0, 0);
+                PositionTutorialArrow(3, 375);
+                DisableAllExcept(tutorialObjects[3].name);
                 ++buttonClicks;
                 break;
             case 3:
@@ -74,6 +81,29 @@ public class TutorialHandler : MonoBehaviour
                 tutorialPanel.SetActive(false);
                 UICanvasHandler.instance.EnableMainSceneButtons(true);
                 break;
+        }
+    }
+    private void PositionTutorialArrow(int objectIndex, int yOffset)
+    {
+        tutorialArrow.transform.localPosition = tutorialObjects[objectIndex].transform.localPosition + new Vector3(0, yOffset, 0);
+    }
+
+    private void DisableAllExcept(string objectName)
+    {
+        foreach(GameObject g in tutorialObjects)
+        {
+            g.GetComponent<Button>().interactable = false;
+
+            if(!g.name.Equals(objectName))
+            {
+                g.transform.GetChild(0).gameObject.SetActive(false);
+            }
+            else
+            {
+                g.GetComponent<Button>().interactable = true;
+                g.GetComponent<Button>().enabled = false;
+                g.transform.GetChild(0).gameObject.SetActive(true);
+            }
         }
     }
 }
