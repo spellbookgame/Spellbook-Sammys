@@ -72,10 +72,25 @@ public class UICanvasHandler : MonoBehaviour
             SceneManager.LoadScene("SpellbookProgress");
             ScaleSpellbookButtons("progress");
         });
+
+        // set onclick listeners for main scene buttons
+        spellbookButton.GetComponent<Button>().onClick.AddListener(() =>
+        {
+            SoundManager.instance.PlaySingle(SoundManager.spellbookopen);
+            UICanvasHandler.instance.ActivateSpellbookButtons(true);
+            SceneManager.LoadScene("SpellbookScene");
+        });
+        inventoryButton.GetComponent<Button>().onClick.AddListener(() =>
+        {
+            SoundManager.instance.PlaySingle(SoundManager.inventoryOpen);
+            SceneManager.LoadScene("InventoryScene");
+        });
         scanButton.GetComponent<Button>().onClick.AddListener(() =>
         {
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
-            SceneManager.LoadScene("VuforiaScene");
+            LoadHandler.instance.sceneBuildIndex = 2;
+            SceneManager.LoadScene("LoadingScene");
+            // SceneManager.LoadScene("VuforiaScene");
         });
 
         // initially position the buttons properly on main player scene

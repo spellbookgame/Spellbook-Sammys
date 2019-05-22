@@ -4062,8 +4062,25 @@ MonoBehaviour:
   warpController: {fileID: 186594871}
   symbolImage: {fileID: 132603536}
   informationPanel: {fileID: 503478432}
+  alchemistIcon: {fileID: 21300000, guid: bfd3e5a635438c64aa3bea6da03cec0d, type: 3}
+  arcanistIcon: {fileID: 21300000, guid: 0a4eff1440c7a4e4cad72cf358103825, type: 3}
+  chronomancerIcon: {fileID: 21300000, guid: 3a22c0b1f7f657e4c82c7f112be1b966, type: 3}
+  elementalistIcon: {fileID: 21300000, guid: 7cc1691919eb77b4b8160fe06bef3d37, type: 3}
+  illusionistIcon: {fileID: 21300000, guid: 5dd9d23700218094c9966da06929035d, type: 3}
+  summonerIcon: {fileID: 21300000, guid: f044de8f85245f14f8bb880bdb8560f1, type: 3}
+  alchemistSprite: {fileID: 21300000, guid: 84adf4d47c45a804d83418f40e71eb21, type: 3}
+  arcanistSprite: {fileID: 21300000, guid: 335c804e15bc6b24289012b48abf5fd6, type: 3}
+  chronomancerSprite: {fileID: 21300000, guid: 7a0d36e36be5763468583263465e1cf3, type: 3}
+  elementalistSprite: {fileID: 21300000, guid: d031e7b7a963ea5499f2e4b1a034e7ab, type: 3}
+  illusionistSprite: {fileID: 21300000, guid: f851ce50813a6db4ca15bd5c5b888c76, type: 3}
+  summonerSprite: {fileID: 21300000, guid: 136ab463e32de994ab64ce4ee57d90d8, type: 3}
   spellbookButton: {fileID: 1996619081}
   inventoryButton: {fileID: 120093642}
+  loadSceneEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1 &1076858231
 GameObject:
   m_ObjectHideFlags: 0
@@ -7783,6 +7800,7 @@ MonoBehaviour:
   spacesMoved: 0
   spellbookButton: {fileID: 1996619079}
   diceButton: {fileID: 364770029}
+  scanButton: {fileID: 995366413}
   inventoryButton: {fileID: 120093640}
   endTurnButton: {fileID: 1679246880}
   spellbookMainButton: {fileID: 1467812678}
@@ -7792,7 +7810,6 @@ MonoBehaviour:
   movePanel: {fileID: 1061662670}
   diceUIHandler: {fileID: 1017870111}
   combatButton: {fileID: 747905553}
-  scanButton: {fileID: 995366413}
   tutorialPromptPanel: {fileID: 2126073437}
 --- !u!1 &2126073437
 GameObject:
@@ -7853,10 +7870,6 @@ MonoBehaviour:
   tutorialText: {fileID: 2077143257}
   okButton: {fileID: 103735838}
   tutorialArrow: {fileID: 653165241}
-  spellbookButton: {fileID: 1996619081}
-  diceButton: {fileID: 364770031}
-  scanButton: {fileID: 995366415}
-  inventoryButton: {fileID: 120093642}
 --- !u!114 &2126073440
 MonoBehaviour:
   m_ObjectHideFlags: 0

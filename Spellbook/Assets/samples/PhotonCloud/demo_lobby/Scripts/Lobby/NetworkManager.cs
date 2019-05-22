@@ -371,6 +371,7 @@ namespace Bolt.Samples.Photon.Lobby
             countdown.Send();
 
             BoltNetwork.LoadScene(gameScene.SimpleSceneName);
+            LoadHandler.instance.sceneBuildIndex = 1;
         }
 
         public override void EntityReceived(BoltEntity entity)

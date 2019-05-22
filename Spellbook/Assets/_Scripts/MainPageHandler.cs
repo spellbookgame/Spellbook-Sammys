@@ -3,10 +3,11 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using SpellbookExtensions;
-using System.Linq;
+using UnityEngine.Events;
 
 public class MainPageHandler : MonoBehaviour
 {
+    #region private_fields
     [SerializeField] private GameObject questTracker;
     [SerializeField] private GameObject spellTracker;
     [SerializeField] private GameObject crisisHandler;
@@ -21,15 +22,32 @@ public class MainPageHandler : MonoBehaviour
     [SerializeField] private UIWarpController warpController;
     [SerializeField] private SpriteRenderer symbolImage;
     [SerializeField] private GameObject informationPanel;
+
+    [SerializeField] private Sprite alchemistIcon;
+    [SerializeField] private Sprite arcanistIcon;
+    [SerializeField] private Sprite chronomancerIcon;
+    [SerializeField] private Sprite elementalistIcon;
+    [SerializeField] private Sprite illusionistIcon;
+    [SerializeField] private Sprite summonerIcon;
+
+    [SerializeField] private Sprite alchemistSprite;
+    [SerializeField] private Sprite arcanistSprite;
+    [SerializeField] private Sprite chronomancerSprite;
+    [SerializeField] private Sprite elementalistSprite;
+    [SerializeField] private Sprite illusionistSprite;
+    [SerializeField] private Sprite summonerSprite;
     
     [SerializeField] private Button spellbookButton;
     [SerializeField] private Button inventoryButton;
+    #endregion
 
     private bool diceTrayOpen;
     private bool manaHasChanged;
 
     Player localPlayer;
     public static MainPageHandler instance = null;
+
+    public UnityEvent loadSceneEvent;
 
     void Awake()
     {
@@ -93,20 +111,49 @@ public class MainPageHandler : MonoBehaviour
         // disable dice button if it's not player's turn
         UICanvasHandler.instance.EnableDiceButton(localPlayer.bIsMyTurn);
 
+        // create instances of QuestTracker/SpellTracker prefabs
+        Instantiate(questTracker);
+        Instantiate(spellTracker);
+        // CHANGE CRISISHANDLER TO BE INSTANTIATED IN LOBBY SCENE
+        Instantiate(crisisHandler);
+
+        SetClassAttributes();
+
         // in case a panel didn't display during scan scene, display them in main scene
         PanelHolder.instance.CheckPanelQueue();
+    }
+    
+    private void SetClassAttributes()
+    {
+        // set character image/icons to associated sprites
+        switch(localPlayer.Spellcaster.classType)
+        {
+            case "Alchemist":
+                symbolImage.sprite = alchemistIcon;
+                characterImage.sprite = alchemistSprite;
+                break;
+            case "Arcanist":
+                symbolImage.sprite = arcanistIcon;
+                characterImage.sprite = arcanistSprite;
+                break;
+            case "Chronomancer":
+                symbolImage.sprite = chronomancerIcon;
+                characterImage.sprite = chronomancerSprite;
+                break;
+            case "Elementalist":
+                symbolImage.sprite = elementalistIcon;
+                characterImage.sprite = elementalistSprite;
+                break;
+            case "Illusionist":
+                symbolImage.sprite = illusionistIcon;
+                characterImage.sprite = illusionistSprite;
+                break;
+            case "Summoner":
+                symbolImage.sprite = summonerIcon;
+                characterImage.sprite = summonerSprite;
+                break;
+        }
 
-        // create instances of QuestTracker/SpellTracker prefabs
-        GameObject q = Instantiate(questTracker);
-        GameObject s = Instantiate(spellTracker);
-        // CHANGE CRISISHANDLER TO BE INSTANTIATED IN LOBBY SCENE
-        GameObject c = Instantiate(crisisHandler);
-            
-        // set character image based on class
-        characterImage.sprite = Resources.Load<Sprite>(localPlayer.Spellcaster.characterSpritePath);
-        // set class symbol image based on class
-        symbolImage.sprite = Resources.Load<Sprite>(localPlayer.Spellcaster.characterIconPath);
-        // set background color based on class
         Color lightCol = new Color();
         ColorUtility.TryParseHtmlString(localPlayer.Spellcaster.hexStringLight, out lightCol);
         lightCol = lightCol.SetSaturation(0.35f);
@@ -115,19 +162,6 @@ public class MainPageHandler : MonoBehaviour
         Color panelCol = new Color();
         ColorUtility.TryParseHtmlString(localPlayer.Spellcaster.hexStringPanel, out panelCol);
         informationPanel.GetComponent<SpriteRenderer>().color = panelCol;
-
-        // set onclick listeners for spellbook/inventory button
-        spellbookButton.onClick.AddListener(() =>
-        {
-            SoundManager.instance.PlaySingle(SoundManager.spellbookopen);
-            UICanvasHandler.instance.ActivateSpellbookButtons(true);
-            SceneManager.LoadScene("SpellbookScene");
-        });
-        inventoryButton.onClick.AddListener(() =>
-        {
-            SoundManager.instance.PlaySingle(SoundManager.inventoryOpen);
-            SceneManager.LoadScene("InventoryScene");
-        });
     }
 
     public void DisplayMana(int manaCollected)
