@@ -161,15 +161,17 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
                     randItem = il3[UnityEngine.Random.Range(0, il3.Count)];
 
                 localPlayer.Spellcaster.AddToInventory(randItem);
-                PanelHolder.instance.displayBoardScan("Shrine", "The shrine has given you a " + randItem.name + "!", randItem.sprite, "MainPlayerScene");
+                SceneManager.LoadScene("MainPlayerScene");
+                PanelHolder.instance.displayBoardScan("Shrine", "The shrine has given you a " + randItem.name + "!", randItem.sprite, "OK");
                 break;
             case "location_springs":
                 int healAmount = UnityEngine.Random.Range(2, 11);
                 localPlayer.Spellcaster.HealDamage(healAmount);
                 int manaAmount = UnityEngine.Random.Range(100, 1000);
                 localPlayer.Spellcaster.CollectMana(manaAmount);
+                SceneManager.LoadScene("MainPlayerScene");
                 PanelHolder.instance.displayNotify("Springs", "You rested in the springs and recovered " + healAmount.ToString() + 
-                                                    " health! You also found " + manaAmount.ToString() + " mana.", "MainPlayerScene");
+                                                    " health! You also found " + manaAmount.ToString() + " mana.", "OK");
                 break;
             #endregion
 
