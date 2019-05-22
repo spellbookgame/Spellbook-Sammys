@@ -43,9 +43,11 @@ public class DiceUIHandler : MonoBehaviour
         // set dice tray position to 0
         transform.localPosition = new Vector3(0, 0, 0);
 
+        rollButton.interactable = false;
+
         // if player hasn't rolled yet, enable roll button
-        if (!localPlayer.Spellcaster.hasRolled)
-            rollButton.interactable = true;
+        //if (!localPlayer.Spellcaster.hasRolled)
+        //    rollButton.interactable = true;
 
         // if dice are not locked, reset dice when opening tray
         if (!diceTrayOpen && !localPlayer.Spellcaster.hasRolled)
@@ -55,7 +57,7 @@ public class DiceUIHandler : MonoBehaviour
             // populate the scroll rect with player's dice
             PopulateScrollRect();
 
-            // if player has Tailwind active, add a D6 to movement slot
+            // if player has Tailwind active, add a D8 to movement slot
             if (SpellTracker.instance.SpellIsActive(new Tailwind()))
                 DiceToMovement(8);
             // if player has Allegro active, add a D6 to movement slot
