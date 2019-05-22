@@ -516,8 +516,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 101.150024}
-  m_SizeDelta: {x: 891.9, y: 202.3}
+  m_AnchoredPosition: {x: 0, y: 101.15}
+  m_SizeDelta: {x: 1166, y: 202.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1040791067
 MonoBehaviour:
@@ -541,7 +541,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: ca387620f78a548d996dd7f383ba71ed, type: 3}
-    m_FontSize: 90
+    m_FontSize: 80
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 7
@@ -552,7 +552,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: by Team Spellbook
+  m_Text: The Spellcrafters presents
 --- !u!222 &1040791068
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -617,6 +617,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: fadeAnimator
+      objectReference: {fileID: 0}
+    - target: {fileID: 576583075704412133, guid: 9390e70b2a3e87a49add7e3388fe3a6c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 576583075704412132, guid: 9390e70b2a3e87a49add7e3388fe3a6c,
         type: 3}

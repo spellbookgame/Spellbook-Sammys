@@ -23,7 +23,7 @@ public class UICanvasHandler : MonoBehaviour
     [SerializeField] private GameObject movePanel;
     [SerializeField] private DiceUIHandler diceUIHandler;
     [SerializeField] private GameObject combatButton;
-    [SerializeField] private GameObject tutorialPromptPanel;
+    [SerializeField] private GameObject tutorialHandler;
     
     #endregion
 
@@ -94,7 +94,7 @@ public class UICanvasHandler : MonoBehaviour
         });
 
         // initially position the buttons properly on main player scene
-        spellbookButton.transform.localPosition = new Vector3(-530, -1225, 0);
+        //spellbookButton.transform.localPosition = new Vector3(-530, -1225, 0);
         diceButton.transform.localPosition = new Vector3(-180, -1225, 0);
         scanButton.transform.localPosition = new Vector3(180, -1225, 0);
         inventoryButton.transform.localPosition = new Vector3(530, -1225, 0);
@@ -201,11 +201,6 @@ public class UICanvasHandler : MonoBehaviour
         scanButton.GetComponent<Button>().interactable = enabled;
         inventoryButton.GetComponent<Button>().interactable = enabled;
 
-        spellbookButton.GetComponent<Button>().enabled = enabled;
-        diceButton.GetComponent<Button>().enabled = enabled;
-        scanButton.GetComponent<Button>().enabled = enabled;
-        inventoryButton.GetComponent<Button>().enabled = enabled;
-
         // for the glow backgrounds
         spellbookButton.transform.GetChild(0).gameObject.SetActive(enabled);
         diceButton.transform.GetChild(0).gameObject.SetActive(enabled);
@@ -275,6 +270,6 @@ public class UICanvasHandler : MonoBehaviour
 
     public void ShowTutorialPrompt()
     {
-        tutorialPromptPanel.SetActive(true);
+        tutorialHandler.GetComponent<TutorialHandler>().PromptTutorial();
     }
 }

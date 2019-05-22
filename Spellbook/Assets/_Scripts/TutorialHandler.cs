@@ -5,28 +5,32 @@ using UnityEngine.UI;
 
 /// <summary>
 /// Grace Ko
-/// script used to manage tutorial at start of game
+/// script used to manage tutorials
 /// </summary>
 public class TutorialHandler : MonoBehaviour
 {
     [SerializeField] private GameObject tutorialPanel;
+    [SerializeField] private GameObject promptPanel;
     [SerializeField] private Button promptYesButton;
     [SerializeField] private Button promptNoButton;
     [SerializeField] private Text tutorialText;
     [SerializeField] private Button okButton;
     [SerializeField] private GameObject tutorialArrow;
 
-    private int buttonClicks = 0;
+    private int buttonClicks;
 
     public GameObject[] tutorialObjects;
+    public string[] tutorialTexts;
 
-    private void Start()
+    public void PromptTutorial()
     {
+        promptPanel.SetActive(true);
+
         promptYesButton.onClick.AddListener(() => BeginTutorial());
         promptNoButton.onClick.AddListener(() =>
         {
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
-            gameObject.SetActive(false);
+            promptPanel.SetActive(false);
 
             GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().Spellcaster.tutorialShown = true;
         });
@@ -35,14 +39,18 @@ public class TutorialHandler : MonoBehaviour
     private void BeginTutorial()
     {
         SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
-        gameObject.SetActive(false);
+        promptPanel.SetActive(false);
         tutorialPanel.SetActive(true);
         tutorialArrow.SetActive(true);
 
-        okButton.onClick.AddListener(() => ClickTutorial());
+        buttonClicks = 0;
 
-        PositionTutorialArrow(0, 375);
-        DisableAllExcept(tutorialObjects[0].name);
+        PositionTutorialArrow(buttonClicks, 400);
+        tutorialText.text = tutorialTexts[buttonClicks];
+        DisableAllExcept(tutorialObjects[buttonClicks].name);
+
+        okButton.onClick.AddListener(() => ClickTutorial());
+        ++buttonClicks;
 
         GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().Spellcaster.tutorialShown = true;
     }
@@ -51,41 +59,44 @@ public class TutorialHandler : MonoBehaviour
     {
         SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
 
-        // switch text every time button is clicked
-        switch(buttonClicks)
+        if(buttonClicks < tutorialTexts.Length)
         {
-            case 0:
-                tutorialText.text = "Open the Dice Tray to roll and move!";
-                PositionTutorialArrow(1, 375);
-                DisableAllExcept(tutorialObjects[1].name);
+            if(buttonClicks < tutorialObjects.Length)
+            {
+                tutorialText.text = tutorialTexts[buttonClicks];
+                PositionTutorialArrow(buttonClicks, 400);
+                DisableAllExcept(tutorialObjects[buttonClicks].name);
                 ++buttonClicks;
-                break;
-            case 1:
-                tutorialText.text = "Use the scanner if you've arrived at a location, or if you want to create a spell.";
-                PositionTutorialArrow(2, 375);
-                DisableAllExcept(tutorialObjects[2].name);
-                ++buttonClicks;
-                break;
-            case 2:
-                tutorialText.text = "Open up your Inventory to view items you've collected.";
-                PositionTutorialArrow(3, 375);
-                DisableAllExcept(tutorialObjects[3].name);
-                ++buttonClicks;
-                break;
-            case 3:
-                tutorialText.text = "Collect runes to create spells before the crisis arrives! Good luck!";
+            }
+            else
+            {
+                tutorialText.text = tutorialTexts[buttonClicks];
                 tutorialArrow.SetActive(false);
                 ++buttonClicks;
-                break;
-            case 4:
-                tutorialPanel.SetActive(false);
-                UICanvasHandler.instance.EnableMainSceneButtons(true);
-                break;
+            }
+        }
+        else
+        {
+            tutorialPanel.SetActive(false);
+            EnableAllObjects();
         }
     }
     private void PositionTutorialArrow(int objectIndex, int yOffset)
     {
-        tutorialArrow.transform.localPosition = tutorialObjects[objectIndex].transform.localPosition + new Vector3(0, yOffset, 0);
+        // if the object is below the center of screen, position arrow above object, otherwise rotate/position below object
+        if(tutorialObjects[objectIndex].transform.localPosition.y <= 0)
+        {
+            if(tutorialArrow.transform.rotation.eulerAngles.z == 270)
+                tutorialArrow.transform.Rotate(0, 0, 180, Space.Self);
+            tutorialArrow.GetComponent<UIAutoHover>()._startPosition = tutorialObjects[objectIndex].transform.localPosition.y + yOffset;
+            tutorialArrow.transform.localPosition = tutorialObjects[objectIndex].transform.localPosition + new Vector3(0, yOffset, 0);
+        }
+        else
+        {
+            tutorialArrow.transform.Rotate(0, 0, -180, Space.Self);
+            tutorialArrow.GetComponent<UIAutoHover>()._startPosition = tutorialObjects[objectIndex].transform.localPosition.y - yOffset - 200;
+            tutorialArrow.transform.localPosition = tutorialObjects[objectIndex].transform.localPosition - new Vector3(0, yOffset - 200, 0);
+        }
     }
 
     private void DisableAllExcept(string objectName)
@@ -104,6 +115,16 @@ public class TutorialHandler : MonoBehaviour
                 g.GetComponent<Button>().enabled = false;
                 g.transform.GetChild(0).gameObject.SetActive(true);
             }
+        }
+    }
+
+    private void EnableAllObjects()
+    {
+        foreach(GameObject g in tutorialObjects)
+        {
+            g.GetComponent<Button>().interactable = true;
+            g.GetComponent<Button>().enabled = true;
+            g.transform.GetChild(0).gameObject.SetActive(true);
         }
     }
 }
