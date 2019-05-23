@@ -97,16 +97,11 @@ public class PlayerChooseUI : MonoBehaviour
     }
 
     // used to notify players of various events. input a buttonClick string to change the onClick listener
-    public void DisplayPlayerChoose(/*string spellName*/)
+    public void DisplayPlayerChoose(string spellName)
     {
-        // if current scene is Vuforia, change everything to image
-        if (SceneManager.GetActiveScene().name.Equals("VuforiaScene"))
-        {
-            gameObject.GetComponent<SpriteRenderer>().enabled = false;
-            gameObject.GetComponent<Image>().enabled = true;
-        }
-
         gameObject.SetActive(true);
+
+        gameObject.transform.GetChild(0).GetComponent<Text>().text = "Cast " + spellName + " on:";
 
         if (!PanelHolder.panelQueue.Peek().Equals(panelID))
         {

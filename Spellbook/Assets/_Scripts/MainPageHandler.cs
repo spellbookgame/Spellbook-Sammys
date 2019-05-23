@@ -78,7 +78,7 @@ public class MainPageHandler : MonoBehaviour
         // ------------ TEST AREA - DELETE LATER ----------
         if (Input.GetKeyDown(KeyCode.G))
         {
-            localPlayer.Spellcaster.CollectSpell(new CollectorsDrink());
+            localPlayer.Spellcaster.CollectSpell(new CrystalScent());
         }
         if (Input.GetKeyDown(KeyCode.M))
         {

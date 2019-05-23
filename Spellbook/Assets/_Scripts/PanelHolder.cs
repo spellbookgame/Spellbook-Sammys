@@ -132,9 +132,10 @@ public class PanelHolder : MonoBehaviour
     public void displayChooseSpellcaster(IAllyCastable spell)
     {
         currentSpell = spell;
+        Spell convertedSpell = (Spell)spell;
         panelQueue.Enqueue(chooseSpellcasterPanel.panelID);
         Debug.Log("Queued: " + chooseSpellcasterPanel.panelID);
-        chooseSpellcasterPanel.DisplayPlayerChoose();
+        chooseSpellcasterPanel.DisplayPlayerChoose(convertedSpell.sSpellName);
         CheckPanelQueue();
     }
 
