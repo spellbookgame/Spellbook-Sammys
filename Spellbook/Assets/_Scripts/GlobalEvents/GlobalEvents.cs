@@ -10,7 +10,6 @@ using Random = UnityEngine.Random;
      */
 public class GlobalEvents : MonoBehaviour
 {
-
     class GlobalEvent
     {
         public string name;
@@ -37,7 +36,12 @@ public class GlobalEvents : MonoBehaviour
             "of current health of all wizards.If the Elementalist has a level " +
             "three spell unlocked the Elementalist will be able to stop the waters " +
             "from crashing into the cities.";
-        
+
+        public static string plagueDesc = "A plague has riddled the land. The Alchemist " +
+            "may be able to brew up an antidote to save the people.";
+
+        public static string finalBossDesc = "The ultimate fight. Six powerful wizards of the" +
+            " light against one very powerful wizard of the dark.";
 
     }
 
@@ -58,6 +62,33 @@ public class GlobalEvents : MonoBehaviour
 
     int counterSpellcasterID;
     string counterSpellcasterClass;
+
+
+    #region FOR_SAMMYS
+    public void SetupCrisis()
+    {
+        list_AllEvents = new List<GlobalEvent>();
+        evntInfo = new Dictionary<string, string>();
+
+        GlobalEvent tsunami = new GlobalEvent("Tsunami", GlobalEventDescriptions.tsunamiDesc, 2, 3, Tsunami);
+        evntInfo[tsunami.name] = tsunami.description;
+        list_AllEvents.Add(tsunami);
+
+        GlobalEvent plague = new GlobalEvent("Plague", GlobalEventDescriptions.plagueDesc, 3, 3, StonelungPlague);
+        evntInfo[plague.name] = tsunami.description;
+        list_AllEvents.Add(plague);
+
+        GlobalEvent finalBoss = new GlobalEvent("Boss Battle", GlobalEventDescriptions.finalBossDesc, 7, 3, FinalBossBattle);
+        evntInfo[finalBoss.name] = finalBoss.description;
+        list_AllEvents.Add(finalBoss);
+
+        NetworkGameState.instance.
+            setNextEvent(list_AllEvents[currentEventIndex].name, 
+            list_AllEvents[currentEventIndex].description, 
+            list_AllEvents[currentEventIndex].yearsItTakesToHappen);
+    }
+
+    #endregion
 
     /*TODO: Have this only be called when Host presess start game in the lobby*/
     public void determineGlobalEvents()
@@ -108,7 +139,7 @@ public class GlobalEvents : MonoBehaviour
     public void notifyAboutNewUpcomingEvent()
     {
         NetworkManager.s_Singleton.
-            notifyAboutNewUpcomingEvent(list_AllEvents[currentEventIndex].name, list_AllEvents[currentEventIndex].description);
+            notifyAboutNewUpcomingEvent(list_AllEvents[currentEventIndex].name);
     }
 
     //Call this one for generic events
@@ -174,18 +205,23 @@ public class GlobalEvents : MonoBehaviour
         }
     }
 
+    //ID = 7
     private void FinalBossBattle()
     {
         //Not yet implemented until combat is done
-        NetworkManager.s_Singleton.startFinalBossBattle();
+        //NetworkManager.s_Singleton.startFinalBossBattle();
+        NetworkManager.s_Singleton.ActivateCrisisEvent("Boss Battle");
     }
 
     //ID = 2
     private void Tsunami()
     {
-        counterSpellcasterClass = "Elementalist";
-        counterSpellcasterID = elementalistID;
-        NetworkManager.s_Singleton.CheckIfCanCounter(counterSpellcasterID, 0, 2);
+        NetworkManager.s_Singleton.ActivateCrisisEvent("Tsunami");
+        
+        //THIS CODE WILL NOT BE USED FOR SAMMYS
+        //counterSpellcasterClass = "Elementalist";
+        //counterSpellcasterID = elementalistID;
+        //NetworkManager.s_Singleton.CheckIfCanCounter(counterSpellcasterID, 0, 2);
     }
 
     //ID = 
@@ -194,10 +230,10 @@ public class GlobalEvents : MonoBehaviour
 
     }
 
-    //ID = 
+    //ID = 3
     private void StonelungPlague ()
     {
-
+        NetworkManager.s_Singleton.ActivateCrisisEvent("Plague");
     }
 
     //ID = 
@@ -221,6 +257,7 @@ public class GlobalEvents : MonoBehaviour
     
 }
 
+//Shuffles the order of a list.
 static class Shuffler
 {
     public static void Shuffle<T>(this IList<T> list)
