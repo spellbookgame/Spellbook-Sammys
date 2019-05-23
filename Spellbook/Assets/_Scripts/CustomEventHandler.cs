@@ -74,6 +74,10 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
         {
             PanelHolder.instance.displayNotify("", "You can't scan a location if you haven't moved.", "MainPlayerScene");
         }
+        else if(localPlayer.Spellcaster.tsunamiConsequence)
+        {
+            PanelHolder.instance.displayNotify("Tsunami Consequence", "The tsunami damaged all regions. You cannot enter.", "MainPlayerScene");
+        }
     }
 
     protected virtual void OnTrackingLost()

@@ -92,10 +92,6 @@ public class MainPageHandler : MonoBehaviour
         {
             SceneManager.LoadScene("ForestScene");
         }
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            SceneManager.LoadScene("IllusionTownScene");
-        }
         // -------------------------------------------------
     }
 

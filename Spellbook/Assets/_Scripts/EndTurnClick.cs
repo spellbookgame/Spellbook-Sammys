@@ -19,6 +19,10 @@ public class EndTurnClick : MonoBehaviour
             UICanvasHandler.instance.spacesMoved = 0;
             SpellTracker.instance.agendaActive = false;
 
+            // reset consequence bools
+            if (localPlayer.Spellcaster.NumOfTurnsSoFar - localPlayer.Spellcaster.tsunamiConsTurn >= 1)
+                localPlayer.Spellcaster.tsunamiConsequence = false;
+
             // collect end of turn mana
             int manaCollected = localPlayer.Spellcaster.CollectManaEndTurn();
             GameObject.Find("ScriptContainer").GetComponent<MainPageHandler>().DisplayMana(manaCollected);

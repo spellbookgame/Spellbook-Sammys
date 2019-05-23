@@ -28,6 +28,10 @@ public abstract class SpellCaster
 
     public int iMana;
     public decimal dManaMultiplier = 1;
+
+    // tracking crisis consequences
+    public bool tsunamiConsequence;
+    public int tsunamiConsTurn;
     
     // misc attributes
     public string classType;

@@ -55,11 +55,11 @@ public class CrisisHandler : MonoBehaviour
         roundsUntilCrisis = 3;
 
         crisisName = "Tsunami";
-        requiredLocation = "location_forest";
-        requiredClass = "Elementalist";
+        requiredLocation = "town_elementalist";
+        requiredClass = "";
         requiredSpellTier = 3;
 
-        crisisDetails = "Elementalist must go to the Forest with a TIER 3 spell unlocked.";
+        crisisDetails = "A Spellcaster must go to Sarissa with a TIER 3 spell unlocked.";
         crisisConsequence = "All wizards will lose half their HP. Towns will be closed next round.";
         crisisReward = "All wizards will receive the highest tier rune from their respective class.";
 
@@ -71,13 +71,15 @@ public class CrisisHandler : MonoBehaviour
     {
         if(crisisSolved)
         {
-            // PanelHolder.instance.displayBoardScan("Tsunami Averted", "Out of gratitude for saving the Empire, the Capital is rewarding each wizard with an A tier rune from their class.", 
-                                                    // Resources.Load<Sprite>("RuneArt/" + localPlayer.Spellcaster.classType + " A Rune", "OK");
+            PanelHolder.instance.displayBoardScan("Tsunami Averted", "Out of gratitude for saving the Empire, the Capital is rewarding each wizard with an A tier rune from their class.", 
+                                                    Resources.Load<Sprite>("RuneArt/" + player.Spellcaster.classType + " A Rune"), "OK");
         }
         else
         {
-            // localPlayer.Spellcaster.TakeDamage(localPlayer.Spellcaster.fmaxHealth / 2);
-            // PanelHolder.instance.displayNotify("Tsunami Disaster", "You weren't able to stop the tsunami in time. All wizards lost half HP. Place tiles over the town spaces to close them off until next round.", "OK");
+            player.Spellcaster.TakeDamage((int)player.Spellcaster.fMaxHealth / 2);
+            PanelHolder.instance.displayNotify("Tsunami Disaster", "You weren't able to stop the tsunami in time. All wizards lost half HP. Towns will not be scannable next round.", "OK");
+            player.Spellcaster.tsunamiConsequence = true;
+            player.Spellcaster.tsunamiConsTurn = player.Spellcaster.NumOfTurnsSoFar;    // tsunami consequence deactivated after 1 turn has passed (endturnclick)
         }
         currentCrisis = "";
     }
@@ -278,14 +280,11 @@ public class CrisisHandler : MonoBehaviour
             switch (currentCrisis)
             {
                 case "Tsunami":
-                    if (player.Spellcaster.classType.Equals("Elementalist"))
+                    // if player has a tier 3 spell collected and is in the forest
+                    if (player.Spellcaster.chapter.spellsCollected.Any(x => x.iTier == 3) && location.Equals(requiredLocation))
                     {
-                        // if elementalist has a tier 3 spell collected and is in the forest
-                        if (player.Spellcaster.chapter.spellsCollected.Any(x => x.iTier == 3) && location.Equals(requiredLocation))
-                        {
-                            PanelHolder.instance.displayNotify("Tsunami Averted", "Congratulations! Your Elementalist stopped the tsunami from destroying our lands.", "OK");
-                            crisisSolved = true;
-                        }
+                        PanelHolder.instance.displayNotify("Tsunami Averted", "Congratulations! You have succeeded in stopping the tsunami!", "OK");
+                        crisisSolved = true;
                     }
                     break;
                 case "Comet":
