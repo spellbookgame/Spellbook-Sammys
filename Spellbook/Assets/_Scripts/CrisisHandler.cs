@@ -78,7 +78,7 @@ public class CrisisHandler : MonoBehaviour
         {
             player.Spellcaster.TakeDamage((int)player.Spellcaster.fMaxHealth / 2);
             PanelHolder.instance.displayNotify("Tsunami Disaster", "You weren't able to stop the tsunami in time. All wizards lost half HP. Towns will not be scannable next round.", "OK");
-            player.Spellcaster.tsunamiConsequence = true;
+            player.Spellcaster.tsunamiConsequence = true;   // checked in CustomEventHandler.cs
             player.Spellcaster.tsunamiConsTurn = player.Spellcaster.NumOfTurnsSoFar;    // tsunami consequence deactivated after 1 turn has passed (endturnclick)
         }
         currentCrisis = "";
@@ -89,16 +89,16 @@ public class CrisisHandler : MonoBehaviour
     public void CallComet()
     {
         currentCrisis = "Comet";
-        nextCrisis = "Stonelung Plague";
+        nextCrisis = "Plague";
         crisisSolved = false;
         roundsUntilCrisis = 3;
 
         crisisName = "Gilron's Comet";
-        requiredLocation = "Town";  
-        requiredClass = "Arcanist";
+        requiredLocation = "location_capital";  
+        requiredClass = "";
         requiredSpellTier = 2;
 
-        crisisDetails = "Arcanist must go to any town with a TIER 2 spell unlocked.";
+        crisisDetails = "A Spellcaster must go to the Capital with a TIER 2 spell unlocked.";
         crisisConsequence = "All wizards will lose 15 HP. Mana flow will be cut off next round.";
         crisisReward = "All towns will be able to hold 2 runes.";
 
@@ -107,8 +107,17 @@ public class CrisisHandler : MonoBehaviour
     // call this when crisis arrives (if roundsUntilCrisis == 0)
     public void FinishComet()
     {
-        // if(crisisSolved) give rewards
-        // if(!crisisSolved) give consequence
+        if (crisisSolved)
+        {
+            PanelHolder.instance.displayNotify("Comet Averted", "The debri from the comet blast left the towns with an influx of magical energy! Place a second rune in all towns.", "OK");
+        }
+        else
+        {
+            player.Spellcaster.TakeDamage(15);
+            PanelHolder.instance.displayNotify("Comet Destruction", "You weren't able to stop the comet in time. All wizards lost 15 HP. Mana flow will be cut off next round.", "OK");
+            player.Spellcaster.cometConsequence = true;     // checked in Spellcaster.cs CollectMana();
+            player.Spellcaster.cometConsTurn = player.Spellcaster.NumOfTurnsSoFar;
+        }
         currentCrisis = "";
     }
     #endregion
@@ -288,18 +297,11 @@ public class CrisisHandler : MonoBehaviour
                     }
                     break;
                 case "Comet":
-                    if (player.Spellcaster.classType.Equals("Arcanist"))
+                    // if player has a tier 2 spell collected and is in a town
+                    if (player.Spellcaster.chapter.spellsCollected.Any(x => x.iTier == 2) && location.Equals(requiredLocation))
                     {
-                        // if arcanist has a tier 2 spell collected and is in a town
-                        if (player.Spellcaster.chapter.spellsCollected.Any(x => x.iTier == 2))
-                        {
-                            if (location.Equals("town_alchemist") || location.Equals("town_arcanist") || location.Equals("town_chronomancer")
-                                || location.Equals("town_elementalist") || location.Equals("town_illusionist") || location.Equals("town_summoner"))
-                            {
-                                PanelHolder.instance.displayNotify("Comet Averted", "Congratulations! Your Arcanist stopped the comet just in time.", "OK");
-                                crisisSolved = true;
-                            }
-                        }
+                        PanelHolder.instance.displayNotify("Comet Averted", "Congratulations! You have stopped the comet from destroying the land.", "OK");
+                        crisisSolved = true;
                     }
                     break;
                 case "Plague":

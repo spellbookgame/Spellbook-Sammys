@@ -32,7 +32,9 @@ public abstract class SpellCaster
     // tracking crisis consequences
     public bool tsunamiConsequence;
     public int tsunamiConsTurn;
-    
+    public bool cometConsequence;
+    public int cometConsTurn;
+
     // misc attributes
     public string classType;
     public int spellcasterID;
@@ -132,8 +134,11 @@ public abstract class SpellCaster
 
     public void CollectMana(int manaCount)
     {
-        iMana += manaCount;
-        QuestTracker.instance.TrackManaQuest(manaCount);
+        if(!cometConsequence)
+        {
+            iMana += manaCount;
+            QuestTracker.instance.TrackManaQuest(manaCount);
+        }
     }
 
     public int CollectManaEndTurn()

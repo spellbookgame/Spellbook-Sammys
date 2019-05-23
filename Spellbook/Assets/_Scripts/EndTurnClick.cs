@@ -22,6 +22,8 @@ public class EndTurnClick : MonoBehaviour
             // reset consequence bools
             if (localPlayer.Spellcaster.NumOfTurnsSoFar - localPlayer.Spellcaster.tsunamiConsTurn >= 1)
                 localPlayer.Spellcaster.tsunamiConsequence = false;
+            if (localPlayer.Spellcaster.NumOfTurnsSoFar - localPlayer.Spellcaster.cometConsTurn >= 1)
+                localPlayer.Spellcaster.cometConsequence = false;
 
             // collect end of turn mana
             int manaCollected = localPlayer.Spellcaster.CollectManaEndTurn();
