@@ -18,6 +18,7 @@ public class GlimmeringCabochon : ItemObject
 
     public override void UseItem(SpellCaster player)
     {
+        SoundManager.instance.PlaySingle(SoundManager.glimmeringCabochon);
         player.RemoveFromInventory(this);
 
         List<Spell> spells = new List<Spell>();

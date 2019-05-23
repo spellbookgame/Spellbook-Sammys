@@ -15,6 +15,7 @@ public class WaxCandle : ItemObject
 
     public override void UseItem(SpellCaster player)
     {
+        SoundManager.instance.PlaySingle(SoundManager.waxCandle);
         player.RemoveFromInventory(this);
 
         player.waxCandleUsed = true;

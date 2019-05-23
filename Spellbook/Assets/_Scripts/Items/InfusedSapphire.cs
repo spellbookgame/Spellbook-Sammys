@@ -15,6 +15,7 @@ public class InfusedSapphire : ItemObject
 
     public override void UseItem(SpellCaster player)
     {
+        SoundManager.instance.PlaySingle(SoundManager.infusedSapphire);
         player.RemoveFromInventory(this);
 
         player.locationItemUsed = true;

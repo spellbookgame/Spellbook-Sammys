@@ -15,7 +15,7 @@ public class OpalAmmonite : ItemObject
 
     public override void UseItem(SpellCaster player)
     {
-        SoundManager.instance.PlaySingle(SoundManager.manaCollect);
+        SoundManager.instance.PlaySingle(SoundManager.opalAmmonite);
         player.RemoveFromInventory(this);
 
         int randMana = Random.Range(800, 2600);

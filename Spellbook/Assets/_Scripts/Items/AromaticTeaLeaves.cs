@@ -15,6 +15,7 @@ public class AromaticTeaLeaves : ItemObject
 
     public override void UseItem(SpellCaster player)
     {
+        SoundManager.instance.PlaySingle(SoundManager.aromaticTeaLeaves);
         player.RemoveFromInventory(this);
 
         PanelHolder.instance.displayNotify("Aromatic Tea Leaves", "Discard your runes and draw 4 new runes from the low tier deck.", "InventoryScene");

@@ -17,6 +17,7 @@ public class CrystalMirror : ItemObject
 
     public override void UseItem(SpellCaster player)
     {
+        SoundManager.instance.PlaySingle(SoundManager.crystalMirror);
         player.RemoveFromInventory(this);
 
         PanelHolder.instance.displayNotify("Crystal Mirror", "Discard all runes on the board and replace them with runes from the high tier deck.", "InventoryScene");

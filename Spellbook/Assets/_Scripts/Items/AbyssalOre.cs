@@ -17,6 +17,7 @@ public class AbyssalOre : ItemObject
 
     public override void UseItem(SpellCaster player)
     {
+        SoundManager.instance.PlaySingle(SoundManager.abyssalOre);
         player.RemoveFromInventory(this);
 
         // give player a random dice
