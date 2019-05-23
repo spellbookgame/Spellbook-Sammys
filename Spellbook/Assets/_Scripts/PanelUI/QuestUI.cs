@@ -89,7 +89,6 @@ public class QuestUI : MonoBehaviour
         {
             SoundManager.instance.PlaySingle(SoundManager.questaccept);
             player.GetComponent<Player>().Spellcaster.activeQuests.Add(q);
-            SceneManager.LoadScene("MainPlayerScene");
         }
         else
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);

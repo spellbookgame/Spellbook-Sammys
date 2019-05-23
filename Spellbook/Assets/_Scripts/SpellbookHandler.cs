@@ -19,11 +19,11 @@ public class SpellbookHandler : MonoBehaviour
             SceneManager.LoadScene("MainPlayerScene");
         });
 
-        SpellCaster spellCaster = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().Spellcaster;
+        /*SpellCaster spellCaster = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().Spellcaster;
         if (!spellCaster.spellbookTutorialShown)
         {
             tutorialHandler.GetComponent<TutorialHandler>().PromptTutorial();
             spellCaster.spellbookTutorialShown = true;
-        }
+        }*/
     }
 }

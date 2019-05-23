@@ -164,7 +164,6 @@ public class MainPageHandler : MonoBehaviour
         informationPanel.GetComponent<SpriteRenderer>().color = panelCol;
 
         LoadHandler.instance.setupComplete = true;
-        Debug.Log("setup complete set to true");
     }
 
     public void DisplayMana(int manaCollected)
