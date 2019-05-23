@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class SpellbookHandler : MonoBehaviour
 {
     [SerializeField] private Button exitButton;
-    [SerializeField] private GameObject tutorialHandler;
 
     // Start is called before the first frame update
     void Start()
@@ -18,12 +17,5 @@ public class SpellbookHandler : MonoBehaviour
             UICanvasHandler.instance.ActivateSpellbookButtons(false);
             SceneManager.LoadScene("MainPlayerScene");
         });
-
-        /*SpellCaster spellCaster = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().Spellcaster;
-        if (!spellCaster.spellbookTutorialShown)
-        {
-            tutorialHandler.GetComponent<TutorialHandler>().PromptTutorial();
-            spellCaster.spellbookTutorialShown = true;
-        }*/
     }
 }
