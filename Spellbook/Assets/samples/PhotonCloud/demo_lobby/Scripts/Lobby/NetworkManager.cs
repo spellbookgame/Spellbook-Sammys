@@ -504,6 +504,7 @@ namespace Bolt.Samples.Photon.Lobby
         //Everyone recieves this event
         public override void OnEvent(ResolveCrisisEvent evnt)
         {
+            Debug.Log("ResolveCrisisEvent: " + evnt.CrisisName);
             CrisisHandler.instance
                 .FinishCrisis(AllCrisisDict.FinishCrisis[evnt.CrisisName], evnt.IsSolved, evnt.HeroSpellcaster);
         }
