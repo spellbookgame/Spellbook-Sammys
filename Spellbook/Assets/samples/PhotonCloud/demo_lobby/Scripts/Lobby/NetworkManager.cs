@@ -63,6 +63,8 @@ namespace Bolt.Samples.Photon.Lobby
         //Value is SpellcasterId (0-5)
         private Dictionary<string, int> connection_spellcaster;
 
+        public GameObject crisisHandler;
+
 
         //For returning client only, does not support a returning host (yet).
         protected bool spawned = false;
@@ -103,7 +105,7 @@ namespace Bolt.Samples.Photon.Lobby
             backButton.gameObject.SetActive(false);
             GetComponent<Canvas>().enabled = true;
 
-
+            Instantiate(crisisHandler);
 
             DontDestroyOnLoad(gameObject);
 
@@ -460,8 +462,9 @@ namespace Bolt.Samples.Photon.Lobby
         {
             playerEntity = BoltNetwork.Instantiate(BoltPrefabs.LocalPlayer);
             playerEntity.TakeControl();
+            CrisisHandler.instance.CallCrisis(NetworkGameState.instance.getCurrentCrisis());
             playerEntity.GetComponent<Player>().setup(localPlayerSpellcasterID);
-            PanelHolder.instance.displayNotify("Global Event Coming Soon", NetworkGameState.instance.getEventInfo(), "OK");
+           // PanelHolder.instance.displayNotify("Global Event Coming Soon", NetworkGameState.instance.getEventInfo(), "OK");
         }
         #region CLIENT_CALLBACKS
         // ----------------- Client callbacks -----------------------------------------------------------
