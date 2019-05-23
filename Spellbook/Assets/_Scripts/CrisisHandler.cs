@@ -64,7 +64,7 @@ public class CrisisHandler : MonoBehaviour
         crisisConsequence = "All wizards will lose half their HP. Towns will be closed next round.";
         crisisReward = "All wizards will receive the highest tier rune from their respective class.";
 
-        PanelHolder.instance.displayCrisis("Crisis Alert: Tsunami", roundsUntilCrisis);
+        PanelHolder.instance.displayCrisis("Crisis Alert: Tsunami", 3);
     }
 
     // call this when crisis arrives (if roundsUntilCrisis == 0)
@@ -141,7 +141,7 @@ public class CrisisHandler : MonoBehaviour
         crisisConsequence = "All wizards will not be able to cast spells next round. Swamp will be closed for the next round.";
         crisisReward = "All wizards will earn a permanent D6 and an Abyssal Ore.";
 
-        PanelHolder.instance.displayCrisis("Crisis Alert: Stonelung Plague", roundsUntilCrisis);
+        PanelHolder.instance.displayCrisis("Crisis Alert: Stonelung Plague", 3);
     }
 
     // call this when crisis arrives (if roundsUntilCrisis == 0)
@@ -284,7 +284,7 @@ public class CrisisHandler : MonoBehaviour
     {
         currentCrisis = "Boss Battle";
         crisisSolved = false;
-        PanelHolder.instance.displayCrisis("Crisis Alert: Boss Battle", roundsUntilCrisis);
+        PanelHolder.instance.displayCrisis("Crisis Alert: Boss Battle", 3);
     }
 
     public void FinishBossBattle()
