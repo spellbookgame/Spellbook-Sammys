@@ -88,7 +88,7 @@ public class UICanvasHandler : MonoBehaviour
         scanButton.GetComponent<Button>().onClick.AddListener(() =>
         {
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
-            LoadHandler.instance.sceneBuildIndex = 2;
+            LoadHandler.instance.sceneBuildIndex = 3;
             SceneManager.LoadScene("LoadingScene");
             // SceneManager.LoadScene("VuforiaScene");
         });
