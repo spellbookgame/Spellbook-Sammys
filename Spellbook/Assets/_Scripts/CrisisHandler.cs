@@ -45,12 +45,13 @@ public class CrisisHandler : MonoBehaviour
     }
     #endregion
 
+    // tsunami implemented
     #region tsunami
     // call this to alert players of new crisis
     public void CallTsunami()
     {
         currentCrisis = "Tsunami";
-        nextCrisis = "Gilron's Comet";
+        nextCrisis = "Plague";
         crisisSolved = false;
         roundsUntilCrisis = 3;
 
@@ -85,6 +86,7 @@ public class CrisisHandler : MonoBehaviour
     }
     #endregion
 
+    // comet implemented, but not in crisis list
     #region comet
     public void CallComet()
     {
@@ -122,22 +124,22 @@ public class CrisisHandler : MonoBehaviour
     }
     #endregion
 
+    // plague implemented
     #region plague
     public void CallPlague()
     {
         currentCrisis = "Plague";
-        nextCrisis = "Divine Intervention";
+        nextCrisis = "Boss Battle";
         crisisSolved = false;
         roundsUntilCrisis = 3;
 
         crisisName = "Stonelung Plague";
         requiredLocation = "location_capital";
-        requiredClass = "Alchemist";
-        requiredSpellName = "Brew - Distilled Potion";
+        requiredClass = "";
 
-        crisisDetails = "Alchemist must go to the capital with Brew - Distilled Potion spell unlocked.";
+        crisisDetails = "A Spellcaster must go to the capital with a TIER 2 spell unlocked.";
         crisisConsequence = "All wizards will not be able to cast spells next round. Swamp will be closed for the next 2 rounds.";
-        crisisReward = "All wizards will earn a D6.";
+        crisisReward = "All wizards will earn a permanent D6 and an Abyssal Ore.";
 
         PanelHolder.instance.displayCrisis("Crisis Alert: Stonelung Plague", roundsUntilCrisis);
     }
@@ -145,8 +147,17 @@ public class CrisisHandler : MonoBehaviour
     // call this when crisis arrives (if roundsUntilCrisis == 0)
     public void FinishPlague()
     {
-        // if(crisisSolved) give rewards
-        // if(!crisisSolved) give consequence
+        if (crisisSolved)
+        {
+            PanelHolder.instance.displayBoardScan("Plague Averted", "The local apothecaries have gathered special talismans for each wizard for saving them from doing work. " +
+                                                    "Each wizard will earn a permanent D6 and an Abyssal Ore!", Resources.Load<Sprite>("ArtAssets/Items and Currency/Abyssal Ore"), "OK");
+        }
+        else
+        {
+            PanelHolder.instance.displayNotify("Plague Epidemic", "Riddled with disease, all wizards will be unable to cast spells next round. The Swamp will be closed for the next round.", "OK");
+            player.Spellcaster.plagueConsequence = true;   // checked in CustomEventHandler.cs and SpellCollectionHandler.cs
+            player.Spellcaster.plagueConsTurn = player.Spellcaster.NumOfTurnsSoFar;
+        }
         currentCrisis = "";
     }
     #endregion
@@ -277,7 +288,7 @@ public class CrisisHandler : MonoBehaviour
     {
 
     }
-    #endregion
+        #endregion
 
     #region checkCrisis
     // call this to check if crisis is resolved
@@ -292,7 +303,8 @@ public class CrisisHandler : MonoBehaviour
                     // if player has a tier 3 spell collected and is in the forest
                     if (player.Spellcaster.chapter.spellsCollected.Any(x => x.iTier == 3) && location.Equals(requiredLocation))
                     {
-                        PanelHolder.instance.displayNotify("Tsunami Averted", "Congratulations! You have succeeded in stopping the tsunami!", "OK");
+                        spellcasterHero = player.Spellcaster.classType;
+                        PanelHolder.instance.displayNotify("Tsunami Averted", "Congratulations! The " + spellcasterHero + " has succeeded in stopping the tsunami!", "OK");
                         crisisSolved = true;
                     }
                     break;
@@ -300,19 +312,18 @@ public class CrisisHandler : MonoBehaviour
                     // if player has a tier 2 spell collected and is in a town
                     if (player.Spellcaster.chapter.spellsCollected.Any(x => x.iTier == 2) && location.Equals(requiredLocation))
                     {
-                        PanelHolder.instance.displayNotify("Comet Averted", "Congratulations! You have stopped the comet from destroying the land.", "OK");
+                        spellcasterHero = player.Spellcaster.classType;
+                        PanelHolder.instance.displayNotify("Comet Averted", "Congratulations! The " + spellcasterHero + " has stopped the comet from destroying the land.", "OK");
                         crisisSolved = true;
                     }
                     break;
                 case "Plague":
-                    if (player.Spellcaster.classType.Equals("Alchemist"))
+                    // if player has tier 2 spell collected and is in the capital
+                    if (player.Spellcaster.chapter.spellsCollected.Any(x => x.iTier == 2) && location.Equals(requiredLocation))
                     {
-                        // if alchemist has required spell collected and is in the capital
-                        if (player.Spellcaster.chapter.spellsCollected.Any(x => x.sSpellName.Equals(requiredSpellName)) && location.Equals(requiredLocation))
-                        {
-                            PanelHolder.instance.displayNotify("Plague Averted", "Congratulations! Your Alchemist stopped the plague from spreading.", "OK");
-                            crisisSolved = true;
-                        }
+                        spellcasterHero = player.Spellcaster.classType;
+                        PanelHolder.instance.displayNotify("Plague Averted", "Congratulations! The " + spellcasterHero + " has stopped the plague from spreading.", "OK");
+                        crisisSolved = true;
                     }
                     break;
                 case "Intervention":

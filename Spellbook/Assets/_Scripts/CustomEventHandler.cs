@@ -140,7 +140,10 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
                 SceneManager.LoadScene("MineScene");
                 break;
             case "location_swamp":
-                SceneManager.LoadScene("SwampScene");
+                if (localPlayer.Spellcaster.plagueConsequence)
+                    PanelHolder.instance.displayNotify("Plague Consequence", "The swamp is closed. Come back later.", "MainPlayerScene");
+                else
+                    SceneManager.LoadScene("SwampScene");
                 break;
             case "location_forest":
                 SceneManager.LoadScene("ForestScene");

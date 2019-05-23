@@ -20,10 +20,12 @@ public class EndTurnClick : MonoBehaviour
             SpellTracker.instance.agendaActive = false;
 
             // reset consequence bools
-            if (localPlayer.Spellcaster.NumOfTurnsSoFar - localPlayer.Spellcaster.tsunamiConsTurn >= 1)
+            if (localPlayer.Spellcaster.tsunamiConsequence && localPlayer.Spellcaster.NumOfTurnsSoFar - localPlayer.Spellcaster.tsunamiConsTurn >= 1)
                 localPlayer.Spellcaster.tsunamiConsequence = false;
-            if (localPlayer.Spellcaster.NumOfTurnsSoFar - localPlayer.Spellcaster.cometConsTurn >= 1)
+            if (localPlayer.Spellcaster.cometConsequence && localPlayer.Spellcaster.NumOfTurnsSoFar - localPlayer.Spellcaster.cometConsTurn >= 1)
                 localPlayer.Spellcaster.cometConsequence = false;
+            if (localPlayer.Spellcaster.plagueConsequence && localPlayer.Spellcaster.NumOfTurnsSoFar - localPlayer.Spellcaster.plagueConsTurn >= 1)
+                localPlayer.Spellcaster.plagueConsequence = false;
 
             // collect end of turn mana
             int manaCollected = localPlayer.Spellcaster.CollectManaEndTurn();

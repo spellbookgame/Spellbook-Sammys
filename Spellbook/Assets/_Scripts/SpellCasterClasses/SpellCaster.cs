@@ -34,6 +34,8 @@ public abstract class SpellCaster
     public int tsunamiConsTurn;
     public bool cometConsequence;
     public int cometConsTurn;
+    public bool plagueConsequence;
+    public int plagueConsTurn;
 
     // misc attributes
     public string classType;
