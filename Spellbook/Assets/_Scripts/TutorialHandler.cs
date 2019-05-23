@@ -80,6 +80,7 @@ public class TutorialHandler : MonoBehaviour
     }
     private void PositionTutorialArrow(int objectIndex, int yOffset)
     {
+        Debug.Log("tutoria object " + objectIndex + " local position: " + tutorialObjects[objectIndex].transform.localPosition);
         // if the object is below the center of screen, position arrow above object, otherwise rotate/position below object
         if(tutorialObjects[objectIndex].transform.localPosition.y <= 0)
         {
