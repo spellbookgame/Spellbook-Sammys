@@ -25,7 +25,7 @@ public class CrisisHandler : MonoBehaviour
     public string currentCrisis = "";
     public string nextCrisis = "";
 
-    Player player;
+    public Player player;   // defined in MainPageHandler.cs
     string spellcasterHero;  //spellcaster class that saved the day
 
     #region singleton
@@ -73,12 +73,12 @@ public class CrisisHandler : MonoBehaviour
         if(crisisSolved)
         {
             PanelHolder.instance.displayBoardScan("Tsunami Averted", "Out of gratitude for saving the Empire, the Capital is rewarding each wizard with an A tier rune from their class.",
-                                                    Resources.Load<Sprite>("RuneArt/" + player.Spellcaster.classType + " A Rune"), "OK");
+                                                    Resources.Load<Sprite>("RuneArt/" + player.Spellcaster.classType + " A Rune"), "MainPlayerScene");
         }
         else
         {
+            PanelHolder.instance.displayNotify("Tsunami Disaster", "You weren't able to stop the tsunami in time. All wizards lost half HP. Towns will not be scannable next round.", "MainPlayerScene");
             player.Spellcaster.TakeDamage((int)player.Spellcaster.fMaxHealth / 2);
-            PanelHolder.instance.displayNotify("Tsunami Disaster", "You weren't able to stop the tsunami in time. All wizards lost half HP. Towns will not be scannable next round.", "OK");
             player.Spellcaster.tsunamiConsequence = true;   // checked in CustomEventHandler.cs
             player.Spellcaster.tsunamiConsTurn = player.Spellcaster.NumOfTurnsSoFar;    // tsunami consequence deactivated after 1 turn has passed (endturnclick)
         }
@@ -150,11 +150,12 @@ public class CrisisHandler : MonoBehaviour
         if (crisisSolved)
         {
             PanelHolder.instance.displayBoardScan("Plague Averted", "The local apothecaries have gathered special talismans for each wizard for saving them from doing work. " +
-                                                    "Each wizard will earn a permanent D6 and an Abyssal Ore!", Resources.Load<Sprite>("ArtAssets/Items and Currency/Abyssal Ore"), "OK");
+                                                    "Each wizard will earn a permanent D6 and an Abyssal Ore!", Resources.Load<Sprite>("Art Assets/Items and Currency/Abyssal Ore"), "MainPlayerScene");
+            player.Spellcaster.dice["D6"] += 1;
         }
         else
         {
-            PanelHolder.instance.displayNotify("Plague Epidemic", "Riddled with disease, all wizards will be unable to cast spells next round. The Swamp will be closed for the next round.", "OK");
+            PanelHolder.instance.displayNotify("Plague Epidemic", "Riddled with disease, all wizards will be unable to cast spells next round. The Swamp will be closed for the next round.", "MainPlayerScene");
             player.Spellcaster.plagueConsequence = true;   // checked in CustomEventHandler.cs and SpellCollectionHandler.cs
             player.Spellcaster.plagueConsTurn = player.Spellcaster.NumOfTurnsSoFar;
         }

@@ -78,7 +78,7 @@ public class MainPageHandler : MonoBehaviour
         // ------------ TEST AREA - DELETE LATER ----------
         if (Input.GetKeyDown(KeyCode.G))
         {
-            localPlayer.Spellcaster.CollectSpell(new Allegro());
+            localPlayer.Spellcaster.CollectSpell(new CollectorsDrink());
         }
         if (Input.GetKeyDown(KeyCode.M))
         {
@@ -110,13 +110,13 @@ public class MainPageHandler : MonoBehaviour
         // create instances of QuestTracker/SpellTracker prefabs
         Instantiate(questTracker);
         Instantiate(spellTracker);
-        // CHANGE CRISISHANDLER TO BE INSTANTIATED IN LOBBY SCENE
-        Instantiate(crisisHandler);
 
         SetClassAttributes();
 
         // in case a panel didn't display during scan scene, display them in main scene
         PanelHolder.instance.CheckPanelQueue();
+
+        CrisisHandler.instance.player = localPlayer;
     }
     
     private void SetClassAttributes()
@@ -149,13 +149,7 @@ public class MainPageHandler : MonoBehaviour
                 characterImage.sprite = summonerSprite;
                 break;
         }
-
-        // create instances of QuestTracker/SpellTracker prefabs
-        GameObject q = Instantiate(questTracker);
-        GameObject s = Instantiate(spellTracker);
-        // CHANGE CRISISHANDLER TO BE INSTANTIATED IN LOBBY SCENE
-        //GameObject c = Instantiate(crisisHandler);
-            
+                    
         // set character image based on class
         characterImage.sprite = Resources.Load<Sprite>(localPlayer.Spellcaster.characterSpritePath);
         // set class symbol image based on class

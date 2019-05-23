@@ -74,10 +74,6 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
         {
             PanelHolder.instance.displayNotify("", "You can't scan a location if you haven't moved.", "MainPlayerScene");
         }
-        else if(localPlayer.Spellcaster.tsunamiConsequence)
-        {
-            PanelHolder.instance.displayNotify("Tsunami Consequence", "The tsunami damaged all regions. You cannot enter.", "MainPlayerScene");
-        }
     }
 
     protected virtual void OnTrackingLost()
@@ -111,27 +107,63 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
         {
             #region town_spaces
             case "town_alchemist":
-                SceneManager.LoadScene("AlchemyTownScene");
+                if(localPlayer.Spellcaster.tsunamiConsequence)
+                {
+                    SceneManager.LoadScene("MainPlayerScene");
+                    PanelHolder.instance.displayNotify("Tsunami Consequence", "The tsunami damaged all towns. You cannot enter.", "OK");
+                }
+                else
+                    SceneManager.LoadScene("AlchemyTownScene");
                 break;
 
             case "town_arcanist":
-                SceneManager.LoadScene("ArcaneTownScene");
+                if (localPlayer.Spellcaster.tsunamiConsequence)
+                {
+                    SceneManager.LoadScene("MainPlayerScene");
+                    PanelHolder.instance.displayNotify("Tsunami Consequence", "The tsunami damaged all towns. You cannot enter.", "OK");
+                }
+                else
+                    SceneManager.LoadScene("ArcaneTownScene");
                 break;
 
             case "town_chronomancer":
-                SceneManager.LoadScene("ChronomancyTownScene");
+                if (localPlayer.Spellcaster.tsunamiConsequence)
+                {
+                    SceneManager.LoadScene("MainPlayerScene");
+                    PanelHolder.instance.displayNotify("Tsunami Consequence", "The tsunami damaged all towns. You cannot enter.", "OK");
+                }
+                else
+                    SceneManager.LoadScene("ChronomancyTownScene");
                 break;
 
             case "town_elementalist":
-                SceneManager.LoadScene("ElementalTownScene");
+                if (localPlayer.Spellcaster.tsunamiConsequence)
+                {
+                    SceneManager.LoadScene("MainPlayerScene");
+                    PanelHolder.instance.displayNotify("Tsunami Consequence", "The tsunami damaged all towns. You cannot enter.", "OK");
+                }
+                else
+                    SceneManager.LoadScene("ElementalTownScene");
                 break;
 
             case "town_illusionist":
-                SceneManager.LoadScene("IllusionTownScene");
+                if (localPlayer.Spellcaster.tsunamiConsequence)
+                {
+                    SceneManager.LoadScene("MainPlayerScene");
+                    PanelHolder.instance.displayNotify("Tsunami Consequence", "The tsunami damaged all towns. You cannot enter.", "OK");
+                }
+                else
+                    SceneManager.LoadScene("IllusionTownScene");
                 break;
 
             case "town_summoner":
-                SceneManager.LoadScene("SummonerTownScene");
+                if (localPlayer.Spellcaster.tsunamiConsequence)
+                {
+                    SceneManager.LoadScene("MainPlayerScene");
+                    PanelHolder.instance.displayNotify("Tsunami Consequence", "The tsunami damaged all towns. You cannot enter.", "OK");
+                }
+                else
+                    SceneManager.LoadScene("SummonerTownScene");
                 break;
             #endregion
 
@@ -141,7 +173,10 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
                 break;
             case "location_swamp":
                 if (localPlayer.Spellcaster.plagueConsequence)
-                    PanelHolder.instance.displayNotify("Plague Consequence", "The swamp is closed. Come back later.", "MainPlayerScene");
+                {
+                    SceneManager.LoadScene("MainPlayerScene");
+                    PanelHolder.instance.displayNotify("Plague Consequence", "The swamp is closed. Come back later.", "OK");
+                }
                 else
                     SceneManager.LoadScene("SwampScene");
                 break;
