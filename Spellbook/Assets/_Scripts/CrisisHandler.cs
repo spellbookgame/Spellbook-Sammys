@@ -282,7 +282,9 @@ public class CrisisHandler : MonoBehaviour
     #region boss_battle
     public void CallBossBattle()
     {
-
+        currentCrisis = "Boss Battle";
+        crisisSolved = false;
+        PanelHolder.instance.displayCrisis("Crisis Alert: Boss Battle", roundsUntilCrisis);
     }
 
     public void FinishBossBattle()
@@ -362,6 +364,7 @@ public class CrisisHandler : MonoBehaviour
                     break;
             }
         }
+        SolveCrisis();
     }
     #endregion
 
@@ -371,7 +374,10 @@ public class CrisisHandler : MonoBehaviour
     //Call even if they didn't solve it
     public void SolveCrisis()
     {
-        NetworkManager.s_Singleton.SolveCrisis(currentCrisis, crisisSolved, player.Spellcaster.classType);
+        if(currentCrisis!= "")
+        {
+            NetworkManager.s_Singleton.SolveCrisis(currentCrisis, crisisSolved, player.Spellcaster.classType);
+        }
     }
 
     // Called from Network, everyone recieves this.

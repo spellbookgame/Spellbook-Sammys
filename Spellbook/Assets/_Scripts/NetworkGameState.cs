@@ -80,6 +80,11 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
         //return turnsUntilNextEvent + displayGlobalEvent + nextGlobalEvent;
         return state.YearsUntilNextEvent + sYearsUntilNext + state.NextGlobalEventName;
     }
+    
+    public int RoundsUntilCrisisActivates()
+    {
+        return state.YearsUntilNextEvent;
+    }
 
     public string getEventInfo()
     {
@@ -268,29 +273,41 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
 
     /* When our NetworkManager (aka our GlobalEventListener) recieves a
      NextTurnEvent, this method is called.*/
+    bool PeacefulYear = false;
+    bool GlobalEventActivated = false;
     public int startNewTurn()
     {
-        if (state.YearsUntilNextEvent <= 1)
+        if (state.YearsUntilNextEvent <= 1 && !GlobalEventActivated)
         {
+            //Debug.Log("Global EVENT happening!!");
+            GlobalEventActivated = true;
             globalEvents.executeGlobalEvent();
-            needToNotifyPlayersNewEvent = true;
+            //needToNotifyPlayersNewEvent = true;
         }
         turn_i++;
         
-        //If everyone moved this turn, then a year has passed. 
+        //If everyone moved this turn, then a year/round has passed. 
         if (turn_i >= turnOrder.Count)
         {
+            //Debug.Log("NEW ROUND!!!!!");
             yearsUntilNextEvent--;
             state.YearsUntilNextEvent--;
             turn_i = 0;
-            if (needToNotifyPlayersNewEvent)
+            //if (needToNotifyPlayersNewEvent)
+            if (PeacefulYear)
             {
-                needToNotifyPlayersNewEvent = false;
-                //PanelHolder.instance.displayNotify("", "");
+               // Debug.Log("Peaceful year ended");
+                PeacefulYear = false;
+                GlobalEventActivated = false;
+                globalEvents.PrepareNextEvent();
                 DisplayNextEvent();
-                
-                
             }
+            if (GlobalEventActivated)
+            {
+                PeacefulYear = true;  //After the global event happends let players play a round with no crisis to prep for.
+                //needToNotifyPlayersNewEvent = false;
+                //Debug.Log("Starting Peaceful year");
+            } 
         }
         state.CurrentSpellcasterTurn = turnOrder[turn_i];
         return turnOrder[turn_i];

@@ -160,16 +160,28 @@ public class GlobalEvents : MonoBehaviour
                 currentEventIndex = 0;
                 allEventsHappened = true;
             }
+            /*
             else
             {
                 NetworkGameState.instance.
                 setNextEvent(list_AllEvents[currentEventIndex].name,
                 list_AllEvents[currentEventIndex].description,
                 list_AllEvents[currentEventIndex].yearsItTakesToHappen);
-            }
+            }*/
             evnt();
         }
         
+    }
+
+    public void PrepareNextEvent()
+    {
+        if (!allEventsHappened)
+        {
+            NetworkGameState.instance.
+            setNextEvent(list_AllEvents[currentEventIndex].name,
+            list_AllEvents[currentEventIndex].description,
+            list_AllEvents[currentEventIndex].yearsItTakesToHappen);
+        }
     }
 
 
