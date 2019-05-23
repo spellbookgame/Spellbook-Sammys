@@ -150,6 +150,17 @@ public class MainPageHandler : MonoBehaviour
                 break;
         }
 
+        // create instances of QuestTracker/SpellTracker prefabs
+        GameObject q = Instantiate(questTracker);
+        GameObject s = Instantiate(spellTracker);
+        // CHANGE CRISISHANDLER TO BE INSTANTIATED IN LOBBY SCENE
+        //GameObject c = Instantiate(crisisHandler);
+            
+        // set character image based on class
+        characterImage.sprite = Resources.Load<Sprite>(localPlayer.Spellcaster.characterSpritePath);
+        // set class symbol image based on class
+        symbolImage.sprite = Resources.Load<Sprite>(localPlayer.Spellcaster.characterIconPath);
+        // set background color based on class
         Color lightCol = new Color();
         ColorUtility.TryParseHtmlString(localPlayer.Spellcaster.hexStringLight, out lightCol);
         lightCol = lightCol.SetSaturation(0.35f);

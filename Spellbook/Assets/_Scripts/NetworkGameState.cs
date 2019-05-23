@@ -87,6 +87,11 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
         return state.NextGlobalEventName + "\n" + state.NextGlobalEventDesc;
     }
 
+    public string getCurrentCrisis()
+    {
+        return state.NextGlobalEventName;
+    }
+
     public void onCreateRoom(string matchName)
     {
         state.MatchName = matchName;
