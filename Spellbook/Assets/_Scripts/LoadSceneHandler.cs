@@ -38,7 +38,7 @@ public class LoadSceneHandler : MonoBehaviour
     IEnumerator AsyncLoad()
     {
         float timer = 0f;
-        float minTime = 1f;
+        float minTime = 1.5f;
 
         asyncLoad = SceneManager.LoadSceneAsync(LoadHandler.instance.sceneBuildIndex);
         asyncLoad.allowSceneActivation = false;

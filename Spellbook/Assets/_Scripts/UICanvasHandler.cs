@@ -9,6 +9,7 @@ public class UICanvasHandler : MonoBehaviour
 
     // public variables
     public int spacesMoved = 0; // reset on EndTurn click
+    public bool chronomancerGone;
 
     #region private_fields
     [SerializeField] private GameObject spellbookButton;
@@ -94,7 +95,7 @@ public class UICanvasHandler : MonoBehaviour
         });
 
         // initially position the buttons properly on main player scene
-        //spellbookButton.transform.localPosition = new Vector3(-530, -1225, 0);
+        spellbookButton.transform.localPosition = new Vector3(-530, -1225, 0);
         diceButton.transform.localPosition = new Vector3(-180, -1225, 0);
         scanButton.transform.localPosition = new Vector3(180, -1225, 0);
         inventoryButton.transform.localPosition = new Vector3(530, -1225, 0);

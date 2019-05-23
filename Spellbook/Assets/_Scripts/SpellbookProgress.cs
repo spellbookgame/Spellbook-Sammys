@@ -45,11 +45,22 @@ public class SpellbookProgress : MonoBehaviour
         }
         else
         {
-            crisisNameText.text = CrisisHandler.instance.crisisName;
-            crisisDetailsText.text = CrisisHandler.instance.crisisDetails;
-            crisisConsequenceText.text = "FAIL: " + CrisisHandler.instance.crisisConsequence;
-            crisisRewardText.text = "SUCCEED: " + CrisisHandler.instance.crisisReward;
-            roundsLeftText.text = "Rounds Left: " + NetworkGameState.instance.RoundsUntilCrisisActivates();
+            if(CrisisHandler.instance.crisisSolved)
+            {
+                crisisNameText.text = CrisisHandler.instance.crisisName;
+                crisisDetailsText.text = "Crisis averted! You will get your rewards when the crisis arrives.";
+                crisisConsequenceText.text = "";
+                crisisRewardText.text = "";
+                roundsLeftText.text = "Rounds Left: " + NetworkGameState.instance.RoundsUntilCrisisActivates();
+            }
+            else
+            {
+                crisisNameText.text = CrisisHandler.instance.crisisName;
+                crisisDetailsText.text = CrisisHandler.instance.crisisDetails;
+                crisisConsequenceText.text = "FAIL: " + CrisisHandler.instance.crisisConsequence;
+                crisisRewardText.text = "SUCCEED: " + CrisisHandler.instance.crisisReward;
+                roundsLeftText.text = "Rounds Left: " + NetworkGameState.instance.RoundsUntilCrisisActivates();
+            }
 
             crisisPanel.SetActive(true);
             crisisPanelOpen = true;

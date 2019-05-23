@@ -36,9 +36,8 @@ public class MainPageHandler : MonoBehaviour
     [SerializeField] private Sprite elementalistSprite;
     [SerializeField] private Sprite illusionistSprite;
     [SerializeField] private Sprite summonerSprite;
-    
-    [SerializeField] private Button spellbookButton;
-    [SerializeField] private Button inventoryButton;
+
+    [SerializeField] private Animator anim;
     #endregion
 
     private bool diceTrayOpen;
@@ -108,6 +107,8 @@ public class MainPageHandler : MonoBehaviour
         if (GameObject.FindGameObjectWithTag("LocalPlayer") == null) return;
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
 
+        SetClassAttributes();
+
         classType.text = localPlayer.Spellcaster.classType;
         manaCrystalsValue.text = localPlayer.Spellcaster.iMana.ToString();
         healthValue.text = localPlayer.Spellcaster.fCurrentHealth.ToString() + "/ " + localPlayer.Spellcaster.fMaxHealth.ToString();
@@ -119,7 +120,11 @@ public class MainPageHandler : MonoBehaviour
         Instantiate(questTracker);
         Instantiate(spellTracker);
 
-        SetClassAttributes();
+        if(!UICanvasHandler.instance.chronomancerGone)
+        {
+            StartCoroutine("FadeIn");
+            UICanvasHandler.instance.chronomancerGone = true;
+        }
 
         // in case a panel didn't display during scan scene, display them in main scene
         PanelHolder.instance.CheckPanelQueue();
@@ -173,6 +178,14 @@ public class MainPageHandler : MonoBehaviour
         informationPanel.GetComponent<SpriteRenderer>().color = panelCol;
 
         LoadHandler.instance.setupComplete = true;
+    }
+
+    private IEnumerator FadeIn()
+    {
+        yield return new WaitForSeconds(0.5f);
+        anim.SetBool("FadeIn", true);
+        yield return new WaitUntil(() => anim.gameObject.GetComponent<Image>().color.a == 0);
+        anim.gameObject.SetActive(false);
     }
 
     public void DisplayMana(int manaCollected)

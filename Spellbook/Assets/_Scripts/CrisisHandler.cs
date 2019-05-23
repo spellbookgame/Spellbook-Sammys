@@ -78,7 +78,7 @@ public class CrisisHandler : MonoBehaviour
         else
         {
             PanelHolder.instance.displayNotify("Tsunami Disaster", "You weren't able to stop the tsunami in time. All wizards lost half HP. Towns will not be scannable next round.", "MainPlayerScene");
-            player.Spellcaster.TakeDamage((int)player.Spellcaster.fMaxHealth / 2);
+            player.Spellcaster.TakeDamage((int)player.Spellcaster.fCurrentHealth / 2);
             player.Spellcaster.tsunamiConsequence = true;   // checked in CustomEventHandler.cs
             player.Spellcaster.tsunamiConsTurn = player.Spellcaster.NumOfTurnsSoFar;    // tsunami consequence deactivated after 1 turn has passed (endturnclick)
         }
@@ -152,6 +152,7 @@ public class CrisisHandler : MonoBehaviour
             PanelHolder.instance.displayBoardScan("Plague Averted", "The local apothecaries have gathered special talismans for each wizard for saving them from doing work. " +
                                                     "Each wizard will earn a permanent D6 and an Abyssal Ore!", Resources.Load<Sprite>("Art Assets/Items and Currency/Abyssal Ore"), "MainPlayerScene");
             player.Spellcaster.dice["D6"] += 1;
+            player.Spellcaster.AddToInventory(GameObject.Find("ItemList").GetComponent<ItemList>().listOfItems[1]);
         }
         else
         {
