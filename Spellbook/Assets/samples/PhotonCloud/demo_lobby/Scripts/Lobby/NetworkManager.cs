@@ -462,7 +462,7 @@ namespace Bolt.Samples.Photon.Lobby
             playerEntity = BoltNetwork.Instantiate(BoltPrefabs.LocalPlayer);
             playerEntity.TakeControl();
             playerEntity.GetComponent<Player>().setup(localPlayerSpellcasterID);
-            // PanelHolder.instance.displayNotify("Global Event Coming Soon", NetworkGameState.instance.getEventInfo(), "OK");
+            PanelHolder.instance.displayNotify("Global Event Coming Soon", NetworkGameState.instance.getEventInfo(), "OK");
         }
         #region CLIENT_CALLBACKS
         // ----------------- Client callbacks -----------------------------------------------------------
