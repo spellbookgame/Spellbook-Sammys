@@ -40,14 +40,24 @@ public class AlchemyTownHandler : MonoBehaviour
     {
         SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
 
-        // if player doesn't have a quest from this town yet, give random quest
-        if (QuestTracker.instance.HasQuest(quests[0]) || QuestTracker.instance.HasQuest(quests[1]))
+        bool hasQuestInThiSTown = false;
+
+        // check if player has quest from this town
+        foreach(Quest q in quests)
         {
-            PanelHolder.instance.displayNotify("Alchemist Town", "You're already on a quest for this town.", "OK");
+            if (QuestTracker.instance.HasQuest(q))
+            {
+                hasQuestInThiSTown = true;
+                break;
+            }
+        }
+        if (hasQuestInThiSTown)
+        {
+            PanelHolder.instance.displayNotify("Regulus", "You're already on a quest for this town.", "OK");
         }
         else
         {
-            int r = Random.Range(0, 2);
+            int r = Random.Range(0, quests.Length);
             PanelHolder.instance.displayQuest(quests[r]);
         }
     }

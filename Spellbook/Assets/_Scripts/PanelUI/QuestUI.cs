@@ -89,11 +89,15 @@ public class QuestUI : MonoBehaviour
         {
             SoundManager.instance.PlaySingle(SoundManager.questaccept);
             player.GetComponent<Player>().Spellcaster.activeQuests.Add(q);
+            foreach (Quest quest in player.GetComponent<Player>().Spellcaster.activeQuests)
+                Debug.Log("Active quest: " + quest.questName);
         }
         else
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
 
         gameObject.SetActive(false);
+        singleButton.onClick.RemoveAllListeners();  // removing all quest acceptances from button
+        singleButton1.onClick.RemoveAllListeners();
 
         // for start of game: show tutorial prompt if player hasn't seen tutorial yet
         if (!player.GetComponent<Player>().Spellcaster.mainTutorialShown)

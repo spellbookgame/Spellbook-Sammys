@@ -44,7 +44,7 @@ public class QuestLogHandler : MonoBehaviour
             newButton.transform.localPosition = new Vector3(0, yPos, 0);
             newButton.onClick.AddListener(() => DisplayQuest(q));
 
-            yPos -= 235;
+            yPos -= 190;
         }
 
         if(QuestTracker.instance.previousQuest != null)
