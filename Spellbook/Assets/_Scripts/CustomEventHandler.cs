@@ -107,27 +107,63 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
         {
             #region town_spaces
             case "town_alchemist":
-                SceneManager.LoadScene("AlchemyTownScene");
+                if(localPlayer.Spellcaster.tsunamiConsequence)
+                {
+                    SceneManager.LoadScene("MainPlayerScene");
+                    PanelHolder.instance.displayNotify("Tsunami Consequence", "The tsunami damaged all towns. You cannot enter.", "OK");
+                }
+                else
+                    SceneManager.LoadScene("AlchemyTownScene");
                 break;
 
             case "town_arcanist":
-                SceneManager.LoadScene("ArcaneTownScene");
+                if (localPlayer.Spellcaster.tsunamiConsequence)
+                {
+                    SceneManager.LoadScene("MainPlayerScene");
+                    PanelHolder.instance.displayNotify("Tsunami Consequence", "The tsunami damaged all towns. You cannot enter.", "OK");
+                }
+                else
+                    SceneManager.LoadScene("ArcaneTownScene");
                 break;
 
             case "town_chronomancer":
-                SceneManager.LoadScene("ChronomancyTownScene");
+                if (localPlayer.Spellcaster.tsunamiConsequence)
+                {
+                    SceneManager.LoadScene("MainPlayerScene");
+                    PanelHolder.instance.displayNotify("Tsunami Consequence", "The tsunami damaged all towns. You cannot enter.", "OK");
+                }
+                else
+                    SceneManager.LoadScene("ChronomancyTownScene");
                 break;
 
             case "town_elementalist":
-                SceneManager.LoadScene("ElementalTownScene");
+                if (localPlayer.Spellcaster.tsunamiConsequence)
+                {
+                    SceneManager.LoadScene("MainPlayerScene");
+                    PanelHolder.instance.displayNotify("Tsunami Consequence", "The tsunami damaged all towns. You cannot enter.", "OK");
+                }
+                else
+                    SceneManager.LoadScene("ElementalTownScene");
                 break;
 
             case "town_illusionist":
-                SceneManager.LoadScene("IllusionTownScene");
+                if (localPlayer.Spellcaster.tsunamiConsequence)
+                {
+                    SceneManager.LoadScene("MainPlayerScene");
+                    PanelHolder.instance.displayNotify("Tsunami Consequence", "The tsunami damaged all towns. You cannot enter.", "OK");
+                }
+                else
+                    SceneManager.LoadScene("IllusionTownScene");
                 break;
 
             case "town_summoner":
-                SceneManager.LoadScene("SummonerTownScene");
+                if (localPlayer.Spellcaster.tsunamiConsequence)
+                {
+                    SceneManager.LoadScene("MainPlayerScene");
+                    PanelHolder.instance.displayNotify("Tsunami Consequence", "The tsunami damaged all towns. You cannot enter.", "OK");
+                }
+                else
+                    SceneManager.LoadScene("SummonerTownScene");
                 break;
             #endregion
 
@@ -136,7 +172,13 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
                 SceneManager.LoadScene("MineScene");
                 break;
             case "location_swamp":
-                SceneManager.LoadScene("SwampScene");
+                if (localPlayer.Spellcaster.plagueConsequence)
+                {
+                    SceneManager.LoadScene("MainPlayerScene");
+                    PanelHolder.instance.displayNotify("Plague Consequence", "The swamp is closed. Come back later.", "OK");
+                }
+                else
+                    SceneManager.LoadScene("SwampScene");
                 break;
             case "location_forest":
                 SceneManager.LoadScene("ForestScene");
@@ -161,15 +203,17 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
                     randItem = il3[UnityEngine.Random.Range(0, il3.Count)];
 
                 localPlayer.Spellcaster.AddToInventory(randItem);
-                PanelHolder.instance.displayBoardScan("Shrine", "The shrine has given you a " + randItem.name + "!", randItem.sprite, "MainPlayerScene");
+                SceneManager.LoadScene("MainPlayerScene");
+                PanelHolder.instance.displayBoardScan("Shrine", "The shrine has given you a " + randItem.name + "!", randItem.sprite, "OK");
                 break;
             case "location_springs":
                 int healAmount = UnityEngine.Random.Range(2, 11);
                 localPlayer.Spellcaster.HealDamage(healAmount);
                 int manaAmount = UnityEngine.Random.Range(100, 1000);
                 localPlayer.Spellcaster.CollectMana(manaAmount);
+                SceneManager.LoadScene("MainPlayerScene");
                 PanelHolder.instance.displayNotify("Springs", "You rested in the springs and recovered " + healAmount.ToString() + 
-                                                    " health! You also found " + manaAmount.ToString() + " mana.", "MainPlayerScene");
+                                                    " health! You also found " + manaAmount.ToString() + " mana.", "OK");
                 break;
             #endregion
 

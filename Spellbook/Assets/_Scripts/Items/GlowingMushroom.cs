@@ -17,6 +17,7 @@ public class GlowingMushroom : ItemObject
 
     public override void UseItem(SpellCaster player)
     {
+        SoundManager.instance.PlaySingle(SoundManager.glowingMushroom);
         player.RemoveFromInventory(this);
 
         player.HealDamage(2);

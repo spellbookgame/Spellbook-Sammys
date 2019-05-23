@@ -13,6 +13,7 @@ public class UICanvasHandler : MonoBehaviour
     #region private_fields
     [SerializeField] private GameObject spellbookButton;
     [SerializeField] private GameObject diceButton;
+    [SerializeField] private GameObject scanButton;
     [SerializeField] private GameObject inventoryButton;
     [SerializeField] private GameObject endTurnButton;
     [SerializeField] private GameObject spellbookMainButton;
@@ -22,8 +23,7 @@ public class UICanvasHandler : MonoBehaviour
     [SerializeField] private GameObject movePanel;
     [SerializeField] private DiceUIHandler diceUIHandler;
     [SerializeField] private GameObject combatButton;
-    [SerializeField] private GameObject scanButton;
-    [SerializeField] private GameObject tutorialPromptPanel;
+    [SerializeField] private GameObject tutorialHandler;
     
     #endregion
 
@@ -72,14 +72,29 @@ public class UICanvasHandler : MonoBehaviour
             SceneManager.LoadScene("SpellbookProgress");
             ScaleSpellbookButtons("progress");
         });
+
+        // set onclick listeners for main scene buttons
+        spellbookButton.GetComponent<Button>().onClick.AddListener(() =>
+        {
+            SoundManager.instance.PlaySingle(SoundManager.spellbookopen);
+            UICanvasHandler.instance.ActivateSpellbookButtons(true);
+            SceneManager.LoadScene("SpellbookScene");
+        });
+        inventoryButton.GetComponent<Button>().onClick.AddListener(() =>
+        {
+            SoundManager.instance.PlaySingle(SoundManager.inventoryOpen);
+            SceneManager.LoadScene("InventoryScene");
+        });
         scanButton.GetComponent<Button>().onClick.AddListener(() =>
         {
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
-            SceneManager.LoadScene("VuforiaScene");
+            LoadHandler.instance.sceneBuildIndex = 3;
+            SceneManager.LoadScene("LoadingScene");
+            // SceneManager.LoadScene("VuforiaScene");
         });
 
         // initially position the buttons properly on main player scene
-        spellbookButton.transform.localPosition = new Vector3(-530, -1225, 0);
+        //spellbookButton.transform.localPosition = new Vector3(-530, -1225, 0);
         diceButton.transform.localPosition = new Vector3(-180, -1225, 0);
         scanButton.transform.localPosition = new Vector3(180, -1225, 0);
         inventoryButton.transform.localPosition = new Vector3(530, -1225, 0);
@@ -179,6 +194,20 @@ public class UICanvasHandler : MonoBehaviour
         progressButton.SetActive(enabled);
     }
 
+    public void EnableMainSceneButtons(bool enabled)
+    {
+        spellbookButton.GetComponent<Button>().interactable = enabled;
+        diceButton.GetComponent<Button>().interactable = enabled;
+        scanButton.GetComponent<Button>().interactable = enabled;
+        inventoryButton.GetComponent<Button>().interactable = enabled;
+
+        // for the glow backgrounds
+        spellbookButton.transform.GetChild(0).gameObject.SetActive(enabled);
+        diceButton.transform.GetChild(0).gameObject.SetActive(enabled);
+        scanButton.transform.GetChild(0).gameObject.SetActive(enabled);
+        inventoryButton.transform.GetChild(0).gameObject.SetActive(enabled);
+    }
+
     public void ShowMovePanel()
     {
         StartCoroutine(StartMovePanel());
@@ -241,6 +270,7 @@ public class UICanvasHandler : MonoBehaviour
 
     public void ShowTutorialPrompt()
     {
-        tutorialPromptPanel.SetActive(true);
+        tutorialHandler.GetComponent<TutorialHandler>().PromptTutorial();
+        GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().Spellcaster.mainTutorialShown = true;
     }
 }

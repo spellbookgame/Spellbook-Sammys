@@ -63,7 +63,11 @@ public class PanelHolder : MonoBehaviour
                 crisisPanel.EnablePanel();
             else if (panelQueue.Peek().Equals(chooseSpellcasterPanel.panelID))
                 chooseSpellcasterPanel.EnablePanel();
+
+            UICanvasHandler.instance.EnableMainSceneButtons(false);
         }
+        else
+            UICanvasHandler.instance.EnableMainSceneButtons(true);
     }
 
     public void displayYourTurn()
@@ -128,9 +132,10 @@ public class PanelHolder : MonoBehaviour
     public void displayChooseSpellcaster(IAllyCastable spell)
     {
         currentSpell = spell;
+        Spell convertedSpell = (Spell)spell;
         panelQueue.Enqueue(chooseSpellcasterPanel.panelID);
         Debug.Log("Queued: " + chooseSpellcasterPanel.panelID);
-        chooseSpellcasterPanel.DisplayPlayerChoose();
+        chooseSpellcasterPanel.DisplayPlayerChoose(convertedSpell.sSpellName);
         CheckPanelQueue();
     }
 

@@ -38,6 +38,7 @@ public class HollowCabochon : ItemObject
                 PanelHolder.instance.displayNotify("No Spells Collected", "You do not have any spells that can be stored in the cabochon.", "OK");
             else
             {
+                SoundManager.instance.PlaySingle(SoundManager.hollowCabochon);
                 player.RemoveFromInventory(this);
 
                 player.AddToInventory(new GlimmeringCabochon());

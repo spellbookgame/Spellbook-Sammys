@@ -9,7 +9,6 @@ public class NotifyUI : MonoBehaviour
     [SerializeField] private Text titleText;
     [SerializeField] private Text infoText;
     [SerializeField] private Button singleButton;
-    [SerializeField] private GameObject ribbon;
 
     public bool panelActive = false;
     public string panelID = "notify";
@@ -28,12 +27,6 @@ public class NotifyUI : MonoBehaviour
     {
         titleText.text = title;
         infoText.text = info;
-
-        // if current scene is vuforia, remove ribbon from panel
-        if (SceneManager.GetActiveScene().name.Equals("VuforiaScene"))
-        {
-            ribbon.SetActive(false);
-        }
 
         if (buttonClick.Equals("OK"))
             singleButton.onClick.AddListener((OkClick));

@@ -15,7 +15,8 @@ using UnityEngine.SceneManagement;
 
 public abstract class SpellCaster 
 {
-    public bool tutorialShown;
+    public bool mainTutorialShown;
+    public bool spellbookTutorialShown;
 
     public string matchname;
     public int numOfTurnsSoFar = 0;
@@ -27,7 +28,15 @@ public abstract class SpellCaster
 
     public int iMana;
     public decimal dManaMultiplier = 1;
-    
+
+    // tracking crisis consequences
+    public bool tsunamiConsequence;
+    public int tsunamiConsTurn;
+    public bool cometConsequence;
+    public int cometConsTurn;
+    public bool plagueConsequence;
+    public int plagueConsTurn;
+
     // misc attributes
     public string classType;
     public int spellcasterID;
@@ -127,8 +136,11 @@ public abstract class SpellCaster
 
     public void CollectMana(int manaCount)
     {
-        iMana += manaCount;
-        QuestTracker.instance.TrackManaQuest(manaCount);
+        if(!cometConsequence)
+        {
+            iMana += manaCount;
+            QuestTracker.instance.TrackManaQuest(manaCount);
+        }
     }
 
     public int CollectManaEndTurn()

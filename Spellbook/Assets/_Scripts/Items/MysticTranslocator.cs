@@ -15,6 +15,7 @@ public class MysticTranslocator : ItemObject
 
     public override void UseItem(SpellCaster player)
     {
+        SoundManager.instance.PlaySingle(SoundManager.mysticTranslocator);
         player.RemoveFromInventory(this);
 
         player.locationItemUsed = true;

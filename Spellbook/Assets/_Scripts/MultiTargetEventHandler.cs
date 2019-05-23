@@ -2,6 +2,7 @@
 using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Vuforia;
 
@@ -139,6 +140,7 @@ public class MultiTargetEventHandler : MonoBehaviour, ITrackableEventHandler
                 }
                 if (isEqual)
                 {
+                    SceneManager.LoadScene("MainPlayerScene");
                     localPlayer.Spellcaster.CollectSpell(localPlayer.Spellcaster.chapter.spellsAllowed[i]);
                     break;
                 }
@@ -150,6 +152,7 @@ public class MultiTargetEventHandler : MonoBehaviour, ITrackableEventHandler
                 if (d1.ContainsKey(first.Key))
                 {
                     isEqual = true;
+                    SceneManager.LoadScene("MainPlayerScene");
                     localPlayer.Spellcaster.CollectSpell(localPlayer.Spellcaster.chapter.spellsAllowed[i]);
                     break;
                 }
@@ -158,6 +161,9 @@ public class MultiTargetEventHandler : MonoBehaviour, ITrackableEventHandler
             }
         }
         if(!isEqual)
+        {
+            SceneManager.LoadScene("MainPlayerScene");
             PanelHolder.instance.displayNotify("No Spell!", "No spell was found...", "OK");
+        }
     }
 }

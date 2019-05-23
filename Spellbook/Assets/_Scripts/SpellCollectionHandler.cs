@@ -82,8 +82,13 @@ public class SpellCollectionHandler : MonoBehaviour
     }
     private void OnCastClick(Spell spell)
     {
+        // if plague was failed, player cant cast spells
+        if(localPlayer.Spellcaster.plagueConsequence)
+        {
+            PanelHolder.instance.displayNotify("Plague Consequence", "You're too sick to cast any spells right now!", "OK");
+        }
         // if player has already cast 2 spells this turn and Agenda is not active
-        if (localPlayer.Spellcaster.numSpellsCastThisTurn >= 2 && !SpellTracker.instance.agendaActive)
+        else if (localPlayer.Spellcaster.numSpellsCastThisTurn >= 2 && !SpellTracker.instance.agendaActive)
         {
             PanelHolder.instance.displayNotify("Too Many Spells", "You already cast 2 spells this turn.", "OK");
         }

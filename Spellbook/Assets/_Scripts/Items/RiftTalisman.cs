@@ -15,6 +15,7 @@ public class RiftTalisman : ItemObject
 
     public override void UseItem(SpellCaster player)
     {
+        SoundManager.instance.PlaySingle(SoundManager.riftTalisman);
         player.RemoveFromInventory(this);
 
         CrisisHandler.instance.roundsUntilCrisis++;

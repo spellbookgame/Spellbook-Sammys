@@ -17,6 +17,7 @@ public class MimeticVellum : ItemObject
 
     public override void UseItem(SpellCaster player)
     {
+        SoundManager.instance.PlaySingle(SoundManager.mimeticVellum);
         player.RemoveFromInventory(this);
 
         PanelHolder.instance.displayNotify("Mimetic Vellum", "Choose a rune from your hand and duplicate it. Discard a rune to keep the duplicate.", "InventoryScene");

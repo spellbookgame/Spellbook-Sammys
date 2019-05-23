@@ -20,13 +20,16 @@ public class UIAutoHover : MonoBehaviour {
 	[Tooltip("Should the vertical starting position be randomized?")]
 	public bool randomize;
 
-	// Internal Fields
-	private float _randomOffset = 0.0F;
-	private float _startPosition;
+    // had to make public due to tutorial arrow purposes - Grace
+    public float _startPosition;
+
+    // Internal Fields
+    private float _randomOffset = 0.0F;
 	private Vector3 _shadowScale;
 
 	public void Start() {
-		_startPosition = transform.localPosition.y;
+        _startPosition = transform.localPosition.y;
+
 		if (randomize) {
 			_randomOffset = Random.Range(-1.0F, 1.0F);
 		}

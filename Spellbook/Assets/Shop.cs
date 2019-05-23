@@ -42,7 +42,7 @@ public class Shop : MonoBehaviour
 
     void Start()
     {
-        allItems = GetComponent<ItemList>().listOfItems;
+        allItems = GameObject.Find("ItemList").GetComponent<ItemList>().listOfItems;
         spellcaster = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().spellcaster;
 
         button_exitButton.onClick.AddListener(() =>
