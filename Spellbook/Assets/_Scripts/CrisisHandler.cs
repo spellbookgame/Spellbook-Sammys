@@ -72,7 +72,7 @@ public class CrisisHandler : MonoBehaviour
     {
         if(crisisSolved)
         {
-            PanelHolder.instance.displayBoardScan("Tsunami Averted", "Out of gratitude for saving the Empire, the Capital is rewarding each wizard with an A tier rune from their class.", 
+            PanelHolder.instance.displayBoardScan("Tsunami Averted", "Out of gratitude for saving the Empire, the Capital is rewarding each wizard with an A tier rune from their class.",
                                                     Resources.Load<Sprite>("RuneArt/" + player.Spellcaster.classType + " A Rune"), "OK");
         }
         else
@@ -138,7 +138,7 @@ public class CrisisHandler : MonoBehaviour
         requiredClass = "";
 
         crisisDetails = "A Spellcaster must go to the capital with a TIER 2 spell unlocked.";
-        crisisConsequence = "All wizards will not be able to cast spells next round. Swamp will be closed for the next 2 rounds.";
+        crisisConsequence = "All wizards will not be able to cast spells next round. Swamp will be closed for the next round.";
         crisisReward = "All wizards will earn a permanent D6 and an Abyssal Ore.";
 
         PanelHolder.instance.displayCrisis("Crisis Alert: Stonelung Plague", roundsUntilCrisis);
@@ -300,7 +300,6 @@ public class CrisisHandler : MonoBehaviour
             switch (currentCrisis)
             {
                 case "Tsunami":
-                    // if player has a tier 3 spell collected and is in the forest
                     if (player.Spellcaster.chapter.spellsCollected.Any(x => x.iTier == 3) && location.Equals(requiredLocation))
                     {
                         spellcasterHero = player.Spellcaster.classType;
@@ -309,7 +308,6 @@ public class CrisisHandler : MonoBehaviour
                     }
                     break;
                 case "Comet":
-                    // if player has a tier 2 spell collected and is in a town
                     if (player.Spellcaster.chapter.spellsCollected.Any(x => x.iTier == 2) && location.Equals(requiredLocation))
                     {
                         spellcasterHero = player.Spellcaster.classType;
@@ -318,7 +316,6 @@ public class CrisisHandler : MonoBehaviour
                     }
                     break;
                 case "Plague":
-                    // if player has tier 2 spell collected and is in the capital
                     if (player.Spellcaster.chapter.spellsCollected.Any(x => x.iTier == 2) && location.Equals(requiredLocation))
                     {
                         spellcasterHero = player.Spellcaster.classType;
