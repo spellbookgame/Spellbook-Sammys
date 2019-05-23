@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using Bolt.Samples.Photon.Lobby;
+using System;
+using System.Linq;
 using UnityEngine;
 
 public class CrisisHandler : MonoBehaviour
@@ -22,6 +24,9 @@ public class CrisisHandler : MonoBehaviour
     // tracking to see which crisis is currently active/next crisis
     public string currentCrisis = "";
     public string nextCrisis = "";
+
+    Player player;
+    string spellcasterHero;  //spellcaster class that saved the day
 
     #region singleton
     void Awake()
@@ -251,10 +256,23 @@ public class CrisisHandler : MonoBehaviour
     }
     #endregion
 
+    #region boss_battle
+    public void CallBossBattle()
+    {
+
+    }
+
+    public void FinishBossBattle()
+    {
+
+    }
+    #endregion
+
     #region checkCrisis
     // call this to check if crisis is resolved
     public void CheckCrisis(Player player, string currentCrisis, string location)
     {
+        this.player = player;
         if (!crisisSolved)
         {
             switch (currentCrisis)
@@ -334,6 +352,42 @@ public class CrisisHandler : MonoBehaviour
                     break;
             }
         }
+    }
+    #endregion
+
+    #region NETWORK
+    
+    //Call this to notify network if the spellcaster solved it or not
+    //Call even if they didn't solve it
+    public void SolveCrisis()
+    {
+        NetworkManager.s_Singleton.SolveCrisis(currentCrisis, crisisSolved, player.Spellcaster.classType);
+    }
+
+    // Called from Network, everyone recieves this.
+    public void CallCrisis(string CrisisName)
+    {
+        AllCrisisDict.CallCrisis[CrisisName]();
+    }
+
+    // Called from Network, everyone recieves this.
+    public void CheckCrisisPhase1(Player p, string crisisName, string location)
+    {
+        CheckCrisis(p, crisisName, location);
+    }
+
+    // Called from Network, everyone recieves this.
+    // finishAction is either:
+    // FinishPlague()
+    // FinishTsunami()
+    // FinishBossBattle()
+    //
+    // spellcasterHero is an empty string if everyone failed to counter the crisis
+    public void FinishCrisis(Action finishAction, bool isSolved, string spellcasterHero)
+    {
+        this.spellcasterHero = spellcasterHero;
+        crisisSolved = isSolved;
+        finishAction();
     }
     #endregion
 }

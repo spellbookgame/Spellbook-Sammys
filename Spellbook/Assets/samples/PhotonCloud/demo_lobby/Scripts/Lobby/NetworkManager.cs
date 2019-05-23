@@ -27,7 +27,9 @@ namespace Bolt.Samples.Photon.Lobby
         public SceneField gameScene;
         public int minPlayers = 2;
         public int localPlayerSpellcasterID = -1;
-
+        //Number of spellcasters that failed to solve crisis.
+        public int numOfSpellcastersFailed = 0;
+        public bool CrisisSolvedAlready = false;
         [Header("UI Lobby")]
         [Tooltip("Time in second between all players ready & match start")]
         public float prematchCountdown = 3.0f;
@@ -328,7 +330,8 @@ namespace Bolt.Samples.Photon.Lobby
             {
                 return;
             }
-            gameStateEntity.GetComponent<NetworkGameState>().globalEvents.determineGlobalEvents();
+            //gameStateEntity.GetComponent<NetworkGameState>().globalEvents.determineGlobalEvents();
+            gameStateEntity.GetComponent<NetworkGameState>().globalEvents.SetupCrisis();
             StartCoroutine(ServerCountdownCoroutine());
         }
 
@@ -481,13 +484,31 @@ namespace Bolt.Samples.Photon.Lobby
             countdownPanel.gameObject.SetActive(evnt.Time != 0);
         }
 
-        //TODO: Double check if this includes other crisis events
         public override void OnEvent(NewUpcomingEvent evnt)
         {
-            BoltConsole.Write("New Upcoming event : " + evnt.Name + " cool");
-            PanelHolder.instance.displayNotify("Global Event Coming Soon", NetworkGameState.instance.getEventInfo(), "OK");
+            BoltConsole.Write("New Upcoming event : " + evnt.Name );
+            //PanelHolder.instance.displayNotify("Global Event Coming Soon", NetworkGameState.instance.getEventInfo(), "OK");
+            CrisisHandler.instance.CallCrisis(evnt.Name);
+        }
+        //Everyone recieves this event
+        public override void OnEvent(ActivateCrisis evnt)
+        {
+            Player p = playerEntity.GetComponent<Player>();
+            string crisisName = evnt.CrisisName;
+            CrisisHandler.instance.CheckCrisisPhase1(p, crisisName, "");
         }
 
+        //Everyone recieves this event
+        public override void OnEvent(ResolveCrisisEvent evnt)
+        {
+            CrisisHandler.instance
+                .FinishCrisis(AllCrisisDict.FinishCrisis[evnt.CrisisName], evnt.IsSolved, evnt.HeroSpellcaster);
+        }
+
+        /// <summary>
+        /// NOTE: For Sammys we will not be using this funciton.
+        /// </summary>
+        /// <param name="evnt"></param>
         // Player recieves this event from the network, the event contains
         // the spellcasterID  of the spellcaster that can counter the event
         // if this client's spellcasterId matches that ID then check if they 
@@ -682,6 +703,34 @@ namespace Bolt.Samples.Photon.Lobby
             NetworkGameState.instance.actuallyAReturningPlayer();
         }
 
+
+        /*Only the server recieves this event.*/
+        public override void OnEvent(SolveCrisisEvent evnt)
+        {
+            bool isSolved = evnt.IsSolved;
+            if (isSolved && !CrisisSolvedAlready)
+            {
+                //Reset for next crisis
+                CrisisSolvedAlready = true;
+                numOfSpellcastersFailed = 0;
+                //Let everyone know that a spellcaster saved everyone
+                ResolveCrisis(evnt.CrisisName, true, evnt.SpellcasterClass);
+            }
+            else if(!CrisisSolvedAlready)
+            {
+                int numSpellcasters = gameStateEntity.GetComponent<NetworkGameState>().numOfSpellcastersInGame();
+                numOfSpellcastersFailed++;
+                if(numOfSpellcastersFailed >= numSpellcasters)
+                {
+                    //Reset for next crisis
+                    CrisisSolvedAlready = false;
+                    numOfSpellcastersFailed = 0;
+                    //Everyone failed as a team.
+                    ResolveCrisis(evnt.CrisisName, false, "");
+                }
+            }
+        }
+
         /*Only the server recieves this event.*/
         public override void OnEvent(CounterGlobalEvent evnt)
         {
@@ -762,11 +811,11 @@ namespace Bolt.Samples.Photon.Lobby
             evnt.Send();
         }
 
-        public void notifyAboutNewUpcomingEvent(string eName, string eDesc)
+        public void notifyAboutNewUpcomingEvent(string eName)
         {
             var evnt = NewUpcomingEvent.Create(Bolt.GlobalTargets.Everyone);
             evnt.Name = eName;
-            evnt.Description = eDesc;
+            //evnt.Description = eDesc;
             evnt.Send();
         }
 
@@ -794,6 +843,35 @@ namespace Bolt.Samples.Photon.Lobby
         {
             var evnt = ItemDropOff.Create(Bolt.GlobalTargets.OnlyServer);
             evnt.ItemName = itemName;
+            evnt.Send();
+        }
+
+        //FOR SAMMYS - but might keep after.
+        //Called when a Crisis is about to start
+        public void ActivateCrisisEvent(string crisisName)
+        {
+            var evnt = ActivateCrisis.Create(Bolt.GlobalTargets.Everyone);
+            evnt.CrisisName = crisisName;
+            evnt.Send();
+        }
+
+        //Every spellcaster has to let the host know if they can solve the crisis or not.
+        public void SolveCrisis(string crisisName, bool isSolved, string spellcaster)
+        {
+            var evnt = SolveCrisisEvent.Create(Bolt.GlobalTargets.OnlyServer);
+            evnt.CrisisName = crisisName;
+            evnt.IsSolved = isSolved;
+            evnt.SpellcasterClass = spellcaster;
+            evnt.Send();
+        }
+
+        //Sends back to all Spellcasters if they have a hero.
+        public void ResolveCrisis(string crisisName, bool isSolved, string hero)
+        {
+            var evnt = ResolveCrisisEvent.Create(Bolt.GlobalTargets.Everyone);
+            evnt.CrisisName = crisisName;
+            evnt.IsSolved = isSolved;
+            evnt.HeroSpellcaster = hero;
             evnt.Send();
         }
         #endregion
