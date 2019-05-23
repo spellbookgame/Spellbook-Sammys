@@ -100,7 +100,7 @@ public class MainPageHandler : MonoBehaviour
         GameObject q = Instantiate(questTracker);
         GameObject s = Instantiate(spellTracker);
         // CHANGE CRISISHANDLER TO BE INSTANTIATED IN LOBBY SCENE
-        GameObject c = Instantiate(crisisHandler);
+        //GameObject c = Instantiate(crisisHandler);
             
         // set character image based on class
         characterImage.sprite = Resources.Load<Sprite>(localPlayer.Spellcaster.characterSpritePath);
