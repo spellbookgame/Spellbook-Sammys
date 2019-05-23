@@ -96,6 +96,10 @@ public class MainPageHandler : MonoBehaviour
         {
             SceneManager.LoadScene("IllusionTownScene");
         }
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            CrisisHandler.instance.CheckCrisis(localPlayer, CrisisHandler.instance.currentCrisis, "town_elementalist");
+        }
         // -------------------------------------------------
     }
 

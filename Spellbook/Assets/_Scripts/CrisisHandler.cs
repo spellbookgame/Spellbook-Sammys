@@ -359,12 +359,10 @@ public class CrisisHandler : MonoBehaviour
                         }
                     }
                     break;
-                // TODO - check for preparation (networking)
                 default:
                     break;
             }
         }
-        SolveCrisis();
     }
     #endregion
 

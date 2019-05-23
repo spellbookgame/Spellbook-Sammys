@@ -36,7 +36,7 @@ public abstract class UIDissolveElement<T> : MonoBehaviour {
 		material = Instantiate(destructionMaterial);
 		SetMaterial(material);
 		foreach (GameObject instance in destroyImmediate) {
-			Destroy(instance);
+            Destroy(instance);
 		}
 	}
 
@@ -44,7 +44,7 @@ public abstract class UIDissolveElement<T> : MonoBehaviour {
 		if (isDestroying) {
 			progress += speed;
 			if (progress > 1.0F) {
-				Destroy(gameObject);
+                Destroy(gameObject);
 			}
 			material.SetFloat("_Progress", progress);
 		}
