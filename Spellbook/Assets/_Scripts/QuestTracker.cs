@@ -52,10 +52,7 @@ public class QuestTracker : MonoBehaviour
             if (quest.questName.Equals(q.questName))
             {
                 hasQuest = true;
-            }
-            else
-            {
-                hasQuest = false;
+                break;
             }
         }
         return hasQuest;
@@ -96,11 +93,13 @@ public class QuestTracker : MonoBehaviour
     // give players a spell quest at the start of game
     public void GiveSpellQuest()
     {
-        // if it's their first turn and they haven't been given spell quest yet
-        if(localPlayer.Spellcaster.NumOfTurnsSoFar <= 1 && !spellQuestGiven)
-        {
-            Quest quest = new SpellQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
+        Quest quest = new SpellQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
 
+        Debug.Log("GiveSpellQuest() called: currently in player's active quest list: " + HasQuest(quest));
+
+        // if it's their first turn and they haven't been given spell quest yet
+        if (localPlayer.Spellcaster.NumOfTurnsSoFar <= 1 && !spellQuestGiven)
+        {
             // if they don't have the quest in their list
             if(!HasQuest(quest))
             {

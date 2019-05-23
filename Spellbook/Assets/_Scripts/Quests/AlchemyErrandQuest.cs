@@ -7,7 +7,7 @@ public class AlchemyErrandQuest : Quest
 {
     public AlchemyErrandQuest(int turnStarted)
     {
-        questName = "Alchemy Errand Quest";
+        questName = "Potion Ingredient";
         questType = "Errand";
         questFlavor = "I need Aromatic Tea Leaves to finish this last potion.";
         questTask = "Bring 1 Aromatic Tea Leaves to the Alchemy Town.";

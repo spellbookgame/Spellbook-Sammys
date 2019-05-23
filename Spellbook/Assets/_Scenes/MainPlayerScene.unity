@@ -3692,6 +3692,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1166429379}
     m_Modifications:
+    - target: {fileID: 909107800245786707, guid: b0cc5900deed24b9a93caec7a1aad6ff,
+        type: 3}
+      propertyPath: darken
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 748020899532344273, guid: b0cc5900deed24b9a93caec7a1aad6ff,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3741,11 +3746,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 909107800245786707, guid: b0cc5900deed24b9a93caec7a1aad6ff,
-        type: 3}
-      propertyPath: darken
-      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 7593419896692273563, guid: b0cc5900deed24b9a93caec7a1aad6ff,
         type: 3}
@@ -4283,6 +4283,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Glow Symbol
       objectReference: {fileID: 0}
+    - target: {fileID: 7556387889694166149, guid: 69ebaed2ae22f440980f0cf860d2f1f8,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: -20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7556387889694166149, guid: 69ebaed2ae22f440980f0cf860d2f1f8,
+        type: 3}
+      propertyPath: m_DrawMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7556387889694166149, guid: 69ebaed2ae22f440980f0cf860d2f1f8,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 2000
+      objectReference: {fileID: 0}
+    - target: {fileID: 7556387889694166149, guid: 69ebaed2ae22f440980f0cf860d2f1f8,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 2000
+      objectReference: {fileID: 0}
     - target: {fileID: 7855741068109014536, guid: 69ebaed2ae22f440980f0cf860d2f1f8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4352,26 +4372,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7556387889694166149, guid: 69ebaed2ae22f440980f0cf860d2f1f8,
-        type: 3}
-      propertyPath: m_SortingOrder
-      value: -20
-      objectReference: {fileID: 0}
-    - target: {fileID: 7556387889694166149, guid: 69ebaed2ae22f440980f0cf860d2f1f8,
-        type: 3}
-      propertyPath: m_DrawMode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7556387889694166149, guid: 69ebaed2ae22f440980f0cf860d2f1f8,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 2000
-      objectReference: {fileID: 0}
-    - target: {fileID: 7556387889694166149, guid: 69ebaed2ae22f440980f0cf860d2f1f8,
-        type: 3}
-      propertyPath: m_Size.y
-      value: 2000
       objectReference: {fileID: 0}
     - target: {fileID: 8819015670141666471, guid: 69ebaed2ae22f440980f0cf860d2f1f8,
         type: 3}
@@ -7134,6 +7134,12 @@ PrefabInstance:
         type: 3}
       propertyPath: yOffset
       value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 4334021401968947878, guid: d4b739c6d3f30544aa34b9ceef3846d5,
+        type: 3}
+      propertyPath: tutorialTexts.Array.data[0]
+      value: View your Spellbook to see your recipes, quests, and details about your
+        crisis!
       objectReference: {fileID: 0}
     - target: {fileID: 4334021401654165641, guid: d4b739c6d3f30544aa34b9ceef3846d5,
         type: 3}

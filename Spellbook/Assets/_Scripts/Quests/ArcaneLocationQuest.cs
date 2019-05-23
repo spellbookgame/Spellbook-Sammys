@@ -7,7 +7,7 @@ public class ArcaneLocationQuest : Quest
 {
     public ArcaneLocationQuest(int turnStarted)
     {
-        questName = "Arcane Location Quest";
+        questName = "Forest Arts";
         questType = "Specific Location";
         questFlavor = "The Forest is an enormous source of energy for the Arcane Town. If you want to uncover the secrets of the Arcane arts, visit the Forest.";
         questTask = "Visit the Forest.";

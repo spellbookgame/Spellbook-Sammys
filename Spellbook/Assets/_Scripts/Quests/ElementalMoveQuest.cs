@@ -7,7 +7,7 @@ public class ElementalMoveQuest : Quest
 {
     public ElementalMoveQuest(int turnStarted)
     {
-        questName = "Elemental Move Quest";
+        questName = "Quick Combat";
         questType = "Move";
         questFlavor = "Being a fighter means being quick on your feet. Show me how far you can move.";
         questTask = "Travel 15 spaces.";

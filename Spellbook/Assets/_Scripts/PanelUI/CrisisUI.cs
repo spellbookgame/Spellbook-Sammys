@@ -42,7 +42,7 @@ public class CrisisUI : MonoBehaviour
 
     private void OkClick()
     {
-        SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+        SoundManager.instance.PlaySingle(SoundManager.parchmentBurn);
         gameObject.SetActive(false);
 
         if (PanelHolder.panelQueue.Count > 0)

@@ -7,7 +7,7 @@ public class ArcaneErrandQuest : Quest
 {
     public ArcaneErrandQuest(int turnStarted)
     {
-        questName = "Arcane Errand Quest";
+        questName = "Ingredient Tracker";
         questType = "Errand";
         questFlavor = "The Illusion Town is in need of an Abyssal Ore. Find one and bring it to them.";
         questTask = "Bring an Abyssal Ore to the Illusion Town.";

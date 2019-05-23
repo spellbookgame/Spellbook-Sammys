@@ -51,6 +51,13 @@ public class YourTurnUI : MonoBehaviour
 
             // for start of game: give players a spell quest to start
             QuestTracker.instance.GiveSpellQuest();
+
+            // check crisis resolution
+            int roundsTillCrisis = NetworkGameState.instance.RoundsUntilCrisisActivates();
+            if(roundsTillCrisis == 0)
+            {
+                CrisisHandler.instance.SolveCrisis();
+            }
         });
     }
 }

@@ -49,7 +49,7 @@ public class SpellbookProgress : MonoBehaviour
             crisisDetailsText.text = CrisisHandler.instance.crisisDetails;
             crisisConsequenceText.text = "FAIL: " + CrisisHandler.instance.crisisConsequence;
             crisisRewardText.text = "SUCCEED: " + CrisisHandler.instance.crisisReward;
-            roundsLeftText.text = "Rounds Left: " + CrisisHandler.instance.roundsUntilCrisis;
+            roundsLeftText.text = "Rounds Left: " + NetworkGameState.instance.RoundsUntilCrisisActivates();
 
             crisisPanel.SetActive(true);
             crisisPanelOpen = true;

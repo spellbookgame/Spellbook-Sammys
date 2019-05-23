@@ -7,7 +7,7 @@ public class SummoningErrandQuest : Quest
 {
     public SummoningErrandQuest(int turnStarted)
     {
-        questName = "Summoning Errand Quest";
+        questName = "Seance";
         questType = "Errand";
         questFlavor = "I need to summon somebody... I need a Mystic Translocator.";
         questTask = "Bring a Mystic Translocator to the Summoner Town.";

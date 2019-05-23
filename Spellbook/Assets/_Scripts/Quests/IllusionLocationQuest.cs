@@ -7,7 +7,7 @@ public class IllusionLocationQuest : Quest
 {
     public IllusionLocationQuest(int turnStarted)
     {
-        questName = "Illusion Location Quest";
+        questName = "Swamp Disturbance";
         questType = "Specific Location";
         questFlavor = "There's a disturbance in the Swamp. Go there and find out what's going on.";
         questTask = "Visit the Swamp.";
