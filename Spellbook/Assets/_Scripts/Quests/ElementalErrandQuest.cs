@@ -7,7 +7,7 @@ public class ElementalErrandQuest : Quest
 {
     public ElementalErrandQuest(int turnStarted)
     {
-        questName = "Elemental Errand Quest";
+        questName = "Missing Ingredient";
         questType = "Errand";
         questFlavor = "The apothecary needs a Glowing Mushroom. Can you bring one to them?";
         questTask = "Bring a Glowing Mushroom to the Alchemy Town.";

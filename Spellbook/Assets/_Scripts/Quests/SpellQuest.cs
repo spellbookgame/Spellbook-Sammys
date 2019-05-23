@@ -7,7 +7,7 @@ public class SpellQuest : Quest
 {
     public SpellQuest(int turnStarted)
     {
-        questName = "Spell Quest";
+        questName = "Learn The Basics";
         questType = "Spell";
         questFlavor = "Let's learn the basics! Create a tier 3 spell.";
         questTask = "Create a tier 3 spell.";

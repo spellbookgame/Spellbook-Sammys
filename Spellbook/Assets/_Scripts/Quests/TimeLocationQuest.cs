@@ -7,7 +7,7 @@ public class TimeLocationQuest : Quest
 {
     public TimeLocationQuest(int turnStarted)
     {
-        questName = "Time Location Quest";
+        questName = "Save the Mines!";
         questType = "Specific Location";
         questFlavor = "I heard the mines are having trouble but I'm busy with my project. Can you visit the Mines for me?";
         questTask = "Visit the Mines.";

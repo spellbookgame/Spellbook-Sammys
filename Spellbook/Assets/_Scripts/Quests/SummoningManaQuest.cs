@@ -7,7 +7,7 @@ public class SummoningManaQuest : Quest
 {
     public SummoningManaQuest(int turnStarted)
     {
-        questName = "Summoning Mana Quest";
+        questName = "Buying Runes";
         questType = "Collect Mana";
         questFlavor = "If you can show me that you can collect 1300 mana, I'll give you some runes.";
         questTask = "Collect 1300 mana crystals.";
