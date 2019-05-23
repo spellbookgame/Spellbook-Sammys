@@ -223,7 +223,7 @@ public class UICanvasHandler : MonoBehaviour
         movePanel.transform.GetChild(0).GetComponent<Text>().text = "Move " + spacesMoved.ToString();
         movePanel.SetActive(true);
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
         movePanel.SetActive(false);
     }
 

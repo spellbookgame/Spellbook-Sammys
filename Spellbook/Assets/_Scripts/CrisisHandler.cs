@@ -53,7 +53,7 @@ public class CrisisHandler : MonoBehaviour
         currentCrisis = "Tsunami";
         nextCrisis = "Plague";
         crisisSolved = false;
-        roundsUntilCrisis = 3;
+        roundsUntilCrisis = NetworkGameState.instance.RoundsUntilCrisisActivates();
 
         crisisName = "Tsunami";
         requiredLocation = "town_elementalist";
@@ -131,7 +131,7 @@ public class CrisisHandler : MonoBehaviour
         currentCrisis = "Plague";
         nextCrisis = "Boss Battle";
         crisisSolved = false;
-        roundsUntilCrisis = 3;
+        roundsUntilCrisis = NetworkGameState.instance.RoundsUntilCrisisActivates();
 
         crisisName = "Stonelung Plague";
         requiredLocation = "location_capital";
