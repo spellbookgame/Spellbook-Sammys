@@ -12,7 +12,7 @@ public class HollowCabochon : ItemObject
         buyPrice = 2100;
         sellPrice = 630;
         flavorDescription = "While not truly hollow in the physical sense, this glassy jewel seems to be infused with an essence of want.";
-        mechanicsDescription = "A random spell from the user's collection will be stored in the Hollow Cabochon, turning it into a Glimmering Cabochon infused with that spell.";
+        mechanicsDescription = "A random spell (excluding combat spells) from the user's collection will be stored in the Hollow Cabochon, turning it into a Glimmering Cabochon infused with that spell.";
     }
 
     public override void UseItem(SpellCaster player)

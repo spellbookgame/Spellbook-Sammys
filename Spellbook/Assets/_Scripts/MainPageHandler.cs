@@ -12,11 +12,11 @@ public class MainPageHandler : MonoBehaviour
     [SerializeField] private GameObject spellTracker;
     [SerializeField] private GameObject crisisHandler;
 
+    [SerializeField] private Text roundsUntilCrisis;
     [SerializeField] private Text classType;
     [SerializeField] private Text manaCrystalsValue;
     [SerializeField] private Text manaCrystalsAddition;
     [SerializeField] private Text healthValue;
-    [SerializeField] private Enemy enemy;
 
     [SerializeField] private SpriteRenderer characterImage;
     [SerializeField] private UIWarpController warpController;
@@ -131,6 +131,8 @@ public class MainPageHandler : MonoBehaviour
         PanelHolder.instance.CheckPanelQueue();
 
         CrisisHandler.instance.player = localPlayer;
+
+        roundsUntilCrisis.text = "Rounds Until Crisis: " + NetworkGameState.instance.RoundsUntilCrisisActivates().ToString();
     }
     
     private void SetClassAttributes()

@@ -164,6 +164,9 @@ MonoBehaviour:
   runeContainer: {fileID: 637933620}
   spellInfoPanel: {fileID: 2135500516}
   runePanel: {fileID: 819270987}
+  tier3Color: {r: 0.91764706, g: 0.91764706, b: 0.91764706, a: 1}
+  tier2Color: {r: 0.6039216, g: 0.105882354, b: 0.5882353, a: 1}
+  tier1Color: {r: 0.78431374, g: 0.4117647, b: 0.08627451, a: 1}
 --- !u!1 &265076602
 GameObject:
   m_ObjectHideFlags: 0
@@ -1379,7 +1382,7 @@ PrefabInstance:
     - target: {fileID: 3557913045795923604, guid: 6833db6359aae435a8cece5470b728d6,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.000000028907326
+      value: 0.000000072441615
       objectReference: {fileID: 0}
     - target: {fileID: 3557913045991827151, guid: 6833db6359aae435a8cece5470b728d6,
         type: 3}
