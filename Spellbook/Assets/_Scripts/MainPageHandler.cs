@@ -114,8 +114,9 @@ public class MainPageHandler : MonoBehaviour
         manaCrystalsValue.text = localPlayer.Spellcaster.iMana.ToString();
         healthValue.text = localPlayer.Spellcaster.fCurrentHealth.ToString() + "/ " + localPlayer.Spellcaster.fMaxHealth.ToString();
 
-        // disable dice button if it's not player's turn
+        // disable dice button if it's not player's turn, activate end turn button accordingly
         UICanvasHandler.instance.EnableDiceButton(localPlayer.bIsMyTurn);
+        UICanvasHandler.instance.ActivateEndTurnButton(localPlayer.Spellcaster.hasRolled);
 
         // create instances of QuestTracker/SpellTracker prefabs
         Instantiate(questTracker);

@@ -25,10 +25,7 @@ public class UICanvasHandler : MonoBehaviour
     [SerializeField] private DiceUIHandler diceUIHandler;
     [SerializeField] private GameObject combatButton;
     [SerializeField] private GameObject tutorialHandler;
-    
     #endregion
-
-    private Player localPlayer;
 
     void Awake()
     {
@@ -117,13 +114,10 @@ public class UICanvasHandler : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // find local player
-        localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
-
         // set render camera to main camera
         gameObject.GetComponent<Canvas>().worldCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
 
-        // if we're not in main scene main scene
+        // if we're not in main scene
         if (!SceneManager.GetActiveScene().name.Equals("MainPlayerScene"))
         {
             // if dice tray is open but moved scenes, close dice tray
@@ -145,9 +139,6 @@ public class UICanvasHandler : MonoBehaviour
             //Temporary
             //combatButton.SetActive(true);
 
-            if (localPlayer != null)
-                ActivateEndTurnButton(localPlayer.Spellcaster.hasRolled);
-
             spellbookButton.SetActive(true);
             diceButton.SetActive(true);
             inventoryButton.SetActive(true);
@@ -159,7 +150,6 @@ public class UICanvasHandler : MonoBehaviour
     public void ActivateEndTurnButton(bool enabled)
     {
         endTurnButton.SetActive(enabled);
-        Debug.Log("end turn button: " + enabled);
 
         /*if(enabled)
         {
