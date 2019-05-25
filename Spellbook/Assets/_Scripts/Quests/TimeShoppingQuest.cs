@@ -3,23 +3,22 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-public class ArcaneErrandQuest : Quest
+public class TimeShoppingQuest : Quest
 {
-    public ArcaneErrandQuest(int turnStarted)
+    public TimeShoppingQuest(int turnStarted)
     {
-        questName = "Ingredient Tracker";
-        questType = "Errand";
-        questFlavor = "Parados is in need of an Abyssal Ore. Find one and bring it to them.";
-        questTask = "Bring an Abyssal Ore to Parados.";
-        questHint = "If the Capital and Forest don't have it, maybe a friend does.";
+        questName = "Shopping";
+        questType = "Specific Location";
+        questFlavor = "Shopping is fun! The Capital has a great Marketplace you should check out!";
+        questTask = "Visit the Capital.";
+        questHint = "The Alchemist has a spell that can teleport you to the Capital!";
 
         startTurn = turnStarted;
         expiration = 20;
 
-        spaceName = "town_illusionist";
-        itemName = "Abyssal Ore";
+        spaceName = "location_capital";
 
-        rewards.Add("Rune", "Illusionist A Rune");
+        rewards.Add("Item", "Aromatic Tea Leaves");
         rewards.Add("Class Rune", "B Rune");
 
         questCompleted = false;

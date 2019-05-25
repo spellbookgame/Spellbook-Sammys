@@ -94,11 +94,11 @@ public class MainPageHandler : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.I))
         {
-            SceneManager.LoadScene("SummonerTownScene");
+            SceneManager.LoadScene("ChronomancyTownScene");
         }
         if (Input.GetKeyDown(KeyCode.C))
         {
-            QuestTracker.instance.TrackSpellQuest(new Agenda());
+            localPlayer.Spellcaster.AddToInventory(GameObject.Find("ItemList").GetComponent<ItemList>().GetItemFromName("Crystal Mirror"));
         }
         // -------------------------------------------------
     }

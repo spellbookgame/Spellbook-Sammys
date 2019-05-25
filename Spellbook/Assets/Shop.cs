@@ -55,6 +55,8 @@ public class Shop : MonoBehaviour
             SceneManager.LoadScene("MainPlayerScene");
         });
 
+        QuestTracker.instance.TrackLocationQuest("location_capital");
+
         float size = allItems.Count;
 
         //Choose 4 random items from item pool to put for sale.

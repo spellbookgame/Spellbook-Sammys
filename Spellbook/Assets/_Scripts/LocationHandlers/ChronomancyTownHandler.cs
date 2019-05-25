@@ -21,7 +21,8 @@ public class ChronomancyTownHandler : MonoBehaviour
         quests = new Quest[]
         {
             new TimeMoveQuest(localPlayer.Spellcaster.NumOfTurnsSoFar),
-            new TimeLocationQuest(localPlayer.Spellcaster.NumOfTurnsSoFar)
+            new TimeLocationQuest(localPlayer.Spellcaster.NumOfTurnsSoFar),
+            new TimeShoppingQuest(localPlayer.Spellcaster.NumOfTurnsSoFar)
         };
 
         findQuestButton.onClick.AddListener(FindQuest);
