@@ -70,7 +70,6 @@ public class CrisisHandler : MonoBehaviour
     // call this when crisis arrives (if roundsUntilCrisis == 0)
     public void FinishTsunami()
     {
-        Debug.Log("Finish Tsunami called");
         if(crisisSolved)
         {
             PanelHolder.instance.displayBoardScan("Tsunami Averted", "Out of gratitude for saving the Empire, the Capital is rewarding each wizard with an A tier rune from their class.",
@@ -82,7 +81,6 @@ public class CrisisHandler : MonoBehaviour
             player.Spellcaster.TakeDamage((int)player.Spellcaster.fCurrentHealth / 2);
             player.Spellcaster.tsunamiConsequence = true;   // checked in CustomEventHandler.cs
             player.Spellcaster.tsunamiConsTurn = player.Spellcaster.NumOfTurnsSoFar;    // tsunami consequence deactivated after 1 turn has passed (endturnclick)
-            Debug.Log("player health / 2 from Tsunami");
         }
         currentCrisis = "";
     }

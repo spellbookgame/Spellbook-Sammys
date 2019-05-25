@@ -74,6 +74,8 @@ public class MainPageHandler : MonoBehaviour
             manaHasChanged = false;
         }
 
+        roundsUntilCrisis.text = "Rounds Until Crisis: " + NetworkGameState.instance.RoundsUntilCrisisActivates().ToString();
+
         // ------------ TEST AREA - DELETE LATER ----------
         if (Input.GetKeyDown(KeyCode.G))
         {
@@ -132,8 +134,6 @@ public class MainPageHandler : MonoBehaviour
         PanelHolder.instance.CheckPanelQueue();
 
         CrisisHandler.instance.player = localPlayer;
-
-        roundsUntilCrisis.text = "Rounds Until Crisis: " + NetworkGameState.instance.RoundsUntilCrisisActivates().ToString();
     }
     
     private void SetClassAttributes()
