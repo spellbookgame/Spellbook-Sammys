@@ -3,24 +3,24 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-public class SummoningManaQuest : Quest
+public class ArcaneJewelryQuest : Quest
 {
-    public SummoningManaQuest(int turnStarted)
+    public ArcaneJewelryQuest(int turnStarted)
     {
-        questName = "Buying Runes";
-        questType = "Collect Mana";
-        questFlavor = "If you can show me that you can collect 1300 mana, I'll give you some runes.";
-        questTask = "Collect 1300 mana crystals.";
-        questHint = "The Crystal Mines are a great source of mana.";
+        questName = "Jewelery Collector";
+        questType = "Errand";
+        questFlavor = "I'm collecting jewelry. Can you bring me an Opal Ammonite?";
+        questTask = "Bring 1 Opal Ammonite to Zandria.";
+        questHint = "Looking for low tier items? The Shrine gives those out the most!";
 
         startTurn = turnStarted;
         expiration = 20;
 
-        manaTracker = 0;
-        manaRequired = 1300;
+        spaceName = "town_arcanist";
+        itemName = "Opal Ammonite";
 
-        rewards.Add("Rune", "Summoner B Rune");
-        rewards.Add("Class Rune", "B Rune");
+        rewards.Add("Rune", "Arcanist B Rune");
+        rewards.Add("Mana", "1000");
 
         questCompleted = false;
     }

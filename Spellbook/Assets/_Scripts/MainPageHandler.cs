@@ -94,11 +94,11 @@ public class MainPageHandler : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.I))
         {
-            SceneManager.LoadScene("IllusionTownScene");
+            SceneManager.LoadScene("ArcaneTownScene");
         }
         if (Input.GetKeyDown(KeyCode.C))
         {
-            CrisisHandler.instance.CheckCrisis(localPlayer, CrisisHandler.instance.currentCrisis, "town_elementalist");
+            QuestTracker.instance.TrackErrandQuest("town_arcanist");
         }
         // -------------------------------------------------
     }
