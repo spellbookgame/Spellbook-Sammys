@@ -24,7 +24,8 @@ public class SummonerTownHandler : MonoBehaviour
         quests = new Quest[]
         {
             new SummoningErrandQuest(localPlayer.Spellcaster.NumOfTurnsSoFar),
-            new SummoningManaQuest(localPlayer.Spellcaster.NumOfTurnsSoFar)
+            new SummoningManaQuest(localPlayer.Spellcaster.NumOfTurnsSoFar),
+            new SummoningSpellQuest(localPlayer.Spellcaster.NumOfTurnsSoFar)
         };
 
         findQuestButton.onClick.AddListener(FindQuest);

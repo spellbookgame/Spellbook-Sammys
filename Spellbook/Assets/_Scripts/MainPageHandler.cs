@@ -94,11 +94,11 @@ public class MainPageHandler : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.I))
         {
-            SceneManager.LoadScene("ArcaneTownScene");
+            SceneManager.LoadScene("SummonerTownScene");
         }
         if (Input.GetKeyDown(KeyCode.C))
         {
-            QuestTracker.instance.TrackErrandQuest("town_arcanist");
+            QuestTracker.instance.TrackSpellQuest(new Agenda());
         }
         // -------------------------------------------------
     }
