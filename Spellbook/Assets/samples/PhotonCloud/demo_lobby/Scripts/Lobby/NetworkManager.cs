@@ -111,8 +111,8 @@ namespace Bolt.Samples.Photon.Lobby
 
             SetServerInfo("Offline", "None");
 
-            Debug.Log("Lobby Scene: " + lobbyScene.SimpleSceneName);
-            Debug.Log("Game Scene: " + gameScene.SimpleSceneName);
+            BoltConsole.Write("Lobby Scene: " + lobbyScene.SimpleSceneName);
+            BoltConsole.Write("Game Scene: " + gameScene.SimpleSceneName);
 
             SoundManager.instance.musicSource.Play();
         }
@@ -224,7 +224,7 @@ namespace Bolt.Samples.Photon.Lobby
         {
             BoltLauncher.StartServer();
             BoltConsole.Write("StartServer breh");
-            Debug.Log("StartServer breh");
+            BoltConsole.Write("StartServer breh");
         }
 
         public void StartClient()
@@ -320,7 +320,7 @@ namespace Bolt.Samples.Photon.Lobby
 
             registerDoneCallback(() =>
             {
-                Debug.Log("Shutdown Done");
+                BoltConsole.Write("Shutdown Done");
                 ChangeTo(mainMenuPanel);
             });
         }
@@ -465,7 +465,6 @@ namespace Bolt.Samples.Photon.Lobby
             playerEntity.TakeControl();
             CrisisHandler.instance.CallCrisis(NetworkGameState.instance.getCurrentCrisis());
             playerEntity.GetComponent<Player>().setup(localPlayerSpellcasterID);
-           // PanelHolder.instance.displayNotify("Global Event Coming Soon", NetworkGameState.instance.getEventInfo(), "OK");
         }
         #region CLIENT_CALLBACKS
         // ----------------- Client callbacks -----------------------------------------------------------
@@ -493,20 +492,19 @@ namespace Bolt.Samples.Photon.Lobby
             //PanelHolder.instance.displayNotify("Global Event Coming Soon", NetworkGameState.instance.getEventInfo(), "OK");
             CrisisHandler.instance.CallCrisis(evnt.Name);
         }
-        //Everyone recieves this event
+        //Everyone recieves this event if everyone failed to counter the crisis.
         public override void OnEvent(ActivateCrisis evnt)
         {
-            Player p = playerEntity.GetComponent<Player>();
-            string crisisName = evnt.CrisisName;
-            CrisisHandler.instance.CheckCrisisPhase1(p, crisisName, "");
+            BoltConsole.Write("ActivateCrisisEvent: " + evnt.CrisisName);
+            CrisisHandler.instance.FinishCrisis(AllCrisisDict.FinishCrisis[evnt.CrisisName], false, "");
         }
 
-        //Everyone recieves this event
+        //Everyone recieves this event if they have a hero who countered the crisis.
         public override void OnEvent(ResolveCrisisEvent evnt)
         {
-            Debug.Log("ResolveCrisisEvent: " + evnt.CrisisName);
+            BoltConsole.Write("ResolveCrisisEvent: " + evnt.CrisisName);
             CrisisHandler.instance
-                .FinishCrisis(AllCrisisDict.FinishCrisis[evnt.CrisisName], evnt.IsSolved, evnt.HeroSpellcaster);
+                .FinishCrisis(AllCrisisDict.FinishCrisis[evnt.CrisisName], true, evnt.HeroSpellcaster);
         }
 
         /// <summary>
@@ -519,7 +517,7 @@ namespace Bolt.Samples.Photon.Lobby
         // can counter it.
         public override void OnEvent(CheckIfCanCounterEvent evnt)
         {
-            Debug.Log("Check Counter Event");
+            BoltConsole.Write("Check Counter Event");
             playerSpellcaster = playerEntity.GetComponent<Player>().spellcaster;
             if (playerSpellcaster.spellcasterID == evnt.requiredSpellcaster)
             {
@@ -545,13 +543,13 @@ namespace Bolt.Samples.Photon.Lobby
             if (playerSpellcaster.classType == evnt.Savior)
             {
                 BoltConsole.Write("You saved the world with your spell!");
-                Debug.Log("You saved the world with your spell!");
+                BoltConsole.Write("You saved the world with your spell!");
                 PanelHolder.instance.displayNotify("Congratulations", "You saved the world with your spell!", "OK");
             }
             else
             {
                 BoltConsole.Write(evnt.Savior + " saved the world!");
-                Debug.Log(evnt.Savior + " saved the world!");
+                BoltConsole.Write(evnt.Savior + " saved the world!");
                 PanelHolder.instance.displayNotify("Congratulations", evnt.Savior + " saved the world!", "OK");
             }
         }
@@ -574,7 +572,7 @@ namespace Bolt.Samples.Photon.Lobby
         public override void OnEvent(FinalBoss evnt)
         {
             BoltConsole.Write("Final Boss battle (not yet implemented so everyone dies)");
-            Debug.Log("Final Boss battle (not yet implemented so everyone dies)");
+            BoltConsole.Write("Final Boss battle (not yet implemented so everyone dies)");
             PanelHolder.instance.displayNotify("Final Boss Battle", "(not yet implemented so everyone dies)", "OK");
             playerSpellcaster = playerEntity.GetComponent<Player>().spellcaster;
             playerSpellcaster.TakeDamage((int)(playerSpellcaster.fCurrentHealth));
@@ -655,6 +653,13 @@ namespace Bolt.Samples.Photon.Lobby
         }
 
         /*Only the server recieves this event.*/
+        public override void OnEvent(ModifyRoundsCrisis evnt)
+        {
+            gameStateEntity.GetComponent<NetworkGameState>()
+                .ModifyRoundsUntilNextCrisis(evnt.x);
+        }
+
+        /*Only the server recieves this event.*/
         public override void OnEvent(CancelSpellcaster evnt)
         {
             gameStateEntity.GetComponent<NetworkGameState>()
@@ -708,32 +713,62 @@ namespace Bolt.Samples.Photon.Lobby
         }
 
 
-        /*Only the server recieves this event.*/
+        /*Only the server recieves this event. From the Hero who saves the day.*/
         public override void OnEvent(SolveCrisisEvent evnt)
         {
-            bool isSolved = evnt.IsSolved;
-            if (isSolved && !CrisisSolvedAlready)
+            if (!CrisisSolvedAlready)
             {
-                //Reset for next crisis
                 CrisisSolvedAlready = true;
-                numOfSpellcastersFailed = 0;
-                //Let everyone know that a spellcaster saved everyone
-                ResolveCrisis(evnt.CrisisName, true, evnt.SpellcasterClass);
-            }
-            else if(!CrisisSolvedAlready)
-            {
-                int numSpellcasters = gameStateEntity.GetComponent<NetworkGameState>().numOfSpellcastersInGame();
-                numOfSpellcastersFailed++;
-                if(numOfSpellcastersFailed >= numSpellcasters)
-                {
-                    //Reset for next crisis
-                    CrisisSolvedAlready = false;
-                    numOfSpellcastersFailed = 0;
-                    //Everyone failed as a team.
-                    ResolveCrisis(evnt.CrisisName, false, "");
-                }
+                NetworkGameState.instance.SavedByHero();
+                ResolveCrisis(evnt.CrisisName, evnt.SpellcasterClass);
             }
         }
+
+        //OLD CODE
+        /*Only the server recieves this event.*/
+        /*
+        int SolveCount = 0;
+        public override void OnEvent(SolveCrisisEvent evnt)
+        {
+            bool isFromScan = evnt.isFromScan;
+            if (!isFromScan)
+            {
+                SolveCount++;
+            }
+            BoltConsole.Write("Spellcaster solve crisis attempt : " + SolveCount);
+            int numSpellcasters = gameStateEntity.GetComponent<NetworkGameState>().numOfSpellcastersInGame();
+            if (!CrisisSolvedAlready)
+            {
+                bool isSolved = evnt.IsSolved;
+                if (isSolved)
+                {
+                    //Make sure this if statement is only called once per crisis.
+                    CrisisSolvedAlready = true;
+                    //Let everyone know that a spellcaster saved everyone
+                    ResolveCrisis(evnt.CrisisName, true, evnt.SpellcasterClass);
+                }
+                else 
+                {
+                    numOfSpellcastersFailed++;
+                    BoltConsole.Write("Num of spellcasters failed : " + numOfSpellcastersFailed);
+                    if(numOfSpellcastersFailed >= numSpellcasters)
+                    {
+                        //Everyone failed as a team.
+                        ResolveCrisis(evnt.CrisisName, false, "");
+                    }
+                }
+            }
+
+            //Reset
+            if(SolveCount >= numSpellcasters)
+            {
+                BoltConsole.Write("Reset Crisis");
+                CrisisSolvedAlready = false;
+                SolveCount = 0;
+                numOfSpellcastersFailed = 0;
+            }
+
+        }*/
 
         /*Only the server recieves this event.*/
         public override void OnEvent(CounterGlobalEvent evnt)
@@ -745,7 +780,7 @@ namespace Bolt.Samples.Photon.Lobby
         /*Only the server recieves this event.*/
         public override void OnEvent(ItemPickUp evnt)
         {
-            gameStateEntity.GetComponent<NetworkGameState>().ItemPickUp();
+            gameStateEntity.GetComponent<NetworkGameState>().ClearItemBox();
         }
 
         /*Only the server recieves this event.*/
@@ -859,23 +894,31 @@ namespace Bolt.Samples.Photon.Lobby
             evnt.Send();
         }
 
-        //Every spellcaster has to let the host know if they can solve the crisis or not.
-        public void SolveCrisis(string crisisName, bool isSolved, string spellcaster)
+        //Hero lets host know that he/she solved the crisis
+        public void SolveCrisis(string crisisName, string spellcaster)
         {
             var evnt = SolveCrisisEvent.Create(Bolt.GlobalTargets.OnlyServer);
             evnt.CrisisName = crisisName;
-            evnt.IsSolved = isSolved;
             evnt.SpellcasterClass = spellcaster;
             evnt.Send();
         }
 
-        //Sends back to all Spellcasters if they have a hero.
-        public void ResolveCrisis(string crisisName, bool isSolved, string hero)
+        //Only for host to call.
+        //Sends back to all Spellcasters with the name of their hero
+        private void ResolveCrisis(string crisisName, string hero)
         {
             var evnt = ResolveCrisisEvent.Create(Bolt.GlobalTargets.Everyone);
             evnt.CrisisName = crisisName;
-            evnt.IsSolved = isSolved;
             evnt.HeroSpellcaster = hero;
+            evnt.Send();
+        }
+
+        //Input: value that you want to add to state.yearsUntilNextEvent
+        //Can be negative
+        public void ModifyRoundsUntilNextCrisis(int x)
+        {
+            var evnt = ModifyRoundsCrisis.Create(Bolt.GlobalTargets.OnlyServer);
+            evnt.x = x;
             evnt.Send();
         }
         #endregion

@@ -27,6 +27,7 @@ public class CrisisHandler : MonoBehaviour
 
     public Player player;   // defined in MainPageHandler.cs
     string spellcasterHero;  //spellcaster class that saved the day
+    bool alreadyChecked = false;
 
     #region singleton
     void Awake()
@@ -70,6 +71,7 @@ public class CrisisHandler : MonoBehaviour
     // call this when crisis arrives (if roundsUntilCrisis == 0)
     public void FinishTsunami()
     {
+        BoltConsole.Write("Finish Tsunami, crisisSolved: " + crisisSolved);
         if(crisisSolved)
         {
             PanelHolder.instance.displayBoardScan("Tsunami Averted", "Out of gratitude for saving the Empire, the Capital is rewarding each wizard with an A tier rune from their class.",
@@ -147,6 +149,7 @@ public class CrisisHandler : MonoBehaviour
     // call this when crisis arrives (if roundsUntilCrisis == 0)
     public void FinishPlague()
     {
+        BoltConsole.Write("Finish Plague, Crisis Solved:  "  + crisisSolved);
         if (crisisSolved)
         {
             PanelHolder.instance.displayBoardScan("Plague Averted", "The local apothecaries have gathered special talismans for each wizard for saving them from doing work. " +
@@ -292,10 +295,11 @@ public class CrisisHandler : MonoBehaviour
     {
 
     }
-        #endregion
+    #endregion
 
     #region checkCrisis
     // call this to check if crisis is resolved
+    //fromScan: True if called from scanning, false otherwise
     public void CheckCrisis(Player player, string currentCrisis, string location)
     {
         this.player = player;
@@ -363,6 +367,10 @@ public class CrisisHandler : MonoBehaviour
                 default:
                     break;
             }
+            if(crisisSolved == true)
+            {
+                SolveCrisis();
+            }
         }
     }
     #endregion
@@ -375,21 +383,23 @@ public class CrisisHandler : MonoBehaviour
     {
         if(currentCrisis!= "")
         {
-            NetworkManager.s_Singleton.SolveCrisis(currentCrisis, crisisSolved, player.Spellcaster.classType);
+            NetworkManager.s_Singleton.SolveCrisis(currentCrisis, player.Spellcaster.classType);
         }
     }
 
     // Called from Network, everyone recieves this.
     public void CallCrisis(string CrisisName)
     {
+        BoltConsole.Write("Calling crisis : " + CrisisName);
         AllCrisisDict.CallCrisis[CrisisName]();
     }
-
+    
+    /*
     // Called from Network, everyone recieves this.
     public void CheckCrisisPhase1(Player p, string crisisName, string location)
     {
         CheckCrisis(p, crisisName, location);
-    }
+    }*/
 
     // Called from Network, everyone recieves this.
     // finishAction is either:
@@ -400,6 +410,7 @@ public class CrisisHandler : MonoBehaviour
     // spellcasterHero is an empty string if everyone failed to counter the crisis
     public void FinishCrisis(Action finishAction, bool isSolved, string spellcasterHero)
     {
+        BoltConsole.Write("Finish Crisis. ");
         this.spellcasterHero = spellcasterHero;
         crisisSolved = isSolved;
         finishAction();

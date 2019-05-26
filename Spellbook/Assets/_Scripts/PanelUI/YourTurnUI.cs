@@ -53,11 +53,11 @@ public class YourTurnUI : MonoBehaviour
             QuestTracker.instance.GiveSpellQuest();
 
             // check crisis resolution
-            int roundsTillCrisis = NetworkGameState.instance.RoundsUntilCrisisActivates();
-            if(roundsTillCrisis == 0)
-            {
-                CrisisHandler.instance.SolveCrisis();
-            }
+            //int roundsTillCrisis = NetworkGameState.instance.RoundsUntilCrisisActivates();
+            //if(roundsTillCrisis == 0)
+            //{
+            //    CrisisHandler.instance.SolveCrisis();
+            //}
         });
     }
 }

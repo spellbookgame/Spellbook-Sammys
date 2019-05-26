@@ -145,43 +145,44 @@ public class GlobalEvents : MonoBehaviour
     //Call this one for generic events
     public void executeGlobalEvent()
     {
+
         if (!allEventsHappened && list_AllEvents.Count > 0)
         {
             // Update list just in case someone left/died.
             spellcasterList = NetworkGameState.instance.spellcasterList;
 
-            int size = list_AllEvents.Count;
             //Get a random function from the list of possible events and execute it.
             Action evnt = list_AllEvents[currentEventIndex].action;
+            //currentEventIndex++;
+            evnt();
+        }
+    }
+
+    public bool AllCrisisHappened()
+    {
+        return allEventsHappened;
+    }
+
+    public bool PrepareNextEvent()
+    {
+        if (!allEventsHappened)
+        {
             currentEventIndex++;
-           
+            BoltConsole.Write("Prepareing next crisis");
+            int size = list_AllEvents.Count;
             if (currentEventIndex >= size)
             {
                 currentEventIndex = 0;
                 allEventsHappened = true;
+                return false;
             }
-            /*
-            else
-            {
-                NetworkGameState.instance.
-                setNextEvent(list_AllEvents[currentEventIndex].name,
-                list_AllEvents[currentEventIndex].description,
-                list_AllEvents[currentEventIndex].yearsItTakesToHappen);
-            }*/
-            evnt();
-        }
-        
-    }
-
-    public void PrepareNextEvent()
-    {
-        if (!allEventsHappened)
-        {
             NetworkGameState.instance.
             setNextEvent(list_AllEvents[currentEventIndex].name,
             list_AllEvents[currentEventIndex].description,
             list_AllEvents[currentEventIndex].yearsItTakesToHappen);
+            return true;
         }
+        return false;
     }
 
 
