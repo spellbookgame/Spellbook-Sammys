@@ -95,8 +95,6 @@ public class QuestTracker : MonoBehaviour
     {
         Quest quest = new SpellQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
 
-        Debug.Log("GiveSpellQuest() called: currently in player's active quest list: " + HasQuest(quest));
-
         // if it's their first turn and they haven't been given spell quest yet
         if (localPlayer.Spellcaster.NumOfTurnsSoFar <= 1 && !spellQuestGiven)
         {

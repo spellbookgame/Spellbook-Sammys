@@ -68,7 +68,11 @@ public class PanelHolder : MonoBehaviour
                 chooseSpellcasterPanel.EnablePanel();
         }
         else
+        {
             UICanvasHandler.instance.EnableMainSceneButtons(true);
+            // also have to disable dice button if it's not player's turn
+            UICanvasHandler.instance.EnableDiceButton(GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().bIsMyTurn);
+        }
     }
 
     public void displayYourTurn()

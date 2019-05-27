@@ -24,7 +24,8 @@ public class UICanvasHandler : MonoBehaviour
     [SerializeField] private GameObject movePanel;
     [SerializeField] private DiceUIHandler diceUIHandler;
     [SerializeField] private GameObject combatButton;
-    [SerializeField] private GameObject tutorialHandler;
+
+    private TutorialHandler tutorialHandler;
     #endregion
 
     void Awake()
@@ -90,6 +91,8 @@ public class UICanvasHandler : MonoBehaviour
             SceneManager.LoadScene("LoadingScene");
             // SceneManager.LoadScene("VuforiaScene");
         });
+
+        tutorialHandler = GameObject.Find("tutorialHandler").GetComponent<TutorialHandler>();
 
         // initially position the buttons properly on main player scene
         /*spellbookButton.transform.localPosition = new Vector3(-530, -1225, 0);

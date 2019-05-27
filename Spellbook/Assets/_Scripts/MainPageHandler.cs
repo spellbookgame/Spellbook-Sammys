@@ -100,7 +100,8 @@ public class MainPageHandler : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.C))
         {
-            CrisisHandler.instance.CheckCrisis(localPlayer, CrisisHandler.instance.currentCrisis, "town_elementalist");
+            localPlayer.Spellcaster.gameLost = true;
+            SceneManager.LoadScene("GameOverScene");
         }
         // -------------------------------------------------
     }
@@ -206,5 +207,17 @@ public class MainPageHandler : MonoBehaviour
         yield return new WaitForSecondsRealtime(2f);
 
         manaCrystalsAddition.text = "";
+    }
+
+    // TEMPORARY - DELETE LATER
+    public void LoseGame()
+    {
+        localPlayer.Spellcaster.gameLost = true;
+        SceneManager.LoadScene("GameOverScene");
+    }
+    public void WinGame()
+    {
+        localPlayer.Spellcaster.gameLost = false;
+        SceneManager.LoadScene("GameOverScene");
     }
 }
