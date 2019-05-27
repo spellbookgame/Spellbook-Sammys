@@ -29,7 +29,6 @@ namespace Bolt.Samples.Photon.Lobby
         public int localPlayerSpellcasterID = -1;
         //Number of spellcasters that failed to solve crisis.
         public int numOfSpellcastersFailed = 0;
-        public bool CrisisSolvedAlready = false;
         [Header("UI Lobby")]
         [Tooltip("Time in second between all players ready & match start")]
         public float prematchCountdown = 3.0f;
@@ -716,12 +715,8 @@ namespace Bolt.Samples.Photon.Lobby
         /*Only the server recieves this event. From the Hero who saves the day.*/
         public override void OnEvent(SolveCrisisEvent evnt)
         {
-            if (!CrisisSolvedAlready)
-            {
-                CrisisSolvedAlready = true;
-                NetworkGameState.instance.SavedByHero();
-                ResolveCrisis(evnt.CrisisName, evnt.SpellcasterClass);
-            }
+            NetworkGameState.instance.SavedByHero();
+            ResolveCrisis(evnt.CrisisName, evnt.SpellcasterClass);
         }
 
         //OLD CODE
