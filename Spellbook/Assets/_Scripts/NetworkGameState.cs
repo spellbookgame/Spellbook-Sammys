@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Bolt.Samples.Photon.Lobby;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -284,21 +285,27 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
         }
     }
 
-    public void SavedByHero()
+    public void SavedByHero(string crisisName, string heroClass)
     {
         savedByHero = true;
+        currentCrisis = crisisName;
+        hero = heroClass;
     }
 
     public void ResetSavedByHero()
     {
         savedByHero = false;
+        currentCrisis = "";
+        hero = "";
     }
 
     /* When our NetworkManager (aka our GlobalEventListener) recieves a
      NextTurnEvent, this method is called.*/
      //These fields below are here because they are only used only in this function.
     bool PeacefulYear = false;
-    bool GlobalEventActivated = false;
+    bool GlobalEventHappened = false;
+    string currentCrisis = "";
+    string hero = "";
     public int startNewTurn()
     {
         turn_i++;
@@ -306,12 +313,17 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
         //If everyone moved this turn, then a year/round has passed. 
         if (turn_i >= turnOrder.Count)
         {
-            if (state.YearsUntilNextEvent <= 1 && !GlobalEventActivated && !savedByHero)
+            if (state.YearsUntilNextEvent <= 1 && !GlobalEventHappened && !savedByHero)
             {
                 BoltConsole.Write("Global EVENT happening!!");
-                GlobalEventActivated = true;
+                GlobalEventHappened = true;
                 globalEvents.executeGlobalEvent();
                 //needToNotifyPlayersNewEvent = true;
+            }
+            else if (state.YearsUntilNextEvent <= 1 && !GlobalEventHappened && savedByHero)
+            {
+                NetworkManager.s_Singleton.ResolveCrisis(currentCrisis, hero);
+                GlobalEventHappened = true;
             }
             BoltConsole.Write("NEW ROUND!!!!!");
             turn_i = 0;
@@ -332,7 +344,7 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
             {
                 BoltConsole.Write("Peaceful year ended");
                 PeacefulYear = false;
-                GlobalEventActivated = false;
+                GlobalEventHappened = false;
                 bool crisisPrepared = globalEvents.PrepareNextEvent();
                 if (crisisPrepared)
                 {
@@ -341,7 +353,7 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
                 }
             }
             
-            if (GlobalEventActivated || savedByHero)
+            if (GlobalEventHappened ) //|| savedByHero
             {
                 PeacefulYear = true;  //After the global event happends let players play a round with no crisis to prep for.
                 //needToNotifyPlayersNewEvent = false;
