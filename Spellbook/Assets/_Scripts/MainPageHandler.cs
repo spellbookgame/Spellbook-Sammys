@@ -74,6 +74,8 @@ public class MainPageHandler : MonoBehaviour
             manaHasChanged = false;
         }
 
+        roundsUntilCrisis.text = "Rounds Until Crisis: " + NetworkGameState.instance.RoundsUntilCrisisActivates().ToString();
+
         // ------------ TEST AREA - DELETE LATER ----------
         if (Input.GetKeyDown(KeyCode.G))
         {
@@ -94,7 +96,7 @@ public class MainPageHandler : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.I))
         {
-            SceneManager.LoadScene("IllusionTownScene");
+            SceneManager.LoadScene("ChronomancyTownScene");
         }
         if (Input.GetKeyDown(KeyCode.C))
         {
@@ -114,8 +116,9 @@ public class MainPageHandler : MonoBehaviour
         manaCrystalsValue.text = localPlayer.Spellcaster.iMana.ToString();
         healthValue.text = localPlayer.Spellcaster.fCurrentHealth.ToString() + "/ " + localPlayer.Spellcaster.fMaxHealth.ToString();
 
-        // disable dice button if it's not player's turn
+        // disable dice button if it's not player's turn, activate end turn button accordingly
         UICanvasHandler.instance.EnableDiceButton(localPlayer.bIsMyTurn);
+        UICanvasHandler.instance.ActivateEndTurnButton(localPlayer.Spellcaster.hasRolled);
 
         // create instances of QuestTracker/SpellTracker prefabs
         Instantiate(questTracker);
@@ -131,8 +134,6 @@ public class MainPageHandler : MonoBehaviour
         PanelHolder.instance.CheckPanelQueue();
 
         CrisisHandler.instance.player = localPlayer;
-
-        roundsUntilCrisis.text = "Rounds Until Crisis: " + NetworkGameState.instance.RoundsUntilCrisisActivates().ToString();
     }
     
     private void SetClassAttributes()

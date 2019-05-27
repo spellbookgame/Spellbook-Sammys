@@ -3,24 +3,23 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-public class SummoningManaQuest : Quest
+public class SummoningSpellQuest : Quest
 {
-    public SummoningManaQuest(int turnStarted)
+    public SummoningSpellQuest(int turnStarted)
     {
-        questName = "Buying Runes";
-        questType = "Collect Mana";
-        questFlavor = "If you can show me that you can collect 1300 mana, I'll give you some runes.";
-        questTask = "Collect 1300 mana crystals.";
-        questHint = "The Crystal Mines are a great source of mana.";
+        questName = "Black Magic";
+        questType = "Spell";
+        questFlavor = "I've always been curious about Black Magic. Collect a Black Magic Spell.";
+        questTask = "Collect a Black Magic Spell.";
+        questHint = "The Witch in the Swamp gives these out... for a rare item.";
 
         startTurn = turnStarted;
         expiration = 20;
 
-        manaTracker = 0;
-        manaRequired = 1300;
+        spellTier = 0;
 
-        rewards.Add("Rune", "Summoner B Rune");
         rewards.Add("Class Rune", "B Rune");
+        rewards.Add("Item", "Rift Talisman");
 
         questCompleted = false;
     }

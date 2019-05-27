@@ -3,23 +3,22 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-public class SummoningManaQuest : Quest
+public class TimeShoppingQuest : Quest
 {
-    public SummoningManaQuest(int turnStarted)
+    public TimeShoppingQuest(int turnStarted)
     {
-        questName = "Buying Runes";
-        questType = "Collect Mana";
-        questFlavor = "If you can show me that you can collect 1300 mana, I'll give you some runes.";
-        questTask = "Collect 1300 mana crystals.";
-        questHint = "The Crystal Mines are a great source of mana.";
+        questName = "Shopping";
+        questType = "Specific Location";
+        questFlavor = "Shopping is fun! The Capital has a great Marketplace you should check out!";
+        questTask = "Visit the Capital.";
+        questHint = "The Alchemist has a spell that can teleport you to the Capital!";
 
         startTurn = turnStarted;
         expiration = 20;
 
-        manaTracker = 0;
-        manaRequired = 1300;
+        spaceName = "location_capital";
 
-        rewards.Add("Rune", "Summoner B Rune");
+        rewards.Add("Item", "Aromatic Tea Leaves");
         rewards.Add("Class Rune", "B Rune");
 
         questCompleted = false;

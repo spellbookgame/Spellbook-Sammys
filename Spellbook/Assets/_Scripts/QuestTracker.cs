@@ -177,9 +177,17 @@ public class QuestTracker : MonoBehaviour
         {
             if(q.questType.Equals("Spell"))
             {
-                if(spell.iTier == q.spellTier)
+                if(q.spellTier == 0)
                 {
-                    QuestCompleted(q);
+                    if (spell.blackMagicSpell)
+                        QuestCompleted(q);
+                }
+                else
+                {
+                    if (spell.iTier == q.spellTier)
+                    {
+                        QuestCompleted(q);
+                    }
                 }
             }
         }

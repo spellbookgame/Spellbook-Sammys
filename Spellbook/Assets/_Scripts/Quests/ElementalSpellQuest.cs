@@ -3,24 +3,23 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-public class SummoningManaQuest : Quest
+public class ElementalSpellQuest : Quest
 {
-    public SummoningManaQuest(int turnStarted)
+    public ElementalSpellQuest(int turnStarted)
     {
-        questName = "Buying Runes";
-        questType = "Collect Mana";
-        questFlavor = "If you can show me that you can collect 1300 mana, I'll give you some runes.";
-        questTask = "Collect 1300 mana crystals.";
-        questHint = "The Crystal Mines are a great source of mana.";
+        questName = "Abilities Test";
+        questType = "Spell";
+        questFlavor = "I want to see your spell-creation abilities. Collect a TIER 2 spell.";
+        questTask = "Collect a TIER 2 spell.";
+        questHint = "Tier 2 spells are colored as Purple in your Spell Recipes list!";
 
         startTurn = turnStarted;
         expiration = 20;
 
-        manaTracker = 0;
-        manaRequired = 1300;
+        spellTier = 2;
 
-        rewards.Add("Rune", "Summoner B Rune");
-        rewards.Add("Class Rune", "B Rune");
+        rewards.Add("Dice", "D8");
+        rewards.Add("Mana", "600");
 
         questCompleted = false;
     }

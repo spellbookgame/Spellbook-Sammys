@@ -3,24 +3,24 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-public class AlchemyErrandQuest : Quest
+public class AlchemyTeleportQuest : Quest
 {
-    public AlchemyErrandQuest(int turnStarted)
+    public AlchemyTeleportQuest(int turnStarted)
     {
-        questName = "Potion Ingredient";
+        questName = "Teleport Dreams";
         questType = "Errand";
-        questFlavor = "I need Aromatic Tea Leaves to finish this last potion.";
-        questTask = "Bring 1 Aromatic Tea Leaves to Regulus.";
-        questHint = "If the Capital and Forest don't have it, maybe a friend does.";
+        questFlavor = "I want to teleport, but I don't have the materials! Can you bring me an Infused Sapphire?";
+        questTask = "Bring 1 Infused Sapphire to Regulus.";
+        questHint = "The Forest and Shrine give out items! Or maybe ask a friend if they have one...";
 
         startTurn = turnStarted;
         expiration = 20;
 
         spaceName = "town_alchemist";
-        itemName = "Aromatic Tea Leaves";
+        itemName = "Infused Sapphire";
 
-        rewards.Add("Rune", "Alchemist A Rune");
-        rewards.Add("Class Rune", "B Rune");
+        rewards.Add("Rune", "Alchemist B Rune");
+        rewards.Add("Dice", "D7");
 
         questCompleted = false;
     }

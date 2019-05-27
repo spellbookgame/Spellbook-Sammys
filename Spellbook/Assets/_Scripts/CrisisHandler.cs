@@ -288,7 +288,14 @@ public class CrisisHandler : MonoBehaviour
     {
         currentCrisis = "Boss Battle";
         crisisSolved = false;
-        PanelHolder.instance.displayCrisis("Crisis Alert: Boss Battle", 3);
+        roundsUntilCrisis = NetworkGameState.instance.RoundsUntilCrisisActivates();
+        crisisName = "Final Battle";
+
+        crisisDetails = "The Evil Wizard is coming! Prepare your combat spells so you can fight!";
+        crisisConsequence = "The entire Empire will be wiped out, and your duty as Spellcasters to defend our Empire will be no more.";
+        crisisReward = "You will be crowned as the most prestigious Spellcasters in all the Empire, and join the Council of Protection to continue your duties.";
+
+        PanelHolder.instance.displayCrisis("Crisis Alert: Final Battle", 3);
     }
 
     public void FinishBossBattle()

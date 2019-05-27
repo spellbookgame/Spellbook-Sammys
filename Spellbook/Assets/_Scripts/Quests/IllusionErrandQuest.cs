@@ -3,24 +3,24 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-public class AlchemyErrandQuest : Quest
+public class IllusionErrandQuest : Quest
 {
-    public AlchemyErrandQuest(int turnStarted)
+    public IllusionErrandQuest(int turnStarted)
     {
-        questName = "Potion Ingredient";
+        questName = "Complete Illusion";
         questType = "Errand";
-        questFlavor = "I need Aromatic Tea Leaves to finish this last potion.";
-        questTask = "Bring 1 Aromatic Tea Leaves to Regulus.";
-        questHint = "If the Capital and Forest don't have it, maybe a friend does.";
+        questFlavor = "I've been trying to perfect this illusion... Can you bring me a Crystal Mirror?";
+        questTask = "Bring a Crystal Mirror to Parados.";
+        questHint = "The Capital sells cool items! Or maybe one of your friends can give one to you.";
 
         startTurn = turnStarted;
         expiration = 20;
 
-        spaceName = "town_alchemist";
-        itemName = "Aromatic Tea Leaves";
+        spaceName = "town_illusionist";
+        itemName = "Crystal Mirror";
 
-        rewards.Add("Rune", "Alchemist A Rune");
-        rewards.Add("Class Rune", "B Rune");
+        rewards.Add("Rune", "Illusionist B Rune");
+        rewards.Add("Dice", "D9");
 
         questCompleted = false;
     }

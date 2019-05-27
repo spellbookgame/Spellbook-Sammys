@@ -21,7 +21,8 @@ public class ElementalTownHandler : MonoBehaviour
         quests = new Quest[]
         {
             new ElementalErrandQuest(localPlayer.Spellcaster.NumOfTurnsSoFar),
-            new ElementalMoveQuest(localPlayer.Spellcaster.NumOfTurnsSoFar)
+            new ElementalMoveQuest(localPlayer.Spellcaster.NumOfTurnsSoFar),
+            new ElementalSpellQuest(localPlayer.Spellcaster.NumOfTurnsSoFar)
         };
 
         findQuestButton.onClick.AddListener(FindQuest);

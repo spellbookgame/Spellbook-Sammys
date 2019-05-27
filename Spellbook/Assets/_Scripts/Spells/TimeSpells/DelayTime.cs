@@ -52,6 +52,7 @@ public class DelayTime : Spell, IAllyCastable
     public void RecieveCastFromAlly(SpellCaster player)
     {
         CrisisHandler.instance.roundsUntilCrisis++;
+        // NetworkManager.s_Singleton.ModifyRoundsUntilNextCrisis(1);
         PanelHolder.instance.displayNotify(sSpellName, "The next crisis will come 1 turn later.", "MainPlayerScene");
     }
 

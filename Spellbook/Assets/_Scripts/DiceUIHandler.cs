@@ -45,10 +45,6 @@ public class DiceUIHandler : MonoBehaviour
 
         rollButton.interactable = false;
 
-        // if player hasn't rolled yet, enable roll button
-        //if (!localPlayer.Spellcaster.hasRolled)
-        //    rollButton.interactable = true;
-
         // if dice are not locked, reset dice when opening tray
         if (!diceTrayOpen && !localPlayer.Spellcaster.hasRolled)
         {
@@ -123,6 +119,9 @@ public class DiceUIHandler : MonoBehaviour
             scanButton.transform.GetChild(0).gameObject.SetActive(true);
 
             diceTrayOpen = false;
+
+            // activate end turn button
+            UICanvasHandler.instance.ActivateEndTurnButton(localPlayer.Spellcaster.hasRolled);
         }
     }
 

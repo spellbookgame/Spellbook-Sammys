@@ -86,6 +86,7 @@ public class SwampSceneHandler : MonoBehaviour
                 localPlayer.Spellcaster.chapter.spellsCollected.Add(randomSpell);
                 PanelHolder.instance.displayNotify(randomSpell.sSpellName, "The Witch took your " + requiredItem.name + " and granted you the " 
                                                     + randomSpell.sSpellName + " spell!", "MainPlayerScene");
+                QuestTracker.instance.TrackSpellQuest(randomSpell);
             }
         }
     }

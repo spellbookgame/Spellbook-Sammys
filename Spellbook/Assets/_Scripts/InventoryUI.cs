@@ -53,7 +53,8 @@ public class InventoryUI : MonoBehaviour
 
             // setting panel text
             infoPanel.transform.GetChild(0).GetComponent<Text>().text = item.name;
-            infoPanel.transform.GetChild(1).GetComponent<Text>().text = item.flavorDescription + "\n\n" + item.mechanicsDescription;
+            infoPanel.transform.GetChild(1).GetComponent<Text>().text = item.flavorDescription;
+            infoPanel.transform.GetChild(2).GetComponent<Text>().text = item.mechanicsDescription;
 
             // add onclick to use item
             buttonUse.onClick.AddListener(() => 
