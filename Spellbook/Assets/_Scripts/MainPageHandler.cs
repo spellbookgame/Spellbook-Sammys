@@ -100,7 +100,7 @@ public class MainPageHandler : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.C))
         {
-            localPlayer.Spellcaster.AddToInventory(GameObject.Find("ItemList").GetComponent<ItemList>().GetItemFromName("Crystal Mirror"));
+            CrisisHandler.instance.CheckCrisis(localPlayer, CrisisHandler.instance.currentCrisis, "town_elementalist");
         }
         // -------------------------------------------------
     }
