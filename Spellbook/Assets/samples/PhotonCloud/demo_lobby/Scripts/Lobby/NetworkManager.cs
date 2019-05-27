@@ -715,8 +715,8 @@ namespace Bolt.Samples.Photon.Lobby
         /*Only the server recieves this event. From the Hero who saves the day.*/
         public override void OnEvent(SolveCrisisEvent evnt)
         {
-            NetworkGameState.instance.SavedByHero();
-            ResolveCrisis(evnt.CrisisName, evnt.SpellcasterClass);
+            NetworkGameState.instance.SavedByHero(evnt.CrisisName, evnt.SpellcasterClass);
+           // ResolveCrisis(evnt.CrisisName, evnt.SpellcasterClass);
         }
 
         //OLD CODE
@@ -900,7 +900,7 @@ namespace Bolt.Samples.Photon.Lobby
 
         //Only for host to call.
         //Sends back to all Spellcasters with the name of their hero
-        private void ResolveCrisis(string crisisName, string hero)
+        public void ResolveCrisis(string crisisName, string hero)
         {
             var evnt = ResolveCrisisEvent.Create(Bolt.GlobalTargets.Everyone);
             evnt.CrisisName = crisisName;
