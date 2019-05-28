@@ -192,6 +192,7 @@ namespace Bolt.Samples.Photon.Lobby
                 backButton.gameObject.SetActive(false);
                 SetServerInfo("Offline", "None");
             }
+
         }
 
         public void DisplayIsConnecting()

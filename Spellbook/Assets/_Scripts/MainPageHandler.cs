@@ -208,16 +208,4 @@ public class MainPageHandler : MonoBehaviour
 
         manaCrystalsAddition.text = "";
     }
-
-    // TEMPORARY - DELETE LATER
-    public void LoseGame()
-    {
-        localPlayer.Spellcaster.gameLost = true;
-        SceneManager.LoadScene("GameOverScene");
-    }
-    public void WinGame()
-    {
-        localPlayer.Spellcaster.gameLost = false;
-        SceneManager.LoadScene("GameOverScene");
-    }
 }
