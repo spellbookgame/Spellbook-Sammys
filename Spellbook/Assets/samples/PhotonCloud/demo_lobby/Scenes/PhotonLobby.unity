@@ -4208,7 +4208,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fc8e7df4caaef14e97fb5dbb4825c5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lobbyManager: {fileID: 1778217520}
+  lobbyManager: {fileID: 509176774}
   serverListRect: {fileID: 815248073}
   serverEntryPrefab: {fileID: 104980, guid: 9a1af8c2b03c38c43a3e9c2b43db4483, type: 3}
   noServerFound: {fileID: 1125162265}
@@ -5187,8 +5187,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1778217520}
-        m_MethodName: AddLocalPlayer
+      - m_Target: {fileID: 509176773}
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6119,12 +6119,12 @@ PrefabInstance:
     - target: {fileID: 5445793675166123128, guid: ba790306bc89d47c3aec681b7391754a,
         type: 3}
       propertyPath: m_Color.r
-      value: 0.6803682
+      value: 0.7816657
       objectReference: {fileID: 0}
     - target: {fileID: 5445793675166123128, guid: ba790306bc89d47c3aec681b7391754a,
         type: 3}
       propertyPath: m_Color.g
-      value: 0.13442707
+      value: 0.005555153
       objectReference: {fileID: 0}
     - target: {fileID: 5445793675166123129, guid: ba790306bc89d47c3aec681b7391754a,
         type: 3}
@@ -7442,9 +7442,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a0312403f252434c912587ebde8fb96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lobbyManager: {fileID: 1778217520}
-  lobbyServerList: {fileID: 1632722762}
-  lobbyPanel: {fileID: 1924345976}
+  lobbyManager: {fileID: 509176774}
+  lobbyServerList: {fileID: 541287588}
+  lobbyPanel: {fileID: 2016596113}
   matchNameInput: {fileID: 1447900907}
   CreateButton: {fileID: 401290861}
   gameTitle: {fileID: 1953343233}
@@ -11566,12 +11566,6 @@ Transform:
 --- !u!1 &1632722761 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 140634, guid: c0978251ff7b10d4fb954a4b56acd9f0,
-    type: 3}
-  m_PrefabInstance: {fileID: 1924345975}
-  m_PrefabAsset: {fileID: 0}
---- !u!224 &1632722762 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 22488586, guid: c0978251ff7b10d4fb954a4b56acd9f0,
     type: 3}
   m_PrefabInstance: {fileID: 1924345975}
   m_PrefabAsset: {fileID: 0}
@@ -16081,7 +16075,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1778217520}
+      - m_Target: {fileID: 509176774}
         m_MethodName: GoBackButton
         m_Mode: 1
         m_Arguments:
