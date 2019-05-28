@@ -49,6 +49,9 @@ public class PanelHolder : MonoBehaviour
         if (panelQueue.Count > 0)
         {
             Debug.Log("next in queue is: " + panelQueue.Peek());
+
+            UICanvasHandler.instance.EnableMainSceneButtons(false);
+
             if (panelQueue.Peek().Equals(notifyPanel.panelID))
                 notifyPanel.EnablePanel();
             else if (panelQueue.Peek().Equals(questPanel.panelID))
@@ -63,11 +66,13 @@ public class PanelHolder : MonoBehaviour
                 crisisPanel.EnablePanel();
             else if (panelQueue.Peek().Equals(chooseSpellcasterPanel.panelID))
                 chooseSpellcasterPanel.EnablePanel();
-
-            UICanvasHandler.instance.EnableMainSceneButtons(false);
         }
         else
+        {
             UICanvasHandler.instance.EnableMainSceneButtons(true);
+            // also have to disable dice button if it's not player's turn
+            UICanvasHandler.instance.EnableDiceButton(GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().bIsMyTurn);
+        }
     }
 
     public void displayYourTurn()

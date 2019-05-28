@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Bolt.Samples.Photon.Lobby;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -24,21 +25,24 @@ public class ItemBox : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {   
+    {
         //Check if there is already an instance of SoundManager
         if (instance == null)
             //if not, set it to this.
             instance = this;
         //If instance already exists:
         else if (instance != this)
+        {
             //Destroy this, this enforces our singleton pattern so there can only be one instance of SoundManager.
             Destroy(gameObject);
+            BoltConsole.Write("ItemBox copy destroyed");
+        }
 
 
         gamestate = GameObject.Find("GameState(Clone)").GetComponent<NetworkGameState>();
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
         itemForGrabsStr = gamestate.ItemForGrabs();
-        if(itemForGrabsStr != null && itemForGrabsStr  != ""){
+        if(itemForGrabsStr != null && !itemForGrabsStr.Equals("")){
             textStatus.text = yesItemHere;
             itemObjNetwork = ItemList.instance.GetItemFromName(itemForGrabsStr);
             itemSlotButton.onClick.AddListener(() => inventory.ShowThirdPartyItemInfo(itemObjNetwork));
@@ -55,12 +59,13 @@ public class ItemBox : MonoBehaviour
     {
         textStatus.text = yesItemHere;
         itemForGrabsStr = itemBeingDragged.GetComponent<Image>().sprite.name;
-        Debug.Log("Item being dropped!: "+itemForGrabsStr);
-        gamestate.ItemDropOff(itemForGrabsStr);
+        BoltConsole.Write("Item being dropped!: "+itemForGrabsStr);
+        //gamestate.ItemDropOff(itemForGrabsStr);
+        NetworkManager.s_Singleton.DropItem(itemForGrabsStr);
         itemObjNetwork = ItemList.instance.GetItemFromName(itemForGrabsStr);
-        Debug.Log("Old Item!: " +itemObjNetwork.name);
-        Debug.Log("Localplayer is " + (localPlayer != null));
-        Debug.Log("Spellcaster: " +localPlayer.Spellcaster.spellcasterID);
+        BoltConsole.Write("Old Item!: " +itemObjNetwork.name);
+        BoltConsole.Write("Localplayer is " + (localPlayer != null));
+        BoltConsole.Write("Spellcaster: " +localPlayer.Spellcaster.spellcasterID);
         foreach(ItemObject item in localPlayer.Spellcaster.inventory)
         {
             if(item.name == itemForGrabsStr)
@@ -75,8 +80,10 @@ public class ItemBox : MonoBehaviour
     public void CollectItemFromNetwork()
     {
         textStatus.text = noItemHere;
-        ItemObject newItem = ItemList.instance.GetItemFromName(gamestate.ItemPickUp());
+
+        ItemObject newItem = ItemList.instance.GetItemFromName(gamestate.ItemForGrabs());
         localPlayer.Spellcaster.AddToInventory(newItem);
+        NetworkManager.s_Singleton.PickUpItem();
     }
 
     public void CheckIfFromNetwork()

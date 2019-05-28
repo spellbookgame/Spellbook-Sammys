@@ -21,7 +21,8 @@ public class AlchemyTownHandler : MonoBehaviour
         quests = new Quest[]
         {
             new AlchemyManaQuest(localPlayer.Spellcaster.NumOfTurnsSoFar),
-            new AlchemyErrandQuest(localPlayer.Spellcaster.NumOfTurnsSoFar)
+            new AlchemyErrandQuest(localPlayer.Spellcaster.NumOfTurnsSoFar),
+            new AlchemyTeleportQuest(localPlayer.Spellcaster.NumOfTurnsSoFar)
         };
 
         findQuestButton.onClick.AddListener(FindQuest);

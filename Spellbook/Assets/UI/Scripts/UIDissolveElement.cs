@@ -45,7 +45,7 @@ public abstract class UIDissolveElement<T> : MonoBehaviour {
 			progress += speed;
 			if (progress > 1.0F) {
                 Destroy(gameObject);
-			}
+            }
 			material.SetFloat("_Progress", progress);
 		}
 	}

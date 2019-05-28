@@ -9,6 +9,7 @@ public class UICanvasHandler : MonoBehaviour
 
     // public variables
     public int spacesMoved = 0; // reset on EndTurn click
+    public bool chronomancerGone;   // ensures the fade transition only happens at beginning of game
 
     #region private_fields
     [SerializeField] private GameObject spellbookButton;
@@ -23,11 +24,9 @@ public class UICanvasHandler : MonoBehaviour
     [SerializeField] private GameObject movePanel;
     [SerializeField] private DiceUIHandler diceUIHandler;
     [SerializeField] private GameObject combatButton;
-    [SerializeField] private GameObject tutorialHandler;
-    
-    #endregion
 
-    private Player localPlayer;
+    private TutorialHandler tutorialHandler;
+    #endregion
 
     void Awake()
     {
@@ -93,11 +92,17 @@ public class UICanvasHandler : MonoBehaviour
             // SceneManager.LoadScene("VuforiaScene");
         });
 
+        tutorialHandler = GameObject.Find("tutorialHandler").GetComponent<TutorialHandler>();
+
         // initially position the buttons properly on main player scene
-        //spellbookButton.transform.localPosition = new Vector3(-530, -1225, 0);
+        /*spellbookButton.transform.localPosition = new Vector3(-530, -1225, 0);
         diceButton.transform.localPosition = new Vector3(-180, -1225, 0);
         scanButton.transform.localPosition = new Vector3(180, -1225, 0);
-        inventoryButton.transform.localPosition = new Vector3(530, -1225, 0);
+        inventoryButton.transform.localPosition = new Vector3(530, -1225, 0);*/
+        spellbookButton.transform.localPosition = new Vector3(-530, -1060, 0);
+        diceButton.transform.localPosition = new Vector3(-180, -1060, 0);
+        scanButton.transform.localPosition = new Vector3(180, -1060, 0);
+        inventoryButton.transform.localPosition = new Vector3(530, -1060, 0);
     }
 
     private void OnEnable()
@@ -112,13 +117,10 @@ public class UICanvasHandler : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // find local player
-        localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
-
         // set render camera to main camera
         gameObject.GetComponent<Canvas>().worldCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
 
-        // if we're not in main scene main scene
+        // if we're not in main scene
         if (!SceneManager.GetActiveScene().name.Equals("MainPlayerScene"))
         {
             // if dice tray is open but moved scenes, close dice tray
@@ -140,9 +142,6 @@ public class UICanvasHandler : MonoBehaviour
             //Temporary
             //combatButton.SetActive(true);
 
-            if (localPlayer != null)
-                ActivateEndTurnButton(localPlayer.Spellcaster.hasRolled);
-
             spellbookButton.SetActive(true);
             diceButton.SetActive(true);
             inventoryButton.SetActive(true);
@@ -154,15 +153,14 @@ public class UICanvasHandler : MonoBehaviour
     public void ActivateEndTurnButton(bool enabled)
     {
         endTurnButton.SetActive(enabled);
-        Debug.Log("end turn button: " + enabled);
 
-        if(enabled)
+        /*if(enabled)
         {
             // move main page buttons up
-            spellbookButton.transform.localPosition = new Vector3(-530, -1015, 0);
-            diceButton.transform.localPosition = new Vector3(-180, -1015, 0);
-            scanButton.transform.localPosition = new Vector3(180, -1015, 0);
-            inventoryButton.transform.localPosition = new Vector3(530, -1015, 0);
+            spellbookButton.transform.localPosition = new Vector3(-530, -1060, 0);
+            diceButton.transform.localPosition = new Vector3(-180, -1060, 0);
+            scanButton.transform.localPosition = new Vector3(180, -1060, 0);
+            inventoryButton.transform.localPosition = new Vector3(530, -1060, 0);
         }
         else
         {
@@ -171,7 +169,7 @@ public class UICanvasHandler : MonoBehaviour
             diceButton.transform.localPosition = new Vector3(-180, -1225, 0);
             scanButton.transform.localPosition = new Vector3(180, -1225, 0);
             inventoryButton.transform.localPosition = new Vector3(530, -1225, 0);
-        }
+        }*/
     }
 
     // enable dice/scan button if it's player's turn
@@ -223,7 +221,7 @@ public class UICanvasHandler : MonoBehaviour
         movePanel.transform.GetChild(0).GetComponent<Text>().text = "Move " + spacesMoved.ToString();
         movePanel.SetActive(true);
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.5f);
         movePanel.SetActive(false);
     }
 

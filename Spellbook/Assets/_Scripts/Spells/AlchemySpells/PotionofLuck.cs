@@ -25,7 +25,10 @@ public class PotionofLuck : Spell, IAllyCastable
     public void RecieveCastFromAlly(SpellCaster player)
     {
         PanelHolder.instance.displayNotify(sSpellName, "You and your ally will have an extra D9 next time you roll.", "MainPlayerScene");
-        player.tempDice.Add("D9", 1);
+        if (player.tempDice.ContainsKey("D9"))
+            player.tempDice["D9"] += 1;
+        else
+            player.tempDice.Add("D9", 1);
     }
 
     public override void SpellCast(SpellCaster player)
@@ -45,8 +48,12 @@ public class PotionofLuck : Spell, IAllyCastable
             {
                  PanelHolder.instance.displayNotify(sSpellName, "You and your ally will have an extra D9 next time you roll.", "MainPlayerScene");
             }
-           
-            player.tempDice.Add("D9", 1);
+
+            if (player.tempDice.ContainsKey("D9"))
+                player.tempDice["D9"] += 1;
+            else
+                player.tempDice.Add("D9", 1);
+
             NetworkManager.s_Singleton.CastOnAlly(player.spellcasterID, sID, sSpellName);
 
 
@@ -66,7 +73,12 @@ public class PotionofLuck : Spell, IAllyCastable
             {
                  PanelHolder.instance.displayNotify(sSpellName, "You and your ally will have an extra D9 next time you roll.", "MainPlayerScene");
             }
-            player.tempDice.Add("D9", 1);
+
+            if (player.tempDice.ContainsKey("D9"))
+                player.tempDice["D9"] += 1;
+            else
+                player.tempDice.Add("D9", 1);
+
             NetworkManager.s_Singleton.CastOnAlly(player.spellcasterID, sID, sSpellName);
 
             player.numSpellsCastThisTurn++;

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Bolt.Samples.Photon.Lobby;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -34,6 +35,7 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
     public int totalYearsSoFar = 0;
 
     bool needToNotifyPlayersNewEvent = false;
+    bool savedByHero = false;
     // Bolt's version of the Unity's Start()
     public override void Attached()
     {
@@ -85,6 +87,17 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
     {
         return state.YearsUntilNextEvent;
     }
+
+    public void ModifyRoundsUntilNextCrisis(int x)
+    {
+        state.YearsUntilNextEvent += x;
+        if(state.YearsUntilNextEvent < 0)
+        {
+            state.YearsUntilNextEvent = 0;
+        }
+        
+    }
+
 
     public string getEventInfo()
     {
@@ -251,6 +264,7 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
     }
 
     //Input is -1 if we want the first spellcaster in the list to go first.
+    //Temporary hack ^
     public void determineTurnOrder(int sID)
     {
         turnOrder.Clear();
@@ -271,42 +285,79 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
         }
     }
 
+    public void SavedByHero(string crisisName, string heroClass)
+    {
+        savedByHero = true;
+        currentCrisis = crisisName;
+        hero = heroClass;
+    }
+
+    public void ResetSavedByHero()
+    {
+        savedByHero = false;
+        currentCrisis = "";
+        hero = "";
+    }
+
     /* When our NetworkManager (aka our GlobalEventListener) recieves a
      NextTurnEvent, this method is called.*/
+     //These fields below are here because they are only used only in this function.
     bool PeacefulYear = false;
-    bool GlobalEventActivated = false;
+    bool GlobalEventHappened = false;
+    string currentCrisis = "";
+    string hero = "";
     public int startNewTurn()
     {
-        if (state.YearsUntilNextEvent <= 1 && !GlobalEventActivated)
-        {
-            //Debug.Log("Global EVENT happening!!");
-            GlobalEventActivated = true;
-            globalEvents.executeGlobalEvent();
-            //needToNotifyPlayersNewEvent = true;
-        }
         turn_i++;
         
         //If everyone moved this turn, then a year/round has passed. 
         if (turn_i >= turnOrder.Count)
         {
-            //Debug.Log("NEW ROUND!!!!!");
-            yearsUntilNextEvent--;
-            state.YearsUntilNextEvent--;
+            if (state.YearsUntilNextEvent <= 1 && !GlobalEventHappened && !savedByHero)
+            {
+                BoltConsole.Write("Global EVENT happening!!");
+                GlobalEventHappened = true;
+                globalEvents.executeGlobalEvent();
+                //needToNotifyPlayersNewEvent = true;
+            }
+            else if (state.YearsUntilNextEvent <= 1 && !GlobalEventHappened && savedByHero)
+            {
+                NetworkManager.s_Singleton.ResolveCrisis(currentCrisis, hero);
+                GlobalEventHappened = true;
+            }
+            BoltConsole.Write("NEW ROUND!!!!!");
             turn_i = 0;
-            //if (needToNotifyPlayersNewEvent)
+            if (!globalEvents.AllCrisisHappened())
+            {
+                yearsUntilNextEvent--;
+                state.YearsUntilNextEvent--;
+            }
+            else
+            {
+                //Temporary hack.
+                yearsUntilNextEvent = 100;
+                state.YearsUntilNextEvent = 100;
+            }
+
+
             if (PeacefulYear)
             {
-               // Debug.Log("Peaceful year ended");
+                BoltConsole.Write("Peaceful year ended");
                 PeacefulYear = false;
-                GlobalEventActivated = false;
-                globalEvents.PrepareNextEvent();
-                DisplayNextEvent();
+                GlobalEventHappened = false;
+                bool crisisPrepared = globalEvents.PrepareNextEvent();
+                if (crisisPrepared)
+                {
+                    ResetSavedByHero();
+                    DisplayNextEvent();
+                }
             }
-            if (GlobalEventActivated)
+            
+            if (GlobalEventHappened ) //|| savedByHero
             {
                 PeacefulYear = true;  //After the global event happends let players play a round with no crisis to prep for.
                 //needToNotifyPlayersNewEvent = false;
-                //Debug.Log("Starting Peaceful year");
+                BoltConsole.Write("Starting Peaceful year");
             } 
         }
         state.CurrentSpellcasterTurn = turnOrder[turn_i];
@@ -336,22 +387,27 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
         return state.CurrentSpellcasterTurn;
     }
 
-    //Called when player picks up an item from the Item-Scan location
-    public string ItemPickUp()
+    //Clear the itembox when a player takes an item.
+    public string ClearItemBox()
     {
         string item = state.ItemForGrab;
+        BoltConsole.Write("Item is Picked up : " + item);
         state.ItemForGrab = "";
+        BoltConsole.Write("Item is now cleared : " + state.ItemForGrab);
         return item;
     }
+
 
     //Called when player drops an item in the Item-Scan location
     public void ItemDropOff(string item)
     {
+        BoltConsole.Write("item drop off: " + item);
         state.ItemForGrab = item;
     }
-    
+   
     public string ItemForGrabs()
     {
+        BoltConsole.Write("ItemForGrabs() : " + state.ItemForGrab);
         return state.ItemForGrab;
     }
 

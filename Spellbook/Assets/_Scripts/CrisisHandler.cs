@@ -27,6 +27,7 @@ public class CrisisHandler : MonoBehaviour
 
     public Player player;   // defined in MainPageHandler.cs
     string spellcasterHero;  //spellcaster class that saved the day
+    bool alreadyChecked = false;
 
     #region singleton
     void Awake()
@@ -70,6 +71,7 @@ public class CrisisHandler : MonoBehaviour
     // call this when crisis arrives (if roundsUntilCrisis == 0)
     public void FinishTsunami()
     {
+        BoltConsole.Write("Finish Tsunami, crisisSolved: " + crisisSolved);
         if(crisisSolved)
         {
             PanelHolder.instance.displayBoardScan("Tsunami Averted", "Out of gratitude for saving the Empire, the Capital is rewarding each wizard with an A tier rune from their class.",
@@ -78,7 +80,7 @@ public class CrisisHandler : MonoBehaviour
         else
         {
             PanelHolder.instance.displayNotify("Tsunami Disaster", "You weren't able to stop the tsunami in time. All wizards lost half HP. Towns will not be scannable next round.", "MainPlayerScene");
-            player.Spellcaster.TakeDamage((int)player.Spellcaster.fMaxHealth / 2);
+            player.Spellcaster.TakeDamage((int)player.Spellcaster.fCurrentHealth / 2);
             player.Spellcaster.tsunamiConsequence = true;   // checked in CustomEventHandler.cs
             player.Spellcaster.tsunamiConsTurn = player.Spellcaster.NumOfTurnsSoFar;    // tsunami consequence deactivated after 1 turn has passed (endturnclick)
         }
@@ -147,11 +149,13 @@ public class CrisisHandler : MonoBehaviour
     // call this when crisis arrives (if roundsUntilCrisis == 0)
     public void FinishPlague()
     {
+        BoltConsole.Write("Finish Plague, Crisis Solved:  "  + crisisSolved);
         if (crisisSolved)
         {
             PanelHolder.instance.displayBoardScan("Plague Averted", "The local apothecaries have gathered special talismans for each wizard for saving them from doing work. " +
                                                     "Each wizard will earn a permanent D6 and an Abyssal Ore!", Resources.Load<Sprite>("Art Assets/Items and Currency/Abyssal Ore"), "MainPlayerScene");
             player.Spellcaster.dice["D6"] += 1;
+            player.Spellcaster.AddToInventory(GameObject.Find("ItemList").GetComponent<ItemList>().listOfItems[1]);
         }
         else
         {
@@ -284,17 +288,25 @@ public class CrisisHandler : MonoBehaviour
     {
         currentCrisis = "Boss Battle";
         crisisSolved = false;
-        PanelHolder.instance.displayCrisis("Crisis Alert: Boss Battle", 3);
+        roundsUntilCrisis = NetworkGameState.instance.RoundsUntilCrisisActivates();
+        crisisName = "Final Battle";
+
+        crisisDetails = "The Evil Wizard is coming! Prepare your combat spells so you can fight!";
+        crisisConsequence = "The entire Empire will be wiped out, and your duty as Spellcasters to defend our Empire will be no more.";
+        crisisReward = "You will be crowned as the most prestigious Spellcasters in all the Empire, and join the Council of Protection to continue your duties.";
+
+        PanelHolder.instance.displayCrisis("Crisis Alert: Final Battle", 3);
     }
 
     public void FinishBossBattle()
     {
 
     }
-        #endregion
+    #endregion
 
     #region checkCrisis
     // call this to check if crisis is resolved
+    //fromScan: True if called from scanning, false otherwise
     public void CheckCrisis(Player player, string currentCrisis, string location)
     {
         this.player = player;
@@ -362,6 +374,10 @@ public class CrisisHandler : MonoBehaviour
                 default:
                     break;
             }
+            if(crisisSolved == true)
+            {
+                SolveCrisis();
+            }
         }
     }
     #endregion
@@ -374,21 +390,23 @@ public class CrisisHandler : MonoBehaviour
     {
         if(currentCrisis!= "")
         {
-            NetworkManager.s_Singleton.SolveCrisis(currentCrisis, crisisSolved, player.Spellcaster.classType);
+            NetworkManager.s_Singleton.SolveCrisis(currentCrisis, player.Spellcaster.classType);
         }
     }
 
     // Called from Network, everyone recieves this.
     public void CallCrisis(string CrisisName)
     {
+        BoltConsole.Write("Calling crisis : " + CrisisName);
         AllCrisisDict.CallCrisis[CrisisName]();
     }
-
+    
+    /*
     // Called from Network, everyone recieves this.
     public void CheckCrisisPhase1(Player p, string crisisName, string location)
     {
         CheckCrisis(p, crisisName, location);
-    }
+    }*/
 
     // Called from Network, everyone recieves this.
     // finishAction is either:
@@ -399,6 +417,7 @@ public class CrisisHandler : MonoBehaviour
     // spellcasterHero is an empty string if everyone failed to counter the crisis
     public void FinishCrisis(Action finishAction, bool isSolved, string spellcasterHero)
     {
+        BoltConsole.Write("Finish Crisis. ");
         this.spellcasterHero = spellcasterHero;
         crisisSolved = isSolved;
         finishAction();

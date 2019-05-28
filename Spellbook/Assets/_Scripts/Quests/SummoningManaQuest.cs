@@ -19,7 +19,7 @@ public class SummoningManaQuest : Quest
         manaTracker = 0;
         manaRequired = 1300;
 
-        rewards.Add("Rune", "Summoner A Rune");
+        rewards.Add("Rune", "Summoner B Rune");
         rewards.Add("Class Rune", "B Rune");
 
         questCompleted = false;

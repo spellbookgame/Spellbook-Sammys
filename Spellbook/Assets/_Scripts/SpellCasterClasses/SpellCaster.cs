@@ -15,6 +15,7 @@ using UnityEngine.SceneManagement;
 
 public abstract class SpellCaster 
 {
+    public bool gameLost;
     public bool mainTutorialShown;
     public bool spellbookTutorialShown;
 

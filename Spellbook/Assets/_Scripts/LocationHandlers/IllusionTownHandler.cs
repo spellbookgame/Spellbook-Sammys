@@ -21,7 +21,8 @@ public class IllusionTownHandler : MonoBehaviour
         quests = new Quest[]
         {
             new IllusionLocationQuest(localPlayer.Spellcaster.NumOfTurnsSoFar),
-            new IllusionManaQuest(localPlayer.Spellcaster.NumOfTurnsSoFar)
+            new IllusionManaQuest(localPlayer.Spellcaster.NumOfTurnsSoFar),
+            new IllusionErrandQuest(localPlayer.Spellcaster.NumOfTurnsSoFar)
         };
 
         findQuestButton.onClick.AddListener(FindQuest);

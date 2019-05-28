@@ -17,7 +17,6 @@ public class Player : Bolt.EntityEventListener<ISpellcasterState>
     // References to the turn order for all players combined.
     private int currentTurn = 0;
     private int numTurnsIHad = 0;
-    private ArrayList spellcasterTurnOrder;
 
     // Remains -1 if you do not control this player.
     // TODO: Change to private when done testing.
@@ -47,10 +46,6 @@ public class Player : Bolt.EntityEventListener<ISpellcasterState>
             BoltConsole.Write("Initialized LocalPlayer with Spellcaster ID " + spellcasterID);
             state.SpellcasterClass = spellcasterID;
 
-
-
-            spellcasterTurnOrder = new ArrayList();
-            //StartCoroutine(determineTurnOrder());
             gameObject.tag = "LocalPlayer";
 
             if (spellcasterID == NetworkGameState.instance.getCurrentTurn())
@@ -62,20 +57,20 @@ public class Player : Bolt.EntityEventListener<ISpellcasterState>
                 PanelHolder panelHolder = GameObject.Find("PanelHolder").GetComponent<PanelHolder>();
                 panelHolder.displayYourTurn();
             }
-
         }
     }
 
 
     private void chooseSpellcaster(int num)
     {
+        BoltConsole.Write("choose Spellcaster sID : " + num);
         bool loaded = false;
         switch (num)
         {
             case -1:
                 spellcaster = SpellCaster.loadPlayerData();
                 spellcasterID = spellcaster.spellcasterID;
-                BoltConsole.Write("Loading data");
+                BoltConsole.Write("Loading data from previous game..");
 
                 foreach (var e in BoltNetwork.Entities)
                 {

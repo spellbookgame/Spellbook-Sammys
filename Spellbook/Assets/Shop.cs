@@ -27,6 +27,9 @@ public class Shop : MonoBehaviour
     public Text text_itemDesc;
     public Text text_itemPrice;
 
+    public Color noManaColor;
+    public Color yesManaColor;
+
     public List<ItemObject> allItems;
     ItemObject item0;
     ItemObject item1;
@@ -54,6 +57,8 @@ public class Shop : MonoBehaviour
 
             SceneManager.LoadScene("MainPlayerScene");
         });
+
+        QuestTracker.instance.TrackLocationQuest("location_capital");
 
         float size = allItems.Count;
 
@@ -156,6 +161,10 @@ public class Shop : MonoBehaviour
         currentSelected = item;
         text_itemName.text = item.name;
         text_itemPrice.text = item.buyPrice + "";
+        if (spellcaster.iMana < item.buyPrice)
+            text_itemPrice.color = noManaColor;
+        else
+            text_itemPrice.color = yesManaColor;
         text_itemDesc.text = item.flavorDescription + "\n\n" +item.mechanicsDescription;
     }
 }

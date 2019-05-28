@@ -21,7 +21,8 @@ public class ArcaneTownHandler : MonoBehaviour
         quests = new Quest[]
         {
             new ArcaneErrandQuest(localPlayer.Spellcaster.NumOfTurnsSoFar),
-            new ArcaneLocationQuest(localPlayer.Spellcaster.NumOfTurnsSoFar)
+            new ArcaneLocationQuest(localPlayer.Spellcaster.NumOfTurnsSoFar),
+            new ArcaneJewelryQuest(localPlayer.Spellcaster.NumOfTurnsSoFar)
         };
 
         findQuestButton.onClick.AddListener(FindQuest);

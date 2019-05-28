@@ -41,8 +41,8 @@ public class DelayTime : Spell, IAllyCastable
             // subtract mana
             player.iMana -= iManaCost;
 
-            //CrisisHandler.instance.roundsUntilCrisis++;
-            //PanelHolder.instance.displayNotify(sSpellName, "The next crisis will come 1 turn later.", "MainPlayerScene");
+            NetworkManager.s_Singleton.ModifyRoundsUntilNextCrisis(1);
+
             NetworkManager.s_Singleton.CastOnAlly(player.spellcasterID, 8, sSpellName);
             player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
@@ -51,8 +51,7 @@ public class DelayTime : Spell, IAllyCastable
 
     public void RecieveCastFromAlly(SpellCaster player)
     {
-        CrisisHandler.instance.roundsUntilCrisis++;
-        PanelHolder.instance.displayNotify(sSpellName, "The next crisis will come 1 turn later.", "MainPlayerScene");
+        PanelHolder.instance.displayNotify(sSpellName, "The " + CrisisHandler.instance.currentCrisis + " will come 1 turn later.", "MainPlayerScene");
     }
 
     public void SpellcastPhase2(int sID, SpellCaster player)

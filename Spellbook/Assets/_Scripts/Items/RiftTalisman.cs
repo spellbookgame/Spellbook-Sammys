@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Bolt.Samples.Photon.Lobby;
+using UnityEngine;
 
 public class RiftTalisman : ItemObject
 {
@@ -19,6 +20,7 @@ public class RiftTalisman : ItemObject
         player.RemoveFromInventory(this);
 
         CrisisHandler.instance.roundsUntilCrisis++;
+        NetworkManager.s_Singleton.ModifyRoundsUntilNextCrisis(1);
         PanelHolder.instance.displayNotify("Rift Talisman", "The " + CrisisHandler.instance.currentCrisis + " will be delayed by 1 round.", "InventoryScene");
     }
 }

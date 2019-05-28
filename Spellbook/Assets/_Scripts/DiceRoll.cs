@@ -126,8 +126,6 @@ public class DiceRoll : MonoBehaviour
 
             // remove all temporary dice from player's inventory
             localPlayer.Spellcaster.tempDice.Clear();
-            // activate end turn button
-            UICanvasHandler.instance.ActivateEndTurnButton(localPlayer.Spellcaster.hasRolled);
 
             QuestTracker.instance.TrackMoveQuest(LastRoll);
         }

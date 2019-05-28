@@ -12,11 +12,11 @@ public class MainPageHandler : MonoBehaviour
     [SerializeField] private GameObject spellTracker;
     [SerializeField] private GameObject crisisHandler;
 
+    [SerializeField] private Text roundsUntilCrisis;
     [SerializeField] private Text classType;
     [SerializeField] private Text manaCrystalsValue;
     [SerializeField] private Text manaCrystalsAddition;
     [SerializeField] private Text healthValue;
-    [SerializeField] private Enemy enemy;
 
     [SerializeField] private SpriteRenderer characterImage;
     [SerializeField] private UIWarpController warpController;
@@ -36,9 +36,8 @@ public class MainPageHandler : MonoBehaviour
     [SerializeField] private Sprite elementalistSprite;
     [SerializeField] private Sprite illusionistSprite;
     [SerializeField] private Sprite summonerSprite;
-    
-    [SerializeField] private Button spellbookButton;
-    [SerializeField] private Button inventoryButton;
+
+    [SerializeField] private Animator anim;
     #endregion
 
     private bool diceTrayOpen;
@@ -75,10 +74,13 @@ public class MainPageHandler : MonoBehaviour
             manaHasChanged = false;
         }
 
+        roundsUntilCrisis.text = "Rounds Until Crisis: " + NetworkGameState.instance.RoundsUntilCrisisActivates().ToString();
+
         // ------------ TEST AREA - DELETE LATER ----------
         if (Input.GetKeyDown(KeyCode.G))
         {
-            localPlayer.Spellcaster.CollectSpell(new CrystalScent());
+            foreach (Spell s in localPlayer.Spellcaster.chapter.spellsAllowed)
+                localPlayer.Spellcaster.CollectSpell(s);
         }
         if (Input.GetKeyDown(KeyCode.M))
         {
@@ -94,11 +96,12 @@ public class MainPageHandler : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.I))
         {
-            SceneManager.LoadScene("IllusionTownScene");
+            SceneManager.LoadScene("ChronomancyTownScene");
         }
         if (Input.GetKeyDown(KeyCode.C))
         {
-            CrisisHandler.instance.CheckCrisis(localPlayer, CrisisHandler.instance.currentCrisis, "town_elementalist");
+            localPlayer.Spellcaster.gameLost = true;
+            SceneManager.LoadScene("GameOverScene");
         }
         // -------------------------------------------------
     }
@@ -108,18 +111,25 @@ public class MainPageHandler : MonoBehaviour
         if (GameObject.FindGameObjectWithTag("LocalPlayer") == null) return;
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
 
+        SetClassAttributes();
+
         classType.text = localPlayer.Spellcaster.classType;
         manaCrystalsValue.text = localPlayer.Spellcaster.iMana.ToString();
         healthValue.text = localPlayer.Spellcaster.fCurrentHealth.ToString() + "/ " + localPlayer.Spellcaster.fMaxHealth.ToString();
 
-        // disable dice button if it's not player's turn
+        // disable dice button if it's not player's turn, activate end turn button accordingly
         UICanvasHandler.instance.EnableDiceButton(localPlayer.bIsMyTurn);
+        UICanvasHandler.instance.ActivateEndTurnButton(localPlayer.Spellcaster.hasRolled);
 
         // create instances of QuestTracker/SpellTracker prefabs
         Instantiate(questTracker);
         Instantiate(spellTracker);
 
-        SetClassAttributes();
+        if(!UICanvasHandler.instance.chronomancerGone)
+        {
+            StartCoroutine("FadeIn");
+            UICanvasHandler.instance.chronomancerGone = true;
+        }
 
         // in case a panel didn't display during scan scene, display them in main scene
         PanelHolder.instance.CheckPanelQueue();
@@ -175,6 +185,14 @@ public class MainPageHandler : MonoBehaviour
         LoadHandler.instance.setupComplete = true;
     }
 
+    private IEnumerator FadeIn()
+    {
+        yield return new WaitForSeconds(0.5f);
+        anim.SetBool("FadeIn", true);
+        yield return new WaitUntil(() => anim.gameObject.GetComponent<Image>().color.a == 0);
+        anim.gameObject.SetActive(false);
+    }
+
     public void DisplayMana(int manaCollected)
     {
         StartCoroutine(ShowManaEarned(manaCollected));
@@ -189,5 +207,17 @@ public class MainPageHandler : MonoBehaviour
         yield return new WaitForSecondsRealtime(2f);
 
         manaCrystalsAddition.text = "";
+    }
+
+    // TEMPORARY - DELETE LATER
+    public void LoseGame()
+    {
+        localPlayer.Spellcaster.gameLost = true;
+        SceneManager.LoadScene("GameOverScene");
+    }
+    public void WinGame()
+    {
+        localPlayer.Spellcaster.gameLost = false;
+        SceneManager.LoadScene("GameOverScene");
     }
 }

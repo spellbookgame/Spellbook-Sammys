@@ -16,8 +16,9 @@ public class SplashScreenHandler : MonoBehaviour
 
     IEnumerator Fading()
     {
+        anim.SetBool("FadeIn", true);
         yield return new WaitForSeconds(2f);
-        anim.SetBool("Fade", true);
+        anim.SetBool("FadeOut", true);
         yield return new WaitUntil(() => black.color.a == 1);
         SceneManager.LoadScene(1);
     }

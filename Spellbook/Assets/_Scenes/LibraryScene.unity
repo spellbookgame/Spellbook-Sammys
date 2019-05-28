@@ -164,6 +164,9 @@ MonoBehaviour:
   runeContainer: {fileID: 637933620}
   spellInfoPanel: {fileID: 2135500516}
   runePanel: {fileID: 819270987}
+  tier3Color: {r: 0.91764706, g: 0.91764706, b: 0.91764706, a: 1}
+  tier2Color: {r: 0.6039216, g: 0.105882354, b: 0.5882353, a: 1}
+  tier1Color: {r: 0.78431374, g: 0.4117647, b: 0.08627451, a: 1}
 --- !u!1 &265076602
 GameObject:
   m_ObjectHideFlags: 0
@@ -222,9 +225,9 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 482632ac9dd6543d7b2ad94e840b8f86, type: 3}
+    m_Font: {fileID: 12800000, guid: ca387620f78a548d996dd7f383ba71ed, type: 3}
     m_FontSize: 14
-    m_FontStyle: 0
+    m_FontStyle: 2
     m_BestFit: 1
     m_MinSize: 10
     m_MaxSize: 80
@@ -1351,21 +1354,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.00096
       objectReference: {fileID: 0}
-    - target: {fileID: 3557913045795923604, guid: 6833db6359aae435a8cece5470b728d6,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3557913045795923604, guid: 6833db6359aae435a8cece5470b728d6,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3557913045795923604, guid: 6833db6359aae435a8cece5470b728d6,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0.000000008533432
-      objectReference: {fileID: 0}
     - target: {fileID: 3557913046997808857, guid: 6833db6359aae435a8cece5470b728d6,
         type: 3}
       propertyPath: m_Color.r
@@ -1380,6 +1368,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.b
       value: 0.10951406
+      objectReference: {fileID: 0}
+    - target: {fileID: 3557913045795923604, guid: 6833db6359aae435a8cece5470b728d6,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3557913045795923604, guid: 6833db6359aae435a8cece5470b728d6,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3557913045795923604, guid: 6833db6359aae435a8cece5470b728d6,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.000030517578
       objectReference: {fileID: 0}
     - target: {fileID: 3557913045991827151, guid: 6833db6359aae435a8cece5470b728d6,
         type: 3}
@@ -2526,32 +2529,32 @@ PrefabInstance:
     - target: {fileID: 7613687860224708199, guid: a82a565bcbc46604b9c5fb3d6c1a7168,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 100
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7613687860224708199, guid: a82a565bcbc46604b9c5fb3d6c1a7168,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 100
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7613687860224708199, guid: a82a565bcbc46604b9c5fb3d6c1a7168,
         type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7613687860224708199, guid: a82a565bcbc46604b9c5fb3d6c1a7168,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7613687860224708199, guid: a82a565bcbc46604b9c5fb3d6c1a7168,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7613687860224708199, guid: a82a565bcbc46604b9c5fb3d6c1a7168,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7613687860224708199, guid: a82a565bcbc46604b9c5fb3d6c1a7168,
         type: 3}

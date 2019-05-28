@@ -14,6 +14,10 @@ public class LibraryHandler : MonoBehaviour
     [SerializeField] private GameObject spellInfoPanel;
     [SerializeField] private GameObject runePanel;
 
+    [SerializeField] private Color tier3Color;
+    [SerializeField] private Color tier2Color;
+    [SerializeField] private Color tier1Color;
+
     Player localPlayer;
     private UIScrollableController scrollController;
 
@@ -37,10 +41,20 @@ public class LibraryHandler : MonoBehaviour
             UISpellButtonController buttonController = spellButton.GetComponent<UISpellButtonController>();
             buttonController.SetTitle(s.sSpellName);
             buttonController.SetText(s.sSpellInfo);
+
+            // set button icons
             if (s.combatSpell)
                 buttonController.SetIcon(combatIcon);
             else
                 buttonController.SetIcon(nonCombatIcon);
+
+            // set button colors
+            if (s.iTier == 3)
+                buttonController.SetColor(tier3Color);
+            else if (s.iTier == 2)
+                buttonController.SetColor(tier2Color);
+            else
+                buttonController.SetColor(tier1Color);
 
             scrollController.AddElement(spellButton);
             spellButton.GetComponent<Button>().onClick.AddListener(() => ShowSpellInfo(s));
