@@ -78,7 +78,7 @@ namespace Photon.Lobby
                 arcanistButton = GameObject.Find("button_arcanist").GetComponent<Button>();
                 elementalistButton = GameObject.Find("button_elementalist").GetComponent<Button>();
                 chronomancerButton = GameObject.Find("button_chronomancer").GetComponent<Button>();
-                illusionistButton = GameObject.Find("button_trickster").GetComponent<Button>();
+                illusionistButton = GameObject.Find("button_illusionist").GetComponent<Button>();
                 summonerButton = GameObject.Find("button_summoner").GetComponent<Button>();
 
                 text = GameObject.Find("ChooseClass").GetComponent<Text>();
