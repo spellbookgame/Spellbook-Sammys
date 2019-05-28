@@ -158,6 +158,7 @@ public class Shop : MonoBehaviour
 
     private void PopulateSaleUI(ItemObject item)
     {
+        manaCrystalImage.gameObject.SetActive(true);
         currentSelected = item;
         text_itemName.text = item.name;
         text_itemPrice.text = item.buyPrice + "";

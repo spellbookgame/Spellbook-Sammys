@@ -68,11 +68,13 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
             scanItem(mTrackableBehaviour.TrackableName);
         else if(localPlayer.Spellcaster.scannedSpaceThisTurn)
         {
-            PanelHolder.instance.displayNotify("","You already scanned a location this turn.", "MainPlayerScene");
+            SceneManager.LoadScene("MainPlayerScene");
+            PanelHolder.instance.displayNotify("Scan Error", "You already scanned a location this turn.", "OK");
         }
         else if(UICanvasHandler.instance.spacesMoved <= 0)
         {
-            PanelHolder.instance.displayNotify("", "You can't scan a location if you haven't moved.", "MainPlayerScene");
+            SceneManager.LoadScene("MainPlayerScene");
+            PanelHolder.instance.displayNotify("Scan Error", "You can't scan a location if you haven't moved.", "OK");
         }
     }
 
