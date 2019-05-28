@@ -96,7 +96,7 @@ public class MainPageHandler : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.I))
         {
-            SceneManager.LoadScene("ChronomancyTownScene");
+            SceneManager.LoadScene("ElementalTownScene");
         }
         if (Input.GetKeyDown(KeyCode.C))
         {

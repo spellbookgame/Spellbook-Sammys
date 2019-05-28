@@ -59,6 +59,7 @@ public class Shop : MonoBehaviour
         });
 
         QuestTracker.instance.TrackLocationQuest("location_capital");
+        CrisisHandler.instance.CheckCrisis(GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>(), CrisisHandler.instance.currentCrisis, "location_capital");
 
         float size = allItems.Count;
 

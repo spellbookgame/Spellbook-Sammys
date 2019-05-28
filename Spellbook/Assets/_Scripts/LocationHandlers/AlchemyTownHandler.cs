@@ -12,6 +12,7 @@ public class AlchemyTownHandler : MonoBehaviour
     [SerializeField] private Button leaveButton;
 
     private Quest[] quests;
+    private bool questShown;
 
     private Player localPlayer;
     private void Start()
@@ -58,8 +59,16 @@ public class AlchemyTownHandler : MonoBehaviour
         }
         else
         {
-            int r = Random.Range(0, quests.Length);
-            PanelHolder.instance.displayQuest(quests[r]);
+            if (!questShown)
+            {
+                int r = Random.Range(0, quests.Length);
+                PanelHolder.instance.displayQuest(quests[r]);
+                questShown = true;
+            }
+            else
+            {
+                PanelHolder.instance.displayNotify("Too Late", "You denied a quest, you cannot find another one until you come back.", "OK");
+            }
         }
     }
 }
