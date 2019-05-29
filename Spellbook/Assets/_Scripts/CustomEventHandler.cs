@@ -98,6 +98,8 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
     
     private void scanItem(string trackableName)
     {
+        SoundManager.instance.PlaySingle(SoundManager.spaceScan);
+
         // check for crises
         CrisisHandler.instance.CheckCrisis(localPlayer, CrisisHandler.instance.currentCrisis, trackableName);
 

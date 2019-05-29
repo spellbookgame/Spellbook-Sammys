@@ -58,6 +58,7 @@ public class SoundManager : MonoBehaviour
     public static AudioClip infusedSapphire;
     public static AudioClip waxCandle;
     public static AudioClip glowingMushroom;
+    public static AudioClip spaceScan;
 
     //Music
     public static AudioClip lobby;
@@ -124,6 +125,7 @@ public class SoundManager : MonoBehaviour
         infusedSapphire = soundeffects[44];
         waxCandle = soundeffects[45];
         glowingMushroom = soundeffects[46];
+        spaceScan = soundeffects[47];
         #endregion
 
         //Set SoundManager to DontDestroyOnLoad so that it won't be destroyed when reloading our scene.

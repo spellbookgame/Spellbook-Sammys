@@ -12,7 +12,7 @@ public class GlowingMushroom : ItemObject
         buyPrice = 300;
         sellPrice = 1800;
         flavorDescription = "Ooo, glowy.";
-        mechanicsDescription = "Heals you for 2 points. Can be sold at a high price to shops.";
+        mechanicsDescription = "Heals you for 2 points.";
     }
 
     public override void UseItem(SpellCaster player)
