@@ -54,10 +54,11 @@ public class SpellSelectionPanel : MonoBehaviour
         {
             localSpellcaster = new Summoner();
             //localSpellcaster.CollectSpell(new ToxicPotion());
+            localSpellcaster.chapter.spellsCollected.Add(new Skeletons());
+            localSpellcaster.chapter.spellsCollected.Add(new Ravenssong());
+            localSpellcaster.chapter.spellsCollected.Add(new Bearsfury());
         }
 
-        BoltConsole.Write("player = " + p.name);
-        BoltConsole.Write("spellcaster = " + p.GetComponent<Player>().Spellcaster);
         int i = 0;
         foreach(KeyValuePair<string, Spell> entry in localSpellcaster.combatSpells)
         {
