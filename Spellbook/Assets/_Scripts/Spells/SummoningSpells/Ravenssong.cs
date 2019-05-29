@@ -13,7 +13,7 @@ public class Ravenssong : Spell, ICombatSpell
 
         sSpellName = "Raven's Song";
         sSpellClass = "Summoner";
-        sSpellInfo = "Destroy half of the enemy's current HP. This attack cannot be buffed.";
+        sSpellInfo = "Heal all allies by 20%, and deal half of that total to the enemy.";
 
         requiredRunes.Add("Summoner A Rune", 1);
         requiredRunes.Add("Summoner B Rune", 1);

@@ -13,7 +13,7 @@ public class Tragedy : Spell, ICombatSpell
 
         sSpellName = "Tragedy";
         sSpellClass = "Illusionist";
-        sSpellInfo = "Create an illusionary puppet that deals 8 damage to the enemy.";
+        sSpellInfo = "Create an illusionary puppet that deals 5 damage to the enemy.";
 
         requiredRunes.Add("Illusionist C Rune", 1);
 

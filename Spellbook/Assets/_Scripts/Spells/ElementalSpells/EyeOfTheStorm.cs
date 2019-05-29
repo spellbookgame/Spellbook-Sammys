@@ -13,7 +13,7 @@ public class EyeOfTheStorm : Spell, ICombatSpell
 
         sSpellName = "Eye of the Storm";
         sSpellClass = "Elementalist";
-        sSpellInfo = "Deal 6-18 damage and heal all allies by half the damage dealt.";
+        sSpellInfo = "Deal 7-15 damage and heal all allies by half the damage dealt.";
 
         requiredRunes.Add("Elementalist A Rune", 1);
         requiredRunes.Add("Elementalist B Rune", 1);

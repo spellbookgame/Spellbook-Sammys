@@ -14,11 +14,12 @@ public class PotionofBlessing : Spell, ICombatSpell
 
         sSpellName = "Potion of Blessing";
         sSpellClass = "Alchemist";
-        sSpellInfo = "Heal all allies by half of their max health.";
+        sSpellInfo = "Fully heal all allies.";
 
         requiredRunes.Add("Alchemist A Rune", 1);
         requiredRunes.Add("Illusionist A Rune", 1);
         requiredRunes.Add("Summoner B Rune", 1);
+
         ColorUtility.TryParseHtmlString("#FFC6D0", out colorPrimary);
         ColorUtility.TryParseHtmlString("#FF7295", out colorSecondary);
         ColorUtility.TryParseHtmlString("#B2E8B8", out colorTertiary);

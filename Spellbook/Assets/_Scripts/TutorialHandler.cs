@@ -76,6 +76,7 @@ public class TutorialHandler : MonoBehaviour
         {
             tutorialPanel.SetActive(false);
             EnableAllObjects();
+            UICanvasHandler.instance.EnableDiceButton(GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().bIsMyTurn);
         }
     }
     private void PositionTutorialArrow(int objectIndex, int yOffset)

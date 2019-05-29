@@ -14,7 +14,7 @@ public class ToxicPotion : Spell, ICombatSpell
 
         sSpellName = "Toxic Potion";
         sSpellClass = "Alchemist";
-        sSpellInfo = "Brew a toxic potion that will grant an additional 3 damage to your attacks for the duration of the fight.";
+        sSpellInfo = "Brew a toxic potion that will increase the team's damage output by 5%.";
 
         requiredRunes.Add("Alchemist C Rune", 1);
 

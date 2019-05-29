@@ -13,7 +13,7 @@ public class ReverseWounds : Spell, ICombatSpell, IAllyCastable
 
         sSpellName = "Reverse Wounds";
         sSpellClass = "Chronomancer";
-        sSpellInfo = "Heal your health equal to half of health missing. Can cast on an ally.";
+        sSpellInfo = "Heal all allies by 5% of their max health.";
 
         requiredRunes.Add("Chronomancer B Rune", 1);
         requiredRunes.Add("Alchemist B Rune", 1);

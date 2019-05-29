@@ -46,10 +46,9 @@ public class PanelHolder : MonoBehaviour
     // enables panel if it's next in queue
     public void CheckPanelQueue()
     {
+        Debug.Log("Panel Queue checked: " + panelQueue.Count + " panels in queue.");
         if (panelQueue.Count > 0)
         {
-            Debug.Log("next in queue is: " + panelQueue.Peek());
-
             UICanvasHandler.instance.EnableMainSceneButtons(false);
 
             if (panelQueue.Peek().Equals(notifyPanel.panelID))

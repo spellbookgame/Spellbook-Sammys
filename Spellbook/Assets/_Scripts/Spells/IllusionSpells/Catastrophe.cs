@@ -13,7 +13,7 @@ public class Catastrophe : Spell, ICombatSpell
 
         sSpellName = "Catastrophe";
         sSpellClass = "Illusionist";
-        sSpellInfo = "Create an illusionary puppet that will increase your team's total tap count by 50% for 2 rounds.";
+        sSpellInfo = "Create an illusionary puppet that will increase an ally's damage output by 10% this round.";
 
         requiredRunes.Add("Illusionist B Rune", 1);
         requiredRunes.Add("Arcanist B Rune", 1);

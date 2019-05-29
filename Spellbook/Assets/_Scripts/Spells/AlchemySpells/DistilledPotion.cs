@@ -14,7 +14,7 @@ public class DistilledPotion : Spell, ICombatSpell
 
         sSpellName = "Distilled Potion";
         sSpellClass = "Alchemist";
-        sSpellInfo = "Brew a potion that will heal your health equal to half of health missing. Can cast on an ally.";
+        sSpellInfo = "Heal all allies by half of their missing health.";
 
         requiredRunes.Add("Alchemist C Rune", 1);
         requiredRunes.Add("Alchemist D Rune", 1);

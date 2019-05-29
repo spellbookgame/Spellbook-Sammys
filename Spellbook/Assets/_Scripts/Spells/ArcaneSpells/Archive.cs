@@ -14,7 +14,7 @@ public class Archive : Spell, ICombatSpell
 
         sSpellName = "Archive";
         sSpellClass = "Arcanist";
-        sSpellInfo = "Everyone's taps will be doubled for one round.";
+        sSpellInfo = "Everyone's taps will be increased by 10%.";
 
         requiredRunes.Add("Arcanist A Rune", 1);
         requiredRunes.Add("Illusionist B Rune", 1);

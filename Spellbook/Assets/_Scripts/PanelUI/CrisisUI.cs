@@ -48,5 +48,8 @@ public class CrisisUI : MonoBehaviour
         if (PanelHolder.panelQueue.Count > 0)
             PanelHolder.panelQueue.Dequeue();
         PanelHolder.instance.CheckPanelQueue();
+
+        // for start of game: give players a spell quest to start
+        QuestTracker.instance.GiveSpellQuest();
     }
 }
