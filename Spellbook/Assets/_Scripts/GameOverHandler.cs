@@ -37,6 +37,7 @@ public class GameOverHandler : MonoBehaviour
 
         panelButton.onClick.AddListener(() =>
         {
+            SoundManager.instance.PlaySingle(SoundManager.parchmentBurn);
             StartCoroutine("SetObjectsActive");
         });
 

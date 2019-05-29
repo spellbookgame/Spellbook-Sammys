@@ -23,6 +23,7 @@ public class YourTurnUI : MonoBehaviour
 
     public void Display()
     {
+        SoundManager.instance.PlaySingle(SoundManager.yourturn);
         gameObject.SetActive(true);
 
         if (!PanelHolder.panelQueue.Peek().Equals(panelID))

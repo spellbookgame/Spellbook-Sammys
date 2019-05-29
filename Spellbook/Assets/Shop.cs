@@ -100,9 +100,9 @@ public class Shop : MonoBehaviour
 
         button_buyButton.onClick.AddListener(() =>
         {
-            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
             if(spellcaster.iMana >= currentSelected.buyPrice)
             {
+                SoundManager.instance.PlaySingle(SoundManager.purchase);
                 spellcaster.LoseMana((int)currentSelected.buyPrice);
                 text_myMana.text = spellcaster.iMana + "";
                 

@@ -114,7 +114,7 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
                 if(localPlayer.Spellcaster.tsunamiConsequence)
                 {
                     SceneManager.LoadScene("MainPlayerScene");
-                    PanelHolder.instance.displayNotify("Tsunami Consequence", "The tsunami damaged all towns. You cannot enter.", "OK");
+                    PanelHolder.instance.displayNotify("Tsunami", "The tsunami damaged all towns. You cannot enter.", "OK");
                 }
                 else
                     SceneManager.LoadScene("AlchemyTownScene");
@@ -124,7 +124,7 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
                 if (localPlayer.Spellcaster.tsunamiConsequence)
                 {
                     SceneManager.LoadScene("MainPlayerScene");
-                    PanelHolder.instance.displayNotify("Tsunami Consequence", "The tsunami damaged all towns. You cannot enter.", "OK");
+                    PanelHolder.instance.displayNotify("Tsunami", "The tsunami damaged all towns. You cannot enter.", "OK");
                 }
                 else
                     SceneManager.LoadScene("ArcaneTownScene");
@@ -134,7 +134,7 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
                 if (localPlayer.Spellcaster.tsunamiConsequence)
                 {
                     SceneManager.LoadScene("MainPlayerScene");
-                    PanelHolder.instance.displayNotify("Tsunami Consequence", "The tsunami damaged all towns. You cannot enter.", "OK");
+                    PanelHolder.instance.displayNotify("Tsunami", "The tsunami damaged all towns. You cannot enter.", "OK");
                 }
                 else
                     SceneManager.LoadScene("ChronomancyTownScene");
@@ -154,7 +154,7 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
                 if (localPlayer.Spellcaster.tsunamiConsequence)
                 {
                     SceneManager.LoadScene("MainPlayerScene");
-                    PanelHolder.instance.displayNotify("Tsunami Consequence", "The tsunami damaged all towns. You cannot enter.", "OK");
+                    PanelHolder.instance.displayNotify("Tsunami", "The tsunami damaged all towns. You cannot enter.", "OK");
                 }
                 else
                     SceneManager.LoadScene("IllusionTownScene");
@@ -164,7 +164,7 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
                 if (localPlayer.Spellcaster.tsunamiConsequence)
                 {
                     SceneManager.LoadScene("MainPlayerScene");
-                    PanelHolder.instance.displayNotify("Tsunami Consequence", "The tsunami damaged all towns. You cannot enter.", "OK");
+                    PanelHolder.instance.displayNotify("Tsunami", "The tsunami damaged all towns. You cannot enter.", "OK");
                 }
                 else
                     SceneManager.LoadScene("SummonerTownScene");
@@ -179,7 +179,7 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
                 if (localPlayer.Spellcaster.plagueConsequence)
                 {
                     SceneManager.LoadScene("MainPlayerScene");
-                    PanelHolder.instance.displayNotify("Plague Consequence", "The swamp is closed. Come back later.", "OK");
+                    PanelHolder.instance.displayNotify("Plague", "The swamp is closed due to the plague. Come back later.", "OK");
                 }
                 else
                     SceneManager.LoadScene("SwampScene");
