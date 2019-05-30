@@ -1556,7 +1556,7 @@ MonoBehaviour:
         m_MethodName: PlaySingle
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 8300000, guid: 3a2373ed406e7c040abce12273da0330,
+          m_ObjectArgument: {fileID: 8300000, guid: 1f1b5790a3053b34dbd6a5e8c51fae81,
             type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
           m_IntArgument: 0
@@ -2152,7 +2152,7 @@ MonoBehaviour:
         m_MethodName: PlaySingle
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 8300000, guid: 3a2373ed406e7c040abce12273da0330,
+          m_ObjectArgument: {fileID: 8300000, guid: b3a801ff08ce15546a8ee69df6a8449b,
             type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
           m_IntArgument: 0
@@ -3736,7 +3736,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -4222,12 +4222,12 @@ PrefabInstance:
     - target: {fileID: 5445793675166123128, guid: ba790306bc89d47c3aec681b7391754a,
         type: 3}
       propertyPath: m_Color.r
-      value: 0
+      value: 0.47878388
       objectReference: {fileID: 0}
     - target: {fileID: 5445793675166123128, guid: ba790306bc89d47c3aec681b7391754a,
         type: 3}
       propertyPath: m_Color.g
-      value: 1
+      value: 0.39088517
       objectReference: {fileID: 0}
     - target: {fileID: 5445793675166123129, guid: ba790306bc89d47c3aec681b7391754a,
         type: 3}
@@ -9027,7 +9027,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: a539cdc87b6089640b4d9046a5b004fb, type: 3}
   - {fileID: 8300000, guid: 97b5d05f38d833642865e8bd8206508d, type: 3}
   - {fileID: 8300000, guid: 2dd58d719a1566e42a2a5235f1981586, type: 3}
-  - {fileID: 8300000, guid: 3a2373ed406e7c040abce12273da0330, type: 3}
+  - {fileID: 8300000, guid: 1f1b5790a3053b34dbd6a5e8c51fae81, type: 3}
   - {fileID: 8300000, guid: 9478adb9b7660a74882c882f25337d09, type: 3}
   - {fileID: 8300000, guid: 5cf91d3245a060a49bd22e86abaacb46, type: 3}
   - {fileID: 8300000, guid: 367ce2fe2d74d7d4d8e6d04dd16168ea, type: 3}
@@ -9065,6 +9065,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 9bae8c45aadecda46bccf1616ea30ecf, type: 3}
   - {fileID: 8300000, guid: c673c5e5ca7c04d4c8b091ce2dc40703, type: 3}
   - {fileID: 8300000, guid: 545e13dfac108b3448fae320a3164757, type: 3}
+  - {fileID: 8300000, guid: b3a801ff08ce15546a8ee69df6a8449b, type: 3}
+  - {fileID: 8300000, guid: 89fdb5e5767d49b4990bef2be470b701, type: 3}
 --- !u!82 &1859850891
 AudioSource:
   m_ObjectHideFlags: 0
@@ -9185,7 +9187,7 @@ AudioSource:
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
-  Pan2D: 0
+  Pan2D: -1
   rolloffMode: 0
   BypassEffects: 0
   BypassListenerEffects: 0
@@ -11163,7 +11165,7 @@ PrefabInstance:
     - target: {fileID: 7657592968730287294, guid: 647537f2318593846b3dc8974a14df53,
         type: 3}
       propertyPath: soundeffects.Array.size
-      value: 48
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7657592968730287289, guid: 647537f2318593846b3dc8974a14df53,
         type: 3}
@@ -11174,6 +11176,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Volume
       value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7657592968730287288, guid: 647537f2318593846b3dc8974a14df53,
+        type: 3}
+      propertyPath: Pan2D
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 7657592968730287295, guid: 647537f2318593846b3dc8974a14df53,
         type: 3}

@@ -23,7 +23,7 @@ public class SoundManager : MonoBehaviour
     public static AudioClip itemfound;
     public static AudioClip dicePickUp;
     public static AudioClip dicePlace;
-    public static AudioClip pageturn;
+    public static AudioClip pageTurn1;
     public static AudioClip placespellpiece;
     public static AudioClip questaccept;
     public static AudioClip questfailed;
@@ -59,6 +59,8 @@ public class SoundManager : MonoBehaviour
     public static AudioClip waxCandle;
     public static AudioClip glowingMushroom;
     public static AudioClip spaceScan;
+    public static AudioClip pageTurn2;
+    public static AudioClip pageTurn3;
 
     //Music
     public static AudioClip lobby;
@@ -88,7 +90,7 @@ public class SoundManager : MonoBehaviour
         itemfound = soundeffects[7];
         dicePickUp = soundeffects[8];
         dicePlace = soundeffects[9];
-        pageturn = soundeffects[10];
+        pageTurn1 = soundeffects[10];
         placespellpiece = soundeffects[11];
         questaccept = soundeffects[12];
         questfailed = soundeffects[13];
@@ -126,6 +128,8 @@ public class SoundManager : MonoBehaviour
         waxCandle = soundeffects[45];
         glowingMushroom = soundeffects[46];
         spaceScan = soundeffects[47];
+        pageTurn2 = soundeffects[48];
+        pageTurn3 = soundeffects[49];
         #endregion
 
         //Set SoundManager to DontDestroyOnLoad so that it won't be destroyed when reloading our scene.

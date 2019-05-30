@@ -46,28 +46,34 @@ public class UICanvasHandler : MonoBehaviour
     // called once when UICanvasHandler is instantiated
     private void Start()
     {
+        AudioClip[] pageTurnSounds = new AudioClip[]
+        {
+            SoundManager.pageTurn1,
+            SoundManager.pageTurn2,
+            SoundManager.pageTurn3
+        };
         // set onclick listeners once in the game
         spellbookMainButton.GetComponent<Button>().onClick.AddListener(() =>
         {
-            SoundManager.instance.PlaySingle(SoundManager.pageturn);
+            SoundManager.instance.PlaySingle(pageTurnSounds[Random.Range(0, pageTurnSounds.Length)]);
             SceneManager.LoadScene("SpellbookScene");
             ScaleSpellbookButtons("spellbook");
         });
         libraryButton.GetComponent<Button>().onClick.AddListener(() =>
         {
-            SoundManager.instance.PlaySingle(SoundManager.pageturn);
+            SoundManager.instance.PlaySingle(pageTurnSounds[Random.Range(0, pageTurnSounds.Length)]);
             SceneManager.LoadScene("LibraryScene");
             ScaleSpellbookButtons("library");
         });
         questButton.GetComponent<Button>().onClick.AddListener(() =>
         {
-            SoundManager.instance.PlaySingle(SoundManager.pageturn);
+            SoundManager.instance.PlaySingle(pageTurnSounds[Random.Range(0, pageTurnSounds.Length)]);
             SceneManager.LoadScene("QuestLogScene");
             ScaleSpellbookButtons("quest");
         });
         progressButton.GetComponent<Button>().onClick.AddListener(() =>
         {
-            SoundManager.instance.PlaySingle(SoundManager.pageturn);
+            SoundManager.instance.PlaySingle(pageTurnSounds[Random.Range(0, pageTurnSounds.Length)]);
             SceneManager.LoadScene("SpellbookProgress");
             ScaleSpellbookButtons("progress");
         });
