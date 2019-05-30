@@ -26,7 +26,16 @@ public class Chronoblast : Spell, ICombatSpell
 
     public void CombatCast(SpellCaster player)
     {
-        throw new System.NotImplementedException();
+        // throw new System.NotImplementedException();
+        /*int damage;
+        if (orbPercentage <= 25)
+            damage = Random.Range(4, 6);
+        else if (orbPercentage > 25 && orbPercentage <= 50)
+            damage = Random.Range(4, 7);
+        else if (orbPercentage > 50 && orbPercentage <= 75)
+            damage = Random.Range(5, 8);
+        else
+            damage = Random.Range(5, 9);*/
     }
 
     public override void SpellCast(SpellCaster player)

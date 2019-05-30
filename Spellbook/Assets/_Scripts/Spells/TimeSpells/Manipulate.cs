@@ -13,7 +13,7 @@ public class Manipulate : Spell, ICombatSpell
 
         sSpellName = "Manipulate";
         sSpellClass = "Chronomancer";
-        sSpellInfo = "Increase the tap time by 2 seconds for this round. This effect cannot be buffed.";
+        sSpellInfo = "Passive: if this spell is selected, increase the tap time by 2 seconds for this round. This effect cannot be buffed.";
 
         requiredRunes.Add("Chronomancer B Rune", 1);
         requiredRunes.Add("Arcanist B Rune", 1);
@@ -27,7 +27,8 @@ public class Manipulate : Spell, ICombatSpell
 
     public void CombatCast(SpellCaster player)
     {
-        throw new System.NotImplementedException();
+        // throw new System.NotImplementedException();
+        // player.TapTime += 2f;
     }
 
     public override void SpellCast(SpellCaster player)
