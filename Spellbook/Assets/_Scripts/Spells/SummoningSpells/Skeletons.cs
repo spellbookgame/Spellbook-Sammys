@@ -26,7 +26,10 @@ public class Skeletons : Spell, ICombatSpell
 
     public void CombatCast(SpellCaster player)
     {
-        throw new System.NotImplementedException();
+        // throw new System.NotImplementedException();
+        // for every 20% the orb is filled, add 5% to the multiplier
+        // float multiplier = ((Mathf.Floor(orbPercentage / 20) * 5) + 10) / 100
+        // player.totalDamage += player.totalDamage * multiplier;
     }
 
     public override void SpellCast(SpellCaster player)
