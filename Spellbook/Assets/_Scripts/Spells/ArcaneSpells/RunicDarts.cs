@@ -27,7 +27,33 @@ public class RunicDarts : Spell, ICombatSpell
 
     public void CombatCast(SpellCaster player)
     {
-        throw new System.NotImplementedException();
+        // throw new System.NotImplementedException();
+        /*int damage1, damage2, damage3;
+        if(orbPercentage <= 25)
+        {
+            damage1 = Random.Range(2, 4);
+            damage2 = Random.Range(2, 4);
+            damage3 = Random.Range(2, 4);
+        }
+        else if(orbPercentage > 25 && orbPercentage <= 50)
+        {
+            damage1 = Random.Range(2, 5);
+            damage2 = Random.Range(2, 5);
+            damage3 = Random.Range(2, 5);
+        }
+        else if(orbPercentage > 50 && orbPercentage <= 75)
+        {
+            damage1 = Random.Range(3, 6);
+            damage2 = Random.Range(3, 6);
+            damage3 = Random.Range(3, 6);
+        }
+        else
+        {
+            damage1 = Random.Range(4, 6);
+            damage2 = Random.Range(4, 6);
+            damage3 = Random.Range(4, 6);
+        }
+        int totalDamage = damage1 + damage2 + damage3;*/
     }
 
     public override void SpellCast(SpellCaster player)

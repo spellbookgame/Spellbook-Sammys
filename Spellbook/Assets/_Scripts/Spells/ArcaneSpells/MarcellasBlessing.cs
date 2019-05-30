@@ -13,7 +13,7 @@ public class MarcellasBlessing : Spell, ICombatSpell
 
         sSpellName = "Marcella's Blessing ";
         sSpellClass = "Arcanist";
-        sSpellInfo = "Double the team's total damage output.";
+        sSpellInfo = "Double the team's total damage output. This effect cannot be buffed.";
 
         requiredRunes.Add("Alchemist A Rune", 1);
         requiredRunes.Add("Arcanist A Rune", 1);
@@ -28,7 +28,8 @@ public class MarcellasBlessing : Spell, ICombatSpell
 
     public void CombatCast(SpellCaster player)
     {
-        throw new System.NotImplementedException();
+        // throw new System.NotImplementedException();
+        // int totalDamage = teamDamage * 2;
     }
 
     public override void SpellCast(SpellCaster player)
