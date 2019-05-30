@@ -28,7 +28,8 @@ public class NaturalDisaster : Spell, ICombatSpell
 
     public void CombatCast(SpellCaster player)
     {
-        throw new System.NotImplementedException();
+        // throw new System.NotImplementedException();
+        // int enemyHealth = enemyCurrentHealth / 2;
     }
 
     public override void SpellCast(SpellCaster player)

@@ -28,7 +28,26 @@ public class EyeOfTheStorm : Spell, ICombatSpell
 
     public void CombatCast(SpellCaster player)
     {
-        throw new System.NotImplementedException();
+        // throw new System.NotImplementedException();
+        /*int damage, healAmount;
+        if (orbPercentage <= 25)
+        {
+            damage = Random.Range(7, 10);
+        }
+        else if (orbPercentage > 25 && orbPercentage <= 50)
+        {
+            damage = Random.Range(7, 12);
+        }
+        else if (orbPercentage > 50 && orbPercentage <= 75)
+        {
+            damage = Random.Range(9, 12);
+        }
+        else
+        {
+            damage = Random.Range(9, 16);
+        }
+        healAmount = damage / 2;
+        player.HealDamage(healAmount);*/
     }
 
     public override void SpellCast(SpellCaster player)
