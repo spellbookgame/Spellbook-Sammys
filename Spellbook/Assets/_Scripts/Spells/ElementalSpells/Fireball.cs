@@ -25,7 +25,7 @@ public class Fireball : Spell, ICombatSpell
         guideLine = Resources.Load<Sprite>("CombatSwipes/Fireball");
     }
 
-    public void CombatCast()
+    public void CombatCast(SpellCaster player)
     {
         throw new System.NotImplementedException();
     }

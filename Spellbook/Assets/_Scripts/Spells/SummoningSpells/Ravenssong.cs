@@ -26,7 +26,7 @@ public class Ravenssong : Spell, ICombatSpell
         guideLine = Resources.Load<Sprite>("CombatSwipes/Ravenssong");
     }
 
-    public void CombatCast()
+    public void CombatCast(SpellCaster player)
     {
         throw new System.NotImplementedException();
     }

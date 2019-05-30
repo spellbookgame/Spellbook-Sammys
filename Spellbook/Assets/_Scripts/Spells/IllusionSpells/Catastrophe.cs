@@ -13,7 +13,7 @@ public class Catastrophe : Spell, ICombatSpell
 
         sSpellName = "Catastrophe";
         sSpellClass = "Illusionist";
-        sSpellInfo = "Create an illusionary puppet that will increase an ally's damage output by 10% this round.";
+        sSpellInfo = "Create an illusionary puppet that will increase an ally's damage output by 20% this round.";
 
         requiredRunes.Add("Illusionist B Rune", 1);
         requiredRunes.Add("Arcanist B Rune", 1);
@@ -25,7 +25,7 @@ public class Catastrophe : Spell, ICombatSpell
         guideLine = Resources.Load<Sprite>("CombatSwipes/Catastrophe");
     }
 
-    public void CombatCast()
+    public void CombatCast(SpellCaster player)
     {
         throw new System.NotImplementedException();
     }

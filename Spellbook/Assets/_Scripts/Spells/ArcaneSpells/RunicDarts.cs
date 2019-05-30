@@ -25,7 +25,7 @@ public class RunicDarts : Spell, ICombatSpell
         guideLine = Resources.Load<Sprite>("CombatSwipes/RunicDarts");
     }
 
-    public void CombatCast()
+    public void CombatCast(SpellCaster player)
     {
         throw new System.NotImplementedException();
     }

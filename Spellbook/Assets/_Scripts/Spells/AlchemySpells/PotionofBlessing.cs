@@ -26,9 +26,10 @@ public class PotionofBlessing : Spell, ICombatSpell
         guideLine = Resources.Load<Sprite>("CombatSwipes/PotionOfBlessing");
     }
 
-    public void CombatCast()
+    public void CombatCast(SpellCaster player)
     {
-        throw new System.NotImplementedException();
+        // throw new System.NotImplementedException();
+        player.HealDamage((int)player.fMaxHealth);
     }
 
     public override void SpellCast(SpellCaster player)

@@ -26,7 +26,7 @@ public class NaturalDisaster : Spell, ICombatSpell
         guideLine = Resources.Load<Sprite>("CombatSwipes/NaturalDisaster");
     }
 
-    public void CombatCast()
+    public void CombatCast(SpellCaster player)
     {
         throw new System.NotImplementedException();
     }

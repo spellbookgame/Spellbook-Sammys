@@ -26,7 +26,7 @@ public class EyeOfTheStorm : Spell, ICombatSpell
         guideLine = Resources.Load<Sprite>("CombatSwipes/EyeOfTheStorm");
     }
 
-    public void CombatCast()
+    public void CombatCast(SpellCaster player)
     {
         throw new System.NotImplementedException();
     }

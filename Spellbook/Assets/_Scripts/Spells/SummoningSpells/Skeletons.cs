@@ -13,7 +13,7 @@ public class Skeletons : Spell, ICombatSpell
 
         sSpellName = "Skeletons";
         sSpellClass = "Summoner";
-        sSpellInfo = "Summon a skeleton that increases an ally's damage output by 5% this round.";
+        sSpellInfo = "Summon a skeleton that increases an ally's damage output by 10% this round.";
 
         requiredRunes.Add("Summoner D Rune", 1);
 
@@ -24,7 +24,7 @@ public class Skeletons : Spell, ICombatSpell
         guideLine = Resources.Load<Sprite>("CombatSwipes/Skeletons");
     }
 
-    public void CombatCast()
+    public void CombatCast(SpellCaster player)
     {
         throw new System.NotImplementedException();
     }

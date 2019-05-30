@@ -14,7 +14,7 @@ public class Archive : Spell, ICombatSpell
 
         sSpellName = "Archive";
         sSpellClass = "Arcanist";
-        sSpellInfo = "Everyone's taps will be increased by 10%.";
+        sSpellInfo = "Everyone's taps will be increased by 15% this round.";
 
         requiredRunes.Add("Arcanist A Rune", 1);
         requiredRunes.Add("Illusionist B Rune", 1);
@@ -26,7 +26,7 @@ public class Archive : Spell, ICombatSpell
         guideLine = Resources.Load<Sprite>("CombatSwipes/Archive");
     }
 
-    public void CombatCast()
+    public void CombatCast(SpellCaster player)
     {
         throw new System.NotImplementedException();
     }

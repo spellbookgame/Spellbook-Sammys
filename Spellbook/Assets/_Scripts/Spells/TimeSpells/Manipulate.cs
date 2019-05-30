@@ -25,7 +25,7 @@ public class Manipulate : Spell, ICombatSpell
         guideLine = Resources.Load<Sprite>("CombatSwipes/Manipulate");
     }
 
-    public void CombatCast()
+    public void CombatCast(SpellCaster player)
     {
         throw new System.NotImplementedException();
     }

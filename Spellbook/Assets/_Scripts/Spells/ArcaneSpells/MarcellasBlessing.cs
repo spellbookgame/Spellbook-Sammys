@@ -26,7 +26,7 @@ public class MarcellasBlessing : Spell, ICombatSpell
         guideLine = Resources.Load<Sprite>("CombatSwipes/MarcellasBlessing");
     }
 
-    public void CombatCast()
+    public void CombatCast(SpellCaster player)
     {
         throw new System.NotImplementedException();
     }

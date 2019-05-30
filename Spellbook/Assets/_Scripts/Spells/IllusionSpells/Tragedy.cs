@@ -24,7 +24,7 @@ public class Tragedy : Spell, ICombatSpell
         guideLine = Resources.Load<Sprite>("CombatSwipes/Tragedy");
     }
 
-    public void CombatCast()
+    public void CombatCast(SpellCaster player)
     {
         throw new System.NotImplementedException();
     }

@@ -25,7 +25,7 @@ public class ReverseWounds : Spell, ICombatSpell, IAllyCastable
         guideLine = Resources.Load<Sprite>("CombatSwipes/ReverseWounds");
     }
 
-    public void CombatCast()
+    public void CombatCast(SpellCaster player)
     {
         throw new System.NotImplementedException();
     }

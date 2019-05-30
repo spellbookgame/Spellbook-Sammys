@@ -24,7 +24,7 @@ public class Chronoblast : Spell, ICombatSpell
         guideLine = Resources.Load<Sprite>("CombatSwipes/Chronoblast");
     }
 
-    public void CombatCast()
+    public void CombatCast(SpellCaster player)
     {
         throw new System.NotImplementedException();
     }

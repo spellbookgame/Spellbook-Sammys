@@ -25,7 +25,7 @@ public class Bearsfury : Spell, ICombatSpell
         guideLine = Resources.Load<Sprite>("CombatSwipes/Bearsfury");
     }
 
-    public void CombatCast()
+    public void CombatCast(SpellCaster player)
     {
         throw new System.NotImplementedException();
     }

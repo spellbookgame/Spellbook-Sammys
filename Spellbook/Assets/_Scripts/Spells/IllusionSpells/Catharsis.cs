@@ -25,7 +25,7 @@ public class Catharsis : Spell, ICombatSpell
         guideLine = Resources.Load<Sprite>("CombatSwipes/Catharsis");
     }
 
-    public void CombatCast()
+    public void CombatCast(SpellCaster player)
     {
         throw new System.NotImplementedException();
     }
