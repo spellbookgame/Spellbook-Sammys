@@ -83,12 +83,12 @@ namespace Photon.Lobby
 
                 text = GameObject.Find("ChooseClass").GetComponent<Text>();
 
-                alchemistSelection = GameObject.Find("Image_Alchemist");
-                arcanistSelection = GameObject.Find("Image_Arcanist");
-                elementalSelection = GameObject.Find("Image_Elementalist");
-                chronomancerSelection = GameObject.Find("Image_Chronomancer");
-                illusionistSelection = GameObject.Find("Image_Illusionist");
-                summonerSelection = GameObject.Find("Image_Summoner");
+                alchemistSelection = GameObject.Find("button_alchemist");
+                arcanistSelection = GameObject.Find("button_arcanist");
+                elementalSelection = GameObject.Find("button_elementalist");
+                chronomancerSelection = GameObject.Find("button_chronomancer");
+                illusionistSelection = GameObject.Find("button_illusionist");
+                summonerSelection = GameObject.Find("button_summoner");
 
                 // A callback is basically another way of saying "getting an update from the network"
                 state.AddCallback("AlchemistSelected", () =>
@@ -280,7 +280,7 @@ namespace Photon.Lobby
             lastSelectedUI = currentSelectedUI;
             if(lastSelectedUI != null)
             {
-                lastSelectedUI.GetComponent<RectTransform>().localScale = new Vector3(1f, 1f, 1f);
+                //lastSelectedUI.GetComponent<RectTransform>().localScale = new Vector3(1f, 1f, 1f);
             }
             openPreviousSpellcaster();
         }
@@ -300,7 +300,7 @@ namespace Photon.Lobby
             currentSelectedUI = alchemistSelection;
             alchemistChosen = true;
             //text.text = "Alchemist";
-            alchemistSelection.GetComponent<RectTransform>().localScale = new Vector3(1.17f, 1.17f, 1); //Why 1.17? Because it looks good.
+            //alchemistSelection.GetComponent<RectTransform>().localScale = new Vector3(1.17f, 1.17f, 1); //Why 1.17? Because it looks good.
         }
 
         public void OnArcanistClicked()
@@ -319,7 +319,7 @@ namespace Photon.Lobby
             currentSelectedUI = arcanistSelection;
             arcanistChosen = true;
             //text.text = "Arcanist";
-            arcanistSelection.GetComponent<RectTransform>().localScale = new Vector3(1.17f, 1.17f, 1);
+            //arcanistSelection.GetComponent<RectTransform>().localScale = new Vector3(1.17f, 1.17f, 1);
         }
 
         public void OnElementalistClicked()
@@ -337,7 +337,7 @@ namespace Photon.Lobby
             currentSelectedUI = elementalSelection;
             elementalistChosen = true;
             //text.text = "Elementalist";
-            elementalSelection.GetComponent<RectTransform>().localScale = new Vector3(1.17f, 1.17f, 1);
+            //elementalSelection.GetComponent<RectTransform>().localScale = new Vector3(1.17f, 1.17f, 1);
         }
 
         public void OnChronomancerClicked()
@@ -355,7 +355,7 @@ namespace Photon.Lobby
             currentSelectedUI = chronomancerSelection;
             chronomancerChosen = true;
             //text.text = "Chronomancer";
-            chronomancerSelection.GetComponent<RectTransform>().localScale = new Vector3(1.17f, 1.17f, 1);
+            //chronomancerSelection.GetComponent<RectTransform>().localScale = new Vector3(1.17f, 1.17f, 1);
         }
 
         public void OnIllusionistClicked()
@@ -373,7 +373,7 @@ namespace Photon.Lobby
             currentSelectedUI = illusionistSelection;
             illusionistChosen = true;
             //text.text = "Illusionist";
-            illusionistSelection.GetComponent<RectTransform>().localScale = new Vector3(1.17f, 1.17f, 1);
+            //illusionistSelection.GetComponent<RectTransform>().localScale = new Vector3(1.17f, 1.17f, 1);
         }
 
         public void OnSummonerClicked()
@@ -391,7 +391,7 @@ namespace Photon.Lobby
             currentSelectedUI = summonerSelection;
             summonerChosen = true;
             //text.text = "Summoner";
-            summonerSelection.GetComponent<RectTransform>().localScale = new Vector3(1.17f, 1.17f, 1);
+            //summonerSelection.GetComponent<RectTransform>().localScale = new Vector3(1.17f, 1.17f, 1);
         }
 
 
@@ -416,7 +416,7 @@ namespace Photon.Lobby
             lobbyManager.activateSelectButton(false);
             previousSelected = currentSelected;
             previousConfirmed = currentSelected;
-            currentSelectedUI.GetComponent<RectTransform>().localScale = new Vector3(1f, 1f, 1f);
+            //currentSelectedUI.GetComponent<RectTransform>().localScale = new Vector3(1f, 1f, 1f);
             lastSelectedUI = currentSelectedUI;
             currentSelectedUI = null;
             openPreviousSpellcaster();
