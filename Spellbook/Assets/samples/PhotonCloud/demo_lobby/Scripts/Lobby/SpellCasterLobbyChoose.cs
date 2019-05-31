@@ -96,12 +96,14 @@ namespace Photon.Lobby
                     if (state.AlchemistSelected)
                     {
                         //alchemistButton.image.color = alchemistColor;
+                        text.text = "You have chosen the Alchemist!";
                         alchemistButton.interactable = false;
                     }
                     else
                     {
                         unselectedColor.a = 1;
                         //alchemistButton.image.color = unselectedColor;
+                        text.text = "Which Spellcaster are you?";
                         alchemistButton.interactable = true;
                     }
                 });
@@ -111,12 +113,14 @@ namespace Photon.Lobby
                     if (state.ArcanistSelected)
                     {
                         //arcanistButton.image.color = arcanistColor;
+                        text.text = "You have chosen the Arcanist!";
                         arcanistButton.interactable = false;
                     }
                     else
                     {
                         unselectedColor.a = 1;
                         //arcanistButton.image.color = unselectedColor;
+                        text.text = "Which Spellcaster are you?";
                         arcanistButton.interactable = true;
                     }
                 });
@@ -126,12 +130,14 @@ namespace Photon.Lobby
                     if (state.ElementalistSelected)
                     {
                         //elementalistButton.image.color = elementalistColor;
+                        text.text = "You have chosen the Elementalist!";
                         elementalistButton.interactable = false;
                     }
                     else
                     {
                         unselectedColor.a = 1;
                         //elementalistButton.image.color = unselectedColor;
+                        text.text = "Which Spellcaster are you?";
                         elementalistButton.interactable = true;
                     }
                 });
@@ -141,12 +147,14 @@ namespace Photon.Lobby
                     if (state.ChronomancerSelected)
                     {
                         //chronomancerButton.image.color = chronomancerColor;
+                        text.text = "You have chosen the Chronomancer!";
                         chronomancerButton.interactable = false;
                     }
                     else
                     {
                         unselectedColor.a = 1;
                         //chronomancerButton.image.color = unselectedColor;
+                        text.text = "Which Spellcaster are you?";
                         chronomancerButton.interactable = true;
                     }
                 });
@@ -156,12 +164,14 @@ namespace Photon.Lobby
                     if (state.IllusionistSelected)
                     {
                         //illusionistButton.image.color = illusionistColor;
+                        text.text = "You have chosen the Illusionist!";
                         illusionistButton.interactable = false;
                     }
                     else
                     {
                         unselectedColor.a = 1;
                         //illusionistButton.image.color = unselectedColor;
+                        text.text = "Which Spellcaster are you?";
                         illusionistButton.interactable = true;
                     }
                 });
@@ -171,12 +181,14 @@ namespace Photon.Lobby
                     if (state.SummonerSelected)
                     {
                         //summonerButton.image.color = summonerColor;
+                        text.text = "You have chosen the Summoner!";
                         summonerButton.interactable = false;
                     }
                     else
                     {
                         unselectedColor.a = 1;
                         //summonerButton.image.color = unselectedColor;
+                        text.text = "Which Spellcaster are you?";
                         summonerButton.interactable = true;
                     }
                 });
