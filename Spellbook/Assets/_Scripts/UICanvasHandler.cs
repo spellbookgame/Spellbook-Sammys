@@ -46,6 +46,7 @@ public class UICanvasHandler : MonoBehaviour
     // called once when UICanvasHandler is instantiated
     private void Start()
     {
+        #region onClickListeners
         AudioClip[] pageTurnSounds = new AudioClip[]
         {
             SoundManager.pageTurn1,
@@ -57,32 +58,28 @@ public class UICanvasHandler : MonoBehaviour
         {
             SoundManager.instance.PlaySingle(pageTurnSounds[Random.Range(0, pageTurnSounds.Length)]);
             SceneManager.LoadScene("SpellbookScene");
-            ScaleSpellbookButtons("spellbook");
         });
         libraryButton.GetComponent<Button>().onClick.AddListener(() =>
         {
             SoundManager.instance.PlaySingle(pageTurnSounds[Random.Range(0, pageTurnSounds.Length)]);
             SceneManager.LoadScene("LibraryScene");
-            ScaleSpellbookButtons("library");
         });
         questButton.GetComponent<Button>().onClick.AddListener(() =>
         {
             SoundManager.instance.PlaySingle(pageTurnSounds[Random.Range(0, pageTurnSounds.Length)]);
             SceneManager.LoadScene("QuestLogScene");
-            ScaleSpellbookButtons("quest");
         });
         progressButton.GetComponent<Button>().onClick.AddListener(() =>
         {
             SoundManager.instance.PlaySingle(pageTurnSounds[Random.Range(0, pageTurnSounds.Length)]);
             SceneManager.LoadScene("SpellbookProgress");
-            ScaleSpellbookButtons("progress");
         });
 
         // set onclick listeners for main scene buttons
         spellbookButton.GetComponent<Button>().onClick.AddListener(() =>
         {
             SoundManager.instance.PlaySingle(SoundManager.spellbookopen);
-            UICanvasHandler.instance.ActivateSpellbookButtons(true);
+            ActivateSpellbookButtons(true);
             SceneManager.LoadScene("SpellbookScene");
         });
         inventoryButton.GetComponent<Button>().onClick.AddListener(() =>
@@ -97,14 +94,11 @@ public class UICanvasHandler : MonoBehaviour
             SceneManager.LoadScene("LoadingScene");
             // SceneManager.LoadScene("VuforiaScene");
         });
+        #endregion
 
         tutorialHandler = GameObject.Find("tutorialHandler").GetComponent<TutorialHandler>();
 
         // initially position the buttons properly on main player scene
-        /*spellbookButton.transform.localPosition = new Vector3(-530, -1225, 0);
-        diceButton.transform.localPosition = new Vector3(-180, -1225, 0);
-        scanButton.transform.localPosition = new Vector3(180, -1225, 0);
-        inventoryButton.transform.localPosition = new Vector3(530, -1225, 0);*/
         spellbookButton.transform.localPosition = new Vector3(-530, -1060, 0);
         diceButton.transform.localPosition = new Vector3(-180, -1060, 0);
         scanButton.transform.localPosition = new Vector3(180, -1060, 0);
@@ -159,23 +153,6 @@ public class UICanvasHandler : MonoBehaviour
     public void ActivateEndTurnButton(bool enabled)
     {
         endTurnButton.SetActive(enabled);
-
-        /*if(enabled)
-        {
-            // move main page buttons up
-            spellbookButton.transform.localPosition = new Vector3(-530, -1060, 0);
-            diceButton.transform.localPosition = new Vector3(-180, -1060, 0);
-            scanButton.transform.localPosition = new Vector3(180, -1060, 0);
-            inventoryButton.transform.localPosition = new Vector3(530, -1060, 0);
-        }
-        else
-        {
-            // move main page buttons down
-            spellbookButton.transform.localPosition = new Vector3(-530, -1225, 0);
-            diceButton.transform.localPosition = new Vector3(-180, -1225, 0);
-            scanButton.transform.localPosition = new Vector3(180, -1225, 0);
-            inventoryButton.transform.localPosition = new Vector3(530, -1225, 0);
-        }*/
     }
 
     // enable dice/scan button if it's player's turn
@@ -192,7 +169,7 @@ public class UICanvasHandler : MonoBehaviour
     public void ActivateSpellbookButtons(bool enabled)
     {
         spellbookMainButton.SetActive(enabled);
-        ScaleSpellbookButtons("spellbook");     // to show you're in the spellbook page
+        spellbookMainButton.GetComponent<UIButtonScale>().ScaleUp();    // to show we're in the first page
         libraryButton.SetActive(enabled);
         questButton.SetActive(enabled);
         progressButton.SetActive(enabled);
@@ -236,40 +213,6 @@ public class UICanvasHandler : MonoBehaviour
     {
         combatButton.SetActive(false);
         SceneManager.LoadScene("CombatSceneV2");
-    }
-
-    // resize buttons based on which one is pressed
-    private void ScaleSpellbookButtons(string buttonName)
-    {
-        switch(buttonName)
-        {
-            case "spellbook":
-                spellbookMainButton.transform.localScale = new Vector3(1.2f, 1.2f, 0);
-                libraryButton.transform.localScale = new Vector3(1f, 1f, 0);
-                questButton.transform.localScale = new Vector3(1f, 1f, 0);
-                progressButton.transform.localScale = new Vector3(1f, 1f, 0);
-                break;
-            case "library":
-                spellbookMainButton.transform.localScale = new Vector3(1f, 1f, 0);
-                libraryButton.transform.localScale = new Vector3(1.2f, 1.2f, 0);
-                questButton.transform.localScale = new Vector3(1f, 1f, 0);
-                progressButton.transform.localScale = new Vector3(1f, 1f, 0);
-                break;
-            case "quest":
-                spellbookMainButton.transform.localScale = new Vector3(1f, 1f, 0);
-                libraryButton.transform.localScale = new Vector3(1f, 1f, 0);
-                questButton.transform.localScale = new Vector3(1.2f, 1.2f, 0);
-                progressButton.transform.localScale = new Vector3(1f, 1f, 0);
-                break;
-            case "progress":
-                spellbookMainButton.transform.localScale = new Vector3(1f, 1f, 0);
-                libraryButton.transform.localScale = new Vector3(1f, 1f, 0);
-                questButton.transform.localScale = new Vector3(1f, 1f, 0);
-                progressButton.transform.localScale = new Vector3(1.2f, 1.2f, 0);
-                break;
-            default:
-                break;
-        }
     }
 
     public void ShowTutorialPrompt()
