@@ -95,13 +95,13 @@ namespace Photon.Lobby
                 {
                     if (state.AlchemistSelected)
                     {
-                        alchemistButton.image.color = alchemistColor;
+                        //alchemistButton.image.color = alchemistColor;
                         alchemistButton.interactable = false;
                     }
                     else
                     {
                         unselectedColor.a = 1;
-                        alchemistButton.image.color = unselectedColor;
+                        //alchemistButton.image.color = unselectedColor;
                         alchemistButton.interactable = true;
                     }
                 });
@@ -110,13 +110,13 @@ namespace Photon.Lobby
                 {
                     if (state.ArcanistSelected)
                     {
-                        arcanistButton.image.color = arcanistColor;
+                        //arcanistButton.image.color = arcanistColor;
                         arcanistButton.interactable = false;
                     }
                     else
                     {
                         unselectedColor.a = 1;
-                        arcanistButton.image.color = unselectedColor;
+                        //arcanistButton.image.color = unselectedColor;
                         arcanistButton.interactable = true;
                     }
                 });
@@ -125,13 +125,13 @@ namespace Photon.Lobby
                 {
                     if (state.ElementalistSelected)
                     {
-                        elementalistButton.image.color = elementalistColor;
+                        //elementalistButton.image.color = elementalistColor;
                         elementalistButton.interactable = false;
                     }
                     else
                     {
                         unselectedColor.a = 1;
-                        elementalistButton.image.color = unselectedColor;
+                        //elementalistButton.image.color = unselectedColor;
                         elementalistButton.interactable = true;
                     }
                 });
@@ -140,13 +140,13 @@ namespace Photon.Lobby
                 {
                     if (state.ChronomancerSelected)
                     {
-                        chronomancerButton.image.color = chronomancerColor;
+                        //chronomancerButton.image.color = chronomancerColor;
                         chronomancerButton.interactable = false;
                     }
                     else
                     {
                         unselectedColor.a = 1;
-                        chronomancerButton.image.color = unselectedColor;
+                        //chronomancerButton.image.color = unselectedColor;
                         chronomancerButton.interactable = true;
                     }
                 });
@@ -155,13 +155,13 @@ namespace Photon.Lobby
                 {
                     if (state.IllusionistSelected)
                     {
-                        illusionistButton.image.color = illusionistColor;
+                        //illusionistButton.image.color = illusionistColor;
                         illusionistButton.interactable = false;
                     }
                     else
                     {
                         unselectedColor.a = 1;
-                        illusionistButton.image.color = unselectedColor;
+                        //illusionistButton.image.color = unselectedColor;
                         illusionistButton.interactable = true;
                     }
                 });
@@ -170,13 +170,13 @@ namespace Photon.Lobby
                 {
                     if (state.SummonerSelected)
                     {
-                        summonerButton.image.color = summonerColor;
+                        //summonerButton.image.color = summonerColor;
                         summonerButton.interactable = false;
                     }
                     else
                     {
                         unselectedColor.a = 1;
-                        summonerButton.image.color = unselectedColor;
+                        //summonerButton.image.color = unselectedColor;
                         summonerButton.interactable = true;
                     }
                 });
