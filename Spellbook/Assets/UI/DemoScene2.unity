@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37312013, g: 0.3807403, b: 0.35872707, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -437,7 +437,7 @@ PrefabInstance:
     - target: {fileID: 3557913045795923604, guid: 6833db6359aae435a8cece5470b728d6,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.0000045465704
+      value: -0.000005418985
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6833db6359aae435a8cece5470b728d6, type: 3}
@@ -771,21 +771,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI Game Title
       objectReference: {fileID: 0}
-    - target: {fileID: 4233108689014067871, guid: ba790306bc89d47c3aec681b7391754a,
-        type: 3}
-      propertyPath: m_VertexStreams.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4233108689014067871, guid: ba790306bc89d47c3aec681b7391754a,
-        type: 3}
-      propertyPath: m_VertexStreams.Array.data[1]
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4233108689014067871, guid: ba790306bc89d47c3aec681b7391754a,
-        type: 3}
-      propertyPath: m_VertexStreams.Array.data[2]
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 5445793674793076877, guid: ba790306bc89d47c3aec681b7391754a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -894,12 +879,27 @@ PrefabInstance:
     - target: {fileID: 5445793675166123128, guid: ba790306bc89d47c3aec681b7391754a,
         type: 3}
       propertyPath: m_Color.r
-      value: 0.78602093
+      value: 0.47782788
       objectReference: {fileID: 0}
     - target: {fileID: 5445793675166123128, guid: ba790306bc89d47c3aec681b7391754a,
         type: 3}
       propertyPath: m_Color.g
-      value: 0.000014305115
+      value: 0.3921014
+      objectReference: {fileID: 0}
+    - target: {fileID: 4233108689014067871, guid: ba790306bc89d47c3aec681b7391754a,
+        type: 3}
+      propertyPath: m_VertexStreams.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4233108689014067871, guid: ba790306bc89d47c3aec681b7391754a,
+        type: 3}
+      propertyPath: m_VertexStreams.Array.data[1]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4233108689014067871, guid: ba790306bc89d47c3aec681b7391754a,
+        type: 3}
+      propertyPath: m_VertexStreams.Array.data[2]
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba790306bc89d47c3aec681b7391754a, type: 3}

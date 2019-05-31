@@ -20,16 +20,13 @@ public class UIAutoHover : MonoBehaviour {
 	[Tooltip("Should the vertical starting position be randomized?")]
 	public bool randomize;
 
-    // had to make public due to tutorial arrow purposes - Grace
-    public float _startPosition;
-
-    // Internal Fields
-    private float _randomOffset = 0.0F;
+	// Internal Fields
+	private float _randomOffset = 0.0F;
+	public Vector3 _startPosition;
 	private Vector3 _shadowScale;
 
 	public void Start() {
-        _startPosition = transform.localPosition.y;
-
+		_startPosition = transform.localPosition;
 		if (randomize) {
 			_randomOffset = Random.Range(-1.0F, 1.0F);
 		}
@@ -38,10 +35,14 @@ public class UIAutoHover : MonoBehaviour {
 		}
 	}
 
+	public void OnDisable() {
+		transform.localPosition = _startPosition;
+	}
+
 	public void Update() {
 		float sine = Mathf.Sin(_randomOffset + Time.realtimeSinceStartup * hoverSpeed);
 		float hoverOffset = hoverIntensity * (1 + sine);
-		transform.localPosition = new Vector3(transform.localPosition.x, _startPosition + hoverOffset, transform.localPosition.z);
+		transform.localPosition = new Vector3(transform.localPosition.x, _startPosition.y + hoverOffset, transform.localPosition.z);
 		if (shadow != null) {
 			shadow.transform.localScale = new Vector3(ShadowScaleFactor(_shadowScale.x, sine), ShadowScaleFactor(_shadowScale.y, sine), ShadowScaleFactor(_shadowScale.z, sine));
 		}
