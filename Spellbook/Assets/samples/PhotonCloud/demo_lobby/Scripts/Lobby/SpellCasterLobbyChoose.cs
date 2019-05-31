@@ -97,6 +97,7 @@ namespace Photon.Lobby
                     {
                         //alchemistButton.image.color = alchemistColor;
                         text.text = "You have chosen the Alchemist!";
+                        alchemistButton.transform.localScale = new Vector3(0.8f, 0.8f, 1);
                         alchemistButton.interactable = false;
                     }
                     else
@@ -104,6 +105,7 @@ namespace Photon.Lobby
                         unselectedColor.a = 1;
                         //alchemistButton.image.color = unselectedColor;
                         text.text = "Which Spellcaster are you?";
+                        alchemistButton.transform.localScale = new Vector3(0.7f, 0.7f, 1);
                         alchemistButton.interactable = true;
                     }
                 });
@@ -114,6 +116,7 @@ namespace Photon.Lobby
                     {
                         //arcanistButton.image.color = arcanistColor;
                         text.text = "You have chosen the Arcanist!";
+                        arcanistButton.transform.localScale = new Vector3(0.8f, 0.8f, 1);
                         arcanistButton.interactable = false;
                     }
                     else
@@ -121,6 +124,7 @@ namespace Photon.Lobby
                         unselectedColor.a = 1;
                         //arcanistButton.image.color = unselectedColor;
                         text.text = "Which Spellcaster are you?";
+                        arcanistButton.transform.localScale = new Vector3(0.7f, 0.7f, 1);
                         arcanistButton.interactable = true;
                     }
                 });
@@ -131,6 +135,7 @@ namespace Photon.Lobby
                     {
                         //elementalistButton.image.color = elementalistColor;
                         text.text = "You have chosen the Elementalist!";
+                        elementalistButton.transform.localScale = new Vector3(0.8f, 0.8f, 1);
                         elementalistButton.interactable = false;
                     }
                     else
@@ -138,6 +143,7 @@ namespace Photon.Lobby
                         unselectedColor.a = 1;
                         //elementalistButton.image.color = unselectedColor;
                         text.text = "Which Spellcaster are you?";
+                        elementalistButton.transform.localScale = new Vector3(0.7f, 0.7f, 1);
                         elementalistButton.interactable = true;
                     }
                 });
@@ -148,6 +154,7 @@ namespace Photon.Lobby
                     {
                         //chronomancerButton.image.color = chronomancerColor;
                         text.text = "You have chosen the Chronomancer!";
+                        chronomancerButton.transform.localScale = new Vector3(0.8f, 0.8f, 1);
                         chronomancerButton.interactable = false;
                     }
                     else
@@ -155,6 +162,7 @@ namespace Photon.Lobby
                         unselectedColor.a = 1;
                         //chronomancerButton.image.color = unselectedColor;
                         text.text = "Which Spellcaster are you?";
+                        chronomancerButton.transform.localScale = new Vector3(0.7f, 0.7f, 1);
                         chronomancerButton.interactable = true;
                     }
                 });
@@ -165,6 +173,7 @@ namespace Photon.Lobby
                     {
                         //illusionistButton.image.color = illusionistColor;
                         text.text = "You have chosen the Illusionist!";
+                        illusionistButton.transform.localScale = new Vector3(0.8f, 0.8f, 1);
                         illusionistButton.interactable = false;
                     }
                     else
@@ -172,6 +181,7 @@ namespace Photon.Lobby
                         unselectedColor.a = 1;
                         //illusionistButton.image.color = unselectedColor;
                         text.text = "Which Spellcaster are you?";
+                        illusionistButton.transform.localScale = new Vector3(0.7f, 0.7f, 1);
                         illusionistButton.interactable = true;
                     }
                 });
@@ -182,6 +192,7 @@ namespace Photon.Lobby
                     {
                         //summonerButton.image.color = summonerColor;
                         text.text = "You have chosen the Summoner!";
+                        summonerButton.transform.localScale = new Vector3(0.8f, 0.8f, 1);
                         summonerButton.interactable = false;
                     }
                     else
@@ -189,6 +200,7 @@ namespace Photon.Lobby
                         unselectedColor.a = 1;
                         //summonerButton.image.color = unselectedColor;
                         text.text = "Which Spellcaster are you?";
+                        summonerButton.transform.localScale = new Vector3(0.7f, 0.7f, 1);
                         summonerButton.interactable = true;
                     }
                 });
