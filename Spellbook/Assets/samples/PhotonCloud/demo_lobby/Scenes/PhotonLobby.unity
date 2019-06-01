@@ -434,7 +434,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 165489842}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 165489844}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5bb59641a4ead420b8257c68dc965892, type: 3}
@@ -1246,13 +1246,54 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 165489842}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &165489844 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8954678477692981356, guid: d52ea8aa83fc34259b8c5d9e754c2be9,
+    type: 3}
+  m_PrefabInstance: {fileID: 165489842}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &165489845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 165489844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7e0d688eee2e445cb6daf2a4422ab3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  watchedTransform: {fileID: 1813529922}
+  invokeEveryTick: 0
+  OnTransformEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1813529923}
+        m_MethodName: PlayTickSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: TransformWatchEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  OnTransformLeave:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: TransformWatchEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!114 &181080384 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5499886279458519060, guid: cb2e2f11cc02245d68254af444390873,
     type: 3}
   m_PrefabInstance: {fileID: 798142968}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 798142970}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5bb59641a4ead420b8257c68dc965892, type: 3}
@@ -1639,6 +1680,47 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 199671043}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &199671045 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3801335917437763390, guid: 82825e3c1372145e8b2beb9fb8be42c3,
+    type: 3}
+  m_PrefabInstance: {fileID: 199671043}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &199671046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 199671045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7e0d688eee2e445cb6daf2a4422ab3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  watchedTransform: {fileID: 1813529922}
+  invokeEveryTick: 0
+  OnTransformEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1813529923}
+        m_MethodName: PlayTickSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: TransformWatchEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  OnTransformLeave:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: TransformWatchEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!1 &240842527
 GameObject:
   m_ObjectHideFlags: 0
@@ -2129,6 +2211,47 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 264113776}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &264113778 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3831170496779879858, guid: ddc2bb0c334484d3babe35b4804cf278,
+    type: 3}
+  m_PrefabInstance: {fileID: 264113776}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &264113779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 264113778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7e0d688eee2e445cb6daf2a4422ab3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  watchedTransform: {fileID: 1813529922}
+  invokeEveryTick: 0
+  OnTransformEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1813529923}
+        m_MethodName: PlayTickSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: TransformWatchEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  OnTransformLeave:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: TransformWatchEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!1 &275078216
 GameObject:
   m_ObjectHideFlags: 0
@@ -2876,6 +2999,47 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 346013441}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &346013443 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1511735864840610217, guid: 92ef7213137014d05a0f09ceb06ef88a,
+    type: 3}
+  m_PrefabInstance: {fileID: 346013441}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &346013444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 346013443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7e0d688eee2e445cb6daf2a4422ab3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  watchedTransform: {fileID: 1813529922}
+  invokeEveryTick: 0
+  OnTransformEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1813529923}
+        m_MethodName: PlayTickSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: TransformWatchEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  OnTransformLeave:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: TransformWatchEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!1 &346521071
 GameObject:
   m_ObjectHideFlags: 0
@@ -5304,6 +5468,47 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 798142968}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &798142970 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5499886279458519066, guid: cb2e2f11cc02245d68254af444390873,
+    type: 3}
+  m_PrefabInstance: {fileID: 798142968}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &798142971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 798142970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7e0d688eee2e445cb6daf2a4422ab3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  watchedTransform: {fileID: 1813529922}
+  invokeEveryTick: 0
+  OnTransformEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1813529923}
+        m_MethodName: PlayTickSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: TransformWatchEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  OnTransformLeave:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: TransformWatchEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!1 &815248072
 GameObject:
   m_ObjectHideFlags: 0
@@ -5602,12 +5807,12 @@ PrefabInstance:
     - target: {fileID: 5445793675166123128, guid: ba790306bc89d47c3aec681b7391754a,
         type: 3}
       propertyPath: m_Color.r
-      value: 0.7808707
+      value: 0.77608544
       objectReference: {fileID: 0}
     - target: {fileID: 5445793675166123128, guid: ba790306bc89d47c3aec681b7391754a,
         type: 3}
       propertyPath: m_Color.g
-      value: 0.0065665245
+      value: 0.012654424
       objectReference: {fileID: 0}
     - target: {fileID: 5445793675166123129, guid: ba790306bc89d47c3aec681b7391754a,
         type: 3}
@@ -6891,7 +7096,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 346013441}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 346013443}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5bb59641a4ead420b8257c68dc965892, type: 3}
@@ -7683,7 +7888,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 264113776}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 264113778}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5bb59641a4ead420b8257c68dc965892, type: 3}
@@ -9525,6 +9730,47 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1694717862}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1694717864 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3482495933969332894, guid: 1a6d6935cbdac42f8b298c9501cde07f,
+    type: 3}
+  m_PrefabInstance: {fileID: 1694717862}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1694717865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1694717864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7e0d688eee2e445cb6daf2a4422ab3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  watchedTransform: {fileID: 1813529922}
+  invokeEveryTick: 0
+  OnTransformEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1813529923}
+        m_MethodName: PlayTickSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: TransformWatchEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  OnTransformLeave:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: TransformWatchEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!1 &1697141398
 GameObject:
   m_ObjectHideFlags: 0
@@ -9700,7 +9946,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 1694717862}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1694717864}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5bb59641a4ead420b8257c68dc965892, type: 3}
@@ -9785,6 +10031,54 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1753283090}
   m_CullTransparentMesh: 0
+--- !u!1 &1813529921
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1813529922}
+  - component: {fileID: 1813529923}
+  m_Layer: 5
+  m_Name: Watcher
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1813529922
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1813529921}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2016596113}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 125}
+  m_SizeDelta: {x: 75, y: 1000}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1813529923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1813529921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3008fd52ca541234595f648995539808, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1830826557
 GameObject:
   m_ObjectHideFlags: 0
@@ -10801,7 +11095,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 199671043}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 199671045}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5bb59641a4ead420b8257c68dc965892, type: 3}
@@ -11265,6 +11559,7 @@ RectTransform:
   - {fileID: 1567600900}
   - {fileID: 762192464}
   - {fileID: 1398574400}
+  - {fileID: 1813529922}
   m_Father: {fileID: 509176772}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

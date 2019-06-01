@@ -11,11 +11,22 @@ using UnityEngine.Events;
 /// </summary>
 public class UISelectionHelper : MonoBehaviour {
 
+	// Public Fields
+	[Header("Configuration")]
+	public bool selectOnStart;
+	public bool deselectOnStart;
+
+	[Header("Events")]
 	public OnSelectedEvent OnSelected;
 	public OnSelectedEvent OnDeselected;
 
 	public void Start() {
-
+		if (selectOnStart) {
+			DoSelectionActions();
+		}
+		if (deselectOnStart) {
+			DoDeselectionActions();
+		}
 	}
 
 	public void Update() {

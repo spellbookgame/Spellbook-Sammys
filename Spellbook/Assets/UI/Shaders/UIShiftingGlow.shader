@@ -4,8 +4,10 @@
 		_NoiseTex ("Noise Texture", 2D) = "white" {}
 	}
 	SubShader {
-		Tags { "Queue"="Transparent-1" }
-		Blend SrcAlpha DstAlpha
+		Tags { "RenderType" = "Transparent" "Queue"="Transparent-1" }
+		
+		Blend SrcAlpha OneMinusSrcAlpha
+		ZWrite Off
 
 		Pass {
 			CGPROGRAM
