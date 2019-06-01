@@ -3,6 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/*TODO.
+ * 1. int the orb fill percentage (int from 1 -100 preferably) //DONE
+2. int team's total tap count  //DONE
+3. float or int the time given to charge the orb  //DONE
+4. int player's total damage output (before applying multipliers)*/
+
 /**
  Written by Moises Martinez
     A class that keeps track of player's, and the gamestate such as turns and turnorder, global
@@ -21,10 +28,12 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
     // if index i has value 1:  spellcaster is taken
     public int[] spellcasterList;
 
+    //NOTE: This array is not used for the Sammys.
+    //TODO (after graduation): Turn based 
     // each index in this array correspond to the 6 spellcaster ids
     // if index i has value 0:       this spellcaster is not in the game
     // if index i has a value 1-6:   this spellcaster attacks after i-1 spellcasters
-    public int[] combatOrder;
+    // public int[] combatOrder;
 
 
     public int yearsUntilNextEvent;
@@ -36,6 +45,9 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
 
     bool needToNotifyPlayersNewEvent = false;
     bool savedByHero = false;
+
+
+
     // Bolt's version of the Unity's Start()
     public override void Attached()
     {
@@ -54,9 +66,10 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
         if (entity.isOwner)
         {
             spellcasterList = new int[6];
+
             //state.SpellcasterList[0] = 0;
-            combatOrder = new int[6];
-            
+            //combatOrder = new int[6];
+            state.BossHealth = 70f; 
             
             turnOrder = new List<int>();
 
@@ -154,7 +167,7 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
         BoltConsole.Write("Removing spellcasterID " + sID);
         numOfPlayers--;
         state.NumOfPlayers--;
-        combatOrder[sID] = 0;
+        //combatOrder[sID] = 0;
         spellcasterList[sID] = 0;
         bool currentDisconnected = false;
         int curSpellcasterID = state.CurrentSpellcasterTurn;
@@ -431,6 +444,47 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
             default:
                 return "Error";
         }
+    }
+
+    public void UpdateTapsForSpellcaster(int spellcasterID, int numTaps, float orbPercentage)
+    {
+        state.SpellcasterTaps[spellcasterID] = numTaps;
+        state.SpellcasterOrbPercentages[spellcasterID] = orbPercentage;
+    }
+
+    public int GetTapsForSpellcaster(int spellcasterID)
+    {
+        return state.SpellcasterTaps[spellcasterID];
+    }
+    
+    //Returns the orb value from 0-1, with 1 being "100%"
+    public float GetOrbPercentageForSpellcaster(int spellcasterID)
+    {
+        return state.SpellcasterOrbPercentages[spellcasterID];
+    }
+
+    public void ResetTapsForSpellcaster(int spellcasterID)
+    {
+        state.SpellcasterTaps[spellcasterID] = 0;
+    }
+
+    //TODO: make robust (after graduation)
+    public void IncreaseTapSecondsAllowed()
+    {
+        state.TapSecondsAllowed = 10 ;
+    }
+
+
+    //Call this when combat phase is done.
+    //TODO: make robust (after graduation)
+    public void ResetTapSecondsAllowed()
+    {
+        state.TapSecondsAllowed = 8;
+    }
+
+    public float GetTapSecondsAllowed()
+    {
+        return state.TapSecondsAllowed;
     }
 
     //Returns a formatted string to display in the spellbook progress scene.

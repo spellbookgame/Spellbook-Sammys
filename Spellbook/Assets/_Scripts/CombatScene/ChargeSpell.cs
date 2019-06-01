@@ -1,10 +1,12 @@
-﻿using System.Collections;
+﻿using Bolt.Samples.Photon.Lobby;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ChargeSpell : MonoBehaviour
 {
+    SpellCaster localSpellcaster;
     public Image OuterBackgroundBar;
     public GameObject OrbButton;
     public GameObject Arrows;
@@ -15,7 +17,7 @@ public class ChargeSpell : MonoBehaviour
     public GameObject BossPanekGameObject;
     public Text CountdownText;
 
-    private int count = 10;
+    private int totalSecs = 1;
     private int stopTime = 0;
     private Spell CombatSpell;
 
@@ -24,6 +26,8 @@ public class ChargeSpell : MonoBehaviour
     private float maxX;
     private float minY;
     private float maxY;
+
+    public int taps = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -39,6 +43,14 @@ public class ChargeSpell : MonoBehaviour
 
         CastSpellButton.GetComponent<Button>().onClick.AddListener(OnClickCastSpell);
         OrbButton.GetComponent<Button>().onClick.AddListener(OnFirstTap);
+        try
+        {
+            totalSecs = (int) NetworkGameState.instance.GetTapSecondsAllowed();
+        }
+        catch
+        {
+
+        }
     }
 
     void OnFirstTap()
@@ -54,23 +66,25 @@ public class ChargeSpell : MonoBehaviour
 
     void OnTap()
     {
-        OuterBackgroundBar.fillAmount += 0.02f;
+        taps++;
+        //OuterBackgroundBar.fillAmount += 0.02f;
         ChargeButtonBar.fillAmount += 0.02f;
     }
 
     void Countdown()
     {
-        if(count <= stopTime)
+        if(totalSecs <= stopTime)
         {
             CancelInvoke();
             OrbButton.SetActive(false);
             CastSpellButton.SetActive(true);
         }
-        CountdownText.text = "" + count--;
+        CountdownText.text = "" + totalSecs--;
     }
 
-    public void SetCombatSpell(Spell selectedSpell, GameObject SpellButton)
+    public void SetCombatSpell(Spell selectedSpell, GameObject SpellButton, SpellCaster spellCaster)
     {
+        localSpellcaster = spellCaster;
         //OrbButton.GetComponent<Image>().sprite = SpellButton.GetComponent<Image>().sprite;
         CombatSpell = selectedSpell;
         //ChargeButton = SpellButton.GetComponent<Button>();
@@ -92,6 +106,16 @@ public class ChargeSpell : MonoBehaviour
 
     private void OnClickCastSpell()
     {
+        //Send number of taps to network
+
+        try
+        {
+            NetworkManager.s_Singleton.SendOrbUpdateToNetwork(localSpellcaster.spellcasterID, taps, ChargeButtonBar.fillAmount);
+        }
+        catch
+        {
+
+        }
         BossPanekGameObject.SetActive(true);
         this.gameObject.SetActive(false);
     }

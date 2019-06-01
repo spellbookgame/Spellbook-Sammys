@@ -617,8 +617,9 @@ namespace Bolt.Samples.Photon.Lobby
                 spell.RecieveCastFromAlly(playerSpellcaster);
             }
         
-        }       
-        
+        }
+
+
         #endregion
         #region HOST_CALLBACKS
         /*Only the server recieves this event.*/
@@ -784,6 +785,21 @@ namespace Bolt.Samples.Photon.Lobby
             gameStateEntity.GetComponent<NetworkGameState>().ItemDropOff(evnt.ItemName);
         }
 
+        /*Only the server recieves this event.*/
+        public override void OnEvent(SendOrbUpdateEvent evnt)
+        {
+          gameStateEntity.GetComponent<NetworkGameState>()
+                .UpdateTapsForSpellcaster(evnt.SpellcasterID, evnt.NumTaps, evnt.OrbPercentage);
+        }
+
+
+        /*Only the server recieves this event.*/
+        public override void OnEvent(IncreaseTapTimeBy2Secs evnt)
+        {
+            gameStateEntity.GetComponent<NetworkGameState>()
+                .IncreaseTapSecondsAllowed();
+        }
+
 
         #endregion
         #region EVENT_CALLS
@@ -914,6 +930,22 @@ namespace Bolt.Samples.Photon.Lobby
         {
             var evnt = ModifyRoundsCrisis.Create(Bolt.GlobalTargets.OnlyServer);
             evnt.x = x;
+            evnt.Send();
+        }
+
+        //From combat when time finishes from charging their spell 
+        public void SendOrbUpdateToNetwork(int spellcasterID, int taps, float orbPercentage)
+        {
+            var evnt = SendOrbUpdateEvent.Create(Bolt.GlobalTargets.OnlyServer);
+            evnt.NumTaps = taps;
+            evnt.OrbPercentage = orbPercentage;
+            evnt.SpellcasterID = spellcasterID;
+            evnt.Send();
+        }
+
+        public void IncreaseTapTime()
+        {
+            var evnt = IncreaseTapTimeBy2Secs.Create(Bolt.GlobalTargets.OnlyServer);
             evnt.Send();
         }
         #endregion
