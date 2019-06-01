@@ -8,7 +8,6 @@ public class IllusionTownHandler : MonoBehaviour
 {
     [SerializeField] private Button findQuestButton;
     [SerializeField] private Button dropItemButton;
-    [SerializeField] private Button pickupItemButton;
     [SerializeField] private Button leaveButton;
 
     private Quest[] quests;

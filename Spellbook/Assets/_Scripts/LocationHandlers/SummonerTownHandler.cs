@@ -10,9 +10,7 @@ public class SummonerTownHandler : MonoBehaviour
 {
     [SerializeField] private Button findQuestButton;
     [SerializeField] private Button dropItemButton;
-    [SerializeField] private Button pickupItemButton;
     [SerializeField] private Button leaveButton;
-    [SerializeField] private Text dialogueText;
 
     private Quest[] quests;
     private bool questShown;
