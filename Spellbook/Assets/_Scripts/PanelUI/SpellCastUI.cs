@@ -25,6 +25,8 @@ public class SpellCastUI : MonoBehaviour
     // used to notify players of when a spell is cast on them
     public void DisplayNotify(string spellName, string info, string buttonClick)
     {
+        gameObject.GetComponent<UIDissolveImage>().Dissolve();
+
         titleText.text = spellName;
         infoText.text = spellName + " was cast on you!\n\n" + info;
 
