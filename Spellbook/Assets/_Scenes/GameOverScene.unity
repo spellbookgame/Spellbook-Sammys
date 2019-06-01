@@ -1005,6 +1005,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2ab951a37654435097c57c296a2cfb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  reverse: 1
+  destroyWhenDone: 1
   progress: 0
   speed: 0.01
   destructionMaterial: {fileID: 2100000, guid: 4e2d1a3c154064d579718f0211d1cf91, type: 2}
@@ -1084,7 +1086,7 @@ MonoBehaviour:
   hoverSpeed: 2
   hoverIntensity: 15
   randomize: 0
-  _startPosition: 0
+  _startPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &1210149514
 GameObject:
   m_ObjectHideFlags: 0
@@ -1362,6 +1364,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2ab951a37654435097c57c296a2cfb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  reverse: 1
+  destroyWhenDone: 1
   progress: 0
   speed: 0.01
   destructionMaterial: {fileID: 2100000, guid: 4e2d1a3c154064d579718f0211d1cf91, type: 2}
@@ -1378,6 +1382,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2ab951a37654435097c57c296a2cfb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  reverse: 1
+  destroyWhenDone: 1
   progress: 0
   speed: 0.01
   destructionMaterial: {fileID: 2100000, guid: 4e2d1a3c154064d579718f0211d1cf91, type: 2}
@@ -1394,6 +1400,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2ab951a37654435097c57c296a2cfb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  reverse: 1
+  destroyWhenDone: 1
   progress: 0
   speed: 0.01
   destructionMaterial: {fileID: 2100000, guid: 4e2d1a3c154064d579718f0211d1cf91, type: 2}

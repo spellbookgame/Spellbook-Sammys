@@ -11,6 +11,7 @@ public class SoundManager : MonoBehaviour
 
     // static clip so any script can access it
     [SerializeField] AudioClip[] soundeffects = new AudioClip[21];
+    [SerializeField] AudioClip[] bgms = new AudioClip[1];
 
     #region static_clips
     public static AudioClip buttonconfirm;
@@ -61,10 +62,24 @@ public class SoundManager : MonoBehaviour
     public static AudioClip spaceScan;
     public static AudioClip pageTurn2;
     public static AudioClip pageTurn3;
+    public static AudioClip tick;
+    #endregion
 
+    #region bgms
     //Music
     public static AudioClip lobby;
     public static AudioClip gameBCG;
+    public static AudioClip andromedaBGM;
+    public static AudioClip minesBGM;
+    public static AudioClip forestBGM;
+    public static AudioClip merideaBGM;
+    public static AudioClip paradosBGM;
+    public static AudioClip regulusBGM;
+    public static AudioClip sarissaBGM;
+    public static AudioClip swampBGM;
+    public static AudioClip zandriaBGM;
+    public static AudioClip gameOverBGM;
+    public static AudioClip combatBGM;
     #endregion
 
     void Awake()
@@ -99,8 +114,8 @@ public class SoundManager : MonoBehaviour
         spellcast = soundeffects[16];
         spellcreate = soundeffects[17];
         yourturn = soundeffects[18];
-        lobby = soundeffects[19];
-        gameBCG = soundeffects[20];
+        pageTurn2 = soundeffects[19];
+        pageTurn3 = soundeffects[20];
         inventoryClose = soundeffects[21];
         inventoryOpen = soundeffects[22];
         parchmentBurn = soundeffects[23];
@@ -128,8 +143,23 @@ public class SoundManager : MonoBehaviour
         waxCandle = soundeffects[45];
         glowingMushroom = soundeffects[46];
         spaceScan = soundeffects[47];
-        pageTurn2 = soundeffects[48];
-        pageTurn3 = soundeffects[49];
+        tick = soundeffects[48];
+        #endregion
+
+        #region assign_bgms
+        lobby = bgms[0];
+        gameBCG = bgms[1];
+        andromedaBGM = bgms[2];
+        minesBGM = bgms[3];
+        forestBGM = bgms[4];
+        merideaBGM = bgms[5];
+        paradosBGM = bgms[6];
+        regulusBGM = bgms[7];
+        sarissaBGM = bgms[8];
+        swampBGM = bgms[9];
+        zandriaBGM = bgms[10];
+        gameOverBGM = bgms[11];
+        combatBGM = bgms[12];
         #endregion
 
         //Set SoundManager to DontDestroyOnLoad so that it won't be destroyed when reloading our scene.
@@ -147,9 +177,9 @@ public class SoundManager : MonoBehaviour
         efxSource.Play();
     }
 
-    public void PlayGameBCM()
+    public void PlayGameBCM(AudioClip au)
     {
-        musicSource.clip = gameBCG;
+        musicSource.clip = au;
         musicSource.Play();
     }
 }

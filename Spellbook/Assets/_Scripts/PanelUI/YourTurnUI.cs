@@ -24,6 +24,8 @@ public class YourTurnUI : MonoBehaviour
     public void Display()
     {
         SoundManager.instance.PlaySingle(SoundManager.yourturn);
+        // set bgm volume back up if it's player's turn
+        SoundManager.instance.musicSource.volume = 0.7f;
         gameObject.SetActive(true);
 
         if (!PanelHolder.panelQueue.Peek().Equals(panelID))

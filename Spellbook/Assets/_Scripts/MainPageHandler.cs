@@ -111,6 +111,10 @@ public class MainPageHandler : MonoBehaviour
         if (GameObject.FindGameObjectWithTag("LocalPlayer") == null) return;
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
 
+        // mute player's bgm if not their turn
+        if (!localPlayer.bIsMyTurn)
+            SoundManager.instance.musicSource.volume = 0;
+
         SetClassAttributes();
 
         classType.text = localPlayer.Spellcaster.classType;

@@ -157,7 +157,7 @@ namespace Bolt.Samples.Photon.Lobby
                         MainPageHandler.instance.setupMainPage();
                     }
 
-                    SoundManager.instance.PlayGameBCM();
+                    SoundManager.instance.PlayGameBCM(SoundManager.gameBCG);
                 }
 
             }
