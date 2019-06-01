@@ -14,6 +14,7 @@ public class ForestSceneHandler : MonoBehaviour
 
     private void Start()
     {
+        SoundManager.instance.PlayGameBCM(SoundManager.forestBGM);
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
         itemList = GameObject.Find("ItemList").GetComponent<ItemList>();
 
@@ -21,6 +22,7 @@ public class ForestSceneHandler : MonoBehaviour
         leaveButton.onClick.AddListener(() =>
         {
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+            SoundManager.instance.PlayGameBCM(SoundManager.gameBCG);
             SceneManager.LoadScene("MainPlayerScene");
         });
 

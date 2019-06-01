@@ -19,6 +19,7 @@ public class SwampSceneHandler : MonoBehaviour
 
     private void Start()
     {
+        SoundManager.instance.PlayGameBCM(SoundManager.swampBGM);
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
         itemList = GameObject.Find("ItemList").GetComponent<ItemList>();
 
@@ -33,6 +34,7 @@ public class SwampSceneHandler : MonoBehaviour
         leaveButton.onClick.AddListener(() =>
         {
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+            SoundManager.instance.PlayGameBCM(SoundManager.gameBCG);
             SceneManager.LoadScene("MainPlayerScene");
         });
 

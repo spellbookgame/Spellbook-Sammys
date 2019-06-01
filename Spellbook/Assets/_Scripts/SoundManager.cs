@@ -80,6 +80,7 @@ public class SoundManager : MonoBehaviour
     public static AudioClip zandriaBGM;
     public static AudioClip gameOverBGM;
     public static AudioClip combatBGM;
+    public static AudioClip marketBGM;
     #endregion
 
     void Awake()
@@ -160,6 +161,7 @@ public class SoundManager : MonoBehaviour
         zandriaBGM = bgms[10];
         gameOverBGM = bgms[11];
         combatBGM = bgms[12];
+        marketBGM = bgms[13];
         #endregion
 
         //Set SoundManager to DontDestroyOnLoad so that it won't be destroyed when reloading our scene.

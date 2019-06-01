@@ -45,11 +45,13 @@ public class Shop : MonoBehaviour
 
     void Start()
     {
+        SoundManager.instance.PlayGameBCM(SoundManager.marketBGM);
         allItems = GameObject.Find("ItemList").GetComponent<ItemList>().listOfItems;
         spellcaster = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().spellcaster;
 
         button_exitButton.onClick.AddListener(() =>
         {
+            SoundManager.instance.PlayGameBCM(SoundManager.gameBCG);
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
 
             // remove Charming Negotiator from active spells if it's active

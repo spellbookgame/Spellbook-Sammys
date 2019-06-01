@@ -17,6 +17,7 @@ public class ChronomancyTownHandler : MonoBehaviour
     private Player localPlayer;
     private void Start()
     {
+        SoundManager.instance.PlayGameBCM(SoundManager.merideaBGM);
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
 
         quests = new Quest[]
@@ -31,6 +32,7 @@ public class ChronomancyTownHandler : MonoBehaviour
         leaveButton.onClick.AddListener(() =>
         {
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+            SoundManager.instance.PlayGameBCM(SoundManager.gameBCG);
             SceneManager.LoadScene("MainPlayerScene");
         });
 
