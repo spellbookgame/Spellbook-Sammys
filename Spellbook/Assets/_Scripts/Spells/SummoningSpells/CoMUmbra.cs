@@ -31,7 +31,7 @@ public class CoMUmbra : Spell, IAllyCastable
 
     public void RecieveCastFromAlly(SpellCaster player)
     {
-        PanelHolder.instance.displayNotify("Umbra's Eclipse", "Your next spell you cast will be free.", "MainPlayerScene");
+        PanelHolder.instance.displaySpellCastNotif("Umbra's Eclipse", "Your next spell you cast will be free.", "MainPlayerScene");
         player.activeSpells.Add(this);
     }
 
@@ -54,7 +54,7 @@ public class CoMUmbra : Spell, IAllyCastable
             }
             else
             {
-                PanelHolder.instance.displayNotify("Umbra's Eclipse", "Your next spell you cast will be free.", "MainPlayerScene");
+                PanelHolder.instance.displaySpellCastNotif("Umbra's Eclipse", "Your next spell you cast will be free.", "MainPlayerScene");
                 player.activeSpells.Add(this);
             }
 

@@ -49,7 +49,7 @@ public class Growth : Spell, IAllyCastable
 
     public void RecieveCastFromAlly(SpellCaster player)
     {
-        PanelHolder.instance.displayNotify(sSpellName, "Everyone will receive a D7 to their mana next time they roll.", "MainPlayerScene");
+        PanelHolder.instance.displaySpellCastNotif(sSpellName, "Everyone will receive a D7 to their mana next time they roll.", "MainPlayerScene");
         player.activeSpells.Add(this);
     }
 

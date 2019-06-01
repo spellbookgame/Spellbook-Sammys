@@ -28,7 +28,7 @@ public class Allegro : Spell, IAllyCastable
 
     public void RecieveCastFromAlly(SpellCaster player)
     {
-        PanelHolder.instance.displayNotify(sSpellName, "You will receive an additional D6 to your movement next time you roll.", "MainPlayerScene");
+        PanelHolder.instance.displaySpellCastNotif(sSpellName, "You will receive an additional D6 to your movement next time you roll.", "MainPlayerScene");
         player.activeSpells.Add(this);
     }
 

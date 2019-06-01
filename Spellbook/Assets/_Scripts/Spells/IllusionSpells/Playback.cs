@@ -29,7 +29,7 @@ public class Playback : Spell, IAllyCastable
 
     public void RecieveCastFromAlly(SpellCaster player)
     {
-        PanelHolder.instance.displayNotify(sSpellName, "Swap a rune from your hand with one from any city.", "MainPlayerScene");
+        PanelHolder.instance.displaySpellCastNotif(sSpellName, "Swap a rune from your hand with one from any city.", "MainPlayerScene");
     }
 
     public void SpellcastPhase2(int sID, SpellCaster player)
@@ -44,7 +44,7 @@ public class Playback : Spell, IAllyCastable
             }
             else
             {
-                PanelHolder.instance.displayNotify(sSpellName, "Swap a rune from your hand with one from any city.", "MainPlayerScene");
+                PanelHolder.instance.displaySpellCastNotif(sSpellName, "Swap a rune from your hand with one from any city.", "MainPlayerScene");
             }
 
             player.numSpellsCastThisTurn++;
@@ -65,7 +65,7 @@ public class Playback : Spell, IAllyCastable
             }
             else
             {
-                PanelHolder.instance.displayNotify(sSpellName, "Swap a rune from your hand with one from any city.", "MainPlayerScene");
+                PanelHolder.instance.displaySpellCastNotif(sSpellName, "Swap a rune from your hand with one from any city.", "MainPlayerScene");
             }
 
             player.numSpellsCastThisTurn++;
