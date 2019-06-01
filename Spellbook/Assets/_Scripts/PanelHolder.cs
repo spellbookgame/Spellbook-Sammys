@@ -15,6 +15,7 @@ public class PanelHolder : MonoBehaviour
     public BoardScanUI boardScanPanel;
     public CrisisUI crisisPanel;
     public PlayerChooseUI chooseSpellcasterPanel; 
+    public SpellCastUI spellCastNotifPanel; 
     
     public static PanelHolder instance = null;
 
@@ -65,6 +66,8 @@ public class PanelHolder : MonoBehaviour
                 crisisPanel.EnablePanel();
             else if (panelQueue.Peek().Equals(chooseSpellcasterPanel.panelID))
                 chooseSpellcasterPanel.EnablePanel();
+            else if (panelQueue.Peek().Equals(spellCastNotifPanel.panelID))
+                spellCastNotifPanel.EnablePanel();
         }
         else
         {
@@ -123,12 +126,19 @@ public class PanelHolder : MonoBehaviour
         CheckPanelQueue();
     }
 
-    // delete after scenes for each board scan is created
     public void displayBoardScan(string title, string info, Sprite sprite, string scene)
     {
         panelQueue.Enqueue(boardScanPanel.panelID);
         Debug.Log("Queued: " + boardScanPanel.panelID);
         boardScanPanel.DisplayScanEvent(title, info, sprite, scene);
+        CheckPanelQueue();
+    }
+
+    public void displaySpellCastNotif(string spellName, string info, string buttonClick)
+    {
+        panelQueue.Enqueue(spellCastNotifPanel.panelID);
+        Debug.Log("Queued: " + spellCastNotifPanel.panelID);
+        spellCastNotifPanel.DisplayNotify(spellName, info, buttonClick);
         CheckPanelQueue();
     }
 
