@@ -23,7 +23,6 @@ public class CharmingNegotiator : Spell, IAllyCastable
 
     public void RecieveCastFromAlly(SpellCaster player)
     {
-        //PanelHolder.instance.displayNotify(sSpellName, "Next time you visit the shop, you will receive 50% discount.", "MainPlayerScene");
         PanelHolder.instance.displaySpellCastNotif(sSpellName, "Next time you visit the shop, you will receive 50% discount.", "MainPlayerScene");
         player.activeSpells.Add(this);
     }
@@ -33,8 +32,6 @@ public class CharmingNegotiator : Spell, IAllyCastable
         // cast spell for free if Umbra's Eclipse is active
         if (SpellTracker.instance.CheckUmbra())
         {
-            //PanelHolder.instance.displayNotify("You cast " + sSpellName, "Next time you visit the shop, you will receive 50% discount.", "MainPlayerScene");
-            //player.activeSpells.Add(this);
             NetworkManager.s_Singleton.CastOnAlly(player.spellcasterID, 8, sSpellName);
             player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
@@ -48,8 +45,6 @@ public class CharmingNegotiator : Spell, IAllyCastable
             // subtract mana and glyph costs
             player.iMana -= iManaCost;
 
-            //PanelHolder.instance.displayNotify("You cast " + sSpellName, "Next time you visit the shop, you will receive 50% discount.", "MainPlayerScene");
-            //player.activeSpells.Add(this);
             NetworkManager.s_Singleton.CastOnAlly(player.spellcasterID, 8, sSpellName);
 
             player.numSpellsCastThisTurn++;

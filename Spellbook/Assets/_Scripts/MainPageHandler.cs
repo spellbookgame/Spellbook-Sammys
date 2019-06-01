@@ -115,6 +115,10 @@ public class MainPageHandler : MonoBehaviour
         if (!localPlayer.bIsMyTurn)
             SoundManager.instance.musicSource.volume = 0;
 
+        // if the current bgm isn't the main one, play the main one
+        if (!SoundManager.instance.currentBGM.Equals(SoundManager.gameBCG.name))
+            SoundManager.instance.PlayGameBCM(SoundManager.gameBCG);
+
         SetClassAttributes();
 
         classType.text = localPlayer.Spellcaster.classType;

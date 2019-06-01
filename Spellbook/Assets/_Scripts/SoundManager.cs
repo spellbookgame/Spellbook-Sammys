@@ -8,6 +8,7 @@ public class SoundManager : MonoBehaviour
     public static SoundManager instance = null;     //Allows other scripts to call functions from SoundManager.             
     public float lowPitchRange = .95f;              //The lowest a sound effect will be randomly pitched.
     public float highPitchRange = 1.05f;            //The highest a sound effect will be randomly pitched.
+    public string currentBGM;
 
     // static clip so any script can access it
     [SerializeField] AudioClip[] soundeffects = new AudioClip[21];
@@ -183,5 +184,6 @@ public class SoundManager : MonoBehaviour
     {
         musicSource.clip = au;
         musicSource.Play();
+        currentBGM = au.name;
     }
 }
