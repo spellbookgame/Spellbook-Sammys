@@ -8,7 +8,8 @@ using UnityEngine;
  * 1. int the orb fill percentage (int from 1 -100 preferably) //DONE
 2. int team's total tap count  //DONE
 3. float or int the time given to charge the orb  //DONE
-4. int player's total damage output (before applying multipliers)*/
+4. int player's total damage output (before applying multipliers)
+5. Access/Deal dmg to boss*/  //DONE
 
 /**
  Written by Moises Martinez
@@ -452,11 +453,13 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
         state.SpellcasterOrbPercentages[spellcasterID] = orbPercentage;
     }
 
+    //For combat API
     public int GetTapsForSpellcaster(int spellcasterID)
     {
         return state.SpellcasterTaps[spellcasterID];
     }
     
+    //For combat API
     //Returns the orb value from 0-1, with 1 being "100%"
     public float GetOrbPercentageForSpellcaster(int spellcasterID)
     {
@@ -482,9 +485,46 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
         state.TapSecondsAllowed = 8;
     }
 
+    //For Combat API
     public float GetTapSecondsAllowed()
     {
         return state.TapSecondsAllowed;
+    }
+
+    public void SetSpellcasterDmg(int spellcasterID, float dmg)
+    {
+        state.SpellcasterDamages[spellcasterID] = dmg;
+    }
+
+    //For combat API
+    public float GetSpellcasterDmg(int spellcasterID)
+    {
+        return state.SpellcasterDamages[spellcasterID];
+    }
+
+    //Input float between 0-1
+    public void IncreaseTeamDmgByPercent(float percent)
+    {
+        for (int i = 0; i < state.SpellcasterDamages.Length; i++)
+        {
+            state.SpellcasterDamages[i] = state.SpellcasterDamages[i] + (state.SpellcasterDamages[i] * percent);
+        }
+    }
+
+    //For combat API
+    public float GetBossHealth()
+    {
+        return state.BossHealth;
+    }
+
+    public void DealDmgToBoss(float dmg)
+    {
+        state.BossHealth += dmg;
+    }
+
+    public void DealPercentDmgToBoss(float percent)
+    {
+        state.BossHealth = state.BossHealth - (state.BossHealth * percent);
     }
 
     //Returns a formatted string to display in the spellbook progress scene.

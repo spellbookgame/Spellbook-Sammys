@@ -1,4 +1,5 @@
-﻿using DigitalRubyShared;
+﻿using Bolt.Samples.Photon.Lobby;
+using DigitalRubyShared;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -63,7 +64,7 @@ public class SpellSwipe : MonoBehaviour
             hasDrawned = false;
             ImageGestureImage match = ImageScript.CheckForImageMatch();
 
-            if (match != null && match.Name == selectedSpell.sSpellName)
+            if (match != null) //  && match.Name == selectedSpell.sSpellName
             {
             Debug.Log(match.Name + " == " + selectedSpell.sSpellName);
                 Debug.Log("Match Score : " + match.Score);
@@ -73,6 +74,8 @@ public class SpellSwipe : MonoBehaviour
                 MatchParticleSystem.Play();
                 Debug.Log("Match Found: " + match.Name);
                 SwipeInstructionText.text = "You casted " + match.Name;
+                NetworkManager.s_Singleton.CombatSpellCast(selectedSpell.sSpellName);
+                //NetworkManager.s_Singleton.CombatSpellCast(selectedSpell.sSpellName, match.Score);
                 //AudioSourceOnMatch.Play();
             }
             else
