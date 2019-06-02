@@ -8,9 +8,11 @@ public class SoundManager : MonoBehaviour
     public static SoundManager instance = null;     //Allows other scripts to call functions from SoundManager.             
     public float lowPitchRange = .95f;              //The lowest a sound effect will be randomly pitched.
     public float highPitchRange = 1.05f;            //The highest a sound effect will be randomly pitched.
+    public string currentBGM;
 
     // static clip so any script can access it
     [SerializeField] AudioClip[] soundeffects = new AudioClip[21];
+    [SerializeField] AudioClip[] bgms = new AudioClip[1];
 
     #region static_clips
     public static AudioClip buttonconfirm;
@@ -23,7 +25,7 @@ public class SoundManager : MonoBehaviour
     public static AudioClip itemfound;
     public static AudioClip dicePickUp;
     public static AudioClip dicePlace;
-    public static AudioClip pageturn;
+    public static AudioClip pageTurn1;
     public static AudioClip placespellpiece;
     public static AudioClip questaccept;
     public static AudioClip questfailed;
@@ -58,10 +60,28 @@ public class SoundManager : MonoBehaviour
     public static AudioClip infusedSapphire;
     public static AudioClip waxCandle;
     public static AudioClip glowingMushroom;
+    public static AudioClip spaceScan;
+    public static AudioClip pageTurn2;
+    public static AudioClip pageTurn3;
+    public static AudioClip tick;
+    #endregion
 
+    #region bgms
     //Music
     public static AudioClip lobby;
     public static AudioClip gameBCG;
+    public static AudioClip andromedaBGM;
+    public static AudioClip minesBGM;
+    public static AudioClip forestBGM;
+    public static AudioClip merideaBGM;
+    public static AudioClip paradosBGM;
+    public static AudioClip regulusBGM;
+    public static AudioClip sarissaBGM;
+    public static AudioClip swampBGM;
+    public static AudioClip zandriaBGM;
+    public static AudioClip gameOverBGM;
+    public static AudioClip combatBGM;
+    public static AudioClip marketBGM;
     #endregion
 
     void Awake()
@@ -87,7 +107,7 @@ public class SoundManager : MonoBehaviour
         itemfound = soundeffects[7];
         dicePickUp = soundeffects[8];
         dicePlace = soundeffects[9];
-        pageturn = soundeffects[10];
+        pageTurn1 = soundeffects[10];
         placespellpiece = soundeffects[11];
         questaccept = soundeffects[12];
         questfailed = soundeffects[13];
@@ -96,8 +116,8 @@ public class SoundManager : MonoBehaviour
         spellcast = soundeffects[16];
         spellcreate = soundeffects[17];
         yourturn = soundeffects[18];
-        lobby = soundeffects[19];
-        gameBCG = soundeffects[20];
+        pageTurn2 = soundeffects[19];
+        pageTurn3 = soundeffects[20];
         inventoryClose = soundeffects[21];
         inventoryOpen = soundeffects[22];
         parchmentBurn = soundeffects[23];
@@ -124,6 +144,25 @@ public class SoundManager : MonoBehaviour
         infusedSapphire = soundeffects[44];
         waxCandle = soundeffects[45];
         glowingMushroom = soundeffects[46];
+        spaceScan = soundeffects[47];
+        tick = soundeffects[48];
+        #endregion
+
+        #region assign_bgms
+        lobby = bgms[0];
+        gameBCG = bgms[1];
+        andromedaBGM = bgms[2];
+        minesBGM = bgms[3];
+        forestBGM = bgms[4];
+        merideaBGM = bgms[5];
+        paradosBGM = bgms[6];
+        regulusBGM = bgms[7];
+        sarissaBGM = bgms[8];
+        swampBGM = bgms[9];
+        zandriaBGM = bgms[10];
+        gameOverBGM = bgms[11];
+        combatBGM = bgms[12];
+        marketBGM = bgms[13];
         #endregion
 
         //Set SoundManager to DontDestroyOnLoad so that it won't be destroyed when reloading our scene.
@@ -141,9 +180,10 @@ public class SoundManager : MonoBehaviour
         efxSource.Play();
     }
 
-    public void PlayGameBCM()
+    public void PlayGameBCM(AudioClip au)
     {
-        musicSource.clip = gameBCG;
+        musicSource.clip = au;
         musicSource.Play();
+        currentBGM = au.name;
     }
 }

@@ -16,17 +16,26 @@ public abstract class UIAutoColor<T> : MonoBehaviour {
 	public Gradient colorGrade;
 
 	// Start is called before the first frame update
-	void Start() {
+	public void Start() {
 		
 	}
 
+	public void OnDisable() {
+		ApplyColorToAll(colorGrade.Evaluate(0.0F));
+	}
+
 	// Update is called once per frame
-	void Update() {
+	public void Update() {
 		Color color = colorGrade.Evaluate((1 + Mathf.Sin(Time.timeSinceLevelLoad)) / 2);
-		foreach (T iteratedElement in managedElements) {
-			ApplyColor(iteratedElement, color);
-		}
+		ApplyColorToAll(color);
 	}
 
 	protected abstract void ApplyColor(T element, Color color);
+
+	// Internal Methods
+	protected void ApplyColorToAll(Color newColor) {
+		foreach (T iteratedElement in managedElements) {
+			ApplyColor(iteratedElement, newColor);
+		}
+	}
 }

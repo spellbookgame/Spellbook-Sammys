@@ -51,7 +51,7 @@ public class DelayTime : Spell, IAllyCastable
 
     public void RecieveCastFromAlly(SpellCaster player)
     {
-        PanelHolder.instance.displayNotify(sSpellName, "The " + CrisisHandler.instance.currentCrisis + " will come 1 turn later.", "MainPlayerScene");
+        PanelHolder.instance.displaySpellCastNotif(sSpellName, "The " + CrisisHandler.instance.currentCrisis + " will come 1 turn later.", "MainPlayerScene");
     }
 
     public void SpellcastPhase2(int sID, SpellCaster player)

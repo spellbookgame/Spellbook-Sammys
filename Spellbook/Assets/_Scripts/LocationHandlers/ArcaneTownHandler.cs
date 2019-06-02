@@ -8,14 +8,15 @@ public class ArcaneTownHandler : MonoBehaviour
 {
     [SerializeField] private Button findQuestButton;
     [SerializeField] private Button dropItemButton;
-    [SerializeField] private Button pickupItemButton;
     [SerializeField] private Button leaveButton;
 
     private Quest[] quests;
+    private bool questShown;
 
     private Player localPlayer;
     private void Start()
     {
+        SoundManager.instance.PlayGameBCM(SoundManager.zandriaBGM);
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
 
         quests = new Quest[]
@@ -30,6 +31,7 @@ public class ArcaneTownHandler : MonoBehaviour
         leaveButton.onClick.AddListener(() =>
         {
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+            SoundManager.instance.PlayGameBCM(SoundManager.gameBCG);
             SceneManager.LoadScene("MainPlayerScene");
         });
 
@@ -58,8 +60,16 @@ public class ArcaneTownHandler : MonoBehaviour
         }
         else
         {
-            int r = Random.Range(0, quests.Length);
-            PanelHolder.instance.displayQuest(quests[r]);
+            if (!questShown)
+            {
+                int r = Random.Range(0, quests.Length);
+                PanelHolder.instance.displayQuest(quests[r]);
+                questShown = true;
+            }
+            else
+            {
+                PanelHolder.instance.displayNotify("Too Late", "You denied a quest, you cannot find another one until you come back.", "OK");
+            }
         }
     }
 }

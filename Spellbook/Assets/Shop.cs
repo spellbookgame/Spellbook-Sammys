@@ -45,11 +45,13 @@ public class Shop : MonoBehaviour
 
     void Start()
     {
+        SoundManager.instance.PlayGameBCM(SoundManager.marketBGM);
         allItems = GameObject.Find("ItemList").GetComponent<ItemList>().listOfItems;
         spellcaster = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().spellcaster;
 
         button_exitButton.onClick.AddListener(() =>
         {
+            SoundManager.instance.PlayGameBCM(SoundManager.gameBCG);
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
 
             // remove Charming Negotiator from active spells if it's active
@@ -59,6 +61,7 @@ public class Shop : MonoBehaviour
         });
 
         QuestTracker.instance.TrackLocationQuest("location_capital");
+        CrisisHandler.instance.CheckCrisis(GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>(), CrisisHandler.instance.currentCrisis, "location_capital");
 
         float size = allItems.Count;
 
@@ -99,9 +102,9 @@ public class Shop : MonoBehaviour
 
         button_buyButton.onClick.AddListener(() =>
         {
-            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
             if(spellcaster.iMana >= currentSelected.buyPrice)
             {
+                SoundManager.instance.PlaySingle(SoundManager.purchase);
                 spellcaster.LoseMana((int)currentSelected.buyPrice);
                 text_myMana.text = spellcaster.iMana + "";
                 
@@ -158,6 +161,7 @@ public class Shop : MonoBehaviour
 
     private void PopulateSaleUI(ItemObject item)
     {
+        manaCrystalImage.gameObject.SetActive(true);
         currentSelected = item;
         text_itemName.text = item.name;
         text_itemPrice.text = item.buyPrice + "";

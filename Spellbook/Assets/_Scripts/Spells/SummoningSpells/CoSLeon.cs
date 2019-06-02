@@ -69,7 +69,7 @@ public class CoSLeon : Spell, IAllyCastable
                 ++s.iCharges;
         }
 
-        PanelHolder.instance.displayNotify("Leon's Shining", "You gained a charge in all your combat spells!", "MainPlayerScene");
+        PanelHolder.instance.displaySpellCastNotif("Leon's Shining", "You gained a charge in all your combat spells!", "MainPlayerScene");
     }
 
     public void SpellcastPhase2(int sID, SpellCaster player)

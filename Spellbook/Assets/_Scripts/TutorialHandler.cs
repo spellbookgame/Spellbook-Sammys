@@ -76,6 +76,7 @@ public class TutorialHandler : MonoBehaviour
         {
             tutorialPanel.SetActive(false);
             EnableAllObjects();
+            UICanvasHandler.instance.EnableDiceButton(GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().bIsMyTurn);
         }
     }
     private void PositionTutorialArrow(int objectIndex, int yOffset)
@@ -86,14 +87,14 @@ public class TutorialHandler : MonoBehaviour
         {
             if(tutorialArrow.transform.rotation.eulerAngles.z == 270)
                 tutorialArrow.transform.Rotate(0, 0, 180, Space.Self);
-            tutorialArrow.GetComponent<UIAutoHover>()._startPosition = tutorialObjects[objectIndex].transform.localPosition.y + yOffset;
+            tutorialArrow.GetComponent<UIAutoHover>()._startPosition = tutorialObjects[objectIndex].transform.localPosition + new Vector3(0, yOffset, 0);
             tutorialArrow.transform.localPosition = tutorialObjects[objectIndex].transform.localPosition + new Vector3(0, yOffset, 0);
         }
         else
         {
             if(tutorialArrow.transform.rotation.eulerAngles.z == 90)
                 tutorialArrow.transform.Rotate(0, 0, -180, Space.Self);
-            tutorialArrow.GetComponent<UIAutoHover>()._startPosition = tutorialObjects[objectIndex].transform.localPosition.y - yOffset - 200;
+            tutorialArrow.GetComponent<UIAutoHover>()._startPosition = tutorialObjects[objectIndex].transform.localPosition - new Vector3(0, yOffset - 200, 0);
             tutorialArrow.transform.localPosition = tutorialObjects[objectIndex].transform.localPosition - new Vector3(0, yOffset - 200, 0);
         }
     }

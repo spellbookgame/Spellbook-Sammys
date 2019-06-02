@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Controller script for Loading Icon UI element.
+/// 
+/// Written by Malcolm Riley
+/// CMPS 17X, Spring 2019
+/// </summary>
 public class UILoadingController : MonoBehaviour {
 
 	// Public References

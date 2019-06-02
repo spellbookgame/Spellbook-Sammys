@@ -13,7 +13,7 @@ public class NaturalDisaster : Spell, ICombatSpell
 
         sSpellName = "Natural Disaster";
         sSpellClass = "Elementalist";
-        sSpellInfo = "If the enemy has less than half health left, instantly kill it. However, no loot will be earned from this battle.";
+        sSpellInfo = "Remove 50% of the enemy's current health. This effect cannot be buffed.";
 
         requiredRunes.Add("Elementalist A Rune", 1);
         requiredRunes.Add("Elementalist B Rune", 1);
@@ -26,9 +26,10 @@ public class NaturalDisaster : Spell, ICombatSpell
         guideLine = Resources.Load<Sprite>("CombatSwipes/NaturalDisaster");
     }
 
-    public void CombatCast()
+    public void CombatCast(SpellCaster player)
     {
-        throw new System.NotImplementedException();
+        // throw new System.NotImplementedException();
+        // int enemyHealth = enemyCurrentHealth / 2;
     }
 
     public override void SpellCast(SpellCaster player)

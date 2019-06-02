@@ -48,7 +48,7 @@ public class FrozenTerrain : Spell, IAllyCastable
 
     public void RecieveCastFromAlly(SpellCaster player)
     {
-        PanelHolder.instance.displayNotify(sSpellName, "Everyone move their piece to the Forest.", "ForestScene");
+        PanelHolder.instance.displaySpellCastNotif(sSpellName, "Everyone move their piece to the Forest.", "ForestScene");
     }
 
     public void SpellcastPhase2(int sID, SpellCaster player)

@@ -18,6 +18,7 @@ public class GameOverHandler : MonoBehaviour
 
     private void Start()
     {
+        SoundManager.instance.PlayGameBCM(SoundManager.gameOverBGM);
         player = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
 
         StartCoroutine("FadeIn");
@@ -37,6 +38,7 @@ public class GameOverHandler : MonoBehaviour
 
         panelButton.onClick.AddListener(() =>
         {
+            SoundManager.instance.PlaySingle(SoundManager.parchmentBurn);
             StartCoroutine("SetObjectsActive");
         });
 

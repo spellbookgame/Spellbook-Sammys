@@ -13,7 +13,7 @@ public class Tragedy : Spell, ICombatSpell
 
         sSpellName = "Tragedy";
         sSpellClass = "Illusionist";
-        sSpellInfo = "Create an illusionary puppet that deals 8 damage to the enemy.";
+        sSpellInfo = "Create an illusionary puppet that deals 5 - 9 damage to the enemy.";
 
         requiredRunes.Add("Illusionist C Rune", 1);
 
@@ -24,9 +24,18 @@ public class Tragedy : Spell, ICombatSpell
         guideLine = Resources.Load<Sprite>("CombatSwipes/Tragedy");
     }
 
-    public void CombatCast()
+    public void CombatCast(SpellCaster player)
     {
-        throw new System.NotImplementedException();
+        // throw new System.NotImplementedException();
+        /*int damage;
+        if (orbPercentage <= 25)
+            damage = Random.Range(5, 7);
+        else if (orbPercentage > 25 && orbPercentage <= 50)
+            damage = Random.Range(5, 8);
+        else if (orbPercentage > 50 && orbPercentage <= 75)
+            damage = Random.Range(6, 9);
+        else
+            damage = Random.Range(7, 10);*/
     }
 
     public override void SpellCast(SpellCaster player)

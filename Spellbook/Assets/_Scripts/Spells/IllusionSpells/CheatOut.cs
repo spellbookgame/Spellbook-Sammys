@@ -30,7 +30,7 @@ public class CheatOut : Spell, IAllyCastable
 
     public void RecieveCastFromAlly(SpellCaster player)
     {
-        PanelHolder.instance.displayNotify(sSpellName, "Discard two of your runes. Draw 2 from the high tier rune deck.", "MainPlayerScene");
+        PanelHolder.instance.displaySpellCastNotif(sSpellName, "Discard two of your runes. Draw 2 from the high tier rune deck.", "MainPlayerScene");
     }
 
     public void SpellcastPhase2(int sID, SpellCaster player)
@@ -45,7 +45,7 @@ public class CheatOut : Spell, IAllyCastable
             }
             else
             {
-                PanelHolder.instance.displayNotify(sSpellName, "Discard two of your runes. Draw 2 from the high tier rune deck.", "MainPlayerScene");
+                PanelHolder.instance.displaySpellCastNotif(sSpellName, "Discard two of your runes. Draw 2 from the high tier rune deck.", "MainPlayerScene");
             }
 
             player.numSpellsCastThisTurn++;
@@ -66,7 +66,7 @@ public class CheatOut : Spell, IAllyCastable
             }
             else
             {
-                PanelHolder.instance.displayNotify(sSpellName, "Discard two of your runes. Draw 2 from the high tier rune deck.", "MainPlayerScene");
+                PanelHolder.instance.displaySpellCastNotif(sSpellName, "Discard two of your runes. Draw 2 from the high tier rune deck.", "MainPlayerScene");
             }
 
             player.numSpellsCastThisTurn++;

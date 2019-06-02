@@ -14,7 +14,7 @@ public class Archive : Spell, ICombatSpell
 
         sSpellName = "Archive";
         sSpellClass = "Arcanist";
-        sSpellInfo = "Everyone's taps will be doubled for one round.";
+        sSpellInfo = "Everyone's taps will be increased by 15% this round.";
 
         requiredRunes.Add("Arcanist A Rune", 1);
         requiredRunes.Add("Illusionist B Rune", 1);
@@ -26,9 +26,13 @@ public class Archive : Spell, ICombatSpell
         guideLine = Resources.Load<Sprite>("CombatSwipes/Archive");
     }
 
-    public void CombatCast()
+    public void CombatCast(SpellCaster player)
     {
-        throw new System.NotImplementedException();
+        // throw new System.NotImplementedException();
+        // for every 20% the orb is filled, add 5% to the multiplier.
+        // (int tapBuff = Mathf.Floor(orbPercentage(out of 100) / 20) * 5)
+        // int totalIncrease = (tabBuff + 15) / 100;
+        // teamTapTotal += teamTapTotal * totalIncrease;
     }
 
     public override void SpellCast(SpellCaster player)

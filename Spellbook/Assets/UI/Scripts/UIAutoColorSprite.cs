@@ -8,6 +8,7 @@ using UnityEngine;
 /// Written by Malcolm Riley
 /// CMPS 17X, Spring 2019
 /// </summary>
+[ExecuteInEditMode]
 public class UIAutoColorSprite : UIAutoColor<SpriteRenderer> {
 
 	protected override void ApplyColor(SpriteRenderer element, Color color) {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class ReverseWounds : Spell, ICombatSpell, IAllyCastable
+public class ReverseWounds : Spell, ICombatSpell
 {
     public ReverseWounds()
     {
@@ -13,7 +13,7 @@ public class ReverseWounds : Spell, ICombatSpell, IAllyCastable
 
         sSpellName = "Reverse Wounds";
         sSpellClass = "Chronomancer";
-        sSpellInfo = "Heal your health equal to half of health missing. Can cast on an ally.";
+        sSpellInfo = "Heal all allies by 5% of their max health.";
 
         requiredRunes.Add("Chronomancer B Rune", 1);
         requiredRunes.Add("Alchemist B Rune", 1);
@@ -25,23 +25,16 @@ public class ReverseWounds : Spell, ICombatSpell, IAllyCastable
         guideLine = Resources.Load<Sprite>("CombatSwipes/ReverseWounds");
     }
 
-    public void CombatCast()
+    public void CombatCast(SpellCaster player)
     {
-        throw new System.NotImplementedException();
-    }
-
-    public void RecieveCastFromAlly(SpellCaster player)
-    {
-        throw new System.NotImplementedException();
+        // throw new System.NotImplementedException();
+        // float multiplier = ((Mathf.Floor(orbPercentage / 20) * 5) + 5) / 100;
+        // int healAmount = (int) player.fMaxHealth * multiplier;
+        // player.HealDamage(healAmount);
     }
 
     public override void SpellCast(SpellCaster player)
     {
         //Nothing.
-    }
-
-    public void SpellcastPhase2(int sID, SpellCaster player)
-    {
-        throw new System.NotImplementedException();
     }
 }

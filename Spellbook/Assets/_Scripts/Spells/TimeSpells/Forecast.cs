@@ -33,7 +33,7 @@ public class Forecast : Spell, IAllyCastable
         List<ItemObject> itemList = GameObject.Find("ItemList").GetComponent<ItemList>().listOfItems;
         ItemObject item = itemList[Random.Range(0, itemList.Count)];
         SpellTracker.instance.forecastItem = item;
-        PanelHolder.instance.displayBoardScan("Forecast", "The next time you enter the Forest, you will gain 2 " + item.name + "s.", item.sprite, "MainPlayerScene");
+        PanelHolder.instance.displaySpellCastNotif("Forecast", "The next time you enter the Forest, you will gain 2 " + item.name + "s.", "MainPlayerScene");
         player.activeSpells.Add(this);
     }
 
@@ -52,7 +52,7 @@ public class Forecast : Spell, IAllyCastable
                 List<ItemObject> itemList = GameObject.Find("ItemList").GetComponent<ItemList>().listOfItems;
                 ItemObject item = itemList[Random.Range(0, itemList.Count)];
                 SpellTracker.instance.forecastItem = item;
-                PanelHolder.instance.displayBoardScan("Forecast", "The next time you enter the Forest, you will gain 2 " + item.name + "s.", item.sprite, "MainPlayerScene");
+                PanelHolder.instance.displaySpellCastNotif("Forecast", "The next time you enter the Forest, you will gain 2 " + item.name + "s.", "MainPlayerScene");
                 player.activeSpells.Add(this);
             }
 
@@ -77,7 +77,7 @@ public class Forecast : Spell, IAllyCastable
                 List<ItemObject> itemList = GameObject.Find("ItemList").GetComponent<ItemList>().listOfItems;
                 ItemObject item = itemList[Random.Range(0, itemList.Count)];
                 SpellTracker.instance.forecastItem = item;
-                PanelHolder.instance.displayBoardScan("Forecast", "The next time you enter the Forest, you will gain 2 " + item.name + "s.", item.sprite, "MainPlayerScene");
+                PanelHolder.instance.displaySpellCastNotif("Forecast", "The next time you enter the Forest, you will gain 2 " + item.name + "s.", "MainPlayerScene");
                 player.activeSpells.Add(this);
             }
 

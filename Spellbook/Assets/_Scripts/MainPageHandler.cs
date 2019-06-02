@@ -96,7 +96,7 @@ public class MainPageHandler : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.I))
         {
-            SceneManager.LoadScene("ChronomancyTownScene");
+            SceneManager.LoadScene("ElementalTownScene");
         }
         if (Input.GetKeyDown(KeyCode.C))
         {
@@ -110,6 +110,14 @@ public class MainPageHandler : MonoBehaviour
     {
         if (GameObject.FindGameObjectWithTag("LocalPlayer") == null) return;
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
+
+        // mute player's bgm if not their turn
+        if (!localPlayer.bIsMyTurn)
+            SoundManager.instance.musicSource.volume = 0;
+
+        // if the current bgm isn't the main one, play the main one
+        if (!SoundManager.instance.currentBGM.Equals(SoundManager.gameBCG.name))
+            SoundManager.instance.PlayGameBCM(SoundManager.gameBCG);
 
         SetClassAttributes();
 
@@ -207,17 +215,5 @@ public class MainPageHandler : MonoBehaviour
         yield return new WaitForSecondsRealtime(2f);
 
         manaCrystalsAddition.text = "";
-    }
-
-    // TEMPORARY - DELETE LATER
-    public void LoseGame()
-    {
-        localPlayer.Spellcaster.gameLost = true;
-        SceneManager.LoadScene("GameOverScene");
-    }
-    public void WinGame()
-    {
-        localPlayer.Spellcaster.gameLost = false;
-        SceneManager.LoadScene("GameOverScene");
     }
 }

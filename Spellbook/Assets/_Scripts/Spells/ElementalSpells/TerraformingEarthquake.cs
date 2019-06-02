@@ -29,7 +29,7 @@ public class TerraformingEarthquake : Spell, IAllyCastable
 
     public void RecieveCastFromAlly(SpellCaster player)
     {
-        PanelHolder.instance.displayNotify(sSpellName, "Move to the closest location to you. If you are already on a location, choose an adjacent one to move to.", "VuforiaScene");
+        PanelHolder.instance.displaySpellCastNotif(sSpellName, "Move to the closest location to you. If you are already on a location, choose an adjacent one to move to.", "VuforiaScene");
         player.locationItemUsed = true;     // allows player to scan location without rolling
     }
 
@@ -45,7 +45,7 @@ public class TerraformingEarthquake : Spell, IAllyCastable
             }
             else
             {
-                PanelHolder.instance.displayNotify(sSpellName, "Move to the closest location to you. If you are already on a location, choose an adjacent one to move to.", "VuforiaScene");
+                PanelHolder.instance.displaySpellCastNotif(sSpellName, "Move to the closest location to you. If you are already on a location, choose an adjacent one to move to.", "VuforiaScene");
                 player.locationItemUsed = true;
             }
             player.numSpellsCastThisTurn++;
@@ -66,7 +66,7 @@ public class TerraformingEarthquake : Spell, IAllyCastable
             }
             else
             {
-                PanelHolder.instance.displayNotify(sSpellName, "Move to the closest location to you. If you are already on a location, choose an adjacent one to move to.", "VuforiaScene");
+                PanelHolder.instance.displaySpellCastNotif(sSpellName, "Move to the closest location to you. If you are already on a location, choose an adjacent one to move to.", "VuforiaScene");
                 player.locationItemUsed = true;
             }
 

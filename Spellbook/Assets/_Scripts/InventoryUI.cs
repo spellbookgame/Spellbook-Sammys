@@ -60,7 +60,10 @@ public class InventoryUI : MonoBehaviour
             buttonUse.onClick.AddListener(() => 
             {
                 if (!localPlayer.bIsMyTurn)
+                {
+                    SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
                     PanelHolder.instance.displayNotify("Not Your Turn", "You cannot use items when it is not your turn.", "OK");
+                }
                 else
                     item.UseItem(localPlayer.Spellcaster);
             });
@@ -79,6 +82,7 @@ public class InventoryUI : MonoBehaviour
         // adding onclick listener to close button
         buttonClose.onClick.AddListener(() =>
         {
+            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
             if (infoPanelOpen)
             {
                 // remove onclick from use button

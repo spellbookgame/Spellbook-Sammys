@@ -24,7 +24,7 @@ public class PotionofLuck : Spell, IAllyCastable
 
     public void RecieveCastFromAlly(SpellCaster player)
     {
-        PanelHolder.instance.displayNotify(sSpellName, "You and your ally will have an extra D9 next time you roll.", "MainPlayerScene");
+        PanelHolder.instance.displaySpellCastNotif(sSpellName, "You and your ally will have an extra D9 next time you roll.", "MainPlayerScene");
         if (player.tempDice.ContainsKey("D9"))
             player.tempDice["D9"] += 1;
         else
@@ -46,7 +46,7 @@ public class PotionofLuck : Spell, IAllyCastable
         {
             if (player.spellcasterID != sID)
             {
-                 PanelHolder.instance.displayNotify(sSpellName, "You and your ally will have an extra D9 next time you roll.", "MainPlayerScene");
+                PanelHolder.instance.displaySpellCastNotif(sSpellName, "You and your ally will have an extra D9 next time you roll.", "MainPlayerScene");
             }
 
             if (player.tempDice.ContainsKey("D9"))
@@ -71,7 +71,7 @@ public class PotionofLuck : Spell, IAllyCastable
 
             if (player.spellcasterID != sID)
             {
-                 PanelHolder.instance.displayNotify(sSpellName, "You and your ally will have an extra D9 next time you roll.", "MainPlayerScene");
+                PanelHolder.instance.displaySpellCastNotif(sSpellName, "You and your ally will have an extra D9 next time you roll.", "MainPlayerScene");
             }
 
             if (player.tempDice.ContainsKey("D9"))

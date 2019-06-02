@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface ICombatSpell {
     //Require that every combat spell implements this method.
-    void CombatCast();
+    void CombatCast(SpellCaster player);
 }

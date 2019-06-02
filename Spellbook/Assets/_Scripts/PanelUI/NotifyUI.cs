@@ -28,6 +28,8 @@ public class NotifyUI : MonoBehaviour
         titleText.text = title;
         infoText.text = info;
 
+        singleButton.onClick.RemoveAllListeners();
+
         if (buttonClick.Equals("OK"))
             singleButton.onClick.AddListener((OkClick));
         else
