@@ -641,6 +641,7 @@ namespace Bolt.Samples.Photon.Lobby
             playerSpellcaster.HealPercentMissingHP(evnt.Percent);
         }
 
+
         #endregion
         #region HOST_CALLBACKS
         /*Only the server recieves this event.*/
@@ -822,6 +823,13 @@ namespace Bolt.Samples.Photon.Lobby
         }
 
         /*Only the server recieves this event.*/
+        public override void OnEvent(IncreaseTapPercentageEvent evnt)
+        {
+            gameStateEntity.GetComponent<NetworkGameState>()
+                .IncreaseTeamTapPercentage(evnt.Percent);
+        }
+
+        /*Only the server recieves this event.*/
         public override void OnEvent(DealDmgToBossEvent evnt)
         {
             gameStateEntity.GetComponent<NetworkGameState>()
@@ -849,6 +857,11 @@ namespace Bolt.Samples.Photon.Lobby
                 .IncreaseTeamDmgByPercent(evnt.Percent);
         }
 
+        /*Only the server recieves this event.*/
+        public override void OnEvent(IncreaseAllyDmgByPercentEvent evnt)
+        {
+            gameStateEntity.GetComponent<NetworkGameState>().IncreaseAllyDmgByPercent(evnt.AllySpellcasterID, evnt.Percent); 
+        }
 
 
         #endregion
@@ -1000,6 +1013,14 @@ namespace Bolt.Samples.Photon.Lobby
             evnt.Send();
         }
 
+        //For combat API
+        public void IncreaseTeamTapPercentage(float percent)
+        {
+            var evnt = IncreaseTapPercentageEvent.Create(Bolt.GlobalTargets.OnlyServer);
+            evnt.Percent = percent;
+            evnt.Send();
+        }
+
         public void CombatSpellCast(string spellName)
         {
             var evnt = CombatCastEvent.Create(Bolt.GlobalTargets.OnlyServer);
@@ -1054,6 +1075,15 @@ namespace Bolt.Samples.Photon.Lobby
         public void IncreaseTeamDamageByPercent(float percent)
         {
             var evnt = IncreaseTeamDmgByPercentEvent.Create(Bolt.GlobalTargets.OnlyServer);
+            evnt.Percent = percent;
+            evnt.Send();
+        }
+
+        //For combat API
+        public void IncreaseAllyDamageByPercent(int allySpellcasterID, float percent)
+        {
+            var evnt = IncreaseAllyDmgByPercentEvent.Create(Bolt.GlobalTargets.OnlyServer);
+            evnt.AllySpellcasterID = allySpellcasterID;
             evnt.Percent = percent;
             evnt.Send();
         }

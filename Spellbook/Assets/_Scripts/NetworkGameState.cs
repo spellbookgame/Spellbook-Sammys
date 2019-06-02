@@ -453,6 +453,14 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
         state.SpellcasterOrbPercentages[spellcasterID] = orbPercentage;
     }
 
+    public void IncreaseTeamTapPercentage(float percent)
+    {
+        for (int i = 0; i < state.SpellcasterTaps.Length; i++)
+        {
+            state.SpellcasterTaps[i] = state.SpellcasterTaps[i] + ((int) (state.SpellcasterTaps[i] * percent));
+        }
+    }
+
     //For combat API
     public int GetTapsForSpellcaster(int spellcasterID)
     {
@@ -500,6 +508,12 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
     public float GetSpellcasterDmg(int spellcasterID)
     {
         return state.SpellcasterDamages[spellcasterID];
+    }
+
+    public void IncreaseAllyDmgByPercent(int allySpellcasterID, float percent)
+    {
+        state.SpellcasterDamages[allySpellcasterID] 
+            = state.SpellcasterDamages[allySpellcasterID] + (state.SpellcasterDamages[allySpellcasterID] * percent);
     }
 
     //Input float between 0-1
