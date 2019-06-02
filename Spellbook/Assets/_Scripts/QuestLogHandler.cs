@@ -19,6 +19,7 @@ public class QuestLogHandler : MonoBehaviour
     private Player localPlayer;
     private Image[] rewardImages;
     private GameObject runeContainer;
+    private GameObject itemContainer;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +29,7 @@ public class QuestLogHandler : MonoBehaviour
         rewardImages = new Image[2];
 
         runeContainer = GameObject.Find("RuneContainer");
+        itemContainer = GameObject.Find("ItemContainer");
 
         exitButton.onClick.AddListener(() =>
         {
@@ -86,15 +88,15 @@ public class QuestLogHandler : MonoBehaviour
                     ++i;
                     continue;
                 case "Mana":
-                    rewardImages[i].sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/ManaCrystal");
+                    rewardImages[i].sprite = itemContainer.transform.Find("ManaCrystal").GetComponent<SpriteRenderer>().sprite;
                     ++i;
                     continue;
                 case "Item":
-                    rewardImages[i].sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/" + kvp.Value);
+                    rewardImages[i].sprite = itemContainer.transform.Find(kvp.Value).GetComponent<SpriteRenderer>().sprite;
                     ++i;
                     continue;
                 case "Dice":
-                    rewardImages[i].sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/Blank Dice");
+                    rewardImages[i].sprite = itemContainer.transform.Find("Blank Dice").GetComponent<SpriteRenderer>().sprite;
                     ++i;
                     continue;
                 default:

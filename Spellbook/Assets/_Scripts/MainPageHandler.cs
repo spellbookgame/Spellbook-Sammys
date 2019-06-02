@@ -96,7 +96,11 @@ public class MainPageHandler : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.I))
         {
-            SceneManager.LoadScene("ElementalTownScene");
+            SceneManager.LoadScene("AlchemyTownScene");
+        }
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            SceneManager.LoadScene("ArcaneTownScene");
         }
         if (Input.GetKeyDown(KeyCode.C))
         {

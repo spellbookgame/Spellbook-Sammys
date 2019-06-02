@@ -5,7 +5,7 @@ public class OpalAmmonite : ItemObject
     public OpalAmmonite()
     {
         name = "Opal Ammonite";
-        sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/Opal Ammonite");
+        sprite = GameObject.Find("ItemContainer").transform.Find(name).GetComponent<SpriteRenderer>().sprite;
         tier = 3;
         buyPrice = 600;
         sellPrice = 180;

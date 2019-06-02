@@ -5,7 +5,7 @@ public class InfusedSapphire : ItemObject
     public InfusedSapphire()
     {
         name = "Infused Sapphire";
-        sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/Infused Sapphire");
+        sprite = GameObject.Find("ItemContainer").transform.Find(name).GetComponent<SpriteRenderer>().sprite;
         tier = 2;
         buyPrice = 1400;
         sellPrice = 420;
@@ -18,6 +18,8 @@ public class InfusedSapphire : ItemObject
         SoundManager.instance.PlaySingle(SoundManager.infusedSapphire);
         player.RemoveFromInventory(this);
 
+        GameObject locationContainer = GameObject.Find("LocationContainer");
+
         player.locationItemUsed = true;
         string[] locations = new string[9] { "Forest", "Swamp", "Crystal Mines", "Regulus", "Zandria", "Meridea", "Sarissa", "Parados", "Andromeda" };
         string randLocation = locations[Random.Range(0, 9)];
@@ -26,39 +28,39 @@ public class InfusedSapphire : ItemObject
         switch(randLocation)
         {
             case "Forest":
-                locationSprite = Resources.Load<Sprite>("Art Assets/Backgrounds/Forest");
+                locationSprite = locationContainer.transform.Find("Forest").GetComponent<SpriteRenderer>().sprite;
                 PanelHolder.instance.displayBoardScan("Infused Sapphire", "The Infused Sapphire teleported you to the " + randLocation + "!", locationSprite, "ForestScene");
                 break;
             case "Swamp":
-                locationSprite = Resources.Load<Sprite>("Art Assets/Backgrounds/Swamp");
+                locationSprite = locationContainer.transform.Find("Swamp").GetComponent<SpriteRenderer>().sprite;
                 PanelHolder.instance.displayBoardScan("Infused Sapphire", "The Infused Sapphire teleported you to the " + randLocation + "!", locationSprite, "SwampScene");
                 break;
             case "Crystal Mines":
-                locationSprite = Resources.Load<Sprite>("Art Assets/Backgrounds/Mine");
+                locationSprite = locationContainer.transform.Find("Mines").GetComponent<SpriteRenderer>().sprite;
                 PanelHolder.instance.displayBoardScan("Infused Sapphire", "The Infused Sapphire teleported you to the " + randLocation + "!", locationSprite, "MineScene");
                 break;
             case "Regulus":
-                locationSprite = Resources.Load<Sprite>("Art Assets/Backgrounds/town_alchemist");
+                locationSprite = locationContainer.transform.Find("Regulus").GetComponent<SpriteRenderer>().sprite;
                 PanelHolder.instance.displayBoardScan("Infused Sapphire", "The Infused Sapphire teleported you to " + randLocation + "!", locationSprite, "AlchemyTownScene");
                 break;
             case "Zandria":
-                locationSprite = Resources.Load<Sprite>("Art Assets/Backgrounds/town_arcanist");
+                locationSprite = locationContainer.transform.Find("Zandria").GetComponent<SpriteRenderer>().sprite;
                 PanelHolder.instance.displayBoardScan("Infused Sapphire", "The Infused Sapphire teleported you to the " + randLocation + "!", locationSprite, "ArcaneTownScene");
                 break;
             case "Meridea":
-                locationSprite = Resources.Load<Sprite>("Art Assets/Backgrounds/town_chronomancer");
+                locationSprite = locationContainer.transform.Find("Meridea").GetComponent<SpriteRenderer>().sprite;
                 PanelHolder.instance.displayBoardScan("Infused Sapphire", "The Infused Sapphire teleported you to the " + randLocation + "!", locationSprite, "ChronomancyTownScene");
                 break;
             case "Sarissa":
-                locationSprite = Resources.Load<Sprite>("Art Assets/Backgrounds/town_elementalist");
+                locationSprite = locationContainer.transform.Find("Sarissa").GetComponent<SpriteRenderer>().sprite;
                 PanelHolder.instance.displayBoardScan("Infused Sapphire", "The Infused Sapphire teleported you to the " + randLocation + "!", locationSprite, "ElementalTownScene");
                 break;
             case "Parados":
-                locationSprite = Resources.Load<Sprite>("Art Assets/Backgrounds/town_illusionist");
+                locationSprite = locationContainer.transform.Find("Parados").GetComponent<SpriteRenderer>().sprite;
                 PanelHolder.instance.displayBoardScan("Infused Sapphire", "The Infused Sapphire teleported you to the " + randLocation + "!", locationSprite, "IllusionTownScene");
                 break;
             case "Andromeda":
-                locationSprite = Resources.Load<Sprite>("Art Assets/Backgrounds/town_summoner");
+                locationSprite = locationContainer.transform.Find("Andromeda").GetComponent<SpriteRenderer>().sprite;
                 PanelHolder.instance.displayBoardScan("Infused Sapphire", "The Infused Sapphire teleported you to the " + randLocation + "!", locationSprite, "SummonerTownScene");
                 break;
             default:

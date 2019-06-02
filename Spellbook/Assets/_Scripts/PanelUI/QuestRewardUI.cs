@@ -15,6 +15,7 @@ public class QuestRewardUI : MonoBehaviour
     [SerializeField] private Image rewardImage2;
     [SerializeField] private Button singleButton;
     [SerializeField] private GameObject runeContainer;
+    [SerializeField] private GameObject itemContainer;
 
     Image[] rewardImages = new Image[2];
     Text[] rewardText = new Text[2];
@@ -62,17 +63,17 @@ public class QuestRewardUI : MonoBehaviour
                         ++i;
                         continue;
                     case "Mana":
-                        rewardImages[i].sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/ManaCrystal");
+                        rewardImages[i].sprite = itemContainer.transform.Find("ManaCrystal").GetComponent<SpriteRenderer>().sprite;
                         rewardText[i].text = "You earned " + Int32.Parse(kvp.Value) + " mana!";
                         ++i;
                         continue;
                     case "Item":
-                        rewardImages[i].sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/" + kvp.Value);
+                        rewardImages[i].sprite = itemContainer.transform.Find(kvp.Value).GetComponent<SpriteRenderer>().sprite;
                         rewardText[i].text = "You earned a " + kvp.Value + "!";
                         ++i;
                         continue;
                     case "Dice":
-                        rewardImages[i].sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/Blank Dice");
+                        rewardImages[i].sprite = itemContainer.transform.Find("Blank Dice").GetComponent<SpriteRenderer>().sprite;
                         rewardText[i].text = "You earned a temporary " + kvp.Value + "!";
                         ++i;
                         continue;

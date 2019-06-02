@@ -14,6 +14,7 @@ public class QuestUI : MonoBehaviour
     [SerializeField] private Button singleButton;
     [SerializeField] private Button singleButton1;
     [SerializeField] private GameObject runeContainer;
+    [SerializeField] private GameObject itemContainer;
 
     Image[] rewardImages = new Image[2];
 
@@ -54,15 +55,15 @@ public class QuestUI : MonoBehaviour
                     ++i;
                     continue;
                 case "Mana":
-                    rewardImages[i].sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/ManaCrystal");
+                    rewardImages[i].sprite = itemContainer.transform.Find("ManaCrystal").GetComponent<SpriteRenderer>().sprite;
                     ++i;
                     continue;
                 case "Item":
-                    rewardImages[i].sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/" + kvp.Value);
+                    rewardImages[i].sprite = itemContainer.transform.Find(kvp.Value).GetComponent<SpriteRenderer>().sprite;
                     ++i;
                     continue;
                 case "Dice":
-                    rewardImages[i].sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/Blank Dice");
+                    rewardImages[i].sprite = itemContainer.transform.Find("Blank Dice").GetComponent<SpriteRenderer>().sprite;
                     ++i;
                     continue;
                 default:

@@ -7,7 +7,7 @@ public class HollowCabochon : ItemObject
     public HollowCabochon()
     {
         name = "Hollow Cabochon";
-        sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/Hollow Cabochon");
+        sprite = GameObject.Find("ItemContainer").transform.Find(name).GetComponent<SpriteRenderer>().sprite;
         tier = 2;
         buyPrice = 2100;
         sellPrice = 630;

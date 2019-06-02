@@ -7,7 +7,7 @@ public class MimeticVellum : ItemObject
     public MimeticVellum()
     {
         name = "Mimetic Vellum";
-        sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/Mimetic Vellum");
+        sprite = GameObject.Find("ItemContainer").transform.Find(name).GetComponent<SpriteRenderer>().sprite;
         tier = 1;
         buyPrice = 2800;
         sellPrice = 840;
