@@ -25,6 +25,7 @@ public class SpellSelectionPanel : MonoBehaviour
     public Text SpellDescription;
     public Text SpellName;
 
+    public SpellSwipe spellSwiper;
     public GameObject ChargePanel;
     public Button EquipedSpellButton;
     public SpriteRenderer swipeGuide;
@@ -47,27 +48,50 @@ public class SpellSelectionPanel : MonoBehaviour
         {
             localSpellcaster = p.GetComponent<Player>().Spellcaster;
             /*Prepare Spell Buttons**/
-
-
         }
         else
         {
+            //Tests
+
+/*
             localSpellcaster = new Summoner();
-            //localSpellcaster.CollectSpell(new ToxicPotion());
+            localSpellcaster.chapter.spellsCollected.Add(new Skeletons()); // Pass
+            localSpellcaster.chapter.spellsCollected.Add(new Ravenssong()); // Pass
+            localSpellcaster.chapter.spellsCollected.Add(new Bearsfury());; // Pass
+     localSpellcaster = new Illusionist();
+            localSpellcaster.chapter.spellsCollected.Add(new Catharsis()); //Pass
+            localSpellcaster.chapter.spellsCollected.Add(new Catastrophe()); // Pass
+            localSpellcaster.chapter.spellsCollected.Add(new Tragedy()); //Pass
+               localSpellcaster = new Chronomancer();
+            localSpellcaster.chapter.spellsCollected.Add(new ReverseWounds()); // Pass
+            localSpellcaster.chapter.spellsCollected.Add(new Manipulate()); //Pass
+            localSpellcaster.chapter.spellsCollected.Add(new Chronoblast());  // Pass
+            localSpellcaster = new Elementalist();
+            localSpellcaster.chapter.spellsCollected.Add(new Fireball()); //Looks like ToxicPotion
+            localSpellcaster.chapter.spellsCollected.Add(new EyeOfTheStorm());  // Looks like Bears fury, chronoblast, Natural Disaster
+            localSpellcaster.chapter.spellsCollected.Add(new NaturalDisaster()); // Looks like Tragedy
+           localSpellcaster = new Arcanist();
+            localSpellcaster.chapter.spellsCollected.Add(new MarcellasBlessing()); //Looks like DistilledPotion
+            localSpellcaster.chapter.spellsCollected.Add(new RunicDarts()); // Pass
+            localSpellcaster.chapter.spellsCollected.Add(new Archive());  // Pass
+    */           
+            localSpellcaster = new Alchemist();
+            localSpellcaster.chapter.spellsCollected.Add(new DistilledPotion());  // Pass
+            localSpellcaster.chapter.spellsCollected.Add(new PotionofBlessing()); // Needs more
+            localSpellcaster.chapter.spellsCollected.Add(new ToxicPotion()); // Looks like Fireball, NaturalDisaster  /* */
         }
 
-        BoltConsole.Write("player = " + p.name);
-        BoltConsole.Write("spellcaster = " + p.GetComponent<Player>().Spellcaster);
         int i = 0;
         foreach(KeyValuePair<string, Spell> entry in localSpellcaster.combatSpells)
         {
-            BoltConsole.Write("entry = " + entry.Key);
-            BoltConsole.Write("spell = " + entry.Value.sSpellName);
+            Debug.Log("entry = " + entry.Key);
+            Debug.Log("spell = " + entry.Value.sSpellName);
 
             spells[i] = entry.Value;
             Color c1 = entry.Value.colorPrimary;
             Color c2 = entry.Value.colorSecondary;
             Color c3 = entry.Value.colorTertiary;
+            i++;
            // spellButtons[i++].GetComponent<UIAutoColorSprite>().DecorateSpellButton(c1, c2, c3);
         }
         SpellButton1.onClick.AddListener(clickedSpellButton1);
@@ -137,17 +161,18 @@ public class SpellSelectionPanel : MonoBehaviour
     private void clickedReady()
     {
         ChargePanel.SetActive(true);
-        ChargePanel.GetComponent<ChargeSpell>().SetCombatSpell(selectedSpell, SelectedSpellButton);
+        spellSwiper.selectedSpell = selectedSpell;
+        ChargePanel.GetComponent<ChargeSpell>().SetCombatSpell(selectedSpell, SelectedSpellButton, localSpellcaster);
         this.gameObject.SetActive(false);
     }
 
 
     public void DecorateSpellButton(Color c1, Color c2, Color c3)
     {
-        BoltConsole.Write(c1.ToString());
-        BoltConsole.Write(c2.ToString());
-        BoltConsole.Write(c3.ToString());
-        BoltConsole.Write(c3.r + "");
+        Debug.Log(c1.ToString());
+        Debug.Log(c2.ToString());
+        Debug.Log(c3.ToString());
+        Debug.Log(c3.r + "");
         gemImage.color = c3;
 
         // Populate the color keys at the relative time 0 and 1 (0 and 100%)

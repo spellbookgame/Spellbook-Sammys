@@ -618,8 +618,78 @@ namespace Bolt.Samples.Photon.Lobby
                 spell.RecieveCastFromAlly(playerSpellcaster);
             }
         
-        }       
-        
+        }
+
+        public override void OnEvent(IncreaseTapTimeBy2Secs evnt)
+        {
+            if (BoltNetwork.IsServer)
+            {
+                gameStateEntity.GetComponent<NetworkGameState>()
+                    .IncreaseTapSecondsAllowed();
+            }
+            //TODO: Display Feedback
+        }
+
+        public override void OnEvent(IncreaseTapPercentageEvent evnt)
+        {
+            if (BoltNetwork.IsServer)
+            {
+                gameStateEntity.GetComponent<NetworkGameState>()
+                    .IncreaseTeamTapPercentage(evnt.Percent);
+            }
+            //TODO: Display Feedback
+        }
+
+        /*Everyone recieves this during combat*/
+        public override void OnEvent(HealAllAlliesByPercentage evnt)
+        {
+            playerSpellcaster = playerEntity.GetComponent<Player>().spellcaster;
+            playerSpellcaster.HealPercentDamage(evnt.Percent);
+            //TODO: Display feedback
+        }
+
+        /*Everyone recieves this during combat*/
+        public override void OnEvent(HealAllAlliesByHP evnt)
+        {
+            playerSpellcaster = playerEntity.GetComponent<Player>().spellcaster;
+            //TODO: keep as float.
+            playerSpellcaster.HealDamage((int) evnt.HP);
+            //TODO: Display Feedback
+        }
+
+        /*Everyone recieves this during combat*/
+        public override void OnEvent(HealPercentMissingHealth evnt)
+        {
+            playerSpellcaster = playerEntity.GetComponent<Player>().spellcaster;
+            playerSpellcaster.HealPercentMissingHP(evnt.Percent);
+            //TODO: Display feedback.
+        }
+
+        public override void OnEvent(IncreaseTeamDmgByPercentEvent evnt)
+        {
+            if (BoltNetwork.IsServer)
+            {
+                gameStateEntity.GetComponent<NetworkGameState>()
+                    .IncreaseTeamDmgByPercent(evnt.Percent);
+            }
+
+            //TODO: Display feedback
+        }
+
+        /*Everyone recieves this during combat*/
+        public override void OnEvent(IncreaseAllyDmgByPercentEvent evnt)
+        {
+            if (BoltNetwork.IsServer)
+            {
+                gameStateEntity.GetComponent<NetworkGameState>().IncreaseAllyDmgByPercent(evnt.AllySpellcasterID, evnt.Percent);
+            }
+            playerSpellcaster = playerEntity.GetComponent<Player>().spellcaster;
+            if (playerSpellcaster.spellcasterID == evnt.AllySpellcasterID)
+            {
+                //TODO:Display feedback letting them know they were buffed/
+            }
+        }
+
         #endregion
         #region HOST_CALLBACKS
         /*Only the server recieves this event.*/
@@ -785,6 +855,39 @@ namespace Bolt.Samples.Photon.Lobby
             gameStateEntity.GetComponent<NetworkGameState>().ItemDropOff(evnt.ItemName);
         }
 
+        /*Only the server recieves this event.*/
+        public override void OnEvent(SendOrbUpdateEvent evnt)
+        {
+          gameStateEntity.GetComponent<NetworkGameState>()
+                .UpdateTapsForSpellcaster(evnt.SpellcasterID, evnt.NumTaps, evnt.OrbPercentage);
+        }
+
+
+
+
+        /*Only the server recieves this event.*/
+        public override void OnEvent(DealDmgToBossEvent evnt)
+        {
+            gameStateEntity.GetComponent<NetworkGameState>()
+                .DealDmgToBoss(evnt.Dmg);
+        }
+
+        /*Only the server recieves this event.*/
+        public override void OnEvent(DealPercentDmgToBossEvent evnt)
+        {
+            gameStateEntity.GetComponent<NetworkGameState>()
+                .DealPercentDmgToBoss(evnt.percent);
+        }
+
+        /*Only the server recieves this event.*/
+        //TODO: FINISH - just call there combat cast
+        public override void OnEvent(CombatCastEvent evnt)
+        {
+            Spell combatSpell = AllSpellsDict.AllSpells[evnt.Spellname]; 
+        }
+
+
+
 
         #endregion
         #region EVENT_CALLS
@@ -915,6 +1018,99 @@ namespace Bolt.Samples.Photon.Lobby
         {
             var evnt = ModifyRoundsCrisis.Create(Bolt.GlobalTargets.OnlyServer);
             evnt.x = x;
+            evnt.Send();
+        }
+
+        //From combat when time finishes from charging their spell 
+        public void SendOrbUpdateToNetwork(int spellcasterID, int taps, float orbPercentage)
+        {
+            var evnt = SendOrbUpdateEvent.Create(Bolt.GlobalTargets.OnlyServer);
+            evnt.NumTaps = taps;
+            evnt.OrbPercentage = orbPercentage;
+            evnt.SpellcasterID = spellcasterID;
+            evnt.Send();
+        }
+
+        //For combat API
+        public void IncreaseTapTimeBy2Sec()
+        {
+            var evnt = IncreaseTapTimeBy2Secs.Create(Bolt.GlobalTargets.Everyone);
+            evnt.Send();
+        }
+
+        //For combat API
+        public void IncreaseTeamTapPercentage(float percent)
+        {
+            var evnt = IncreaseTapPercentageEvent.Create(Bolt.GlobalTargets.Everyone);
+            evnt.Percent = percent;
+            evnt.Send();
+        }
+
+        /*Not being used.
+        public void CombatSpellCast(string spellName)
+        {
+            var evnt = CombatCastEvent.Create(Bolt.GlobalTargets.OnlyServer);
+            evnt.Spellname = spellName;
+            evnt.Send();
+        }
+        */
+        //For combat API
+        //Input: The damage you want to apply to the boss
+        public void DealDmgToBoss(float dmg)
+        {
+            var evnt = DealDmgToBossEvent.Create(Bolt.GlobalTargets.OnlyServer);
+            evnt.Dmg = dmg;
+            evnt.Send();
+        }
+
+        //For combat API
+        //Input: percentage in decimal form (between 0-1)
+        public void DealPercentDmgToBoss(float percent)
+        {
+            var evnt = DealPercentDmgToBossEvent.Create(Bolt.GlobalTargets.OnlyServer);
+            evnt.percent = percent;
+            evnt.Send();
+        }
+
+        //For combat API
+        public void HealAllAlliesByPercent(float percent)
+        {
+            var evnt = HealAllAlliesByPercentage.Create(Bolt.GlobalTargets.Everyone);
+            evnt.Percent = percent;
+            evnt.Send();
+        }
+
+        //For combat API
+        public void HealAllAlliesByHp(float hp)
+        {
+            var evnt = HealAllAlliesByHP.Create(Bolt.GlobalTargets.Everyone);
+            evnt.HP = hp;
+            evnt.Send();
+        }
+
+        //For combat API
+        public void HealAllAlliesPercentMissingHP(float percent)
+        {
+            var evnt = HealPercentMissingHealth.Create(Bolt.GlobalTargets.Everyone);
+            evnt.Percent = percent;
+            evnt.Send();
+        }
+
+        //For combat API
+        //Input: percentage in decimal form (between 0-1)
+        public void IncreaseTeamDamageByPercent(float percent)
+        {
+            var evnt = IncreaseTeamDmgByPercentEvent.Create(Bolt.GlobalTargets.Everyone);
+            evnt.Percent = percent;
+            evnt.Send();
+        }
+
+        //For combat API
+        public void IncreaseAllyDamageByPercent(int allySpellcasterID, float percent)
+        {
+            var evnt = IncreaseAllyDmgByPercentEvent.Create(Bolt.GlobalTargets.Everyone);
+            evnt.AllySpellcasterID = allySpellcasterID;
+            evnt.Percent = percent;
             evnt.Send();
         }
         #endregion

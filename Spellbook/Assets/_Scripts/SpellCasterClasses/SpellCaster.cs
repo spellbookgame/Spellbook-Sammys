@@ -135,6 +135,26 @@ public abstract class SpellCaster
         }
     }
 
+    public void HealPercentDamage(float percent)
+    {
+        fCurrentHealth = fCurrentHealth + (fMaxHealth * percent);
+        if(fCurrentHealth > fMaxHealth)
+        {
+            fCurrentHealth = fMaxHealth;
+        }
+    }
+
+    public void HealPercentMissingHP(float percent)
+    {
+        float missingHP = fMaxHealth - fCurrentHealth;
+        float hpHealed = percent * missingHP;
+        fCurrentHealth += hpHealed;
+        if(fCurrentHealth > fMaxHealth)
+        {
+            fCurrentHealth = fMaxHealth;
+        }
+    }
+
     public void CollectMana(int manaCount)
     {
         if(!cometConsequence)

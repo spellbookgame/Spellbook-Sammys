@@ -110,6 +110,15 @@ namespace DigitalRubyShared
             }
         }
 
+        public void ColorLinesRed()
+        {
+            foreach (LineRenderer lineRenderer in LineRenderers)
+            {
+                lineRenderer.startColor = Color.red;
+                lineRenderer.endColor = Color.red;
+            }
+        }
+
         public ImageGestureImage CheckForImageMatch()
         {
             if (matchedImage == null)
