@@ -6,6 +6,6 @@ public class WatchController : MonoBehaviour
 {
     public void PlayTickSound()
     {
-        SoundManager.instance.PlaySingle(SoundManager.tick);
+        SoundManager.instance.PlaySingle(SoundManager.characterswipe);
     }
 }

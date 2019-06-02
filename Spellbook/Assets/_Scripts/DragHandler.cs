@@ -29,8 +29,6 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        // play grab sound
-        SoundManager.instance.PlaySingle(SoundManager.grabspellpiece);
 
         // itemToDrag is the game object that this script is on
         itemToDrag = gameObject;

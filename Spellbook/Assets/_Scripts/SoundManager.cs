@@ -16,27 +16,29 @@ public class SoundManager : MonoBehaviour
 
     #region static_clips
     public static AudioClip buttonconfirm;
+    public static AudioClip yourturn;
+    public static AudioClip tick;
     public static AudioClip characterswipe;
-    public static AudioClip spellbookClose;
+    public static AudioClip characterSelect;
+    public static AudioClip itemfound;
     public static AudioClip diceroll;
     public static AudioClip dicetrayopen;
-    public static AudioClip glyphfound;
-    public static AudioClip grabspellpiece;
-    public static AudioClip itemfound;
     public static AudioClip dicePickUp;
     public static AudioClip dicePlace;
     public static AudioClip pageTurn1;
-    public static AudioClip placespellpiece;
+    public static AudioClip pageTurn2;
+    public static AudioClip pageTurn3;
     public static AudioClip questaccept;
     public static AudioClip questfailed;
     public static AudioClip questsuccess;
     public static AudioClip spellbookopen;
+    public static AudioClip spellbookClose;
     public static AudioClip spellcast;
     public static AudioClip spellcreate;
-    public static AudioClip yourturn;
     public static AudioClip inventoryClose;
     public static AudioClip inventoryOpen;
     public static AudioClip parchmentBurn;
+    public static AudioClip spaceScan;
     public static AudioClip manaCollect;
     public static AudioClip purchase;
     public static AudioClip combatCollectRewards;
@@ -52,6 +54,7 @@ public class SoundManager : MonoBehaviour
     public static AudioClip aromaticTeaLeaves;
     public static AudioClip crystalMirror;
     public static AudioClip glimmeringCabochon;
+    public static AudioClip glowingMushroom;
     public static AudioClip hollowCabochon;
     public static AudioClip mimeticVellum;
     public static AudioClip mysticTranslocator;
@@ -59,11 +62,6 @@ public class SoundManager : MonoBehaviour
     public static AudioClip riftTalisman;
     public static AudioClip infusedSapphire;
     public static AudioClip waxCandle;
-    public static AudioClip glowingMushroom;
-    public static AudioClip spaceScan;
-    public static AudioClip pageTurn2;
-    public static AudioClip pageTurn3;
-    public static AudioClip tick;
     #endregion
 
     #region bgms
@@ -98,29 +96,29 @@ public class SoundManager : MonoBehaviour
         // assigning sounds to static audio clips
         #region assign_sounds
         buttonconfirm = soundeffects[0];
-        characterswipe = soundeffects[1];
-        spellbookClose = soundeffects[2];
-        diceroll = soundeffects[3];
-        dicetrayopen = soundeffects[4];
-        glyphfound = soundeffects[5];
-        grabspellpiece = soundeffects[6];
-        itemfound = soundeffects[7];
+        yourturn = soundeffects[1];
+        tick = soundeffects[2];
+        characterswipe = soundeffects[3];
+        characterSelect = soundeffects[4];
+        itemfound = soundeffects[5];
+        diceroll = soundeffects[6];
+        dicetrayopen = soundeffects[7];
         dicePickUp = soundeffects[8];
         dicePlace = soundeffects[9];
         pageTurn1 = soundeffects[10];
-        placespellpiece = soundeffects[11];
-        questaccept = soundeffects[12];
-        questfailed = soundeffects[13];
-        questsuccess = soundeffects[14];
-        spellbookopen = soundeffects[15];
-        spellcast = soundeffects[16];
-        spellcreate = soundeffects[17];
-        yourturn = soundeffects[18];
-        pageTurn2 = soundeffects[19];
-        pageTurn3 = soundeffects[20];
-        inventoryClose = soundeffects[21];
-        inventoryOpen = soundeffects[22];
-        parchmentBurn = soundeffects[23];
+        pageTurn2 = soundeffects[11];
+        pageTurn3 = soundeffects[12];
+        questaccept = soundeffects[13];
+        questfailed = soundeffects[14];
+        questsuccess = soundeffects[15];
+        spellbookopen = soundeffects[16];
+        spellbookClose = soundeffects[17];
+        spellcast = soundeffects[18];
+        spellcreate = soundeffects[19];
+        inventoryClose = soundeffects[20];
+        inventoryOpen = soundeffects[21];
+        parchmentBurn = soundeffects[22];
+        spaceScan = soundeffects[23];
         manaCollect = soundeffects[24];
         purchase = soundeffects[25];
         combatCollectRewards = soundeffects[26];
@@ -136,16 +134,14 @@ public class SoundManager : MonoBehaviour
         aromaticTeaLeaves = soundeffects[36];
         crystalMirror = soundeffects[37];
         glimmeringCabochon = soundeffects[38];
-        hollowCabochon = soundeffects[39];
-        mimeticVellum = soundeffects[40];
-        mysticTranslocator = soundeffects[41];
-        opalAmmonite = soundeffects[42];
-        riftTalisman = soundeffects[43];
-        infusedSapphire = soundeffects[44];
-        waxCandle = soundeffects[45];
-        glowingMushroom = soundeffects[46];
-        spaceScan = soundeffects[47];
-        tick = soundeffects[48];
+        glowingMushroom = soundeffects[39];
+        hollowCabochon = soundeffects[40];
+        mimeticVellum = soundeffects[41];
+        mysticTranslocator = soundeffects[42];
+        opalAmmonite = soundeffects[43];
+        riftTalisman = soundeffects[44];
+        infusedSapphire = soundeffects[45];
+        waxCandle = soundeffects[46];
         #endregion
 
         #region assign_bgms
