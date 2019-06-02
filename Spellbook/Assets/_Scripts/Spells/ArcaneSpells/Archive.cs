@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Bolt.Samples.Photon.Lobby;
+using System.Collections.Generic;
 using UnityEngine;
 
 // spell for Arcane class
@@ -26,13 +27,14 @@ public class Archive : Spell, ICombatSpell
         guideLine = Resources.Load<Sprite>("CombatSwipes/Archive");
     }
 
-    public void CombatCast(SpellCaster player)
+    public void CombatCast(SpellCaster player, float orbPercentage)
     {
-        // throw new System.NotImplementedException();
         // for every 20% the orb is filled, add 5% to the multiplier.
-        // (int tapBuff = Mathf.Floor(orbPercentage(out of 100) / 20) * 5)
-        // int totalIncrease = (tabBuff + 15) / 100;
-        // teamTapTotal += teamTapTotal * totalIncrease;
+        orbPercentage = orbPercentage * 100;
+        int tapBuff = (int) Mathf.Floor(orbPercentage / 20) * 5;
+        int totalIncrease = (tapBuff + 15) / 100;
+        //teamTapTotal += teamTapTotal * totalIncrease;
+        NetworkManager.s_Singleton.IncreaseTeamTapPercentage(totalIncrease);
     }
 
     public override void SpellCast(SpellCaster player)

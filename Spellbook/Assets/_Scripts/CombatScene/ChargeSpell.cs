@@ -17,6 +17,8 @@ public class ChargeSpell : MonoBehaviour
     public GameObject BossPanekGameObject;
     public Text CountdownText;
 
+    public SpellSwipe spellSwiper;
+
     private int totalSecs = 1;
     private int stopTime = 0;
     private Spell CombatSpell;
@@ -104,9 +106,11 @@ public class ChargeSpell : MonoBehaviour
         }
     } 
 
+    //Doesnt cast the spell lol. But it takes you to the next page to swipe it.
     private void OnClickCastSpell()
     {
         //Send number of taps to network
+        spellSwiper.orbPercentage = ChargeButtonBar.fillAmount;
 
         try
         {

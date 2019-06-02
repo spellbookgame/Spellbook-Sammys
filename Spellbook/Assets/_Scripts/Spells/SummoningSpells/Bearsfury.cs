@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Bolt.Samples.Photon.Lobby;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Bearsfury : Spell, ICombatSpell
@@ -25,10 +26,10 @@ public class Bearsfury : Spell, ICombatSpell
         guideLine = Resources.Load<Sprite>("CombatSwipes/Bearsfury");
     }
 
-    public void CombatCast(SpellCaster player)
+    public void CombatCast(SpellCaster player, float orbPercentage)
     {
-        // throw new System.NotImplementedException();
-        /*int damage;
+        orbPercentage = orbPercentage * 100;
+        int damage;
         if (orbPercentage <= 25)
             damage = Random.Range(8, 11);
         else if (orbPercentage > 25 && orbPercentage <= 50)
@@ -36,7 +37,8 @@ public class Bearsfury : Spell, ICombatSpell
         else if (orbPercentage > 50 && orbPercentage <= 75)
             damage = Random.Range(9, 14);
         else
-            damage = Random.Range(10, 15);*/
+            damage = Random.Range(10, 15);
+        NetworkManager.s_Singleton.DealDmgToBoss(damage);
     }
 
     public override void SpellCast(SpellCaster player)

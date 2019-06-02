@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Bolt.Samples.Photon.Lobby;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Catastrophe : Spell, ICombatSpell
@@ -25,12 +26,14 @@ public class Catastrophe : Spell, ICombatSpell
         guideLine = Resources.Load<Sprite>("CombatSwipes/Catastrophe");
     }
 
-    public void CombatCast(SpellCaster player)
+    public void CombatCast(SpellCaster player, float orbPercentage)
     {
-        // throw new System.NotImplementedException();
+        orbPercentage = orbPercentage * 100;
         // for every 20% the orb is filled, increase the multiplier by 5%
-        // float multiplier = ((Mathf.Floor(orbPercentage / 20) * 5) + 20) / 100
+        float multiplier = ((Mathf.Floor(orbPercentage / 20) * 5) + 20) / 100;
         // player.totalDamage += player.totalDamge * multiplier;
+        
+       // NetworkManager.s_Singleton.IncreaseAllyDamageByPercent(multiplier);
     }
 
     public override void SpellCast(SpellCaster player)

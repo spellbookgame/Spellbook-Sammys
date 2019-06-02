@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Bolt.Samples.Photon.Lobby;
+using System.Collections.Generic;
 using UnityEngine;
 
 // spell for Alchemy class
@@ -26,10 +27,13 @@ public class PotionofBlessing : Spell, ICombatSpell
         guideLine = Resources.Load<Sprite>("CombatSwipes/PotionOfBlessing");
     }
 
-    public void CombatCast(SpellCaster player)
+    public void CombatCast(SpellCaster player, float orbPercentage)
     {
         // throw new System.NotImplementedException();
-        player.HealDamage((int)player.fMaxHealth);
+        //player.HealDamage((int)player.fMaxHealth);
+
+        //Heal everyone to full health, including this spellcaster.
+        NetworkManager.s_Singleton.HealAllAlliesByPercent(1f);
     }
 
     public override void SpellCast(SpellCaster player)

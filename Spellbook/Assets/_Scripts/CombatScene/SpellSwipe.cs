@@ -20,6 +20,8 @@ public class SpellSwipe : MonoBehaviour
     public Button ResetButton;
     public Text SwipeInstructionText;
     public Spell selectedSpell;
+    public SpellCaster localSpellcaster;
+    public float orbPercentage;
     public bool isInBossPanel = false;
 
 
@@ -74,7 +76,9 @@ public class SpellSwipe : MonoBehaviour
                 MatchParticleSystem.Play();
                 Debug.Log("Match Found: " + match.Name);
                 SwipeInstructionText.text = "You casted " + match.Name;
-                
+                //TODO: Maybe scrap out ICombatSpell interface, and stick with just Spell (after graduation).
+                ICombatSpell combatSpell = (ICombatSpell) selectedSpell;
+                combatSpell.CombatCast(localSpellcaster, orbPercentage);
                 //NetworkManager.s_Singleton.CombatSpellCast(selectedSpell.sSpellName, match.Score);
                 //AudioSourceOnMatch.Play();
             }

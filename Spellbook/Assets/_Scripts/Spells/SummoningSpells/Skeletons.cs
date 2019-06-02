@@ -24,7 +24,7 @@ public class Skeletons : Spell, ICombatSpell
         guideLine = Resources.Load<Sprite>("CombatSwipes/Skeletons");
     }
 
-    public void CombatCast(SpellCaster player)
+    public void CombatCast(SpellCaster player, float orbPercentage)
     {
         // throw new System.NotImplementedException();
         // for every 20% the orb is filled, add 5% to the multiplier

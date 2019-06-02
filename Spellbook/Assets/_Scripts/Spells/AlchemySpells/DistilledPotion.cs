@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Bolt.Samples.Photon.Lobby;
+using System.Collections.Generic;
 using UnityEngine;
 
 // spell for Alchemy class
@@ -25,9 +26,10 @@ public class DistilledPotion : Spell, ICombatSpell
         guideLine = Resources.Load<Sprite>("CombatSwipes/DistilledPotion");
     }
 
-    public void CombatCast(SpellCaster player)
+    public void CombatCast(SpellCaster player, float orbPercentage)
     {
         //throw new System.NotImplementedException();
+        /*
         int missingHealth = (int)(player.fMaxHealth - player.fCurrentHealth);
         if(missingHealth > 0)
         {
@@ -35,7 +37,13 @@ public class DistilledPotion : Spell, ICombatSpell
             // (int healBuff = Mathf.Floor(orbPercentage(out of 100) / 20))
             // int newHeal = (int)(2 - (healBuff / 100));
             // player.HealDamage(missingHealth / newHeal);
-        }
+        }*/
+
+        // for every 20% the orb is filled, increase the heal amount by 5%
+        orbPercentage = orbPercentage * 100;
+        float healBuff = Mathf.Floor(orbPercentage / 20);
+        float newHeal = 0.5f + (healBuff * 0.05f);
+        NetworkManager.s_Singleton.HealAllAlliesPercentMissingHP(newHeal);
     }
 
     public override void SpellCast(SpellCaster player)

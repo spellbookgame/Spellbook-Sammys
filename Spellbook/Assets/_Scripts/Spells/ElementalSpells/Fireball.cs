@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Bolt.Samples.Photon.Lobby;
+using System.Collections.Generic;
 using UnityEngine;
 
 // spell for Elemental class
@@ -25,10 +26,10 @@ public class Fireball : Spell, ICombatSpell
         guideLine = Resources.Load<Sprite>("CombatSwipes/Fireball");
     }
 
-    public void CombatCast(SpellCaster player)
+    public void CombatCast(SpellCaster player, float orbPercentage)
     {
-        // throw new System.NotImplementedException();
-        /*int damage1, damage2;
+        orbPercentage = orbPercentage * 100;
+        int damage1, damage2;
         if (orbPercentage <= 25)
         {
             damage1 = Random.Range(1, 4);
@@ -49,7 +50,8 @@ public class Fireball : Spell, ICombatSpell
             damage1 = Random.Range(4, 7);
             damage2 = Random.Range(4, 7);
         }
-        int totalDamage = damage1 + damage2;*/
+        int totalDamage = damage1 + damage2;
+        NetworkManager.s_Singleton.DealDmgToBoss(totalDamage);
     }
 
     public override void SpellCast(SpellCaster player)

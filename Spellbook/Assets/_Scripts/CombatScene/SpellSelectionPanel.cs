@@ -162,6 +162,7 @@ public class SpellSelectionPanel : MonoBehaviour
     {
         ChargePanel.SetActive(true);
         spellSwiper.selectedSpell = selectedSpell;
+        spellSwiper.localSpellcaster = localSpellcaster;
         ChargePanel.GetComponent<ChargeSpell>().SetCombatSpell(selectedSpell, SelectedSpellButton, localSpellcaster);
         this.gameObject.SetActive(false);
     }

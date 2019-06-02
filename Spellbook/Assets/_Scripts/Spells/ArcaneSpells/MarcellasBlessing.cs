@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Bolt.Samples.Photon.Lobby;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class MarcellasBlessing : Spell, ICombatSpell
@@ -26,10 +27,13 @@ public class MarcellasBlessing : Spell, ICombatSpell
         guideLine = Resources.Load<Sprite>("CombatSwipes/MarcellasBlessing");
     }
 
-    public void CombatCast(SpellCaster player)
+    public void CombatCast(SpellCaster player, float orbPercentage)
     {
         // throw new System.NotImplementedException();
         // int totalDamage = teamDamage * 2;
+        
+        //Double the teams damage
+        NetworkManager.s_Singleton.IncreaseTeamDamageByPercent(1f); 
     }
 
     public override void SpellCast(SpellCaster player)

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Bolt.Samples.Photon.Lobby;
+using System.Collections.Generic;
 using UnityEngine;
 
 // spell for Alchemy class
@@ -25,11 +26,13 @@ public class ToxicPotion : Spell, ICombatSpell
         guideLine = Resources.Load<Sprite>("CombatSwipes/ToxicPotion");
     }
 
-    public void CombatCast(SpellCaster player)
+    public void CombatCast(SpellCaster player, float orbPercentage)
     {
         // throw new System.NotImplementedException();
         // for every 20% the orb is filled, add 5% to the damage multiplier
-        // int multiplier = 5 + (Mathf.Floor(orbPercentage(out of 100) / 20) * 5);
+        orbPercentage = orbPercentage * 100;
+        int multiplier = 5 + (int) (Mathf.Floor(orbPercentage / 20) * 5);
+        NetworkManager.s_Singleton.IncreaseTeamDamageByPercent(multiplier / 100);
         // teamOutput += teamOutput * (multiplier / 100);
     }
 
