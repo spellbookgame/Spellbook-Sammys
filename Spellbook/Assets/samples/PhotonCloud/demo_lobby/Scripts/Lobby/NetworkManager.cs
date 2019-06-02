@@ -619,11 +619,32 @@ namespace Bolt.Samples.Photon.Lobby
         
         }
 
+        public override void OnEvent(IncreaseTapTimeBy2Secs evnt)
+        {
+            if (BoltNetwork.IsServer)
+            {
+                gameStateEntity.GetComponent<NetworkGameState>()
+                    .IncreaseTapSecondsAllowed();
+            }
+            //TODO: Display Feedback
+        }
+
+        public override void OnEvent(IncreaseTapPercentageEvent evnt)
+        {
+            if (BoltNetwork.IsServer)
+            {
+                gameStateEntity.GetComponent<NetworkGameState>()
+                    .IncreaseTeamTapPercentage(evnt.Percent);
+            }
+            //TODO: Display Feedback
+        }
+
         /*Everyone recieves this during combat*/
         public override void OnEvent(HealAllAlliesByPercentage evnt)
         {
             playerSpellcaster = playerEntity.GetComponent<Player>().spellcaster;
             playerSpellcaster.HealPercentDamage(evnt.Percent);
+            //TODO: Display feedback
         }
 
         /*Everyone recieves this during combat*/
@@ -632,6 +653,7 @@ namespace Bolt.Samples.Photon.Lobby
             playerSpellcaster = playerEntity.GetComponent<Player>().spellcaster;
             //TODO: keep as float.
             playerSpellcaster.HealDamage((int) evnt.HP);
+            //TODO: Display Feedback
         }
 
         /*Everyone recieves this during combat*/
@@ -639,8 +661,33 @@ namespace Bolt.Samples.Photon.Lobby
         {
             playerSpellcaster = playerEntity.GetComponent<Player>().spellcaster;
             playerSpellcaster.HealPercentMissingHP(evnt.Percent);
+            //TODO: Display feedback.
         }
 
+        public override void OnEvent(IncreaseTeamDmgByPercentEvent evnt)
+        {
+            if (BoltNetwork.IsServer)
+            {
+                gameStateEntity.GetComponent<NetworkGameState>()
+                    .IncreaseTeamDmgByPercent(evnt.Percent);
+            }
+
+            //TODO: Display feedback
+        }
+
+        /*Everyone recieves this during combat*/
+        public override void OnEvent(IncreaseAllyDmgByPercentEvent evnt)
+        {
+            if (BoltNetwork.IsServer)
+            {
+                gameStateEntity.GetComponent<NetworkGameState>().IncreaseAllyDmgByPercent(evnt.AllySpellcasterID, evnt.Percent);
+            }
+            playerSpellcaster = playerEntity.GetComponent<Player>().spellcaster;
+            if (playerSpellcaster.spellcasterID == evnt.AllySpellcasterID)
+            {
+                //TODO:Display feedback letting them know they were buffed/
+            }
+        }
 
         #endregion
         #region HOST_CALLBACKS
@@ -815,19 +862,7 @@ namespace Bolt.Samples.Photon.Lobby
         }
 
 
-        /*Only the server recieves this event.*/
-        public override void OnEvent(IncreaseTapTimeBy2Secs evnt)
-        {
-            gameStateEntity.GetComponent<NetworkGameState>()
-                .IncreaseTapSecondsAllowed();
-        }
 
-        /*Only the server recieves this event.*/
-        public override void OnEvent(IncreaseTapPercentageEvent evnt)
-        {
-            gameStateEntity.GetComponent<NetworkGameState>()
-                .IncreaseTeamTapPercentage(evnt.Percent);
-        }
 
         /*Only the server recieves this event.*/
         public override void OnEvent(DealDmgToBossEvent evnt)
@@ -850,18 +885,7 @@ namespace Bolt.Samples.Photon.Lobby
             Spell combatSpell = AllSpellsDict.AllSpells[evnt.Spellname]; 
         }
 
-        /*Only the server recieves this event.*/
-        public override void OnEvent(IncreaseTeamDmgByPercentEvent evnt)
-        {
-            gameStateEntity.GetComponent<NetworkGameState>()
-                .IncreaseTeamDmgByPercent(evnt.Percent);
-        }
 
-        /*Only the server recieves this event.*/
-        public override void OnEvent(IncreaseAllyDmgByPercentEvent evnt)
-        {
-            gameStateEntity.GetComponent<NetworkGameState>().IncreaseAllyDmgByPercent(evnt.AllySpellcasterID, evnt.Percent); 
-        }
 
 
         #endregion
@@ -1009,25 +1033,26 @@ namespace Bolt.Samples.Photon.Lobby
         //For combat API
         public void IncreaseTapTimeBy2Sec()
         {
-            var evnt = IncreaseTapTimeBy2Secs.Create(Bolt.GlobalTargets.OnlyServer);
+            var evnt = IncreaseTapTimeBy2Secs.Create(Bolt.GlobalTargets.Everyone);
             evnt.Send();
         }
 
         //For combat API
         public void IncreaseTeamTapPercentage(float percent)
         {
-            var evnt = IncreaseTapPercentageEvent.Create(Bolt.GlobalTargets.OnlyServer);
+            var evnt = IncreaseTapPercentageEvent.Create(Bolt.GlobalTargets.Everyone);
             evnt.Percent = percent;
             evnt.Send();
         }
 
+        /*Not being used.
         public void CombatSpellCast(string spellName)
         {
             var evnt = CombatCastEvent.Create(Bolt.GlobalTargets.OnlyServer);
             evnt.Spellname = spellName;
             evnt.Send();
         }
-
+        */
         //For combat API
         //Input: The damage you want to apply to the boss
         public void DealDmgToBoss(float dmg)
@@ -1074,7 +1099,7 @@ namespace Bolt.Samples.Photon.Lobby
         //Input: percentage in decimal form (between 0-1)
         public void IncreaseTeamDamageByPercent(float percent)
         {
-            var evnt = IncreaseTeamDmgByPercentEvent.Create(Bolt.GlobalTargets.OnlyServer);
+            var evnt = IncreaseTeamDmgByPercentEvent.Create(Bolt.GlobalTargets.Everyone);
             evnt.Percent = percent;
             evnt.Send();
         }
@@ -1082,7 +1107,7 @@ namespace Bolt.Samples.Photon.Lobby
         //For combat API
         public void IncreaseAllyDamageByPercent(int allySpellcasterID, float percent)
         {
-            var evnt = IncreaseAllyDmgByPercentEvent.Create(Bolt.GlobalTargets.OnlyServer);
+            var evnt = IncreaseAllyDmgByPercentEvent.Create(Bolt.GlobalTargets.Everyone);
             evnt.AllySpellcasterID = allySpellcasterID;
             evnt.Percent = percent;
             evnt.Send();
