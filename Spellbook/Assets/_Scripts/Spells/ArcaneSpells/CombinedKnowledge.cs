@@ -25,7 +25,7 @@ public class CombinedKnowledge : Spell
         // cast spell for free if Umbra's Eclipse is active
         if (SpellTracker.instance.CheckUmbra())
         {
-            PanelHolder.instance.displayNotify(sSpellName, "Everyone take the rune from their respective towns. Swap or discard a rune from hand if needed.", "MainPlayerScene");
+            PanelHolder.instance.displaySpellCastNotif(sSpellName, "Everyone take the rune from their respective towns. Swap or discard a rune from hand if needed.", "MainPlayerScene");
 
             player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
@@ -39,7 +39,7 @@ public class CombinedKnowledge : Spell
             // subtract mana and glyph costs
             player.iMana -= iManaCost;
 
-            PanelHolder.instance.displayNotify(sSpellName, "Everyone take the rune from their respective towns. Swap or discard a rune from hand if needed.", "MainPlayerScene");
+            PanelHolder.instance.displaySpellCastNotif(sSpellName, "Everyone take the rune from their respective towns. Swap or discard a rune from hand if needed.", "MainPlayerScene");
 
             player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;

@@ -30,7 +30,7 @@ public class RuneConversion : Spell, IAllyCastable
     
     public void RecieveCastFromAlly(SpellCaster player)
     {
-         PanelHolder.instance.displayNotify(sSpellName, "Discard one of your current runes. Draw a new one from the low-tier deck.", "MainPlayerScene");
+         PanelHolder.instance.displaySpellCastNotif(sSpellName, "Discard one of your current runes. Draw a new one from the low-tier deck.", "MainPlayerScene");
     }
 
     public void SpellcastPhase2(int sID, SpellCaster player)
@@ -45,7 +45,7 @@ public class RuneConversion : Spell, IAllyCastable
                 NetworkManager.s_Singleton.CastOnAlly(player.spellcasterID, sID, sSpellName);
             }
             else { 
-                PanelHolder.instance.displayNotify(sSpellName, "Discard one of your current runes. Draw a new one from the low-tier deck.", "MainPlayerScene");
+                PanelHolder.instance.displaySpellCastNotif(sSpellName, "Discard one of your current runes. Draw a new one from the low-tier deck.", "MainPlayerScene");
             }
             player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;
@@ -64,7 +64,7 @@ public class RuneConversion : Spell, IAllyCastable
                 NetworkManager.s_Singleton.CastOnAlly(player.spellcasterID, sID, sSpellName);
             }
             else { 
-                PanelHolder.instance.displayNotify(sSpellName, "Discard one of your current runes. Draw a new one from the low-tier deck.", "MainPlayerScene");
+                PanelHolder.instance.displaySpellCastNotif(sSpellName, "Discard one of your current runes. Draw a new one from the low-tier deck.", "MainPlayerScene");
             }
             player.numSpellsCastThisTurn++;
             SpellTracker.instance.lastSpellCasted = this;

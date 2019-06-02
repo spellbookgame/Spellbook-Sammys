@@ -29,7 +29,7 @@ public class Echo : Spell, IAllyCastable
 
     public void RecieveCastFromAlly(SpellCaster player)
     {
-        PanelHolder.instance.displayNotify(sSpellName, "Next time you roll, you may roll again.", "MainPlayerScene");
+        PanelHolder.instance.displaySpellCastNotif(sSpellName, "Next time you roll, you may roll again.", "MainPlayerScene");
         player.activeSpells.Add(this);
     }
 
@@ -45,7 +45,7 @@ public class Echo : Spell, IAllyCastable
             }
             else
             {
-                PanelHolder.instance.displayNotify(sSpellName, "Next time you roll, you may roll again.", "MainPlayerScene");
+                PanelHolder.instance.displaySpellCastNotif(sSpellName, "Next time you roll, you may roll again.", "MainPlayerScene");
                 player.activeSpells.Add(this);
             }
 
@@ -67,7 +67,7 @@ public class Echo : Spell, IAllyCastable
             }
             else
             {
-                PanelHolder.instance.displayNotify(sSpellName, "Next time you roll, you may roll again.", "MainPlayerScene");
+                PanelHolder.instance.displaySpellCastNotif(sSpellName, "Next time you roll, you may roll again.", "MainPlayerScene");
                 player.activeSpells.Add(this);
             }
 

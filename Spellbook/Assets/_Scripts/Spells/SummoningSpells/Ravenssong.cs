@@ -13,7 +13,7 @@ public class Ravenssong : Spell, ICombatSpell
 
         sSpellName = "Raven's Song";
         sSpellClass = "Summoner";
-        sSpellInfo = "Destroy half of the enemy's current HP. This attack cannot be buffed.";
+        sSpellInfo = "Heal all allies by 20% of their current health, and deal half of that total to the enemy.";
 
         requiredRunes.Add("Summoner A Rune", 1);
         requiredRunes.Add("Summoner B Rune", 1);
@@ -26,9 +26,13 @@ public class Ravenssong : Spell, ICombatSpell
         guideLine = Resources.Load<Sprite>("CombatSwipes/Ravenssong");
     }
 
-    public void CombatCast()
+    public void CombatCast(SpellCaster player)
     {
-        throw new System.NotImplementedException();
+        // throw new System.NotImplementedException();
+        // float multiplier = ((Mathf.Floor(orbPercentage / 20) * 5) + 20) / 100
+        // int healAmount = (int) player.fCurrentHealth * multiplier;
+        // player.HealDamage(healAmount);
+        // enemy.DealDamage(healAmount / 2);
     }
 
     public override void SpellCast(SpellCaster player)

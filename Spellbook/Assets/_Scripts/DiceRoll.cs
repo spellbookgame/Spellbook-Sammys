@@ -101,14 +101,14 @@ public class DiceRoll : MonoBehaviour
             {
                 if (pressedNum <= 1)
                 {
-                    diceTrayPanel.GetComponent<DiceUIHandler>().rollButton.interactable = true;
+                    diceTrayPanel.GetComponent<DiceUIHandler>().rollButtonEnable = true;
                 }
                 else if(pressedNum > 1)
                 {
                     // reset spaces moved to be new roll
                     UICanvasHandler.instance.spacesMoved = 0;
 
-                    diceTrayPanel.GetComponent<DiceUIHandler>().rollButton.interactable = false;
+                    diceTrayPanel.GetComponent<DiceUIHandler>().rollButtonEnable = false;
                     SpellTracker.instance.RemoveFromActiveSpells("Echo");
                 }
             }

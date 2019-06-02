@@ -13,7 +13,7 @@ public class Skeletons : Spell, ICombatSpell
 
         sSpellName = "Skeletons";
         sSpellClass = "Summoner";
-        sSpellInfo = "Summon a skeleton that attacks the enemy for 5-10 damage.";
+        sSpellInfo = "Summon a skeleton that increases an ally's damage output by 10% this round.";
 
         requiredRunes.Add("Summoner D Rune", 1);
 
@@ -24,9 +24,12 @@ public class Skeletons : Spell, ICombatSpell
         guideLine = Resources.Load<Sprite>("CombatSwipes/Skeletons");
     }
 
-    public void CombatCast()
+    public void CombatCast(SpellCaster player)
     {
-        throw new System.NotImplementedException();
+        // throw new System.NotImplementedException();
+        // for every 20% the orb is filled, add 5% to the multiplier
+        // float multiplier = ((Mathf.Floor(orbPercentage / 20) * 5) + 10) / 100
+        // player.totalDamage += player.totalDamage * multiplier;
     }
 
     public override void SpellCast(SpellCaster player)

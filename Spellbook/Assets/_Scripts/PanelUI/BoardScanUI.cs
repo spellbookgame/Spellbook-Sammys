@@ -28,6 +28,8 @@ public class BoardScanUI : MonoBehaviour
         infoText.text = info;
         gameObject.transform.Find("Image").GetComponent<Image>().sprite = sprite;
 
+        singleButton.onClick.RemoveAllListeners();
+
         if (scene.Equals("OK"))
             singleButton.onClick.AddListener((okClick));
         else

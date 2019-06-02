@@ -14,6 +14,7 @@ namespace Bolt.Samples.Photon.Lobby
 
         public InputField matchNameInput;
         public Button CreateButton;
+        public GameObject gameTitle;
 
         public void OnEnable()
         {
@@ -66,6 +67,8 @@ namespace Bolt.Samples.Photon.Lobby
 
 
             lobbyManager.SetServerInfo("Matchmaker Host", NetworkManager.s_Singleton.matchHost);
+
+            gameTitle.SetActive(false);
         }
 
         public void OnClickOpenServerList()
@@ -73,6 +76,8 @@ namespace Bolt.Samples.Photon.Lobby
             lobbyManager.StartClient();
             lobbyManager.backDelegate = lobbyManager.SimpleBackClbk;
             lobbyManager.ChangeTo(lobbyServerList);
+
+            gameTitle.SetActive(false);
         }
 
         public void OnClickJoinRandom()
@@ -92,7 +97,7 @@ namespace Bolt.Samples.Photon.Lobby
 
         void OnValueGameNameChanged(string text)
         {
-            CreateButton.gameObject.SetActive(text.Length != 0);
+            CreateButton.interactable = text.Length != 0;
         }
 
     }

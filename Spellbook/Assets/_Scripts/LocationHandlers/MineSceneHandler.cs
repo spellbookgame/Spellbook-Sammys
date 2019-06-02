@@ -10,6 +10,7 @@ public class MineSceneHandler : MonoBehaviour
     private Player localPlayer;
     private void Start()
     {
+        SoundManager.instance.PlayGameBCM(SoundManager.minesBGM);
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
 
         grabManaButton.onClick.AddListener(GrabMana);
@@ -17,6 +18,7 @@ public class MineSceneHandler : MonoBehaviour
         leaveButton.onClick.AddListener(() =>
         {
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+            SoundManager.instance.PlayGameBCM(SoundManager.gameBCG);
             SceneManager.LoadScene("MainPlayerScene");
         });
 

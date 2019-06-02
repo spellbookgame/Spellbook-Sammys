@@ -51,6 +51,7 @@ public class CrisisHandler : MonoBehaviour
     // call this to alert players of new crisis
     public void CallTsunami()
     {
+        SoundManager.instance.PlaySingle(SoundManager.crisisNotification);
         currentCrisis = "Tsunami";
         nextCrisis = "Plague";
         crisisSolved = false;
@@ -74,11 +75,13 @@ public class CrisisHandler : MonoBehaviour
         BoltConsole.Write("Finish Tsunami, crisisSolved: " + crisisSolved);
         if(crisisSolved)
         {
+            SoundManager.instance.PlaySingle(SoundManager.crisisAverted);
             PanelHolder.instance.displayBoardScan("Tsunami Averted", "Out of gratitude for saving the Empire, the Capital is rewarding each wizard with an A tier rune from their class.",
                                                     Resources.Load<Sprite>("RuneArt/" + player.Spellcaster.classType + " A Rune"), "MainPlayerScene");
         }
         else
         {
+            SoundManager.instance.PlaySingle(SoundManager.crisisLost);
             PanelHolder.instance.displayNotify("Tsunami Disaster", "You weren't able to stop the tsunami in time. All wizards lost half HP. Towns will not be scannable next round.", "MainPlayerScene");
             player.Spellcaster.TakeDamage((int)player.Spellcaster.fCurrentHealth / 2);
             player.Spellcaster.tsunamiConsequence = true;   // checked in CustomEventHandler.cs
@@ -130,6 +133,7 @@ public class CrisisHandler : MonoBehaviour
     #region plague
     public void CallPlague()
     {
+        SoundManager.instance.PlaySingle(SoundManager.crisisNotification);
         currentCrisis = "Plague";
         nextCrisis = "Boss Battle";
         crisisSolved = false;
@@ -152,6 +156,7 @@ public class CrisisHandler : MonoBehaviour
         BoltConsole.Write("Finish Plague, Crisis Solved:  "  + crisisSolved);
         if (crisisSolved)
         {
+            SoundManager.instance.PlaySingle(SoundManager.crisisAverted);
             PanelHolder.instance.displayBoardScan("Plague Averted", "The local apothecaries have gathered special talismans for each wizard for saving them from doing work. " +
                                                     "Each wizard will earn a permanent D6 and an Abyssal Ore!", Resources.Load<Sprite>("Art Assets/Items and Currency/Abyssal Ore"), "MainPlayerScene");
             player.Spellcaster.dice["D6"] += 1;
@@ -159,6 +164,7 @@ public class CrisisHandler : MonoBehaviour
         }
         else
         {
+            SoundManager.instance.PlaySingle(SoundManager.crisisLost);
             PanelHolder.instance.displayNotify("Plague Epidemic", "Riddled with disease, all wizards will be unable to cast spells next round. The Swamp will be closed for the next round.", "MainPlayerScene");
             player.Spellcaster.plagueConsequence = true;   // checked in CustomEventHandler.cs and SpellCollectionHandler.cs
             player.Spellcaster.plagueConsTurn = player.Spellcaster.NumOfTurnsSoFar;
@@ -286,12 +292,13 @@ public class CrisisHandler : MonoBehaviour
     #region boss_battle
     public void CallBossBattle()
     {
+        SoundManager.instance.PlaySingle(SoundManager.crisisNotification);
         currentCrisis = "Boss Battle";
         crisisSolved = false;
         roundsUntilCrisis = NetworkGameState.instance.RoundsUntilCrisisActivates();
         crisisName = "Final Battle";
 
-        crisisDetails = "The Evil Wizard is coming! Prepare your combat spells so you can fight!";
+        crisisDetails = "The Black Mage is coming! Prepare your combat spells so you can fight!";
         crisisConsequence = "The entire Empire will be wiped out, and your duty as Spellcasters to defend our Empire will be no more.";
         crisisReward = "You will be crowned as the most prestigious Spellcasters in all the Empire, and join the Council of Protection to continue your duties.";
 

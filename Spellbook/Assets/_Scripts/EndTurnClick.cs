@@ -11,6 +11,9 @@ public class EndTurnClick : MonoBehaviour
         bool endSuccessful = localPlayer.onEndTurnClick();
         if (endSuccessful)
         {
+            // mute bgm if not player's turn
+            SoundManager.instance.musicSource.volume = 0;
+
             // reset player attribute values
             localPlayer.Spellcaster.hasAttacked = false;
             localPlayer.Spellcaster.hasRolled = false;

@@ -157,7 +157,7 @@ namespace Bolt.Samples.Photon.Lobby
                         MainPageHandler.instance.setupMainPage();
                     }
 
-                    SoundManager.instance.PlayGameBCM();
+                    SoundManager.instance.PlayGameBCM(SoundManager.gameBCG);
                 }
 
             }
@@ -192,6 +192,7 @@ namespace Bolt.Samples.Photon.Lobby
                 backButton.gameObject.SetActive(false);
                 SetServerInfo("Offline", "None");
             }
+
         }
 
         public void DisplayIsConnecting()

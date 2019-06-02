@@ -8,14 +8,15 @@ public class ElementalTownHandler : MonoBehaviour
 {
     [SerializeField] private Button findQuestButton;
     [SerializeField] private Button dropItemButton;
-    [SerializeField] private Button pickupItemButton;
     [SerializeField] private Button leaveButton;
 
     private Quest[] quests;
+    private bool questShown;
 
     private Player localPlayer;
     private void Start()
     {
+        SoundManager.instance.PlayGameBCM(SoundManager.sarissaBGM);
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
 
         quests = new Quest[]
@@ -30,11 +31,13 @@ public class ElementalTownHandler : MonoBehaviour
         leaveButton.onClick.AddListener(() =>
         {
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+            SoundManager.instance.PlayGameBCM(SoundManager.gameBCG);
             SceneManager.LoadScene("MainPlayerScene");
         });
 
         QuestTracker.instance.TrackLocationQuest("town_elementalist");
         QuestTracker.instance.TrackErrandQuest("town_elementalist");
+        CrisisHandler.instance.CheckCrisis(localPlayer, CrisisHandler.instance.currentCrisis, "town_elementalist");
     }
 
     private void FindQuest()
@@ -58,8 +61,16 @@ public class ElementalTownHandler : MonoBehaviour
         }
         else
         {
-            int r = Random.Range(0, quests.Length);
-            PanelHolder.instance.displayQuest(quests[r]);
+            if(!questShown)
+            {
+                int r = Random.Range(0, quests.Length);
+                PanelHolder.instance.displayQuest(quests[r]);
+                questShown = true;
+            }
+            else
+            {
+                PanelHolder.instance.displayNotify("Too Late", "You denied a quest, you cannot find another one until you come back.", "OK");
+            }
         }
     }
 }

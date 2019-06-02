@@ -23,6 +23,9 @@ public class YourTurnUI : MonoBehaviour
 
     public void Display()
     {
+        SoundManager.instance.PlaySingle(SoundManager.yourturn);
+        // set bgm volume back up if it's player's turn
+        SoundManager.instance.musicSource.volume = 0.7f;
         gameObject.SetActive(true);
 
         if (!PanelHolder.panelQueue.Peek().Equals(panelID))
@@ -35,10 +38,6 @@ public class YourTurnUI : MonoBehaviour
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
             gameObject.SetActive(false);
 
-            if (PanelHolder.panelQueue.Count > 0)
-                PanelHolder.panelQueue.Dequeue();
-            PanelHolder.instance.CheckPanelQueue();
-
             // enable player's dice button
             UICanvasHandler.instance.EnableDiceButton(true);
 
@@ -49,8 +48,9 @@ public class YourTurnUI : MonoBehaviour
                 UICanvasHandler.instance.ActivateSpellbookButtons(false);
             }
 
-            // for start of game: give players a spell quest to start
-            QuestTracker.instance.GiveSpellQuest();
+            if (PanelHolder.panelQueue.Count > 0)
+                PanelHolder.panelQueue.Dequeue();
+            PanelHolder.instance.CheckPanelQueue();
 
             // check crisis resolution
             //int roundsTillCrisis = NetworkGameState.instance.RoundsUntilCrisisActivates();

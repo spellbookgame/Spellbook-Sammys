@@ -11,9 +11,9 @@ public class MarcellasBlessing : Spell, ICombatSpell
 
         combatSpell = true;
 
-        sSpellName = "Marcellas Blessing ";
+        sSpellName = "Marcella's Blessing ";
         sSpellClass = "Arcanist";
-        sSpellInfo = "Cast this during combat to grant everyone double loot from the fight. This spell cannot be upgraded.";
+        sSpellInfo = "Double the team's total damage output. This effect cannot be buffed.";
 
         requiredRunes.Add("Alchemist A Rune", 1);
         requiredRunes.Add("Arcanist A Rune", 1);
@@ -26,9 +26,10 @@ public class MarcellasBlessing : Spell, ICombatSpell
         guideLine = Resources.Load<Sprite>("CombatSwipes/MarcellasBlessing");
     }
 
-    public void CombatCast()
+    public void CombatCast(SpellCaster player)
     {
-        throw new System.NotImplementedException();
+        // throw new System.NotImplementedException();
+        // int totalDamage = teamDamage * 2;
     }
 
     public override void SpellCast(SpellCaster player)

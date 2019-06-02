@@ -16,23 +16,13 @@ public class DiceUIHandler : MonoBehaviour
     [SerializeField] private Button endTurnButton;
 
     public bool diceTrayOpen;
+    public bool rollButtonEnable;
 
     public Button rollButton;
     public Button scanButton;
     public bool diceLocked;
 
     Player localPlayer;
-
-    private void Start()
-    {
-        scanButton.onClick.AddListener(() =>
-        {
-            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
-            if(diceTrayOpen)
-                OpenCloseDiceTray();
-            SceneManager.LoadScene("VuforiaScene");
-        });
-    }
 
     // call this function from onclick event on button
     public void OpenCloseDiceTray()
@@ -43,7 +33,10 @@ public class DiceUIHandler : MonoBehaviour
         // set dice tray position to 0
         transform.localPosition = new Vector3(0, 0, 0);
 
-        rollButton.interactable = false;
+        if (rollButtonEnable)
+            rollButton.interactable = true;
+        else
+            rollButton.interactable = false;
 
         // if dice are not locked, reset dice when opening tray
         if (!diceTrayOpen && !localPlayer.Spellcaster.hasRolled)

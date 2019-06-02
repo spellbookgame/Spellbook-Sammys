@@ -22,7 +22,7 @@ public class CrystalScent : Spell, IAllyCastable
 
     public void RecieveCastFromAlly(SpellCaster player)
     {
-        PanelHolder.instance.displayNotify(sSpellName, "Move your piece to the Marketplace.", "ShopScene");
+        PanelHolder.instance.displaySpellCastNotif(sSpellName, "Move your piece to the Marketplace.", "ShopScene");
     }
 
     public override void SpellCast(SpellCaster player)
@@ -44,7 +44,7 @@ public class CrystalScent : Spell, IAllyCastable
             }
             else
             {
-                PanelHolder.instance.displayNotify(sSpellName, "Move your piece to the Marketplace.", "ShopScene");
+                PanelHolder.instance.displaySpellCastNotif(sSpellName, "Move your piece to the Marketplace.", "ShopScene");
             }
 
             player.numSpellsCastThisTurn++;
@@ -65,7 +65,7 @@ public class CrystalScent : Spell, IAllyCastable
             }
             else
             {
-                PanelHolder.instance.displayNotify(sSpellName, "Move your piece to the Marketplace.", "ShopScene");
+                PanelHolder.instance.displaySpellCastNotif(sSpellName, "Move your piece to the Marketplace.", "ShopScene");
             }
 
             player.numSpellsCastThisTurn++;
