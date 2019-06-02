@@ -175,11 +175,7 @@ public class MainPageHandler : MonoBehaviour
                 characterImage.sprite = summonerSprite;
                 break;
         }
-                    
-        // set character image based on class
-        characterImage.sprite = Resources.Load<Sprite>(localPlayer.Spellcaster.characterSpritePath);
-        // set class symbol image based on class
-        symbolImage.sprite = Resources.Load<Sprite>(localPlayer.Spellcaster.characterIconPath);
+
         // set background color based on class
         Color lightCol = new Color();
         ColorUtility.TryParseHtmlString(localPlayer.Spellcaster.hexStringLight, out lightCol);
