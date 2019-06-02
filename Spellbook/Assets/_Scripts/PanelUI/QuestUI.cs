@@ -13,6 +13,7 @@ public class QuestUI : MonoBehaviour
     [SerializeField] private Image rewardImage2;
     [SerializeField] private Button singleButton;
     [SerializeField] private Button singleButton1;
+    [SerializeField] private GameObject runeContainer;
 
     Image[] rewardImages = new Image[2];
 
@@ -37,18 +38,19 @@ public class QuestUI : MonoBehaviour
         rewardImages[0] = rewardImage1;
         rewardImages[1] = rewardImage2;
 
+        Player player = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
+
         int i = 0;
         foreach(KeyValuePair<string, string> kvp in quest.rewards)
         {
             switch(kvp.Key)
             {
                 case "Rune":
-                    rewardImages[i].sprite = Resources.Load<Sprite>("RuneArt/" + kvp.Value);
+                    rewardImages[i].sprite = runeContainer.transform.Find(kvp.Value).GetComponent<Image>().sprite;
                     ++i;
                     continue;
                 case "Class Rune":
-                    rewardImages[i].sprite = Resources.Load<Sprite>("RuneArt/" +
-                        GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().Spellcaster.classType + " " + kvp.Value);
+                    rewardImages[i].sprite = runeContainer.transform.Find(player.Spellcaster.classType + " " + kvp.Value).GetComponent<Image>().sprite;
                     ++i;
                     continue;
                 case "Mana":

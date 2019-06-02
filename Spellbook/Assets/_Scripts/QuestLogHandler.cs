@@ -18,6 +18,7 @@ public class QuestLogHandler : MonoBehaviour
 
     private Player localPlayer;
     private Image[] rewardImages;
+    private GameObject runeContainer;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +26,8 @@ public class QuestLogHandler : MonoBehaviour
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
 
         rewardImages = new Image[2];
+
+        runeContainer = GameObject.Find("RuneContainer");
 
         exitButton.onClick.AddListener(() =>
         {
@@ -75,12 +78,11 @@ public class QuestLogHandler : MonoBehaviour
             switch (kvp.Key)
             {
                 case "Rune":
-                    rewardImages[i].sprite = Resources.Load<Sprite>("RuneArt/" + kvp.Value);
+                    rewardImages[i].sprite = runeContainer.transform.Find(kvp.Value).GetComponent<Image>().sprite;
                     ++i;
                     continue;
                 case "Class Rune":
-                    rewardImages[i].sprite = Resources.Load<Sprite>("RuneArt/" +
-                        GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().Spellcaster.classType + " " + kvp.Value);
+                    rewardImages[i].sprite = runeContainer.transform.Find(localPlayer.Spellcaster.classType + " " + kvp.Value).GetComponent<Image>().sprite;
                     ++i;
                     continue;
                 case "Mana":

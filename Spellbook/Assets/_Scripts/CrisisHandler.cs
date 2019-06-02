@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CrisisHandler : MonoBehaviour
 {
@@ -77,7 +78,7 @@ public class CrisisHandler : MonoBehaviour
         {
             SoundManager.instance.PlaySingle(SoundManager.crisisAverted);
             PanelHolder.instance.displayBoardScan("Tsunami Averted", "Out of gratitude for saving the Empire, the Capital is rewarding each wizard with an A tier rune from their class.",
-                                                    Resources.Load<Sprite>("RuneArt/" + player.Spellcaster.classType + " A Rune"), "MainPlayerScene");
+                                                    GameObject.Find("RuneContainer").transform.Find(player.Spellcaster.classType + " A Rune").GetComponent<Image>().sprite, "MainPlayerScene");
         }
         else
         {
