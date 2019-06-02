@@ -74,7 +74,7 @@ public class SpellSwipe : MonoBehaviour
                 MatchParticleSystem.Play();
                 Debug.Log("Match Found: " + match.Name);
                 SwipeInstructionText.text = "You casted " + match.Name;
-                NetworkManager.s_Singleton.CombatSpellCast(selectedSpell.sSpellName);
+                
                 //NetworkManager.s_Singleton.CombatSpellCast(selectedSpell.sSpellName, match.Score);
                 //AudioSourceOnMatch.Play();
             }
