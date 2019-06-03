@@ -47,6 +47,7 @@ public class InventoryUI : MonoBehaviour
     // panel that shows item information
     private void OpenItemPanel(ItemObject item)
     {
+        SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
         if (!infoPanelOpen)
         {
             infoPanel.SetActive(true);

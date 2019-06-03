@@ -32,7 +32,7 @@ public class ForestSceneHandler : MonoBehaviour
 
     private void LookForItem()
     {
-        SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+        SoundManager.instance.PlaySingle(SoundManager.itemfound);
 
         if (SpellTracker.instance.SpellIsActive(new Forecast()))
         {
