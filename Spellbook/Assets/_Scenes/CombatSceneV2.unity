@@ -845,7 +845,7 @@ RectTransform:
   - {fileID: 1912121115}
   - {fileID: 1858296455}
   m_Father: {fileID: 1428594358}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -10994,7 +10994,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &532951080
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11011,7 +11011,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -182}
+  m_AnchoredPosition: {x: 0, y: -481}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &532951081
@@ -15777,12 +15777,12 @@ GameObject:
   - component: {fileID: 617558557}
   - component: {fileID: 617558556}
   m_Layer: 5
-  m_Name: ResetButtonTestOnly
+  m_Name: ResetButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &617558555
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16922,6 +16922,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1079085913}
   - component: {fileID: 1079085914}
+  - component: {fileID: 1079085915}
   m_Layer: 5
   m_Name: BossPanel
   m_TagString: Untagged
@@ -16945,7 +16946,7 @@ RectTransform:
   - {fileID: 1880389174}
   - {fileID: 532951080}
   m_Father: {fileID: 1428594358}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -16960,6 +16961,54 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1079085912}
   m_CullTransparentMesh: 0
+--- !u!114 &1079085915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079085912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a90291991ff9b8b48b5a9abd17593d35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  potionOfBlessing: {fileID: 1272017964155394570, guid: f2b55a5e8ffaf41d084d97f6e5388b97,
+    type: 3}
+  distilledPotion: {fileID: 2761501462344388845, guid: 2ae885d15601142b7936952b2aa77f4e,
+    type: 3}
+  toxicPotion: {fileID: 1980688466017239714, guid: e43fbfb1d1d67475f94782c2b88af4bc,
+    type: 3}
+  marcellasBlessing: {fileID: 5335176884607519813, guid: 1e61b3d0c21d1434aa98d207f07779e1,
+    type: 3}
+  archive: {fileID: 7592738467001190614, guid: e5f80184189734050b9a346af2d8ad89, type: 3}
+  runicDarts: {fileID: 7693050804454679963, guid: ed1866a20b0fd4f63b6a6f4047de186c,
+    type: 3}
+  manipulate: {fileID: 5159879133158640261, guid: ed875f0178f314c4392d779f415777b4,
+    type: 3}
+  reverseWounds: {fileID: 4931569300048422105, guid: 17154b609adee4633ac22beb188d9fe6,
+    type: 3}
+  chronoblast: {fileID: 7608856146826502712, guid: 3092a0ba45eb14155ad977e0c4be92b8,
+    type: 3}
+  naturalDisaster: {fileID: 7851291406481149108, guid: 21a5a414495224ba7bee2308e2ce2a32,
+    type: 3}
+  eyeOfTheStorm: {fileID: 3380147630856084660, guid: 060cdeb60ebf44054be772d6ea54d1e2,
+    type: 3}
+  fireball: {fileID: 8564747453574446752, guid: bd94667fafa7743609d2f8b9c36f5468,
+    type: 3}
+  catastrophe: {fileID: 1887757860793324345, guid: 3b72126be722f4d7686ed5c5fc2a2bfe,
+    type: 3}
+  catharsis: {fileID: 3820252011965027939, guid: dbb3db498b3ac4aa2af5e0ac98af28b6,
+    type: 3}
+  tragedy: {fileID: 8608284809488305375, guid: afb69dcb74f8b424eb704271be2d13d8, type: 3}
+  ravensong: {fileID: 3576139446494180568, guid: 347eab1c33204431a9a82a9152431195,
+    type: 3}
+  bearsfury: {fileID: 6293933924773267245, guid: 56b739698cb3d4856b746787e54af88a,
+    type: 3}
+  skeletons: {fileID: 1497705021654446058, guid: 6f5de2205fa204e68898e3a3fa4cf92d,
+    type: 3}
+  selectedSpell: {fileID: 0}
+  yPos: -2
 --- !u!1 &1173167800
 GameObject:
   m_ObjectHideFlags: 0
@@ -17520,6 +17569,7 @@ MonoBehaviour:
   isInBossPanel: 0
   BossHealthBar: {fileID: 1280939177}
   PlayerHealthBar: {fileID: 36730943}
+  swipeGuideSpawner: {fileID: 1079085915}
 --- !u!82 &1173167808
 AudioSource:
   m_ObjectHideFlags: 0
@@ -17801,6 +17851,129 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1379434724}
   m_CullTransparentMesh: 0
+--- !u!1 &1388760376
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1388760377}
+  - component: {fileID: 1388760380}
+  - component: {fileID: 1388760379}
+  - component: {fileID: 1388760378}
+  m_Layer: 5
+  m_Name: BackgroundPanelBoss
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1388760377
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1388760376}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 114.5392, y: 137.38846, z: 114.5392}
+  m_Children: []
+  m_Father: {fileID: 1428594358}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: -50}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!212 &1388760378
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1388760376}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: -3
+  m_Sprite: {fileID: 21300000, guid: 13b77861b3735b94884665ecbcd5b5d9, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 3300, y: 4400}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!114 &1388760379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1388760376}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 21300000, guid: bd31f632710ac60469ab3c98cdffc13c, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+--- !u!222 &1388760380
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1388760376}
+  m_CullTransparentMesh: 0
 --- !u!1001 &1417693103
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17851,7 +18024,7 @@ PrefabInstance:
     - target: {fileID: 6022888685260894885, guid: 062387d79fea9433bb3406246d57021b,
         type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6022888685260894885, guid: 062387d79fea9433bb3406246d57021b,
         type: 3}
@@ -23330,7 +23503,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Back To Main Scene
+  m_Text: Cast Another Spell
 --- !u!222 &1726438894
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -23511,7 +23684,7 @@ PrefabInstance:
     - target: {fileID: 6022888685260894885, guid: 062387d79fea9433bb3406246d57021b,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6022888685260894885, guid: 062387d79fea9433bb3406246d57021b,
         type: 3}
@@ -23578,6 +23751,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 6022888685571825858, guid: 062387d79fea9433bb3406246d57021b,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
     - target: {fileID: 6022888685260894882, guid: 062387d79fea9433bb3406246d57021b,
         type: 3}
       propertyPath: healthPercentage
@@ -23602,11 +23780,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Size.x
       value: 1300
-      objectReference: {fileID: 0}
-    - target: {fileID: 6022888685571825858, guid: 062387d79fea9433bb3406246d57021b,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 062387d79fea9433bb3406246d57021b, type: 3}
@@ -23788,7 +23961,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1880389174
 RectTransform:
   m_ObjectHideFlags: 0
@@ -29025,7 +29198,7 @@ GameObject:
   - component: {fileID: 2016777817}
   - component: {fileID: 2016777816}
   m_Layer: 5
-  m_Name: BackgroundPanel
+  m_Name: BackgroundPanelBook
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29175,7 +29348,7 @@ RectTransform:
   - {fileID: 342632571}
   - {fileID: 120666961}
   m_Father: {fileID: 1428594358}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -29234,12 +29407,15 @@ MonoBehaviour:
   OuterBackgroundBar: {fileID: 407278467}
   OrbButton: {fileID: 1981539223}
   Arrows: {fileID: 342632570}
+  BackgroundPanelBook: {fileID: 2016777814}
+  BackgroundPanelBoss: {fileID: 1388760376}
   CastSpellButton: {fileID: 120666960}
   ChargeButtonBar: {fileID: 299303914}
   MatchParticleSystem: {fileID: 1949598324}
   BossPanekGameObject: {fileID: 1079085912}
   CountdownText: {fileID: 1678118985}
   spellSwiper: {fileID: 1173167807}
+  swipeSpawner: {fileID: 1079085915}
   taps: 0
 --- !u!1001 &2143566281
 PrefabInstance:

@@ -25,6 +25,7 @@ public class Combat : MonoBehaviour
     public bool isInBossPanel = false;
     public GameObject BossHealthBar;
     public GameObject PlayerHealthBar;
+    public SwipeGuideSpawner swipeGuideSpawner;
 
 
     private void LinesUpdated(object sender, System.EventArgs args)
@@ -47,7 +48,6 @@ public class Combat : MonoBehaviour
         {
             Debug.Log("Combat found local player");
             localSpellcaster = p.GetComponent<Player>().Spellcaster;
-            /*Prepare Spell Buttons**/
         }
         else
         {
@@ -77,9 +77,9 @@ public class Combat : MonoBehaviour
                         localSpellcaster.chapter.spellsCollected.Add(new Archive());  // Pass
                 */
             localSpellcaster = new Alchemist();
-            //localSpellcaster.chapter.spellsCollected.Add(new DistilledPotion());  // Pass
-            //localSpellcaster.chapter.spellsCollected.Add(new PotionofBlessing()); // Needs more
-            //localSpellcaster.chapter.spellsCollected.Add(new ToxicPotion()); // Looks like Fireball, NaturalDisaster  /* */
+            localSpellcaster.chapter.spellsCollected.Add(new DistilledPotion());  // Pass
+            localSpellcaster.chapter.spellsCollected.Add(new PotionofBlessing()); // Needs more
+            localSpellcaster.chapter.spellsCollected.Add(new ToxicPotion()); // Looks like Fireball, NaturalDisaster  /* */
         }
 
         try
@@ -129,9 +129,16 @@ public class Combat : MonoBehaviour
                 SwipeInstructionText.text = "You casted " + match.Name;
                 //TODO: Maybe scrap out ICombatSpell interface, and stick with just Spell (after graduation).
                 ICombatSpell combatSpell = (ICombatSpell)selectedSpell;
+                try
+                {
+
                 combatSpell.CombatCast(localSpellcaster, orbPercentage);
+                }
+                catch { }
                 //NetworkManager.s_Singleton.CombatSpellCast(selectedSpell.sSpellName, match.Score);
                 //AudioSourceOnMatch.Play();
+                swipeGuideSpawner.selectedSpell.SetActive(false);
+                ResetButton.gameObject.SetActive(true);
             }
             else
             {

@@ -10,6 +10,8 @@ public class ChargeSpell : MonoBehaviour
     public Image OuterBackgroundBar;
     public GameObject OrbButton;
     public GameObject Arrows;
+    public GameObject BackgroundPanelBook;
+    public GameObject BackgroundPanelBoss;
     //    public Button ChargeButton;
     public GameObject CastSpellButton;
     public Image ChargeButtonBar;
@@ -18,6 +20,7 @@ public class ChargeSpell : MonoBehaviour
     public Text CountdownText;
 
     public Combat spellSwiper;
+    public SwipeGuideSpawner swipeSpawner;
 
     private int totalSecs = 1;
     private int stopTime = 0;
@@ -111,7 +114,6 @@ public class ChargeSpell : MonoBehaviour
     {
         //Send number of taps to network
         spellSwiper.orbPercentage = ChargeButtonBar.fillAmount;
-
         try
         {
             NetworkManager.s_Singleton.SendOrbUpdateToNetwork(localSpellcaster.spellcasterID, taps, ChargeButtonBar.fillAmount);
@@ -120,7 +122,10 @@ public class ChargeSpell : MonoBehaviour
         {
 
         }
+        BackgroundPanelBook.SetActive(false);
+        BackgroundPanelBoss.SetActive(true);
         BossPanekGameObject.SetActive(true);
+        swipeSpawner.SpawnGuidePrefab(CombatSpell.sSpellName);
         this.gameObject.SetActive(false);
     }
 }
