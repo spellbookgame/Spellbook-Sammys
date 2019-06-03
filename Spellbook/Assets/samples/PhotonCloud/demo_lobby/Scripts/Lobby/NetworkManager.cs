@@ -1115,6 +1115,31 @@ namespace Bolt.Samples.Photon.Lobby
             evnt.Percent = percent;
             evnt.Send();
         }
+
+        /// <summary>
+        /// ///////////////////////////////////////////////////////////////////////////////////
+        /// </summary>
+        /// <param name="dmg"></param>
+        public void BossAttacksEveryone(float dmg)
+        {
+            var evnt = BossAttacksEveryoneEvent.Create(Bolt.GlobalTargets.Everyone);
+            evnt.Damage = dmg;
+            evnt.Send();
+        }
+
+        public void BossDies()
+        {
+            var evnt = BossDiesEvent.Create(Bolt.GlobalTargets.Everyone);
+            evnt.Send();
+        }
+
+        public void GameOver()
+        {
+            var evnt = GameOverEvent.Create(Bolt.GlobalTargets.Everyone);
+            evnt.Send();
+        }
+
+        
         #endregion
     }
 }
