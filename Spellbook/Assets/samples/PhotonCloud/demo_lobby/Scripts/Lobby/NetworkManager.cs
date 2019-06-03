@@ -683,11 +683,13 @@ namespace Bolt.Samples.Photon.Lobby
             {
                 gameStateEntity.GetComponent<NetworkGameState>().IncreaseAllyDmgByPercent(evnt.AllySpellcasterID, evnt.Percent);
             }
+            /*NOT NEEDED ANYMORE, DELETE AFTER TESTING
             playerSpellcaster = playerEntity.GetComponent<Player>().spellcaster;
             if (playerSpellcaster.spellcasterID == evnt.AllySpellcasterID)
             {
                 //TODO:Display feedback letting them know they were buffed/
             }
+            */
         }
 
         #endregion

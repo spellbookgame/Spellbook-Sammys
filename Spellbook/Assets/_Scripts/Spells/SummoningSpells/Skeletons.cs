@@ -1,8 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using Bolt.Samples.Photon.Lobby;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class Skeletons : Spell, ICombatSpell
+public class Skeletons : Spell, ICombatSpell, IAllyCastable
 {
+    float OrbPercent;
+    SpellCaster player;
+
     public Skeletons()
     {
         iTier = 3;
@@ -26,15 +30,29 @@ public class Skeletons : Spell, ICombatSpell
 
     public void CombatCast(SpellCaster player, float orbPercentage)
     {
-        // throw new System.NotImplementedException();
-        // for every 20% the orb is filled, add 5% to the multiplier
-        // float multiplier = ((Mathf.Floor(orbPercentage / 20) * 5) + 10) / 100
-        // player.totalDamage += player.totalDamage * multiplier;
+        this.player = player;
+        this.OrbPercent = orbPercentage;
+        PanelHolder.instance.displayChooseSpellcaster(this);
+    }
+
+
+    public void RecieveCastFromAlly(SpellCaster player)
+    {
+       PanelHolder.instance.displaySpellCastNotif(sSpellName, "Your damage output is increased by 10% this round", "OK");
     }
 
     public override void SpellCast(SpellCaster player)
     {
         //Nothing.
     }
-    
+
+    public void SpellcastPhase2(int sID, SpellCaster player)
+    {
+        OrbPercent = OrbPercent * 100;
+        //for every 20% the orb is filled, add 5% to the multiplier
+        float multiplier = ((Mathf.Floor(OrbPercent / 20) * 5) + 10) / 100;
+        // player.totalDamage += player.totalDamage * multiplier;
+        NetworkManager.s_Singleton.CastOnAlly(player.spellcasterID, sID, sSpellName); 
+        NetworkManager.s_Singleton.IncreaseAllyDamageByPercent(sID, multiplier);
+    }
 }
