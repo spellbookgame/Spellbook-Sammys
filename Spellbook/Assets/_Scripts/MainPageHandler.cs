@@ -216,4 +216,16 @@ public class MainPageHandler : MonoBehaviour
 
         manaCrystalsAddition.text = "";
     }
+
+    // DELETE LATER
+    public void LoseHealth()
+    {
+        localPlayer.Spellcaster.TakeDamage(5);
+    }
+
+    public void CollectSpells()
+    {
+        foreach (Spell s in localPlayer.Spellcaster.chapter.spellsAllowed)
+            localPlayer.Spellcaster.CollectSpell(s);
+    }
 }
