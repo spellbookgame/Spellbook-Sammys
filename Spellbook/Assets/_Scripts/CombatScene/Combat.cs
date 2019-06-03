@@ -45,11 +45,13 @@ public class Combat : MonoBehaviour
         GameObject p = GameObject.FindGameObjectWithTag("LocalPlayer");
         if (p != null)
         {
+            Debug.Log("Combat found local player");
             localSpellcaster = p.GetComponent<Player>().Spellcaster;
             /*Prepare Spell Buttons**/
         }
         else
         {
+            Debug.Log("Combat in test");
             //Tests
 
             /*
@@ -75,9 +77,9 @@ public class Combat : MonoBehaviour
                         localSpellcaster.chapter.spellsCollected.Add(new Archive());  // Pass
                 */
             localSpellcaster = new Alchemist();
-            localSpellcaster.chapter.spellsCollected.Add(new DistilledPotion());  // Pass
-            localSpellcaster.chapter.spellsCollected.Add(new PotionofBlessing()); // Needs more
-            localSpellcaster.chapter.spellsCollected.Add(new ToxicPotion()); // Looks like Fireball, NaturalDisaster  /* */
+            //localSpellcaster.chapter.spellsCollected.Add(new DistilledPotion());  // Pass
+            //localSpellcaster.chapter.spellsCollected.Add(new PotionofBlessing()); // Needs more
+            //localSpellcaster.chapter.spellsCollected.Add(new ToxicPotion()); // Looks like Fireball, NaturalDisaster  /* */
         }
 
         try

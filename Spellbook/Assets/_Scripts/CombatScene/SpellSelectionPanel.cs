@@ -47,6 +47,7 @@ public class SpellSelectionPanel : MonoBehaviour
         localSpellcaster = spellSwiper.localSpellcaster;
         spellSwiper.PlayerHealthBar.GetComponent<UIHealthbarController>().healthPercentage = localSpellcaster.fCurrentHealth / localSpellcaster.fMaxHealth;
         int i = 0;
+        int numCombatSpells = 0;
         foreach (Spell entry in localSpellcaster.chapter.spellsCollected)
         //foreach (KeyValuePair<string, Spell> entry in localSpellcaster.combatSpells)
         {
@@ -81,11 +82,41 @@ public class SpellSelectionPanel : MonoBehaviour
 
             spellButtons[i].GetComponent<UIAutoColorSprite>().colorGrade.SetKeys(colorKeyGem, alphaKey);
             spellButtons[i].GetComponent<UIAutoColorImage>().colorGrade.SetKeys(colorKeyBut, alphaKey);
+            numCombatSpells++;
             i++;
         }
-        SpellButton1.onClick.AddListener(clickedSpellButton1);
-        SpellButton2.onClick.AddListener(clickedSpellButton2);
-        SpellButton3.onClick.AddListener(clickedSpellButton3);
+
+        if(numCombatSpells == 0)
+        {
+            SpellDescription.text = "You have no combat spells!";
+        }
+
+        if(numCombatSpells > 0)
+        {
+            SpellButton1.onClick.AddListener(clickedSpellButton1);
+        }
+        else
+        {
+            SpellButton1.gameObject.SetActive(false);
+        }
+
+        if(numCombatSpells > 1)
+        {
+             SpellButton2.onClick.AddListener(clickedSpellButton2);
+        }
+        else
+        {
+            SpellButton2.gameObject.SetActive(false);
+        }
+
+        if(numCombatSpells > 2)
+        {
+            SpellButton3.onClick.AddListener(clickedSpellButton3);
+        }
+        else
+        {
+            SpellButton3.gameObject.SetActive(false);
+        }
         ReadyButton.onClick.AddListener(clickedReady);
 
     }
