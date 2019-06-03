@@ -19,16 +19,6 @@ public class ScanEventHandler : MonoBehaviour, IPointerDownHandler, IPointerUpHa
         moveInfo.text = "You move " + UICanvasHandler.instance.spacesMoved.ToString() + " spaces this turn.";
     }
 
-    // TESTING
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.G))
-        {
-            Player localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
-            localPlayer.Spellcaster.CollectSpell(new CrystalScent());
-        }
-    }
-
     public void OnPointerDown(PointerEventData eventData)
     {
         VuforiaBehaviour.Instance.enabled = true;

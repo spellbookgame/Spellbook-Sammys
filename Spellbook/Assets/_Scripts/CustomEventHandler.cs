@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using Vuforia;
 
 // for scanning board spaces
@@ -15,11 +16,15 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
     private Coroutine coroutineReference;
     private bool CR_running;
 
+    // TESTING
+    private Text debugText;
+
     Player localPlayer;
     
     void Start()
     {
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
+        debugText = GameObject.Find("text_debug").GetComponent<Text>();
 
         mTrackableBehaviour = GetComponent<TrackableBehaviour>();
         if (mTrackableBehaviour)
@@ -44,6 +49,7 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
             newStatus == TrackableBehaviour.Status.EXTENDED_TRACKED)
         {
             Debug.Log("Trackable " + mTrackableBehaviour.TrackableName + " found");
+            debugText.text = "Trackable " + mTrackableBehaviour.TrackableName + " found";
             // basically, wait x seconds before it'll start scanning the target
             coroutineReference = StartCoroutine(ScanTime());
         }
@@ -51,10 +57,12 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
                  newStatus == TrackableBehaviour.Status.NO_POSE)
         {
             Debug.Log("Trackable " + mTrackableBehaviour.TrackableName + " lost");
+            debugText.text = "Trackable " + mTrackableBehaviour.TrackableName + " lost";
             OnTrackingLost();
         }
         else
         {
+            debugText.text = "Trackable " + mTrackableBehaviour.TrackableName + " lost";
             // For combo of previousStatus=UNKNOWN + newStatus=UNKNOWN|NOT_FOUND
             // Vuforia is starting, but tracking has not been lost or found yet
             // Call OnTrackingLost() to hide the augmentations
@@ -63,6 +71,7 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
     }
     protected virtual void OnTrackingFound()
     {
+        debugText.text = mTrackableBehaviour.TrackableName + " was tracked";
         // only scan item if player hasn't scanned a space this turn, if they've moved, OR if they used a location item that teleported them
         if ((!localPlayer.Spellcaster.scannedSpaceThisTurn && UICanvasHandler.instance.spacesMoved > 0) || localPlayer.Spellcaster.locationItemUsed)
             scanItem(mTrackableBehaviour.TrackableName);
@@ -89,6 +98,7 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
     IEnumerator ScanTime()
     {
         Debug.Log("coroutine running");
+        debugText.text = "coroutine running";
         CR_running = true;
         yield return new WaitForSeconds(1f);
         CR_running = false;
