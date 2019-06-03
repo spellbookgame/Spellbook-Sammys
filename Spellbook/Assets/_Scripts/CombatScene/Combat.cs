@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class SpellSwipe : MonoBehaviour
+public class Combat : MonoBehaviour
 {
     public Vector2 WorldUnitsInCamera;
     public Vector2 WorldToPixelAmount;
@@ -23,6 +23,8 @@ public class SpellSwipe : MonoBehaviour
     public SpellCaster localSpellcaster;
     public float orbPercentage;
     public bool isInBossPanel = false;
+    public GameObject BossHealthBar;
+    public GameObject PlayerHealthBar;
 
 
     private void LinesUpdated(object sender, System.EventArgs args)
@@ -38,8 +40,55 @@ public class SpellSwipe : MonoBehaviour
         //Debug.LogFormat("Lines cleared!");
     }
 
-    private void Start()
+    private void Awake()
     {
+        GameObject p = GameObject.FindGameObjectWithTag("LocalPlayer");
+        if (p != null)
+        {
+            localSpellcaster = p.GetComponent<Player>().Spellcaster;
+            /*Prepare Spell Buttons**/
+        }
+        else
+        {
+            //Tests
+
+            /*
+                        localSpellcaster = new Summoner();
+                        localSpellcaster.chapter.spellsCollected.Add(new Skeletons()); // Pass
+                        localSpellcaster.chapter.spellsCollected.Add(new Ravenssong()); // Pass
+                        localSpellcaster.chapter.spellsCollected.Add(new Bearsfury());; // Pass
+                 localSpellcaster = new Illusionist();
+                        localSpellcaster.chapter.spellsCollected.Add(new Catharsis()); //Pass
+                        localSpellcaster.chapter.spellsCollected.Add(new Catastrophe()); // Pass
+                        localSpellcaster.chapter.spellsCollected.Add(new Tragedy()); //Pass
+                           localSpellcaster = new Chronomancer();
+                        localSpellcaster.chapter.spellsCollected.Add(new ReverseWounds()); // Pass
+                        localSpellcaster.chapter.spellsCollected.Add(new Manipulate()); //Pass
+                        localSpellcaster.chapter.spellsCollected.Add(new Chronoblast());  // Pass
+                        localSpellcaster = new Elementalist();
+                        localSpellcaster.chapter.spellsCollected.Add(new Fireball()); //Looks like ToxicPotion
+                        localSpellcaster.chapter.spellsCollected.Add(new EyeOfTheStorm());  // Looks like Bears fury, chronoblast, Natural Disaster
+                        localSpellcaster.chapter.spellsCollected.Add(new NaturalDisaster()); // Looks like Tragedy
+                       localSpellcaster = new Arcanist();
+                        localSpellcaster.chapter.spellsCollected.Add(new MarcellasBlessing()); //Looks like DistilledPotion
+                        localSpellcaster.chapter.spellsCollected.Add(new RunicDarts()); // Pass
+                        localSpellcaster.chapter.spellsCollected.Add(new Archive());  // Pass
+                */
+            localSpellcaster = new Alchemist();
+            localSpellcaster.chapter.spellsCollected.Add(new DistilledPotion());  // Pass
+            localSpellcaster.chapter.spellsCollected.Add(new PotionofBlessing()); // Needs more
+            localSpellcaster.chapter.spellsCollected.Add(new ToxicPotion()); // Looks like Fireball, NaturalDisaster  /* */
+        }
+
+        try
+        {
+            BossHealthBar.GetComponent<UIHealthbarController>().healthPercentage = NetworkGameState.instance.GetBossHealth();
+        }
+        catch
+        {
+            //If we are here then we are just testing.
+        }
+
         ImageScript.LinesUpdated += LinesUpdated;
         ImageScript.LinesCleared += LinesCleared;
 
@@ -68,7 +117,7 @@ public class SpellSwipe : MonoBehaviour
 
             if (match != null) //  && match.Name == selectedSpell.sSpellName
             {
-            Debug.Log(match.Name + " == " + selectedSpell.sSpellName);
+                Debug.Log(match.Name + " == " + selectedSpell.sSpellName);
                 Debug.Log("Match Score : " + match.Score);
                 firstTime = false;
                 var shape = MatchParticleSystem.shape;
@@ -77,15 +126,15 @@ public class SpellSwipe : MonoBehaviour
                 Debug.Log("Match Found: " + match.Name);
                 SwipeInstructionText.text = "You casted " + match.Name;
                 //TODO: Maybe scrap out ICombatSpell interface, and stick with just Spell (after graduation).
-                ICombatSpell combatSpell = (ICombatSpell) selectedSpell;
+                ICombatSpell combatSpell = (ICombatSpell)selectedSpell;
                 combatSpell.CombatCast(localSpellcaster, orbPercentage);
                 //NetworkManager.s_Singleton.CombatSpellCast(selectedSpell.sSpellName, match.Score);
                 //AudioSourceOnMatch.Play();
             }
             else
             {
-            //Debug.Log(match.Name + " != " + selectedSpell.sSpellName);
-                              Debug.Log("No match found!");
+                //Debug.Log(match.Name + " != " + selectedSpell.sSpellName);
+                Debug.Log("No match found!");
             }
         }
         // TODO: Do something with the match

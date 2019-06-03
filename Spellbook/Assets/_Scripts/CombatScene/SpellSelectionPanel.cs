@@ -25,7 +25,7 @@ public class SpellSelectionPanel : MonoBehaviour
     public Text SpellDescription;
     public Text SpellName;
 
-    public SpellSwipe spellSwiper;
+    public Combat spellSwiper;
     public GameObject ChargePanel;
     public Button EquipedSpellButton;
     public SpriteRenderer swipeGuide;
@@ -40,59 +40,48 @@ public class SpellSelectionPanel : MonoBehaviour
     {
         ReadyButton.interactable = false;
         //Todo get the spellcasters spells.
-        GameObject p =  GameObject.FindGameObjectWithTag("LocalPlayer");
         //BoltConsole.print("player = " + p);
         spells = new Spell[] { spell1, spell2, spell3 };
-        spellButtons = new Button[]{SpellButton1, SpellButton2, SpellButton3};
-        if (p != null)
-        {
-            localSpellcaster = p.GetComponent<Player>().Spellcaster;
-            /*Prepare Spell Buttons**/
-        }
-        else
-        {
-            //Tests
+        spellButtons = new Button[] { SpellButton1, SpellButton2, SpellButton3 };
 
-/*
-            localSpellcaster = new Summoner();
-            localSpellcaster.chapter.spellsCollected.Add(new Skeletons()); // Pass
-            localSpellcaster.chapter.spellsCollected.Add(new Ravenssong()); // Pass
-            localSpellcaster.chapter.spellsCollected.Add(new Bearsfury());; // Pass
-     localSpellcaster = new Illusionist();
-            localSpellcaster.chapter.spellsCollected.Add(new Catharsis()); //Pass
-            localSpellcaster.chapter.spellsCollected.Add(new Catastrophe()); // Pass
-            localSpellcaster.chapter.spellsCollected.Add(new Tragedy()); //Pass
-               localSpellcaster = new Chronomancer();
-            localSpellcaster.chapter.spellsCollected.Add(new ReverseWounds()); // Pass
-            localSpellcaster.chapter.spellsCollected.Add(new Manipulate()); //Pass
-            localSpellcaster.chapter.spellsCollected.Add(new Chronoblast());  // Pass
-            localSpellcaster = new Elementalist();
-            localSpellcaster.chapter.spellsCollected.Add(new Fireball()); //Looks like ToxicPotion
-            localSpellcaster.chapter.spellsCollected.Add(new EyeOfTheStorm());  // Looks like Bears fury, chronoblast, Natural Disaster
-            localSpellcaster.chapter.spellsCollected.Add(new NaturalDisaster()); // Looks like Tragedy
-           localSpellcaster = new Arcanist();
-            localSpellcaster.chapter.spellsCollected.Add(new MarcellasBlessing()); //Looks like DistilledPotion
-            localSpellcaster.chapter.spellsCollected.Add(new RunicDarts()); // Pass
-            localSpellcaster.chapter.spellsCollected.Add(new Archive());  // Pass
-    */           
-            localSpellcaster = new Alchemist();
-            localSpellcaster.chapter.spellsCollected.Add(new DistilledPotion());  // Pass
-            localSpellcaster.chapter.spellsCollected.Add(new PotionofBlessing()); // Needs more
-            localSpellcaster.chapter.spellsCollected.Add(new ToxicPotion()); // Looks like Fireball, NaturalDisaster  /* */
-        }
-
+        localSpellcaster = spellSwiper.localSpellcaster;
+        spellSwiper.PlayerHealthBar.GetComponent<UIHealthbarController>().healthPercentage = localSpellcaster.fCurrentHealth / localSpellcaster.fMaxHealth;
         int i = 0;
-        foreach(KeyValuePair<string, Spell> entry in localSpellcaster.combatSpells)
+        foreach (Spell entry in localSpellcaster.chapter.spellsCollected)
+        //foreach (KeyValuePair<string, Spell> entry in localSpellcaster.combatSpells)
         {
-            Debug.Log("entry = " + entry.Key);
-            Debug.Log("spell = " + entry.Value.sSpellName);
+            if (!entry.combatSpell) continue;
+            if (i >= 3) break;
 
-            spells[i] = entry.Value;
-            Color c1 = entry.Value.colorPrimary;
-            Color c2 = entry.Value.colorSecondary;
-            Color c3 = entry.Value.colorTertiary;
+            spells[i] = entry;
+            Color c1 = entry.colorPrimary;
+            Color c2 = entry.colorSecondary;
+            Color c3 = entry.colorTertiary;
+
+            GradientColorKey[] colorKeyGem = new GradientColorKey[2];
+            colorKeyGem[0].color = c1;
+            colorKeyGem[0].time = 0.0f;
+
+            colorKeyGem[1].color = c2;
+            colorKeyGem[1].time = 0.0f;
+
+            GradientColorKey[] colorKeyBut = new GradientColorKey[2];
+            colorKeyBut[0].color = c1;
+            colorKeyBut[0].time = 0.0f;
+
+            colorKeyBut[1].color = c2;
+            colorKeyBut[1].time = 0.0f;
+
+
+            GradientAlphaKey[] alphaKey = new GradientAlphaKey[2];
+            alphaKey[0].alpha = 1.0f;
+            alphaKey[0].time = 0.0f;
+            alphaKey[1].alpha = 0.75f;
+            alphaKey[1].time = 1.0f;
+
+            spellButtons[i].GetComponent<UIAutoColorSprite>().colorGrade.SetKeys(colorKeyGem, alphaKey);
+            spellButtons[i].GetComponent<UIAutoColorImage>().colorGrade.SetKeys(colorKeyBut, alphaKey);
             i++;
-           // spellButtons[i++].GetComponent<UIAutoColorSprite>().DecorateSpellButton(c1, c2, c3);
         }
         SpellButton1.onClick.AddListener(clickedSpellButton1);
         SpellButton2.onClick.AddListener(clickedSpellButton2);
@@ -103,7 +92,7 @@ public class SpellSelectionPanel : MonoBehaviour
 
     private void clickedSpellButton1()
     {
-        if(SelectedSpellButton != null)
+        if (SelectedSpellButton != null)
         {
             SelectedSpellButton.GetComponent<RectTransform>().localScale = new Vector3(0.65024f, 0.65024f, 1f);
         }
@@ -122,7 +111,7 @@ public class SpellSelectionPanel : MonoBehaviour
 
     private void clickedSpellButton2()
     {
-        if(SelectedSpellButton != null)
+        if (SelectedSpellButton != null)
         {
             SelectedSpellButton.GetComponent<RectTransform>().localScale = new Vector3(0.65024f, 0.65024f, 1f);
         }
@@ -141,7 +130,7 @@ public class SpellSelectionPanel : MonoBehaviour
 
     private void clickedSpellButton3()
     {
-        if(SelectedSpellButton != null)
+        if (SelectedSpellButton != null)
         {
             SelectedSpellButton.GetComponent<RectTransform>().localScale = new Vector3(0.65024f, 0.65024f, 1f);
         }
