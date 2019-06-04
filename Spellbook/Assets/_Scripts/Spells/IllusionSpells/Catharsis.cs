@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Bolt.Samples.Photon.Lobby;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Catharsis : Spell, ICombatSpell
@@ -25,10 +26,10 @@ public class Catharsis : Spell, ICombatSpell
         guideLine = Resources.Load<Sprite>("CombatSwipes/Catharsis");
     }
 
-    public void CombatCast(SpellCaster player)
+    public void CombatCast(SpellCaster player, float orbPercentage)
     {
-        // throw new System.NotImplementedException();
-        /*int healAmount;
+        orbPercentage = orbPercentage * 100;
+        int healAmount;
         if (orbPercentage <= 25)
             healAmount = Random.Range(4, 7);
         else if (orbPercentage > 25 && orbPercentage <= 50)
@@ -37,7 +38,8 @@ public class Catharsis : Spell, ICombatSpell
             healAmount = Random.Range(6, 8);
         else
             healAmount = Random.Range(6, 9);
-        player.HealDamage(healAmount);*/
+        //player.HealDamage(healAmount);
+        NetworkManager.s_Singleton.HealAllAlliesByHp(healAmount, sSpellName);
     }
 
     public override void SpellCast(SpellCaster player)

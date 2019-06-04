@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Bolt.Samples.Photon.Lobby;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Ravenssong : Spell, ICombatSpell
@@ -13,7 +14,7 @@ public class Ravenssong : Spell, ICombatSpell
 
         sSpellName = "Raven's Song";
         sSpellClass = "Summoner";
-        sSpellInfo = "Heal all allies by 20% of their current health, and deal half of that total to the enemy.";
+        sSpellInfo = "Heal all allies by 20% of their current health, and deal 10% damage to the enemy.";
 
         requiredRunes.Add("Summoner A Rune", 1);
         requiredRunes.Add("Summoner B Rune", 1);
@@ -26,13 +27,15 @@ public class Ravenssong : Spell, ICombatSpell
         guideLine = Resources.Load<Sprite>("CombatSwipes/Ravenssong");
     }
 
-    public void CombatCast(SpellCaster player)
+    public void CombatCast(SpellCaster player, float orbPercentage)
     {
-        // throw new System.NotImplementedException();
-        // float multiplier = ((Mathf.Floor(orbPercentage / 20) * 5) + 20) / 100
-        // int healAmount = (int) player.fCurrentHealth * multiplier;
-        // player.HealDamage(healAmount);
-        // enemy.DealDamage(healAmount / 2);
+        orbPercentage = orbPercentage * 100;
+        float multiplier = ((Mathf.Floor(orbPercentage / 20) * 5) + 20) / 100;
+        //int healAmount = (int) player.fCurrentHealth * multiplier;
+        //player.HealDamage(healAmount);
+        //enemy.DealDamage(healAmount / 2);
+        NetworkManager.s_Singleton.HealAllAlliesByPercent(multiplier, sSpellName);
+        NetworkManager.s_Singleton.DealPercentDmgToBoss(0.1f);
     }
 
     public override void SpellCast(SpellCaster player)

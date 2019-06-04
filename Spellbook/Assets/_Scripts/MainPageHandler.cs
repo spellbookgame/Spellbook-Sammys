@@ -125,6 +125,45 @@ public class MainPageHandler : MonoBehaviour
         manaCrystalsValue.text = localPlayer.Spellcaster.iMana.ToString();
         healthValue.text = localPlayer.Spellcaster.fCurrentHealth.ToString() + "/ " + localPlayer.Spellcaster.fMaxHealth.ToString();
 
+        ////////////////////////
+        // FOR TESTING COMBAT
+
+        switch (localPlayer.spellcaster.classType)
+        {
+            case "Alchemist":
+                localPlayer.spellcaster.chapter.spellsCollected.Add(new DistilledPotion());  
+                localPlayer.spellcaster.chapter.spellsCollected.Add(new PotionofBlessing()); 
+                localPlayer.spellcaster.chapter.spellsCollected.Add(new ToxicPotion());                  
+                break;
+            case "Arcanist":
+                localPlayer.spellcaster.chapter.spellsCollected.Add(new MarcellasBlessing()); 
+                localPlayer.spellcaster.chapter.spellsCollected.Add(new RunicDarts()); 
+                localPlayer.spellcaster.chapter.spellsCollected.Add(new Archive());  
+                break;
+            case "Elementalist":
+                localPlayer.spellcaster.chapter.spellsCollected.Add(new Fireball()); 
+                localPlayer.spellcaster.chapter.spellsCollected.Add(new EyeOfTheStorm());  
+                localPlayer.spellcaster.chapter.spellsCollected.Add(new NaturalDisaster()); 
+                break;
+            case "Chronomancer":
+                localPlayer.spellcaster.chapter.spellsCollected.Add(new ReverseWounds()); 
+                localPlayer.spellcaster.chapter.spellsCollected.Add(new Manipulate()); 
+                localPlayer.spellcaster.chapter.spellsCollected.Add(new Chronoblast());  
+                break;
+            case "Illusionist":
+                localPlayer.spellcaster.chapter.spellsCollected.Add(new Catharsis());
+                localPlayer.spellcaster.chapter.spellsCollected.Add(new Catastrophe());
+                localPlayer.spellcaster.chapter.spellsCollected.Add(new Tragedy()); 
+                break;
+            case "Summoner":
+                localPlayer.spellcaster.chapter.spellsCollected.Add(new Skeletons());
+                localPlayer.spellcaster.chapter.spellsCollected.Add(new Ravenssong());
+                localPlayer.spellcaster.chapter.spellsCollected.Add(new Bearsfury());
+                break;
+        }
+
+
+
         // disable dice button if it's not player's turn, activate end turn button accordingly
         UICanvasHandler.instance.EnableDiceButton(localPlayer.bIsMyTurn);
         UICanvasHandler.instance.ActivateEndTurnButton(localPlayer.Spellcaster.hasRolled);
@@ -133,7 +172,7 @@ public class MainPageHandler : MonoBehaviour
         Instantiate(questTracker);
         Instantiate(spellTracker);
 
-        if(!UICanvasHandler.instance.chronomancerGone)
+        if (!UICanvasHandler.instance.chronomancerGone)
         {
             StartCoroutine("FadeIn");
             UICanvasHandler.instance.chronomancerGone = true;
@@ -144,11 +183,11 @@ public class MainPageHandler : MonoBehaviour
 
         CrisisHandler.instance.player = localPlayer;
     }
-    
+
     private void SetClassAttributes()
     {
         // set character image/icons to associated sprites
-        switch(localPlayer.Spellcaster.classType)
+        switch (localPlayer.Spellcaster.classType)
         {
             case "Alchemist":
                 symbolImage.sprite = alchemistIcon;
@@ -175,7 +214,7 @@ public class MainPageHandler : MonoBehaviour
                 characterImage.sprite = summonerSprite;
                 break;
         }
-                    
+
         // set character image based on class
         characterImage.sprite = Resources.Load<Sprite>(localPlayer.Spellcaster.characterSpritePath);
         // set class symbol image based on class

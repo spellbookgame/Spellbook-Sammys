@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Bolt.Samples.Photon.Lobby;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ReverseWounds : Spell, ICombatSpell
@@ -25,12 +26,13 @@ public class ReverseWounds : Spell, ICombatSpell
         guideLine = Resources.Load<Sprite>("CombatSwipes/ReverseWounds");
     }
 
-    public void CombatCast(SpellCaster player)
+    public void CombatCast(SpellCaster player, float orbPercentage)
     {
-        // throw new System.NotImplementedException();
-        // float multiplier = ((Mathf.Floor(orbPercentage / 20) * 5) + 5) / 100;
-        // int healAmount = (int) player.fMaxHealth * multiplier;
-        // player.HealDamage(healAmount);
+        orbPercentage = orbPercentage * 100;
+        float multiplier = ((Mathf.Floor(orbPercentage / 20) * 5) + 5) / 100;
+        //int healAmount = (int) player.fMaxHealth * multiplier;
+        //player.HealDamage(healAmount);
+        NetworkManager.s_Singleton.HealAllAlliesByPercent(multiplier, sSpellName);
     }
 
     public override void SpellCast(SpellCaster player)
