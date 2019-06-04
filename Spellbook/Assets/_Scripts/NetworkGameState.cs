@@ -544,17 +544,43 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
     public void IncrementAttackCount()
     {
         state.AttackCount++;
+
+        //if everyone casted their spell, its the boss turn to attack.
         if(state.AttackCount >= state.NumOfSpellcasters)
         {
-            //TODO: Deal dmg to boss here.
             ResetAttackCount();
-            NetworkManager.s_Singleton.BossAttacksEveryone(Random.Range(2f, 5.1f));
+            float damage = 0;
+            for (int i = 0; i < state.SpellcasterDamages.Length; i++)
+            {
+                damage += state.SpellcasterDamages[i];
+
+                //Reset for next combat/round.
+                state.SpellcasterDamages[i] = 0;
+            }
+            state.BossHealth -= damage;
+            if(state.BossHealth <= 0)
+            {
+                NetworkManager.s_Singleton.BossDies();
+            }
+            else
+            {
+                NetworkManager.s_Singleton.BossAttacksEveryone(Random.Range(2f, 5.1f));
+            }
         }
     }
 
     public void ResetAttackCount()
     {
         state.AttackCount = 0;
+    }
+
+    public void IncrementDeathCount()
+    {
+        state.DeathCount++;
+        if(state.DeathCount >= state.NumOfSpellcasters)
+        {
+            NetworkManager.s_Singleton.GameOver();
+        }
     }
 
     //Returns a formatted string to display in the spellbook progress scene.

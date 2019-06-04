@@ -742,6 +742,37 @@ namespace Bolt.Samples.Photon.Lobby
             bossImage.GetComponent<Image>().sprite = bossIdleSprite;
         }
 
+        public override void OnEvent(BossDiesEvent evnt)
+        {
+            //TODO: Display feedback
+        }
+
+        public override void OnEvent(GameOverEvent evnt)
+        {
+            playerSpellcaster = playerEntity.GetComponent<Player>().spellcaster;
+            playerSpellcaster.gameLost = true;
+            SceneManager.LoadScene("GameOverScene");
+        }
+
+        public override void OnEvent(SpellcasterDiedEvent evnt)
+        {
+            playerSpellcaster = playerEntity.GetComponent<Player>().spellcaster;
+            if(playerSpellcaster.spellcasterID == evnt.SpellcasterID)
+            {
+                //Display you died
+            }
+            else
+            {
+                string fallenSpellcaster = evnt.SpellcasterClass;
+                //Display a fallen spellcaster died
+            }
+
+            if (BoltNetwork.IsServer)
+            {
+                gameStateEntity.GetComponent<NetworkGameState>().IncrementDeathCount();
+            }
+        }
+
         #endregion
         #region HOST_CALLBACKS
         /*Only the server recieves this event.*/
@@ -1187,9 +1218,19 @@ namespace Bolt.Samples.Photon.Lobby
             evnt.Send();
         }
 
+        //Called when everyone dies.
         public void GameOver()
         {
             var evnt = GameOverEvent.Create(Bolt.GlobalTargets.Everyone);
+            evnt.Send();
+        }
+
+        //Spellcaster calls this when they die to notify everyone.
+        public void SpellcasterDied(int spellcasterID, string spellcasterClass)
+        {
+            var evnt = SpellcasterDiedEvent.Create(Bolt.GlobalTargets.Everyone);
+            evnt.SpellcasterID = spellcasterID;
+            evnt.SpellcasterClass = spellcasterClass;
             evnt.Send();
         }
 

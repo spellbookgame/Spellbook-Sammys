@@ -123,7 +123,10 @@ public abstract class SpellCaster
         if(fCurrentHealth > 0)
             fCurrentHealth -= dmg;
         if (fCurrentHealth <= 0)
+        {
             fCurrentHealth = 0;
+            NetworkManager.s_Singleton.SpellcasterDied(this.spellcasterID, this.classType);
+        }
     }
 
     public void HealDamage(int heal)
