@@ -6,18 +6,23 @@ using UnityEngine.UI;
 
 public class ChargeSpell : MonoBehaviour
 {
-    SpellCaster localSpellcaster;
+    public SpellCaster localSpellcaster;
     public Image OuterBackgroundBar;
     public GameObject OrbButton;
     public GameObject Arrows;
-//    public Button ChargeButton;
+    public GameObject BackgroundPanelBook;
+    public GameObject BackgroundPanelBoss;
+    //    public Button ChargeButton;
     public GameObject CastSpellButton;
     public Image ChargeButtonBar;
     public ParticleSystem MatchParticleSystem;
     public GameObject BossPanekGameObject;
     public Text CountdownText;
 
-    private int totalSecs = 1;
+    public Combat spellSwiper;
+    public SwipeGuideSpawner swipeSpawner;
+
+    private int totalSecs = 7;
     private int stopTime = 0;
     private Spell CombatSpell;
 
@@ -45,7 +50,7 @@ public class ChargeSpell : MonoBehaviour
         OrbButton.GetComponent<Button>().onClick.AddListener(OnFirstTap);
         try
         {
-            totalSecs = (int) NetworkGameState.instance.GetTapSecondsAllowed();
+            totalSecs = (int)NetworkGameState.instance.GetTapSecondsAllowed();
         }
         catch
         {
@@ -73,7 +78,7 @@ public class ChargeSpell : MonoBehaviour
 
     void Countdown()
     {
-        if(totalSecs <= stopTime)
+        if (totalSecs <= stopTime)
         {
             CancelInvoke();
             OrbButton.SetActive(false);
@@ -97,17 +102,19 @@ public class ChargeSpell : MonoBehaviour
             Vector3 v3 = OrbButton.transform.position;
             float newX = Random.Range(minX, maxX);
             float newY = Random.Range(minY, maxY);
-            v3.x = Mathf.Clamp(newX , minX, maxX);
-            v3.y = Mathf.Clamp(newY , minY, maxY);
+            v3.x = Mathf.Clamp(newX, minX, maxX);
+            v3.y = Mathf.Clamp(newY, minY, maxY);
             OrbButton.transform.position = v3;
             timeSinceLastMove = Time.time;
         }
-    } 
+    }
 
+    //Doesnt cast the spell lol. But it takes you to the next page to swipe it.
     private void OnClickCastSpell()
     {
         //Send number of taps to network
-
+        spellSwiper.orbPercentage = ChargeButtonBar.fillAmount;
+        spellSwiper.isInBossPanel = true;
         try
         {
             NetworkManager.s_Singleton.SendOrbUpdateToNetwork(localSpellcaster.spellcasterID, taps, ChargeButtonBar.fillAmount);
@@ -116,7 +123,10 @@ public class ChargeSpell : MonoBehaviour
         {
 
         }
+        BackgroundPanelBook.SetActive(false);
+        BackgroundPanelBoss.SetActive(true);
         BossPanekGameObject.SetActive(true);
+        swipeSpawner.SpawnGuidePrefab(CombatSpell.sSpellName);
         this.gameObject.SetActive(false);
     }
 }

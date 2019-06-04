@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Bolt.Samples.Photon.Lobby;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EyeOfTheStorm : Spell, ICombatSpell
@@ -26,10 +27,10 @@ public class EyeOfTheStorm : Spell, ICombatSpell
         guideLine = Resources.Load<Sprite>("CombatSwipes/EyeOfTheStorm");
     }
 
-    public void CombatCast(SpellCaster player)
+    public void CombatCast(SpellCaster player, float orbPercentage)
     {
-        // throw new System.NotImplementedException();
-        /*int damage, healAmount;
+        orbPercentage = orbPercentage * 100;
+        int damage, healAmount;
         if (orbPercentage <= 25)
         {
             damage = Random.Range(7, 10);
@@ -47,7 +48,9 @@ public class EyeOfTheStorm : Spell, ICombatSpell
             damage = Random.Range(9, 16);
         }
         healAmount = damage / 2;
-        player.HealDamage(healAmount);*/
+        //player.HealDamage(healAmount);
+        NetworkManager.s_Singleton.DealDmgToBoss(damage);
+        NetworkManager.s_Singleton.HealAllAlliesByHp(healAmount, sSpellName);
     }
 
     public override void SpellCast(SpellCaster player)

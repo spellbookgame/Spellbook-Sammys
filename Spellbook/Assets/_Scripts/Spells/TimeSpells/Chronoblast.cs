@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Bolt.Samples.Photon.Lobby;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Chronoblast : Spell, ICombatSpell
@@ -24,10 +25,10 @@ public class Chronoblast : Spell, ICombatSpell
         guideLine = Resources.Load<Sprite>("CombatSwipes/Chronoblast");
     }
 
-    public void CombatCast(SpellCaster player)
+    public void CombatCast(SpellCaster player, float orbPercentage)
     {
-        // throw new System.NotImplementedException();
-        /*int damage;
+        orbPercentage = orbPercentage * 100;
+        int damage;
         if (orbPercentage <= 25)
             damage = Random.Range(4, 6);
         else if (orbPercentage > 25 && orbPercentage <= 50)
@@ -35,7 +36,8 @@ public class Chronoblast : Spell, ICombatSpell
         else if (orbPercentage > 50 && orbPercentage <= 75)
             damage = Random.Range(5, 8);
         else
-            damage = Random.Range(5, 9);*/
+            damage = Random.Range(5, 9);
+        NetworkManager.s_Singleton.DealDmgToBoss(damage);
     }
 
     public override void SpellCast(SpellCaster player)

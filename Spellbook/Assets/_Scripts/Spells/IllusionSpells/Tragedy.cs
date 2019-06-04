@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Bolt.Samples.Photon.Lobby;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Tragedy : Spell, ICombatSpell
@@ -24,10 +25,10 @@ public class Tragedy : Spell, ICombatSpell
         guideLine = Resources.Load<Sprite>("CombatSwipes/Tragedy");
     }
 
-    public void CombatCast(SpellCaster player)
+    public void CombatCast(SpellCaster player, float orbPercentage)
     {
-        // throw new System.NotImplementedException();
-        /*int damage;
+        orbPercentage = orbPercentage * 100;
+        int damage;
         if (orbPercentage <= 25)
             damage = Random.Range(5, 7);
         else if (orbPercentage > 25 && orbPercentage <= 50)
@@ -35,7 +36,8 @@ public class Tragedy : Spell, ICombatSpell
         else if (orbPercentage > 50 && orbPercentage <= 75)
             damage = Random.Range(6, 9);
         else
-            damage = Random.Range(7, 10);*/
+            damage = Random.Range(7, 10);
+        NetworkManager.s_Singleton.DealDmgToBoss(damage);
     }
 
     public override void SpellCast(SpellCaster player)

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Bolt.Samples.Photon.Lobby;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class RunicDarts : Spell, ICombatSpell
@@ -25,10 +26,10 @@ public class RunicDarts : Spell, ICombatSpell
         guideLine = Resources.Load<Sprite>("CombatSwipes/RunicDarts");
     }
 
-    public void CombatCast(SpellCaster player)
+    public void CombatCast(SpellCaster player, float orbPercentage)
     {
-        // throw new System.NotImplementedException();
-        /*int damage1, damage2, damage3;
+        orbPercentage = orbPercentage * 100; 
+        int damage1, damage2, damage3;
         if(orbPercentage <= 25)
         {
             damage1 = Random.Range(2, 4);
@@ -53,7 +54,8 @@ public class RunicDarts : Spell, ICombatSpell
             damage2 = Random.Range(4, 6);
             damage3 = Random.Range(4, 6);
         }
-        int totalDamage = damage1 + damage2 + damage3;*/
+        int totalDamage = damage1 + damage2 + damage3;
+        NetworkManager.s_Singleton.DealDmgToBoss(totalDamage);
     }
 
     public override void SpellCast(SpellCaster player)

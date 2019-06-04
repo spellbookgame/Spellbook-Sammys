@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Bolt.Samples.Photon.Lobby;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class NaturalDisaster : Spell, ICombatSpell
@@ -26,10 +27,10 @@ public class NaturalDisaster : Spell, ICombatSpell
         guideLine = Resources.Load<Sprite>("CombatSwipes/NaturalDisaster");
     }
 
-    public void CombatCast(SpellCaster player)
+    public void CombatCast(SpellCaster player, float orbPercentage)
     {
-        // throw new System.NotImplementedException();
         // int enemyHealth = enemyCurrentHealth / 2;
+        NetworkManager.s_Singleton.DealPercentDmgToBoss(0.5f);
     }
 
     public override void SpellCast(SpellCaster player)

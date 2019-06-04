@@ -70,8 +70,10 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
 
             //state.SpellcasterList[0] = 0;
             //combatOrder = new int[6];
-            state.BossHealth = 70f; 
-            
+            state.BossMaxHealth = 30f;
+            state.BossHealth = 30f;
+
+            state.TapSecondsAllowed = 8f;
             turnOrder = new List<int>();
 
         }
@@ -96,7 +98,7 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
         //return turnsUntilNextEvent + displayGlobalEvent + nextGlobalEvent;
         return state.YearsUntilNextEvent + sYearsUntilNext + state.NextGlobalEventName;
     }
-    
+
     public int RoundsUntilCrisisActivates()
     {
         return state.YearsUntilNextEvent;
@@ -105,11 +107,11 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
     public void ModifyRoundsUntilNextCrisis(int x)
     {
         state.YearsUntilNextEvent += x;
-        if(state.YearsUntilNextEvent < 0)
+        if (state.YearsUntilNextEvent < 0)
         {
             state.YearsUntilNextEvent = 0;
         }
-        
+
     }
 
 
@@ -135,7 +137,7 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
         state.NumOfPlayers++;
         return state.NumOfPlayers;
     }
-    
+
     public int numOfPlayersInGame()
     {
         return state.NumOfPlayers;
@@ -148,7 +150,7 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
 
     public bool allPlayersSelected()
     {
-        if(state.NumOfPlayers - state.NumOfSpellcasters > 0)
+        if (state.NumOfPlayers - state.NumOfSpellcasters > 0)
         {
             return false;
         }
@@ -172,7 +174,7 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
         spellcasterList[sID] = 0;
         bool currentDisconnected = false;
         int curSpellcasterID = state.CurrentSpellcasterTurn;
-        if(curSpellcasterID == sID)
+        if (curSpellcasterID == sID)
         {
             currentDisconnected = true;
             curSpellcasterID = getNextTurn();
@@ -195,9 +197,9 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
         {
 
 
-           BoltConsole.Write("The turn was the spellcaster that logged out");
-           var nextTurnEvnt = NotifyTurnEvent.Create(Bolt.GlobalTargets.OnlyServer);
-           nextTurnEvnt.Send();   
+            BoltConsole.Write("The turn was the spellcaster that logged out");
+            var nextTurnEvnt = NotifyTurnEvent.Create(Bolt.GlobalTargets.OnlyServer);
+            nextTurnEvnt.Send();
 
         }
         //If the current turn spellcaster is the one that disconnected, notify the next spellcaster
@@ -213,8 +215,8 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
         }
         else
         {*/
-            numOfSpellcasters++;
-            state.NumOfSpellcasters++;
+        numOfSpellcasters++;
+        state.NumOfSpellcasters++;
         //}
         spellcasterList[spellcasterID] = 1;
         state.SpellcasterList[spellcasterID] = 1;
@@ -289,11 +291,11 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
                 turnOrder.Add(i);
             }
         }
-        if(sID == -1  && turnOrder.Count > 0)
+        if (sID == -1 && turnOrder.Count > 0)
         {
             state.CurrentSpellcasterTurn = turnOrder[0];
         }
-        else if(turnOrder.Count <= 0)
+        else if (turnOrder.Count <= 0)
         {
             state.CurrentSpellcasterTurn = -1;
         }
@@ -315,7 +317,7 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
 
     /* When our NetworkManager (aka our GlobalEventListener) recieves a
      NextTurnEvent, this method is called.*/
-     //These fields below are here because they are only used only in this function.
+    //These fields below are here because they are only used only in this function.
     bool PeacefulYear = false;
     bool GlobalEventHappened = false;
     string currentCrisis = "";
@@ -323,7 +325,7 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
     public int startNewTurn()
     {
         turn_i++;
-        
+
         //If everyone moved this turn, then a year/round has passed. 
         if (turn_i >= turnOrder.Count)
         {
@@ -366,13 +368,13 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
                     DisplayNextEvent();
                 }
             }
-            
-            if (GlobalEventHappened ) //|| savedByHero
+
+            if (GlobalEventHappened) //|| savedByHero
             {
                 PeacefulYear = true;  //After the global event happends let players play a round with no crisis to prep for.
                 //needToNotifyPlayersNewEvent = false;
                 BoltConsole.Write("Starting Peaceful year");
-            } 
+            }
         }
         state.CurrentSpellcasterTurn = turnOrder[turn_i];
         return turnOrder[turn_i];
@@ -418,7 +420,7 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
         BoltConsole.Write("item drop off: " + item);
         state.ItemForGrab = item;
     }
-   
+
     public string ItemForGrabs()
     {
         BoltConsole.Write("ItemForGrabs() : " + state.ItemForGrab);
@@ -457,7 +459,7 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
     {
         for (int i = 0; i < state.SpellcasterTaps.Length; i++)
         {
-            state.SpellcasterTaps[i] = state.SpellcasterTaps[i] + ((int) (state.SpellcasterTaps[i] * percent));
+            state.SpellcasterTaps[i] = state.SpellcasterTaps[i] + ((int)(state.SpellcasterTaps[i] * percent));
         }
     }
 
@@ -466,7 +468,7 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
     {
         return state.SpellcasterTaps[spellcasterID];
     }
-    
+
     //For combat API
     //Returns the orb value from 0-1, with 1 being "100%"
     public float GetOrbPercentageForSpellcaster(int spellcasterID)
@@ -482,7 +484,7 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
     //TODO: make robust (after graduation)
     public void IncreaseTapSecondsAllowed()
     {
-        state.TapSecondsAllowed = 10 ;
+        state.TapSecondsAllowed = 10;
     }
 
 
@@ -512,7 +514,7 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
 
     public void IncreaseAllyDmgByPercent(int allySpellcasterID, float percent)
     {
-        state.SpellcasterDamages[allySpellcasterID] 
+        state.SpellcasterDamages[allySpellcasterID]
             = state.SpellcasterDamages[allySpellcasterID] + (state.SpellcasterDamages[allySpellcasterID] * percent);
     }
 
@@ -525,10 +527,31 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
         }
     }
 
+    int totalSpellCount = 0;
+    public void BalanceBossHp(int numSpells)
+    {
+        totalSpellCount += numSpells;
+        if(state.NumOfSpellcasters > 3)
+        {
+            int dif = state.NumOfSpellcasters - 3;
+            int addedHP = dif * 15;
+            state.BossMaxHealth = 30f + addedHP;
+        }
+        else
+        {
+            state.BossMaxHealth = 30f; 
+        }
+
+        int buffSomeMore = totalSpellCount / 3;
+        state.BossMaxHealth += (buffSomeMore * 5);
+        state.BossHealth = state.BossMaxHealth;
+
+    }
+
     //For combat API
     public float GetBossHealth()
     {
-        return state.BossHealth;
+        return state.BossHealth / state.BossMaxHealth;
     }
 
     public void DealDmgToBoss(float dmg)
@@ -539,6 +562,48 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
     public void DealPercentDmgToBoss(float percent)
     {
         state.BossHealth = state.BossHealth - (state.BossHealth * percent);
+    }
+
+    public void IncrementAttackCount()
+    {
+        state.AttackCount++;
+
+        //if everyone casted their spell, its the boss turn to attack.
+        if(state.AttackCount >= state.NumOfSpellcasters)
+        {
+            ResetAttackCount();
+            float damage = 0;
+            for (int i = 0; i < state.SpellcasterDamages.Length; i++)
+            {
+                damage += state.SpellcasterDamages[i];
+
+                //Reset for next combat/round.
+                state.SpellcasterDamages[i] = 0;
+            }
+            state.BossHealth -= damage;
+            if(state.BossHealth <= 0)
+            {
+                NetworkManager.s_Singleton.BossDies();
+            }
+            else
+            {
+                NetworkManager.s_Singleton.BossAttacksEveryone(Random.Range(2f, 5.1f));
+            }
+        }
+    }
+
+    public void ResetAttackCount()
+    {
+        state.AttackCount = 0;
+    }
+
+    public void IncrementDeathCount()
+    {
+        state.DeathCount++;
+        if(state.DeathCount >= state.NumOfSpellcasters)
+        {
+            NetworkManager.s_Singleton.GameOver();
+        }
     }
 
     //Returns a formatted string to display in the spellbook progress scene.
