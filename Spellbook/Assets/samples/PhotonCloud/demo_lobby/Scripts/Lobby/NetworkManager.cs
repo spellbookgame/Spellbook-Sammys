@@ -68,6 +68,8 @@ namespace Bolt.Samples.Photon.Lobby
         //For returning client only, does not support a returning host (yet).
         protected bool spawned = false;
 
+        public Sprite bossIdleSprite;
+        public Sprite bossAttackSprite;
 
         public string matchName;
 
@@ -626,6 +628,8 @@ namespace Bolt.Samples.Photon.Lobby
             {
                 gameStateEntity.GetComponent<NetworkGameState>()
                     .IncreaseTapSecondsAllowed();
+                gameStateEntity.GetComponent<NetworkGameState>()
+                    .IncrementAttackCount();
             }
             //TODO: Display Feedback
         }
@@ -636,6 +640,9 @@ namespace Bolt.Samples.Photon.Lobby
             {
                 gameStateEntity.GetComponent<NetworkGameState>()
                     .IncreaseTeamTapPercentage(evnt.Percent);
+                gameStateEntity.GetComponent<NetworkGameState>()
+                    .IncrementAttackCount();
+
             }
             //TODO: Display Feedback
         }
@@ -645,6 +652,12 @@ namespace Bolt.Samples.Photon.Lobby
         {
             playerSpellcaster = playerEntity.GetComponent<Player>().spellcaster;
             playerSpellcaster.HealPercentDamage(evnt.Percent);
+
+            if (BoltNetwork.IsServer)
+            {
+            gameStateEntity.GetComponent<NetworkGameState>()
+                    .IncrementAttackCount();
+            }
             //TODO: Display feedback
         }
 
@@ -654,7 +667,12 @@ namespace Bolt.Samples.Photon.Lobby
             playerSpellcaster = playerEntity.GetComponent<Player>().spellcaster;
             //TODO: keep as float.
             playerSpellcaster.HealDamage((int) evnt.HP);
-            //TODO: Display Feedback
+            //TODO: Display Feedback 
+            if (BoltNetwork.IsServer)
+            {
+            gameStateEntity.GetComponent<NetworkGameState>()
+                    .IncrementAttackCount();
+            }
         }
 
         /*Everyone recieves this during combat*/
@@ -663,6 +681,11 @@ namespace Bolt.Samples.Photon.Lobby
             playerSpellcaster = playerEntity.GetComponent<Player>().spellcaster;
             playerSpellcaster.HealPercentMissingHP(evnt.Percent);
             //TODO: Display feedback.
+            if (BoltNetwork.IsServer)
+            {
+            gameStateEntity.GetComponent<NetworkGameState>()
+                    .IncrementAttackCount();
+            }
         }
 
         public override void OnEvent(IncreaseTeamDmgByPercentEvent evnt)
@@ -671,6 +694,8 @@ namespace Bolt.Samples.Photon.Lobby
             {
                 gameStateEntity.GetComponent<NetworkGameState>()
                     .IncreaseTeamDmgByPercent(evnt.Percent);
+                gameStateEntity.GetComponent<NetworkGameState>()
+                    .IncrementAttackCount();
             }
 
             //TODO: Display feedback
@@ -682,6 +707,8 @@ namespace Bolt.Samples.Photon.Lobby
             if (BoltNetwork.IsServer)
             {
                 gameStateEntity.GetComponent<NetworkGameState>().IncreaseAllyDmgByPercent(evnt.AllySpellcasterID, evnt.Percent);
+                gameStateEntity.GetComponent<NetworkGameState>()
+                    .IncrementAttackCount();
             }
             /*NOT NEEDED ANYMORE, DELETE AFTER TESTING
             playerSpellcaster = playerEntity.GetComponent<Player>().spellcaster;
@@ -690,6 +717,29 @@ namespace Bolt.Samples.Photon.Lobby
                 //TODO:Display feedback letting them know they were buffed/
             }
             */
+        }
+
+        /*Everyone recieves this during combat*/
+        public override void OnEvent(BossAttacksEveryoneEvent evnt)
+        {
+            try
+            {
+                GameObject bossImage = GameObject.FindGameObjectWithTag("Enemy");
+                bossImage.GetComponent<Image>().sprite = bossAttackSprite;
+                StartCoroutine(WaitForAttack(bossImage));
+            }
+            catch
+            {
+
+            }
+             playerSpellcaster = playerEntity.GetComponent<Player>().spellcaster;
+             playerSpellcaster.TakeDamage((int) evnt.Damage);
+            //TODO: MAYBE DISPLAY FEEDBACK? 
+        }
+        IEnumerator WaitForAttack(GameObject bossImage)
+        {
+            yield return new WaitForSeconds(2f);
+            bossImage.GetComponent<Image>().sprite = bossIdleSprite;
         }
 
         #endregion
@@ -872,6 +922,8 @@ namespace Bolt.Samples.Photon.Lobby
         {
             gameStateEntity.GetComponent<NetworkGameState>()
                 .DealDmgToBoss(evnt.Dmg);
+            gameStateEntity.GetComponent<NetworkGameState>()
+                .IncrementAttackCount();
         }
 
         /*Only the server recieves this event.*/
@@ -879,6 +931,8 @@ namespace Bolt.Samples.Photon.Lobby
         {
             gameStateEntity.GetComponent<NetworkGameState>()
                 .DealPercentDmgToBoss(evnt.percent);
+                gameStateEntity.GetComponent<NetworkGameState>()
+                    .IncrementAttackCount();
         }
 
         /*Only the server recieves this event.*/
