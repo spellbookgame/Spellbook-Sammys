@@ -118,18 +118,12 @@ public class Combat : MonoBehaviour
         }
         catch
         {
-           
+
         }
     }
 
     private void LateUpdate()
     {
-        /*if (UnityEngine.Input.GetKeyDown(KeyCode.Escape))
-        {
-            ImageScript.Reset();
-        }
-        else if (UnityEngine.Input.GetKeyDown(KeyCode.Space))
-        {*/
         if (hasDrawned && firstTime && isInBossPanel)
         {
             hasDrawned = false;
@@ -150,7 +144,7 @@ public class Combat : MonoBehaviour
                 try
                 {
 
-                combatSpell.CombatCast(localSpellcaster, orbPercentage);
+                    combatSpell.CombatCast(localSpellcaster, orbPercentage);
                 }
                 catch { }
                 //NetworkManager.s_Singleton.CombatSpellCast(selectedSpell.sSpellName, match.Score);
