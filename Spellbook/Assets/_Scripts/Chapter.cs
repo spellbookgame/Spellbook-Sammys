@@ -109,4 +109,9 @@ public class Chapter : MonoBehaviour
             spellNamePairs[spell.sSpellName] = spell;
         }
     }
+
+    internal bool Any(object x)
+    {
+        throw new NotImplementedException();
+    }
 }
