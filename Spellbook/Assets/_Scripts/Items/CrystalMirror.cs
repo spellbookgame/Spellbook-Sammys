@@ -7,7 +7,7 @@ public class CrystalMirror : ItemObject
     public CrystalMirror()
     {
         name = "Crystal Mirror";
-        sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/Crystal Mirror");
+        sprite = GameObject.Find("ItemContainer").transform.Find(name).GetComponent<SpriteRenderer>().sprite;
         tier = 1;
         buyPrice = 3400;
         sellPrice = 1020;

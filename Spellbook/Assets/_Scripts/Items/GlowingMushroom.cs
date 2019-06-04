@@ -7,7 +7,7 @@ public class GlowingMushroom : ItemObject
     public GlowingMushroom()
     {
         name = "Glowing Mushroom";
-        sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/Glowing Mushroom");
+        sprite = GameObject.Find("ItemContainer").transform.Find(name).GetComponent<SpriteRenderer>().sprite;
         tier = 3;
         buyPrice = 300;
         sellPrice = 1800;

@@ -96,10 +96,14 @@ public class SpellCollectionHandler : MonoBehaviour
     }
     private void OnCastClick(Spell spell)
     {
-        // if plague was failed, player cant cast spells
-        if(localPlayer.Spellcaster.plagueConsequence)
+        if(localPlayer.Spellcaster.fCurrentHealth <= 0)
         {
-            PanelHolder.instance.displayNotify("Plague Consequence", "You're too sick to cast any spells right now!", "OK");
+            PanelHolder.instance.displayNotify("No Health", "You cannot cast or charge spells if you do not have health.", "OK");
+        }
+        // if plague was failed, player cant cast spells
+        else if(localPlayer.Spellcaster.plagueConsequence)
+        {
+            PanelHolder.instance.displayNotify("Plague Consequence", "You're too sick to cast or charge any spells right now!", "OK");
         }
         // if player has already cast 2 spells this turn and Agenda is not active
         else if (localPlayer.Spellcaster.numSpellsCastThisTurn >= 2 && !SpellTracker.instance.agendaActive)

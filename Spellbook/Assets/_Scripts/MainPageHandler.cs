@@ -96,7 +96,11 @@ public class MainPageHandler : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.I))
         {
-            SceneManager.LoadScene("ElementalTownScene");
+            SceneManager.LoadScene("AlchemyTownScene");
+        }
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            SceneManager.LoadScene("ArcaneTownScene");
         }
         if (Input.GetKeyDown(KeyCode.C))
         {
@@ -124,45 +128,6 @@ public class MainPageHandler : MonoBehaviour
         classType.text = localPlayer.Spellcaster.classType;
         manaCrystalsValue.text = localPlayer.Spellcaster.iMana.ToString();
         healthValue.text = localPlayer.Spellcaster.fCurrentHealth.ToString() + "/ " + localPlayer.Spellcaster.fMaxHealth.ToString();
-
-        ////////////////////////
-        // FOR TESTING COMBAT
-
-        switch (localPlayer.spellcaster.classType)
-        {
-            case "Alchemist":
-                localPlayer.spellcaster.chapter.spellsCollected.Add(new DistilledPotion());  
-                localPlayer.spellcaster.chapter.spellsCollected.Add(new PotionofBlessing()); 
-                localPlayer.spellcaster.chapter.spellsCollected.Add(new ToxicPotion());                  
-                break;
-            case "Arcanist":
-                localPlayer.spellcaster.chapter.spellsCollected.Add(new MarcellasBlessing()); 
-                localPlayer.spellcaster.chapter.spellsCollected.Add(new RunicDarts()); 
-                localPlayer.spellcaster.chapter.spellsCollected.Add(new Archive());  
-                break;
-            case "Elementalist":
-                localPlayer.spellcaster.chapter.spellsCollected.Add(new Fireball()); 
-                localPlayer.spellcaster.chapter.spellsCollected.Add(new EyeOfTheStorm());  
-                localPlayer.spellcaster.chapter.spellsCollected.Add(new NaturalDisaster()); 
-                break;
-            case "Chronomancer":
-                localPlayer.spellcaster.chapter.spellsCollected.Add(new ReverseWounds()); 
-                localPlayer.spellcaster.chapter.spellsCollected.Add(new Manipulate()); 
-                localPlayer.spellcaster.chapter.spellsCollected.Add(new Chronoblast());  
-                break;
-            case "Illusionist":
-                localPlayer.spellcaster.chapter.spellsCollected.Add(new Catharsis());
-                localPlayer.spellcaster.chapter.spellsCollected.Add(new Catastrophe());
-                localPlayer.spellcaster.chapter.spellsCollected.Add(new Tragedy()); 
-                break;
-            case "Summoner":
-                localPlayer.spellcaster.chapter.spellsCollected.Add(new Skeletons());
-                localPlayer.spellcaster.chapter.spellsCollected.Add(new Ravenssong());
-                localPlayer.spellcaster.chapter.spellsCollected.Add(new Bearsfury());
-                break;
-        }
-
-
 
         // disable dice button if it's not player's turn, activate end turn button accordingly
         UICanvasHandler.instance.EnableDiceButton(localPlayer.bIsMyTurn);
@@ -215,10 +180,6 @@ public class MainPageHandler : MonoBehaviour
                 break;
         }
 
-        // set character image based on class
-        characterImage.sprite = Resources.Load<Sprite>(localPlayer.Spellcaster.characterSpritePath);
-        // set class symbol image based on class
-        symbolImage.sprite = Resources.Load<Sprite>(localPlayer.Spellcaster.characterIconPath);
         // set background color based on class
         Color lightCol = new Color();
         ColorUtility.TryParseHtmlString(localPlayer.Spellcaster.hexStringLight, out lightCol);
@@ -254,5 +215,24 @@ public class MainPageHandler : MonoBehaviour
         yield return new WaitForSecondsRealtime(2f);
 
         manaCrystalsAddition.text = "";
+    }
+
+    // DELETE LATER - TESTING ONLY
+    public void CollectCombatSpells()
+    {
+        foreach(Spell s in localPlayer.Spellcaster.chapter.spellsAllowed)
+        {
+            if(s.combatSpell)
+                localPlayer.Spellcaster.CollectSpell(s);
+        }
+    }
+
+    public void CollectSpells()
+    {
+        foreach(Spell s in localPlayer.Spellcaster.chapter.spellsAllowed)
+        {
+            if (!s.combatSpell)
+                localPlayer.Spellcaster.CollectSpell(s);
+        }
     }
 }

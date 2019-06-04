@@ -13,6 +13,8 @@ public class QuestUI : MonoBehaviour
     [SerializeField] private Image rewardImage2;
     [SerializeField] private Button singleButton;
     [SerializeField] private Button singleButton1;
+    [SerializeField] private GameObject runeContainer;
+    [SerializeField] private GameObject itemContainer;
 
     Image[] rewardImages = new Image[2];
 
@@ -37,30 +39,31 @@ public class QuestUI : MonoBehaviour
         rewardImages[0] = rewardImage1;
         rewardImages[1] = rewardImage2;
 
+        Player player = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
+
         int i = 0;
         foreach(KeyValuePair<string, string> kvp in quest.rewards)
         {
             switch(kvp.Key)
             {
                 case "Rune":
-                    rewardImages[i].sprite = Resources.Load<Sprite>("RuneArt/" + kvp.Value);
+                    rewardImages[i].sprite = runeContainer.transform.Find(kvp.Value).GetComponent<Image>().sprite;
                     ++i;
                     continue;
                 case "Class Rune":
-                    rewardImages[i].sprite = Resources.Load<Sprite>("RuneArt/" +
-                        GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().Spellcaster.classType + " " + kvp.Value);
+                    rewardImages[i].sprite = runeContainer.transform.Find(player.Spellcaster.classType + " " + kvp.Value).GetComponent<Image>().sprite;
                     ++i;
                     continue;
                 case "Mana":
-                    rewardImages[i].sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/ManaCrystal");
+                    rewardImages[i].sprite = itemContainer.transform.Find("ManaCrystal").GetComponent<SpriteRenderer>().sprite;
                     ++i;
                     continue;
                 case "Item":
-                    rewardImages[i].sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/" + kvp.Value);
+                    rewardImages[i].sprite = itemContainer.transform.Find(kvp.Value).GetComponent<SpriteRenderer>().sprite;
                     ++i;
                     continue;
                 case "Dice":
-                    rewardImages[i].sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/Blank Dice");
+                    rewardImages[i].sprite = itemContainer.transform.Find("Blank Dice").GetComponent<SpriteRenderer>().sprite;
                     ++i;
                     continue;
                 default:

@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CrisisHandler : MonoBehaviour
 {
@@ -77,7 +78,7 @@ public class CrisisHandler : MonoBehaviour
         {
             SoundManager.instance.PlaySingle(SoundManager.crisisAverted);
             PanelHolder.instance.displayBoardScan("Tsunami Averted", "Out of gratitude for saving the Empire, the Capital is rewarding each wizard with an A tier rune from their class.",
-                                                    Resources.Load<Sprite>("RuneArt/" + player.Spellcaster.classType + " A Rune"), "MainPlayerScene");
+                                                    GameObject.Find("RuneContainer").transform.Find(player.Spellcaster.classType + " A Rune").GetComponent<Image>().sprite, "MainPlayerScene");
         }
         else
         {
@@ -156,11 +157,12 @@ public class CrisisHandler : MonoBehaviour
         BoltConsole.Write("Finish Plague, Crisis Solved:  "  + crisisSolved);
         if (crisisSolved)
         {
+            ItemObject abyssalOre = GameObject.Find("ItemList").GetComponent<ItemList>().listOfItems[1];
             SoundManager.instance.PlaySingle(SoundManager.crisisAverted);
             PanelHolder.instance.displayBoardScan("Plague Averted", "The local apothecaries have gathered special talismans for each wizard for saving them from doing work. " +
-                                                    "Each wizard will earn a permanent D6 and an Abyssal Ore!", Resources.Load<Sprite>("Art Assets/Items and Currency/Abyssal Ore"), "MainPlayerScene");
+                                                    "Each wizard will earn a permanent D6 and an Abyssal Ore!", abyssalOre.sprite, "MainPlayerScene");
             player.Spellcaster.dice["D6"] += 1;
-            player.Spellcaster.AddToInventory(GameObject.Find("ItemList").GetComponent<ItemList>().listOfItems[1]);
+            player.Spellcaster.AddToInventory(abyssalOre);
         }
         else
         {

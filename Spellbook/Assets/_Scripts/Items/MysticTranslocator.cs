@@ -5,7 +5,7 @@ public class MysticTranslocator : ItemObject
     public MysticTranslocator()
     {
         name = "Mystic Translocator";
-        sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/Mystic Translocator");
+        sprite = GameObject.Find("ItemContainer").transform.Find(name).GetComponent<SpriteRenderer>().sprite;
         tier = 2;
         buyPrice = 2400;
         sellPrice = 720;

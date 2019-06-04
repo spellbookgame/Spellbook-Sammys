@@ -8,7 +8,7 @@ public class GlimmeringCabochon : ItemObject
     public GlimmeringCabochon()
     {
         name = "Glimmering Cabochon";
-        sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/Glimmering Cabochon");
+        sprite = GameObject.Find("ItemContainer").transform.Find(name).GetComponent<SpriteRenderer>().sprite;
         tier = 2;
         buyPrice = 0;
         sellPrice = 0;

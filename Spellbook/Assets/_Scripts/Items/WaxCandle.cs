@@ -5,7 +5,7 @@ public class WaxCandle : ItemObject
     public WaxCandle()
     {
         name = "Wax Candle";
-        sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/Wax Candle");
+        sprite = GameObject.Find("ItemContainer").transform.Find(name).GetComponent<SpriteRenderer>().sprite;
         tier = 3;
         buyPrice = 1200;
         sellPrice = 360;

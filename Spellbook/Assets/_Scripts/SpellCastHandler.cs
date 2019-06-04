@@ -186,7 +186,6 @@ public class SpellCastHandler : MonoBehaviour
     // when the button is clicked, add its required glyphs into the casting circle
     private void SpellButtonClicked(Spell spell)
     {
-        SoundManager.instance.PlaySingle(SoundManager.placespellpiece);
         // open up spell panel
         OpenClosePanel();
         // change selectedSpell button text to spell name

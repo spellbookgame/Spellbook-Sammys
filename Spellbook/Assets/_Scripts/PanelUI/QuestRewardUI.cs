@@ -14,6 +14,8 @@ public class QuestRewardUI : MonoBehaviour
     [SerializeField] private Image rewardImage1;
     [SerializeField] private Image rewardImage2;
     [SerializeField] private Button singleButton;
+    [SerializeField] private GameObject runeContainer;
+    [SerializeField] private GameObject itemContainer;
 
     Image[] rewardImages = new Image[2];
     Text[] rewardText = new Text[2];
@@ -41,6 +43,8 @@ public class QuestRewardUI : MonoBehaviour
         rewardText[0] = rewardText1;
         rewardText[1] = rewardText2;
 
+        Player player = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
+
         if (quest.rewards.Count > 1)
         {
             int i = 0;
@@ -49,28 +53,27 @@ public class QuestRewardUI : MonoBehaviour
                 switch (kvp.Key)
                 {
                     case "Rune":
-                        rewardImages[i].sprite = Resources.Load<Sprite>("RuneArt/" + kvp.Value);
+                        rewardImages[i].sprite = runeContainer.transform.Find(kvp.Value).GetComponent<Image>().sprite;
                         rewardText[i].text = "Draw this from the deck.";
                         ++i;
                         continue;
                     case "Class Rune":
-                        rewardImages[i].sprite = Resources.Load<Sprite>("RuneArt/" +
-                            GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().Spellcaster.classType + " " + kvp.Value);
+                        rewardImages[i].sprite = runeContainer.transform.Find(player.Spellcaster.classType + " " + kvp.Value).GetComponent<Image>().sprite;
                         rewardText[i].text = "Draw this from the deck.";
                         ++i;
                         continue;
                     case "Mana":
-                        rewardImages[i].sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/ManaCrystal");
+                        rewardImages[i].sprite = itemContainer.transform.Find("ManaCrystal").GetComponent<SpriteRenderer>().sprite;
                         rewardText[i].text = "You earned " + Int32.Parse(kvp.Value) + " mana!";
                         ++i;
                         continue;
                     case "Item":
-                        rewardImages[i].sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/" + kvp.Value);
+                        rewardImages[i].sprite = itemContainer.transform.Find(kvp.Value).GetComponent<SpriteRenderer>().sprite;
                         rewardText[i].text = "You earned a " + kvp.Value + "!";
                         ++i;
                         continue;
                     case "Dice":
-                        rewardImages[i].sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/Blank Dice");
+                        rewardImages[i].sprite = itemContainer.transform.Find("Blank Dice").GetComponent<SpriteRenderer>().sprite;
                         rewardText[i].text = "You earned a temporary " + kvp.Value + "!";
                         ++i;
                         continue;

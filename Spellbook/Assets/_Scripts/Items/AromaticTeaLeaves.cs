@@ -5,7 +5,7 @@ public class AromaticTeaLeaves : ItemObject
     public AromaticTeaLeaves()
     {
         name = "Aromatic Tea Leaves";
-        sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/Aromatic Tea Leaves");
+        sprite = GameObject.Find("ItemContainer").transform.Find(name).GetComponent<SpriteRenderer>().sprite;
         tier = 3;
         buyPrice = 850;
         sellPrice = 255;

@@ -6,7 +6,7 @@ public class RiftTalisman : ItemObject
     public RiftTalisman()
     {
         name = "Rift Talisman";
-        sprite = Resources.Load<Sprite>("Art Assets/Items and Currency/Rift Talisman");
+        sprite = GameObject.Find("ItemContainer").transform.Find(name).GetComponent<SpriteRenderer>().sprite;
         tier = 1;
         buyPrice = 3500;
         sellPrice = 1050;
