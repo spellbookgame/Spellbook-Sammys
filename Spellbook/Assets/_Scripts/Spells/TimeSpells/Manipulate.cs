@@ -30,7 +30,7 @@ public class Manipulate : Spell, ICombatSpell
     {
         // throw new System.NotImplementedException();
         // player.TapTime += 2f;
-        NetworkManager.s_Singleton.IncreaseTapTimeBy2Sec();
+        NetworkManager.s_Singleton.IncreaseTapTimeBy2Sec(sSpellName);
     }
 
     public override void SpellCast(SpellCaster player)

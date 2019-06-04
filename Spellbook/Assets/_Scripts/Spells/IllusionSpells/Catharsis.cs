@@ -39,7 +39,7 @@ public class Catharsis : Spell, ICombatSpell
         else
             healAmount = Random.Range(6, 9);
         //player.HealDamage(healAmount);
-        NetworkManager.s_Singleton.HealAllAlliesByHp(healAmount);
+        NetworkManager.s_Singleton.HealAllAlliesByHp(healAmount, sSpellName);
     }
 
     public override void SpellCast(SpellCaster player)

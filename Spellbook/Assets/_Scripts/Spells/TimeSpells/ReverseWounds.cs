@@ -32,7 +32,7 @@ public class ReverseWounds : Spell, ICombatSpell
         float multiplier = ((Mathf.Floor(orbPercentage / 20) * 5) + 5) / 100;
         //int healAmount = (int) player.fMaxHealth * multiplier;
         //player.HealDamage(healAmount);
-        NetworkManager.s_Singleton.HealAllAlliesByPercent(multiplier);
+        NetworkManager.s_Singleton.HealAllAlliesByPercent(multiplier, sSpellName);
     }
 
     public override void SpellCast(SpellCaster player)

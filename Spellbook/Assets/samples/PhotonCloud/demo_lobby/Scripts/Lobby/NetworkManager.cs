@@ -632,6 +632,7 @@ namespace Bolt.Samples.Photon.Lobby
                     .IncrementAttackCount();
             }
             //TODO: Display Feedback
+            PanelHolder.instance.displaySpellCastNotif(evnt.Spellname, "Tap time increased by 2 seconds this combat", "OK");
         }
 
         public override void OnEvent(IncreaseTapPercentageEvent evnt)
@@ -645,6 +646,7 @@ namespace Bolt.Samples.Photon.Lobby
 
             }
             //TODO: Display Feedback
+            PanelHolder.instance.displaySpellCastNotif(evnt.Spellname, "Taps percentage increased", "OK");
         }
 
         /*Everyone recieves this during combat*/
@@ -653,6 +655,7 @@ namespace Bolt.Samples.Photon.Lobby
             playerSpellcaster = playerEntity.GetComponent<Player>().spellcaster;
             playerSpellcaster.HealPercentDamage(evnt.Percent);
 
+            PanelHolder.instance.displaySpellCastNotif(evnt.Spellname, "All allies healed by " + (evnt.Percent * 100) + " percent", "OK");
             if (BoltNetwork.IsServer)
             {
             gameStateEntity.GetComponent<NetworkGameState>()
@@ -668,6 +671,7 @@ namespace Bolt.Samples.Photon.Lobby
             //TODO: keep as float.
             playerSpellcaster.HealDamage((int) evnt.HP);
             //TODO: Display Feedback 
+            PanelHolder.instance.displaySpellCastNotif(evnt.Spellname, "All allies healed by " + evnt.HP, "OK");
             if (BoltNetwork.IsServer)
             {
             gameStateEntity.GetComponent<NetworkGameState>()
@@ -681,6 +685,7 @@ namespace Bolt.Samples.Photon.Lobby
             playerSpellcaster = playerEntity.GetComponent<Player>().spellcaster;
             playerSpellcaster.HealPercentMissingHP(evnt.Percent);
             //TODO: Display feedback.
+            PanelHolder.instance.displaySpellCastNotif(evnt.Spellname, "All allies healed by " + (evnt.Percent * 100 ) + " percemt of missing health", "OK");
             if (BoltNetwork.IsServer)
             {
             gameStateEntity.GetComponent<NetworkGameState>()
@@ -690,6 +695,7 @@ namespace Bolt.Samples.Photon.Lobby
 
         public override void OnEvent(IncreaseTeamDmgByPercentEvent evnt)
         {
+            PanelHolder.instance.displaySpellCastNotif(evnt.Spellname, "All allies damage increased by " + (evnt.Percent * 100 ) + " percemt", "OK");
             if (BoltNetwork.IsServer)
             {
                 gameStateEntity.GetComponent<NetworkGameState>()
@@ -745,6 +751,7 @@ namespace Bolt.Samples.Photon.Lobby
         public override void OnEvent(BossDiesEvent evnt)
         {
             //TODO: Display feedback
+            PanelHolder.instance.displayNotify("Dark Mage Fainted", "You and your team prevailed!", "MainPlayerScene");
         }
 
         public override void OnEvent(GameOverEvent evnt)
@@ -760,11 +767,13 @@ namespace Bolt.Samples.Photon.Lobby
             if(playerSpellcaster.spellcasterID == evnt.SpellcasterID)
             {
                 //Display you died
+                PanelHolder.instance.displayNotify("You Died", "Wait until your team finishes", "OK");
             }
             else
             {
                 string fallenSpellcaster = evnt.SpellcasterClass;
                 //Display a fallen spellcaster died
+                PanelHolder.instance.displayNotify(evnt.SpellcasterClass +" Died", "", "OK");
             }
 
             if (BoltNetwork.IsServer)
@@ -1119,17 +1128,19 @@ namespace Bolt.Samples.Photon.Lobby
         }
 
         //For combat API
-        public void IncreaseTapTimeBy2Sec()
+        public void IncreaseTapTimeBy2Sec(string spellName)
         {
             var evnt = IncreaseTapTimeBy2Secs.Create(Bolt.GlobalTargets.Everyone);
+            evnt.Spellname = spellName;
             evnt.Send();
         }
 
         //For combat API
-        public void IncreaseTeamTapPercentage(float percent)
+        public void IncreaseTeamTapPercentage(float percent, string spellName)
         {
             var evnt = IncreaseTapPercentageEvent.Create(Bolt.GlobalTargets.Everyone);
             evnt.Percent = percent;
+            evnt.Spellname = spellName;
             evnt.Send();
         }
 
@@ -1160,35 +1171,39 @@ namespace Bolt.Samples.Photon.Lobby
         }
 
         //For combat API
-        public void HealAllAlliesByPercent(float percent)
+        public void HealAllAlliesByPercent(float percent, string spellName)
         {
             var evnt = HealAllAlliesByPercentage.Create(Bolt.GlobalTargets.Everyone);
             evnt.Percent = percent;
+            evnt.Spellname = spellName;
             evnt.Send();
         }
 
         //For combat API
-        public void HealAllAlliesByHp(float hp)
+        public void HealAllAlliesByHp(float hp, string spellName)
         {
             var evnt = HealAllAlliesByHP.Create(Bolt.GlobalTargets.Everyone);
             evnt.HP = hp;
+            evnt.Spellname = spellName;
             evnt.Send();
         }
 
         //For combat API
-        public void HealAllAlliesPercentMissingHP(float percent)
+        public void HealAllAlliesPercentMissingHP(float percent, string spellName)
         {
             var evnt = HealPercentMissingHealth.Create(Bolt.GlobalTargets.Everyone);
             evnt.Percent = percent;
+            evnt.Spellname = spellName;
             evnt.Send();
         }
 
         //For combat API
         //Input: percentage in decimal form (between 0-1)
-        public void IncreaseTeamDamageByPercent(float percent)
+        public void IncreaseTeamDamageByPercent(float percent, string spellName)
         {
             var evnt = IncreaseTeamDmgByPercentEvent.Create(Bolt.GlobalTargets.Everyone);
             evnt.Percent = percent;
+            evnt.Spellname = spellName;
             evnt.Send();
         }
 

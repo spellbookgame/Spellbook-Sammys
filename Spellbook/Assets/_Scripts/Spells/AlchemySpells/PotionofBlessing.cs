@@ -33,7 +33,7 @@ public class PotionofBlessing : Spell, ICombatSpell
         //player.HealDamage((int)player.fMaxHealth);
 
         //Heal everyone to full health, including this spellcaster.
-        NetworkManager.s_Singleton.HealAllAlliesByPercent(1f);
+        NetworkManager.s_Singleton.HealAllAlliesByPercent(1f, sSpellName);
     }
 
     public override void SpellCast(SpellCaster player)

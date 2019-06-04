@@ -43,7 +43,7 @@ public class DistilledPotion : Spell, ICombatSpell
         orbPercentage = orbPercentage * 100;
         float healBuff = Mathf.Floor(orbPercentage / 20);
         float newHeal = 0.5f + (healBuff * 0.05f);
-        NetworkManager.s_Singleton.HealAllAlliesPercentMissingHP(newHeal);
+        NetworkManager.s_Singleton.HealAllAlliesPercentMissingHP(newHeal, sSpellName);
     }
 
     public override void SpellCast(SpellCaster player)

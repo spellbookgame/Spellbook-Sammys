@@ -32,7 +32,7 @@ public class ToxicPotion : Spell, ICombatSpell
         // for every 20% the orb is filled, add 5% to the damage multiplier
         orbPercentage = orbPercentage * 100;
         int multiplier = 5 + (int) (Mathf.Floor(orbPercentage / 20) * 5);
-        NetworkManager.s_Singleton.IncreaseTeamDamageByPercent(multiplier / 100);
+        NetworkManager.s_Singleton.IncreaseTeamDamageByPercent(multiplier / 100, sSpellName);
         // teamOutput += teamOutput * (multiplier / 100);
     }
 

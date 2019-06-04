@@ -34,7 +34,7 @@ public class Ravenssong : Spell, ICombatSpell
         //int healAmount = (int) player.fCurrentHealth * multiplier;
         //player.HealDamage(healAmount);
         //enemy.DealDamage(healAmount / 2);
-        NetworkManager.s_Singleton.HealAllAlliesByPercent(multiplier);
+        NetworkManager.s_Singleton.HealAllAlliesByPercent(multiplier, sSpellName);
         NetworkManager.s_Singleton.DealPercentDmgToBoss(0.1f);
     }
 

@@ -33,7 +33,7 @@ public class MarcellasBlessing : Spell, ICombatSpell
         // int totalDamage = teamDamage * 2;
         
         //Double the teams damage
-        NetworkManager.s_Singleton.IncreaseTeamDamageByPercent(1f); 
+        NetworkManager.s_Singleton.IncreaseTeamDamageByPercent(1f, sSpellName); 
     }
 
     public override void SpellCast(SpellCaster player)

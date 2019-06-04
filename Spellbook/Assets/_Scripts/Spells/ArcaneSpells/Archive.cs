@@ -34,7 +34,7 @@ public class Archive : Spell, ICombatSpell
         int tapBuff = (int) Mathf.Floor(orbPercentage / 20) * 5;
         int totalIncrease = (tapBuff + 15) / 100;
         //teamTapTotal += teamTapTotal * totalIncrease;
-        NetworkManager.s_Singleton.IncreaseTeamTapPercentage(totalIncrease);
+        NetworkManager.s_Singleton.IncreaseTeamTapPercentage(totalIncrease, sSpellName);
     }
 
     public override void SpellCast(SpellCaster player)
