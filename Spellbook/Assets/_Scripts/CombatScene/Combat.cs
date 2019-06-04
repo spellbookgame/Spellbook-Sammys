@@ -30,10 +30,13 @@ public class Combat : MonoBehaviour
 
     private void LinesUpdated(object sender, System.EventArgs args)
     {
-        hasDrawned = true;
-        //Debug.LogFormat("Lines updated, new point: {0},{1}", ImageScript.Gesture.FocusX, ImageScript.Gesture.FocusY);
-        lastX = ImageScript.Gesture.FocusX;
-        lastY = ImageScript.Gesture.FocusY;
+        if (isInBossPanel)
+        {
+            hasDrawned = true;
+            //Debug.LogFormat("Lines updated, new point: {0},{1}", ImageScript.Gesture.FocusX, ImageScript.Gesture.FocusY);
+            lastX = ImageScript.Gesture.FocusX;
+            lastY = ImageScript.Gesture.FocusY;
+        }
     }
 
     private void LinesCleared(object sender, System.EventArgs args)
@@ -82,14 +85,7 @@ public class Combat : MonoBehaviour
             localSpellcaster.chapter.spellsCollected.Add(new ToxicPotion()); // Looks like Fireball, NaturalDisaster  /* */
         }
 
-        try
-        {
-            BossHealthBar.GetComponent<UIHealthbarController>().healthPercentage = NetworkGameState.instance.GetBossHealth();
-        }
-        catch
-        {
-            //If we are here then we are just testing.
-        }
+        InvokeRepeating("UpdateHealthBars", 0f, 1f);
 
         ImageScript.LinesUpdated += LinesUpdated;
         ImageScript.LinesCleared += LinesCleared;
@@ -104,6 +100,28 @@ public class Combat : MonoBehaviour
         ResetButton.onClick.AddListener(ResetSwipe);
     }
 
+    void UpdateHealthBars()
+    {
+
+        try
+        {
+            BossHealthBar.GetComponent<UIHealthbarController>().healthPercentage = NetworkGameState.instance.GetBossHealth();
+        }
+        catch
+        {
+            //If we are here then we are just testing.
+        }
+
+        try
+        {
+            PlayerHealthBar.GetComponent<UIHealthbarController>().healthPercentage = localSpellcaster.fCurrentHealth / localSpellcaster.fMaxHealth;
+        }
+        catch
+        {
+           
+        }
+    }
+
     private void LateUpdate()
     {
         /*if (UnityEngine.Input.GetKeyDown(KeyCode.Escape))
@@ -112,7 +130,7 @@ public class Combat : MonoBehaviour
         }
         else if (UnityEngine.Input.GetKeyDown(KeyCode.Space))
         {*/
-        if (hasDrawned && firstTime)
+        if (hasDrawned && firstTime && isInBossPanel)
         {
             hasDrawned = false;
             ImageGestureImage match = ImageScript.CheckForImageMatch();

@@ -70,8 +70,10 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
 
             //state.SpellcasterList[0] = 0;
             //combatOrder = new int[6];
-            state.BossHealth = 70f;
+            state.BossMaxHealth = 30f;
+            state.BossHealth = 30f;
 
+            state.TapSecondsAllowed = 8f;
             turnOrder = new List<int>();
 
         }
@@ -525,10 +527,31 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
         }
     }
 
+    int totalSpellCount = 0;
+    public void BalanceBossHp(int numSpells)
+    {
+        totalSpellCount += numSpells;
+        if(state.NumOfSpellcasters > 3)
+        {
+            int dif = state.NumOfSpellcasters - 3;
+            int addedHP = dif * 15;
+            state.BossMaxHealth = 30f + addedHP;
+        }
+        else
+        {
+            state.BossMaxHealth = 30f; 
+        }
+
+        int buffSomeMore = totalSpellCount / 3;
+        state.BossMaxHealth += (buffSomeMore * 5);
+        state.BossHealth = state.BossMaxHealth;
+
+    }
+
     //For combat API
     public float GetBossHealth()
     {
-        return state.BossHealth;
+        return state.BossHealth / state.BossMaxHealth;
     }
 
     public void DealDmgToBoss(float dmg)

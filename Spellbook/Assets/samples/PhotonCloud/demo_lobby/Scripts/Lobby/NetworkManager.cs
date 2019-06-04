@@ -983,6 +983,12 @@ namespace Bolt.Samples.Photon.Lobby
         }
 
 
+        /*Only the server recieves this event.*/
+        public override void OnEvent(SendNumOfSpells evnt)
+        {
+            gameStateEntity.GetComponent<NetworkGameState>()
+                .BalanceBossHp(evnt.NumOfSpells);
+        }
 
 
         #endregion
@@ -1246,6 +1252,14 @@ namespace Bolt.Samples.Photon.Lobby
             var evnt = SpellcasterDiedEvent.Create(Bolt.GlobalTargets.Everyone);
             evnt.SpellcasterID = spellcasterID;
             evnt.SpellcasterClass = spellcasterClass;
+            evnt.Send();
+        }
+
+        //For balancing boss hp
+        public void SendNumOfSpellsForBalancing(int numOfSpells)
+        {
+            var evnt = SendNumOfSpells.Create(Bolt.GlobalTargets.OnlyServer);
+            evnt.NumOfSpells = numOfSpells;
             evnt.Send();
         }
 

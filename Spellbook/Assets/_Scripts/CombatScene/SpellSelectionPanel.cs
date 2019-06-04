@@ -45,7 +45,6 @@ public class SpellSelectionPanel : MonoBehaviour
         spellButtons = new Button[] { SpellButton1, SpellButton2, SpellButton3 };
 
         localSpellcaster = spellSwiper.localSpellcaster;
-        spellSwiper.PlayerHealthBar.GetComponent<UIHealthbarController>().healthPercentage = localSpellcaster.fCurrentHealth / localSpellcaster.fMaxHealth;
         int i = 0;
         int numCombatSpells = 0;
         foreach (Spell entry in localSpellcaster.chapter.spellsCollected)

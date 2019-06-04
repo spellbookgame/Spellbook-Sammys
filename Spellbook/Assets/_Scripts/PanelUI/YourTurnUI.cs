@@ -41,8 +41,8 @@ public class YourTurnUI : MonoBehaviour
             // enable player's dice button
             UICanvasHandler.instance.EnableDiceButton(true);
 
-            // bring player to main player scene
-            if (!SceneManager.GetActiveScene().name.Equals("MainPlayerScene"))
+        // bring player to main player scene
+        if (!SceneManager.GetActiveScene().name.Equals("MainPlayerScene") && !SceneManager.GetActiveScene().name.Equals("CombatSceneV2"))
             {
                 SceneManager.LoadScene("MainPlayerScene");
                 UICanvasHandler.instance.ActivateSpellbookButtons(false);

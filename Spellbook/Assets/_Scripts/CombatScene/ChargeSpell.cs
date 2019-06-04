@@ -22,7 +22,7 @@ public class ChargeSpell : MonoBehaviour
     public Combat spellSwiper;
     public SwipeGuideSpawner swipeSpawner;
 
-    private int totalSecs = 1;
+    private int totalSecs = 7;
     private int stopTime = 0;
     private Spell CombatSpell;
 
@@ -114,6 +114,7 @@ public class ChargeSpell : MonoBehaviour
     {
         //Send number of taps to network
         spellSwiper.orbPercentage = ChargeButtonBar.fillAmount;
+        spellSwiper.isInBossPanel = true;
         try
         {
             NetworkManager.s_Singleton.SendOrbUpdateToNetwork(localSpellcaster.spellcasterID, taps, ChargeButtonBar.fillAmount);

@@ -307,7 +307,9 @@ public class CrisisHandler : MonoBehaviour
 
     public void FinishBossBattle()
     {
-
+        int numOfSpells = player.spellcaster.chapter.spellsCollected.Count;
+        NetworkManager.s_Singleton.SendNumOfSpellsForBalancing(numOfSpells);
+        PanelHolder.instance.displayNotify("Final Battle", "You and your team will now enter combat", "CombatSceneV2");
     }
     #endregion
 
