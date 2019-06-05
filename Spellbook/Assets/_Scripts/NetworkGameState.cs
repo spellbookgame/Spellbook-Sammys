@@ -577,9 +577,10 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
     public void IncrementAttackCount()
     {
         state.AttackCount++;
+        state.BossAttacked = false;
 
         //if everyone casted their spell, its the boss turn to attack.
-        if(state.AttackCount >= state.NumOfSpellcasters)
+        if (state.AttackCount >= state.NumOfSpellcasters)
         {
             ResetAttackCount();
             float damage = 0;
