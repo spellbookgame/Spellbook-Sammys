@@ -24,7 +24,6 @@ public class PotionofBlessing : Spell, ICombatSpell
         ColorUtility.TryParseHtmlString("#FFC6D0", out colorPrimary);
         ColorUtility.TryParseHtmlString("#FF7295", out colorSecondary);
         ColorUtility.TryParseHtmlString("#B2E8B8", out colorTertiary);
-        guideLine = Resources.Load<Sprite>("CombatSwipes/PotionOfBlessing");
     }
 
     public void CombatCast(SpellCaster player, float orbPercentage)

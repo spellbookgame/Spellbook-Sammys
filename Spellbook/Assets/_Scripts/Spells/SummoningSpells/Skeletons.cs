@@ -24,8 +24,6 @@ public class Skeletons : Spell, ICombatSpell, IAllyCastable
         ColorUtility.TryParseHtmlString("#F2F5EA", out colorPrimary);
         ColorUtility.TryParseHtmlString("#2C363F", out colorSecondary);
         ColorUtility.TryParseHtmlString("#E75A7C", out colorTertiary);
-
-        guideLine = Resources.Load<Sprite>("CombatSwipes/Skeletons");
     }
 
     public void CombatCast(SpellCaster player, float orbPercentage)

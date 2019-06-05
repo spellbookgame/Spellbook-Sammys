@@ -554,9 +554,19 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
         return state.BossHealth / state.BossMaxHealth;
     }
 
+    public float GetBossCurrentHealth()
+    {
+        return state.BossHealth;
+    }
+
+    public float GetBossMaxHealth()
+    {
+        return state.BossMaxHealth;
+    }
+
     public void DealDmgToBoss(float dmg)
     {
-        state.BossHealth += dmg;
+        state.BossHealth -= dmg;
     }
 
     public void DealPercentDmgToBoss(float percent)
@@ -587,14 +597,27 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
             }
             else
             {
-                NetworkManager.s_Singleton.BossAttacksEveryone(Random.Range(2f, 5.1f));
+                state.BossAttackDamage = Random.Range(2f, 5.1f);
+                NetworkManager.s_Singleton.BossAttacksEveryone(state.BossAttackDamage);
+                state.BossAttacked = true;
             }
         }
+    }
+
+    public float GetBossAttackDamage()
+    {
+        return state.BossAttackDamage;
+    }
+
+    public bool IfBossAttacked()
+    {
+        return state.BossAttacked;
     }
 
     public void ResetAttackCount()
     {
         state.AttackCount = 0;
+        state.BossAttacked = false;
     }
 
     public void IncrementDeathCount()

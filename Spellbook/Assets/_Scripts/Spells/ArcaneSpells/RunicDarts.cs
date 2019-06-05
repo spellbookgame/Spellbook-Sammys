@@ -22,8 +22,6 @@ public class RunicDarts : Spell, ICombatSpell
         ColorUtility.TryParseHtmlString("#274690", out colorPrimary);
         ColorUtility.TryParseHtmlString("#302B27", out colorSecondary);
         ColorUtility.TryParseHtmlString("#F5F3F5", out colorTertiary);
-
-        guideLine = Resources.Load<Sprite>("CombatSwipes/RunicDarts");
     }
 
     public void CombatCast(SpellCaster player, float orbPercentage)

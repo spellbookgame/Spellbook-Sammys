@@ -91,7 +91,8 @@ public class ChargeSpell : MonoBehaviour
         {
             CancelInvoke();
             OrbButton.SetActive(false);
-            CastSpellButton.SetActive(true);
+            //CastSpellButton.SetActive(true);
+            OnClickCastSpell();
         }
         CountdownText.text = "" + totalSecs--;
     }
@@ -136,7 +137,7 @@ public class ChargeSpell : MonoBehaviour
         BackgroundPanelBoss.SetActive(true);
         BossPanekGameObject.SetActive(true);
         swipeSpawner.SpawnGuidePrefab(CombatSpell.sSpellName);
-        this.gameObject.SetActive(false);
+        gameObject.SetActive(false);
     }
 
     private void SetOrbSymbol(Spell s)

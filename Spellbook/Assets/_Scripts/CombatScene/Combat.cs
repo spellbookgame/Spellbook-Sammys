@@ -25,6 +25,7 @@ public class Combat : MonoBehaviour
     public bool isInBossPanel = false;
     public GameObject BossHealthBar;
     public GameObject PlayerHealthBar;
+    public GameObject DialogueField;
     public SwipeGuideSpawner swipeGuideSpawner;
 
 
@@ -106,6 +107,7 @@ public class Combat : MonoBehaviour
         try
         {
             BossHealthBar.GetComponent<UIHealthbarController>().healthPercentage = NetworkGameState.instance.GetBossHealth();
+            BossHealthBar.transform.GetChild(2).GetComponent<Text>().text = NetworkGameState.instance.GetBossCurrentHealth().ToString() + "/" + NetworkGameState.instance.GetBossMaxHealth().ToString();
         }
         catch
         {
@@ -115,6 +117,7 @@ public class Combat : MonoBehaviour
         try
         {
             PlayerHealthBar.GetComponent<UIHealthbarController>().healthPercentage = localSpellcaster.fCurrentHealth / localSpellcaster.fMaxHealth;
+            PlayerHealthBar.transform.GetChild(2).GetComponent<Text>().text = localSpellcaster.fCurrentHealth.ToString() + "/" + localSpellcaster.fMaxHealth.ToString();
         }
         catch
         {
@@ -151,6 +154,12 @@ public class Combat : MonoBehaviour
                 //AudioSourceOnMatch.Play();
                 swipeGuideSpawner.selectedSpell.SetActive(false);
                 ResetButton.gameObject.SetActive(true);
+
+                if(NetworkGameState.instance.IfBossAttacked())
+                {
+                    DialogueField.SetActive(true);
+                    DialogueField.transform.GetChild(0).GetComponent<Text>().text = "The Black Mage dealt " + ((int)NetworkGameState.instance.GetBossAttackDamage()).ToString() + " damage to everyone!";
+                }
             }
             else
             {

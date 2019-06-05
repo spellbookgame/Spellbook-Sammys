@@ -42,12 +42,19 @@ public abstract class Spell
 
     public virtual void Charge(SpellCaster player)
     {
-        if (player.iMana < iManaCost)
-            PanelHolder.instance.displayNotify("Not enough Mana!", "You do not have enough mana to charge this spell.", "OK");
-        else
+        if(combatSpell)
         {
-            player.LoseMana(iManaCost);
-            ++iCharges;
+            if (player.iMana < iManaCost)
+            {
+                SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+                PanelHolder.instance.displayNotify("Not enough Mana!", "You do not have enough mana to charge this spell.", "OK");
+            }
+            else
+            {
+                SoundManager.instance.PlaySingle(SoundManager.spellcast);
+                player.LoseMana(iManaCost);
+                ++iCharges;
+            }
         }
     }
 }

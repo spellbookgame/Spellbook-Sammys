@@ -41,7 +41,6 @@ public class MainPageHandler : MonoBehaviour
     #endregion
 
     private bool diceTrayOpen;
-    private bool manaHasChanged;
 
     Player localPlayer;
     public static MainPageHandler instance = null;
@@ -67,11 +66,10 @@ public class MainPageHandler : MonoBehaviour
 
     private void Update()
     {
-        // update player's mana count
-        if (localPlayer != null && manaHasChanged)
+        if(localPlayer != null)
         {
             manaCrystalsValue.text = localPlayer.Spellcaster.iMana.ToString();
-            manaHasChanged = false;
+            healthValue.text = localPlayer.Spellcaster.fCurrentHealth.ToString() + "/ " + localPlayer.Spellcaster.fMaxHealth.ToString();
         }
 
         roundsUntilCrisis.text = "Rounds Until Crisis: " + NetworkGameState.instance.RoundsUntilCrisisActivates().ToString();
@@ -206,7 +204,6 @@ public class MainPageHandler : MonoBehaviour
     private IEnumerator ShowManaEarned(int manaCount)
     {
         manaCrystalsAddition.text = "+" + manaCount.ToString();
-        manaHasChanged = true;
 
         yield return new WaitForSecondsRealtime(2f);
 
