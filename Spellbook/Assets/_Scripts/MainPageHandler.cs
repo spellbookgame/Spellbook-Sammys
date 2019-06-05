@@ -100,7 +100,7 @@ public class MainPageHandler : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.O))
         {
-            SceneManager.LoadScene("ArcaneTownScene");
+            SceneManager.LoadScene("CombatSceneV2");
         }
         if (Input.GetKeyDown(KeyCode.C))
         {

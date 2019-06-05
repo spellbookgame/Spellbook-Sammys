@@ -731,7 +731,7 @@ namespace Bolt.Samples.Photon.Lobby
             try
             {
                 GameObject bossImage = GameObject.FindGameObjectWithTag("Enemy");
-                bossImage.GetComponent<Image>().sprite = bossAttackSprite;
+                bossImage.GetComponent<SpriteRenderer>().sprite = bossAttackSprite;
                 StartCoroutine(WaitForAttack(bossImage));
             }
             catch
