@@ -98,10 +98,6 @@ public class MainPageHandler : MonoBehaviour
         {
             SceneManager.LoadScene("AlchemyTownScene");
         }
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            SceneManager.LoadScene("CombatSceneV2");
-        }
         if (Input.GetKeyDown(KeyCode.C))
         {
             localPlayer.Spellcaster.gameLost = true;
@@ -234,5 +230,10 @@ public class MainPageHandler : MonoBehaviour
             if (!s.combatSpell)
                 localPlayer.Spellcaster.CollectSpell(s);
         }
+    }
+
+    public void GoToCombat()
+    {
+        SceneManager.LoadScene("CombatSceneV2");
     }
 }

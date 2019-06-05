@@ -37,9 +37,11 @@ namespace DigitalRubyShared
         private ImageGestureImage matchedImage;
         private const float lineAnimationDurationSeconds = 1.0f;
         private float animationTime;
+        private bool soundPlayed;
 
         private void ClearLineRenderers()
         {
+            soundPlayed = false;
             foreach (LineRenderer lineRenderer in LineRenderers)
             {
                 lineRenderer.positionCount = 0;
@@ -57,6 +59,12 @@ namespace DigitalRubyShared
 
         private void UpdateLines()
         {
+            // play sound only once, when line is first starting to draw
+            if(!soundPlayed)
+            {
+                SoundManager.instance.PlaySingle(SoundManager.combatDrawingSound);
+                soundPlayed = true;
+            }
             int idx = Gesture.PathCount - 1;
             if (idx >= 0 && idx < LineRenderers.Length)
             {

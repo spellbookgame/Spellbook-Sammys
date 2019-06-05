@@ -60,6 +60,7 @@ public class ChargeSpell : MonoBehaviour
 
     void OnFirstTap()
     {
+        SoundManager.instance.PlaySingle(SoundManager.orbFilling);
         Arrows.SetActive(false);
         CountdownText.gameObject.SetActive(true);
         OrbButton.GetComponent<Button>().onClick.RemoveAllListeners();
@@ -71,9 +72,13 @@ public class ChargeSpell : MonoBehaviour
 
     void OnTap()
     {
+        SoundManager.instance.PlaySingle(SoundManager.orbFilling);
         taps++;
         //OuterBackgroundBar.fillAmount += 0.02f;
         ChargeButtonBar.fillAmount += 0.02f;
+
+        if (ChargeButtonBar.fillAmount == 1)
+            SoundManager.instance.PlaySingle(SoundManager.orbFull);
     }
 
     void Countdown()

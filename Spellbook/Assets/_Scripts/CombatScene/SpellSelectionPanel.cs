@@ -122,6 +122,7 @@ public class SpellSelectionPanel : MonoBehaviour
 
     private void clickedSpellButton1()
     {
+        SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
         if (SelectedSpellButton != null)
         {
             SelectedSpellButton.GetComponent<RectTransform>().localScale = new Vector3(0.65024f, 0.65024f, 1f);
@@ -141,6 +142,7 @@ public class SpellSelectionPanel : MonoBehaviour
 
     private void clickedSpellButton2()
     {
+        SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
         if (SelectedSpellButton != null)
         {
             SelectedSpellButton.GetComponent<RectTransform>().localScale = new Vector3(0.65024f, 0.65024f, 1f);
@@ -160,6 +162,7 @@ public class SpellSelectionPanel : MonoBehaviour
 
     private void clickedSpellButton3()
     {
+        SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
         if (SelectedSpellButton != null)
         {
             SelectedSpellButton.GetComponent<RectTransform>().localScale = new Vector3(0.65024f, 0.65024f, 1f);
@@ -179,6 +182,7 @@ public class SpellSelectionPanel : MonoBehaviour
 
     private void clickedReady()
     {
+        SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
         ChargePanel.SetActive(true);
         spellSwiper.selectedSpell = selectedSpell;
         spellSwiper.localSpellcaster = localSpellcaster;
