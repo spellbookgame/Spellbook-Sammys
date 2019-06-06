@@ -67,15 +67,11 @@ public abstract class SpellCaster
     public string hexStringPanel;
     public string hexString3rdColor;
 
-    // TODO:
-    //private string backGroundStory; 
-    //Implement:
-    //Object DeleteFromInventory(string itemName, int count); 
-
     // CTOR
     public SpellCaster()
     {
         //fMaxHealth = 20.0f;     //Commented out in case Spellcasters have different max healths.
+        fBasicAttackStrength = 2.0f;
         iMana = 1000;
         hasAttacked = false;
 
