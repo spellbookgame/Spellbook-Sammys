@@ -74,7 +74,7 @@ public class MainPageHandler : MonoBehaviour
         }
 
         // mute player's bgm if not their turn
-        if (!localPlayer.bIsMyTurn)
+        if (localPlayer != null && !localPlayer.bIsMyTurn)
             SoundManager.instance.musicSource.volume = 0;
 
         // update rounds until crisis
