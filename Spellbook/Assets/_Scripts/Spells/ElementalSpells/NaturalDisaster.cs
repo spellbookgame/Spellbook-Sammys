@@ -23,8 +23,6 @@ public class NaturalDisaster : Spell, ICombatSpell
         ColorUtility.TryParseHtmlString("#D19C1D", out colorPrimary);
         ColorUtility.TryParseHtmlString("#D7F75B", out colorSecondary);
         ColorUtility.TryParseHtmlString("#9BE564", out colorTertiary);
-
-        guideLine = Resources.Load<Sprite>("CombatSwipes/NaturalDisaster");
     }
 
     public void CombatCast(SpellCaster player, float orbPercentage)

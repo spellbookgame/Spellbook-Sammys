@@ -23,8 +23,6 @@ public class Ravenssong : Spell, ICombatSpell
         ColorUtility.TryParseHtmlString("#6E26A5", out colorPrimary);
         ColorUtility.TryParseHtmlString("#BFACC8", out colorSecondary);
         ColorUtility.TryParseHtmlString("#4A4063", out colorTertiary);
-
-        guideLine = Resources.Load<Sprite>("CombatSwipes/Ravenssong");
     }
 
     public void CombatCast(SpellCaster player, float orbPercentage)

@@ -22,8 +22,6 @@ public class Fireball : Spell, ICombatSpell
         ColorUtility.TryParseHtmlString("#F74A4A", out colorPrimary);
         ColorUtility.TryParseHtmlString("#FC923C", out colorSecondary);
         ColorUtility.TryParseHtmlString("#FFE43A", out colorTertiary);
-
-        guideLine = Resources.Load<Sprite>("CombatSwipes/Fireball");
     }
 
     public void CombatCast(SpellCaster player, float orbPercentage)

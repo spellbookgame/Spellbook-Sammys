@@ -23,8 +23,6 @@ public class EyeOfTheStorm : Spell, ICombatSpell
         ColorUtility.TryParseHtmlString("#576CC1", out colorPrimary);
         ColorUtility.TryParseHtmlString("#8C4170", out colorSecondary);
         ColorUtility.TryParseHtmlString("#8370FF", out colorTertiary);
-
-        guideLine = Resources.Load<Sprite>("CombatSwipes/EyeOfTheStorm");
     }
 
     public void CombatCast(SpellCaster player, float orbPercentage)

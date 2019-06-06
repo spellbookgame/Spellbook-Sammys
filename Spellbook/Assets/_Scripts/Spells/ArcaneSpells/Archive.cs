@@ -23,8 +23,6 @@ public class Archive : Spell, ICombatSpell
         ColorUtility.TryParseHtmlString("#7F055F", out colorPrimary);
         ColorUtility.TryParseHtmlString("#45062E", out colorSecondary);
         ColorUtility.TryParseHtmlString("#E5A4CB", out colorTertiary);
-
-        guideLine = Resources.Load<Sprite>("CombatSwipes/Archive");
     }
 
     public void CombatCast(SpellCaster player, float orbPercentage)

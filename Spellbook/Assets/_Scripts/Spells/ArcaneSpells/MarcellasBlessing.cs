@@ -23,8 +23,6 @@ public class MarcellasBlessing : Spell, ICombatSpell
         ColorUtility.TryParseHtmlString("#4062BB", out colorPrimary);
         ColorUtility.TryParseHtmlString("#59C3C3", out colorSecondary);
         ColorUtility.TryParseHtmlString("#F45B69", out colorTertiary);
-
-        guideLine = Resources.Load<Sprite>("CombatSwipes/MarcellasBlessing");
     }
 
     public void CombatCast(SpellCaster player, float orbPercentage)

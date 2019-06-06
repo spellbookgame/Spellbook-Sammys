@@ -21,8 +21,6 @@ public class Tragedy : Spell, ICombatSpell
         ColorUtility.TryParseHtmlString("#9759C6", out colorPrimary);
         ColorUtility.TryParseHtmlString("#CC3F3F", out colorSecondary);
         ColorUtility.TryParseHtmlString("#222A68", out colorTertiary);
-
-        guideLine = Resources.Load<Sprite>("CombatSwipes/Tragedy");
     }
 
     public void CombatCast(SpellCaster player, float orbPercentage)

@@ -24,6 +24,7 @@ public class SpellSelectionPanel : MonoBehaviour
     Color colorGemstone3;
     public Text SpellDescription;
     public Text SpellName;
+    public Text NumChargesText;
 
     public Combat spellSwiper;
     public GameObject ChargePanel;
@@ -122,6 +123,7 @@ public class SpellSelectionPanel : MonoBehaviour
 
     private void clickedSpellButton1()
     {
+        SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
         if (SelectedSpellButton != null)
         {
             SelectedSpellButton.GetComponent<RectTransform>().localScale = new Vector3(0.65024f, 0.65024f, 1f);
@@ -131,8 +133,16 @@ public class SpellSelectionPanel : MonoBehaviour
         ReadyButton.GetComponentInChildren<Text>().text = "Ready";
         selectedSpell = spells[0];
         SelectedSpellButton = SpellButton1.gameObject;
+
         SpellName.text = selectedSpell.sSpellName;
+        NumChargesText.text = "Charges: " + selectedSpell.iCharges.ToString();
         SpellDescription.text = selectedSpell.sSpellInfo;
+
+        if (selectedSpell.iCharges <= 0)
+            ReadyButton.interactable = false;
+        else
+            ReadyButton.interactable = true;
+
         swipeGuide.sprite = selectedSpell.guideLine;
         var tColor = SpellButton1.image.color;
         tColor.a = 0.5f;
@@ -141,6 +151,7 @@ public class SpellSelectionPanel : MonoBehaviour
 
     private void clickedSpellButton2()
     {
+        SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
         if (SelectedSpellButton != null)
         {
             SelectedSpellButton.GetComponent<RectTransform>().localScale = new Vector3(0.65024f, 0.65024f, 1f);
@@ -150,8 +161,16 @@ public class SpellSelectionPanel : MonoBehaviour
         ReadyButton.GetComponentInChildren<Text>().text = "Ready";
         selectedSpell = spells[1];
         SelectedSpellButton = SpellButton2.gameObject;
+
         SpellName.text = selectedSpell.sSpellName;
+        NumChargesText.text = "Charges: " + selectedSpell.iCharges.ToString();
         SpellDescription.text = selectedSpell.sSpellInfo;
+
+        if (selectedSpell.iCharges <= 0)
+            ReadyButton.interactable = false;
+        else
+            ReadyButton.interactable = true;
+
         swipeGuide.sprite = selectedSpell.guideLine;
         var tColor = SpellButton2.image.color;
         tColor.a = 0.5f;
@@ -160,6 +179,7 @@ public class SpellSelectionPanel : MonoBehaviour
 
     private void clickedSpellButton3()
     {
+        SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
         if (SelectedSpellButton != null)
         {
             SelectedSpellButton.GetComponent<RectTransform>().localScale = new Vector3(0.65024f, 0.65024f, 1f);
@@ -169,8 +189,16 @@ public class SpellSelectionPanel : MonoBehaviour
         ReadyButton.GetComponentInChildren<Text>().text = "Ready";
         selectedSpell = spells[2];
         SelectedSpellButton = SpellButton3.gameObject;
+
         SpellName.text = selectedSpell.sSpellName;
+        NumChargesText.text = "Charges: " + selectedSpell.iCharges.ToString();
         SpellDescription.text = selectedSpell.sSpellInfo;
+
+        if (selectedSpell.iCharges <= 0)
+            ReadyButton.interactable = false;
+        else
+            ReadyButton.interactable = true;
+
         swipeGuide.sprite = selectedSpell.guideLine;
         var tColor = SpellButton3.image.color;
         tColor.a = 0.5f;
@@ -179,11 +207,16 @@ public class SpellSelectionPanel : MonoBehaviour
 
     private void clickedReady()
     {
+        SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+
+        // remove a charge from selected spell
+        selectedSpell.iCharges -= 1;
+
         ChargePanel.SetActive(true);
         spellSwiper.selectedSpell = selectedSpell;
         spellSwiper.localSpellcaster = localSpellcaster;
         ChargePanel.GetComponent<ChargeSpell>().SetCombatSpell(selectedSpell, SelectedSpellButton, localSpellcaster);
-        this.gameObject.SetActive(false);
+        gameObject.SetActive(false);
     }
 
 

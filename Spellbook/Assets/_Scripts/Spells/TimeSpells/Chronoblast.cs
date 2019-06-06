@@ -21,8 +21,6 @@ public class Chronoblast : Spell, ICombatSpell
         ColorUtility.TryParseHtmlString("#F9DF36", out colorPrimary);
         ColorUtility.TryParseHtmlString("#E06D06", out colorSecondary);
         ColorUtility.TryParseHtmlString("#FAFF81", out colorTertiary);
-
-        guideLine = Resources.Load<Sprite>("CombatSwipes/Chronoblast");
     }
 
     public void CombatCast(SpellCaster player, float orbPercentage)

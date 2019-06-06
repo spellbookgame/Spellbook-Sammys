@@ -22,8 +22,6 @@ public class ReverseWounds : Spell, ICombatSpell
         ColorUtility.TryParseHtmlString("#CE4257", out colorPrimary);
         ColorUtility.TryParseHtmlString("#FF7F51", out colorSecondary);
         ColorUtility.TryParseHtmlString("#720026", out colorTertiary);
-
-        guideLine = Resources.Load<Sprite>("CombatSwipes/ReverseWounds");
     }
 
     public void CombatCast(SpellCaster player, float orbPercentage)

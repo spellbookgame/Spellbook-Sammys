@@ -22,8 +22,6 @@ public class Manipulate : Spell, ICombatSpell
         ColorUtility.TryParseHtmlString("#44BBA4", out colorPrimary);
         ColorUtility.TryParseHtmlString("#E7BB41", out colorSecondary);
         ColorUtility.TryParseHtmlString("#E7E5DF", out colorTertiary);
-
-        guideLine = Resources.Load<Sprite>("CombatSwipes/Manipulate");
     }
 
     public void CombatCast(SpellCaster player, float orbPercentage)

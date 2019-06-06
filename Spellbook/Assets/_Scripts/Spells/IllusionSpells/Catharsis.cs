@@ -22,8 +22,6 @@ public class Catharsis : Spell, ICombatSpell
         ColorUtility.TryParseHtmlString("#9DDBAD", out colorPrimary);
         ColorUtility.TryParseHtmlString("#FFC145", out colorSecondary);
         ColorUtility.TryParseHtmlString("#FFFFFB", out colorTertiary);
-
-        guideLine = Resources.Load<Sprite>("CombatSwipes/Catharsis");
     }
 
     public void CombatCast(SpellCaster player, float orbPercentage)

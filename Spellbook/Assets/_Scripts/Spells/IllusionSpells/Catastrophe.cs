@@ -25,8 +25,6 @@ public class Catastrophe : Spell, ICombatSpell, IAllyCastable
         ColorUtility.TryParseHtmlString("#005C69", out colorPrimary);
         ColorUtility.TryParseHtmlString("#950952", out colorSecondary);
         ColorUtility.TryParseHtmlString("#023618", out colorTertiary);
-
-        guideLine = Resources.Load<Sprite>("CombatSwipes/Catastrophe");
     }
 
     public void CombatCast(SpellCaster player, float orbPercentage)

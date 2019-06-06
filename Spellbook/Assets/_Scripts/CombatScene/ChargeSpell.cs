@@ -9,6 +9,7 @@ public class ChargeSpell : MonoBehaviour
     public SpellCaster localSpellcaster;
     public Image OuterBackgroundBar;
     public GameObject OrbButton;
+    public Sprite[] orbSymbols;
     public GameObject Arrows;
     public GameObject BackgroundPanelBook;
     public GameObject BackgroundPanelBoss;
@@ -56,10 +57,14 @@ public class ChargeSpell : MonoBehaviour
         {
 
         }
+
+        // set the symbol sprite on the orb
+        SetOrbSymbol(CombatSpell);
     }
 
     void OnFirstTap()
     {
+        SoundManager.instance.PlaySingle(SoundManager.orbFilling);
         Arrows.SetActive(false);
         CountdownText.gameObject.SetActive(true);
         OrbButton.GetComponent<Button>().onClick.RemoveAllListeners();
@@ -71,9 +76,13 @@ public class ChargeSpell : MonoBehaviour
 
     void OnTap()
     {
+        SoundManager.instance.PlaySingle(SoundManager.orbFilling);
         taps++;
         //OuterBackgroundBar.fillAmount += 0.02f;
         ChargeButtonBar.fillAmount += 0.02f;
+
+        if (ChargeButtonBar.fillAmount == 1)
+            SoundManager.instance.PlaySingle(SoundManager.orbFull);
     }
 
     void Countdown()
@@ -82,7 +91,8 @@ public class ChargeSpell : MonoBehaviour
         {
             CancelInvoke();
             OrbButton.SetActive(false);
-            CastSpellButton.SetActive(true);
+            //CastSpellButton.SetActive(true);
+            OnClickCastSpell();
         }
         CountdownText.text = "" + totalSecs--;
     }
@@ -127,6 +137,75 @@ public class ChargeSpell : MonoBehaviour
         BackgroundPanelBoss.SetActive(true);
         BossPanekGameObject.SetActive(true);
         swipeSpawner.SpawnGuidePrefab(CombatSpell.sSpellName);
-        this.gameObject.SetActive(false);
+        gameObject.SetActive(false);
+    }
+
+    private void SetOrbSymbol(Spell s)
+    {
+        SpriteRenderer orbSprite = OrbButton.transform.GetChild(0).GetComponent<SpriteRenderer>();
+
+        // set orb color based on spellcaster class
+        Image orbImage = OrbButton.GetComponent<Image>();
+        Color orbColor = new Color();
+        ColorUtility.TryParseHtmlString(localSpellcaster.hexStringPanel, out orbColor);
+        orbImage.color = orbColor;
+
+        switch (s.sSpellName)
+        {
+            case "Potion of Blessing":
+                orbSprite.sprite = orbSymbols[0];
+                break;
+            case "Distilled Potion":
+                orbSprite.sprite = orbSymbols[1];
+                break;
+            case "Toxic Potion":
+                orbSprite.sprite = orbSymbols[2];
+                break;
+            case "Marcella's Blessing":
+                orbSprite.sprite = orbSymbols[3];
+                break;
+            case "Archive":
+                orbSprite.sprite = orbSymbols[4];
+                break;
+            case "Runic Darts":
+                orbSprite.sprite = orbSymbols[5];
+                break;
+            case "Manipulate":
+                orbSprite.sprite = orbSymbols[6];
+                break;
+            case "Reverse Wounds":
+                orbSprite.sprite = orbSymbols[7];
+                break;
+            case "Chronoblast":
+                orbSprite.sprite = orbSymbols[8];
+                break;
+            case "Natural Disaster":
+                orbSprite.sprite = orbSymbols[9];
+                break;
+            case "Eye of the Storm":
+                orbSprite.sprite = orbSymbols[10];
+                break;
+            case "Fireball":
+                orbSprite.sprite = orbSymbols[11];
+                break;
+            case "Catastrophe":
+                orbSprite.sprite = orbSymbols[12];
+                break;
+            case "Catharsis":
+                orbSprite.sprite = orbSymbols[13];
+                break;
+            case "Tragedy":
+                orbSprite.sprite = orbSymbols[14];
+                break;
+            case "Raven's Song":
+                orbSprite.sprite = orbSymbols[15];
+                break;
+            case "Bear's Fury":
+                orbSprite.sprite = orbSymbols[16];
+                break;
+            case "Skeletons":
+                orbSprite.sprite = orbSymbols[17];
+                break;
+        }
     }
 }

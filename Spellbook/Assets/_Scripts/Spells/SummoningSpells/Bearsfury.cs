@@ -22,8 +22,6 @@ public class Bearsfury : Spell, ICombatSpell
         ColorUtility.TryParseHtmlString("#FCA17D", out colorPrimary);
         ColorUtility.TryParseHtmlString("#F9DBBD", out colorSecondary);
         ColorUtility.TryParseHtmlString("#B55151", out colorTertiary);
-
-        guideLine = Resources.Load<Sprite>("CombatSwipes/Bearsfury");
     }
 
     public void CombatCast(SpellCaster player, float orbPercentage)
