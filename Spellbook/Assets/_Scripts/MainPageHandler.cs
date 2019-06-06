@@ -94,7 +94,7 @@ public class MainPageHandler : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.I))
         {
-            SceneManager.LoadScene("AlchemyTownScene");
+            SceneManager.LoadScene("CompassScene");
         }
         if (Input.GetKeyDown(KeyCode.C))
         {
