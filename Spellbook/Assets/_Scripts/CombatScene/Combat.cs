@@ -1,7 +1,5 @@
 ﻿using Bolt.Samples.Photon.Lobby;
 using DigitalRubyShared;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -18,6 +16,7 @@ public class Combat : MonoBehaviour
     float lastX = 0;
     float lastY = 0;
     public Button ResetButton;
+    public Button basicAttackButton;
     public Text SwipeInstructionText;
     public Spell selectedSpell;
     public SpellCaster localSpellcaster;
@@ -27,7 +26,8 @@ public class Combat : MonoBehaviour
     public GameObject PlayerHealthBar;
     public GameObject DialogueField;
     public SwipeGuideSpawner swipeGuideSpawner;
-
+    public bool onlyBasicAttack = false;
+    private bool hasDoneBasicAttack = false;
 
     private void LinesUpdated(object sender, System.EventArgs args)
     {
@@ -107,7 +107,7 @@ public class Combat : MonoBehaviour
         try
         {
             BossHealthBar.GetComponent<UIHealthbarController>().healthPercentage = NetworkGameState.instance.GetBossHealth();
-            BossHealthBar.transform.GetChild(2).GetComponent<Text>().text = NetworkGameState.instance.GetBossCurrentHealth().ToString() + "/" + NetworkGameState.instance.GetBossMaxHealth().ToString();
+            BossHealthBar.transform.GetChild(2).GetComponent<Text>().text = ((int)NetworkGameState.instance.GetBossCurrentHealth()).ToString() + "/" + NetworkGameState.instance.GetBossMaxHealth().ToString();
         }
         catch
         {
@@ -117,7 +117,7 @@ public class Combat : MonoBehaviour
         try
         {
             PlayerHealthBar.GetComponent<UIHealthbarController>().healthPercentage = localSpellcaster.fCurrentHealth / localSpellcaster.fMaxHealth;
-            PlayerHealthBar.transform.GetChild(2).GetComponent<Text>().text = localSpellcaster.fCurrentHealth.ToString() + "/" + localSpellcaster.fMaxHealth.ToString();
+            PlayerHealthBar.transform.GetChild(2).GetComponent<Text>().text = ((int)localSpellcaster.fCurrentHealth).ToString() + "/" + localSpellcaster.fMaxHealth.ToString();
         }
         catch
         {
@@ -125,9 +125,33 @@ public class Combat : MonoBehaviour
         }
     }
 
+    public void BasicAttack()
+    {
+        if (!hasDoneBasicAttack)
+        {
+            hasDoneBasicAttack = true;
+            float baseDmg = 2f;
+            if(orbPercentage > .75f)
+            {
+                baseDmg = Random.Range(3, 4.1f);
+            }else if(orbPercentage > .5f)
+            {
+                baseDmg = Random.Range(2, 4.1f);
+            }else if(orbPercentage > .25f)
+            {
+                baseDmg = Random.Range(2, 3.1f);
+            }
+
+            NetworkManager.s_Singleton.DealDmgToBoss(baseDmg);
+
+            basicAttackButton.gameObject.SetActive(false);
+            ResetButton.gameObject.SetActive(true);
+        } 
+    }
+
     private void LateUpdate()
     {
-        if (hasDrawned && firstTime && isInBossPanel)
+        if (hasDrawned && firstTime && isInBossPanel && !onlyBasicAttack)
         {
             hasDrawned = false;
             ImageGestureImage match = ImageScript.CheckForImageMatch();
@@ -167,10 +191,17 @@ public class Combat : MonoBehaviour
         // Texture2D texture = FingersImageAutomationScript.CreateTextureFromImageGestureImage(match);
         //}
 
-        if (NetworkGameState.instance.IfBossAttacked())
+        try
         {
-            DialogueField.SetActive(true);
-            DialogueField.transform.GetChild(0).GetComponent<Text>().text = "The Black Mage dealt " + ((int)NetworkGameState.instance.GetBossAttackDamage()).ToString() + " damage to everyone!";
+            if (NetworkGameState.instance.IfBossAttacked())
+            {
+                DialogueField.SetActive(true);
+                DialogueField.transform.GetChild(0).GetComponent<Text>().text = "The Black Mage dealt " + ((int)NetworkGameState.instance.GetBossAttackDamage()).ToString() + " damage to everyone!";
+            }
+        }
+        catch
+        {
+            //If we are here that means we are testing.
         }
     }
     public Vector3 ConvertToWorldUnits(float x, float y)

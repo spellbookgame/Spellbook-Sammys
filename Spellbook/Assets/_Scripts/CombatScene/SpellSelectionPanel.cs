@@ -36,6 +36,7 @@ public class SpellSelectionPanel : MonoBehaviour
     public Gradient colorGrade;
     GradientColorKey[] colorKey;
     GradientAlphaKey[] alphaKey;
+    bool basicAttackOnly = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -48,6 +49,7 @@ public class SpellSelectionPanel : MonoBehaviour
         localSpellcaster = spellSwiper.localSpellcaster;
         int i = 0;
         int numCombatSpells = 0;
+        int numSpellsWithNoCharge = 3;
         foreach (Spell entry in localSpellcaster.chapter.spellsCollected)
         //foreach (KeyValuePair<string, Spell> entry in localSpellcaster.combatSpells)
         {
@@ -82,15 +84,17 @@ public class SpellSelectionPanel : MonoBehaviour
 
             spellButtons[i].GetComponent<UIAutoColorSprite>().colorGrade.SetKeys(colorKeyGem, alphaKey);
             spellButtons[i].GetComponent<UIAutoColorImage>().colorGrade.SetKeys(colorKeyBut, alphaKey);
+
+            if(entry.iCharges > 0)
+            {
+                numSpellsWithNoCharge--; 
+            }
+
             numCombatSpells++;
             i++;
         }
 
-        if(numCombatSpells == 0)
-        {
-            SpellDescription.text = "You have no combat spells!";
-        }
-
+        
         if(numCombatSpells > 0)
         {
             SpellButton1.onClick.AddListener(clickedSpellButton1);
@@ -117,19 +121,47 @@ public class SpellSelectionPanel : MonoBehaviour
         {
             SpellButton3.gameObject.SetActive(false);
         }
+
+        //Can be cleaner. But its crunch time.
+        if(numSpellsWithNoCharge >= 3)
+        {
+            basicAttackOnly = true;
+            ReadyButton.GetComponentInChildren<Text>().text = "Basic Attack";
+            if (numCombatSpells == 0)
+            {
+                SpellDescription.text = "You have no combat spells!";
+            }
+            else
+            {
+                SpellDescription.text = "You have no spell charges!";
+            }
+
+            SpellButton1.onClick.RemoveAllListeners();
+            SpellButton2.onClick.RemoveAllListeners();
+            SpellButton3.onClick.RemoveAllListeners();
+
+            ReadyButton.interactable = true;
+        }
         ReadyButton.onClick.AddListener(clickedReady);
 
     }
 
     private void clickedSpellButton1()
     {
-        SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+        try
+        {
+            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+        }
+        catch
+        {
+            //If we are here that means we are testing.
+        }
         if (SelectedSpellButton != null)
         {
             SelectedSpellButton.GetComponent<RectTransform>().localScale = new Vector3(0.65024f, 0.65024f, 1f);
         }
         SpellButton1.GetComponent<RectTransform>().localScale = new Vector3(0.8f, 0.8f, 1f);
-        ReadyButton.interactable = true;
+        // ReadyButton.interactable = true;
         ReadyButton.GetComponentInChildren<Text>().text = "Ready";
         selectedSpell = spells[0];
         SelectedSpellButton = SpellButton1.gameObject;
@@ -151,13 +183,20 @@ public class SpellSelectionPanel : MonoBehaviour
 
     private void clickedSpellButton2()
     {
-        SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+        try
+        {
+            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+        }
+        catch
+        {
+            //If we are here that means we are testing.
+        }
         if (SelectedSpellButton != null)
         {
             SelectedSpellButton.GetComponent<RectTransform>().localScale = new Vector3(0.65024f, 0.65024f, 1f);
         }
         SpellButton2.GetComponent<RectTransform>().localScale = new Vector3(0.8f, 0.8f, 1f);
-        ReadyButton.interactable = true;
+        // ReadyButton.interactable = true;
         ReadyButton.GetComponentInChildren<Text>().text = "Ready";
         selectedSpell = spells[1];
         SelectedSpellButton = SpellButton2.gameObject;
@@ -179,13 +218,20 @@ public class SpellSelectionPanel : MonoBehaviour
 
     private void clickedSpellButton3()
     {
-        SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+        try
+        {
+            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+        }
+        catch
+        {
+            //If we are here that means we are testing.
+        }
         if (SelectedSpellButton != null)
         {
             SelectedSpellButton.GetComponent<RectTransform>().localScale = new Vector3(0.65024f, 0.65024f, 1f);
         }
         SpellButton3.GetComponent<RectTransform>().localScale = new Vector3(0.8f, 0.8f, 1f);
-        ReadyButton.interactable = true;
+        // ReadyButton.interactable = true;
         ReadyButton.GetComponentInChildren<Text>().text = "Ready";
         selectedSpell = spells[2];
         SelectedSpellButton = SpellButton3.gameObject;
@@ -210,12 +256,27 @@ public class SpellSelectionPanel : MonoBehaviour
         SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
 
         // remove a charge from selected spell
-        selectedSpell.iCharges -= 1;
+        if(selectedSpell != null)
+        {
+            selectedSpell.iCharges -= 1;
+            if(selectedSpell.iCharges < 0)
+            {
+                selectedSpell.iCharges = 0;
+            }
+        }
 
         ChargePanel.SetActive(true);
-        spellSwiper.selectedSpell = selectedSpell;
         spellSwiper.localSpellcaster = localSpellcaster;
-        ChargePanel.GetComponent<ChargeSpell>().SetCombatSpell(selectedSpell, SelectedSpellButton, localSpellcaster);
+        if (basicAttackOnly)
+        {
+            spellSwiper.selectedSpell = null;
+            ChargePanel.GetComponent<ChargeSpell>().SetCombatSpell(null, null, localSpellcaster);
+        }
+        else
+        {
+            spellSwiper.selectedSpell = selectedSpell;
+            ChargePanel.GetComponent<ChargeSpell>().SetCombatSpell(selectedSpell, SelectedSpellButton, localSpellcaster);
+        }
         gameObject.SetActive(false);
     }
 

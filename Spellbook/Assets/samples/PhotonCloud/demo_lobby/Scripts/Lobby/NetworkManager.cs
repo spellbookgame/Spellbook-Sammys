@@ -751,9 +751,13 @@ namespace Bolt.Samples.Photon.Lobby
         public override void OnEvent(BossDiesEvent evnt)
         {
             //TODO: Display feedback
-            PanelHolder.instance.displayNotify("Dark Mage Fainted", "You and your team prevailed!", "MainPlayerScene");
+            //PanelHolder.instance.displayNotify("Dark Mage Fainted", "You and your team prevailed!", "MainPlayerScene");
+            playerSpellcaster = playerEntity.GetComponent<Player>().spellcaster;
+            playerSpellcaster.gameLost = false;
+            SceneManager.LoadScene("GameOverScene");
         }
 
+        //NOTE: Should be named AllSpellcastersDiedEvent
         public override void OnEvent(GameOverEvent evnt)
         {
             playerSpellcaster = playerEntity.GetComponent<Player>().spellcaster;
