@@ -94,11 +94,7 @@ public class SpellSelectionPanel : MonoBehaviour
             i++;
         }
 
-        if(numCombatSpells == 0)
-        {
-            SpellDescription.text = "You have no combat spells!";
-        }
-
+        
         if(numCombatSpells > 0)
         {
             SpellButton1.onClick.AddListener(clickedSpellButton1);
@@ -126,9 +122,23 @@ public class SpellSelectionPanel : MonoBehaviour
             SpellButton3.gameObject.SetActive(false);
         }
 
+        //Can be cleaner. But its crunch time.
         if(numSpellsWithNoCharge > 3)
         {
-            basicAttackOnly = true; 
+            basicAttackOnly = true;
+            ReadyButton.GetComponentInChildren<Text>().text = "Basic Attack";
+            if (numCombatSpells == 0)
+            {
+                SpellDescription.text = "You have no combat spells!";
+            }
+            else
+            {
+                SpellDescription.text = "You have no spell charges!";
+            }
+
+            SpellButton1.onClick.RemoveAllListeners();
+            SpellButton2.onClick.RemoveAllListeners();
+            SpellButton3.onClick.RemoveAllListeners();
         }
         ReadyButton.onClick.AddListener(clickedReady);
 
@@ -244,12 +254,27 @@ public class SpellSelectionPanel : MonoBehaviour
         SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
 
         // remove a charge from selected spell
-        selectedSpell.iCharges -= 1;
+        if(selectedSpell != null)
+        {
+            selectedSpell.iCharges -= 1;
+            if(selectedSpell.iCharges < 0)
+            {
+                selectedSpell.iCharges = 0;
+            }
+        }
 
         ChargePanel.SetActive(true);
-        spellSwiper.selectedSpell = selectedSpell;
         spellSwiper.localSpellcaster = localSpellcaster;
-        ChargePanel.GetComponent<ChargeSpell>().SetCombatSpell(selectedSpell, SelectedSpellButton, localSpellcaster);
+        if (basicAttackOnly)
+        {
+            spellSwiper.selectedSpell = null;
+            ChargePanel.GetComponent<ChargeSpell>().SetCombatSpell(null, null, localSpellcaster);
+        }
+        else
+        {
+            spellSwiper.selectedSpell = selectedSpell;
+            ChargePanel.GetComponent<ChargeSpell>().SetCombatSpell(selectedSpell, SelectedSpellButton, localSpellcaster);
+        }
         gameObject.SetActive(false);
     }
 

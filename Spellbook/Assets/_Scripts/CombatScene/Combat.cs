@@ -27,7 +27,8 @@ public class Combat : MonoBehaviour
     public GameObject PlayerHealthBar;
     public GameObject DialogueField;
     public SwipeGuideSpawner swipeGuideSpawner;
-
+    public bool onlyBasicAttack = false;
+    private bool hasDoneBasicAttack = false;
 
     private void LinesUpdated(object sender, System.EventArgs args)
     {
@@ -125,9 +126,30 @@ public class Combat : MonoBehaviour
         }
     }
 
+    public void BasicAttack()
+    {
+        if (!hasDoneBasicAttack)
+        {
+            hasDoneBasicAttack = true;
+            float baseDmg = 2f;
+            if(orbPercentage > .75f)
+            {
+                baseDmg = Random.Range(3, 4.1f);
+            }else if(orbPercentage > .5f)
+            {
+                baseDmg = Random.Range(2, 4.1f);
+            }else if(orbPercentage > .25f)
+            {
+                baseDmg = Random.Range(2, 3.1f);
+            }
+
+            NetworkManager.s_Singleton.DealDmgToBoss(baseDmg);
+        } 
+    }
+
     private void LateUpdate()
     {
-        if (hasDrawned && firstTime && isInBossPanel)
+        if (hasDrawned && firstTime && isInBossPanel && !onlyBasicAttack)
         {
             hasDrawned = false;
             ImageGestureImage match = ImageScript.CheckForImageMatch();
