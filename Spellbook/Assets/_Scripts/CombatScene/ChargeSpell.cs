@@ -19,6 +19,7 @@ public class ChargeSpell : MonoBehaviour
     public ParticleSystem MatchParticleSystem;
     public GameObject BossPanekGameObject;
     public Text CountdownText;
+    public Button BasicAttackButton;
 
     public Combat spellSwiper;
     public SwipeGuideSpawner swipeSpawner;
@@ -59,7 +60,10 @@ public class ChargeSpell : MonoBehaviour
         }
 
         // set the symbol sprite on the orb
-        SetOrbSymbol(CombatSpell);
+        if(CombatSpell != null)
+        {
+            SetOrbSymbol(CombatSpell);
+        }
     }
 
     void OnFirstTap()
@@ -136,7 +140,16 @@ public class ChargeSpell : MonoBehaviour
         BackgroundPanelBook.SetActive(false);
         BackgroundPanelBoss.SetActive(true);
         BossPanekGameObject.SetActive(true);
-        swipeSpawner.SpawnGuidePrefab(CombatSpell.sSpellName);
+        if(CombatSpell != null)
+        {
+            swipeSpawner.SpawnGuidePrefab(CombatSpell.sSpellName);
+        }
+        else
+        {
+            spellSwiper.onlyBasicAttack = true;
+            BasicAttackButton.gameObject.SetActive(true);
+            BasicAttackButton.onClick.AddListener(spellSwiper.BasicAttack);
+        }
         gameObject.SetActive(false);
     }
 
