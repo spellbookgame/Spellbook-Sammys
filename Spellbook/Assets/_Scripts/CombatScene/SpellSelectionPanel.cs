@@ -36,6 +36,7 @@ public class SpellSelectionPanel : MonoBehaviour
     public Gradient colorGrade;
     GradientColorKey[] colorKey;
     GradientAlphaKey[] alphaKey;
+    bool basicAttackOnly = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -48,6 +49,7 @@ public class SpellSelectionPanel : MonoBehaviour
         localSpellcaster = spellSwiper.localSpellcaster;
         int i = 0;
         int numCombatSpells = 0;
+        int numSpellsWithNoCharge = 3;
         foreach (Spell entry in localSpellcaster.chapter.spellsCollected)
         //foreach (KeyValuePair<string, Spell> entry in localSpellcaster.combatSpells)
         {
@@ -82,6 +84,12 @@ public class SpellSelectionPanel : MonoBehaviour
 
             spellButtons[i].GetComponent<UIAutoColorSprite>().colorGrade.SetKeys(colorKeyGem, alphaKey);
             spellButtons[i].GetComponent<UIAutoColorImage>().colorGrade.SetKeys(colorKeyBut, alphaKey);
+
+            if(entry.iCharges > 0)
+            {
+                numSpellsWithNoCharge--; 
+            }
+
             numCombatSpells++;
             i++;
         }
@@ -117,13 +125,25 @@ public class SpellSelectionPanel : MonoBehaviour
         {
             SpellButton3.gameObject.SetActive(false);
         }
+
+        if(numSpellsWithNoCharge > 3)
+        {
+            basicAttackOnly = true; 
+        }
         ReadyButton.onClick.AddListener(clickedReady);
 
     }
 
     private void clickedSpellButton1()
     {
-        SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+        try
+        {
+            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+        }
+        catch
+        {
+            //If we are here that means we are testing.
+        }
         if (SelectedSpellButton != null)
         {
             SelectedSpellButton.GetComponent<RectTransform>().localScale = new Vector3(0.65024f, 0.65024f, 1f);
@@ -151,7 +171,14 @@ public class SpellSelectionPanel : MonoBehaviour
 
     private void clickedSpellButton2()
     {
-        SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+        try
+        {
+            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+        }
+        catch
+        {
+            //If we are here that means we are testing.
+        }
         if (SelectedSpellButton != null)
         {
             SelectedSpellButton.GetComponent<RectTransform>().localScale = new Vector3(0.65024f, 0.65024f, 1f);
@@ -179,7 +206,14 @@ public class SpellSelectionPanel : MonoBehaviour
 
     private void clickedSpellButton3()
     {
-        SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+        try
+        {
+            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+        }
+        catch
+        {
+            //If we are here that means we are testing.
+        }
         if (SelectedSpellButton != null)
         {
             SelectedSpellButton.GetComponent<RectTransform>().localScale = new Vector3(0.65024f, 0.65024f, 1f);

@@ -167,10 +167,17 @@ public class Combat : MonoBehaviour
         // Texture2D texture = FingersImageAutomationScript.CreateTextureFromImageGestureImage(match);
         //}
 
-        if (NetworkGameState.instance.IfBossAttacked())
+        try
         {
-            DialogueField.SetActive(true);
-            DialogueField.transform.GetChild(0).GetComponent<Text>().text = "The Black Mage dealt " + ((int)NetworkGameState.instance.GetBossAttackDamage()).ToString() + " damage to everyone!";
+            if (NetworkGameState.instance.IfBossAttacked())
+            {
+                DialogueField.SetActive(true);
+                DialogueField.transform.GetChild(0).GetComponent<Text>().text = "The Black Mage dealt " + ((int)NetworkGameState.instance.GetBossAttackDamage()).ToString() + " damage to everyone!";
+            }
+        }
+        catch
+        {
+            //If we are here that means we are testing.
         }
     }
     public Vector3 ConvertToWorldUnits(float x, float y)
