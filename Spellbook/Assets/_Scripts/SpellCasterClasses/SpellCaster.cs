@@ -45,6 +45,8 @@ public abstract class SpellCaster
     public bool hasAttacked;
     public bool hasRolled;
     public bool scannedSpaceThisTurn;
+    public bool scannedSpaceLastTurn;   // to track BGM
+    public bool movedLastTurn;          // to track BGM
     public Chapter chapter;
 
     // tracking items
@@ -216,6 +218,14 @@ public abstract class SpellCaster
             }
         }
         return spellCollected;
+    }
+
+    public bool PlayMainBGM()
+    {
+        if (movedLastTurn && !scannedSpaceLastTurn)
+            return true;
+        else
+            return false;
     }
 
     public int NumOfTurnsSoFar

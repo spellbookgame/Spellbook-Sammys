@@ -31,7 +31,6 @@ public class AlchemyTownHandler : MonoBehaviour
         leaveButton.onClick.AddListener(() =>
         {
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
-            SoundManager.instance.PlayGameBCM(SoundManager.gameBCG);
             SceneManager.LoadScene("MainPlayerScene");
         });
 

@@ -23,11 +23,16 @@ public class YourTurnUI : MonoBehaviour
 
     public void Display()
     {
+        Player localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
+
         SoundManager.instance.PlaySingle(SoundManager.yourturn);
         // set bgm volume back up if it's player's turn
-        SoundManager.instance.musicSource.volume = 0.7f;
-        gameObject.SetActive(true);
+        SoundManager.instance.musicSource.volume = 1f;
+        // check to see if we should play main BGM
+        if (localPlayer.Spellcaster.PlayMainBGM())
+            SoundManager.instance.PlayGameBCM(SoundManager.gameBCG);
 
+        gameObject.SetActive(true);
         if (!PanelHolder.panelQueue.Peek().Equals(panelID))
         {
             DisablePanel();
@@ -51,13 +56,6 @@ public class YourTurnUI : MonoBehaviour
             if (PanelHolder.panelQueue.Count > 0)
                 PanelHolder.panelQueue.Dequeue();
             PanelHolder.instance.CheckPanelQueue();
-
-            // check crisis resolution
-            //int roundsTillCrisis = NetworkGameState.instance.RoundsUntilCrisisActivates();
-            //if(roundsTillCrisis == 0)
-            //{
-            //    CrisisHandler.instance.SolveCrisis();
-            //}
         });
     }
 }

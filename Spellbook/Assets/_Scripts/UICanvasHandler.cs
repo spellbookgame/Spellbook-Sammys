@@ -8,8 +8,9 @@ public class UICanvasHandler : MonoBehaviour
     public static UICanvasHandler instance = null;
 
     // public variables
-    public int spacesMoved = 0; // reset on EndTurn click
+    public int spacesMoved = 0;     // reset on EndTurn click
     public bool chronomancerGone;   // ensures the fade transition only happens at beginning of game
+    public bool initialSoundsSet;   // only set separate BGMs at start of game
 
     #region private_fields
     [SerializeField] private GameObject spellbookButton;

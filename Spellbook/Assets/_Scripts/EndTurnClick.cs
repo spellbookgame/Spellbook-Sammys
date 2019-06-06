@@ -14,6 +14,16 @@ public class EndTurnClick : MonoBehaviour
             // mute bgm if not player's turn
             SoundManager.instance.musicSource.volume = 0;
 
+            // determing "last turn's" values before resetting values
+            if (!localPlayer.Spellcaster.scannedSpaceThisTurn)
+                localPlayer.Spellcaster.scannedSpaceLastTurn = false;
+            else
+                localPlayer.Spellcaster.scannedSpaceLastTurn = true;
+            if (UICanvasHandler.instance.spacesMoved > 0)
+                localPlayer.Spellcaster.movedLastTurn = true;
+            else
+                localPlayer.Spellcaster.movedLastTurn = false;
+
             // reset player attribute values
             localPlayer.Spellcaster.hasAttacked = false;
             localPlayer.Spellcaster.hasRolled = false;
