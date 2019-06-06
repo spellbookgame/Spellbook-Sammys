@@ -127,6 +127,7 @@ public abstract class SpellCaster
 
     public void HealDamage(int heal)
     {
+        SoundManager.instance.PlaySingle(SoundManager.heal);
         fCurrentHealth += heal;
         if(fCurrentHealth > fMaxHealth)
         {

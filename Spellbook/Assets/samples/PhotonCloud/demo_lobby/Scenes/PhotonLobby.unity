@@ -5829,12 +5829,12 @@ PrefabInstance:
     - target: {fileID: 5445793675166123128, guid: ba790306bc89d47c3aec681b7391754a,
         type: 3}
       propertyPath: m_Color.r
-      value: 0.66602606
+      value: 0.7098996
       objectReference: {fileID: 0}
     - target: {fileID: 5445793675166123128, guid: ba790306bc89d47c3aec681b7391754a,
         type: 3}
       propertyPath: m_Color.g
-      value: 0.1526733
+      value: 0.09685683
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba790306bc89d47c3aec681b7391754a, type: 3}
@@ -10423,18 +10423,21 @@ MonoBehaviour:
   - {fileID: 8300000, guid: cb561b92095f7534396a9797618a750e, type: 3}
   - {fileID: 8300000, guid: 38086a0976fa8a1418acc49d4f5da5f7, type: 3}
   - {fileID: 8300000, guid: d08b5dadbe393d64a8f4cb793576b949, type: 3}
+  - {fileID: 8300000, guid: db1bcbcb1973e184997c3af972cb7916, type: 3}
+  - {fileID: 8300000, guid: 323554e73a5f4f84fb27427e7b903e01, type: 3}
+  - {fileID: 8300000, guid: c7b550fb6c9aca941a196107b11fac91, type: 3}
   bgms:
-  - {fileID: 8300000, guid: fcf31795b61048b4f81cb8f0945db4fc, type: 3}
+  - {fileID: 8300000, guid: 289274fba796ccb41bbcd978fb0a84b1, type: 3}
   - {fileID: 8300000, guid: ab066416c902d4446b8fc803d52f9928, type: 3}
   - {fileID: 8300000, guid: f402ea5cbd3f0184c95bace9d6412d1e, type: 3}
-  - {fileID: 8300000, guid: 18b4077a102539749b88bf1b687b0961, type: 3}
+  - {fileID: 8300000, guid: 709c5838950cf434bb4b12fca2465a56, type: 3}
   - {fileID: 8300000, guid: d4ea2ac106abe914ea9f09b80db16bfa, type: 3}
-  - {fileID: 8300000, guid: d4cd058b320feab4ebfd083db5f81e62, type: 3}
-  - {fileID: 8300000, guid: 539e634e7aa9d8240a8d17d6b87df9b7, type: 3}
+  - {fileID: 8300000, guid: 7576cbcc4002667469036bf85abba07f, type: 3}
+  - {fileID: 8300000, guid: 506cfc6ccf4f50d49b3b07bc0d43a557, type: 3}
   - {fileID: 8300000, guid: b79238d8d713ec149ae6a3c50ab7cb6c, type: 3}
-  - {fileID: 8300000, guid: 38180d009fceb4f4bbe5fbde02aaf0c4, type: 3}
+  - {fileID: 8300000, guid: d531ac09398d5b44ab7a0dceacd6ec34, type: 3}
   - {fileID: 8300000, guid: 8aac293e85847c346afc3d3b561b90a7, type: 3}
-  - {fileID: 8300000, guid: 768e16c2ec403bf428269426644e66ee, type: 3}
+  - {fileID: 8300000, guid: e45fec9f9c6c5574688aafe2e54741da, type: 3}
   - {fileID: 8300000, guid: c3f78fbcb8888104c93cc4331d17a1e2, type: 3}
   - {fileID: 8300000, guid: e7868bfa248a683479b725ed70a38814, type: 3}
   - {fileID: 8300000, guid: 5b1eae7cf746dec4592ca6e1ac401be4, type: 3}
@@ -10449,9 +10452,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: fcf31795b61048b4f81cb8f0945db4fc, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 289274fba796ccb41bbcd978fb0a84b1, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.7
+  m_Volume: 0.9
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -12197,7 +12200,7 @@ PrefabInstance:
     - target: {fileID: 7657592968730287294, guid: 647537f2318593846b3dc8974a14df53,
         type: 3}
       propertyPath: soundeffects.Array.size
-      value: 47
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7657592968730287294, guid: 647537f2318593846b3dc8974a14df53,
         type: 3}
@@ -12212,7 +12215,7 @@ PrefabInstance:
     - target: {fileID: 7657592968730287289, guid: 647537f2318593846b3dc8974a14df53,
         type: 3}
       propertyPath: m_Volume
-      value: 0.7
+      value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: 7657592968730287288, guid: 647537f2318593846b3dc8974a14df53,
         type: 3}

@@ -24,7 +24,7 @@ public class CompassSceneHandler : MonoBehaviour
     {
         SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
         textName.text = "Grace Ko";
-        textRole.text = "Design Lead, Gameplay Programmer";
+        textRole.text = "Design Lead, Gameplay Programming";
         textBest.text = "I had a lot of fun designing the spells and implementing the code for all of them. It felt like real spellcrafting, how I had to think about how each spell works and what components would be needed to cast it. It was also really gratifying to see all the physical components come together.";
     }
 
@@ -40,16 +40,16 @@ public class CompassSceneHandler : MonoBehaviour
     {
         SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
         textName.text = "Moises Martinez";
-        textRole.text = "Producer";
-        textBest.text = "The best part of working on this project was being able to work with a group of such talented people who were all passionate about the work that they were doing. It was an honor managing this team and seeing the amazing work that they produced.";
+        textRole.text = "Networking, Backend Programming";
+        textBest.text = "It was amazing learning more about multiplayer gaming and how complex it can get.  But my favorite part of this experience was seeing this game come to life by the hands of these awesome people.  This team is a great example of what successful team dynamic is supposed to be. We all worked hard and with passion, I will miss all of them. ";
     }
 
     public void ClickJan()
     {
         SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
         textName.text = "Jan Yu";
-        textRole.text = "Producer";
-        textBest.text = "The best part of working on this project was being able to work with a group of such talented people who were all passionate about the work that they were doing. It was an honor managing this team and seeing the amazing work that they produced.";
+        textRole.text = "General Programming";
+        textBest.text = "My favorite part of working on the game is working with the team. I learned a lot from working with my teammates and it was an amazing experience being able to develop a game with them. They are some of the best teammates I ever had and I was able to improve myself as a developer because of them.";
     }
 
     public void ClickMalcolm()

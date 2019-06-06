@@ -4,7 +4,7 @@ public class EndTurnClick : MonoBehaviour
 {
     public void OnEndTurnClick()
     {
-        SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+        SoundManager.instance.PlaySingle(SoundManager.endTurn);
 
         Player localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
 
