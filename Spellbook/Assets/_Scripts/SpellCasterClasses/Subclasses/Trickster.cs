@@ -35,5 +35,10 @@ public class Illusionist : SpellCaster
             { "Catharsis", new Catharsis()},
             { "Tragedy", new Tragedy()}
         };
+
+        // for demo build
+        chapter.spellsCollected.Add(new Playback());
+        chapter.spellsCollected.Add(new Tragedy());
+        chapter.spellsCollected.Add(new Allegro());
     }
 }

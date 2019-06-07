@@ -103,8 +103,9 @@ public class QuestUI : MonoBehaviour
         singleButton1.onClick.RemoveAllListeners();
 
         // for start of game: show tutorial prompt if player hasn't seen tutorial yet
-        if (!player.GetComponent<Player>().Spellcaster.mainTutorialShown)
-            UICanvasHandler.instance.ShowTutorialPrompt();
+        // moved this to after crisis click (for demo build)
+        //if (!player.GetComponent<Player>().Spellcaster.mainTutorialShown)
+        //    UICanvasHandler.instance.ShowTutorialPrompt();
 
         if (PanelHolder.panelQueue.Count > 0)
             PanelHolder.panelQueue.Dequeue();

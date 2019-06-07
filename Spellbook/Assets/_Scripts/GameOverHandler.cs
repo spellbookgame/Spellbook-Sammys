@@ -30,6 +30,7 @@ public class GameOverHandler : MonoBehaviour
                 t.gameObject.GetComponent<SpriteRenderer>().color = defeatedColor;
             }
             gameOverText.text = "Game Over";
+            proclamationPanel.transform.GetChild(0).GetComponent<Text>().text = "Warning";
             proclamationPanel.transform.GetChild(1).GetComponent<Text>().text = "This is a notice of warning to the Empire. All citizens must read carefully.\n\n" +
                                                                                 "The Empire has been overrun by the Black Mage.\nThe Council has decided to surrender, at the best interest of all citizens." +
                                                                                 "\n\nSpellcasters must NOT engage in combat. We repeat, do NOT engage in combat.";

@@ -49,7 +49,12 @@ public class CrisisUI : MonoBehaviour
             PanelHolder.panelQueue.Dequeue();
         PanelHolder.instance.CheckPanelQueue();
 
+        // for demo build, show tutorial after crisis display
+        if (!GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().Spellcaster.mainTutorialShown)
+            UICanvasHandler.instance.ShowTutorialPrompt();
+
         // for start of game: give players a spell quest to start
-        QuestTracker.instance.GiveSpellQuest();
+        // removed for demo build
+        // QuestTracker.instance.GiveSpellQuest();
     }
 }

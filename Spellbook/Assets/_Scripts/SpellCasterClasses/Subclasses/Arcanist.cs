@@ -35,5 +35,10 @@ public class Arcanist : SpellCaster
             { "Archive", new Archive()},
             { "Runic Darts", new RunicDarts()}
         };
+
+        // for demo build
+        chapter.spellsCollected.Add(new ArcanaHarvest());
+        chapter.spellsCollected.Add(new RunicDarts());
+        chapter.spellsCollected.Add(new MarcellasBlessing());
     }
 }

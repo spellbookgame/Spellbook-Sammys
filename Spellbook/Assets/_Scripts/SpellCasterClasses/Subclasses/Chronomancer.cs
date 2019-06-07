@@ -36,5 +36,10 @@ public class Chronomancer : SpellCaster
             { "Reverse Wounds", new ReverseWounds()},
             { "Chronoblast", new Chronoblast()}
         };
+
+        // for demo build
+        chapter.spellsCollected.Add(new DelayTime());
+        chapter.spellsCollected.Add(new Chronoblast());
+        chapter.spellsCollected.Add(new Echo());
     }
 }

@@ -35,5 +35,10 @@ public class Elementalist : SpellCaster
             { "Eye of the Storm", new EyeOfTheStorm()},
             { "Fireball", new Fireball()}
         };
+
+        // for demo build
+        chapter.spellsCollected.Add(new Growth());
+        chapter.spellsCollected.Add(new Fireball());
+        chapter.spellsCollected.Add(new Tailwind());
     }
 }

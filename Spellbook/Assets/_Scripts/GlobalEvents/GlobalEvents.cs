@@ -70,12 +70,13 @@ public class GlobalEvents : MonoBehaviour
         list_AllEvents = new List<GlobalEvent>();
         evntInfo = new Dictionary<string, string>();
 
-        GlobalEvent tsunami = new GlobalEvent("Tsunami", GlobalEventDescriptions.tsunamiDesc, 2, 3, Tsunami);
+        // no tsunami for demo build
+        /*GlobalEvent tsunami = new GlobalEvent("Tsunami", GlobalEventDescriptions.tsunamiDesc, 2, 3, Tsunami);
         evntInfo[tsunami.name] = tsunami.description;
-        list_AllEvents.Add(tsunami);
+        list_AllEvents.Add(tsunami);*/
 
         GlobalEvent plague = new GlobalEvent("Plague", GlobalEventDescriptions.plagueDesc, 3, 3, StonelungPlague);
-        evntInfo[plague.name] = tsunami.description;
+        evntInfo[plague.name] = plague.description;
         list_AllEvents.Add(plague);
 
         GlobalEvent finalBoss = new GlobalEvent("Boss Battle", GlobalEventDescriptions.finalBossDesc, 7, 3, FinalBossBattle);

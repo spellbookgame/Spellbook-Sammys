@@ -13,7 +13,6 @@ public class Alchemist : SpellCaster
 {
     public Alchemist()
     {
-        
         //You can override variables in here.
         classType = "Alchemist";
         spellcasterID = 0;
@@ -37,5 +36,9 @@ public class Alchemist : SpellCaster
             { "Brew - Distilled Potion", new DistilledPotion()}
         };
 
+        // for demo build
+        chapter.spellsCollected.Add(new ToxicPotion());
+        chapter.spellsCollected.Add(new CrystalScent());
+        chapter.spellsCollected.Add(new DistilledPotion());
     }
 }

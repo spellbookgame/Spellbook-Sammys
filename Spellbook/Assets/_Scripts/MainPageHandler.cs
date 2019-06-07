@@ -110,7 +110,37 @@ public class MainPageHandler : MonoBehaviour
         PanelHolder.instance.CheckPanelQueue();
 
         CrisisHandler.instance.player = localPlayer;
+
+        // demo build
+        SetDemo();
     }
+
+    // DEMO ONLY
+    private void SetDemo()
+    {
+        if(!localPlayer.Spellcaster.demoSet)
+        {
+            // 2 random items
+            ItemList itemList = GameObject.Find("ItemList").GetComponent<ItemList>();
+            int r1 = Random.Range(0, itemList.listOfItems.Count);
+            int r2 = Random.Range(0, itemList.listOfItems.Count);
+            localPlayer.Spellcaster.AddToInventory(itemList.listOfItems[r1]);
+            localPlayer.Spellcaster.AddToInventory(itemList.listOfItems[r2]);
+
+            // 1000 - 2000 mana
+            localPlayer.Spellcaster.iMana += Random.Range(1000, 2000);
+
+            // add 1 charge for each of their combat spells
+            foreach(Spell s in localPlayer.Spellcaster.chapter.spellsCollected)
+            {
+                if (s.combatSpell)
+                    ++s.iCharges;
+            }
+
+            localPlayer.Spellcaster.demoSet = true;
+        }
+    }
+
 
     private void SetClassAttributes()
     {

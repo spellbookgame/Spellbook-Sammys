@@ -35,5 +35,10 @@ public class Summoner : SpellCaster
             { "Call of the Wild - Bear's Fury", new Bearsfury()},
             { "Call of the Dead - Skeletons", new Skeletons()}
         };
+
+        // for demo build
+        chapter.spellsCollected.Add(new CoSLeon());
+        chapter.spellsCollected.Add(new Bearsfury());
+        chapter.spellsCollected.Add(new CoDCorpse());
     }
 }
