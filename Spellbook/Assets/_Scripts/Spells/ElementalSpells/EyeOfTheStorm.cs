@@ -28,8 +28,8 @@ public class EyeOfTheStorm : Spell, ICombatSpell
 
     public void CombatCast(SpellCaster player, float orbPercentage)
     {
-        orbPercentage = orbPercentage * 100;
-        int damage, healAmount;
+        orbPercentage = orbPercentage * 100f;
+        float damage, healAmount;
         if (orbPercentage <= 25)
         {
             damage = Random.Range(7, 10);
@@ -46,8 +46,8 @@ public class EyeOfTheStorm : Spell, ICombatSpell
         {
             damage = Random.Range(9, 16);
         }
-        healAmount = damage / 2;
-        damageDealt = damage;
+        healAmount = damage / 2f;
+        damageDealt = (int) damage;
         //player.HealDamage(healAmount);
         // NetworkManager.s_Singleton.DealDmgToBoss(damage);
         // NetworkManager.s_Singleton.HealAllAlliesByHp(healAmount, sSpellName);

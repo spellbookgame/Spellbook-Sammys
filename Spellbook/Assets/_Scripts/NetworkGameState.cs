@@ -542,8 +542,8 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
             state.BossMaxHealth = 30f; 
         }
 
-        int buffSomeMore = totalSpellCount / 3;
-        state.BossMaxHealth += (buffSomeMore * 5);
+        float buffSomeMore = totalSpellCount / 3f;
+        state.BossMaxHealth += (buffSomeMore * 5f);
         state.BossHealth = state.BossMaxHealth;
 
     }

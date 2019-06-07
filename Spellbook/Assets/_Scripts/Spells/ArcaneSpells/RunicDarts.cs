@@ -27,7 +27,7 @@ public class RunicDarts : Spell, ICombatSpell
 
     public void CombatCast(SpellCaster player, float orbPercentage)
     {
-        orbPercentage = orbPercentage * 100; 
+        orbPercentage = orbPercentage * 100f; 
         int damage1, damage2, damage3;
         if(orbPercentage <= 25)
         {
@@ -55,7 +55,7 @@ public class RunicDarts : Spell, ICombatSpell
         }
         int totalDamage = damage1 + damage2 + damage3;
         damageDealt = totalDamage;
-        NetworkManager.s_Singleton.DealDmgToBoss(totalDamage);
+        NetworkManager.s_Singleton.DealDmgToBoss((float) totalDamage);
     }
 
     public override void SpellCast(SpellCaster player)

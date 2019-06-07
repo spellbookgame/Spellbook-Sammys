@@ -27,8 +27,8 @@ public class Ravenssong : Spell, ICombatSpell
 
     public void CombatCast(SpellCaster player, float orbPercentage)
     {
-        orbPercentage = orbPercentage * 100;
-        float multiplier = ((Mathf.Floor(orbPercentage / 20) * 5) + 20) / 100;
+        orbPercentage = orbPercentage * 100f;
+        float multiplier = ((Mathf.Floor(orbPercentage / 20f) * 5f) + 20f) / 100f;
         //int healAmount = (int) player.fCurrentHealth * multiplier;
         //player.HealDamage(healAmount);
         //enemy.DealDamage(healAmount / 2);
