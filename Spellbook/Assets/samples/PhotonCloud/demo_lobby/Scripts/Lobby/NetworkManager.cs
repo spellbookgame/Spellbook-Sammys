@@ -671,7 +671,7 @@ namespace Bolt.Samples.Photon.Lobby
             //TODO: keep as float.
             playerSpellcaster.HealDamage((int)evnt.HP);
             //TODO: Display Feedback 
-            PanelHolder.instance.displaySpellCastNotif(evnt.Spellname, "All allies healed by " + evnt.HP, "OK");
+            PanelHolder.instance.displaySpellCastNotif(evnt.Spellname, "All allies were healed by " + evnt.HP + "!", "OK");
             if (BoltNetwork.IsServer)
             {
                 gameStateEntity.GetComponent<NetworkGameState>()
@@ -685,7 +685,7 @@ namespace Bolt.Samples.Photon.Lobby
             playerSpellcaster = playerEntity.GetComponent<Player>().spellcaster;
             playerSpellcaster.HealPercentMissingHP(evnt.Percent);
             //TODO: Display feedback.
-            PanelHolder.instance.displaySpellCastNotif(evnt.Spellname, "All allies healed by " + (evnt.Percent * 100) + " percent of missing health", "OK");
+            PanelHolder.instance.displaySpellCastNotif(evnt.Spellname, "All allies were healed by " + (evnt.Percent * 100) + " percent of missing health!", "OK");
             if (BoltNetwork.IsServer)
             {
                 gameStateEntity.GetComponent<NetworkGameState>()
@@ -695,7 +695,7 @@ namespace Bolt.Samples.Photon.Lobby
 
         public override void OnEvent(IncreaseTeamDmgByPercentEvent evnt)
         {
-            PanelHolder.instance.displaySpellCastNotif(evnt.Spellname, "All allies damage increased by " + (evnt.Percent * 100) + " percent", "OK");
+            PanelHolder.instance.displaySpellCastNotif(evnt.Spellname, "All allies' damage increased by " + (evnt.Percent * 100) + " percent!", "OK");
             if (BoltNetwork.IsServer)
             {
                 gameStateEntity.GetComponent<NetworkGameState>()
