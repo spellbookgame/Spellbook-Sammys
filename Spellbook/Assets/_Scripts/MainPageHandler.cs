@@ -66,56 +66,25 @@ public class MainPageHandler : MonoBehaviour
 
     private void Update()
     {
+        // update mana/health values
         if(localPlayer != null)
         {
             manaCrystalsValue.text = localPlayer.Spellcaster.iMana.ToString();
             healthValue.text = localPlayer.Spellcaster.fCurrentHealth.ToString() + "/ " + localPlayer.Spellcaster.fMaxHealth.ToString();
         }
 
-        roundsUntilCrisis.text = "Rounds Until Crisis: " + NetworkGameState.instance.RoundsUntilCrisisActivates().ToString();
+        // mute player's bgm if not their turn
+        if (localPlayer != null && !localPlayer.bIsMyTurn)
+            SoundManager.instance.musicSource.volume = 0;
 
-        // ------------ TEST AREA - DELETE LATER ----------
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            foreach (Spell s in localPlayer.Spellcaster.chapter.spellsAllowed)
-                localPlayer.Spellcaster.CollectSpell(s);
-        }
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            SceneManager.LoadScene("MineScene");
-        }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            SceneManager.LoadScene("ShopScene");
-        }
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            SceneManager.LoadScene("ForestScene");
-        }
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            SceneManager.LoadScene("CompassScene");
-        }
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            localPlayer.Spellcaster.gameLost = true;
-            SceneManager.LoadScene("GameOverScene");
-        }
-        // -------------------------------------------------
+        // update rounds until crisis
+        roundsUntilCrisis.text = "Rounds Until Crisis: " + NetworkGameState.instance.RoundsUntilCrisisActivates().ToString();
     }
 
     public void setupMainPage()
     {
         if (GameObject.FindGameObjectWithTag("LocalPlayer") == null) return;
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
-
-        // mute player's bgm if not their turn
-        if (!localPlayer.bIsMyTurn)
-            SoundManager.instance.musicSource.volume = 0;
-
-        // if the current bgm isn't the main one, play the main one
-        if (!SoundManager.instance.currentBGM.Equals(SoundManager.gameBCG.name))
-            SoundManager.instance.PlayGameBCM(SoundManager.gameBCG);
 
         SetClassAttributes();
 
@@ -146,31 +115,62 @@ public class MainPageHandler : MonoBehaviour
     private void SetClassAttributes()
     {
         // set character image/icons to associated sprites
+        // set background music (only in at the start based on player's starting location)
         switch (localPlayer.Spellcaster.classType)
         {
             case "Alchemist":
                 symbolImage.sprite = alchemistIcon;
                 characterImage.sprite = alchemistSprite;
+                if (!UICanvasHandler.instance.initialSoundsSet)
+                {
+                    SoundManager.instance.PlayGameBCM(SoundManager.regulusBGM);
+                    UICanvasHandler.instance.initialSoundsSet = true;
+                }
                 break;
             case "Arcanist":
                 symbolImage.sprite = arcanistIcon;
                 characterImage.sprite = arcanistSprite;
+                if (!UICanvasHandler.instance.initialSoundsSet)
+                {
+                    SoundManager.instance.PlayGameBCM(SoundManager.zandriaBGM);
+                    UICanvasHandler.instance.initialSoundsSet = true;
+                }
                 break;
             case "Chronomancer":
                 symbolImage.sprite = chronomancerIcon;
                 characterImage.sprite = chronomancerSprite;
+                if (!UICanvasHandler.instance.initialSoundsSet)
+                {
+                    SoundManager.instance.PlayGameBCM(SoundManager.merideaBGM);
+                    UICanvasHandler.instance.initialSoundsSet = true;
+                }
                 break;
             case "Elementalist":
                 symbolImage.sprite = elementalistIcon;
                 characterImage.sprite = elementalistSprite;
+                if (!UICanvasHandler.instance.initialSoundsSet)
+                {
+                    SoundManager.instance.PlayGameBCM(SoundManager.sarissaBGM);
+                    UICanvasHandler.instance.initialSoundsSet = true;
+                }
                 break;
             case "Illusionist":
                 symbolImage.sprite = illusionistIcon;
                 characterImage.sprite = illusionistSprite;
+                if (!UICanvasHandler.instance.initialSoundsSet)
+                {
+                    SoundManager.instance.PlayGameBCM(SoundManager.paradosBGM);
+                    UICanvasHandler.instance.initialSoundsSet = true;
+                }
                 break;
             case "Summoner":
                 symbolImage.sprite = summonerIcon;
                 characterImage.sprite = summonerSprite;
+                if (!UICanvasHandler.instance.initialSoundsSet)
+                {
+                    SoundManager.instance.PlayGameBCM(SoundManager.andromedaBGM);
+                    UICanvasHandler.instance.initialSoundsSet = true;
+                }
                 break;
         }
 

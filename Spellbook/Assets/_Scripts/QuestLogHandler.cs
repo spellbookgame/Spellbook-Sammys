@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class QuestLogHandler : MonoBehaviour
 {
     [SerializeField] private Button exitButton;
+    [SerializeField] private Button settingsButton;
     [SerializeField] private Button questButton;
     [SerializeField] private Button previousQuestButton;
     [SerializeField] private Button closeButton;
@@ -36,6 +37,13 @@ public class QuestLogHandler : MonoBehaviour
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
             UICanvasHandler.instance.ActivateSpellbookButtons(false);
             SceneManager.LoadScene("MainPlayerScene");
+        });
+
+        settingsButton.onClick.AddListener(() =>
+        {
+            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+            UICanvasHandler.instance.ActivateSpellbookButtons(false);
+            SceneManager.LoadScene("SettingsScene");
         });
 
         closeButton.onClick.AddListener((ClosePanel));

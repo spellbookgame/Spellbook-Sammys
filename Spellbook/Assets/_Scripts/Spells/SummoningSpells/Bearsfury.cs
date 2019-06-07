@@ -11,6 +11,7 @@ public class Bearsfury : Spell, ICombatSpell
         iManaCost = 1800;
 
         combatSpell = true;
+        damageSpell = true;
 
         sSpellName = "Bear's Fury";
         sSpellClass = "Summoner";
@@ -36,6 +37,8 @@ public class Bearsfury : Spell, ICombatSpell
             damage = Random.Range(9, 14);
         else
             damage = Random.Range(10, 15);
+
+        damageDealt = damage;
         NetworkManager.s_Singleton.DealDmgToBoss(damage);
     }
 

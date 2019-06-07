@@ -22,10 +22,10 @@ public class UIAutoHover : MonoBehaviour {
 
 	// Internal Fields
 	private float _randomOffset = 0.0F;
-	public Vector3 _startPosition;
 	private Vector3 _shadowScale;
+    public Vector3 _startPosition;
 
-	public void Start() {
+    public void Start() {
 		_startPosition = transform.localPosition;
 		if (randomize) {
 			_randomOffset = Random.Range(-1.0F, 1.0F);

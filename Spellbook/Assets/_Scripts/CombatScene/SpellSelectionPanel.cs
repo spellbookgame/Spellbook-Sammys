@@ -123,7 +123,7 @@ public class SpellSelectionPanel : MonoBehaviour
         }
 
         //Can be cleaner. But its crunch time.
-        if(numSpellsWithNoCharge > 3)
+        if(numSpellsWithNoCharge >= 3)
         {
             basicAttackOnly = true;
             ReadyButton.GetComponentInChildren<Text>().text = "Basic Attack";
@@ -139,6 +139,8 @@ public class SpellSelectionPanel : MonoBehaviour
             SpellButton1.onClick.RemoveAllListeners();
             SpellButton2.onClick.RemoveAllListeners();
             SpellButton3.onClick.RemoveAllListeners();
+
+            ReadyButton.interactable = true;
         }
         ReadyButton.onClick.AddListener(clickedReady);
 
@@ -159,7 +161,7 @@ public class SpellSelectionPanel : MonoBehaviour
             SelectedSpellButton.GetComponent<RectTransform>().localScale = new Vector3(0.65024f, 0.65024f, 1f);
         }
         SpellButton1.GetComponent<RectTransform>().localScale = new Vector3(0.8f, 0.8f, 1f);
-        ReadyButton.interactable = true;
+        // ReadyButton.interactable = true;
         ReadyButton.GetComponentInChildren<Text>().text = "Ready";
         selectedSpell = spells[0];
         SelectedSpellButton = SpellButton1.gameObject;
@@ -194,7 +196,7 @@ public class SpellSelectionPanel : MonoBehaviour
             SelectedSpellButton.GetComponent<RectTransform>().localScale = new Vector3(0.65024f, 0.65024f, 1f);
         }
         SpellButton2.GetComponent<RectTransform>().localScale = new Vector3(0.8f, 0.8f, 1f);
-        ReadyButton.interactable = true;
+        // ReadyButton.interactable = true;
         ReadyButton.GetComponentInChildren<Text>().text = "Ready";
         selectedSpell = spells[1];
         SelectedSpellButton = SpellButton2.gameObject;
@@ -229,7 +231,7 @@ public class SpellSelectionPanel : MonoBehaviour
             SelectedSpellButton.GetComponent<RectTransform>().localScale = new Vector3(0.65024f, 0.65024f, 1f);
         }
         SpellButton3.GetComponent<RectTransform>().localScale = new Vector3(0.8f, 0.8f, 1f);
-        ReadyButton.interactable = true;
+        // ReadyButton.interactable = true;
         ReadyButton.GetComponentInChildren<Text>().text = "Ready";
         selectedSpell = spells[2];
         SelectedSpellButton = SpellButton3.gameObject;

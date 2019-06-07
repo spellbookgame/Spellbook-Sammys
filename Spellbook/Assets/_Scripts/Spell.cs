@@ -17,6 +17,9 @@ public abstract class Spell
     public string sSpellInfo;
 
     public bool combatSpell;
+    public bool damageSpell;
+    public int damageDealt;
+
     public bool blackMagicSpell;
 
     public Dictionary<string, int> requiredRunes;

@@ -11,6 +11,7 @@ public class Chronoblast : Spell, ICombatSpell
         iManaCost = 700;
 
         combatSpell = true;
+        damageSpell = true;
 
         sSpellName = "Chronoblast";
         sSpellClass = "Chronomancer";
@@ -35,6 +36,8 @@ public class Chronoblast : Spell, ICombatSpell
             damage = Random.Range(5, 8);
         else
             damage = Random.Range(5, 9);
+
+        damageDealt = damage;
         NetworkManager.s_Singleton.DealDmgToBoss(damage);
     }
 

@@ -24,8 +24,8 @@ public class CompassSceneHandler : MonoBehaviour
     {
         SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
         textName.text = "Grace Ko";
-        textRole.text = "Design Lead, Gameplay Programmer";
-        textBest.text = "I had a lot of fun designing the spells and implementing the code for all of them. It felt like real spellcrafting, how I had to think about how each spell works and what components would be needed to cast it. It was also really gratifying to see all the physical components come together.";
+        textRole.text = "Design Lead, Gameplay Programming";
+        textBest.text = "I had a lot of fun designing the spells and implementing the code for all of them. It felt like real spellcrafting, how I had to think about how each spell works and what components would be needed to cast it. I learned so much about coding through this project, and the team made it really easy to learn and grow.";
     }
 
     public void ClickSydney()
@@ -40,16 +40,16 @@ public class CompassSceneHandler : MonoBehaviour
     {
         SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
         textName.text = "Moises Martinez";
-        textRole.text = "Producer";
-        textBest.text = "The best part of working on this project was being able to work with a group of such talented people who were all passionate about the work that they were doing. It was an honor managing this team and seeing the amazing work that they produced.";
+        textRole.text = "Networking, Backend Programming";
+        textBest.text = "It was amazing learning more about multiplayer gaming and how complex it can get.  But my favorite part of this experience was seeing this game come to life by the hands of these awesome people.  This team is a great example of what successful team dynamic is supposed to be. We all worked hard and with passion, I will miss all of them. ";
     }
 
     public void ClickJan()
     {
         SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
         textName.text = "Jan Yu";
-        textRole.text = "Producer";
-        textBest.text = "The best part of working on this project was being able to work with a group of such talented people who were all passionate about the work that they were doing. It was an honor managing this team and seeing the amazing work that they produced.";
+        textRole.text = "General Programming";
+        textBest.text = "My favorite part of working on the game is working with the team. I learned a lot from working with my teammates and it was an amazing experience being able to develop a game with them. They are some of the best teammates I ever had and I was able to improve myself as a developer because of them.";
     }
 
     public void ClickMalcolm()
@@ -64,8 +64,8 @@ public class CompassSceneHandler : MonoBehaviour
     {
         SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
         textName.text = "John Park";
-        textRole.text = "Producer";
-        textBest.text = "The best part of working on this project was being able to work with a group of such talented people who were all passionate about the work that they were doing. It was an honor managing this team and seeing the amazing work that they produced.";
+        textRole.text = "Digital ink & paint, Concept Artist";
+        textBest.text = "I very much enjoyed my time contributing to this project. This game has opened my eyes to the possibilities of gaming and my own abilities. I have learned a lot through this project and enjoyed growing alongside my teammates these past couple months. I especially enjoyed the passionate and creative beginnings as well as the proud conclusion and finish of our game.";
     }
 
     public void ClickDina()

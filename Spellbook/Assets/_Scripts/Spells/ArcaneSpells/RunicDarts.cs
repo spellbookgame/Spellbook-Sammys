@@ -11,6 +11,7 @@ public class RunicDarts : Spell, ICombatSpell
         iManaCost = 1200;
 
         combatSpell = true;
+        damageSpell = true;
 
         sSpellName = "Runic Darts";
         sSpellClass = "Arcanist";
@@ -53,6 +54,7 @@ public class RunicDarts : Spell, ICombatSpell
             damage3 = Random.Range(4, 6);
         }
         int totalDamage = damage1 + damage2 + damage3;
+        damageDealt = totalDamage;
         NetworkManager.s_Singleton.DealDmgToBoss(totalDamage);
     }
 

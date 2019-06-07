@@ -11,6 +11,7 @@ public class Tragedy : Spell, ICombatSpell
         iManaCost = 800;
 
         combatSpell = true;
+        damageSpell = true;
 
         sSpellName = "Tragedy";
         sSpellClass = "Illusionist";
@@ -35,6 +36,8 @@ public class Tragedy : Spell, ICombatSpell
             damage = Random.Range(6, 9);
         else
             damage = Random.Range(7, 10);
+
+        damageDealt = damage;
         NetworkManager.s_Singleton.DealDmgToBoss(damage);
     }
 

@@ -1,7 +1,5 @@
 ﻿using Bolt.Samples.Photon.Lobby;
 using DigitalRubyShared;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -18,6 +16,7 @@ public class Combat : MonoBehaviour
     float lastX = 0;
     float lastY = 0;
     public Button ResetButton;
+    public Button basicAttackButton;
     public Text SwipeInstructionText;
     public Spell selectedSpell;
     public SpellCaster localSpellcaster;
@@ -29,6 +28,9 @@ public class Combat : MonoBehaviour
     public SwipeGuideSpawner swipeGuideSpawner;
     public bool onlyBasicAttack = false;
     private bool hasDoneBasicAttack = false;
+
+    [SerializeField] private GameObject spellProjectile;
+    [SerializeField] private Text damageText;
 
     private void LinesUpdated(object sender, System.EventArgs args)
     {
@@ -108,7 +110,7 @@ public class Combat : MonoBehaviour
         try
         {
             BossHealthBar.GetComponent<UIHealthbarController>().healthPercentage = NetworkGameState.instance.GetBossHealth();
-            BossHealthBar.transform.GetChild(2).GetComponent<Text>().text = NetworkGameState.instance.GetBossCurrentHealth().ToString() + "/" + NetworkGameState.instance.GetBossMaxHealth().ToString();
+            BossHealthBar.transform.GetChild(2).GetComponent<Text>().text = ((int)NetworkGameState.instance.GetBossCurrentHealth()).ToString() + "/" + NetworkGameState.instance.GetBossMaxHealth().ToString();
         }
         catch
         {
@@ -118,7 +120,7 @@ public class Combat : MonoBehaviour
         try
         {
             PlayerHealthBar.GetComponent<UIHealthbarController>().healthPercentage = localSpellcaster.fCurrentHealth / localSpellcaster.fMaxHealth;
-            PlayerHealthBar.transform.GetChild(2).GetComponent<Text>().text = localSpellcaster.fCurrentHealth.ToString() + "/" + localSpellcaster.fMaxHealth.ToString();
+            PlayerHealthBar.transform.GetChild(2).GetComponent<Text>().text = ((int)localSpellcaster.fCurrentHealth).ToString() + "/" + localSpellcaster.fMaxHealth.ToString();
         }
         catch
         {
@@ -144,6 +146,12 @@ public class Combat : MonoBehaviour
             }
 
             NetworkManager.s_Singleton.DealDmgToBoss(baseDmg);
+
+            spellProjectile.GetComponent<UIWanderingProjectile>().Launch();
+            damageText.text = ((int)baseDmg).ToString() + " damage!";
+
+            basicAttackButton.gameObject.SetActive(false);
+            ResetButton.gameObject.SetActive(true);
         } 
     }
 
@@ -170,6 +178,14 @@ public class Combat : MonoBehaviour
                 {
 
                     combatSpell.CombatCast(localSpellcaster, orbPercentage);
+
+                    // only call this if combat spell did damage
+                    if(((Spell)combatSpell).damageSpell)
+                    {
+                        spellProjectile.GetComponent<UIWanderingProjectile>().Launch();
+                        // get damage from combat spell
+                        damageText.text = ((Spell)combatSpell).damageDealt + " damage!";
+                    } 
                 }
                 catch { }
                 //NetworkManager.s_Singleton.CombatSpellCast(selectedSpell.sSpellName, match.Score);

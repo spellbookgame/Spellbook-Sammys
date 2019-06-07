@@ -62,6 +62,9 @@ public class SoundManager : MonoBehaviour
     public static AudioClip riftTalisman;
     public static AudioClip infusedSapphire;
     public static AudioClip waxCandle;
+    public static AudioClip heal;
+    public static AudioClip endTurn;
+    public static AudioClip selectScan;
     #endregion
 
     #region bgms
@@ -142,6 +145,9 @@ public class SoundManager : MonoBehaviour
         riftTalisman = soundeffects[44];
         infusedSapphire = soundeffects[45];
         waxCandle = soundeffects[46];
+        heal = soundeffects[47];
+        endTurn = soundeffects[48];
+        selectScan = soundeffects[49];
         #endregion
 
         #region assign_bgms

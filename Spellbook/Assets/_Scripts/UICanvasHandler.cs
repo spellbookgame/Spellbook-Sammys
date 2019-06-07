@@ -8,8 +8,9 @@ public class UICanvasHandler : MonoBehaviour
     public static UICanvasHandler instance = null;
 
     // public variables
-    public int spacesMoved = 0; // reset on EndTurn click
+    public int spacesMoved = 0;     // reset on EndTurn click
     public bool chronomancerGone;   // ensures the fade transition only happens at beginning of game
+    public bool initialSoundsSet;   // only set separate BGMs at start of game
 
     #region private_fields
     [SerializeField] private GameObject spellbookButton;
@@ -89,7 +90,7 @@ public class UICanvasHandler : MonoBehaviour
         });
         scanButton.GetComponent<Button>().onClick.AddListener(() =>
         {
-            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+            SoundManager.instance.PlaySingle(SoundManager.selectScan);
             LoadHandler.instance.sceneBuildIndex = 3;
             SceneManager.LoadScene("LoadingScene");
             // SceneManager.LoadScene("VuforiaScene");
@@ -139,9 +140,6 @@ public class UICanvasHandler : MonoBehaviour
         // if we're in the main scene
         else
         {
-            //Temporary
-            //combatButton.SetActive(true);
-
             spellbookButton.SetActive(true);
             diceButton.SetActive(true);
             inventoryButton.SetActive(true);

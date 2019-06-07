@@ -11,6 +11,7 @@ public class EyeOfTheStorm : Spell, ICombatSpell
         iManaCost = 1900;
 
         combatSpell = true;
+        damageSpell = true;
 
         sSpellName = "Eye of the Storm";
         sSpellClass = "Elementalist";
@@ -46,6 +47,7 @@ public class EyeOfTheStorm : Spell, ICombatSpell
             damage = Random.Range(9, 16);
         }
         healAmount = damage / 2;
+        damageDealt = damage;
         //player.HealDamage(healAmount);
         NetworkManager.s_Singleton.DealDmgToBoss(damage);
         NetworkManager.s_Singleton.HealAllAlliesByHp(healAmount, sSpellName);

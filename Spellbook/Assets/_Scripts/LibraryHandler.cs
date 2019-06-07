@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class LibraryHandler : MonoBehaviour
 {
     [SerializeField] private Button mainButton;
+    [SerializeField] private Button settingsButton;
     [SerializeField] private Sprite combatIcon;
     [SerializeField] private Sprite nonCombatIcon;
     [SerializeField] private GameObject spellButtonPrefab;
@@ -33,6 +34,13 @@ public class LibraryHandler : MonoBehaviour
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
             UICanvasHandler.instance.ActivateSpellbookButtons(false);
             SceneManager.LoadScene("MainPlayerScene");
+        });
+
+        settingsButton.onClick.AddListener(() =>
+        {
+            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+            UICanvasHandler.instance.ActivateSpellbookButtons(false);
+            SceneManager.LoadScene("SettingsScene");
         });
 
         foreach (Spell s in localPlayer.Spellcaster.chapter.spellsAllowed)

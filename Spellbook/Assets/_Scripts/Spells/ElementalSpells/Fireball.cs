@@ -12,6 +12,7 @@ public class Fireball : Spell, ICombatSpell
         iManaCost = 600;
 
         combatSpell = true;
+        damageSpell = true;
 
         sSpellName = "Fireball";
         sSpellClass = "Elementalist";
@@ -49,6 +50,7 @@ public class Fireball : Spell, ICombatSpell
             damage2 = Random.Range(4, 7);
         }
         int totalDamage = damage1 + damage2;
+        damageDealt = totalDamage;
         NetworkManager.s_Singleton.DealDmgToBoss(totalDamage);
     }
 
