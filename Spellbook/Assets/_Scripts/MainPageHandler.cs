@@ -110,10 +110,6 @@ public class MainPageHandler : MonoBehaviour
         PanelHolder.instance.CheckPanelQueue();
 
         CrisisHandler.instance.player = localPlayer;
-
-        // check to see if we should play main BGM
-        if (localPlayer.Spellcaster.PlayMainBGM())
-            SoundManager.instance.PlayGameBCM(SoundManager.gameBCG);
     }
 
     private void SetClassAttributes()
@@ -212,20 +208,5 @@ public class MainPageHandler : MonoBehaviour
         yield return new WaitForSecondsRealtime(2f);
 
         manaCrystalsAddition.text = "";
-    }
-
-    // DELETE LATER - TESTING ONLY
-    public void CollectCombatSpells()
-    {
-        foreach(Spell s in localPlayer.Spellcaster.chapter.spellsAllowed)
-        {
-            if(s.combatSpell)
-                localPlayer.Spellcaster.CollectSpell(s);
-        }
-    }
-
-    public void GoToCombat()
-    {
-        SceneManager.LoadScene("CombatSceneV2");
     }
 }

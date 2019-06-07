@@ -7,7 +7,6 @@ public class GameOverHandler : MonoBehaviour
 {
     [SerializeField] private GameObject proclamationPanel;
     [SerializeField] private Text gameOverText;
-    [SerializeField] private Button restartButton;
     [SerializeField] private Button quitButton;
     [SerializeField] private Button panelButton;
     [SerializeField] private Animator anim;
@@ -42,14 +41,6 @@ public class GameOverHandler : MonoBehaviour
             StartCoroutine("SetObjectsActive");
         });
 
-        restartButton.onClick.AddListener(() =>
-        {
-            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
-
-            // System.Diagnostics.Process.Start(Application.dataPath.Replace("_Data", ".exe"));
-            Application.Quit();
-        });
-
         quitButton.onClick.AddListener(() =>
         {
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
@@ -70,7 +61,6 @@ public class GameOverHandler : MonoBehaviour
         yield return new WaitForSeconds(2f);
 
         gameOverText.gameObject.SetActive(true);
-        restartButton.gameObject.SetActive(true);
         quitButton.gameObject.SetActive(true);
     }
 }
