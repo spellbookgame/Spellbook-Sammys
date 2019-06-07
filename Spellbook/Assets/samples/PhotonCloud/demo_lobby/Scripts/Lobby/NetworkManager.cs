@@ -483,14 +483,14 @@ namespace Bolt.Samples.Photon.Lobby
         {
             ChangeTo(countdownPanel.GetComponent<RectTransform>());
             Text text = countdownPanel.UIText;
-            text.fontSize = 40;
+            text.fontSize = 80;
             text.text = "Match Starting in " + evnt.Time;
             countdownPanel.gameObject.SetActive(evnt.Time != 0);
         }
 
         public override void OnEvent(NewUpcomingEvent evnt)
         {
-            BoltConsole.Write("New Upcoming event : " + evnt.Name );
+            BoltConsole.Write("New Upcoming event : " + evnt.Name);
             //PanelHolder.instance.displayNotify("Global Event Coming Soon", NetworkGameState.instance.getEventInfo(), "OK");
             CrisisHandler.instance.CallCrisis(evnt.Name);
         }
@@ -616,10 +616,10 @@ namespace Bolt.Samples.Photon.Lobby
             if (playerSpellcaster.spellcasterID == evnt.ToSpellcaster || evnt.ToSpellcaster == 8)
             {
                 //PanelHolder.instance.displayNotify(evnt.EventName, "Lose " + ((int)(evnt.PercentDmgDecimal * 100)) + "% health", "OK");
-                IAllyCastable spell = (IAllyCastable) AllSpellsDict.AllSpells[evnt.Spellname];
+                IAllyCastable spell = (IAllyCastable)AllSpellsDict.AllSpells[evnt.Spellname];
                 spell.RecieveCastFromAlly(playerSpellcaster);
             }
-        
+
         }
 
         public override void OnEvent(IncreaseTapTimeBy2Secs evnt)
@@ -658,8 +658,8 @@ namespace Bolt.Samples.Photon.Lobby
             PanelHolder.instance.displaySpellCastNotif(evnt.Spellname, "All allies healed by " + (evnt.Percent * 100) + " percent", "OK");
             if (BoltNetwork.IsServer)
             {
-            gameStateEntity.GetComponent<NetworkGameState>()
-                    .IncrementAttackCount();
+                gameStateEntity.GetComponent<NetworkGameState>()
+                        .IncrementAttackCount();
             }
             //TODO: Display feedback
         }
@@ -669,13 +669,13 @@ namespace Bolt.Samples.Photon.Lobby
         {
             playerSpellcaster = playerEntity.GetComponent<Player>().spellcaster;
             //TODO: keep as float.
-            playerSpellcaster.HealDamage((int) evnt.HP);
+            playerSpellcaster.HealDamage((int)evnt.HP);
             //TODO: Display Feedback 
             PanelHolder.instance.displaySpellCastNotif(evnt.Spellname, "All allies healed by " + evnt.HP, "OK");
             if (BoltNetwork.IsServer)
             {
-            gameStateEntity.GetComponent<NetworkGameState>()
-                    .IncrementAttackCount();
+                gameStateEntity.GetComponent<NetworkGameState>()
+                        .IncrementAttackCount();
             }
         }
 
@@ -685,17 +685,17 @@ namespace Bolt.Samples.Photon.Lobby
             playerSpellcaster = playerEntity.GetComponent<Player>().spellcaster;
             playerSpellcaster.HealPercentMissingHP(evnt.Percent);
             //TODO: Display feedback.
-            PanelHolder.instance.displaySpellCastNotif(evnt.Spellname, "All allies healed by " + (evnt.Percent * 100 ) + " percent of missing health", "OK");
+            PanelHolder.instance.displaySpellCastNotif(evnt.Spellname, "All allies healed by " + (evnt.Percent * 100) + " percent of missing health", "OK");
             if (BoltNetwork.IsServer)
             {
-            gameStateEntity.GetComponent<NetworkGameState>()
-                    .IncrementAttackCount();
+                gameStateEntity.GetComponent<NetworkGameState>()
+                        .IncrementAttackCount();
             }
         }
 
         public override void OnEvent(IncreaseTeamDmgByPercentEvent evnt)
         {
-            PanelHolder.instance.displaySpellCastNotif(evnt.Spellname, "All allies damage increased by " + (evnt.Percent * 100 ) + " percent", "OK");
+            PanelHolder.instance.displaySpellCastNotif(evnt.Spellname, "All allies damage increased by " + (evnt.Percent * 100) + " percent", "OK");
             if (BoltNetwork.IsServer)
             {
                 gameStateEntity.GetComponent<NetworkGameState>()
@@ -738,8 +738,8 @@ namespace Bolt.Samples.Photon.Lobby
             {
 
             }
-             playerSpellcaster = playerEntity.GetComponent<Player>().spellcaster;
-             playerSpellcaster.TakeDamage((int) evnt.Damage);
+            playerSpellcaster = playerEntity.GetComponent<Player>().spellcaster;
+            playerSpellcaster.TakeDamage((int)evnt.Damage);
             //TODO: MAYBE DISPLAY FEEDBACK? 
         }
         IEnumerator WaitForAttack(GameObject bossImage)
@@ -754,7 +754,7 @@ namespace Bolt.Samples.Photon.Lobby
             //PanelHolder.instance.displayNotify("Dark Mage Fainted", "You and your team prevailed!", "MainPlayerScene");
             playerSpellcaster = playerEntity.GetComponent<Player>().spellcaster;
             playerSpellcaster.gameLost = false;
-            SceneManager.LoadScene("GameOverScene");
+            StartCoroutine(WaitForGameOverScene());
         }
 
         //NOTE: Should be named AllSpellcastersDiedEvent
@@ -762,13 +762,20 @@ namespace Bolt.Samples.Photon.Lobby
         {
             playerSpellcaster = playerEntity.GetComponent<Player>().spellcaster;
             playerSpellcaster.gameLost = true;
+            StartCoroutine(WaitForGameOverScene());
+
+        }
+        IEnumerator WaitForGameOverScene()
+        {
+            yield return new WaitForSeconds(1.5f);
             SceneManager.LoadScene("GameOverScene");
         }
+
 
         public override void OnEvent(SpellcasterDiedEvent evnt)
         {
             playerSpellcaster = playerEntity.GetComponent<Player>().spellcaster;
-            if(playerSpellcaster.spellcasterID == evnt.SpellcasterID)
+            if (playerSpellcaster.spellcasterID == evnt.SpellcasterID)
             {
                 //Display you died
                 PanelHolder.instance.displayNotify("You Died", "Wait until your team finishes", "OK");
@@ -777,12 +784,42 @@ namespace Bolt.Samples.Photon.Lobby
             {
                 string fallenSpellcaster = evnt.SpellcasterClass;
                 //Display a fallen spellcaster died
-                PanelHolder.instance.displayNotify(evnt.SpellcasterClass +" Died", "", "OK");
+                PanelHolder.instance.displayNotify(evnt.SpellcasterClass + " Died", "", "OK");
             }
 
             if (BoltNetwork.IsServer)
             {
                 gameStateEntity.GetComponent<NetworkGameState>().IncrementDeathCount();
+            }
+        }
+
+        public override void OnEvent(EyeOfTheStormEvent evnt)
+        {
+
+            playerSpellcaster = playerEntity.GetComponent<Player>().spellcaster;
+            playerSpellcaster.HealDamage((int)evnt.HPToHealAllies);
+            PanelHolder.instance.displaySpellCastNotif("Eye of the Storm", "Dark Mage took " +evnt.DmgToBoss+  " damage and all allies healed by " + evnt.HPToHealAllies+"!", "OK");
+            if (BoltNetwork.IsServer)
+            {
+                gameStateEntity.GetComponent<NetworkGameState>()
+                    .DealDmgToBoss(evnt.DmgToBoss);
+                gameStateEntity.GetComponent<NetworkGameState>()
+                    .IncrementAttackCount();
+            }
+        }
+
+        public override void OnEvent(RavensSongEvent evnt)
+        {
+            playerSpellcaster = playerEntity.GetComponent<Player>().spellcaster;
+            playerSpellcaster.HealPercentDamage(evnt.PercentToHealAllies);
+
+            PanelHolder.instance.displaySpellCastNotif("Raven's Song", "All allies healed by " + (evnt.PercentToHealAllies * 100) + "% of their current health, and Dark Mage takes 10% damage!", "OK");
+            if (BoltNetwork.IsServer)
+            {
+                gameStateEntity.GetComponent<NetworkGameState>()
+                    .DealPercentDmgToBoss(evnt.PercentToDealBoss);
+                gameStateEntity.GetComponent<NetworkGameState>()
+                    .IncrementAttackCount();
             }
         }
 
@@ -883,7 +920,7 @@ namespace Bolt.Samples.Photon.Lobby
         public override void OnEvent(SolveCrisisEvent evnt)
         {
             NetworkGameState.instance.SavedByHero(evnt.CrisisName, evnt.SpellcasterClass);
-           // ResolveCrisis(evnt.CrisisName, evnt.SpellcasterClass);
+            // ResolveCrisis(evnt.CrisisName, evnt.SpellcasterClass);
         }
 
         //OLD CODE
@@ -954,8 +991,8 @@ namespace Bolt.Samples.Photon.Lobby
         /*Only the server recieves this event.*/
         public override void OnEvent(SendOrbUpdateEvent evnt)
         {
-          gameStateEntity.GetComponent<NetworkGameState>()
-                .UpdateTapsForSpellcaster(evnt.SpellcasterID, evnt.NumTaps, evnt.OrbPercentage);
+            gameStateEntity.GetComponent<NetworkGameState>()
+                  .UpdateTapsForSpellcaster(evnt.SpellcasterID, evnt.NumTaps, evnt.OrbPercentage);
         }
 
 
@@ -975,15 +1012,15 @@ namespace Bolt.Samples.Photon.Lobby
         {
             gameStateEntity.GetComponent<NetworkGameState>()
                 .DealPercentDmgToBoss(evnt.percent);
-                gameStateEntity.GetComponent<NetworkGameState>()
-                    .IncrementAttackCount();
+            gameStateEntity.GetComponent<NetworkGameState>()
+                .IncrementAttackCount();
         }
 
         /*Only the server recieves this event.*/
         //TODO: FINISH - just call there combat cast
         public override void OnEvent(CombatCastEvent evnt)
         {
-            Spell combatSpell = AllSpellsDict.AllSpells[evnt.Spellname]; 
+            Spell combatSpell = AllSpellsDict.AllSpells[evnt.Spellname];
         }
 
 
@@ -1223,6 +1260,22 @@ namespace Bolt.Samples.Photon.Lobby
             var evnt = IncreaseAllyDmgByPercentEvent.Create(Bolt.GlobalTargets.Everyone);
             evnt.AllySpellcasterID = allySpellcasterID;
             evnt.Percent = percent;
+            evnt.Send();
+        }
+
+        public void Ravensong(float percentHP, float percentDmg)
+        {
+            var evnt = RavensSongEvent.Create(Bolt.GlobalTargets.Everyone);
+            evnt.PercentToHealAllies = percentHP;
+            evnt.PercentToDealBoss = percentDmg;
+            evnt.Send();
+        }
+
+        public void EyeOfTheStorm(float hpHeal, float dmg)
+        {
+            var evnt = EyeOfTheStormEvent.Create(Bolt.GlobalTargets.Everyone);
+            evnt.HPToHealAllies = hpHeal;
+            evnt.DmgToBoss = dmg;
             evnt.Send();
         }
 

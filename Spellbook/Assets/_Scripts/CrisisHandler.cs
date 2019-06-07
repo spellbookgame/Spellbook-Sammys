@@ -312,6 +312,15 @@ public class CrisisHandler : MonoBehaviour
         int numOfSpells = player.spellcaster.chapter.spellsCollected.Count;
         NetworkManager.s_Singleton.SendNumOfSpellsForBalancing(numOfSpells);
         PanelHolder.instance.displayNotify("Final Battle", "You and your team will now enter combat", "CombatSceneV2");
+        if (BoltNetwork.IsServer)
+        {
+            SoundManager.instance.PlayGameBCM(SoundManager.combatBGM);   
+        }
+        else
+        {
+            //Stop playing music if youre not the host?
+            SoundManager.instance.StopGameBCM();
+        }
     }
     #endregion
 
