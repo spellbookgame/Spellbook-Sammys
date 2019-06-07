@@ -29,6 +29,9 @@ public class Combat : MonoBehaviour
     public bool onlyBasicAttack = false;
     private bool hasDoneBasicAttack = false;
 
+    [SerializeField] private GameObject spellProjectile;
+    [SerializeField] private Text damageText;
+
     private void LinesUpdated(object sender, System.EventArgs args)
     {
         if (isInBossPanel)
@@ -144,6 +147,9 @@ public class Combat : MonoBehaviour
 
             NetworkManager.s_Singleton.DealDmgToBoss(baseDmg);
 
+            spellProjectile.GetComponent<UIWanderingProjectile>().Launch();
+            damageText.text = ((int)baseDmg).ToString() + " damage!";
+
             basicAttackButton.gameObject.SetActive(false);
             ResetButton.gameObject.SetActive(true);
         } 
@@ -172,6 +178,14 @@ public class Combat : MonoBehaviour
                 {
 
                     combatSpell.CombatCast(localSpellcaster, orbPercentage);
+
+                    // only call this if combat spell did damage
+                    if(((Spell)combatSpell).damageSpell)
+                    {
+                        spellProjectile.GetComponent<UIWanderingProjectile>().Launch();
+                        // get damage from combat spell
+                        damageText.text = ((Spell)combatSpell).damageDealt + " damage!";
+                    } 
                 }
                 catch { }
                 //NetworkManager.s_Singleton.CombatSpellCast(selectedSpell.sSpellName, match.Score);
