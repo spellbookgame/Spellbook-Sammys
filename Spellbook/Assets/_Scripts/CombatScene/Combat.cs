@@ -132,6 +132,7 @@ public class Combat : MonoBehaviour
     {
         if (!hasDoneBasicAttack)
         {
+            SoundManager.instance.PlaySingle(SoundManager.spellcast);
             hasDoneBasicAttack = true;
             float baseDmg = 2f;
             if(orbPercentage > .75f)
@@ -230,6 +231,7 @@ public class Combat : MonoBehaviour
 
     private void ResetSwipe()
     {
+        SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
         DialogueField.SetActive(false);
         SceneManager.LoadScene("CombatSceneV2");
         Debug.Log("Reset Swipe");
