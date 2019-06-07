@@ -54,7 +54,6 @@ public class ARFix : MonoBehaviour
     public void StartApp()
     {
         loading = true;
-        //SceneManager.LoadScene(nextScene);
     }
 
     public IEnumerator CheckSetUp()
