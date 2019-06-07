@@ -188,4 +188,11 @@ public class SoundManager : MonoBehaviour
         musicSource.Play();
         currentBGM = au.name;
     }
+
+    public void StopGameBCM()
+    {
+        musicSource.clip = null;
+        musicSource.Stop();
+        currentBGM = null;
+    }
 }

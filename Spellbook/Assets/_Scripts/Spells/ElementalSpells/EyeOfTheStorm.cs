@@ -49,8 +49,9 @@ public class EyeOfTheStorm : Spell, ICombatSpell
         healAmount = damage / 2;
         damageDealt = damage;
         //player.HealDamage(healAmount);
-        NetworkManager.s_Singleton.DealDmgToBoss(damage);
-        NetworkManager.s_Singleton.HealAllAlliesByHp(healAmount, sSpellName);
+        // NetworkManager.s_Singleton.DealDmgToBoss(damage);
+        // NetworkManager.s_Singleton.HealAllAlliesByHp(healAmount, sSpellName);
+        NetworkManager.s_Singleton.EyeOfTheStorm(healAmount, damage);
     }
 
     public override void SpellCast(SpellCaster player)
