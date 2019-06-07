@@ -309,18 +309,19 @@ public class CrisisHandler : MonoBehaviour
 
     public void FinishBossBattle()
     {
-        int numOfSpells = player.spellcaster.chapter.spellsCollected.Count;
-        NetworkManager.s_Singleton.SendNumOfSpellsForBalancing(numOfSpells);
-        PanelHolder.instance.displayNotify("Final Battle", "The Black Mage has arrived! Enter battle!", "CombatSceneV2");
+        player.Spellcaster.combatStarted = true;
         if (BoltNetwork.IsServer)
         {
-            SoundManager.instance.PlayGameBCM(SoundManager.combatBGM);   
+            SoundManager.instance.PlayGameBCM(SoundManager.combatBGM);
         }
         else
         {
             //Stop playing music if youre not the host?
             SoundManager.instance.musicSource.volume = 0;
         }
+        int numOfSpells = player.spellcaster.chapter.spellsCollected.Count;
+        NetworkManager.s_Singleton.SendNumOfSpellsForBalancing(numOfSpells);
+        PanelHolder.instance.displayNotify("Final Battle", "The Black Mage has arrived! Enter battle!", "CombatSceneV2");
     }
     #endregion
 

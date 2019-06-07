@@ -28,6 +28,9 @@ public class YourTurnUI : MonoBehaviour
         SoundManager.instance.PlaySingle(SoundManager.yourturn);
         // set bgm volume back up if it's player's turn
         SoundManager.instance.musicSource.volume = 1f;
+        // check to see if we should play main BGM
+        if (localPlayer.Spellcaster.PlayMainBGM())
+            SoundManager.instance.PlayGameBCM(SoundManager.gameBCG);
 
         gameObject.SetActive(true);
         if (!PanelHolder.panelQueue.Peek().Equals(panelID))

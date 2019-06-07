@@ -47,6 +47,7 @@ public abstract class SpellCaster
     public bool scannedSpaceThisTurn;
     public bool scannedSpaceLastTurn;   // to track BGM
     public bool movedLastTurn;          // to track BGM
+    public bool combatStarted;          // to track BGM
     public Chapter chapter;
 
     // tracking items
@@ -170,7 +171,7 @@ public abstract class SpellCaster
     {
         SoundManager.instance.PlaySingle(SoundManager.manaCollect);
 
-        int manaCount = UnityEngine.Random.Range(80, 200);
+        int manaCount = UnityEngine.Random.Range(100, 500);
         manaCount = (int)(manaCount * dManaMultiplier);
         iMana += manaCount;
 
@@ -222,7 +223,7 @@ public abstract class SpellCaster
 
     public bool PlayMainBGM()
     {
-        if (movedLastTurn && !scannedSpaceLastTurn)
+        if (movedLastTurn && !scannedSpaceLastTurn && !combatStarted)
             return true;
         else
             return false;
