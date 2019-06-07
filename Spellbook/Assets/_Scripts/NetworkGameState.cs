@@ -556,7 +556,10 @@ public class NetworkGameState : Bolt.EntityEventListener<IGameState>
 
     public float GetBossCurrentHealth()
     {
-        return state.BossHealth;
+        if (state.BossHealth <= 0)
+            return 0;
+        else
+            return state.BossHealth;
     }
 
     public float GetBossMaxHealth()
