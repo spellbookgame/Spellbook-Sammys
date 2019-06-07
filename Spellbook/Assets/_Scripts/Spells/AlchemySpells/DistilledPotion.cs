@@ -39,8 +39,8 @@ public class DistilledPotion : Spell, ICombatSpell
         }*/
 
         // for every 20% the orb is filled, increase the heal amount by 5%
-        orbPercentage = orbPercentage * 100;
-        float healBuff = Mathf.Floor(orbPercentage / 20);
+        orbPercentage = orbPercentage * 100f;
+        float healBuff = Mathf.Floor(orbPercentage / 20f);
         float newHeal = 0.5f + (healBuff * 0.05f);
         NetworkManager.s_Singleton.HealAllAlliesPercentMissingHP(newHeal, sSpellName);
     }

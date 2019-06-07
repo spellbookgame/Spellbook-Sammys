@@ -46,9 +46,9 @@ public class Skeletons : Spell, ICombatSpell, IAllyCastable
 
     public void SpellcastPhase2(int sID, SpellCaster player)
     {
-        OrbPercent = OrbPercent * 100;
+        OrbPercent = OrbPercent * 100f;
         //for every 20% the orb is filled, add 5% to the multiplier
-        float multiplier = ((Mathf.Floor(OrbPercent / 20) * 5) + 10) / 100;
+        float multiplier = ((Mathf.Floor(OrbPercent / 20f) * 5f) + 10f) / 100f;
         // player.totalDamage += player.totalDamage * multiplier;
         NetworkManager.s_Singleton.CastOnAlly(player.spellcasterID, sID, sSpellName); 
         NetworkManager.s_Singleton.IncreaseAllyDamageByPercent(sID, multiplier);

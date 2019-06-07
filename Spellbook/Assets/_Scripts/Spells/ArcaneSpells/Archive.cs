@@ -28,9 +28,9 @@ public class Archive : Spell, ICombatSpell
     public void CombatCast(SpellCaster player, float orbPercentage)
     {
         // for every 20% the orb is filled, add 5% to the multiplier.
-        orbPercentage = orbPercentage * 100;
-        int tapBuff = (int) Mathf.Floor(orbPercentage / 20) * 5;
-        int totalIncrease = (tapBuff + 15) / 100;
+        orbPercentage = orbPercentage * 100f;
+        float tapBuff = (int) Mathf.Floor(orbPercentage / 20f) * 5f;
+        float totalIncrease = (tapBuff + 15f) / 100f;
         //teamTapTotal += teamTapTotal * totalIncrease;
         NetworkManager.s_Singleton.IncreaseTeamTapPercentage(totalIncrease, sSpellName);
     }

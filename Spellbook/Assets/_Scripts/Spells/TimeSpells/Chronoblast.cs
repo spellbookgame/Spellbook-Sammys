@@ -26,7 +26,7 @@ public class Chronoblast : Spell, ICombatSpell
 
     public void CombatCast(SpellCaster player, float orbPercentage)
     {
-        orbPercentage = orbPercentage * 100;
+        orbPercentage = orbPercentage * 100f;
         int damage;
         if (orbPercentage <= 25)
             damage = Random.Range(4, 6);

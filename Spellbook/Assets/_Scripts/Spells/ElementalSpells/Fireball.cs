@@ -27,7 +27,7 @@ public class Fireball : Spell, ICombatSpell
 
     public void CombatCast(SpellCaster player, float orbPercentage)
     {
-        orbPercentage = orbPercentage * 100;
+        orbPercentage = orbPercentage * 100f;
         int damage1, damage2;
         if (orbPercentage <= 25)
         {
