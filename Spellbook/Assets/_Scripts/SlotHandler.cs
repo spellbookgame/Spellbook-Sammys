@@ -52,8 +52,6 @@ public class SlotHandler : MonoBehaviour, IDropHandler
     // happens before OnEndDrag in DragHandler.cs
     public void OnDrop(PointerEventData eventData)
     {
-        // play drop sound
-        SoundManager.instance.PlaySingle(SoundManager.placespellpiece);
 
         // if the slot contains an item and it is a child of the glyph panel, destroy itemToDrag
         if (item && transform.parent.name.Equals("panel_glyphs"))

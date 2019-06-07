@@ -1,15 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PanelHolder : MonoBehaviour
 {
+    //Used for casting a spell on ally.
+    private IAllyCastable currentSpell;
+
     public YourTurnUI yourTurnPanel;
-    public PlayerChooseUI playerChoosePanel;
     public NotifyUI notifyPanel;
     public QuestUI questPanel;
+    public QuestRewardUI questRewardPanel;
     public BoardScanUI boardScanPanel;
-     
+    public CrisisUI crisisPanel;
+    public PlayerChooseUI chooseSpellcasterPanel; 
+    public SpellCastUI spellCastNotifPanel; 
     
     public static PanelHolder instance = null;
 
@@ -32,33 +38,42 @@ public class PanelHolder : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    private void Update()
+    // keep panelholder as topmost image
+    public void SetPanelHolderLast()
     {
-        if(GameObject.FindGameObjectWithTag("LocalPlayer"))
-        {
-            // repeatedly checks panelqueue in case a new event comes up
-            if (GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().Spellcaster.procPanelShown)
-                if (panelQueue.Count > 0)
-                    CheckPanelQueue();
-        }
+        transform.SetAsLastSibling();
     }
 
     // enables panel if it's next in queue
     public void CheckPanelQueue()
     {
-        if(panelQueue.Count > 0)
+        Debug.Log("Panel Queue checked: " + panelQueue.Count + " panels in queue.");
+        if (panelQueue.Count > 0)
         {
-            Debug.Log("next in queue is: " + panelQueue.Peek());
+            UICanvasHandler.instance.EnableMainSceneButtons(false);
+
             if (panelQueue.Peek().Equals(notifyPanel.panelID))
                 notifyPanel.EnablePanel();
             else if (panelQueue.Peek().Equals(questPanel.panelID))
                 questPanel.EnablePanel();
+            else if (panelQueue.Peek().Equals(questRewardPanel.panelID))
+                questRewardPanel.EnablePanel();
             else if (panelQueue.Peek().Equals(yourTurnPanel.panelID))
                 yourTurnPanel.EnablePanel();
             else if (panelQueue.Peek().Equals(boardScanPanel.panelID))
                 boardScanPanel.EnablePanel();
-            else if (panelQueue.Peek().Equals(playerChoosePanel.panelID))
-                playerChoosePanel.EnablePanel();
+            else if (panelQueue.Peek().Equals(crisisPanel.panelID))
+                crisisPanel.EnablePanel();
+            else if (panelQueue.Peek().Equals(chooseSpellcasterPanel.panelID))
+                chooseSpellcasterPanel.EnablePanel();
+            else if (panelQueue.Peek().Equals(spellCastNotifPanel.panelID))
+                spellCastNotifPanel.EnablePanel();
+        }
+        else
+        {
+            UICanvasHandler.instance.EnableMainSceneButtons(true);
+            // also have to disable dice button if it's not player's turn
+            UICanvasHandler.instance.EnableDiceButton(GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().bIsMyTurn);
         }
     }
 
@@ -67,20 +82,7 @@ public class PanelHolder : MonoBehaviour
         panelQueue.Enqueue(yourTurnPanel.panelID);
         Debug.Log("Queued: " + yourTurnPanel.panelID);
         yourTurnPanel.Display();
-    }
-
-    public void displayPlayerChoose()
-    {
-        panelQueue.Enqueue(playerChoosePanel.panelID);
-        Debug.Log("Queued: " + playerChoosePanel.panelID);
-        playerChoosePanel.DisplayPlayerChoose();
-    }
-
-    public void displayEvent(string title, string info)
-    {
-        panelQueue.Enqueue(notifyPanel.panelID);
-        Debug.Log("Queued: " + notifyPanel.panelID);
-        notifyPanel.DisplayEvent(title, info);
+        CheckPanelQueue();
     }
 
     public void displayNotify(string title, string info, string buttonClick)
@@ -88,20 +90,74 @@ public class PanelHolder : MonoBehaviour
         panelQueue.Enqueue(notifyPanel.panelID);
         Debug.Log("Queued: " + notifyPanel.panelID);
         notifyPanel.DisplayNotify(title, info, buttonClick);
+        CheckPanelQueue();
     }
 
     public void displayQuest(Quest quest)
     {
         panelQueue.Enqueue(questPanel.panelID);
         Debug.Log("Queued: " + questPanel.panelID);
-        questPanel.DisplayQuestGlyphs(quest);
+        questPanel.DisplayQuest(quest);
+        CheckPanelQueue();
     }
 
-    public void displayBoardScan(string title, string info, Sprite sprite)
+    public void displayQuestRewards(Quest quest)
+    {
+        // close dice tray if it's open
+        if (SceneManager.GetActiveScene().name.Equals("MainPlayerScene") && GameObject.Find("Dice Tray"))
+        {
+            DiceUIHandler diceUIHandler = GameObject.Find("Dice Tray").GetComponent<DiceUIHandler>();
+            if (diceUIHandler.diceTrayOpen)
+            {
+                diceUIHandler.OpenCloseDiceTray();
+            }
+        }
+        panelQueue.Enqueue(questRewardPanel.panelID);
+        Debug.Log("Queued: " + questRewardPanel.panelID);
+        questRewardPanel.DisplayQuestRewards(quest);
+        CheckPanelQueue();
+    }
+
+    public void displayCrisis(string info, int rounds)
+    {
+        panelQueue.Enqueue(crisisPanel.panelID);
+        Debug.Log("Queued: " + crisisPanel.panelID);
+        crisisPanel.DisplayCrisis(info, rounds);
+        CheckPanelQueue();
+    }
+
+    public void displayBoardScan(string title, string info, Sprite sprite, string scene)
     {
         panelQueue.Enqueue(boardScanPanel.panelID);
         Debug.Log("Queued: " + boardScanPanel.panelID);
-        boardScanPanel.DisplayScanEvent(title, info, sprite);
+        boardScanPanel.DisplayScanEvent(title, info, sprite, scene);
+        CheckPanelQueue();
+    }
+
+    public void displaySpellCastNotif(string spellName, string info, string buttonClick)
+    {
+        panelQueue.Enqueue(spellCastNotifPanel.panelID);
+        Debug.Log("Queued: " + spellCastNotifPanel.panelID);
+        spellCastNotifPanel.DisplayNotify(spellName, info, buttonClick);
+        CheckPanelQueue();
+    }
+
+    //Input: spell reference that allows player to cast spell on another player
+    public void displayChooseSpellcaster(IAllyCastable spell)
+    {
+        currentSpell = spell;
+        Spell convertedSpell = (Spell)spell;
+        panelQueue.Enqueue(chooseSpellcasterPanel.panelID);
+        Debug.Log("Queued: " + chooseSpellcasterPanel.panelID);
+        chooseSpellcasterPanel.DisplayPlayerChoose(convertedSpell.sSpellName);
+        CheckPanelQueue();
+    }
+
+    //Called from PlayerChooseUI when player chooses a spellcaster ally
+    //Input: the ally's spellcaster ID
+    public void ChooseAlly(int sID, SpellCaster player)
+    {
+        currentSpell.SpellcastPhase2(sID, player);
     }
 
 }

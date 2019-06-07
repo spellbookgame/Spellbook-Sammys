@@ -25,7 +25,15 @@ public class Arcanist : SpellCaster
         characterSpritePath = "Characters/Arcanist";
         characterIconPath = "Characters/symbol_glow_arcanist";
 
-        hexStringDark = "#300049";
         hexStringLight = "#853CBF";
+        hexStringPanel = "#6F3E6F";
+        hexString3rdColor = "6D2F5F";
+
+        combatSpells = new Dictionary<string, Spell>()
+        {
+            { "Marcella's Blessing", new MarcellasBlessing()},
+            { "Archive", new Archive()},
+            { "Runic Darts", new RunicDarts()}
+        };
     }
 }

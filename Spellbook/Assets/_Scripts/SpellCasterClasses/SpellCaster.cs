@@ -3,9 +3,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /*
  A base class that all SpellCaster types/classes will inherit from.
@@ -13,8 +15,9 @@ using UnityEngine;
 
 public abstract class SpellCaster 
 {
-    // to track panel being open only once at start of game
-    public bool procPanelShown;
+    public bool gameLost;
+    public bool mainTutorialShown;
+    public bool spellbookTutorialShown;
 
     public string matchname;
     public int numOfTurnsSoFar = 0;
@@ -26,17 +29,36 @@ public abstract class SpellCaster
 
     public int iMana;
     public decimal dManaMultiplier = 1;
-    public bool turnJustEnded = false;    // bool to track if "end of turn" mana should be collected or not
-    
+
+    // tracking crisis consequences
+    public bool tsunamiConsequence;
+    public int tsunamiConsTurn;
+    public bool cometConsequence;
+    public int cometConsTurn;
+    public bool plagueConsequence;
+    public int plagueConsTurn;
+
+    // misc attributes
     public string classType;
     public int spellcasterID;
+    public int numSpellsCastThisTurn;
     public bool hasAttacked;
+    public bool hasRolled;
     public bool scannedSpaceThisTurn;
+    public bool scannedSpaceLastTurn;   // to track BGM
+    public bool movedLastTurn;          // to track BGM
+    public bool combatStarted;          // to track BGM
     public Chapter chapter;
 
-    // player's collection of spell pieces, glyphs, items, and active spells stored as strings
+    // tracking items
+    public bool waxCandleUsed;      // set in AddToInventory()
+    public bool locationItemUsed;   // set in CustomEventHandler()
+
+    // player's collection of glyphs, dice, items, and active spells/quests stored as strings
     public Dictionary<string, int> glyphs;
     public Dictionary<string, int> dice;
+    public Dictionary<string, Spell> combatSpells;
+    public Dictionary<string, int> tempDice;
     public List<Spell> activeSpells;
     public List<Quest> activeQuests;
     public List<ItemObject> inventory;
@@ -45,17 +67,14 @@ public abstract class SpellCaster
     public string characterSpritePath;
     public string characterIconPath;
     public string hexStringLight;
-    public string hexStringDark;
-
-    // TODO:
-    //private string backGroundStory; 
-    //Implement:
-    //Object DeleteFromInventory(string itemName, int count); 
+    public string hexStringPanel;
+    public string hexString3rdColor;
 
     // CTOR
     public SpellCaster()
     {
         //fMaxHealth = 20.0f;     //Commented out in case Spellcasters have different max healths.
+        fBasicAttackStrength = 2.0f;
         iMana = 1000;
         hasAttacked = false;
 
@@ -63,45 +82,35 @@ public abstract class SpellCaster
         activeQuests = new List<Quest>();
         inventory = new List<ItemObject>();
 
-        glyphs = new Dictionary<string, int>()
-        {
-            { "Alchemy A Glyph", 3 },
-            { "Alchemy B Glyph", 3 },
-            { "Alchemy C Glyph", 3 },
-            { "Alchemy D Glyph", 3 },
-            { "Arcane A Glyph", 3 },
-            { "Arcane B Glyph", 3 },
-            { "Arcane C Glyph", 3 },
-            { "Arcane D Glyph", 3 },
-            { "Elemental A Glyph", 3 },
-            { "Elemental B Glyph", 3 },
-            { "Elemental C Glyph", 3 },
-            { "Elemental D Glyph", 3 },
-            { "Illusion A Glyph", 3 },
-            { "Illusion B Glyph", 3 },
-            { "Illusion C Glyph", 3 },
-            { "Illusion D Glyph", 3 },
-            { "Summoning A Glyph", 3 },
-            { "Summoning B Glyph", 3 },
-            { "Summoning C Glyph", 3 },
-            { "Summoning D Glyph", 3 },
-            { "Time A Glyph", 3 },
-            { "Time B Glyph", 3 },
-            { "Time C Glyph", 3 },
-            { "Time D Glyph", 3 },
-        };
+        // remove glyphs entirely eventually
+        glyphs = new Dictionary<string, int>();
 
         dice = new Dictionary<string, int>()
         {
             { "D4", 0 },
+            { "D5", 0 },
             { "D6", 2 },
-            { "D8", 0 }
+            { "D7", 0 },
+            { "D8", 0 },
+            { "D9", 0 },
         };
+
+        tempDice = new Dictionary<string, int>();
     }
 
     public void AddToInventory(ItemObject newItem)
     {
-        inventory.Add(newItem);
+        if (inventory.Count >= 12)
+            PanelHolder.instance.displayNotify("Too many items!", "Your inventory is full, you cannot hold any more items.", "OK");
+        else
+            inventory.Add(newItem);
+
+        // if Collector's Drink is active, add another copy of the item
+        if (SpellTracker.instance.SpellIsActive(new CollectorsDrink()))
+        {
+            inventory.Add(newItem);
+            SpellTracker.instance.RemoveFromActiveSpells("Collector's Drink");
+        }
     }
     public void RemoveFromInventory(ItemObject newItem)
     {
@@ -113,12 +122,36 @@ public abstract class SpellCaster
         if(fCurrentHealth > 0)
             fCurrentHealth -= dmg;
         if (fCurrentHealth <= 0)
+        {
             fCurrentHealth = 0;
+            NetworkManager.s_Singleton.SpellcasterDied(this.spellcasterID, this.classType);
+        }
     }
 
     public void HealDamage(int heal)
     {
+        SoundManager.instance.PlaySingle(SoundManager.heal);
         fCurrentHealth += heal;
+        if(fCurrentHealth > fMaxHealth)
+        {
+            fCurrentHealth = fMaxHealth;
+        }
+    }
+
+    public void HealPercentDamage(float percent)
+    {
+        fCurrentHealth = fCurrentHealth + (fMaxHealth * percent);
+        if(fCurrentHealth > fMaxHealth)
+        {
+            fCurrentHealth = fMaxHealth;
+        }
+    }
+
+    public void HealPercentMissingHP(float percent)
+    {
+        float missingHP = fMaxHealth - fCurrentHealth;
+        float hpHealed = percent * missingHP;
+        fCurrentHealth += hpHealed;
         if(fCurrentHealth > fMaxHealth)
         {
             fCurrentHealth = fMaxHealth;
@@ -127,84 +160,47 @@ public abstract class SpellCaster
 
     public void CollectMana(int manaCount)
     {
-        Debug.Log("mana count initial: " + manaCount);
-        manaCount = SpellTracker.instance.CheckManaSpell(manaCount);
-        Debug.Log("mana count after: " + manaCount);
-        QuestTracker.instance.CheckManaQuest(manaCount);
-        iMana += manaCount;
+        if(!cometConsequence)
+        {
+            iMana += manaCount;
+            QuestTracker.instance.TrackManaQuest(manaCount);
+        }
     }
 
     public int CollectManaEndTurn()
     {
-        int manaCount = (int)UnityEngine.Random.Range(30, 100);
-        Debug.Log("initial mana count: " + manaCount);
+        SoundManager.instance.PlaySingle(SoundManager.manaCollect);
+
+        int manaCount = UnityEngine.Random.Range(100, 500);
         manaCount = (int)(manaCount * dManaMultiplier);
-        Debug.Log("mana multiplier: " + dManaMultiplier);
-        Debug.Log("final mana count: " + manaCount);
         iMana += manaCount;
+
+        /// reset mana multiplier
         dManaMultiplier = 1;
+
+        QuestTracker.instance.TrackManaQuest(manaCount);
         return manaCount;
     }
 
     public void LoseMana(int manaCount)
     {
-        this.iMana -= manaCount;
+        iMana -= manaCount;
+        if (iMana <= 0)
+            iMana = 0;
     }
 
-    public void CollectGlyph(string glyphName)
-    {
-        int glyphCount = SpellTracker.instance.CheckGlyphSpell(glyphName);
-        this.glyphs[glyphName] += glyphCount;
-    }
-
-    // fix this up after removing from eventhandler and enemy drop
-    public string CollectRandomGlyph()
-    {
-        List<string> glyphList = new List<string>(this.glyphs.Keys);
-        int random = (int)UnityEngine.Random.Range(0, glyphList.Count + 1);
-
-        string randomKey = glyphList[random];
-
-        // if arcana harvest is active
-        if (this.classType.Equals("Arcanist") && this.activeSpells.Contains(this.chapter.spellsAllowed[1]))
-        {
-            this.glyphs[randomKey] += 2;
-            PanelHolder.instance.displayEvent("Arcana Harvest", "You found 2 " + randomKey + ".");
-        }
-        else
-        {
-            this.glyphs[randomKey] += 1;
-            PanelHolder.instance.displayEvent("You found a Glyph!", "You found a " + randomKey + ".");
-        }
-        return randomKey;
-    }
-
-    public string LoseRandomGlyph()
-    {
-        List<string> glyphList = new List<string>(this.glyphs.Keys);
-        int random = (int)UnityEngine.Random.Range(0, glyphList.Count);
-
-        string randomKey = glyphList[random];
-
-        if(this.glyphs[randomKey] > 0)
-            this.glyphs[randomKey] -= 1;
-
-        return randomKey;
-    }
-
-    // method that adds spell to player's chapter
+    // function that adds spell to player's chapter
     public bool CollectSpell(Spell spell)
     {
         bool spellCollected = false;
-        GameObject g = GameObject.FindGameObjectWithTag("SpellManager");
 
         // only add the spell if the player is the spell's class
-        if (spell.sSpellClass == this.classType)
+        if (spell.sSpellClass == classType)
         {
             // if chapter.spellsCollected already contains spell, give error notice
-            if (chapter.spellsCollected.Contains(spell))
+            if (chapter.spellsCollected.Any(x => x.sSpellName.Equals(spell.sSpellName)))
             {
-                PanelHolder.instance.displayNotify(spell.sSpellName, "You already have " + spell.sSpellName + ".", "OK");
+                PanelHolder.instance.displayNotify("Duplicate", "You already have " + spell.sSpellName + ".", "OK");
             }
             else
             {
@@ -215,15 +211,22 @@ public abstract class SpellCaster
                 savePlayerData(this);
 
                 // tell player that the spell is collected
-                //g.GetComponent<SpellCreateHandler>().inventoryText.text = "You unlocked " + spell.sSpellName + "!";
-                PanelHolder.instance.displayEvent(spell.sSpellName, "You unlocked " + spell.sSpellName + "!");
+                PanelHolder.instance.displayNotify("Spell Collected!", "You unlocked " + spell.sSpellName + "!", "OK");
 
-                Debug.Log("You have " + chapter.spellsCollected.Count + " spells collected.");
+                QuestTracker.instance.TrackSpellQuest(spell);
 
                 spellCollected = true;
             }
         }
         return spellCollected;
+    }
+
+    public bool PlayMainBGM()
+    {
+        if (movedLastTurn && !scannedSpaceLastTurn && !combatStarted)
+            return true;
+        else
+            return false;
     }
 
     public int NumOfTurnsSoFar
@@ -241,8 +244,6 @@ public abstract class SpellCaster
         bf.Serialize(file, pd);
         file.Close();
     }
-
-    
 
     public static SpellCaster loadPlayerData()
     {
@@ -273,7 +274,7 @@ public abstract class SpellCaster
                     spellcaster = new Chronomancer();
                     break;
                 case 4:
-                    spellcaster = new Trickster();
+                    spellcaster = new Illusionist();
                     break;
                 default:
                     spellcaster = new Summoner();

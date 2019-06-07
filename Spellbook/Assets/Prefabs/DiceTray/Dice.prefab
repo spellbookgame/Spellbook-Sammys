@@ -92,7 +92,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dicePips: {fileID: 7355060483206700590}
-  diceCube: {fileID: 7355060482086164518}
+  diceCube: {fileID: 0}
   pipsNine: {fileID: 21300000, guid: c9b89b867be134d389528f9456314508, type: 3}
   pipsEight: {fileID: 21300000, guid: cbd81c580c5ba45fdba6f41614ba7db0, type: 3}
   pipsSeven: {fileID: 21300000, guid: b267ea5f7239940b7bbbcb6b8427f000, type: 3}
@@ -103,6 +103,7 @@ MonoBehaviour:
   pipsTwo: {fileID: 21300000, guid: 1767481ed19de44b79499ff89dde4ab8, type: 3}
   pipsOne: {fileID: 21300000, guid: 32adb021d37b941cc9370ed322a37e99, type: 3}
   maxRoll: 6
+  rollEnabled: 0
 --- !u!114 &7355060482086164523
 MonoBehaviour:
   m_ObjectHideFlags: 0

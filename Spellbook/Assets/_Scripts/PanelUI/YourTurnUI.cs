@@ -23,15 +23,16 @@ public class YourTurnUI : MonoBehaviour
 
     public void Display()
     {
+        Player localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
+
+        SoundManager.instance.PlaySingle(SoundManager.yourturn);
+        // set bgm volume back up if it's player's turn
+        SoundManager.instance.musicSource.volume = 1f;
+        // check to see if we should play main BGM
+        if (localPlayer.Spellcaster.PlayMainBGM())
+            SoundManager.instance.PlayGameBCM(SoundManager.gameBCG);
+
         gameObject.SetActive(true);
-        GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().Spellcaster.scannedSpaceThisTurn = false;
-
-        // for start of game
-        if (GameObject.Find("Proclamation Panel"))
-        {
-            DisablePanel();
-        }  
-
         if (!PanelHolder.panelQueue.Peek().Equals(panelID))
         {
             DisablePanel();
@@ -41,13 +42,19 @@ public class YourTurnUI : MonoBehaviour
         {
             SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
             gameObject.SetActive(false);
-            
-            if(!SceneManager.GetActiveScene().name.Equals("MainPlayerScene"))
+
+            // enable player's dice button
+            UICanvasHandler.instance.EnableDiceButton(true);
+
+        // bring player to main player scene
+        if (!SceneManager.GetActiveScene().name.Equals("MainPlayerScene") && !SceneManager.GetActiveScene().name.Equals("CombatSceneV2"))
             {
                 SceneManager.LoadScene("MainPlayerScene");
+                UICanvasHandler.instance.ActivateSpellbookButtons(false);
             }
 
-            PanelHolder.panelQueue.Dequeue();
+            if (PanelHolder.panelQueue.Count > 0)
+                PanelHolder.panelQueue.Dequeue();
             PanelHolder.instance.CheckPanelQueue();
         });
     }

@@ -8,24 +8,42 @@ public class Transcribe : Spell
     public Transcribe()
     {
         iTier = 1;
-        iManaCost = 1500;
-        iCoolDown = 3;
+        iManaCost = 2800;
+
+        combatSpell = false;
 
         sSpellName = "Transcribe";
         sSpellClass = "Arcanist";
-        sSpellInfo = "Upgrade a glyph into its next highest tier. Can cast on an ally.";
+        sSpellInfo = "Discard your rune hand and draw new ones from the top tier deck.";
 
-        requiredGlyphs.Add("Alchemy B Glyph", 1);
-        requiredGlyphs.Add("Arcane A Glyph", 1);
-        requiredGlyphs.Add("Illusion B Glyph", 1);
+        requiredRunes.Add("Arcanist A Rune", 1);
+        requiredRunes.Add("Illusionist A Rune", 1);
+        requiredRunes.Add("Illusionist B Rune", 1);
     }
 
-    // SpellCast is called from SpellCastHandler.cs
     public override void SpellCast(SpellCaster player)
     {
-        // subtract mana 
-        player.iMana -= iManaCost;
+        // cast spell for free if Umbra's Eclipse is active
+        if (SpellTracker.instance.CheckUmbra())
+        {
+            PanelHolder.instance.displayNotify(sSpellName, "Discard your rune hand and draw new ones from the top tier deck.", "MainPlayerScene");
 
-        PanelHolder.instance.displayNotify("You cast " + sSpellName, "", "OK");
+            player.numSpellsCastThisTurn++;
+            SpellTracker.instance.lastSpellCasted = this;
+        }
+        else if (player.iMana < iManaCost)
+        {
+            PanelHolder.instance.displayNotify("Not enough Mana!", "You do not have enough mana to cast this spell.", "OK");
+        }
+        else
+        {
+            // subtract mana 
+            player.iMana -= iManaCost;
+
+            PanelHolder.instance.displayNotify(sSpellName, "Discard your rune hand and draw new ones from the top tier deck.", "MainPlayerScene");
+
+            player.numSpellsCastThisTurn++;
+            SpellTracker.instance.lastSpellCasted = this;
+        }
     }
 }

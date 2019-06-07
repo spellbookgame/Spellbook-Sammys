@@ -9,7 +9,6 @@ public class BoardScanUI : MonoBehaviour
     [SerializeField] private Text titleText;
     [SerializeField] private Text infoText;
     [SerializeField] private Button singleButton;
-    [SerializeField] private GameObject ribbon;
 
     public bool panelActive = false;
     public string panelID = "boardscan";
@@ -23,26 +22,18 @@ public class BoardScanUI : MonoBehaviour
         gameObject.SetActive(true);
     }
 
-    public void DisplayScanEvent(string title, string info, Sprite sprite)
+    public void DisplayScanEvent(string title, string info, Sprite sprite, string scene)
     {
         titleText.text = title;
         infoText.text = info;
         gameObject.transform.Find("Image").GetComponent<Image>().sprite = sprite;
 
-        // if current scene is Vuforia, change everything to image
-        if(SceneManager.GetActiveScene().name.Equals("VuforiaScene"))
-        {
-            gameObject.GetComponent<SpriteRenderer>().enabled = false;
-            gameObject.GetComponent<Image>().enabled = true;
+        singleButton.onClick.RemoveAllListeners();
 
-            foreach (Transform t in ribbon.transform)
-            {
-                t.gameObject.GetComponent<SpriteRenderer>().enabled = false;
-                t.gameObject.GetComponent<Image>().enabled = true;
-            }
-        }
-
-        singleButton.onClick.AddListener((eventClick));
+        if (scene.Equals("OK"))
+            singleButton.onClick.AddListener((okClick));
+        else
+            singleButton.onClick.AddListener(() => sceneClick(scene));
 
         gameObject.SetActive(true);
 
@@ -51,28 +42,24 @@ public class BoardScanUI : MonoBehaviour
             DisablePanel();
         }
     }
-    private void eventClick()
+    private void okClick()
     {
         SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
         gameObject.SetActive(false);
 
-        Debug.Log("On click");
-        //GameObject player = GameObject.Find("LocalPlayer(Clone)");
-        GameObject player = GameObject.FindGameObjectWithTag("LocalPlayer");
+        if(PanelHolder.panelQueue.Count > 0)
+            PanelHolder.panelQueue.Dequeue();
+        PanelHolder.instance.CheckPanelQueue();
+    }
+    private void sceneClick(string scene)
+    {
+        SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+        gameObject.SetActive(false);
+        SceneManager.LoadScene(scene);
+        UICanvasHandler.instance.ActivateSpellbookButtons(false);
 
-        bool endSuccessful = player.GetComponent<Player>().onEndTurnClick();
-        if (endSuccessful)
-        {
-            player.GetComponent<Player>().Spellcaster.hasAttacked = false;
-            player.GetComponent<Player>().Spellcaster.turnJustEnded = true;
-            Scene m_Scene = SceneManager.GetActiveScene();
-            if (m_Scene.name != "MainPlayerScene")
-            {
-                SceneManager.LoadScene("MainPlayerScene");
-            }
-
-        }
-        PanelHolder.panelQueue.Dequeue();
+        if (PanelHolder.panelQueue.Count > 0)
+            PanelHolder.panelQueue.Dequeue();
         PanelHolder.instance.CheckPanelQueue();
     }
 }

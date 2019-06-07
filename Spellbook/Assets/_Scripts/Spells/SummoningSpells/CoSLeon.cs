@@ -1,34 +1,79 @@
-﻿using System.Collections;
+﻿using Bolt.Samples.Photon.Lobby;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 // spell for Summoner class
-public class CoSLeon : Spell
+public class CoSLeon : Spell, IAllyCastable
 {
     public CoSLeon()
     {
-        iTier = 3;
-        iManaCost = 1800;
-        iCoolDown = 3;
+        iTier = 1;
+        iManaCost = 2200;
 
-        sSpellName = "Call of the Sun - Leon's Shining";
+        combatSpell = false;
+
+        sSpellName = "Leon's Shining";
         sSpellClass = "Summoner";
-        sSpellInfo = "You and your allies in the same town as you will be able to cast your next spell for free.";
+        sSpellInfo = "All allies gain a charge on each of their combat spells.";
 
-        requiredGlyphs.Add("Elemental A Glyph", 1);
-        requiredGlyphs.Add("Summoning A Glyph", 1);
-        requiredGlyphs.Add("Time A Glyph", 1);
+        requiredRunes.Add("Elementalist A Rune", 1);
+        requiredRunes.Add("Summoner A Rune", 1);
+        requiredRunes.Add("Chronomancer A Rune", 1);
     }
 
+    //Cast on everyone, even yourself.
     public override void SpellCast(SpellCaster player)
     {
-        // subtract mana and glyph costs
-        player.iMana -= iManaCost;
-        foreach (KeyValuePair<string, int> kvp in requiredGlyphs)
-            player.glyphs[kvp.Key] -= 1;
+        if (SpellTracker.instance.CheckUmbra())
+        {
+            //foreach(Spell s in player.chapter.spellsCollected)
+            //{
+            //    if (s.combatSpell)
+            //        ++s.iCharges;
+            //}
 
-        PanelHolder.instance.displayNotify("You cast " + sSpellName, "", "OK");
-        player.activeSpells.Add(this);
+            //PanelHolder.instance.displayNotify("Leon's Shining", "You gained a charge in all your combat spells!", "MainPlayerScene");
+            NetworkManager.s_Singleton.CastOnAlly(player.spellcasterID, 8, sSpellName);
+            player.numSpellsCastThisTurn++;
+            SpellTracker.instance.lastSpellCasted = this;
+        }
+        else if (player.iMana < iManaCost)
+        {
+            PanelHolder.instance.displayNotify("Not enough Mana!", "You do not have enough mana to cast this spell.", "OK");
+        }
+        else
+        {
+            // subtract mana
+            player.iMana -= iManaCost;
+
+            //foreach (Spell s in player.chapter.spellsCollected)
+            //{
+            //    if (s.combatSpell)
+            //        ++s.iCharges;
+            //}
+
+            //PanelHolder.instance.displayNotify("Leon's Shining", "You gained a charge in all your combat spells!", "MainPlayerScene");
+            NetworkManager.s_Singleton.CastOnAlly(player.spellcasterID, 8, sSpellName);
+            player.numSpellsCastThisTurn++;
+            SpellTracker.instance.lastSpellCasted = this;
+        }
+    }
+
+    public void RecieveCastFromAlly(SpellCaster player)
+    {
+        foreach (Spell s in player.chapter.spellsCollected)
+        {
+            if (s.combatSpell)
+                ++s.iCharges;
+        }
+
+        PanelHolder.instance.displaySpellCastNotif("Leon's Shining", "You gained a charge in all your combat spells!", "MainPlayerScene");
+    }
+
+    public void SpellcastPhase2(int sID, SpellCaster player)
+    {
+        throw new System.NotImplementedException();
     }
 }

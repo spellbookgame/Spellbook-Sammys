@@ -1,38 +1,39 @@
-﻿using System;
+﻿using Bolt.Samples.Photon.Lobby;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-// spell for Elementalist class
-public class NaturalDisaster : Spell
+public class NaturalDisaster : Spell, ICombatSpell
 {
     public NaturalDisaster()
     {
         iTier = 1;
-        iManaCost = 3000;
-        iCoolDown = 3;
+        iCharges = 0;
+        iManaCost = 3300;
+
+        combatSpell = true;
 
         sSpellName = "Natural Disaster";
         sSpellClass = "Elementalist";
-        sSpellInfo = "If the enemy has less than half health left, instantly kill it. However, no loot will be earned from this battle.";
+        sSpellInfo = "Remove 50% of the enemy's current health. This effect cannot be buffed.";
 
-        requiredGlyphs.Add("Elemental A Glyph", 1);
-        requiredGlyphs.Add("Elemental B Glyph", 1);
-        requiredGlyphs.Add("Alchemy B Glyph", 1);
+        requiredRunes.Add("Elementalist A Rune", 1);
+        requiredRunes.Add("Elementalist B Rune", 1);
+        requiredRunes.Add("Alchemist B Rune", 1);
+
+        ColorUtility.TryParseHtmlString("#D19C1D", out colorPrimary);
+        ColorUtility.TryParseHtmlString("#D7F75B", out colorSecondary);
+        ColorUtility.TryParseHtmlString("#9BE564", out colorTertiary);
+    }
+
+    public void CombatCast(SpellCaster player, float orbPercentage)
+    {
+        // int enemyHealth = enemyCurrentHealth / 2;
+        NetworkManager.s_Singleton.DealPercentDmgToBoss(0.5f);
     }
 
     public override void SpellCast(SpellCaster player)
     {
-        Enemy enemy = GameObject.FindGameObjectWithTag("Enemy").GetComponent<Enemy>();
-        
-        // subtract mana and glyph costs
-        player.iMana -= iManaCost;
-            
-        // TODO: destroy enemy without giving player loot
-        if(enemy.fCurrentHealth < enemy.fMaxHealth / 2)
-        {
-            PanelHolder.instance.displayNotify(sSpellName, "You destroyed the enemy!", "OK");
-            enemy.EnemyDefeated();
-        }
+        //Nothing.
     }
+    
 }

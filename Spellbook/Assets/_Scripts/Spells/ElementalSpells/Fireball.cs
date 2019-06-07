@@ -1,33 +1,61 @@
-﻿using System.Collections.Generic;
+﻿using Bolt.Samples.Photon.Lobby;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-// spell for Elementalist class
-public class Fireball : Spell
+// spell for Elemental class
+public class Fireball : Spell, ICombatSpell
 {
     public Fireball()
     {
         iTier = 3;
-        iManaCost = 300;
-        iCoolDown = 0;
+        iCharges = 0;
+        iManaCost = 600;
+
+        combatSpell = true;
+        damageSpell = true;
 
         sSpellName = "Fireball";
         sSpellClass = "Elementalist";
         sSpellInfo = "Cast 2 fireballs that deal 1-6 damage each.";
 
-        requiredGlyphs.Add("Elemental D Glyph", 1);
+        requiredRunes.Add("Elementalist D Rune", 1);
+
+        ColorUtility.TryParseHtmlString("#F74A4A", out colorPrimary);
+        ColorUtility.TryParseHtmlString("#FC923C", out colorSecondary);
+        ColorUtility.TryParseHtmlString("#FFE43A", out colorTertiary);
+    }
+
+    public void CombatCast(SpellCaster player, float orbPercentage)
+    {
+        orbPercentage = orbPercentage * 100f;
+        int damage1, damage2;
+        if (orbPercentage <= 25)
+        {
+            damage1 = Random.Range(1, 4);
+            damage2 = Random.Range(1, 4);
+        }
+        else if (orbPercentage > 25 && orbPercentage <= 50)
+        {
+            damage1 = Random.Range(2, 5);
+            damage2 = Random.Range(2, 5);
+        }
+        else if (orbPercentage > 50 && orbPercentage <= 75)
+        {
+            damage1 = Random.Range(3, 6);
+            damage2 = Random.Range(3, 6);
+        }
+        else
+        {
+            damage1 = Random.Range(4, 7);
+            damage2 = Random.Range(4, 7);
+        }
+        int totalDamage = damage1 + damage2;
+        damageDealt = totalDamage;
+        NetworkManager.s_Singleton.DealDmgToBoss(totalDamage);
     }
 
     public override void SpellCast(SpellCaster player)
     {
-        Enemy enemy = GameObject.FindGameObjectWithTag("Enemy").GetComponent<Enemy>();
-        
-        // subtract mana and glyph costs
-        player.iMana -= iManaCost;
-            
-
-        int damage = Random.Range(2, 12);
-        enemy.HitEnemy(damage);
-        PanelHolder.instance.displayNotify("You cast " + sSpellName, "It did " + damage + " damage!", "OK");
+        // nothing
     }
 }

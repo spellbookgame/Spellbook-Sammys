@@ -2,6 +2,7 @@
 using UnityEditor;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 /// <summary>
 /// Controller for the MagicDice prefab.
@@ -14,7 +15,7 @@ public class DiceRoll : MonoBehaviour
 
     // Public fields
     public Image dicePips;
-    public Image diceCube;
+    public SpriteRenderer diceCube;
     public Sprite pipsNine;
     public Sprite pipsEight;
     public Sprite pipsSeven;
@@ -39,16 +40,14 @@ public class DiceRoll : MonoBehaviour
     private Sprite[] _pipsArray;
     private int _rollAdd;
     private float _rollMult;
+    private int _rollMinimum;
+    private int _rollMaximum;
 
-    public int _rollMinimum;
-    public int _rollMaximum;
-
-    // Grace Ko's additions: implementing spell/quest tracking and scanner
+    // Grace Ko's additions: implementing spell/quest tracking
     private Button rollButton;
     private GameObject diceTrayPanel;
     public bool rollEnabled;
 
-    private int diceRoll;
     private int pressedNum;
     Player localPlayer;
 
@@ -69,45 +68,66 @@ public class DiceRoll : MonoBehaviour
 
     public void Roll()
     {
-        // only execute if roll is enabled
+        // only execute if roll is enabled (DiceSlotHandler.cs)
         if(rollEnabled)
         {
-            // when button is clicked for first time, roll and change button to Scan
-            if (pressedNum == 0)
+            SoundManager.instance.PlaySingle(SoundManager.diceroll);
+
+            ++pressedNum;
+
+            // after dice are rolled, disable roll button and lock dice into position
+            diceTrayPanel.GetComponent<DiceUIHandler>().rollButton.interactable = false;
+            localPlayer.Spellcaster.hasRolled = true;
+
+            // disable drag on ALL dice once they're rolled
+            gameObject.GetComponent<DiceDragHandler>().enabled = false;
+            foreach (Transform t in GameObject.Find("Scroll Content").transform)
             {
-                SoundManager.instance.PlaySingle(SoundManager.diceroll);
-
-                // wiggle the dice
-                gameObject.GetComponent<WiggleElement>().Wiggle();
-
-                LastRoll = Clamp((int)(_rollMult * Random.Range(_rollMinimum, _rollMaximum + 1) + _rollAdd), _rollMinimum, _rollMaximum);
-                SetDefaults();
-
-                // if Potion of Luck was cast, remove it after rolling dice
-                SpellTracker.instance.PotionofLuck();
-
-                CheckMoveRoll(LastRoll);
-                CheckManaRoll(LastRoll);
-                //QuestTracker.instance.CheckMoveQuest(diceRoll);
-
-                // disable drag on ALL dice once they're rolled
-                gameObject.GetComponent<DiceDragHandler>().enabled = false;
-                foreach(Transform t in GameObject.Find("Scroll Content").transform)
+                if (t.childCount > 0)
                 {
-                    if(t.childCount > 0)
-                    {
-                        t.GetChild(0).GetComponent<DiceDragHandler>().enabled = false;
-                    }
+                    t.GetChild(0).GetComponent<DiceDragHandler>().enabled = false;
                 }
+            }
 
-                rollButton.GetComponentInChildren<Text>().text = "Scan!";
-                ++pressedNum;
-            }
-            else if (pressedNum >= 1)
+            // wiggle the dice
+            gameObject.GetComponent<WiggleElement>().Wiggle();
+
+            // random number
+            LastRoll = Clamp((int)(_rollMult * Random.Range(_rollMinimum, _rollMaximum + 1) + _rollAdd), _rollMinimum, _rollMaximum);
+            SetDefaults();
+
+            // if Echo is active, player may reroll one more time
+            if (SpellTracker.instance.SpellIsActive(new Echo()))
             {
-                diceTrayPanel.SetActive(false);
-                SceneManager.LoadScene("VuforiaScene");
+                if (pressedNum <= 1)
+                {
+                    diceTrayPanel.GetComponent<DiceUIHandler>().rollButtonEnable = true;
+                }
+                else if(pressedNum > 1)
+                {
+                    // reset spaces moved to be new roll
+                    UICanvasHandler.instance.spacesMoved = 0;
+
+                    diceTrayPanel.GetComponent<DiceUIHandler>().rollButtonEnable = false;
+                    SpellTracker.instance.RemoveFromActiveSpells("Echo");
+                }
             }
+
+            // Remove active spells after rolling dice
+            SpellTracker.instance.RemoveFromActiveSpells("Potion of Luck");
+            SpellTracker.instance.RemoveFromActiveSpells("Tailwind");
+            SpellTracker.instance.RemoveFromActiveSpells("Allegro");
+            SpellTracker.instance.RemoveFromActiveSpells("Growth");
+
+            // check roll values AFTER all spells are accounted for
+            CheckMoveRoll(LastRoll);
+            CheckManaRoll(LastRoll);
+            CheckHealRoll(LastRoll);
+
+            // remove all temporary dice from player's inventory
+            localPlayer.Spellcaster.tempDice.Clear();
+
+            QuestTracker.instance.TrackMoveQuest(LastRoll);
         }
     }
 
@@ -117,7 +137,10 @@ public class DiceRoll : MonoBehaviour
         if(transform.parent.name.Equals("slot1"))
         {
             localPlayer.Spellcaster.spacesTraveled += rollValue;
+            UICanvasHandler.instance.spacesMoved += rollValue;
         }
+
+        UICanvasHandler.instance.ShowMovePanel();
     }
 
     // add a percentage to mana multiplier for earning mana at the end of turn
@@ -125,15 +148,22 @@ public class DiceRoll : MonoBehaviour
     {
         if(transform.parent.name.Equals("slot2"))
         {
-            decimal m = (decimal)0.05 * rollValue;
+            decimal m = (decimal)0.13 * rollValue;
             Debug.Log("Roll: " + rollValue + "\n" + "Multiplier: " + m);
             localPlayer.Spellcaster.dManaMultiplier += m;
         }
     }
 
-    private void CheckHealRoll()
+    private void CheckHealRoll(int rollValue)
     {
-        // do something
+        if(transform.parent.name.Equals("slot3"))
+        {
+            // heal by 4 if player rolls 4 or higher
+            if(rollValue >= 4)
+            {
+                localPlayer.Spellcaster.HealDamage(4);
+            }
+        }
     }
 
     // Internal Methods

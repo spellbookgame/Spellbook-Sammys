@@ -1,20 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 
 public abstract class Quest
 {
     public string questName;
     public string questType;
-    public string questDescription;
+    public string questTask;
+    public string questFlavor;
+    public string questHint;
 
     public int startTurn;
-    public int turnLimit;
+    public int expiration;
 
     public bool questCompleted;
 
-    // <reward type, reward names (stored in list)>
-    public Dictionary<string, List<string>> rewards;
+    // <reward type, reward names>
+    public Dictionary<string, string> rewards;
 
     // tracking variables for mana quests
     public int manaTracker;
@@ -27,16 +27,17 @@ public abstract class Quest
 
     // tracking variables for errand quests (uses spaceName as well)
     public ItemObject item;
+    public string itemName;
 
     // tracking variables for movement quests
     public int spacesTraveled;
 
     // tracking variables for spell quests
-    public List<Spell> spellsCast;
+    public int spellTier;
 
     public Quest()
     {
-        rewards = new Dictionary<string, List<string>>();
+        rewards = new Dictionary<string, string>();
     }
 
     public virtual string DisplayReward()

@@ -10,10 +10,12 @@ using UnityEngine;
 /// Written by Malcolm Riley
 /// CMPS 17X, Spring 2019
 /// </summary>
-[RequireComponent(typeof(SpriteRenderer))]
 public abstract class UIDissolveElement<T> : MonoBehaviour {
 
 	// Public Fields
+	public bool reverse = false;
+	public bool destroyWhenDone = true;
+	[Range(0.0F, 1.0F)]
 	public float progress = 0.0F;
 	public float speed = 0.01F;
 	public Material destructionMaterial;
@@ -24,8 +26,7 @@ public abstract class UIDissolveElement<T> : MonoBehaviour {
 	private bool isDestroying = false;
 	private Material material;
 
-	// Start is called before the first frame update
-	void Start() {
+	public void Start() {
 
 	}
 
@@ -33,6 +34,8 @@ public abstract class UIDissolveElement<T> : MonoBehaviour {
 	/// Call this method to begin the dissolution process.
 	/// </summary>
 	public void Dissolve() {
+        progress = 0.0F;
+
 		isDestroying = true;
 		material = Instantiate(destructionMaterial);
 		SetMaterial(material);
@@ -41,13 +44,13 @@ public abstract class UIDissolveElement<T> : MonoBehaviour {
 		}
 	}
 
-	void Update() {
+	public void Update() {
 		if (isDestroying) {
 			progress += speed;
-			if (progress > 1.0F) {
+			if (progress > 1.0F && destroyWhenDone) {
 				Destroy(gameObject);
 			}
-			material.SetFloat("_Progress", progress);
+			material.SetFloat("_Progress", Mathf.Clamp01(reverse ? progress : 1 - progress));
 		}
 	}
 

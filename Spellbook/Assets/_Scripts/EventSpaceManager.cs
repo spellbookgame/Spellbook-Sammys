@@ -93,7 +93,7 @@ public class EventSpaceManager : MonoBehaviour
                 //Chronomancer
                 break;
             case 4:
-                //Trickster
+                //Illusionist
                 break;
             case 5:
                 //Summoner
@@ -112,7 +112,7 @@ public class EventSpaceManager : MonoBehaviour
         Debug.Log("AddMana");
         int manaCount = (int)Random.Range(100, 1000);
         spellCaster.CollectMana(manaCount);
-        PanelHolder.instance.displayEvent("Mana Find", "You found " + manaCount.ToString() + " mana!");
+        PanelHolder.instance.displayNotify("Mana Find", "You found " + manaCount.ToString() + " mana!", "OK");
     }
 
     private void eventDeleteMana()
@@ -120,7 +120,7 @@ public class EventSpaceManager : MonoBehaviour
         Debug.Log("LoseMana");
         int manaCount = (int)Random.Range(100, 1000);
         spellCaster.LoseMana((int)Random.Range(100, 500));
-        PanelHolder.instance.displayEvent("Mana Loss...", "You lost " + manaCount.ToString() + " mana...");
+        PanelHolder.instance.displayNotify("Mana Loss...", "You lost " + manaCount.ToString() + " mana...", "OK");
     }
 
     private void eventLoseHealth()
@@ -128,7 +128,7 @@ public class EventSpaceManager : MonoBehaviour
         //Need to make TakeDamage public in SpellCaster.cs
         int damage = (int)Random.Range(1f, 5f);
         spellCaster.TakeDamage(damage);
-        PanelHolder.instance.displayEvent("Clumsy Traveler", "You tripped over a rock and lost " + damage.ToString() + " health.");
+        PanelHolder.instance.displayNotify("Clumsy Traveler", "You tripped over a rock and lost " + damage.ToString() + " health.", "OK");
     }
 
     private void eventGainHealth()
@@ -137,35 +137,33 @@ public class EventSpaceManager : MonoBehaviour
         int health = (int)Random.Range(1f, 3f);
         //Need to make HealDamage public in SpellCaster.cs
         spellCaster.HealDamage(health);
-        PanelHolder.instance.displayEvent("Restoring Health", "After encountering a mystical sorcerer, you regained " + health.ToString() + " health!");
+        PanelHolder.instance.displayNotify("Restoring Health", "After encountering a mystical sorcerer, you regained " + health.ToString() + " health!", "OK");
     }
 
     private void eventUnluckyDice()
     {
         Debug.Log("UnluckyDice");
         //Dice roll gets nerfed.
-        PanelHolder.instance.displayEvent("Curses", "You got hit with the curse Unlucky Dice! You can only roll 1-3 next turn.");
+        PanelHolder.instance.displayNotify("Curses", "You got hit with the curse Unlucky Dice! You can only roll 1-3 next turn.", "OK");
     }
 
     private void eventLuckyDice()
     {
         Debug.Log("LuckyDice");
         //Dice roll gets buffed.
-        PanelHolder.instance.displayEvent("Luck!", "You found some lucky dice! You will roll a 5 or 6 next turn.");
+        PanelHolder.instance.displayNotify("Luck!", "You found some lucky dice! You will roll a 5 or 6 next turn.", "OK");
     }
 
     private void eventLoseGlyphs()
     {
         Debug.Log("LoseGlyphs");
-        string glyphLost = spellCaster.LoseRandomGlyph();
-        PanelHolder.instance.displayEvent("Darned Eagle...", "An eagle swooped by and stole your " + glyphLost + "!");
+        PanelHolder.instance.displayNotify("Darned Eagle...", "An eagle swooped by and stole your !", "OK");
     }
 
     private void eventGainGlyph()
     {
         Debug.Log("GainGlyphs");
-        string glyph = spellCaster.CollectRandomGlyph();
-        PanelHolder.instance.displayEvent("Kind Stranger", "A mysterious figure came and gave you a " + glyph + ".");
+        PanelHolder.instance.displayNotify("Kind Stranger", "A mysterious figure came and gave you a .", "OK");
     }
     #endregion
     /// 

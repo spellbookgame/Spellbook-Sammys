@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using Vuforia;
 
 // for scanning board spaces
@@ -16,12 +17,10 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
     private bool CR_running;
 
     Player localPlayer;
-    List<ItemObject> itemList;
     
     void Start()
     {
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
-        itemList = GameObject.Find("ItemList").GetComponent<ItemList>().listOfItems;
 
         mTrackableBehaviour = GetComponent<TrackableBehaviour>();
         if (mTrackableBehaviour)
@@ -46,7 +45,7 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
             newStatus == TrackableBehaviour.Status.EXTENDED_TRACKED)
         {
             Debug.Log("Trackable " + mTrackableBehaviour.TrackableName + " found");
-            // basically, wait 3 seconds before it'll start scanning the target
+            // basically, wait x seconds before it'll start scanning the target
             coroutineReference = StartCoroutine(ScanTime());
         }
         else if (previousStatus == TrackableBehaviour.Status.TRACKED &&
@@ -65,11 +64,19 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
     }
     protected virtual void OnTrackingFound()
     {
-
-        // in board_space_handling region
-        // only scan item if player hasn't scanned a space this turn
-        if(!localPlayer.Spellcaster.scannedSpaceThisTurn)
+        // only scan item if player hasn't scanned a space this turn, if they've moved, OR if they used a location item that teleported them
+        if ((!localPlayer.Spellcaster.scannedSpaceThisTurn && UICanvasHandler.instance.spacesMoved > 0) || localPlayer.Spellcaster.locationItemUsed)
             scanItem(mTrackableBehaviour.TrackableName);
+        else if(localPlayer.Spellcaster.scannedSpaceThisTurn)
+        {
+            SceneManager.LoadScene("MainPlayerScene");
+            PanelHolder.instance.displayNotify("Scan Error", "You already scanned a location this turn.", "OK");
+        }
+        else if(UICanvasHandler.instance.spacesMoved <= 0)
+        {
+            SceneManager.LoadScene("MainPlayerScene");
+            PanelHolder.instance.displayNotify("Scan Error", "You can't scan a location if you haven't moved.", "OK");
+        }
     }
 
     protected virtual void OnTrackingLost()
@@ -92,219 +99,126 @@ public class CustomEventHandler : MonoBehaviour, ITrackableEventHandler
     
     private void scanItem(string trackableName)
     {
-        // checking quests that require space scan
-        QuestTracker.instance.CheckSpaceQuest(trackableName);
-        QuestTracker.instance.CheckErrandQuest(trackableName);
+        SoundManager.instance.PlaySingle(SoundManager.spaceScan);
+
+        // check for crises
+        CrisisHandler.instance.CheckCrisis(localPlayer, CrisisHandler.instance.currentCrisis, trackableName);
+
+        // reset location item used bool
+        localPlayer.Spellcaster.locationItemUsed = false;
 
         // call function based on target name
         switch (trackableName)
         {
-            case "mana":
-                int m = (int)UnityEngine.Random.Range(100, 700);
-                localPlayer.Spellcaster.CollectMana(m);
-                break;
-
-            case "item":
-                // choose a random item to give to player from list
-                ItemObject item = itemList[UnityEngine.Random.Range(0, itemList.Count - 1)];
-                PanelHolder.instance.displayBoardScan("You found an Item!", "You got found a " + item.name + "!", item.sprite);
-                SoundManager.instance.PlaySingle(SoundManager.itemfound);
-                localPlayer.Spellcaster.AddToInventory(item);
-                break;
-
-            case "capital":
-                SceneManager.LoadScene("ShopScene");
-                break;
-
             #region town_spaces
             case "town_alchemist":
-                Quest alchemyManaQuest = new AlchemyManaQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
-
-                if (localPlayer.Spellcaster.activeQuests.Count > 0)
+                if(localPlayer.Spellcaster.tsunamiConsequence)
                 {
-                    foreach (Quest q in localPlayer.Spellcaster.activeQuests)
-                    {
-                        if (q.questName.Equals(alchemyManaQuest.questName))
-                        {
-                            PanelHolder.instance.displayEvent("Alchemy Town", "You're already on a quest for this town.");
-                            break;
-                        }
-                        else
-                        {
-                            PanelHolder.instance.displayQuest(alchemyManaQuest);
-                            break;
-                        }
-                    }
+                    SceneManager.LoadScene("MainPlayerScene");
+                    PanelHolder.instance.displayNotify("Tsunami", "The tsunami damaged all towns. You cannot enter.", "OK");
                 }
                 else
-                {
-                    PanelHolder.instance.displayQuest(alchemyManaQuest);
-                }
+                    SceneManager.LoadScene("AlchemyTownScene");
                 break;
 
             case "town_arcanist":
-                Quest arcaneSpellQuest = new ArcaneSpellQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
-                if (localPlayer.Spellcaster.activeQuests.Count > 0)
+                if (localPlayer.Spellcaster.tsunamiConsequence)
                 {
-                    foreach (Quest q in localPlayer.Spellcaster.activeQuests)
-                    {
-                        if (q.questName.Equals(arcaneSpellQuest.questName))
-                        {
-                            PanelHolder.instance.displayEvent("Arcane Town", "You're already on a quest for this town.");
-                            break;
-                        }
-                        else
-                        {
-                            PanelHolder.instance.displayQuest(arcaneSpellQuest);
-                            break;
-                        }
-                    }
+                    SceneManager.LoadScene("MainPlayerScene");
+                    PanelHolder.instance.displayNotify("Tsunami", "The tsunami damaged all towns. You cannot enter.", "OK");
                 }
                 else
-                {
-                    PanelHolder.instance.displayQuest(arcaneSpellQuest);
-                }
+                    SceneManager.LoadScene("ArcaneTownScene");
                 break;
 
             case "town_chronomancer":
-                Quest timeMoveQuest = new TimeMoveQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
-                if (localPlayer.Spellcaster.activeQuests.Count > 0)
+                if (localPlayer.Spellcaster.tsunamiConsequence)
                 {
-                    foreach (Quest q in localPlayer.Spellcaster.activeQuests)
-                    {
-                        if (q.questName.Equals(timeMoveQuest.questName))
-                        {
-                            PanelHolder.instance.displayEvent("Chronomancy Town", "You're already on a quest for this town.");
-                            break;
-                        }
-                        else
-                        {
-                            PanelHolder.instance.displayQuest(timeMoveQuest);
-                            break;
-                        }
-                    }
+                    SceneManager.LoadScene("MainPlayerScene");
+                    PanelHolder.instance.displayNotify("Tsunami", "The tsunami damaged all towns. You cannot enter.", "OK");
                 }
                 else
-                {
-                    PanelHolder.instance.displayQuest(timeMoveQuest);
-                }
+                    SceneManager.LoadScene("ChronomancyTownScene");
                 break;
 
             case "town_elementalist":
-                Quest elementalErrandQuest = new ElementalErrandQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
-                if (localPlayer.Spellcaster.activeQuests.Count > 0)
+                if (localPlayer.Spellcaster.tsunamiConsequence)
                 {
-                    foreach (Quest q in localPlayer.Spellcaster.activeQuests)
-                    {
-                        if (q.questName.Equals(elementalErrandQuest.questName))
-                        {
-                            PanelHolder.instance.displayEvent("Elemental Town", "You're already on a quest for this town.");
-                            break;
-                        }
-                        else
-                        {
-                            PanelHolder.instance.displayQuest(elementalErrandQuest);
-                            break;
-                        }
-                    }
+                    SceneManager.LoadScene("MainPlayerScene");
+                    PanelHolder.instance.displayNotify("Tsunami Consequence", "The tsunami damaged all towns. You cannot enter.", "OK");
                 }
                 else
-                {
-                    PanelHolder.instance.displayQuest(elementalErrandQuest);
-                }
+                    SceneManager.LoadScene("ElementalTownScene");
                 break;
 
             case "town_illusionist":
-                Quest illusionSpaceQuest = new IllusionSpaceQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
-                if (localPlayer.Spellcaster.activeQuests.Count > 0)
+                if (localPlayer.Spellcaster.tsunamiConsequence)
                 {
-                    foreach (Quest q in localPlayer.Spellcaster.activeQuests)
-                    {
-                        if (q.questName.Equals(illusionSpaceQuest.questName))
-                        {
-                            PanelHolder.instance.displayEvent("Trickster Town", "You're already on a quest for this town.");
-                            break;
-                        }
-                        else
-                        {
-                            PanelHolder.instance.displayQuest(illusionSpaceQuest);
-                            break;
-                        }
-                    }
+                    SceneManager.LoadScene("MainPlayerScene");
+                    PanelHolder.instance.displayNotify("Tsunami", "The tsunami damaged all towns. You cannot enter.", "OK");
                 }
                 else
-                {
-                    PanelHolder.instance.displayQuest(illusionSpaceQuest);
-                }
+                    SceneManager.LoadScene("IllusionTownScene");
                 break;
 
             case "town_summoner":
-                Quest summonManaQuest = new SummoningManaQuest(localPlayer.Spellcaster.NumOfTurnsSoFar);
-                if (localPlayer.Spellcaster.activeQuests.Count > 0)
+                if (localPlayer.Spellcaster.tsunamiConsequence)
                 {
-                    foreach (Quest q in localPlayer.Spellcaster.activeQuests)
-                    {
-                        if (q.questName.Equals(summonManaQuest.questName))
-                        {
-                            PanelHolder.instance.displayEvent("Summoner Town", "You're already on a quest for this town.");
-                            break;
-                        }
-                        else
-                        {
-                            PanelHolder.instance.displayQuest(summonManaQuest);
-                            break;
-                        }
-                    }
+                    SceneManager.LoadScene("MainPlayerScene");
+                    PanelHolder.instance.displayNotify("Tsunami", "The tsunami damaged all towns. You cannot enter.", "OK");
                 }
                 else
-                {
-                    PanelHolder.instance.displayQuest(summonManaQuest);
-                }
+                    SceneManager.LoadScene("SummonerTownScene");
                 break;
             #endregion
 
-            #region glyph_spaces
-            case "glyph_alchemist":
-                int g1 = (int)UnityEngine.Random.Range(0, 2);
-                if (g1 == 0)
-                    localPlayer.Spellcaster.CollectGlyph("Alchemy D Glyph");
-                else
-                    localPlayer.Spellcaster.CollectGlyph("Alchemy C Glyph");
+            #region locations
+            case "location_mines":
+                SceneManager.LoadScene("MineScene");
                 break;
-            case "glyph_arcanist":
-                int g2 = (int)UnityEngine.Random.Range(0, 2);
-                if (g2 == 0)
-                    localPlayer.Spellcaster.CollectGlyph("Arcane D Glyph");
+            case "location_swamp":
+                if (localPlayer.Spellcaster.plagueConsequence)
+                {
+                    SceneManager.LoadScene("MainPlayerScene");
+                    PanelHolder.instance.displayNotify("Plague", "The swamp is closed due to the plague. Come back later.", "OK");
+                }
                 else
-                    localPlayer.Spellcaster.CollectGlyph("Arcane C Glyph");
+                    SceneManager.LoadScene("SwampScene");
                 break;
-            case "glyph_chronomancer":
-                int g3 = (int)UnityEngine.Random.Range(0, 2);
-                if (g3 == 0)
-                    localPlayer.Spellcaster.CollectGlyph("Time D Glyph");
-                else
-                    localPlayer.Spellcaster.CollectGlyph("Time C Glyph");
+            case "location_forest":
+                SceneManager.LoadScene("ForestScene");
                 break;
-            case "glyph_elementalist":
-                int g4 = (int)UnityEngine.Random.Range(0, 2);
-                if (g4 == 0)
-                    localPlayer.Spellcaster.CollectGlyph("Elemental D Glyph");
-                else
-                    localPlayer.Spellcaster.CollectGlyph("Elemental C Glyph");
+            case "location_capital":
+                SceneManager.LoadScene("ShopScene");
                 break;
-            case "glyph_illusionist":
-                int g5 = (int)UnityEngine.Random.Range(0, 2);
-                if (g5 == 0)
-                    localPlayer.Spellcaster.CollectGlyph("Illusion D Glyph");
+            case "location_shrine":
+                ItemList itemList = GameObject.Find("ItemList").GetComponent<ItemList>();
+                List<ItemObject> il1 = itemList.tier1Items;
+                List<ItemObject> il2 = itemList.tier2Items;
+                List<ItemObject> il3 = itemList.tier3Items;
+
+                // give a random item based on percentage
+                int r = UnityEngine.Random.Range(0, 101);
+                ItemObject randItem;
+                if (r < 10)
+                    randItem = il1[UnityEngine.Random.Range(0, il1.Count)];
+                else if (r >= 10 && r < 40)
+                    randItem = il2[UnityEngine.Random.Range(0, il2.Count)];
                 else
-                    localPlayer.Spellcaster.CollectGlyph("Illusion C Glyph");
+                    randItem = il3[UnityEngine.Random.Range(0, il3.Count)];
+
+                localPlayer.Spellcaster.AddToInventory(randItem);
+                SceneManager.LoadScene("MainPlayerScene");
+                PanelHolder.instance.displayBoardScan("Shrine", "The shrine has given you a " + randItem.name + "!", randItem.sprite, "OK");
                 break;
-            case "glyph_summoner":
-                int g6 = (int)UnityEngine.Random.Range(0, 2);
-                if (g6 == 0)
-                    localPlayer.Spellcaster.CollectGlyph("Summoning D Glyph");
-                else
-                    localPlayer.Spellcaster.CollectGlyph("Summoning C Glyph");
+            case "location_springs":
+                int healAmount = UnityEngine.Random.Range(2, 11);
+                localPlayer.Spellcaster.HealDamage(healAmount);
+                int manaAmount = UnityEngine.Random.Range(100, 1000);
+                localPlayer.Spellcaster.CollectMana(manaAmount);
+                SceneManager.LoadScene("MainPlayerScene");
+                PanelHolder.instance.displayNotify("Springs", "You rested in the springs and recovered " + healAmount.ToString() + 
+                                                    " health! You also found " + manaAmount.ToString() + " mana.", "OK");
                 break;
             #endregion
 

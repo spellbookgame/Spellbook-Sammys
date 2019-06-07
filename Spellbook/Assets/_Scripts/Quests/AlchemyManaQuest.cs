@@ -7,23 +7,22 @@ public class AlchemyManaQuest : Quest
 {
     public AlchemyManaQuest(int turnStarted)
     {
-        questName = "Alchemy Mana Quest";
+        questName = "Alchemic Study";
         questType = "Collect Mana";
-        questDescription = "Collect 1200 mana crystals.";
+        questFlavor = "Mana is an important source of energy for us Spellcasters, and you need to study it very well.";
+        questTask = "Collect 1500 mana crystals.";
+        questHint = "I heard the Opal Ammonite gives a ton of mana...";
 
         startTurn = turnStarted;
-        turnLimit = 5;
+        expiration = 20;
 
-        List<string> rewardList = new List<string>();
-        rewardList.Add("Alchemy A Glyph");
-        rewardList.Add("Alchemy B Glyph");
-
-        rewards.Add("Glyph", rewardList);
+        rewards.Add("Rune", "Alchemist A Rune");
+        rewards.Add("Item", "Crystal Mirror");
 
         questCompleted = false;
 
         manaTracker = 0;
-        manaRequired = 1200;
+        manaRequired = 1500;
     }
 
     // return a string that contains the rewards of the quest
@@ -31,13 +30,10 @@ public class AlchemyManaQuest : Quest
     {
         StringBuilder sb = new StringBuilder();
 
-        foreach(KeyValuePair<string, List<string>> kvp in rewards)
+        foreach(KeyValuePair<string, string> kvp in rewards)
         {
-            foreach(string s in kvp.Value)
-            {
-                sb.Append(s);
-                sb.Append("\n");
-            }
+            sb.Append(kvp.Value);
+            sb.Append("\n");
         }
 
         return sb.ToString();

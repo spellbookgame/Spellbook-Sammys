@@ -6,17 +6,18 @@ public class InventoryUI : MonoBehaviour
 {
     public Transform itemsParent;
     [SerializeField] private GameObject inventoryPanel;
+    [SerializeField] private Button buttonClose;
+    [SerializeField] private Button buttonUse;
     [SerializeField] private GameObject infoPanel;
 
     //Inventory inventory;
 
     InventorySlot[] slots;
     Player localPlayer;
-    List<ItemObject> sInventory;
+    public List<ItemObject> sInventory;
 
     private bool infoPanelOpen;
 
-    // Start is called before the first frame update
     void Start()
     {
         //inventory = Inventory.instance;
@@ -29,6 +30,7 @@ public class InventoryUI : MonoBehaviour
         UpdateUI();
     }
 
+    // populate panel with items from player's inventory
     void UpdateUI() 
     {
         int i = 0;
@@ -40,41 +42,62 @@ public class InventoryUI : MonoBehaviour
 
             ++i;
         }
-        
-        // if there are 5 or more items in the inventory, increase scroll rect size by 200 for each item > 5
-        if (i > 4)
-        {
-            int expandPanel = (i - 4) * 350;
-            inventoryPanel.GetComponent<RectTransform>().sizeDelta = new Vector2(inventoryPanel.GetComponent<RectTransform>().sizeDelta.x,
-                (float)inventoryPanel.GetComponent<RectTransform>().sizeDelta.y + expandPanel);
-        }
-        Debug.Log("UPDATING UI");
     }
 
     // panel that shows item information
     private void OpenItemPanel(ItemObject item)
     {
+        SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
         if (!infoPanelOpen)
         {
             infoPanel.SetActive(true);
+
             // setting panel text
             infoPanel.transform.GetChild(0).GetComponent<Text>().text = item.name;
-            infoPanel.transform.GetChild(1).GetComponent<Text>().text = item.flavorDescription + "\n\n" + item.mechanicsDescription;
+            infoPanel.transform.GetChild(1).GetComponent<Text>().text = item.flavorDescription;
+            infoPanel.transform.GetChild(2).GetComponent<Text>().text = item.mechanicsDescription;
+
+            // add onclick to use item
+            buttonUse.onClick.AddListener(() => 
+            {
+                if (!localPlayer.bIsMyTurn)
+                {
+                    SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+                    PanelHolder.instance.displayNotify("Not Your Turn", "You cannot use items when it is not your turn.", "OK");
+                }
+                else
+                    item.UseItem(localPlayer.Spellcaster);
+            });
+
             infoPanelOpen = true;
         }
         else
         {
+            // remove onclick from use button
+            buttonUse.onClick.RemoveAllListeners();
+
             infoPanel.SetActive(false);
             infoPanelOpen = false;
         }
+
         // adding onclick listener to close button
-        infoPanel.transform.Find("button_close").GetComponent<Button>().onClick.AddListener(() =>
+        buttonClose.onClick.AddListener(() =>
         {
+            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
             if (infoPanelOpen)
             {
+                // remove onclick from use button
+                buttonUse.onClick.RemoveAllListeners();
+
                 infoPanel.SetActive(false);
                 infoPanelOpen = false;
             }
         });
+    }
+
+    public void ShowThirdPartyItemInfo(ItemObject item)
+    {
+        Debug.Log("ThirdPartyClick");
+        OpenItemPanel(item);
     }
 }

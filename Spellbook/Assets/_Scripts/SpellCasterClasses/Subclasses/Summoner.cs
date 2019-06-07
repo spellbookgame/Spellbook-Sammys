@@ -27,6 +27,13 @@ public class Summoner : SpellCaster
         characterIconPath = "Characters/symbol_glow_summoner";
 
         hexStringLight = "#000091";
-        hexStringDark = "#000050"; 
+        hexStringPanel = "#3A3E61";
+        hexString3rdColor = "FFEE93";
+        combatSpells = new Dictionary<string, Spell>()
+        {
+            { "Call of the Wild - Raven's Song", new Ravenssong()},
+            { "Call of the Wild - Bear's Fury", new Bearsfury()},
+            { "Call of the Dead - Skeletons", new Skeletons()}
+        };
     }
 }

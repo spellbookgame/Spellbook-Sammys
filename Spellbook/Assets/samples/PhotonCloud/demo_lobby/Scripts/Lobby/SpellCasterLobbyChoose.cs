@@ -32,7 +32,7 @@ namespace Photon.Lobby
         public Button arcanistButton;
         public Button elementalistButton;
         public Button chronomancerButton;
-        public Button illusionistButton;  //aka tricksterButton
+        public Button illusionistButton;  //aka IllusionistButton
         public Button summonerButton;
 
         public GameObject alchemistSelection;
@@ -78,30 +78,34 @@ namespace Photon.Lobby
                 arcanistButton = GameObject.Find("button_arcanist").GetComponent<Button>();
                 elementalistButton = GameObject.Find("button_elementalist").GetComponent<Button>();
                 chronomancerButton = GameObject.Find("button_chronomancer").GetComponent<Button>();
-                illusionistButton = GameObject.Find("button_trickster").GetComponent<Button>();
+                illusionistButton = GameObject.Find("button_illusionist").GetComponent<Button>();
                 summonerButton = GameObject.Find("button_summoner").GetComponent<Button>();
 
                 text = GameObject.Find("ChooseClass").GetComponent<Text>();
 
-                alchemistSelection = GameObject.Find("Image_Alchemist");
-                arcanistSelection = GameObject.Find("Image_Arcanist");
-                elementalSelection = GameObject.Find("Image_Elementalist");
-                chronomancerSelection = GameObject.Find("Image_Chronomancer");
-                illusionistSelection = GameObject.Find("Image_Illusionist");
-                summonerSelection = GameObject.Find("Image_Summoner");
+                alchemistSelection = GameObject.Find("button_alchemist");
+                arcanistSelection = GameObject.Find("button_arcanist");
+                elementalSelection = GameObject.Find("button_elementalist");
+                chronomancerSelection = GameObject.Find("button_chronomancer");
+                illusionistSelection = GameObject.Find("button_illusionist");
+                summonerSelection = GameObject.Find("button_summoner");
 
                 // A callback is basically another way of saying "getting an update from the network"
                 state.AddCallback("AlchemistSelected", () =>
                 {
                     if (state.AlchemistSelected)
                     {
-                        alchemistButton.image.color = alchemistColor;
+                        //alchemistButton.image.color = alchemistColor;
+                        text.text = "You have chosen the Alchemist!";
+                        alchemistButton.transform.localScale = new Vector3(0.8f, 0.8f, 1);
                         alchemistButton.interactable = false;
                     }
                     else
                     {
                         unselectedColor.a = 1;
-                        alchemistButton.image.color = unselectedColor;
+                        //alchemistButton.image.color = unselectedColor;
+                        text.text = "Which Spellcaster are you?";
+                        alchemistButton.transform.localScale = new Vector3(0.7f, 0.7f, 1);
                         alchemistButton.interactable = true;
                     }
                 });
@@ -110,13 +114,17 @@ namespace Photon.Lobby
                 {
                     if (state.ArcanistSelected)
                     {
-                        arcanistButton.image.color = arcanistColor;
+                        //arcanistButton.image.color = arcanistColor;
+                        text.text = "You have chosen the Arcanist!";
+                        arcanistButton.transform.localScale = new Vector3(0.8f, 0.8f, 1);
                         arcanistButton.interactable = false;
                     }
                     else
                     {
                         unselectedColor.a = 1;
-                        arcanistButton.image.color = unselectedColor;
+                        //arcanistButton.image.color = unselectedColor;
+                        text.text = "Which Spellcaster are you?";
+                        arcanistButton.transform.localScale = new Vector3(0.7f, 0.7f, 1);
                         arcanistButton.interactable = true;
                     }
                 });
@@ -125,13 +133,17 @@ namespace Photon.Lobby
                 {
                     if (state.ElementalistSelected)
                     {
-                        elementalistButton.image.color = elementalistColor;
+                        //elementalistButton.image.color = elementalistColor;
+                        text.text = "You have chosen the Elementalist!";
+                        elementalistButton.transform.localScale = new Vector3(0.8f, 0.8f, 1);
                         elementalistButton.interactable = false;
                     }
                     else
                     {
                         unselectedColor.a = 1;
-                        elementalistButton.image.color = unselectedColor;
+                        //elementalistButton.image.color = unselectedColor;
+                        text.text = "Which Spellcaster are you?";
+                        elementalistButton.transform.localScale = new Vector3(0.7f, 0.7f, 1);
                         elementalistButton.interactable = true;
                     }
                 });
@@ -140,13 +152,17 @@ namespace Photon.Lobby
                 {
                     if (state.ChronomancerSelected)
                     {
-                        chronomancerButton.image.color = chronomancerColor;
+                        //chronomancerButton.image.color = chronomancerColor;
+                        text.text = "You have chosen the Chronomancer!";
+                        chronomancerButton.transform.localScale = new Vector3(0.8f, 0.8f, 1);
                         chronomancerButton.interactable = false;
                     }
                     else
                     {
                         unselectedColor.a = 1;
-                        chronomancerButton.image.color = unselectedColor;
+                        //chronomancerButton.image.color = unselectedColor;
+                        text.text = "Which Spellcaster are you?";
+                        chronomancerButton.transform.localScale = new Vector3(0.7f, 0.7f, 1);
                         chronomancerButton.interactable = true;
                     }
                 });
@@ -155,13 +171,17 @@ namespace Photon.Lobby
                 {
                     if (state.IllusionistSelected)
                     {
-                        illusionistButton.image.color = illusionistColor;
+                        //illusionistButton.image.color = illusionistColor;
+                        text.text = "You have chosen the Illusionist!";
+                        illusionistButton.transform.localScale = new Vector3(0.8f, 0.8f, 1);
                         illusionistButton.interactable = false;
                     }
                     else
                     {
                         unselectedColor.a = 1;
-                        illusionistButton.image.color = unselectedColor;
+                        //illusionistButton.image.color = unselectedColor;
+                        text.text = "Which Spellcaster are you?";
+                        illusionistButton.transform.localScale = new Vector3(0.7f, 0.7f, 1);
                         illusionistButton.interactable = true;
                     }
                 });
@@ -170,13 +190,17 @@ namespace Photon.Lobby
                 {
                     if (state.SummonerSelected)
                     {
-                        summonerButton.image.color = summonerColor;
+                        //summonerButton.image.color = summonerColor;
+                        text.text = "You have chosen the Summoner!";
+                        summonerButton.transform.localScale = new Vector3(0.8f, 0.8f, 1);
                         summonerButton.interactable = false;
                     }
                     else
                     {
                         unselectedColor.a = 1;
-                        summonerButton.image.color = unselectedColor;
+                        //summonerButton.image.color = unselectedColor;
+                        text.text = "Which Spellcaster are you?";
+                        summonerButton.transform.localScale = new Vector3(0.7f, 0.7f, 1);
                         summonerButton.interactable = true;
                     }
                 });
@@ -239,11 +263,11 @@ namespace Photon.Lobby
             BoltConsole.Write("SetupPlayer", Color.green);
             Debug.Log("SetupPlayer");
 
-            this.transform.SetParent(GameObject.Find("LobbyPanel").transform);
+            //this.transform.SetParent(GameObject.Find("LobbyPanel").transform);
 
             //Hardcoded for prototyping and testing
-            this.transform.localPosition = new Vector3(200f, -800f, 0f);
-            this.transform.localScale = new Vector3(.6f, .6f, 1f);
+            //this.transform.localPosition = new Vector3(200f, -800f, 0f);
+            //this.transform.localScale = new Vector3(.6f, .6f, 1f);
 
             alchemistButton.onClick.RemoveAllListeners();
             alchemistButton.onClick.AddListener(OnAlchemistClicked);
@@ -280,7 +304,7 @@ namespace Photon.Lobby
             lastSelectedUI = currentSelectedUI;
             if(lastSelectedUI != null)
             {
-                lastSelectedUI.GetComponent<RectTransform>().localScale = new Vector3(1f, 1f, 1f);
+                //lastSelectedUI.GetComponent<RectTransform>().localScale = new Vector3(1f, 1f, 1f);
             }
             openPreviousSpellcaster();
         }
@@ -299,8 +323,8 @@ namespace Photon.Lobby
             currentSelected = 0;
             currentSelectedUI = alchemistSelection;
             alchemistChosen = true;
-            text.text = "Alchemist";
-            alchemistSelection.GetComponent<RectTransform>().localScale = new Vector3(1.17f, 1.17f, 1); //Why 1.17? Because it looks good.
+            //text.text = "Alchemist";
+            //alchemistSelection.GetComponent<RectTransform>().localScale = new Vector3(1.17f, 1.17f, 1); //Why 1.17? Because it looks good.
         }
 
         public void OnArcanistClicked()
@@ -318,8 +342,8 @@ namespace Photon.Lobby
             currentSelected = 1;
             currentSelectedUI = arcanistSelection;
             arcanistChosen = true;
-            text.text = "Arcanist";
-            arcanistSelection.GetComponent<RectTransform>().localScale = new Vector3(1.17f, 1.17f, 1);
+            //text.text = "Arcanist";
+            //arcanistSelection.GetComponent<RectTransform>().localScale = new Vector3(1.17f, 1.17f, 1);
         }
 
         public void OnElementalistClicked()
@@ -336,8 +360,8 @@ namespace Photon.Lobby
             currentSelected = 2;
             currentSelectedUI = elementalSelection;
             elementalistChosen = true;
-            text.text = "Elementalist";
-            elementalSelection.GetComponent<RectTransform>().localScale = new Vector3(1.17f, 1.17f, 1);
+            //text.text = "Elementalist";
+            //elementalSelection.GetComponent<RectTransform>().localScale = new Vector3(1.17f, 1.17f, 1);
         }
 
         public void OnChronomancerClicked()
@@ -354,8 +378,8 @@ namespace Photon.Lobby
             currentSelected = 3;
             currentSelectedUI = chronomancerSelection;
             chronomancerChosen = true;
-            text.text = "Chronomancer";
-            chronomancerSelection.GetComponent<RectTransform>().localScale = new Vector3(1.17f, 1.17f, 1);
+            //text.text = "Chronomancer";
+            //chronomancerSelection.GetComponent<RectTransform>().localScale = new Vector3(1.17f, 1.17f, 1);
         }
 
         public void OnIllusionistClicked()
@@ -372,8 +396,8 @@ namespace Photon.Lobby
             currentSelected = 4;
             currentSelectedUI = illusionistSelection;
             illusionistChosen = true;
-            text.text = "Illusionist";
-            illusionistSelection.GetComponent<RectTransform>().localScale = new Vector3(1.17f, 1.17f, 1);
+            //text.text = "Illusionist";
+            //illusionistSelection.GetComponent<RectTransform>().localScale = new Vector3(1.17f, 1.17f, 1);
         }
 
         public void OnSummonerClicked()
@@ -390,8 +414,8 @@ namespace Photon.Lobby
             currentSelected = 5;
             currentSelectedUI = summonerSelection;
             summonerChosen = true;
-            text.text = "Summoner";
-            summonerSelection.GetComponent<RectTransform>().localScale = new Vector3(1.17f, 1.17f, 1);
+            //text.text = "Summoner";
+            //summonerSelection.GetComponent<RectTransform>().localScale = new Vector3(1.17f, 1.17f, 1);
         }
 
 
@@ -416,7 +440,7 @@ namespace Photon.Lobby
             lobbyManager.activateSelectButton(false);
             previousSelected = currentSelected;
             previousConfirmed = currentSelected;
-            currentSelectedUI.GetComponent<RectTransform>().localScale = new Vector3(1f, 1f, 1f);
+            //currentSelectedUI.GetComponent<RectTransform>().localScale = new Vector3(1f, 1f, 1f);
             lastSelectedUI = currentSelectedUI;
             currentSelectedUI = null;
             openPreviousSpellcaster();

@@ -26,7 +26,15 @@ public class Chronomancer : SpellCaster
         characterSpritePath = "Characters/Chronomancer";
         characterIconPath = "Characters/symbol_glow_chronomancer";
 
-        hexStringLight = "#6D4021";
-        hexStringDark = "#28160B";
+        hexStringLight = "#6D3813";
+        hexStringPanel = "#5E5340";
+        hexString3rdColor = "9B1D20";
+
+        combatSpells = new Dictionary<string, Spell>()
+        {
+            { "Manipulate", new Manipulate()},
+            { "Reverse Wounds", new ReverseWounds()},
+            { "Chronoblast", new Chronoblast()}
+        };
     }
 }

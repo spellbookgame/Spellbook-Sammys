@@ -1,30 +1,88 @@
-﻿using System.Collections.Generic;
+﻿using Bolt.Samples.Photon.Lobby;
+using System.Collections.Generic;
 using UnityEngine;
 
 // spell for Alchemy class
-public class PotionofLuck : Spell
+public class PotionofLuck : Spell, IAllyCastable
 {
+    SpellCaster player;
     public PotionofLuck()
     {
         iTier = 1;
         iManaCost = 3000;
 
-        sSpellName = "Brew - Potion of Luck";
-        sSpellClass = "Alchemist";
-        sSpellInfo = "Give you and an ally an extra D8 next time you roll.";
+        combatSpell = false;
 
-        requiredGlyphs.Add("Alchemy A Glyph", 1);
-        requiredGlyphs.Add("Alchemy B Glyph", 1);
-        requiredGlyphs.Add("Elemental A Glyph", 1);
+        sSpellName = "Potion of Luck";
+        sSpellClass = "Alchemist";
+        sSpellInfo = "Give you and an ally an extra D9 next time you roll.";
+
+        requiredRunes.Add("Alchemist A Rune", 1);
+        requiredRunes.Add("Alchemist B Rune", 1);
+        requiredRunes.Add("Elementalist A Rune", 1);
+    }
+
+    public void RecieveCastFromAlly(SpellCaster player)
+    {
+        PanelHolder.instance.displaySpellCastNotif(sSpellName, "You and your ally will have an extra D9 next time you roll.", "MainPlayerScene");
+        if (player.tempDice.ContainsKey("D9"))
+            player.tempDice["D9"] += 1;
+        else
+            player.tempDice.Add("D9", 1);
     }
 
     public override void SpellCast(SpellCaster player)
     {
-        // subtract mana and glyph costs
-        player.iMana -= iManaCost;
+        this.player = player;
+        PanelHolder.instance.displayChooseSpellcaster(this);
+    }
 
-        PanelHolder.instance.displayNotify("You cast " + sSpellName, "You and your ally will receive an extra D8 next time you roll.", "OK");
-        player.dice["D8"] += 1;
-        player.activeSpells.Add(this);
+    public void SpellcastPhase2(int sID, SpellCaster player)
+    {
+        this.player = player;
+
+        // cast spell for free if Umbra's Eclipse is active
+        if (SpellTracker.instance.CheckUmbra())
+        {
+            if (player.spellcasterID != sID)
+            {
+                PanelHolder.instance.displaySpellCastNotif(sSpellName, "You and your ally will have an extra D9 next time you roll.", "MainPlayerScene");
+            }
+
+            if (player.tempDice.ContainsKey("D9"))
+                player.tempDice["D9"] += 1;
+            else
+                player.tempDice.Add("D9", 1);
+
+            NetworkManager.s_Singleton.CastOnAlly(player.spellcasterID, sID, sSpellName);
+
+
+            player.numSpellsCastThisTurn++;
+            SpellTracker.instance.lastSpellCasted = this;
+        }
+        else if (player.iMana < iManaCost)
+        {
+            PanelHolder.instance.displayNotify("Not enough Mana!", "You do not have enough mana to cast this spell.", "OK");
+        }
+        else
+        {
+            // subtract mana
+            player.iMana -= iManaCost;
+
+            if (player.spellcasterID != sID)
+            {
+                PanelHolder.instance.displaySpellCastNotif(sSpellName, "You and your ally will have an extra D9 next time you roll.", "MainPlayerScene");
+            }
+
+            if (player.tempDice.ContainsKey("D9"))
+                player.tempDice["D9"] += 1;
+            else
+                player.tempDice.Add("D9", 1);
+
+            NetworkManager.s_Singleton.CastOnAlly(player.spellcasterID, sID, sSpellName);
+
+            player.numSpellsCastThisTurn++;
+            SpellTracker.instance.lastSpellCasted = this;
+        }
     }
 }

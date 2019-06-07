@@ -25,7 +25,15 @@ public class Elementalist : SpellCaster
         characterSpritePath = "Characters/Elementalist";
         characterIconPath = "Characters/symbol_glow_elementalist";
 
-        hexStringDark = "#500000";
         hexStringLight = "#910000";
+        hexStringPanel = "#744246";
+        hexString3rdColor = "7D59CC";
+
+        combatSpells = new Dictionary<string, Spell>()
+        {
+            { "Natural Disaster", new NaturalDisaster()},
+            { "Eye of the Storm", new EyeOfTheStorm()},
+            { "Fireball", new Fireball()}
+        };
     }
 }

@@ -19,13 +19,16 @@ public class Shop : MonoBehaviour
     public Button button_item3;
     public Image image_item3;
 
-    public Button button_backButton;
+    public Button button_exitButton;
     public Button button_buyButton;
 
     public Text text_myMana;
     public Text text_itemName;
     public Text text_itemDesc;
     public Text text_itemPrice;
+
+    public Color noManaColor;
+    public Color yesManaColor;
 
     public List<ItemObject> allItems;
     ItemObject item0;
@@ -42,9 +45,24 @@ public class Shop : MonoBehaviour
 
     void Start()
     {
-        allItems = GetComponent<ItemList>().listOfItems;
+        SoundManager.instance.PlayGameBCM(SoundManager.marketBGM);
+        allItems = GameObject.Find("ItemList").GetComponent<ItemList>().listOfItems;
         spellcaster = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().spellcaster;
-        
+
+        button_exitButton.onClick.AddListener(() =>
+        {
+            SoundManager.instance.PlayGameBCM(SoundManager.gameBCG);
+            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
+
+            // remove Charming Negotiator from active spells if it's active
+            SpellTracker.instance.RemoveFromActiveSpells("Potion of Charm");
+
+            SceneManager.LoadScene("MainPlayerScene");
+        });
+
+        QuestTracker.instance.TrackLocationQuest("location_capital");
+        CrisisHandler.instance.CheckCrisis(GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>(), CrisisHandler.instance.currentCrisis, "location_capital");
+
         float size = allItems.Count;
 
         //Choose 4 random items from item pool to put for sale.
@@ -81,23 +99,12 @@ public class Shop : MonoBehaviour
         image_item3.sprite = item3.sprite;
 
         text_myMana.text = spellcaster.iMana + "";
-        
-
-
-        /*
-        button_backButton.onClick.AddListener(() =>
-        {
-            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
-
-            //TODO: Change scene later.
-            SceneManager.LoadScene("MainPlayerScene");
-        });*/
 
         button_buyButton.onClick.AddListener(() =>
         {
-            SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
             if(spellcaster.iMana >= currentSelected.buyPrice)
             {
+                SoundManager.instance.PlaySingle(SoundManager.purchase);
                 spellcaster.LoseMana((int)currentSelected.buyPrice);
                 text_myMana.text = spellcaster.iMana + "";
                 
@@ -137,13 +144,31 @@ public class Shop : MonoBehaviour
             PopulateSaleUI(item3);
             BuyButton.gameObject.SetActive(true);
         });
+
+        // if Charming Negotiator is active, discount sale price by 50%
+        if (SpellTracker.instance.SpellIsActive(new CharmingNegotiator()))
+        {
+            List<ItemObject> itemsList = new List<ItemObject>()
+            {
+                item0, item1, item2, item3
+            };
+            foreach(ItemObject i in itemsList)
+            {
+                i.buyPrice = (int)(i.buyPrice * 0.5);
+            }
+        }
     }
 
     private void PopulateSaleUI(ItemObject item)
     {
+        manaCrystalImage.gameObject.SetActive(true);
         currentSelected = item;
         text_itemName.text = item.name;
         text_itemPrice.text = item.buyPrice + "";
+        if (spellcaster.iMana < item.buyPrice)
+            text_itemPrice.color = noManaColor;
+        else
+            text_itemPrice.color = yesManaColor;
         text_itemDesc.text = item.flavorDescription + "\n\n" +item.mechanicsDescription;
     }
 }

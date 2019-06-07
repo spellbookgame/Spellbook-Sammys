@@ -15,6 +15,7 @@ namespace Bolt.Samples.Photon.Lobby
         }
 
         // Lobby
+        public int spellcasterID = -1;
         public string playerName = "";
         public Color playerColor = Color.white;
         public bool ready = false;

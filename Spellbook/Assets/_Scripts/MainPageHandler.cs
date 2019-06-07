@@ -1,34 +1,51 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using SpellbookExtensions;
+using UnityEngine.Events;
 
 public class MainPageHandler : MonoBehaviour
 {
+    #region private_fields
     [SerializeField] private GameObject questTracker;
     [SerializeField] private GameObject spellTracker;
+    [SerializeField] private GameObject crisisHandler;
 
+    [SerializeField] private Text roundsUntilCrisis;
     [SerializeField] private Text classType;
     [SerializeField] private Text manaCrystalsValue;
     [SerializeField] private Text manaCrystalsAddition;
     [SerializeField] private Text healthValue;
-    [SerializeField] private Enemy enemy;
 
     [SerializeField] private SpriteRenderer characterImage;
-    [SerializeField] private GameObject warpBackground1;
-    [SerializeField] private GameObject warpBackground2;
+    [SerializeField] private UIWarpController warpController;
     [SerializeField] private SpriteRenderer symbolImage;
-    
-    [SerializeField] private Button rollButton;
-    [SerializeField] private Button spellbookButton;
-    
-    [SerializeField] private GameObject proclamationPanel;
+    [SerializeField] private GameObject informationPanel;
+
+    [SerializeField] private Sprite alchemistIcon;
+    [SerializeField] private Sprite arcanistIcon;
+    [SerializeField] private Sprite chronomancerIcon;
+    [SerializeField] private Sprite elementalistIcon;
+    [SerializeField] private Sprite illusionistIcon;
+    [SerializeField] private Sprite summonerIcon;
+
+    [SerializeField] private Sprite alchemistSprite;
+    [SerializeField] private Sprite arcanistSprite;
+    [SerializeField] private Sprite chronomancerSprite;
+    [SerializeField] private Sprite elementalistSprite;
+    [SerializeField] private Sprite illusionistSprite;
+    [SerializeField] private Sprite summonerSprite;
+
+    [SerializeField] private Animator anim;
+    #endregion
 
     private bool diceTrayOpen;
 
     Player localPlayer;
     public static MainPageHandler instance = null;
+
+    public UnityEvent loadSceneEvent;
 
     void Awake()
     {
@@ -49,29 +66,19 @@ public class MainPageHandler : MonoBehaviour
 
     private void Update()
     {
-        // update player's mana count
-        if (localPlayer != null)
-            manaCrystalsValue.text = localPlayer.Spellcaster.iMana.ToString();
-
-        // update player's list of active spells
-        if (localPlayer != null && localPlayer.Spellcaster.activeSpells.Count > 0)
-            SpellTracker.instance.UpdateActiveSpells();
-        // update player's list of active quests
-        if (localPlayer != null && localPlayer.Spellcaster.activeQuests.Count > 0)
-            UpdateActiveQuests();
-
-        // disable roll button if it's not player's turn
-        if (localPlayer != null && !localPlayer.bIsMyTurn)
-            rollButton.interactable = false;
-        else
-            rollButton.interactable = true;
-
-        // TESTING AREA
-        Spell pOL = new CrystalScent();
-        if(Input.GetKeyDown(KeyCode.P))
+        // update mana/health values
+        if(localPlayer != null)
         {
-            pOL.SpellCast(localPlayer.Spellcaster);
+            manaCrystalsValue.text = localPlayer.Spellcaster.iMana.ToString();
+            healthValue.text = localPlayer.Spellcaster.fCurrentHealth.ToString() + "/ " + localPlayer.Spellcaster.fMaxHealth.ToString();
         }
+
+        // mute player's bgm if not their turn
+        if (localPlayer != null && !localPlayer.bIsMyTurn)
+            SoundManager.instance.musicSource.volume = 0;
+
+        // update rounds until crisis
+        roundsUntilCrisis.text = "Rounds Until Crisis: " + NetworkGameState.instance.RoundsUntilCrisisActivates().ToString();
     }
 
     public void setupMainPage()
@@ -79,93 +86,127 @@ public class MainPageHandler : MonoBehaviour
         if (GameObject.FindGameObjectWithTag("LocalPlayer") == null) return;
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
 
+        SetClassAttributes();
+
         classType.text = localPlayer.Spellcaster.classType;
         manaCrystalsValue.text = localPlayer.Spellcaster.iMana.ToString();
         healthValue.text = localPlayer.Spellcaster.fCurrentHealth.ToString() + "/ " + localPlayer.Spellcaster.fMaxHealth.ToString();
 
-        Debug.Log("main page turn just ended: " + localPlayer.Spellcaster.turnJustEnded);
-        // set text for earned mana briefly 
-        if(localPlayer.Spellcaster.turnJustEnded == true)
+        // disable dice button if it's not player's turn, activate end turn button accordingly
+        UICanvasHandler.instance.EnableDiceButton(localPlayer.bIsMyTurn);
+        UICanvasHandler.instance.ActivateEndTurnButton(localPlayer.Spellcaster.hasRolled);
+
+        // create instances of QuestTracker/SpellTracker prefabs
+        Instantiate(questTracker);
+        Instantiate(spellTracker);
+
+        if (!UICanvasHandler.instance.chronomancerGone)
         {
-            int endOfTurnMana = localPlayer.Spellcaster.CollectManaEndTurn();
-            StartCoroutine(ShowManaEarned(endOfTurnMana));
+            StartCoroutine("FadeIn");
+            UICanvasHandler.instance.chronomancerGone = true;
         }
 
-        // if an enemy does not exist, create one
-        if (GameObject.FindGameObjectWithTag("Enemy") == null)
+        // in case a panel didn't display during scan scene, display them in main scene
+        PanelHolder.instance.CheckPanelQueue();
+
+        CrisisHandler.instance.player = localPlayer;
+    }
+
+    private void SetClassAttributes()
+    {
+        // set character image/icons to associated sprites
+        // set background music (only in at the start based on player's starting location)
+        switch (localPlayer.Spellcaster.classType)
         {
-            // instantiating enemy with 20 health
-            enemy = Instantiate(enemy);
-            enemy.Initialize(20f);
-            enemy.fCurrentHealth = enemy.fMaxHealth;
+            case "Alchemist":
+                symbolImage.sprite = alchemistIcon;
+                characterImage.sprite = alchemistSprite;
+                if (!UICanvasHandler.instance.initialSoundsSet)
+                {
+                    SoundManager.instance.PlayGameBCM(SoundManager.regulusBGM);
+                    UICanvasHandler.instance.initialSoundsSet = true;
+                }
+                break;
+            case "Arcanist":
+                symbolImage.sprite = arcanistIcon;
+                characterImage.sprite = arcanistSprite;
+                if (!UICanvasHandler.instance.initialSoundsSet)
+                {
+                    SoundManager.instance.PlayGameBCM(SoundManager.zandriaBGM);
+                    UICanvasHandler.instance.initialSoundsSet = true;
+                }
+                break;
+            case "Chronomancer":
+                symbolImage.sprite = chronomancerIcon;
+                characterImage.sprite = chronomancerSprite;
+                if (!UICanvasHandler.instance.initialSoundsSet)
+                {
+                    SoundManager.instance.PlayGameBCM(SoundManager.merideaBGM);
+                    UICanvasHandler.instance.initialSoundsSet = true;
+                }
+                break;
+            case "Elementalist":
+                symbolImage.sprite = elementalistIcon;
+                characterImage.sprite = elementalistSprite;
+                if (!UICanvasHandler.instance.initialSoundsSet)
+                {
+                    SoundManager.instance.PlayGameBCM(SoundManager.sarissaBGM);
+                    UICanvasHandler.instance.initialSoundsSet = true;
+                }
+                break;
+            case "Illusionist":
+                symbolImage.sprite = illusionistIcon;
+                characterImage.sprite = illusionistSprite;
+                if (!UICanvasHandler.instance.initialSoundsSet)
+                {
+                    SoundManager.instance.PlayGameBCM(SoundManager.paradosBGM);
+                    UICanvasHandler.instance.initialSoundsSet = true;
+                }
+                break;
+            case "Summoner":
+                symbolImage.sprite = summonerIcon;
+                characterImage.sprite = summonerSprite;
+                if (!UICanvasHandler.instance.initialSoundsSet)
+                {
+                    SoundManager.instance.PlayGameBCM(SoundManager.andromedaBGM);
+                    UICanvasHandler.instance.initialSoundsSet = true;
+                }
+                break;
         }
 
-        // if it's not first turn of game, then destroy proclamation panel each time scene starts
-        if (localPlayer.Spellcaster.procPanelShown)
-        {
-            Destroy(proclamationPanel.gameObject);
-
-            // in case a panel didn't display during scan scene, display them in main scene
-            PanelHolder.instance.CheckPanelQueue();
-            Debug.Log("queue checked in main scene");
-        }
-
-        // create instance of QuestTracker prefab
-        GameObject q = Instantiate(questTracker);
-        GameObject s = Instantiate(spellTracker);
-            
-        // set character image based on class
-        characterImage.sprite = Resources.Load<Sprite>(localPlayer.Spellcaster.characterSpritePath);
-        // set class symbol image based on class
-        symbolImage.sprite = Resources.Load<Sprite>(localPlayer.Spellcaster.characterIconPath);
         // set background color based on class
         Color lightCol = new Color();
         ColorUtility.TryParseHtmlString(localPlayer.Spellcaster.hexStringLight, out lightCol);
-        Color darkCol = new Color();
-        ColorUtility.TryParseHtmlString(localPlayer.Spellcaster.hexStringDark, out darkCol);
-        warpBackground1.GetComponent<SpriteRenderer>().color = darkCol;
-        warpBackground2.GetComponent<SpriteRenderer>().color = lightCol;
+        lightCol = lightCol.SetSaturation(0.35f);
+        warpController.color = lightCol;
+        // set info panel color based on class
+        Color panelCol = new Color();
+        ColorUtility.TryParseHtmlString(localPlayer.Spellcaster.hexStringPanel, out panelCol);
+        informationPanel.GetComponent<SpriteRenderer>().color = panelCol;
 
-        // set onclick listeners for spellbook button
-        spellbookButton.onClick.AddListener(() =>
-        {
-            SoundManager.instance.PlaySingle(SoundManager.spellbookopen);
-            SceneManager.LoadScene("SpellbookScene");
-        });
+        LoadHandler.instance.setupComplete = true;
     }
 
-    // updating the list of active quests
-    private void UpdateActiveQuests()
+    private IEnumerator FadeIn()
     {
-        foreach (Quest q in localPlayer.Spellcaster.activeQuests.ToArray())
-        {
-            // if the player's turns from starting the quest exceeded the turn limit
-            if (localPlayer.Spellcaster.NumOfTurnsSoFar - q.startTurn > q.turnLimit)
-            {
-                // remove the quest from the active quests list and notify player
-                localPlayer.Spellcaster.activeQuests.Remove(q);
-                SoundManager.instance.PlaySingle(SoundManager.questfailed);
-                PanelHolder.instance.displayNotify(q.questName + " Failed...", "You failed to complete the quest in your given time.", "OK");
-            }
-        }
+        yield return new WaitForSeconds(0.5f);
+        anim.SetBool("FadeIn", true);
+        yield return new WaitUntil(() => anim.gameObject.GetComponent<Image>().color.a == 0);
+        anim.gameObject.SetActive(false);
     }
 
-    // closing the proclamation panel
-    public void CloseProclamationPanel()
+    public void DisplayMana(int manaCollected)
     {
-        SoundManager.instance.PlaySingle(SoundManager.buttonconfirm);
-        localPlayer.Spellcaster.procPanelShown = true;
-        PanelHolder.instance.CheckPanelQueue();
+        StartCoroutine(ShowManaEarned(manaCollected));
     }
 
-    // corouting to show mana earned
-    IEnumerator ShowManaEarned(int manaCount)
+    // coroutine to show mana earned
+    private IEnumerator ShowManaEarned(int manaCount)
     {
         manaCrystalsAddition.text = "+" + manaCount.ToString();
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSecondsRealtime(2f);
 
         manaCrystalsAddition.text = "";
-        localPlayer.Spellcaster.turnJustEnded = false;
     }
 }

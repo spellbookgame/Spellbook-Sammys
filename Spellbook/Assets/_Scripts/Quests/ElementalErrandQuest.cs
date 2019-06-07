@@ -7,26 +7,20 @@ public class ElementalErrandQuest : Quest
 {
     public ElementalErrandQuest(int turnStarted)
     {
-        questName = "Errand Quest";
+        questName = "Missing Ingredient";
         questType = "Errand";
-        questDescription = "Bring this item to the Alchemist Town. You received [Infused Sapphire].";
+        questFlavor = "The apothecary needs a Glowing Mushroom. Can you bring one to them?";
+        questTask = "Bring a Glowing Mushroom to the Alchemy Town.";
+        questHint = "If the Capital and Forest don't have it, maybe a friend does.";
 
         startTurn = turnStarted;
-        turnLimit = 5;
+        expiration = 20;
 
         spaceName = "town_alchemist";
+        itemName = "Glowing Mushroom";
 
-        // give player item to deliver
-        item = new ItemObject("Infused Sapphire", Resources.Load<Sprite>("Art Assets/Items and Currency/InfusedSapphire"), 2000, 1000, 
-            "This sapphire is embued with pure arcane energy. When shattered, it gives its user a temporary power boost.", 
-            "Add +6 to your next damage spell (one time use).");
-        GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().Spellcaster.AddToInventory(item);
-
-        List<string> rewardList = new List<string>();
-        rewardList.Add("Elemental A Glyph");
-        rewardList.Add("Elemental B Glyph");
-
-        rewards.Add("Glyph", rewardList);
+        rewards.Add("Rune", "Elementalist A Rune");
+        rewards.Add("Item", "Mimetic Vellum");
 
         questCompleted = false;
     }
@@ -36,13 +30,10 @@ public class ElementalErrandQuest : Quest
     {
         StringBuilder sb = new StringBuilder();
 
-        foreach (KeyValuePair<string, List<string>> kvp in rewards)
+        foreach (KeyValuePair<string, string> kvp in rewards)
         {
-            foreach (string s in kvp.Value)
-            {
-                sb.Append(s);
-                sb.Append("\n");
-            }
+            sb.Append(kvp.Value);
+            sb.Append("\n");
         }
 
         return sb.ToString();

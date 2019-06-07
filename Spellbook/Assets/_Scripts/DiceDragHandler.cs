@@ -17,19 +17,15 @@ public class DiceDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     private Vector3 startPos;
     private Transform startParent;
 
-    Player localPlayer;
-
     void Start()
     {
         originalParent = transform.parent;
-
-        localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
         // play grab sound
-        SoundManager.instance.PlaySingle(SoundManager.grabspellpiece);
+        SoundManager.instance.PlaySingle(SoundManager.dicePickUp);
 
         // itemToDrag is the game object that this script is on
         itemToDrag = gameObject;
@@ -41,7 +37,7 @@ public class DiceDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         gameObject.GetComponent<RectTransform>().anchorMax = new Vector2(0.5f, 0.5f);
 
         // set the parent to canvas so the dice slot will no longer have a child
-        transform.SetParent(GameObject.Find("Canvas").transform);
+        transform.SetParent(GameObject.Find("UI Canvas").transform);
 
         // allows to pass events through the item being dragged
         GetComponent<CanvasGroup>().blocksRaycasts = false;
@@ -66,6 +62,7 @@ public class DiceDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         if (transform.parent == startParent || !transform.parent.tag.Equals("Slot"))
         {
             transform.position = startPos;
+            transform.SetParent(startParent);
         }
     }
 }

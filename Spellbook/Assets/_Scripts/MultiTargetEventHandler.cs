@@ -1,19 +1,21 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Vuforia;
 
-// for scanning multiple (4) images
+/// <summary>
+/// Grace Ko
+/// Scans multiple target images
+/// Put this script on an image target 
+/// </summary>
 public class MultiTargetEventHandler : MonoBehaviour, ITrackableEventHandler
 {
     protected TrackableBehaviour mTrackableBehaviour;
     protected TrackableBehaviour.Status m_PreviousStatus;
     protected TrackableBehaviour.Status m_NewStatus;
-
-    private Text targetName;
-    private Text targetName1;
-    private Text targetNumber;
 
     private bool isTracked = false;
     private Dictionary<string, int> targets;
@@ -26,10 +28,6 @@ public class MultiTargetEventHandler : MonoBehaviour, ITrackableEventHandler
         localPlayer = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>();
 
         targets = new Dictionary<string, int>();
-
-        targetName = GameObject.Find("text_targetNameValue").GetComponent<Text>();
-        targetName1 = GameObject.Find("text_targetNameValue (1)").GetComponent<Text>();
-        targetNumber = GameObject.Find("text_targetNumberValue").GetComponent<Text>();
 
         mTrackableBehaviour = GetComponent<TrackableBehaviour>();
         if (mTrackableBehaviour)
@@ -81,9 +79,6 @@ public class MultiTargetEventHandler : MonoBehaviour, ITrackableEventHandler
         // when track is lost, reset bool and remove from dictionary
         isTracked = false;
         targets.Clear();
-        targetName.text = "";
-        targetName1.text = "";
-        targetNumber.text = "";
     }
 
     // if 4 targets are detected, scan item
@@ -109,50 +104,29 @@ public class MultiTargetEventHandler : MonoBehaviour, ITrackableEventHandler
                     targets.Add(m.name, 1);
 
                 ++targetsTracked;
-                // set text on canvas to debug
-                targetName1.text = m.name;
-                targetNumber.text = targetsTracked.ToString();
             }
         }
         // if 4 targets were tracked, start scanning
         if (targetsTracked >= 4)
         {
-            Debug.Log("4 items tracked! Dictionary:");
-            foreach(KeyValuePair<string, int> kvp in targets)
-            {
-                targetName.text = targetName.text + "\n" + kvp.Key;
-            }
             CompareSpells();
         }
     }
 
-    // compares targets dictionary to spell's required glyphs dictionary
+    // compares targets dictionary to spell's required runes dictionary
     private void CompareSpells()
     {
         bool isEqual = false;
 
         Dictionary<string, int> d1 = targets;
-        for(int i = 0; i <= localPlayer.Spellcaster.chapter.spellsAllowed.Count; i++)
+        for (int i = 0; i < localPlayer.Spellcaster.chapter.spellsAllowed.Count; ++i)
         {
-            Dictionary<string, int> d2 = localPlayer.Spellcaster.chapter.spellsAllowed[i].requiredGlyphs;
+            Dictionary<string, int> d2 = localPlayer.Spellcaster.chapter.spellsAllowed[i].requiredRunes;
 
-            // tier 3 spell: only needs to check if d1 contains the required glyph
-            if(localPlayer.Spellcaster.chapter.spellsAllowed[i].iTier == 3)
-            {
-                if(d2.Keys.All(k => d1.ContainsKey(k)))
-                {
-                    localPlayer.Spellcaster.CollectSpell(localPlayer.Spellcaster.chapter.spellsAllowed[i]);
-                    break;
-                }
-                else
-                {
-                    PanelHolder.instance.displayEvent("No Spell Detected", "You did not create a spell.");
-                }
-            }
             // tier 2 and 1 spells
-            else
+            if (localPlayer.Spellcaster.chapter.spellsAllowed[i].iTier == 2 || localPlayer.Spellcaster.chapter.spellsAllowed[i].iTier == 1)
             {
-                foreach(KeyValuePair<string, int> kvp in d2)
+                foreach (KeyValuePair<string, int> kvp in d2)
                 {
                     if (d1.ContainsKey(kvp.Key))
                     {
@@ -161,15 +135,35 @@ public class MultiTargetEventHandler : MonoBehaviour, ITrackableEventHandler
                     else
                     {
                         isEqual = false;
-                        PanelHolder.instance.displayEvent("No Spell Detected", "You did not create a spell.");
                         break;
                     }
                 }
-                if(isEqual)
+                if (isEqual)
                 {
+                    SceneManager.LoadScene("MainPlayerScene");
                     localPlayer.Spellcaster.CollectSpell(localPlayer.Spellcaster.chapter.spellsAllowed[i]);
+                    break;
                 }
             }
+            // tier 3 spell: only needs to check if d1 contains the required rune
+            else if (localPlayer.Spellcaster.chapter.spellsAllowed[i].iTier == 3)
+            {
+                var first = d2.First();     // can use First() here because tier 3 requiredRune will only have 1 entry
+                if (d1.ContainsKey(first.Key))
+                {
+                    isEqual = true;
+                    SceneManager.LoadScene("MainPlayerScene");
+                    localPlayer.Spellcaster.CollectSpell(localPlayer.Spellcaster.chapter.spellsAllowed[i]);
+                    break;
+                }
+                else
+                    isEqual = false;
+            }
+        }
+        if(!isEqual)
+        {
+            SceneManager.LoadScene("MainPlayerScene");
+            PanelHolder.instance.displayNotify("No Spell!", "No spell was found...", "OK");
         }
     }
 }

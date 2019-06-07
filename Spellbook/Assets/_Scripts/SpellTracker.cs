@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -11,6 +9,11 @@ using UnityEngine;
 public class SpellTracker : MonoBehaviour
 {
     public static SpellTracker instance = null;
+
+    // public bools to track specific spell attributes
+    public ItemObject forecastItem;
+    public Spell lastSpellCasted;
+    public bool agendaActive;
 
     private SpellCaster spellCaster;
 
@@ -34,111 +37,60 @@ public class SpellTracker : MonoBehaviour
         spellCaster = GameObject.FindGameObjectWithTag("LocalPlayer").GetComponent<Player>().Spellcaster;
     }
 
-    private void Update()
+    // making sure player is notified if a spell wears off
+    public void RemoveFromActiveSpells(string spellName)
     {
-        // updating spells to make sure spellcaster knows a spell was cast on them
-        
-    }
-
-    public void UpdateActiveSpells()
-    {
-        foreach (Spell entry in spellCaster.chapter.spellsCollected)
+        // if spell is active
+        if (spellCaster.activeSpells.Any(x => x.sSpellName.Equals(spellName)))
         {
-            // if the player has gone the amount of turns that the spell lasts
-            if (spellCaster.NumOfTurnsSoFar - entry.iCastedTurn == entry.iTurnsActive)
+            // remove spell from active spells list once it wears off
+            foreach (Spell entry in spellCaster.activeSpells)
             {
-                // remove the spell from the active spells list and notify player
-                spellCaster.activeSpells.Remove(entry);
-                PanelHolder.instance.displayNotify(entry.sSpellName, entry.sSpellName + " wore off...", "OK");
-            }
-        }
-    }
-
-    // call this after D8 is used up
-    public void PotionofLuck()
-    {
-        // if potion of luck is an active spell, remove the dice and the spell from active spells list
-        if(spellCaster.activeSpells.Any(x => x.sSpellName.Equals("Brew - Potion of Luck")))
-        {
-            spellCaster.dice["D8"] -= 1;
-
-            foreach(Spell entry in spellCaster.chapter.spellsCollected)
-            {
-                if(entry.sSpellName.Equals("Brew - Potion of Luck"))
+                if (entry.sSpellName.Equals(spellName))
+                {
                     spellCaster.activeSpells.Remove(entry);
+                    Debug.Log(entry.sSpellName + " was removed from active spells list");
+                    break;
+                }
             }
         }
     }
 
-    // checks if any spells affect mana, calculates accordingly, and sets panel text
-    public int CheckManaSpell(int manaCount)
+    // checks to see if spell is in player's list of active spells
+    public bool SpellIsActive(Spell s)
     {
-        StringBuilder sb = new StringBuilder();
-        
-        // if player's active spells list contains Crystal Scent or Arcana Harvest
-        if (spellCaster.activeSpells.Any(x => x.sSpellName == "Brew - Crystal Scent" || x.sSpellName == "Arcana Harvest"))
+        if (spellCaster.activeSpells.Any(x => x.sSpellName.Equals(s.sSpellName)))
         {
-            // if Crystal Scent is active, + 20% mana
-            if (spellCaster.activeSpells.Any(x => x.sSpellName == "Brew - Crystal Scent"))
-            {
-                manaCount += (int)(manaCount * 0.2);
-                sb.Append(" Brew - Crystal Scent ");
-            }
-            // if Arcana Harvest is active, double mana
-            if (spellCaster.activeSpells.Any(x => x.sSpellName == "Arcana Harvest"))
-            {
-                manaCount *= 2;
-                sb.Append(" Arcana Harvest ");
-            }
-
-            PanelHolder.instance.displayEvent("You found Mana!", sb.ToString() + " is active and you earned " + manaCount + " mana.");
-            SoundManager.instance.PlaySingle(SoundManager.manafound);
-            return manaCount;
+            return true;
         }
         else
-        {
-            PanelHolder.instance.displayEvent("You found Mana!", "You earned " + manaCount + " mana.");
-            SoundManager.instance.PlaySingle(SoundManager.manafound);
-            return manaCount;
-        }
+            return false;
     }
 
-    public int CheckGlyphSpell(string glyph)
+    public bool CheckUmbra()
     {
-        int glyphCount = 1;
-
-        // add an additional glyph to player's inventory if arcana harvest is active
-        if(spellCaster.activeSpells.Any(x => x.sSpellName == "Arcana Harvest"))
+        if (spellCaster.activeSpells.Any(x => x.sSpellName.Equals("Umbra's Eclipse")))
         {
-            glyphCount = 2;
-            Sprite sprite = Resources.Load<Sprite>("GlyphArt/" + glyph);
-            PanelHolder.instance.displayBoardScan("You found a Glyph!", "Arcana Harvest is active and you earned 2 " + glyph + "s.", sprite);
-            SoundManager.instance.PlaySingle(SoundManager.glyphfound);
-            return glyphCount;
+            RemoveFromActiveSpells("Umbra's Eclipse");
+            return true;
         }
         else
-        {
-            Sprite sprite = Resources.Load<Sprite>("GlyphArt/" + glyph);
-            PanelHolder.instance.displayBoardScan("You found a Glyph!", "You found 1 " + glyph + ".", sprite);
-            SoundManager.instance.PlaySingle(SoundManager.glyphfound);
-            return glyphCount;
-        }
+            return false;
     }
 
-    // referenced in DiceRoll.cs
-    public string CheckMoveSpell()
+    // called from ForestSceneHandler.cs
+    public void DoForecast()
     {
-        if(spellCaster.activeSpells.Any(x => x.sSpellName == "Accelerate"))
+        if(forecastItem != null)
         {
-            return "Accelerate";
+            // add 2 of the items into inventory
+            spellCaster.AddToInventory(forecastItem);
+            spellCaster.AddToInventory(forecastItem);
+            PanelHolder.instance.displayBoardScan("Forecast Active", "Because of Forecast, you found 2 " + forecastItem.name + "!", forecastItem.sprite, "MainPlayerScene");
+
+            // reset forecast item and remove forecast from active spells list
+            forecastItem = null;
         }
-        else if(spellCaster.activeSpells.Any(x => x.sSpellName == "Teleport"))
-        {
-            return "Teleport";
-        }
-        else
-        {
-            return "";
-        }
+        RemoveFromActiveSpells("Forecast");
     }
 }

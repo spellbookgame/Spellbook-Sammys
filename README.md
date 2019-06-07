@@ -5,7 +5,7 @@ Made for UCSC CMPM 171-172 series:
 
 Grace Ko - Lead Designer / Programmer
 
-Sydney Birakos - Producer / UI design
+Sydney Birakos - Producer
 
 Jan Yu - Programmer
 
@@ -13,8 +13,8 @@ Moises Martinez - Programmer
 
 John Park - Artist
 
-Malcolm Riley - Artist
+Dina Rosenburg - Artist
 
-Dina Rosenburg - UI design
+Jeff Liu - Sound designer
 
-Jeff Liu - Sound design
+Malcolm Riley - Technical Artist / Programmer

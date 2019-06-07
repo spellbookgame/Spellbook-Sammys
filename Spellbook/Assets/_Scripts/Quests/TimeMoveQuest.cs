@@ -7,21 +7,20 @@ public class TimeMoveQuest : Quest
 {
     public TimeMoveQuest(int turnStarted)
     {
-        questName = "Time Move Quest";
-        questType = "Movement";
-        questDescription = "Travel 12 spaces.";
+        questName = "Chrono Walk";
+        questType = "Move";
+        questFlavor = "Movement is a subset of time, and something that we Chronomancers take seriously. Show me what you can do.";
+        questTask = "Travel 20 spaces.";
+        questHint = "Utilize your magic dice!";
 
         startTurn = turnStarted;
-        turnLimit = 5;
+        expiration = 20;
 
         spacesTraveled = 0;
-        spacesRequired = 12;
+        spacesRequired = 20;
 
-        List<string> rewardList = new List<string>();
-        rewardList.Add("Time A Glyph");
-        rewardList.Add("Time B Glyph");
-
-        rewards.Add("Glyph", rewardList);
+        rewards.Add("Rune", "Chronomancer B Rune");
+        rewards.Add("Class Rune", "A Rune");
 
         questCompleted = false;
     }
@@ -31,13 +30,10 @@ public class TimeMoveQuest : Quest
     {
         StringBuilder sb = new StringBuilder();
 
-        foreach (KeyValuePair<string, List<string>> kvp in rewards)
+        foreach (KeyValuePair<string, string> kvp in rewards)
         {
-            foreach (string s in kvp.Value)
-            {
-                sb.Append(s);
-                sb.Append("\n");
-            }
+            sb.Append(kvp.Value);
+            sb.Append("\n");
         }
 
         return sb.ToString();

@@ -45,8 +45,12 @@ public class UIAutoJitter : MonoBehaviour {
         }
     }
 
-    // Internal Methods
-    private void RandomizeDelta() {
+	public void OnDisable() {
+		transform.localPosition = _startPosition;
+	}
+
+	// Internal Methods
+	private void RandomizeDelta() {
         _nextDelta.x = GetRandomizedParameter();
         _nextDelta.y = GetRandomizedParameter();
         _nextDelta.z = 0;
