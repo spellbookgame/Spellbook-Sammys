@@ -27,7 +27,7 @@ public class Bearsfury : Spell, ICombatSpell
 
     public void CombatCast(SpellCaster player, float orbPercentage)
     {
-        orbPercentage = orbPercentage * 100;
+        orbPercentage = orbPercentage * 100f;
         int damage;
         if (orbPercentage <= 25)
             damage = Random.Range(8, 11);
