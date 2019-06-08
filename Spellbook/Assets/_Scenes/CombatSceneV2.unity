@@ -833,7 +833,7 @@ PrefabInstance:
     - target: {fileID: 6561850819133058195, guid: 4e628686dee7e4050b49e4c78fa6f241,
         type: 3}
       propertyPath: onHit.m_PersistentCalls.m_Calls.Array.size
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6561850819133058195, guid: 4e628686dee7e4050b49e4c78fa6f241,
         type: 3}
@@ -984,6 +984,31 @@ PrefabInstance:
         type: 3}
       propertyPath: onLaunch.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: Play
+      objectReference: {fileID: 0}
+    - target: {fileID: 6561850819133058195, guid: 4e628686dee7e4050b49e4c78fa6f241,
+        type: 3}
+      propertyPath: onHit.m_PersistentCalls.m_Calls.Array.data[5].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6561850819133058195, guid: 4e628686dee7e4050b49e4c78fa6f241,
+        type: 3}
+      propertyPath: onHit.m_PersistentCalls.m_Calls.Array.data[5].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6561850819133058195, guid: 4e628686dee7e4050b49e4c78fa6f241,
+        type: 3}
+      propertyPath: onHit.m_PersistentCalls.m_Calls.Array.data[5].m_Target
+      value: 
+      objectReference: {fileID: 1079085915}
+    - target: {fileID: 6561850819133058195, guid: 4e628686dee7e4050b49e4c78fa6f241,
+        type: 3}
+      propertyPath: onHit.m_PersistentCalls.m_Calls.Array.data[5].m_MethodName
+      value: PlayHitSound
+      objectReference: {fileID: 0}
+    - target: {fileID: 6561850819133058195, guid: 4e628686dee7e4050b49e4c78fa6f241,
+        type: 3}
+      propertyPath: onHit.m_PersistentCalls.m_Calls.Array.data[5].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6561850819133058192, guid: 4e628686dee7e4050b49e4c78fa6f241,
         type: 3}
@@ -25246,11 +25271,6 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 6022888685260894882, guid: 062387d79fea9433bb3406246d57021b,
-        type: 3}
-      propertyPath: healthPercentage
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6022888685571825859, guid: 062387d79fea9433bb3406246d57021b,
         type: 3}
       propertyPath: m_Color.r
@@ -25270,6 +25290,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Size.x
       value: 1300
+      objectReference: {fileID: 0}
+    - target: {fileID: 6022888685260894882, guid: 062387d79fea9433bb3406246d57021b,
+        type: 3}
+      propertyPath: healthPercentage
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 062387d79fea9433bb3406246d57021b, type: 3}

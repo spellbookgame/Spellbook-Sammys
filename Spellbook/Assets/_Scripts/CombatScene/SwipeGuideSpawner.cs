@@ -93,4 +93,9 @@ public class SwipeGuideSpawner : MonoBehaviour
         selectedSpell.GetComponent<UIAutoHover>()._startPosition = new Vector3(0, yPos, 0);
         //selectedSpell.transform.position = selectedSpell.GetComponent<UIAutoHover>()._startPosition;
     }
+
+    public void PlayHitSound()
+    {
+        SoundManager.instance.PlaySingle(SoundManager.endTurn);
+    }
 }
