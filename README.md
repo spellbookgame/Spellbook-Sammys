@@ -3,18 +3,18 @@ A cross-platform tabletop game with a mobile companion app. Focuses on pushing b
 
 Made for UCSC CMPM 171-172 series:
 
-Grace Ko - Lead Designer / Programmer
+Grace Ko - Design Lead / Gameplay programmer
 
 Sydney Birakos - Producer
 
-Jan Yu - Programmer
+Jan Yu - Generalist Programmer
 
-Moises Martinez - Programmer
+Moises Martinez - Networking / Backend Programmer
 
-John Park - Artist
+John Park - Linework / Primary Asset Artist
 
-Dina Rosenburg - Artist
+Dina Rosenburg - Ink / Paint / Environmental Artist
 
-Jeff Liu - Sound designer
+Jeff Liu - Music / SFX / Sound Designer
 
-Malcolm Riley - Technical Artist / Programmer
+Malcolm Riley - Technical / UI / VFX / Physical Artist
